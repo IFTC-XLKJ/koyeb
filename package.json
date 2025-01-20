@@ -1,11 +1,28 @@
 {
   "name": "example-bun",
-  "module": "server.ts",
+  "module": "server.js",
   "type": "module",
-  "devDependencies": {
-    "bun-types": "latest"
-  },
   "peerDependencies": {
     "typescript": "^5.0.0"
+  },
+  "version": "1.0.0",
+  "description": "[![example-bun](https://github.com/koyeb/example-bun/actions/workflows/deploy.yaml/badge.svg)](https://github.com/koyeb/example-bun/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IFTC-XLKJ/koyeb.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IFTC-XLKJ/koyeb/issues"
+  },
+  "homepage": "https://github.com/IFTC-XLKJ/koyeb#readme",
+  "dependencies": {
+    "express": "^4.21.2"
   }
 }
