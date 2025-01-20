@@ -18,5 +18,5 @@ app.get("/api", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`服务器已在端口 ${port} 开启`);
 });
