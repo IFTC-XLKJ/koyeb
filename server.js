@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const User = require("./User.js");
 const UUIDdb = require("./UUID_db.js");
+const crypto = require("crypto");
 const app = express();
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
@@ -29,10 +30,21 @@ app.get("/api", (req, res) => {
     });
 });
 
-app.get("/api/user/resetpassword", (req, res) => {
+app.get("/api/user/resetpassword", async (req, res) => {
     const uuid = generateUUID();
-    const { email, id } = req.query;
-    if (email && (id || id == 0)) {
+    const { email, id, password } = req.query;
+    if (email && (id || id == 0) && password) {
+        const UUID_db = new UUIDdb();
+        try {
+            const json = await UUID_db.addData(uuid, "resetpassword", id, password);
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
     } else {
         res.status(400).json({
             code: 400,
@@ -46,10 +58,11 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
     const { uuid } = req.params;
     if (uuid) {
         const user = new User();
+        const UUID_db = new UUIDdb();
         const regexp = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
         if (regexp.test(uuid)) {
             try {
-                const json = await UUIDdb.getData(uuid);
+                const json = await UUID_db.getData(uuid);
             } catch (e) {
                 res.status(500).json({
                     code: 500,
@@ -357,4 +370,10 @@ function generateUUID() {
         return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
     return uuid;
+}
+
+function md5Hash(input) {
+    const hash = crypto.createHash("md5");
+    hash.update(input);
+    return hash.digest("hex");
 }
