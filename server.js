@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
+const fs = require("fs").promises;
 const User = require("./User.js");
 const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
@@ -11,9 +12,28 @@ const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 let startTime;
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
     requestLog(req);
-    res.send("IFTC API");
+    const params = {};
+    res.set({
+        "Content-Type": "text/html;charset=utf-8",
+    });
+    try {
+        const content = await mixed("src/pages/index.html", params);
+        if (typeof content !== "string") {
+            throw new Error("Invalid content type");
+        }
+        console.log("Content:", content);
+        console.log("Type of content:", typeof content);
+        res.send(content);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: String(e),
+            timestamp: time(),
+        });
+    }
 });
 
 app.all("/api", (req, res) => {
@@ -511,21 +531,15 @@ function formatDuration(milliseconds) {
 
 async function mixed(filepath, params) {
     try {
-        // 使用异步方法读取文件
         let content = await fs.readFile(filepath, "utf-8");
-
-        // 遍历参数并进行替换
         const keys = Object.keys(params);
         console.log(keys);
         keys.forEach((key) => {
-            // 注意：这里我们使用正则表达式来确保全局替换
             const regex = new RegExp(`{{${key}}}`, "g");
             content = content.replace(regex, params[key]);
         });
-
         return content;
     } catch (error) {
-        // 抛出错误让调用者可以捕获并处理
         throw error;
     }
 }
