@@ -67,8 +67,9 @@ app.all("/api", (req, res) => {
 app.get("/api/book/search", async (req, res) => {
     requestLog(req);
     const { keyword } = req.query;
+    const books = new Books();
     try {
-        const json = await Books.search(decodeURI(keyword ? keyword : ""));
+        const json = await books.search(decodeURI(keyword ? keyword : ""));
         if (json.code == 200) {
             const data = json.fields;
             res.json({
