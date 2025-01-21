@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
-    console.log(req.headers.referer || req.headers.referrer)
+    requestLog(req);
     res.send("IFTC API");
 });
 
@@ -462,4 +462,11 @@ function md5Hash(input) {
     const hash = crypto.createHash("md5");
     hash.update(input);
     return hash.digest("hex");
+}
+
+function requestLog(req) {
+    console.log(`收到请求 IP: ${req.ip} UA: ${req.headers["user-agent"]}`)
+    console.log(`Method: ${req.method} URL: ${req.url}`);
+    console.log(`Headers: ${JSON.stringify(req.headers)}`);
+    console.log(`Body: ${JSON.stringify(req.body)}`);
 }
