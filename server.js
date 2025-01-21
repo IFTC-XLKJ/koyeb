@@ -110,10 +110,11 @@ app.get("/api/user/login", async (req, res) => {
     const { user, password } = req.query;
     console.log(user, password);
     if ((user || user == 0) && password) {
+        const _user = user.replace(/井/g, "#");
         const _password = password.replace(/井/g, "#");
         const auser = new User();
         try {
-            const json = await auser.login(user, _password);
+            const json = await auser.login(_user, _password);
             if (json.code == 200) {
                 const data = json.fields[0];
                 if (!data) {
