@@ -15,6 +15,7 @@ app.get("/", (req, res) => {
 });
 
 app.all("/api", (req, res) => {
+    requestLog(req);
     res.json({
         code: 200,
         msg: "请求成功",
