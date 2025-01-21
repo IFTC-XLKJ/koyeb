@@ -118,7 +118,7 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
                             timestamp: time(),
                         });
                     }
-                    const json2 = await user.resetPassword(data.ID, data.数据);
+                    const json2 = await user.resetPassword(data.ID, String(data.数据));
                     if (json2.code == 200) {
                         res.json({
                             code: 200,
