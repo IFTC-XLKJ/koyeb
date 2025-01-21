@@ -38,13 +38,13 @@ body {
     width: 100vw;
 }
 
-.banner-item {
+.banner {
     display: inline-flex;
     margin: auto;
     width: 75vw;
     cursor: pointer;
 }
-
+/* 
 .banner-item img {
     width: 100%;
-}
+} */
