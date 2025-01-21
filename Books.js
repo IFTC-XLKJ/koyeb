@@ -2,8 +2,51 @@ const fetch = require("node-fetch");
 const Sign = require("./Sign.js");
 const sign = new Sign();
 
+const VVBooksKey = "LkduYVIN+ZXEbj7I08kftBnkN25M8c/Lk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOjde4PvOKPIgi4zSawQ3bPn9Q881jaCLyWeXITCxSdPFrNdG9sIVZTuo15DuJZVFC0=";
+const contentType = "application/json";
+
 class Books {
     constructor() { }
+
+    async search(keyword) {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp + tableid);
+        try {
+            const signature = await signaturePromise;
+            console.log({
+                filter: `ID=${keyword} OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
+                page: 1,
+                limit: 1000000000000,
+            });
+            const response = await fetch(getVVZHUrl, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBooksKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: `ID="${keyword}" OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
+                    page: 1,
+                    limit: 1000000000000,
+                })
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
+}
+
+function time() {
+    return Date.now();
 }
 
 module.exports = Books;
