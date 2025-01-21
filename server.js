@@ -14,6 +14,13 @@ let startTime;
 
 app.get("/", async (req, res) => {
     requestLog(req);
+    if (req.headers["user-agent"] == "Koyeb Health Check") {
+        res.json({
+            code: 200,
+            msg: "请求成功",
+            timestamp: time(),
+        });
+    }
     const params = {};
     res.set({
         "Content-Type": "text/html;charset=utf-8",
