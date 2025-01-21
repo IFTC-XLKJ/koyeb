@@ -14,7 +14,7 @@ app.get("/", (req, res) => {
     res.send("IFTC API");
 });
 
-app.get("/api", (req, res) => {
+app.all("/api", (req, res) => {
     res.json({
         code: 200,
         msg: "请求成功",
