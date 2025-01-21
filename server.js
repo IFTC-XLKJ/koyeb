@@ -9,6 +9,7 @@ const app = express();
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
+let startTime;
 
 app.get("/", (req, res) => {
     requestLog(req);
@@ -38,6 +39,16 @@ app.all("/api", (req, res) => {
 app.get("/api/book/search", async (req, res) => {
     requestLog(req);
     const { keyword, page, limit } = req.query;
+})
+
+app.get("/api/runtime", (req, res) => {
+    requestLog(req);
+    res.json({
+        code: 200,
+        msg: "请求成功",
+        runtime: formatDuration(Date.now() - startTime),
+        timestamp: time(),
+    });
 })
 
 app.get("/api/ip", (req, res) => {
@@ -466,6 +477,7 @@ app.get("/api/user/details", async (req, res) => {
 });
 
 app.listen(port, () => {
+    startTime = Date.now();
     console.log(`服务器已在端口 ${port} 开启`);
 });
 
@@ -487,6 +499,20 @@ function md5Hash(input) {
     const hash = crypto.createHash("md5");
     hash.update(input);
     return hash.digest("hex");
+}
+
+function formatDuration(milliseconds) {
+    // 计算毫秒部分
+    let ms = milliseconds % 1000;
+    // 剩余的毫秒数转换为秒
+    let s = Math.floor((milliseconds / 1000) % 60);
+    // 剩余的秒数转换为分钟
+    let m = Math.floor((milliseconds / (1000 * 60)) % 60);
+    // 剩余的分钟数转换为小时
+    let h = Math.floor(milliseconds / (1000 * 60 * 60));
+
+    // 格式化输出
+    return `${String(h).padStart(2, '0')}时${String(m).padStart(2, '0')}分${String(s).padStart(2, '0')}秒${String(ms).padStart(3, '0')}毫秒`;
 }
 
 function requestLog(req) {
