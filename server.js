@@ -70,19 +70,12 @@ app.get("/api/user/update", async (req, res) => {
 });
 
 app.get("/api/user/register", async (req, res) => {
-  const { nickname, avatar, email, password } = req.query;
-  if (nickname && email && password) {
-    const _password = password.replace(/井/g, "#");
-    const user = new User();
-    try {
-      const json = await user.register(
-        email,
-        password,
-        nickname,
-        avatar
-          ? avatar
-          : "https://cdn.glitch.global/2ef9b969-9ed9-4097-9082-9204c502ca6f/static%2Favatar.png?v=1737367132233"
-      );
+    const { nickname, avatar, email, password } = req.query;
+    if (nickname && email && password) {
+        const _password = password.replace(/井/g, "#");
+        const user = new User();
+        try {
+            const json = await user.register(email, password, nickname, avatar ? avatar : "https://cdn.glitch.global/2ef9b969-9ed9-4097-9082-9204c502ca6f/static%2Favatar.png?v=1737367132233");
       if (json.code == 200) {
         res.json({
           code: 200,
