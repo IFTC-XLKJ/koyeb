@@ -36,10 +36,12 @@ app.all("/api", (req, res) => {
 });
 
 app.get("/api/book/search", async (req, res) => {
+    requestLog(req);
     const { keyword, page, limit } = req.query;
 })
 
 app.get("/api/ip", (req, res) => {
+    requestLog(req);
     const ip = req.ip;
     if (ip.startsWith('::ffff:')) {
         ipv4Address = ip.substring(7);
@@ -55,6 +57,7 @@ app.get("/api/ip", (req, res) => {
 })
 
 app.get("/api/user/resetpassword", async (req, res) => {
+    requestLog(req);
     const uuid = generateUUID();
     const { email, id, password } = req.query;
     console.log(typeof Number(id));
@@ -126,6 +129,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
 })
 
 app.get("/api/user/resetpassword/:uuid", async (req, res) => {
+    requestLog(req);
     const { uuid } = req.params;
     if (uuid) {
         const user = new User();
@@ -193,6 +197,7 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
 })
 
 app.get("/api/verifycode", async (req, res) => {
+    requestLog(req);
     const { email, code } = req.query;
     console.log(email, code);
     if (email && code) {
@@ -229,6 +234,7 @@ app.get("/api/verifycode", async (req, res) => {
 })
 
 app.get("/api/sendcode", async (req, res) => {
+    requestLog(req);
     const { email, title, content } = req.query;
     console.log(email, title, content);
     if (email && title && content) {
@@ -265,6 +271,7 @@ app.get("/api/sendcode", async (req, res) => {
 })
 
 app.get("/api/user/update", async (req, res) => {
+    requestLog(req);
     const { type, id, password, data } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
@@ -311,6 +318,7 @@ app.get("/api/user/update", async (req, res) => {
 });
 
 app.get("/api/user/register", async (req, res) => {
+    requestLog(req);
     const { nickname, avatar, email, password } = req.query;
     if (nickname && email && password) {
         const _password = password.replace(/井/g, "#");
@@ -348,6 +356,7 @@ app.get("/api/user/register", async (req, res) => {
 });
 
 app.get("/api/user/login", async (req, res) => {
+    requestLog(req)
     const { user, password } = req.query;
     console.log(user, password);
     if ((user || user == 0) && password) {
@@ -394,7 +403,7 @@ app.get("/api/user/login", async (req, res) => {
 });
 
 app.get("/api/user/details", async (req, res) => {
-    console.log(req.headers.referer || req.headers.referrer);
+    requestLog(req);
     const { id } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
