@@ -19,14 +19,14 @@ app.get("/api", (req, res) => {
         msg: "请求成功",
         copyright: "IFTC",
         apis: [
-            "GET /user/details?id={用户ID(必填)}",
-            "GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
-            "GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
-            "GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
-            "GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
-            "GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
-            "GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
-            "GET /user/reserpassword/{操作的UUID}"
+            "获取用户数据 GET /user/details?id={用户ID(必填)}",
+            "登录 GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
+            "注册 GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
+            "更新用户数据 GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
+            "发送验证码 GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
+            "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
+            "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
+            "重置密码 GET /user/reserpassword/{操作的UUID}"
         ],
         timestamp: time(),
     });
