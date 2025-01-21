@@ -3,7 +3,7 @@ const banners = [
         title: "广告位招租",
         content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
         img: "",
-        url: "mailto:iftcceo@139.com"
+        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题:\r\n内容:\r\n图片:\r\n链接:"
     }
 ]
 addEventListener("load", e => {
@@ -23,6 +23,10 @@ function setBanner() {
     banners.forEach(BANNER => {
         const bannerItem = document.createElement("div")
         bannerItem.classList.add("banner-item")
+        bannerItem.innerHTML = `<img src="${BANNER.img}" alt="${BANNER.title}" title="${BANNER.content}">`
+        bannerItem.addEventListener("click", e => {
+            open(BANNER.url, "_blank")
+        })
         banner.appendChild(bannerItem)
     })
 }
