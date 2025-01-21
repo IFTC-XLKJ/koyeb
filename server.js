@@ -110,38 +110,38 @@ app.get("/api/user/login", async (req, res) => {
     const { user, password } = req.query;
     console.log(user, password);
     if ((user || user == 0) && password) {
-    const _password = password.replace(/井/g, "#");
-    const auser = new User();
-    try {
-      const json = await auser.login(user, _password);
-      if (json.code == 200) {
-        const data = json.fields[0];
-        if (!data) {
-          res.status(404).json({
-            code: 401,
-            msg: "账号或密码错误",
-            timestamp: time(),
-          });
+        const _password = password.replace(/井/g, "#");
+        const auser = new User();
+        try {
+            const json = await auser.login(user, _password);
+            if (json.code == 200) {
+                const data = json.fields[0];
+                if (!data) {
+                    res.status(404).json({
+                        code: 401,
+                        msg: "账号或密码错误",
+                        timestamp: time(),
+                    });
+                }
+                res.json({
+                    code: 200,
+                    msg: "登录成功",
+                    id: data.ID,
+                });
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                });
+            }
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
         }
-        res.json({
-          code: 200,
-          msg: "登录成功",
-          id: data.ID,
-        });
-      } else {
-        res.status(json.code).json({
-          code: json.code,
-          msg: json.msg,
-        });
-      }
-    } catch (e) {
-      res.status(500).json({
-        code: 500,
-        msg: "服务内部错误，请联系官方(QQ:3164417130)",
-        error: String(e),
-        timestamp: time(),
-      });
-    }
   } else {
     res.status(400).json({
       code: 400,
