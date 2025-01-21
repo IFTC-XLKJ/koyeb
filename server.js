@@ -46,7 +46,7 @@ app.get("/api/ip", (req, res) => {
     res.json({
         code: 200,
         msg: "请求成功",
-        ip: ipv4Address,
+        ip: ip,
         timestamp: time(),
     });
 })
