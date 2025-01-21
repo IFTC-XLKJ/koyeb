@@ -94,6 +94,14 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
         if (regexp.test(uuid)) {
             try {
                 const json = await UUID_db.getData(uuid);
+                if (json.code == 200) {
+                } else {
+                    res.status(400).json({
+                        code: 400,
+                        msg: "请求失败",
+                        timestamp: time(),
+                    });
+                }
             } catch (e) {
                 res.status(500).json({
                     code: 500,
