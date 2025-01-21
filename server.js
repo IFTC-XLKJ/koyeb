@@ -59,6 +59,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
                             <div>您好，您正在重置密码，还差最后一步，请访问<a href="${url}">${url}</a>完成密码重置</div>
                         </body>
                     </html>`)
+                console.log(json2.status)
                 if (json2.status == 1) {
                     res.json({
                         code: 200,
