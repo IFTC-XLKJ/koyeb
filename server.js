@@ -502,17 +502,32 @@ function md5Hash(input) {
 }
 
 function formatDuration(milliseconds) {
-    // 计算毫秒部分
     let ms = milliseconds % 1000;
-    // 剩余的毫秒数转换为秒
     let s = Math.floor((milliseconds / 1000) % 60);
-    // 剩余的秒数转换为分钟
     let m = Math.floor((milliseconds / (1000 * 60)) % 60);
-    // 剩余的分钟数转换为小时
     let h = Math.floor(milliseconds / (1000 * 60 * 60));
-
-    // 格式化输出
     return `${String(h).padStart(2, '0')}时${String(m).padStart(2, '0')}分${String(s).padStart(2, '0')}秒${String(ms).padStart(3, '0')}毫秒`;
+}
+
+async function mixed(filepath, params) {
+    try {
+        // 使用异步方法读取文件
+        let content = await fs.readFile(filepath, "utf-8");
+
+        // 遍历参数并进行替换
+        const keys = Object.keys(params);
+        console.log(keys);
+        keys.forEach((key) => {
+            // 注意：这里我们使用正则表达式来确保全局替换
+            const regex = new RegExp(`{{${key}}}`, "g");
+            content = content.replace(regex, params[key]);
+        });
+
+        return content;
+    } catch (error) {
+        // 抛出错误让调用者可以捕获并处理
+        throw error;
+    }
 }
 
 function requestLog(req) {
