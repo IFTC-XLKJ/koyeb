@@ -89,7 +89,9 @@ app.get("/api/book/search", async (req, res) => {
             res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
-            })
+                error: String(e),
+                timestamp: time(),
+            });
         }
     } else {
         res.status(400).json({
