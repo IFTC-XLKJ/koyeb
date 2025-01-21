@@ -71,7 +71,20 @@ app.get("/api/book/search", async (req, res) => {
     try {
         const json = await books.search(decodeURI(keyword ? keyword : ""));
         if (json.code == 200) {
-            const data = json.fields;
+            const data = []
+            json.fields.forEach(field => {
+                data.push({
+                    ID: field.ID,
+                    name: field.书名,
+                    author: field.作者,
+                    cover: field.封面,
+                    description: field.介绍,
+                    sign: field.签约 == 1,
+                    VIP: field.VIP == 1,
+                    createdAt: field.createdAt,
+                    updatedAt: field.updatedAt
+                })
+            });
             res.json({
                 code: 200,
                 msg: "请求成功",
