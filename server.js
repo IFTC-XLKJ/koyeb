@@ -66,7 +66,31 @@ app.all("/api", (req, res) => {
 app.get("/api/book/search", async (req, res) => {
     requestLog(req);
     const { keyword } = req.query;
-    if (keyword) { } else {
+    if (keyword) {
+        try {
+            const json = await Books.search(decodeURI(keyword));
+            if (json.code == 200) {
+                const data = json.fields;
+                res.json({
+                    code: 200,
+                    msg: "请求成功",
+                    data: data,
+                    timestamp: time(),
+                })
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+            }
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+            })
+        }
+    } else {
         res.status(400).json({
             code: 400,
             msg: "缺少keyword参数",
