@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
 const User = require("./User.js");
+const UUIDdb = require("./UUID_db.js");
 const app = express();
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
@@ -29,13 +30,37 @@ app.get("/api", (req, res) => {
 });
 
 app.get("/api/user/resetpassword", (req, res) => {
-    res.status(400).json({
-        code: 400,
-        msg: "未知的UUID"
-    })
+    const uuid = generateUUID();
 })
 
-app.get("/api/user/resetpassword/:uuid", (req, res) => {})
+app.get("/api/user/resetpassword/:uuid", (req, res) => {
+    const { uuid } = req.params;
+    if (uuid) {
+        const user = new User();
+        const regexp = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+        if (regexp.test(uuid)) {
+            try {
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                    error: String(e),
+                    timestamp: time(),
+                });
+            }
+        } else {
+            res.status(400).json({
+                code: 400,
+                msg: "UUID格式错误"
+            })
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少uuid参数"
+        })
+    }
+})
 
 app.get("/api/verifycode", async (req, res) => {
     const { email, code } = req.query;
@@ -312,4 +337,14 @@ app.listen(port, () => {
 
 function time() {
     return Date.now();
+}
+
+function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = (d + Math.random() * 16) % 16 | 0;
+        d = Math.floor(d / 16);
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    });
+    return uuid;
 }
