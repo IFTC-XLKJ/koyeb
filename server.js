@@ -20,6 +20,7 @@ app.get("/", async (req, res) => {
             msg: "请求成功",
             timestamp: time(),
         });
+        return;
     }
     const params = {};
     res.set({
