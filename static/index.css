@@ -34,13 +34,22 @@ body {
 }
 
 #banner {
+    width: 75vw;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: inline-flex;
-    width: 100vw;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 0);
 }
 
 .banner {
-    display: inline-flex;
-    margin: auto;
-    width: 75vw;
+    width: 100%;
     cursor: pointer;
+}
+
+#bannerMain {
+    overflow: hidden;
+    display: inline-flex;
 }
