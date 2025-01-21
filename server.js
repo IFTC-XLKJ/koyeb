@@ -24,3 +24,7 @@ app.get("/api", (req, res) => {
 app.listen(port, () => {
   console.log(`服务器已在端口 ${port} 开启`);
 });
+
+function time() {
+  return Date.now();
+}
