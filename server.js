@@ -496,6 +496,15 @@ app.get("/api/user/details", async (req, res) => {
     }
 });
 
+app.get("/api/console/clear", (req, res) => {
+    console.clear();
+    res.json({
+        code: 200,
+        msg: "清除成功",
+        timestamp: time(),
+    });
+})
+
 app.listen(port, () => {
     startTime = Date.now();
     console.log(`服务器已在端口 ${port} 开启`);
