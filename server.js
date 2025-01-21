@@ -142,25 +142,25 @@ app.get("/api/user/login", async (req, res) => {
                 timestamp: time(),
             });
         }
-  } else {
-    res.status(400).json({
-      code: 400,
-      msg: "缺少user或password参数",
-      timestamp: time(),
-    });
-  }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少user或password参数",
+            timestamp: time(),
+        });
+    }
 });
 
 app.get("/api/user/details", async (req, res) => {
-  console.log(req.headers.referer || req.headers.referrer);
-  const { id } = req.query;
-  console.log(typeof Number(id));
-  if (Number.isNaN(Number(id))) {
-    res.status(400).json({
-      code: 400,
-      msg: "id参数类型错误，必须为数值类型",
-      timestamp: time(),
-    });
+    console.log(req.headers.referer || req.headers.referrer);
+    const { id } = req.query;
+    console.log(typeof Number(id));
+    if (Number.isNaN(Number(id))) {
+        res.status(400).json({
+            code: 400,
+            msg: "id参数类型错误，必须为数值类型",
+            timestamp: time(),
+        });
   }
   if (id) {
     const user = new User();
