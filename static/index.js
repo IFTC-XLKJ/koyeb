@@ -19,7 +19,7 @@ addEventListener("load", e => {
 })
 
 function setBanner() {
-    const banner = document.querySelector(".banner")
+    const banner = document.getElementById("banner")
     banners.forEach(BANNER => {
         const bannerItem = document.createElement("div")
         bannerItem.classList.add("banner-item")
