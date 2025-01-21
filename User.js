@@ -261,6 +261,38 @@ class User {
             throw error;
         }
     }
+    async resetPassword(id, password) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVZHkey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType,
+                },
+                body: JSON.stringify({
+                    type: "UPDATE",
+                    filter: `ID="${id}"`,
+                    page: 1,
+                    limit: 1,
+                    fields: `密码="${md5Hash(password)}"`
+                })
+            })
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+            throw error;
+        }
+    }
 }
 
 function md5Hash(input) {
