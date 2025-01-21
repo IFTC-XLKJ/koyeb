@@ -28,6 +28,15 @@ app.get("/api", (req, res) => {
     });
 });
 
+app.get("/api/user/resetpassword", (req, res) => {
+    res.status(400).json({
+        code: 400,
+        msg: "未知的UUID"
+    })
+})
+
+app.get("/api/user/resetpassword/:uuid", (req, res) => {})
+
 app.get("/api/verifycode", async (req, res) => {
     const { email, code } = req.query;
     console.log(email, code);
