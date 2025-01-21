@@ -1,3 +1,10 @@
+const banners = [
+    {
+        "title": "",
+        "content": "",
+        "img": ""
+    }
+]
 addEventListener("load", e => {
     console.log("加载完成")
     const navItems = document.querySelectorAll(".nav-item")
