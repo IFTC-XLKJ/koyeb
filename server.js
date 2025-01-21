@@ -18,6 +18,11 @@ app.get("/api", (req, res) => {
         copyright: "IFTC",
         apis: [
             "GET /user/details?id={用户ID(必填)}",
+            "GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
+            "GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
+            "GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
+            "GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
+            "GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
         ],
         timestamp: time(),
     });
