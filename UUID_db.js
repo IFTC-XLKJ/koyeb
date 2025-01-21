@@ -71,5 +71,35 @@ class UUID_db {
             throw error;
         }
     }
+    sendEmail(email, title, content) {
+        let t = Math.round(new Date().getTime() / 1000);
+        var raw = JSON.stringify({
+            key: "f7115d5ac87aedd4d42cf510ed064449",
+            main: btoa(encodeURIComponent(content)),
+            to: email,
+            title: title,
+            t: t,
+            sw: "a3d7eb36c26735f3f6250ff1283158b78753be06936a928d40a5c0d3c2401cc9"
+        });
+        var requestOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: raw,
+            redirect: 'follow'
+        };
+        return new Promise((resolve, reject) => {
+            fetch("https://api.pgaot.com/email/send", requestOptions)
+                .then(response => response.text())
+                .then(result => {
+                    console.log(result)
+                    resolve(result)
+                })
+                .catch(error => {
+                    throw new Error("error:", error);
+                });
+        });
+    }
 }
 module.exports = UUID_db;
