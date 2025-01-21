@@ -4,7 +4,19 @@ const banners = [
         content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
         img: "/static/广告位招租.png",
         url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题: 内容: 图片: 链接:     说明:图片宽高比必须为16:9"
-    }
+    },
+    {
+        title: "广告位招租",
+        content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
+        img: "/static/广告位招租.png",
+        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题: 内容: 图片: 链接:     说明:图片宽高比必须为16:9"
+    },
+    {
+        title: "广告位招租",
+        content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
+        img: "/static/广告位招租.png",
+        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题: 内容: 图片: 链接:     说明:图片宽高比必须为16:9"
+    },
 ]
 addEventListener("load", e => {
     console.log("加载完成")
@@ -19,7 +31,7 @@ addEventListener("load", e => {
 })
 
 function setBanner() {
-    const banner = document.getElementById("banner")
+    const banner = document.getElementById("bannerMain")
     banners.forEach((BANNER, i) => {
         const bannerDiv = document.createElement("img");
         bannerDiv.className = "banner";
