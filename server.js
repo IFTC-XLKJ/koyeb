@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
+    console.log(req.headers.referer || req.headers.referrer)
     res.send("IFTC API");
 });
 
