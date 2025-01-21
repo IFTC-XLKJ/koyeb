@@ -276,7 +276,7 @@ class User {
                 },
                 body: JSON.stringify({
                     type: "UPDATE",
-                    filter: `ID="${id}"`,
+                    filter: `ID=${id}`,
                     page: 1,
                     limit: 1,
                     fields: `密码="${md5Hash(password)}"`
