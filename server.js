@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const app = express();
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
+app.use("/static", express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => {
   res.send("IFTC API");
