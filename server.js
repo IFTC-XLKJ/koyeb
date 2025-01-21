@@ -490,3 +490,7 @@ function requestLog(req) {
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Body: ${JSON.stringify(req.body)}`);
 }
+
+setInterval(() => {
+    console.log("服务器正在运行中...");
+}, 30000);
