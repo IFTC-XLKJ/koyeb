@@ -3,7 +3,7 @@ const banners = [
         title: "广告位招租",
         content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
         img: "/static/广告位招租.png",
-        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题:\r\n内容:\r\n图片:\r\n链接:"
+        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题:\r\n内容:\r\n图片:\r\n链接:\r\n"
     }
 ]
 addEventListener("load", e => {
