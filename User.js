@@ -173,11 +173,11 @@ class User {
             fetch("https://api.pgaot.com/email/customize_sand", requestOptions)
                 .then((response) => response.json())
                 .then((result) => {
+                    console.log(result);
                     resolve(result);
                 })
                 .catch((error) => {
-                    console.error("error:", error);
-                    resolve({ msg: error.message });
+                    throw new Error("error:", error);
                 });
         });
     }
