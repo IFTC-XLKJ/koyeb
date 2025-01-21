@@ -1,8 +1,9 @@
 const banners = [
     {
-        "title": "广告位招租",
-        "content": "广告位招租，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
-        "img": ""
+        title: "广告位招租",
+        content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
+        img: "",
+        url: "mailto:iftcceo@139.com"
     }
 ]
 addEventListener("load", e => {
