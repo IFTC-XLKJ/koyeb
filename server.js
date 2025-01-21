@@ -33,6 +33,14 @@ app.get("/api", (req, res) => {
 app.get("/api/user/resetpassword", async (req, res) => {
     const uuid = generateUUID();
     const { email, id, password } = req.query;
+    console.log(typeof Number(id));
+    if (Number.isNaN(Number(id))) {
+        res.status(400).json({
+            code: 400,
+            msg: "id参数类型错误，必须为数值类型",
+            timestamp: time(),
+        });
+    }
     if (email && (id || id == 0) && password) {
         const _password = password.replace(/井/g, "#")
         const UUID_db = new UUIDdb();
@@ -51,17 +59,17 @@ app.get("/api/user/resetpassword", async (req, res) => {
                             <div>您好，您正在重置密码，还差最后一步，请访问<a href="${url}">${url}</a>完成密码重置</div>
                         </body>
                     </html>`)
-                    if (json2.status == 1) {
-                        res.json({
-                            code: 200,
-                            msg: "请求成功",
-                        });
-                    } else {
-                        res.status(400).json({
-                            code: 400,
-                            msg: "请求失败",
-                        });
-                    }
+                if (json2.status == 1) {
+                    res.json({
+                        code: 200,
+                        msg: "请求成功",
+                    });
+                } else {
+                    res.status(400).json({
+                        code: 400,
+                        msg: "请求失败",
+                    });
+                }
             } else {
                 res.status(400).json({
                     code: 400,
@@ -96,7 +104,15 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
             try {
                 const json = await UUID_db.getData(uuid);
                 if (json.code == 200) {
-                    const json2 = await user.
+                    const data = json.fields[0];
+                    if (!data) {
+                        res.status(400).json({
+                            code: 404,
+                            msg: "UUID不存在",
+                            timestamp: time(),
+                        });
+                    }
+                    const json2 = await user.resetPassword(data.ID, data.数据);
                 } else {
                     res.status(400).json({
                         code: 400,
