@@ -1,6 +1,7 @@
 body {
     margin: 0;
     overflow-x: hidden;
+    position: relative;
 }
 
 #nav {
@@ -33,10 +34,17 @@ body {
 }
 
 #banner {
-    display: inline-block;
+    display: inline-flex;
+    width: 100vw;
 }
 
 .banner-item {
-    display: inline-block;
+    display: inline-flex;
+    margin: auto;
+    width: 75vw;
     cursor: pointer;
+}
+
+.banner-item img {
+    width: 100%;
 }
