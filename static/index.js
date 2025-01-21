@@ -38,6 +38,6 @@ function setBanner() {
     }
 })()
 
-onerror = function (msg, url, line) {
-    console.error("Error: " + msg + "\nURL: " + url + "\nLine: " + line);
+onerror = function (msg, url, line, col, error) {
+    console.error("Error: " + msg + "\nURL: " + url + "\nLine: " + line + "\nColumn: " + col + "\nError object: " + JSON.stringify(error));
 }
