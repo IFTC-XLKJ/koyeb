@@ -29,7 +29,7 @@ app.get("/api/sendcode", async (req, res) => {
         const user = new User();
         try {
             const json = await user.sendCode(email, title, content);
-            if (json.code == 200) {
+            if (json.status == 1) {
                 res.json({
                     code: 200,
                     msg: "发送成功",
