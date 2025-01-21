@@ -19,7 +19,7 @@ app.get("/", async (req, res) => {
         "Content-Type": "text/html;charset=utf-8",
     });
     try {
-        const content = await mixed("src/pages/index.html", params);
+        const content = await mixed("pages/index.html", params);
         if (typeof content !== "string") {
             throw new Error("Invalid content type");
         }
