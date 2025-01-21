@@ -34,9 +34,10 @@ app.get("/api/user/resetpassword", async (req, res) => {
     const uuid = generateUUID();
     const { email, id, password } = req.query;
     if (email && (id || id == 0) && password) {
+        const _password = password.replace(/井/g, "#")
         const UUID_db = new UUIDdb();
         try {
-            const json = await UUID_db.addData(uuid, "resetpassword", id, password);
+            const json = await UUID_db.addData(uuid, "resetpassword", id, _password);
             if (json.code == 200) {
                 const url = `https://iftc.koyeb.app/api/user/resetpassword/${uuid}`
                 const json2 = await UUID_db.sendEmail(email, "重置密码", `<!DOCTYPE html>
@@ -95,6 +96,7 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
             try {
                 const json = await UUID_db.getData(uuid);
                 if (json.code == 200) {
+                    const json2 = await user.
                 } else {
                     res.status(400).json({
                         code: 400,
