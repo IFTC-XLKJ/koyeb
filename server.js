@@ -23,6 +23,41 @@ app.get("/api", (req, res) => {
     });
 });
 
+app.get("/api/sendcode", async (req, res) => {
+    const { email, title, content } = req.query;
+    if (email && title && content) {
+        const user = new User();
+        try {
+            const json = await user.sendCode(email, title, content);
+            if (json.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "发送成功",
+                });
+            } else {
+                res.status(400).json({
+                    code: 400,
+                    msg: "发送失败",
+                });
+            }
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少email或title或content参数",
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/user/update", async (req, res) => {
     const { type, id, password, data } = req.query;
     console.log(typeof Number(id));
