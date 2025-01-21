@@ -20,15 +20,41 @@ addEventListener("load", e => {
 
 function setBanner() {
     const banner = document.getElementById("banner")
-    banners.forEach(BANNER => {
-        const bannerItem = document.createElement("div")
-        bannerItem.classList.add("banner-item")
-        bannerItem.innerHTML = `<img src="${BANNER.img}" alt="${BANNER.title}" title="${BANNER.content}">`
-        bannerItem.addEventListener("click", e => {
-            open(BANNER.url, "_blank")
+    banners.forEach((BANNER, i) => {
+        const bannerDiv = document.createElement("img");
+        bannerDiv.className = "banner";
+        bannerDiv.src = BANNER.img;
+        bannerDiv.alt = BANNER.title;
+        if (i == 0) {
+            bannerDiv.setAttribute("iftc-current", true)
+        }
+        bannerDiv.addEventListener("click", e => {
+            e.preventDefault();
+            open(BANNER.url, "_blank");
         })
-        banner.appendChild(bannerItem)
-    })
+        bannerDiv.setAttribute("iftc-index", i)
+        banner.appendChild(bannerDiv);
+    });
+    setInterval(() => {
+        const banneres = document.querySelectorAll(".banner");
+        banneres.forEach((banner, i) => {
+            const isCurrent = banner.getAttribute("iftc-current");
+            const index = banner.getAttribute("iftc-index");
+            if (isCurrent) {
+                banner.removeAttribute("iftc-current");
+                if (i < banneres.length - 1) {
+                    banneres[i + 1].setAttribute("iftc-current", true);
+                } else {
+                    banneres[0].setAttribute("iftc-current", true);
+                }
+                document.querySelector("[iftc-current=true]").scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            }
+        })
+    }, 5000)
 }
 
 // API测试请求
