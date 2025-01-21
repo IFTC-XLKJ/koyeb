@@ -1,6 +1,5 @@
 const crypto = require("crypto");
 const fetch = require("node-fetch");
-const path = require("path");
 const Sign = require("./Sign.js");
 const sign = new Sign();
 
