@@ -8,6 +8,7 @@ const banners = [
 ]
 addEventListener("load", e => {
     console.log("加载完成")
+    setBanner()
     const navItems = document.querySelectorAll(".nav-item")
     navItems.forEach(navItem => {
         console.log(navItem)
@@ -36,3 +37,7 @@ function setBanner() {
         console.error("API测试请求失败")
     }
 })()
+
+onerror = function (msg, url, line) {
+    console.error("Error: " + msg + "\nURL: " + url + "\nLine: " + line);
+}
