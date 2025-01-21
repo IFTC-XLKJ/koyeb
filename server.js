@@ -113,6 +113,18 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
                         });
                     }
                     const json2 = await user.resetPassword(data.ID, data.数据);
+                    if (json2.code == 200) {
+                        res.json({
+                            code: 200,
+                            msg: "密码重置成功",
+                        });
+                    } else {
+                        res.status(400).json({
+                            code: 400,
+                            msg: "请求失败",
+                            timestamp: time(),
+                        });
+                    }
                 } else {
                     res.status(400).json({
                         code: 400,
