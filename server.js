@@ -37,6 +37,37 @@ app.get("/api/user/resetpassword", async (req, res) => {
         const UUID_db = new UUIDdb();
         try {
             const json = await UUID_db.addData(uuid, "resetpassword", id, password);
+            if (json.code == 200) {
+                const url = `https://iftc.koyeb.app/api/user/resetpassword/${uuid}`
+                const json2 = await UUID_db.sendEmail(email, "重置密码", `<!DOCTYPE html>
+                    <html lang="zh-CN">
+                        <head>
+                            <meta charset="UTF-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                            <title>重置密码</title>
+                        </head>
+                        <body>
+                            <div>您好，您正在重置密码，还差最后一步，请访问<a href="${url}">${url}</a>完成密码重置</div>
+                        </body>
+                    </html>`)
+                    if (json2.status == 1) {
+                        res.json({
+                            code: 200,
+                            msg: "请求成功",
+                        });
+                    } else {
+                        res.status(400).json({
+                            code: 400,
+                            msg: "请求失败",
+                        });
+                    }
+            } else {
+                res.status(400).json({
+                    code: 400,
+                    msg: "请求失败",
+                    timestamp: time(),
+                });
+            }
         } catch (e) {
             res.status(500).json({
                 code: 500,
@@ -48,7 +79,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
     } else {
         res.status(400).json({
             code: 400,
-            msg: "缺少email参数",
+            msg: "缺少email或id或password参数",
             timestamp: time(),
         });
     }
