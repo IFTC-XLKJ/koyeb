@@ -25,6 +25,7 @@ app.get("/api", (req, res) => {
 
 app.get("/api/verifycode", async (req, res) => {
     const { email, code } = req.query;
+    console.log(email, code);
     if (email && code) {
         const user = new User();
         try {
