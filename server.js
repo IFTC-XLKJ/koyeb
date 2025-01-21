@@ -76,40 +76,40 @@ app.get("/api/user/register", async (req, res) => {
         const user = new User();
         try {
             const json = await user.register(email, password, nickname, avatar ? avatar : "https://cdn.glitch.global/2ef9b969-9ed9-4097-9082-9204c502ca6f/static%2Favatar.png?v=1737367132233");
-      if (json.code == 200) {
-        res.json({
-          code: 200,
-          msg: "注册成功",
-          id: json.id,
+            if (json.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "注册成功",
+                    id: json.id,
+                });
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                });
+            }
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少nickname或email或password参数",
+            timestamp: time(),
         });
-      } else {
-        res.status(json.code).json({
-          code: json.code,
-          msg: json.msg,
-        });
-      }
-    } catch (e) {
-      console.error(e);
-      res.status(500).json({
-        code: 500,
-        msg: "服务内部错误，请联系官方(QQ:3164417130)",
-        error: String(e),
-        timestamp: time(),
-      });
     }
-  } else {
-    res.status(400).json({
-      code: 400,
-      msg: "缺少nickname或email或password参数",
-      timestamp: time(),
-    });
-  }
 });
 
 app.get("/api/user/login", async (req, res) => {
-  const { user, password } = req.query;
-  console.log(user, password);
-  if ((user || user == 0) && password) {
+    const { user, password } = req.query;
+    console.log(user, password);
+    if ((user || user == 0) && password) {
     const _password = password.replace(/井/g, "#");
     const auser = new User();
     try {
