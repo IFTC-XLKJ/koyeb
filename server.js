@@ -16,7 +16,9 @@ app.get("/api", (req, res) => {
     code: 200,
     msg: "请求成功",
     copyright: "IFTC",
-    apis: [],
+    apis: [
+      "GET /user/details?id={用户ID(必填)}",
+    ],
     timestamp: time(),
   });
 });
