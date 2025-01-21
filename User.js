@@ -96,9 +96,7 @@ class User {
                     "Content-Type": contentType,
                 },
                 body: JSON.stringify({
-                    filter: `(ID=${user} OR 昵称="${user}" OR 邮箱="${user}") AND 密码="${md5Hash(
-                        password
-                    )}"`,
+                    filter: `(ID="${user}" OR 昵称="${user}" OR 邮箱="${user}") AND 密码="${md5Hash(password)}"`,
                     page: 1,
                     limit: 1,
                 }),
@@ -126,9 +124,7 @@ class User {
         var raw = JSON.stringify({
             type: "INSERT",
             filter: `ID,昵称,头像,邮箱,密码,V币,头衔,头衔色`,
-            fields: `("${count}","${nickname}","${avatar}","${email}","${md5Hash(
-                password
-            )}",0,"用户","#1BC514FF")`,
+            fields: `("${count}","${nickname}","${avatar}","${email}","${md5Hash(password)}",0,"用户","#1BC514FF")`,
         });
         var requestOptions = {
             method: "POST",
