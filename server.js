@@ -65,7 +65,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
                         code: 200,
                         msg: "请求成功",
                     });
-                } else if (json.code == 420) {
+                } else if (json2.code == 420) {
                     res.status(420).json({
                         code: 420,
                         msg: "1分钟内只能请求1次",
