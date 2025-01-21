@@ -35,6 +35,10 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/book/search", async (req, res) => {
+    const { keyword, page, limit } = req.query;
+})
+
 app.get("/api/ip", (req, res) => {
     const ip = req.ip;
     if (ip.startsWith('::ffff:')) {
@@ -492,5 +496,6 @@ function requestLog(req) {
 }
 
 setInterval(() => {
-    console.log("服务器正在运行中...");
+    const time = new Date().toLocaleString();
+    console.log("服务器正在运行中...", time);
 }, 30000);
