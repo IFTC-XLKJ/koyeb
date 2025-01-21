@@ -3,6 +3,8 @@ const Sign = require("./Sign.js");
 const sign = new Sign();
 
 const VVBooksKey = "LkduYVIN+ZXEbj7I08kftBnkN25M8c/Lk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOjde4PvOKPIgi4zSawQ3bPn9Q881jaCLyWeXITCxSdPFrNdG9sIVZTuo15DuJZVFC0=";
+const getDataURL = "https://api.pgaot.com/dbs/cloud/get_table_data";
+const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Books {
@@ -10,15 +12,10 @@ class Books {
 
     async search(keyword) {
         const timestamp = time();
-        const signaturePromise = sign.get(timestamp + tableid);
+        const signaturePromise = sign.get(timestamp);
         try {
             const signature = await signaturePromise;
-            console.log({
-                filter: `ID=${keyword} OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
-                page: 1,
-                limit: 1000000000000,
-            });
-            const response = await fetch(getVVZHUrl, {
+            const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
                     "X-Pgaot-Key": VVBooksKey,
