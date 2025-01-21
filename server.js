@@ -33,6 +33,21 @@ app.get("/api", (req, res) => {
     });
 });
 
+app.get("/api/ip", (req, res) => {
+    const ip = req.ip;
+    if (ip.startsWith('::ffff:')) {
+        ipv4Address = ip.substring(7);
+    } else {
+        ipv4Address = ip;
+    }
+    res.json({
+        code: 200,
+        msg: "请求成功",
+        ip: ipv4Address,
+        timestamp: time(),
+    });
+})
+
 app.get("/api/user/resetpassword", async (req, res) => {
     const uuid = generateUUID();
     const { email, id, password } = req.query;
