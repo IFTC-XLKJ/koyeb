@@ -55,7 +55,7 @@ class UUID_db {
                 body: JSON.stringify({
                     type: "INSERT",
                     filter: `UUID,类型,ID,数据`,
-                    fields: `("${uuid}","${type}","${id}","${data})`,
+                    fields: `("${uuid}","${type}","${id}","${data}")`,
                     page: 1,
                     limit: 1,
                 }),
