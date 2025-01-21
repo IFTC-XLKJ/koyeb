@@ -42,12 +42,7 @@ app.get("/api/book/search", async (req, res) => {
 
 app.get("/api/ip", (req, res) => {
     requestLog(req);
-    const ip = req.ip;
-    if (ip.startsWith('::ffff:')) {
-        ipv4Address = ip.substring(7);
-    } else {
-        ipv4Address = ip;
-    }
+    const ip = req.headers["x-forwarded-for"] || null;
     res.json({
         code: 200,
         msg: "请求成功",
