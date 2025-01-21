@@ -312,7 +312,7 @@ app.get("/api/user/register", async (req, res) => {
         const _password = password.replace(/井/g, "#");
         const user = new User();
         try {
-            const json = await user.register(email, password, nickname, avatar ? avatar : "https://cdn.glitch.global/2ef9b969-9ed9-4097-9082-9204c502ca6f/static%2Favatar.png?v=1737367132233");
+            const json = await user.register(email, password, nickname, avatar ? avatar : "https://iftc.koyeb.app/static/avatar.png");
             if (json.code == 200) {
                 res.json({
                     code: 200,
