@@ -482,6 +482,9 @@ function md5Hash(input) {
 }
 
 function requestLog(req) {
+    if (req.headers["user-agent"] == "Koyeb Health Check") {
+        return;
+    }
     console.log(`收到请求 IP: ${req.ip} UA: ${req.headers["user-agent"]}`)
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
