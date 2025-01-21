@@ -61,6 +61,7 @@ app.get("/api/verifycode", async (req, res) => {
 
 app.get("/api/sendcode", async (req, res) => {
     const { email, title, content } = req.query;
+    console.log(email, title, content);
     if (email && title && content) {
         const user = new User();
         try {
