@@ -31,6 +31,15 @@ app.get("/api", (req, res) => {
 
 app.get("/api/user/resetpassword", (req, res) => {
     const uuid = generateUUID();
+    const { email } = req.query;
+    if (email) {
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少email参数",
+            timestamp: time(),
+        });
+    }
 })
 
 app.get("/api/user/resetpassword/:uuid", (req, res) => {
