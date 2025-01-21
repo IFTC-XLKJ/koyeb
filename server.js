@@ -25,6 +25,8 @@ app.get("/api", (req, res) => {
             "GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
             "GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
             "GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
+            "GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
+            "GET /user/reserpassword/{操作的UUID}"
         ],
         timestamp: time(),
     });
@@ -116,6 +118,13 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
                         res.status(400).json({
                             code: 404,
                             msg: "UUID不存在",
+                            timestamp: time(),
+                        });
+                    }
+                    if (data.类型 != "resetpassword") {
+                        res.status(400).json({
+                            code: 400,
+                            msg: "UUID类型错误",
                             timestamp: time(),
                         });
                     }
