@@ -91,7 +91,7 @@ class UUID_db {
         };
         return new Promise((resolve, reject) => {
             fetch("https://api.pgaot.com/email/send", requestOptions)
-                .then(response => response.text())
+                .then(response => response.json())
                 .then(result => {
                     console.log(result)
                     resolve(result)
