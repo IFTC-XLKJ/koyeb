@@ -31,8 +31,8 @@ app.get("/api", (req, res) => {
 
 app.get("/api/user/resetpassword", (req, res) => {
     const uuid = generateUUID();
-    const { email } = req.query;
-    if (email) {
+    const { email, id } = req.query;
+    if (email && (id || id == 0)) {
     } else {
         res.status(400).json({
             code: 400,
@@ -42,13 +42,14 @@ app.get("/api/user/resetpassword", (req, res) => {
     }
 })
 
-app.get("/api/user/resetpassword/:uuid", (req, res) => {
+app.get("/api/user/resetpassword/:uuid", async (req, res) => {
     const { uuid } = req.params;
     if (uuid) {
         const user = new User();
         const regexp = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
         if (regexp.test(uuid)) {
             try {
+                const json = await UUIDdb.getData(uuid);
             } catch (e) {
                 res.status(500).json({
                     code: 500,
