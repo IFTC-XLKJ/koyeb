@@ -16,3 +16,10 @@ addEventListener("load", e => {
         })
     })
 })
+
+function setBanner() {
+    banners.forEach(banner => {
+        const bannerItem = document.createElement("div")
+        bannerItem.classList.add("banner-item")
+    })
+}
