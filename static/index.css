@@ -31,3 +31,12 @@ body {
 .nav-item:hover {
     background-color: #6cc7ff;
 }
+
+#banner {
+    display: inline-block;
+}
+
+.banner-item {
+    display: inline-block;
+    cursor: pointer;
+}
