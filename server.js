@@ -84,7 +84,7 @@ app.all("/api", (req, res) => {
 
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
-    const { type } = req.query;
+    const { type, data } = req.query;
 })
 
 app.get("/api/book/addchapter", async (req, res) => {
@@ -108,7 +108,7 @@ app.get("/api/book/addchapter", async (req, res) => {
     if ((id || id == 0) && (bookid || bookid == 0) && num && name && content) {
         const books = new Books();
         try {
-            const json = await books.addChapter(id, bookid, num, name, content);
+            const json = await books.addChapter(id, bookid, num, decodeURIComponent(name), decodeURIComponent(content));
             if (json.code == 200) {
                 res.json({
                     code: 200,
