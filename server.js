@@ -97,6 +97,30 @@ app.get("/api/book/addchapter", async (req, res) => {
         });
     }
     if ((id || id == 0) && (bookid || bookid == 0) && num && name && content) {
+        const books = new Books();
+        try {
+            const json = await books.addChapter(id, bookid, num, name, content);
+            if (json.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "添加成功",
+                    timestamp: time(),
+                })
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+            }
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
     } else {
         res.status(400).json({
             code: 400,
