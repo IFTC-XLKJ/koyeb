@@ -178,7 +178,7 @@ app.get("/api/book/search", async (req, res) => {
     const { keyword } = req.query;
     const books = new Books();
     try {
-        const json = await books.search(decodeURI(keyword ? keyword : ""));
+        const json = await books.search(decodeURIComponent(keyword ? keyword : ""));
         if (json.code == 200) {
             const data = []
             json.fields.forEach(field => {
@@ -252,10 +252,9 @@ app.get("/api/user/resetpassword", async (req, res) => {
         });
     }
     if (email && (id || id == 0) && password) {
-        const _password = password.replace(/井/g, "#")
         const UUID_db = new UUIDdb();
         try {
-            const json = await UUID_db.addData(uuid, "resetpassword", id, _password);
+            const json = await UUID_db.addData(uuid, "resetpassword", id, decodeURIComponent(password));
             if (json.code == 200) {
                 const url = `https://iftc.koyeb.app/api/user/resetpassword/${uuid}`
                 const json2 = await UUID_db.sendEmail(email, "重置密码", `<!DOCTYPE html>
