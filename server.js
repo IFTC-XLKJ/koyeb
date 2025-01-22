@@ -7,9 +7,29 @@ const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
 const Books = require("./Books.js");
 const { Client, Intents } = require('qqbot');
+const client = new Client({ intents: [] });
+client.login({ token: 'your-qq-bot-token' });
+const commandPrefix = '/';
+client.on('error', console.error);
+
+client.on('ready', () => {
+    console.log('机器人准备就绪');
+});
+
+client.on('messageCreate', async (message) => {
+    if (message.author.bot) return;
+    if (!message.content.startsWith(commandPrefix)) return;
+    const args = message.content.slice(commandPrefix.length).trim().split(/ +/);
+    const command = args.shift().toLowerCase();
+    switch (command) {
+        case 'hello':
+            await message.reply(`Hello, ${message.author.username}!`);
+            break;
+        default:
+            await message.reply(`Unknown command: \`${command}\``);
+    }
+});
 const app = express();
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-client.login({ token: 'Sfuo53NEPtxZCOEiqOV3cNGHqughcYWE' });
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
@@ -702,10 +722,3 @@ setInterval(() => {
     const time = new Date().toLocaleString();
     console.log("服务器正在运行中...", time);
 }, 30000);
-
-client.on('message', message => {
-    console.log(`Received message: ${message.content}`);
-    if (message.content === 'ping') {
-        message.channel.send('pong');
-    }
-});
