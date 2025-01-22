@@ -79,12 +79,36 @@ app.all("/api", (req, res) => {
 
 app.get("/api/book/addbook", async (req, res) => {
     requestLog(req);
-    const { name, id, description, cover } = req.query;
-    if (name && (id || id == 0) && description && cover) {
+    const { name, id, description, cover, author } = req.query;
+    if (name && (id || id == 0) && description && cover && author) {
+        const books = new Books();
+        try {
+            const json = await books.addBook(name, id, author, description, cover);
+            if (json.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "添加成功",
+                    timestamp: time(),
+                })
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+            }
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
     } else {
         res.status(400).json({
             code: 400,
-            msg: "缺少name、id、description、cover参数",
+            msg: "缺少name、id、description、cover、author参数",
             timestamp: time(),
         });
     }
