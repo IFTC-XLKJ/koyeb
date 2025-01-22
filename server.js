@@ -44,6 +44,10 @@ app.get("/", async (req, res) => {
     }
 });
 
+app.all("/BingSiteAuth.xml", (req, res) => {
+    res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
+})
+
 app.all("/api", (req, res) => {
     requestLog(req);
     res.json({
