@@ -72,6 +72,7 @@ app.all("/api", (req, res) => {
             "重置密码 GET /user/reserpassword/{操作的UUID}",
             "图书搜索 GET /book/search?keyword={搜索关键词(选填，不填则获取全部)}",
             "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
+            "添加图书 GET /book/addbook?name={图书名(必填)}&id={图书ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
         ],
         timestamp: time(),
     });
