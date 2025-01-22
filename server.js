@@ -84,7 +84,7 @@ app.all("/api", (req, res) => {
 
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
-    const { }
+    const { type } = req.query;
 })
 
 app.get("/api/book/addchapter", async (req, res) => {
