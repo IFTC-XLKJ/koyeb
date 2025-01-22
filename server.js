@@ -84,7 +84,7 @@ app.get("/api/book/addbook", async (req, res) => {
     } else {
         res.status(400).json({
             code: 400,
-            msg: "缺少参数",
+            msg: "缺少name、id、description、cover参数",
             timestamp: time(),
         });
     }
