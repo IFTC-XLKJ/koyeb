@@ -14,6 +14,14 @@ const toolbox = {
                     kind: "block",
                     type: "element_html",
                 },
+                {
+                    kind: "block",
+                    type: "element_head",
+                },
+                {
+                    kind: "block",
+                    type: "element_body",
+                },
             ]
         }
     ]
