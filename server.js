@@ -69,8 +69,8 @@ app.all("/api", (req, res) => {
             "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
             "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
             "重置密码 GET /user/reserpassword/{操作的UUID}",
-            "图书搜索 GET /api/book/search?keyword={搜索关键词(选填，不填则获取全部)}",
-            "获取图书章节 GET /api/book/chapters?id={图书ID(必填)}"
+            "图书搜索 GET /book/search?keyword={搜索关键词(选填，不填则获取全部)}",
+            "获取图书章节 GET /book/chapters?id={图书ID(必填)}"
         ],
         timestamp: time(),
     });
