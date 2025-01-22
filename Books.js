@@ -103,6 +103,36 @@ class Books {
             throw error;
         }
     }
+    async addChapter(id, bookid, num, name, content) {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVChaptersKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    type: "INSERT",
+                    filter: "ID,书ID,章节编号,章节名,内容",
+                    fields: `(${id},"${bookid}","${num}","${name}","${content}")`
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
 }
 
 function generateBookID() {
