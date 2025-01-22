@@ -28,6 +28,7 @@ class Books {
                     filter: `ID="${keyword}" OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
                     page: 1,
                     limit: 1000000000000,
+                    sort: "RAND()",
                 })
             });
             if (!response.ok) {
