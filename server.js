@@ -6,30 +6,7 @@ const User = require("./User.js");
 const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
 const Books = require("./Books.js");
-const { Client, Intents } = require('qqbot');
-const client = new Client({ intents: [] });
-client.login({ token: 'your-qq-bot-token' });
-const commandPrefix = '/';
-client.on('error', console.error);
 
-client.on('ready', () => {
-    console.log('机器人准备就绪');
-});
-
-client.on('messageCreate', async (message) => {
-    console.log(`收到消息：${message}`);
-    if (message.author.bot) return;
-    if (!message.content.startsWith(commandPrefix)) return;
-    const args = message.content.slice(commandPrefix.length).trim().split(/ +/);
-    const command = args.shift().toLowerCase();
-    switch (command) {
-        case 'hello':
-            await message.reply(`Hello, ${message.author.username}!`);
-            break;
-        default:
-            await message.reply(`Unknown command: \`${command}\``);
-    }
-});
 const app = express();
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
