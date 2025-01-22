@@ -17,6 +17,7 @@ client.on('ready', () => {
 });
 
 client.on('messageCreate', async (message) => {
+    console.log(`收到消息：${message}`);
     if (message.author.bot) return;
     if (!message.content.startsWith(commandPrefix)) return;
     const args = message.content.slice(commandPrefix.length).trim().split(/ +/);
