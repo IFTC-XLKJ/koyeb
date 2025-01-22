@@ -45,6 +45,7 @@ app.get("/", async (req, res) => {
 });
 
 app.all("/BingSiteAuth.xml", (req, res) => {
+    requestLog(req);
     res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
 })
 
@@ -91,7 +92,7 @@ app.get("/api/book/search", async (req, res) => {
             });
             res.json({
                 code: 200,
-                msg: "请求成功",
+                msg: "搜索成功",
                 data: data,
                 timestamp: time(),
             })
