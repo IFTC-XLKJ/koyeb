@@ -6,6 +6,7 @@ const User = require("./User.js");
 const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
 const Books = require("./Books.js");
+const { count } = require("console");
 
 const app = express();
 app.use(bodyParser.json())
@@ -57,27 +58,34 @@ app.all("/sitemap.xml", (req, res) => {
 
 app.all("/api", (req, res) => {
     requestLog(req);
+    const apis = [
+        "获取用户数据 GET /user/details?id={用户ID(必填)}",
+        "登录 GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
+        "注册 GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
+        "更新用户数据 GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
+        "发送验证码 GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
+        "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
+        "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
+        "重置密码 GET /user/reserpassword/{操作的UUID}",
+        "图书搜索 GET /book/search?keyword={搜索关键词(选填，不填则获取全部)}",
+        "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
+        "添加图书 GET /book/addbook?name={图书名(必填)}&id={用户ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
+        "获取图书章节 GET /book/getchapter?id={用户ID(必填)}&bookid={图书ID(必填)}&num={章节编号(必填)}&name={章节名(必填)}&content={章节内容(必填)}",
+    ]
     res.json({
         code: 200,
         msg: "请求成功",
         copyright: "IFTC",
-        apis: [
-            "获取用户数据 GET /user/details?id={用户ID(必填)}",
-            "登录 GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
-            "注册 GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
-            "更新用户数据 GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
-            "发送验证码 GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
-            "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
-            "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
-            "重置密码 GET /user/reserpassword/{操作的UUID}",
-            "图书搜索 GET /book/search?keyword={搜索关键词(选填，不填则获取全部)}",
-            "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
-            "添加图书 GET /book/addbook?name={图书名(必填)}&id={用户ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
-            "获取图书章节 GET /book/getchapter?id={用户ID(必填)}&bookid={图书ID(必填)}&num={章节编号(必填)}&name={章节名(必填)}&content={章节内容(必填)}",
-        ],
+        apis: apis,
+        count: apis.length,
         timestamp: time(),
     });
 });
+
+app.get("/api/book/updatebook", async (req, res) => {
+    requestLog(req);
+    const { }
+})
 
 app.get("/api/book/addchapter", async (req, res) => {
     requestLog(req);
