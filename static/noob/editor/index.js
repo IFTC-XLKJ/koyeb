@@ -76,3 +76,18 @@ function loadBlocks(blocks) {
 function saveBlocks() {
     return Blockly.serialization.workspaces.save(workspace);
 }
+
+function translateWorkspace(x, y) {
+    workspace.getCanvas().translate(x, y);
+}
+
+function scrollToPosition(x, y) {
+    workspace.scrollXY(x, y);
+}
+
+function focusAndMoveBlock(blockId, x, y) {
+    const block = workspace.getBlockById(blockId);
+    if (block) {
+        block.moveTo(x, y);
+    }
+}
