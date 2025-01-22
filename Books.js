@@ -118,7 +118,7 @@ class Books {
                 },
                 body: JSON.stringify({
                     type: "INSERT",
-                    filter: "ID,书ID,章节编号,章节名,内容",
+                    filter: "ID,书ID,章节编号,章节名,章节内容",
                     fields: `(${id},"${bookid}","${num}","${name}","${content}")`
                 })
             })
