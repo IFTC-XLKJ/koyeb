@@ -110,7 +110,6 @@ function generateBookID() {
     const id = (timestamp * Math.random()).toString().slice(0, 10).replace('.', '');
     return id.padEnd(10, '0');
 }
-generateBookID()
 
 function time() {
     return Date.now();
