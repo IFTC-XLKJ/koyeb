@@ -6,7 +6,10 @@ const User = require("./User.js");
 const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
 const Books = require("./Books.js");
+const { Client, Intents } = require('qqbot');
 const app = express();
+const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+client.login({ token: 'Sfuo53NEPtxZCOEiqOV3cNGHqughcYWE' });
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
@@ -75,6 +78,19 @@ app.all("/api", (req, res) => {
         timestamp: time(),
     });
 });
+
+app.get("/api/book/addbook", async (req, res) => {
+    requestLog(req);
+    const { name, id, description, cover } = req.query;
+    if (name && (id || id == 0) && description && cover) {
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少参数",
+            timestamp: time(),
+        });
+    }
+})
 
 app.get("/api/book/chapters", async (req, res) => {
     requestLog(req);
@@ -686,3 +702,10 @@ setInterval(() => {
     const time = new Date().toLocaleString();
     console.log("服务器正在运行中...", time);
 }, 30000);
+
+client.on('message', message => {
+    console.log(`Received message: ${message.content}`);
+    if (message.content === 'ping') {
+        message.channel.send('pong');
+    }
+});
