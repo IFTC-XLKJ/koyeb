@@ -5,10 +5,14 @@ const toolbox = {
             kind: "category",
             name: "元素",
             colour: 100,
-            constent: [
+            content: [
                 {
                     kind: "block",
                     type: "doc_type",
+                },
+                {
+                    kind: "block",
+                    type: "element_html",
                 },
             ]
         }
