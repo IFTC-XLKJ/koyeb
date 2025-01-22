@@ -78,7 +78,53 @@ app.all("/api", (req, res) => {
 app.get("/api/book/chapters", async (req, res) => {
     requestLog(req);
     const { id } = req.query;
+    console.log(typeof Number(id));
+    if (Number.isNaN(Number(id))) {
+        res.status(400).json({
+            code: 400,
+            msg: "id参数类型错误，必须为数值类型",
+            timestamp: time(),
+        });
+    }
     if (id || id == 0) {
+        const books = new Books();
+        try {
+            const json = await books.getChapters(id);
+            if (json.code == 200) {
+                if (json.fields.length == 0) {
+                    res.status(404).json({
+                        code: 404,
+                        msg: "图书不存在章节",
+                        timestamp: time(),
+                    });
+                }
+                const data = []
+                json.fields.forEach(field => {
+                    data.push({
+                        ID: field.ID,
+                        name: field.章节名,
+                        content: field.章节内容,
+                        num: field.章节编号,
+                        createdAt: field.createdAt,
+                        updatedAt: field.updatedAt
+                    })
+                });
+                res.json({
+                    code: 200,
+                    msg: "请求成功",
+                    data: data,
+                    bookID: Number(id),
+                    timestamp: time(),
+                })
+            }
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
     } else {
         res.status(400).json({
             code: 400,
@@ -99,6 +145,7 @@ app.get("/api/book/search", async (req, res) => {
             json.fields.forEach(field => {
                 data.push({
                     ID: field.ID,
+                    bookID: field.书ID,
                     name: field.书名,
                     author: field.作者,
                     cover: field.封面,
