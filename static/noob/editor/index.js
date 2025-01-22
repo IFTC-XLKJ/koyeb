@@ -1,3 +1,4 @@
+const pathToMedia = "/static/blockly/package/media/";
 addEventListener("load", e => {
     console.log("加载完成")
     window.workspace = Blockly.inject('editor', {
