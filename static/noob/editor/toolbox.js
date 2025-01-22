@@ -5,7 +5,7 @@ const toolbox = {
             kind: "category",
             name: "元素",
             colour: 100,
-            content: [
+            contents: [
                 {
                     kind: "block",
                     type: "doc_type",
