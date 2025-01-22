@@ -6,3 +6,8 @@ body {
     display: grid;
     grid-template-rows: 50px 1fr;
 }
+
+#main {
+    display: grid;
+    grid-template-columns: 30vw 70vw;
+}
