@@ -1,1 +1,4 @@
-const toolbox = []
+const toolbox = {
+    kind: "categoryToolbox",
+    contents: []
+}
