@@ -133,6 +133,54 @@ class Books {
             throw error;
         }
     }
+    async updateBook(type, id, data) {
+        let filter = `书ID="${id}"`;
+        let fields = ``;
+        if (type == "name") {
+            fields = `书名="${data}"`;
+        } else if (type == "author") {
+            fields = `作者="${data}"`;
+        } else if (type == "description") {
+            fields = `介绍="${data}"`;
+        } else if (type == "cover") {
+            fields = `封面="${data}"`;
+        } else {
+            return {
+                code: 400,
+                msg: "type参数值错误"
+            }
+        }
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBooksKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    type: "UPDATE",
+                    fields: fields,
+                    filter: filter,
+                    page: 1,
+                    limit: 1,
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
 }
 
 function generateBookID() {
