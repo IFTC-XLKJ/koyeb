@@ -29,4 +29,50 @@ addEventListener("load", e => {
         }
     });
     console.log('Workspace initialized:', workspace);
+    loadBlocks(initBlocks())
 })
+function initBlocks() {
+    return {
+        blocks: {
+            languageVersion: 0,
+            blocks: [
+                {
+                    type: "doc_type",
+                    id: "@pa;.kn/Z7|M,6_d^$=F",
+                    x: 250,
+                    y: 200,
+                    fields: {
+                        DOCTYPE: "html"
+                    },
+                    next: {
+                        block: {
+                            type: "element_html",
+                            id: "y/K|%V(Z*|lSX`86:/7j",
+                            inputs: {
+                                html: {
+                                    block: {
+                                        type: "element_head",
+                                        id: "9961vC4kkQWPIN.8hWKN",
+                                        next: {
+                                            block: {
+                                                type: "element_body",
+                                                id: "}pWzYD=S{8#I`B,e;im9"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}
+
+function loadBlocks(blocks) {
+    Blockly.serialization.workspaces.load(blocks, workspace);
+}
+function saveBlocks() {
+    return Blockly.serialization.workspaces.save(workspace);
+}
