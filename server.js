@@ -422,7 +422,7 @@ app.get("/api/sendcode", async (req, res) => {
     if (email && title && content) {
         const user = new User();
         try {
-            const json = await user.sendCode(email, title, content);
+            const json = await user.sendCode(decodeURIComponent(email), decodeURIComponent(title), decodeURIComponent(content));
             if (json.status == 1) {
                 res.json({
                     code: 200,
@@ -465,10 +465,8 @@ app.get("/api/user/update", async (req, res) => {
     }
     if (type && (id || id == 0) && password && data) {
         const user = new User();
-        const _password = password.replace(/井/g, "#");
-        const _data = data.replace(/井/g, "#");
         try {
-            const json = await user.update(type, id, _password, _data);
+            const json = await user.update(type, id, decodeURIComponent(password), decodeURIComponent(data));
             if (json.code == 200) {
                 res.json({
                     code: 200,
@@ -503,10 +501,9 @@ app.get("/api/user/register", async (req, res) => {
     requestLog(req);
     const { nickname, avatar, email, password } = req.query;
     if (nickname && email && password) {
-        const _password = password.replace(/井/g, "#");
         const user = new User();
         try {
-            const json = await user.register(email, password, nickname, avatar ? avatar : "https://iftc.koyeb.app/static/avatar.png");
+            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
             if (json.code == 200) {
                 res.json({
                     code: 200,
@@ -542,11 +539,9 @@ app.get("/api/user/login", async (req, res) => {
     const { user, password } = req.query;
     console.log(user, password);
     if ((user || user == 0) && password) {
-        const _user = user.replace(/井/g, "#");
-        const _password = password.replace(/井/g, "#");
         const auser = new User();
         try {
-            const json = await auser.login(_user, _password);
+            const json = await auser.login(decodeURIComponent(user), decodeURIComponent(password));
             if (json.code == 200) {
                 const data = json.fields[0];
                 if (!data) {
