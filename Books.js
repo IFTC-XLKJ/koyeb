@@ -72,6 +72,7 @@ class Books {
             throw error;
         }
     }
+    async addBook(name, id, description, cover) {}
 }
 
 function time() {
