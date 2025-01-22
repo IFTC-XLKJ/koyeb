@@ -83,7 +83,7 @@ app.get("/api/book/addbook", async (req, res) => {
     if (name && (id || id == 0) && description && cover && author) {
         const books = new Books();
         try {
-            const json = await books.addBook(name, id, author, description, cover);
+            const json = await books.addBook(decodeURIComponent(name), decodeURIComponent(id), decodeURIComponent(author), decodeURIComponent(description), decodeURIComponent(cover));
             if (json.code == 200) {
                 res.json({
                     code: 200,
