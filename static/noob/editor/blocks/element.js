@@ -6,8 +6,8 @@ Blockly.Blocks['doc_type'] = {
             .appendField(new Blockly.FieldDropdown([
                 ['HTML', 'html'],
                 ['HTML5', 'html5'],
-                ['XHTML 1.0 Transitional', 'xhtml1-transitional'],
-                ['HTML 4.01 Transitional', 'html4-transitional']
+                ['XHTML 1.0过度', 'xhtml1-transitional'],
+                ['HTML 4.01过度', 'html4-transitional']
             ]), 'DOCTYPE');
         this.setOutput(false, "String");
         this.setColour(160);
@@ -33,5 +33,39 @@ Blockly.Blocks['element_html'] = {
 Blockly.JavaScript.forBlock['element_html'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
     var code = `<html>\n${html}</html>\n`;
+    return code;
+}
+Blockly.Blocks['element_head'] = {
+    init: function () {
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        this.appendDummyInput()
+            .appendField('头部')
+        this.appendStatementInput('html')
+            .appendField('');
+        this.setOutput(false, "String");
+        this.setColour(160);
+    }
+};
+Blockly.JavaScript.forBlock['element_head'] = function (block) {
+    var html = Blockly.JavaScript.statementToCode(block, 'html')
+    var code = `<head>\n${html}</head>\n`;
+    return code;
+}
+Blockly.Blocks['element_body'] = {
+    init: function () {
+        this.setNextStatement(true);
+        this.setPreviousStatement(true);
+        this.appendDummyInput()
+            .appendField('主体')
+        this.appendStatementInput('html')
+            .appendField('');
+        this.setOutput(false, "String");
+        this.setColour(160);
+    }
+};
+Blockly.JavaScript.forBlock['element_body'] = function (block) {
+    var html = Blockly.JavaScript.statementToCode(block, 'html')
+    var code = `<body>\n${html}</body>\n`;
     return code;
 }
