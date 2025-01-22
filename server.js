@@ -49,6 +49,11 @@ app.all("/BingSiteAuth.xml", (req, res) => {
     res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
 })
 
+app.all("/sitemap.xml", (req, res) => {
+    requestLog(req);
+    res.sendFile(path.join(__dirname, "sitemap.xml"));
+})
+
 app.all("/api", (req, res) => {
     requestLog(req);
     res.json({
@@ -69,6 +74,19 @@ app.all("/api", (req, res) => {
         timestamp: time(),
     });
 });
+
+app.get("/api/book/chapters", async (req, res) => {
+    requestLog(req);
+    const { id } = req.query;
+    if (id || id == 0) {
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少id参数",
+            timestamp: time(),
+        });
+    }
+})
 
 app.get("/api/book/search", async (req, res) => {
     requestLog(req);
