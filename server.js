@@ -63,7 +63,8 @@ app.all("/api", (req, res) => {
             "发送验证码 GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
             "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
             "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
-            "重置密码 GET /user/reserpassword/{操作的UUID}"
+            "重置密码 GET /user/reserpassword/{操作的UUID}",
+            "图书搜索 GET /api/book/search?keyword={搜索关键词(选填，不填则获取全部)}"
         ],
         timestamp: time(),
     });
