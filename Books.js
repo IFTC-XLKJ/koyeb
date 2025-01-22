@@ -72,8 +72,45 @@ class Books {
             throw error;
         }
     }
-    async addBook(name, id, description, cover) {}
+    async addBook(name, id, author, description, cover) {
+        const bookID = generateBookID();
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBooksKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    type: "INSERT",
+                    filter: "ID,作者,书ID,书名,封面,介绍",
+                    fields: `(${id},"${author}","${bookID}","${name}","${cover}","${description}")`,
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
 }
+
+function generateBookID() {
+    const timestamp = Date.now();
+    const id = (timestamp * Math.random()).toString().slice(0, 10).replace('.', '');
+    return id.padEnd(10, '0');
+}
+generateBookID()
 
 function time() {
     return Date.now();
