@@ -31,15 +31,13 @@ addEventListener("load", e => {
 })
 
 function setBanner() {
+    let index = 0
     const banner = document.getElementById("bannerMain")
     banners.forEach((BANNER, i) => {
         const bannerDiv = document.createElement("img");
         bannerDiv.className = "banner";
         bannerDiv.src = BANNER.img;
         bannerDiv.alt = BANNER.title;
-        if (i == 0) {
-            bannerDiv.setAttribute("iftc-current", true)
-        }
         bannerDiv.addEventListener("click", e => {
             e.preventDefault();
             open(BANNER.url, "_blank");
@@ -48,24 +46,13 @@ function setBanner() {
         banner.appendChild(bannerDiv);
     });
     setInterval(() => {
-        const banneres = document.querySelectorAll(".banner");
-        banneres.forEach((banner, i) => {
-            const isCurrent = banner.getAttribute("iftc-current");
-            const index = banner.getAttribute("iftc-index");
-            if (isCurrent) {
-                banner.removeAttribute("iftc-current");
-                if (i < banneres.length - 1) {
-                    banneres[i + 1].setAttribute("iftc-current", true);
-                } else {
-                    banneres[0].setAttribute("iftc-current", true);
-                }
-                document.querySelector("[iftc-current=true]").scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            }
-        })
+        const bannerDiv = document.querySelectorAll(".banner")[index];
+        bannerDiv.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+            inline: "center"
+        });
+        index = (index + 1) % banners.length;
     }, 5000)
 }
 
