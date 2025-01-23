@@ -30,6 +30,12 @@ addEventListener("load", e => {
     });
     console.log('Workspace initialized:', workspace);
     loadBlocks(initBlocks())
+    let j = 0
+    for (let i = 0; i < 200; i++) {
+        j += 1.25
+        focusAndMoveBlock("doc_type", i, j)
+        wait(300)
+    }
 })
 function initBlocks() {
     return {
