@@ -37,6 +37,17 @@ const toolbox = {
                     type: "element_h",
                 },
             ]
+        },
+        {
+            kind: "category",
+            name: "字典",
+            colour: 200,
+            contents: [
+                {
+                    kind: "block",
+                    type: "object_dict",
+                }
+            ]
         }
     ]
 }
