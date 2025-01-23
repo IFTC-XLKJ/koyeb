@@ -170,7 +170,7 @@ Blockly.JavaScript.forBlock['element_meta'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_h",
-        message0: "标题 %1 级 内容 %2 属性 %3",
+        message0: "标题 %1 级 内容 %2 属性 %3 样式 %4",
         args0: [
             {
                 type: "field_number",
@@ -187,6 +187,11 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "ATTRIBUTE",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "STYLE",
                 check: "Dictionary",
             }
         ],
@@ -207,6 +212,15 @@ Blockly.JavaScript.forBlock['element_h'] = function (block) {
         for (var key in attribute) {
             attributes += ` ${key}="${attribute[key]}"`;
         }
+    }
+    var style = block.getFieldValue('STYLE');
+    if (style) {
+        style = JSON.parse(style);
+        let styles = ""
+        for (var key in style) {
+            style += `${key}:${style[key]};`;
+        }
+        attributes = ` style="${style}"`;
     }
     var code = `<h${level}${attributes}>${content}</h${level}>\n`;
     return code;
