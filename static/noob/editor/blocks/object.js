@@ -102,7 +102,7 @@ Blockly.Extensions.registerMutator('dict_mutator', Blockly.Constants.Dictionary.
 Blockly.defineBlocksWithJsonArray([
     {
         type: "dict_item",
-        message0: "键: %1 值: %2",
+        message0: "键:%1 值:%2",
         args0: [
             {
                 type: "input_value",
