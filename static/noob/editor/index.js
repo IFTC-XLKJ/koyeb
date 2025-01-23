@@ -114,10 +114,13 @@ function wait(ms) {
 
 function BlocksToJS() {
     let code = Blockly.JavaScript.workspaceToCode(workspace);
-    // 处理code，使得<!DOCTYPE html>的前面和</html>的后面没有内容
-    code = code.replace(/<!DOCTYPE html>\n/g, "<!DOCTYPE html>\n\n");
-    code = code.replace(/\n<\/html>\n/g, "\n\n<\/html>\n");
-    return code;
+    // 使用正则表达式提取 <!DOCTYPE 和 </html> 之间的内容
+    const match = code.match(/<!DOCTYPE.*?<\/html>/s);
+    if (match && match[0]) {
+        return match[0];
+    } else {
+        return code; // 如果没有匹配到，返回原始代码
+    }
 }
 
 addEventListener("resize", e => {
