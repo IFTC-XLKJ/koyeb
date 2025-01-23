@@ -32,6 +32,7 @@ addEventListener("load", e => {
     loadBlocks(initBlocks())
     const previewFrame = document.getElementById("previewFrame");
     const docTitle = document.getElementById("docTitle");
+    docTitle.style.width = `${innerWidth * 0.3}px`;
     let lastCode = BlocksToJS();
     setInterval(function () {
         const code = BlocksToJS();
@@ -115,3 +116,8 @@ function BlocksToJS() {
     const code = Blockly.JavaScript.workspaceToCode(workspace);
     return code;
 }
+
+addEventListener("resize", e => {
+    const docTitle = document.getElementById("docTitle");
+    docTitle.style.width = `${innerWidth * 0.3}px`;
+})
