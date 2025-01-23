@@ -96,8 +96,12 @@ Blockly.Extensions.registerMutator('dict_mutator', {
         }
         this.keyConnections_ = [];
         this.valueConnections_ = [];
-        this.removeInput('KEYS');
-        this.removeInput('VALUES');
+        if (this.getInput('KEYS')) {
+            this.removeInput('KEYS');
+        }
+        if (this.getInput('VALUES')) {
+            this.removeInput('VALUES');
+        }
         this.appendDummyInput('KEYS')
             .appendField('Keys')
             .appendField(new Blockly.FieldTextInput(this.keys_.map(function (key) { return key.value; }).join(',')), 'KEYS');
