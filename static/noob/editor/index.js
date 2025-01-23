@@ -91,3 +91,7 @@ function focusAndMoveBlock(blockId, x, y) {
         block.moveTo(x, y);
     }
 }
+
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
