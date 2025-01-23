@@ -55,6 +55,14 @@ function initBlocks() {
                 {
                     type: "doc_type",
                     id: "doc_type",
+                    icons: {
+                        comment: {
+                            text: "网页主体部分，只有将积木放在网页主体部分内才有效",
+                            pinned: true,
+                            height: 45.33,
+                            width: 408.66
+                        }
+                    },
                     x: 200,
                     y: 250,
                     fields: {
