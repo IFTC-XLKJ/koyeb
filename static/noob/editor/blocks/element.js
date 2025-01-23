@@ -1,3 +1,5 @@
+const { text } = require("body-parser");
+
 // 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
@@ -180,10 +182,16 @@ Blockly.defineBlocksWithJsonArray([
                 max: 6
             },
             {
-                type: "input_value",
+                type: "field_input",
                 name: "CONTENT",
+                text: "标题"
             }
-        ]
+        ],
+        colour: 160,
+        tooltip: "meta 标签",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
     }
 ])
 Blockly.JavaScript.forBlock['element_h'] = function (block) {
