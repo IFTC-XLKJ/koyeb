@@ -21,3 +21,8 @@ body {
     width: 70vw;
     height: calc(100vh - 50px);
 }
+
+#docTitle {
+    width: 30vw;
+    height: 21px;
+}
