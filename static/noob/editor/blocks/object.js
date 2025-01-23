@@ -4,7 +4,7 @@ Blockly.defineBlocksWithJsonArray([
         type: "element_dict",
         message0: "字典",
         colour: 160,
-        tooltip: "创建一个字典（键值对）",
+        tooltip: "创建一个字典",
         helpUrl: "",
         output: "Dictionary",
         inputsInline: false,
@@ -12,54 +12,37 @@ Blockly.defineBlocksWithJsonArray([
     }
 ]);
 
-Blockly.JavaScript.forBlock['element_dict'] = function (block) {
-    var code = '{\n';
-    var keys = (block.getFieldValue('KEYS') || '').split(',');
-    var values = (block.getFieldValue('VALUES') || '').split(',');
-    for (var i = 0; i < keys.length; i++) {
-        if (keys[i] && values[i]) {
-            code += `    "${keys[i]}": "${values[i]}",\n`;
-        }
+Blockly.Blocks['dict_mutator'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("字典项");
+        this.appendStatementInput("STACK");
+        this.setColour(160);
+        this.setTooltip("添加或移除字典项");
+        this.setHelpUrl("");
     }
-    code = code.slice(0, -2) + '\n}'; // Remove the last comma and newline
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Extensions.registerMutator('dict_mutator', {
-    blockMutator: true,
-    initMutator: function () {
-        this.keys_ = [];
-        this.values_ = [];
-        this.keyConnections_ = [];
-        this.valueConnections_ = [];
-    },
+Blockly.Constants.Dictionary = {};
+
+Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
     mutationToDom: function () {
         var container = document.createElement('mutation');
-        var keys = (this.keys_ || []).map(function (key) { return key.value; }).join(',');
-        var values = (this.values_ || []).map(function (value) { return value.value; }).join(',');
-        container.setAttribute('keys', keys);
-        container.setAttribute('values', values);
+        var itemCount = this.itemCount_;
+        container.setAttribute('items', itemCount);
         return container;
     },
     domToMutation: function (xmlElement) {
-        this.keys_ = [];
-        this.values_ = [];
-        var keys = xmlElement.getAttribute('keys').split(',');
-        var values = xmlElement.getAttribute('values').split(',');
-        for (var i = 0; i < keys.length; i++) {
-            this.keys_.push({ value: keys[i] });
-            this.values_.push({ value: values[i] });
-        }
-        this.rebuildShape_();
+        var itemCount = parseInt(xmlElement.getAttribute('items'), 10);
+        this.itemCount_ = itemCount;
+        this.updateShape_();
     },
     decompose: function (workspace) {
-        var containerBlock = workspace.newBlock('dict_container');
+        var containerBlock = workspace.newBlock('dict_mutator');
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
-        for (var i = 0; i < this.keys_.length; i++) {
+        for (var i = 0; i < this.itemCount_; i++) {
             var itemBlock = workspace.newBlock('dict_item');
-            itemBlock.setFieldValue(this.keys_[i].value, 'KEY');
-            itemBlock.setFieldValue(this.values_[i].value, 'VALUE');
             itemBlock.initSvg();
             connection.connect(itemBlock.previousConnection);
             connection = itemBlock.nextConnection;
@@ -68,82 +51,54 @@ Blockly.Extensions.registerMutator('dict_mutator', {
     },
     compose: function (containerBlock) {
         var itemBlock = containerBlock.getInputTargetBlock('STACK');
-        this.keys_ = [];
-        this.values_ = [];
+        var connections = [];
         while (itemBlock) {
-            this.keys_.push({ value: itemBlock.getFieldValue('KEY') });
-            this.values_.push({ value: itemBlock.getFieldValue('VALUE') });
-            itemBlock = itemBlock.getNextBlock();
+            connections.push(itemBlock.valueConnection_);
+            itemBlock = itemBlock.nextConnection &&
+                itemBlock.nextConnection.targetBlock();
         }
-        this.rebuildShape_();
+        this.itemCount_ = connections.length;
+        this.updateShape_();
     },
     saveConnections: function (containerBlock) {
         var itemBlock = containerBlock.getInputTargetBlock('STACK');
         var i = 0;
         while (itemBlock) {
-            this.keyConnections_[i] = itemBlock.valueConnection_;
-            this.valueConnections_[i] = itemBlock.statementConnection_;
+            var input = this.getInput('ADD' + i);
+            itemBlock.valueConnection_ = input && input.connection.targetConnection;
+            itemBlock = itemBlock.nextConnection &&
+                itemBlock.nextConnection.targetBlock();
             i++;
-            itemBlock = itemBlock.getNextBlock();
         }
     },
-    rebuildShape_: function () {
-        if (this.keyConnections_) {
-            for (var i = 0; i < this.keyConnections_.length; i++) {
-                if (this.keyConnections_[i]) {
-                    this.keyConnections_[i].disconnect();
-                }
-                if (this.valueConnections_[i]) {
-                    this.valueConnections_[i].disconnect();
+    updateShape_: function () {
+        if (this.itemCount_ && this.itemCount_ > 0) {
+            for (var i = 0; i < this.itemCount_; i++) {
+                if (!this.getInput('ADD' + i)) {
+                    this.appendValueInput('ADD' + i)
+                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .appendField('项');
                 }
             }
+            while (this.getInput('ADD' + i)) {
+                this.removeInput('ADD' + i);
+                i++;
+            }
         }
-        this.keyConnections_ = [];
-        this.valueConnections_ = [];
-        if (this.getInput('KEYS')) {
-            this.removeInput('KEYS');
-        }
-        if (this.getInput('VALUES')) {
-            this.removeInput('VALUES');
-        }
-        this.appendDummyInput('KEYS')
-            .appendField('Keys')
-            .appendField(new Blockly.FieldTextInput(this.keys_.map(function (key) { return key.value; }).join(',')), 'KEYS');
-        this.appendDummyInput('VALUES')
-            .appendField('Values')
-            .appendField(new Blockly.FieldTextInput(this.values_.map(function (value) { return value.value; }).join(',')), 'VALUES');
-        for (var i = 0; i < this.keys_.length; i++) {
-            var input = this.appendValueInput('KEY' + i)
-                .setCheck('String');
-            var input2 = this.appendValueInput('VALUE' + i);
-            this.keyConnections_.push(input.connection);
-            this.valueConnections_.push(input2.connection);
-        }
-    }
-});
-
-Blockly.Blocks['dict_container'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField('字典项');
-        this.appendStatementInput('STACK');
-        this.setColour(160);
-        this.setTooltip('字典项容器');
-        this.contextMenu = false;
     }
 };
 
-Blockly.Blocks['dict_item'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField('键')
-            .appendField(new Blockly.FieldTextInput('key'), 'KEY')
-            .appendField('值')
-            .appendField(new Blockly.FieldTextInput('value'), 'VALUE');
-        this.setPreviousStatement(true);
-        this.setNextStatement(true);
-        this.setColour(160);
-        this.setTooltip('字典项');
-        this.contextMenu = false;
+Blockly.Extensions.registerMutator('dict_mutator',
+    Blockly.Constants.Dictionary.MUTATOR_MIXIN, null, ['dict_item']);
+
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "dict_item",
+        message0: "项",
+        previousStatement: null,
+        nextStatement: null,
+        colour: 160,
+        tooltip: "字典项",
+        helpUrl: ""
     }
-};
+]);
