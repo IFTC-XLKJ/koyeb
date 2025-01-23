@@ -6,8 +6,8 @@ Blockly.Blocks['doc_type'] = {
             .appendField(new Blockly.FieldDropdown([
                 ['HTML', 'html'],
                 ['HTML5', 'html5'],
-                ['XHTML 1.0过度', 'xhtml1-transitional'],
-                ['HTML 4.01过度', 'html4-transitional']
+                ['XHTML 1.0 过渡', 'xhtml1-transitional'],
+                ['HTML 4.01 过渡', 'html4-transitional']
             ]), 'DOCTYPE');
         this.setOutput(false, "String");
         this.setColour(160);
