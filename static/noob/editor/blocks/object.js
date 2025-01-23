@@ -163,3 +163,8 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true
     }
 ])
+Blockly.JavaScript.forBlock['dict_get'] = function (block) {
+    var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
+    var key = Blockly.JavaScript.valueToCode(block, 'KEY', Blockly.JavaScript.ORDER_ATOMIC);
+    return [dict + '[' + key + ']', Blockly.JavaScript.ORDER_ATOMIC];
+}
