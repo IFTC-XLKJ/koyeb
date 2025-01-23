@@ -56,3 +56,7 @@ body {
 #preview {
     background-color: lightgrey;
 }
+
+.labels>.blocklyFlyoutLabelText {
+    font-style: italic;
+}
