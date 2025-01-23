@@ -54,7 +54,13 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "math_number",
+                    colour: 20,
                 },
+                {
+                    kind: "block",
+                    type: "text",
+                    colour: 20,
+                }
             ]
         },
         {
