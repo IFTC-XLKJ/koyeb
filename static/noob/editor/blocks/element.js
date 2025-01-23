@@ -194,7 +194,7 @@ Blockly.defineBlocksWithJsonArray([
 ])
 Blockly.JavaScript.forBlock['element_h'] = function (block) {
     var level = block.getFieldValue('LEVEL');
-    var content = Blockly.JavaScript.valueToCode(block, 'CONTENT', Blockly.JavaScript.ORDER_ATOMIC);
+    var content = block.getFieldValue('CONTENT');
     var code = `<h${level}>${content}</h${level}>\n`;
     return code;
 };
