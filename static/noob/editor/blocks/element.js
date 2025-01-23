@@ -185,7 +185,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "标题"
             },
             {
-                type: "input_value",
+                type: "field_input",
                 name: "ATTRIBUTE",
                 check: "Dictionary",
             }
@@ -200,6 +200,14 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['element_h'] = function (block) {
     var level = block.getFieldValue('LEVEL');
     var content = block.getFieldValue('CONTENT');
-    var code = `<h${level}>${content}</h${level}>\n`;
+    var attribute = block.getFieldValue('ATTRIBUTE');
+    let attributes = ""
+    if (attribute) {
+        attribute = JSON.parse(attribute);
+        for (var key in attribute) {
+            attributes += ` ${key}="${attribute[key]}"`;
+        }
+    }
+    var code = `<h${level}${attributes}>${content}</h${level}>\n`;
     return code;
 };
