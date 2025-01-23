@@ -90,8 +90,12 @@ Blockly.Extensions.registerMutator('dict_mutator', {
     rebuildShape_: function () {
         if (this.keyConnections_) {
             for (var i = 0; i < this.keyConnections_.length; i++) {
-                this.keyConnections_[i].disconnect();
-                this.valueConnections_[i].disconnect();
+                if (this.keyConnections_[i]) {
+                    this.keyConnections_[i].disconnect();
+                }
+                if (this.valueConnections_[i]) {
+                    this.valueConnections_[i].disconnect();
+                }
             }
         }
         this.keyConnections_ = [];
