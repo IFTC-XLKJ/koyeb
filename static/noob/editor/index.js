@@ -39,8 +39,10 @@ addEventListener("load", e => {
             lastCode = code;
             previewFrame.srcdoc = code;
         }
-        if (previewFrame.contentWindow.document.title !== docTitle.innerText) {
-            docTitle.innerText = previewFrame.contentWindow.document.title;
+        if (previewFrame.contentDocument.title) {
+            docTitle.innerText = previewFrame.contentDocument.title;
+        } else {
+            docTitle.innerText = "";
         }
     }, 1000)
 })
