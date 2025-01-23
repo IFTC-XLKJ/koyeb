@@ -311,7 +311,7 @@ Blockly.JavaScript.forBlock['element_span'] = function (block) {
 };
 
 function handleAttrAndStyle(block) {
-    var attribute = block.getFieldValue('ATTRIBUTE');
+    var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ADDITION) || null;
     let attributes = ""
     if (attribute) {
         attribute = JSON.parse(attribute);
@@ -319,7 +319,7 @@ function handleAttrAndStyle(block) {
             attributes += ` ${key}="${attribute[key]}"`;
         }
     }
-    var style = block.getFieldValue('STYLE');
+    var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ADDITION) || null;
     if (style) {
         style = JSON.parse(style);
         let styles = ""
