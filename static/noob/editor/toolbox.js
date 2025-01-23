@@ -14,10 +14,10 @@ const toolbox = {
                     kind: "block",
                     type: "element_charset",
                 },
-                // {
-                //     kind: "block",
-                //     type: "element_head",
-                // },
+                {
+                    kind: "block",
+                    type: "element_meta",
+                },
                 // {
                 //     kind: "block",
                 //     type: "element_body",
