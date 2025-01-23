@@ -206,6 +206,45 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['element_h'] = function (block) {
     var level = block.getFieldValue('LEVEL');
     var content = block.getFieldValue('CONTENT');
+    var code = `<h${level}${handleAttrAndStyle(block)}>${content}</h${level}>\n`;
+    return code;
+};
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_p",
+        message0: "段落 内容 %1 属性 %2 样式 %3",
+        args0: [
+            {
+                type: "field_input",
+                name: "CONTENT",
+                text: "段落"
+            },
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "STYLE",
+                check: "Dictionary",
+            }
+        ],
+        colour: 160,
+        tooltip: "段落",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_p'] = function (block) {
+    var content = block.getFieldValue('CONTENT');
+    var code = `<p${handleAttrAndStyle(block)}>${content}</p>\n`;
+    return code;
+};
+
+function handleAttrAndStyle(block) {
     var attribute = block.getFieldValue('ATTRIBUTE');
     let attributes = ""
     if (attribute) {
@@ -223,6 +262,5 @@ Blockly.JavaScript.forBlock['element_h'] = function (block) {
         }
         attributes = ` style="${style}"`;
     }
-    var code = `<h${level}${attributes}>${content}</h${level}>\n`;
-    return code;
-};
+    return attributes;
+}
