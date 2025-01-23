@@ -157,7 +157,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: "KEY"
             }
         ],
-        output: ["Any", "String", "Number", "Boolean", "Array", "Dictionary"],
+        output: "Any",
         colour: 290,
         tooltip: "获取字典中的值",
         inputsInline: true
@@ -167,4 +167,26 @@ Blockly.JavaScript.forBlock['dict_get'] = function (block) {
     var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
     var key = Blockly.JavaScript.valueToCode(block, 'KEY', Blockly.JavaScript.ORDER_ATOMIC);
     return [dict + '[' + key + ']', Blockly.JavaScript.ORDER_ATOMIC];
+}
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "dict_set",
+        message0: "字典 %1 设置 %2 为 %3",
+        args0: [
+            {
+                type: "input_value",
+                name: "DICT",
+                check: "Dictionary"
+            },
+            {
+                type: "input_value",
+                name: "KEY"
+            },
+        ]
+    }
+])
+Blockly.JavaScript.forBlock['dict_set'] = function (block) {
+    var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
+    var key = Blockly.JavaScript.valueToCode(block, 'KEY', Blockly.JavaScript.ORDER_ATOMIC);
+    var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
 }
