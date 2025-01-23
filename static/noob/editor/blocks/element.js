@@ -11,6 +11,8 @@ Blockly.Blocks['doc_type'] = {
             ]), 'DOCTYPE');
         this.setOutput(false, "String");
         this.setColour(160);
+        this.setMovable(false);
+        this.setDeletable(false);
     }
 };
 Blockly.JavaScript.forBlock['doc_type'] = function (block) {
@@ -28,6 +30,8 @@ Blockly.Blocks['element_html'] = {
             .appendField('');
         this.setOutput(false, "String");
         this.setColour(160);
+        this.setMovable(false);
+        this.setDeletable(false);
     }
 };
 Blockly.JavaScript.forBlock['element_html'] = function (block) {
@@ -45,6 +49,8 @@ Blockly.Blocks['element_head'] = {
             .appendField('');
         this.setOutput(false, "String");
         this.setColour(160);
+        this.setMovable(false);
+        this.setDeletable(false);
     }
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
@@ -62,6 +68,8 @@ Blockly.Blocks['element_body'] = {
             .appendField('');
         this.setOutput(false, "String");
         this.setColour(160);
+        this.setMovable(false);
+        this.setDeletable(false);
     }
 };
 Blockly.JavaScript.forBlock['element_body'] = function (block) {
