@@ -14,7 +14,7 @@ Blockly.Blocks['doc_type'] = {
         this.setColour(160);
         this.setMovable(false);
         this.setDeletable(false);
-        this.tooltip("文档类型声明，用于声明文档的版本和类型")
+        this.setTooltip("文档类型声明，用于声明文档的版本和类型")
     }
 };
 Blockly.JavaScript.forBlock['doc_type'] = function (block) {
@@ -35,7 +35,7 @@ Blockly.Blocks['element_html'] = {
         this.setColour(160);
         this.setMovable(false);
         this.setDeletable(false);
-        this.tooltip("网页的根元素，包含头部和主体")
+        this.setTooltip("网页的根元素，包含头部和主体")
     }
 };
 Blockly.JavaScript.forBlock['element_html'] = function (block) {
@@ -56,7 +56,7 @@ Blockly.Blocks['element_head'] = {
         this.setColour(160);
         this.setMovable(false);
         this.setDeletable(false);
-        this.tooltip("网页头部部分（元数据部分）")
+        this.setTooltip("网页头部部分（元数据部分）")
     }
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
@@ -77,7 +77,7 @@ Blockly.Blocks['element_body'] = {
         this.setColour(160);
         this.setMovable(false);
         this.setDeletable(false);
-        this.tooltip("网页主体部分（UI部分）")
+        this.setTooltip("网页主体部分（UI部分）")
     }
 };
 Blockly.JavaScript.forBlock['element_body'] = function (block) {
