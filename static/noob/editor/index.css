@@ -26,3 +26,9 @@ body {
     width: 30vw;
     height: 21px;
 }
+
+#previewFrame {
+    width: 30vw;
+    height: calc(100vh - 50px - 21px);
+    border: none;
+}
