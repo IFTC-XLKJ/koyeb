@@ -80,12 +80,12 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                 if (!this.getInput('ADD' + i + '_KEY')) {
                     this.appendValueInput('ADD' + i + '_KEY')
                         .setAlign(Blockly.ALIGN_RIGHT)
-                        .appendField('键');
+                        .appendField('键:');
                 }
                 if (!this.getInput('ADD' + i + '_VALUE')) {
                     this.appendValueInput('ADD' + i + '_VALUE')
                         .setAlign(Blockly.ALIGN_RIGHT)
-                        .appendField('值');
+                        .appendField('值:');
                 }
             }
             while (this.getInput('ADD' + i + '_KEY')) {
