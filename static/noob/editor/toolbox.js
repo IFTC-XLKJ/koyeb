@@ -7,6 +7,11 @@ const toolbox = {
             colour: 100,
             contents: [
                 {
+                    kind: "label",
+                    text: "-- 头元素 --",
+                    "web-class": "labels"
+                },
+                {
                     kind: "block",
                     type: "element_title",
                 },
