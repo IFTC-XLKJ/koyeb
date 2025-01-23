@@ -104,3 +104,23 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: ""
     }
 ]);
+
+Blockly.JavaScript['element_dict'] = function (block) {
+    var code = '{';
+    for (var i = 0; i < block.itemCount_; i++) {
+        var key = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_KEY', Blockly.JavaScript.ORDER_ATOMIC);
+        var value = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+        code += key + ': ' + value;
+        if (i < block.itemCount_ - 1) {
+            code += ', ';
+        }
+    }
+    code += '}';
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
+Blockly.JavaScript['dict_item'] = function (block) {
+    var key = Blockly.JavaScript.valueToCode(block, 'KEY', Blockly.JavaScript.ORDER_ATOMIC);
+    var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    return key + ': ' + value;
+};
