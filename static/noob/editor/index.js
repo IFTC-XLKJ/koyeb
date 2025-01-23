@@ -30,6 +30,7 @@ addEventListener("load", e => {
     });
     console.log('Workspace initialized:', workspace);
     loadBlocks(initBlocks())
+    focusAndMoveBlock("doc_type", 200, 250)
 })
 function initBlocks() {
     return {
@@ -38,25 +39,25 @@ function initBlocks() {
             blocks: [
                 {
                     type: "doc_type",
-                    id: "@pa;.kn/Z7|M,6_d^$=F",
-                    x: 250,
-                    y: 200,
+                    id: "doc_type",
+                    x: 0,
+                    y: 0,
                     fields: {
                         DOCTYPE: "html"
                     },
                     next: {
                         block: {
                             type: "element_html",
-                            id: "y/K|%V(Z*|lSX`86:/7j",
+                            id: "element_html",
                             inputs: {
                                 html: {
                                     block: {
                                         type: "element_head",
-                                        id: "9961vC4kkQWPIN.8hWKN",
+                                        id: "element_head",
                                         next: {
                                             block: {
                                                 type: "element_body",
-                                                id: "}pWzYD=S{8#I`B,e;im9"
+                                                id: "element_body"
                                             }
                                         }
                                     }
