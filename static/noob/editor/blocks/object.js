@@ -182,11 +182,21 @@ Blockly.defineBlocksWithJsonArray([
                 type: "input_value",
                 name: "KEY"
             },
-        ]
+            {
+                type: "input_value",
+                name: "VALUE"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 290,
+        tooltip: "设置字典中的值",
+        inputsInline: true
     }
 ])
 Blockly.JavaScript.forBlock['dict_set'] = function (block) {
     var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
     var key = Blockly.JavaScript.valueToCode(block, 'KEY', Blockly.JavaScript.ORDER_ATOMIC);
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    return dict + '[' + key + '] = ' + value + ';\n';
 }
