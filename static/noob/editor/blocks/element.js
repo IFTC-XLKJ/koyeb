@@ -1,3 +1,4 @@
+// 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
         this.setNextStatement(true);
@@ -20,6 +21,7 @@ Blockly.JavaScript.forBlock['doc_type'] = function (block) {
     var code = `<!DOCTYPE ${doctype}>\n`;
     return code;
 };
+// 页面
 Blockly.Blocks['element_html'] = {
     init: function () {
         this.setNextStatement(true);
@@ -39,6 +41,7 @@ Blockly.JavaScript.forBlock['element_html'] = function (block) {
     var code = `<html>\n${html}</html>\n`;
     return code;
 }
+// 头部
 Blockly.Blocks['element_head'] = {
     init: function () {
         this.setNextStatement(true);
@@ -58,6 +61,7 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var code = `<head>\n${html}</head>\n`;
     return code;
 }
+// 主体
 Blockly.Blocks['element_body'] = {
     init: function () {
         this.setNextStatement(true);
@@ -77,6 +81,7 @@ Blockly.JavaScript.forBlock['element_body'] = function (block) {
     var code = `<body>\n${html}</body>\n`;
     return code;
 }
+// 标题
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_title",
@@ -101,5 +106,53 @@ Blockly.JavaScript.forBlock['element_title'] = function (block) {
         title = '';
     }
     var code = `<title>${title}</title>\n`;
+    return code;
+};
+// 文档编码
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_charset",
+        message0: "编码 %1",
+        args0: [
+            {
+                type: "field_input",
+                name: "CHARSET",
+                text: "utf-8"
+            }
+        ],
+        colour: 160,
+        tooltip: "",
+        helpUrl: "",
+        nextStatement: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_charset'] = function (block) {
+    var charset = block.getFieldValue('CHARSET');
+    var code = `<meta charset="${charset}">\n`;
+    return code;
+};
+// 元数据
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_meta",
+        message0: "元 %1 %2",
+        args0: [
+            {
+                type: "field_input",
+                name: "NAME",
+                text: "description"
+            },
+            {
+                type: "field_input",
+                name: "CONTENT",
+                text: "IFTC"
+            }
+        ]
+    }
+]);
+Blockly.JavaScript.forBlock['element_meta'] = function (block) {
+    var name = block.getFieldValue('NAME');
+    var content = block.getFieldValue('CONTENT');
+    var code = `<meta name="${name}" content="${content}">\n`;
     return code;
 };
