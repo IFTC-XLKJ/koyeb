@@ -95,3 +95,8 @@ function focusAndMoveBlock(blockId, x, y) {
 function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
+function BlocksToJS() {
+    const code = Blockly.JavaScript.workspaceToCode(workspace);
+    return code;
+}
