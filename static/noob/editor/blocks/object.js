@@ -6,7 +6,7 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "创建一个字典",
         helpUrl: "",
         output: "Dictionary",
-        inputsInline: false,
+        inputsInline: true, // 设置为单行显示
         mutator: "dict_mutator"
     }
 ]);
@@ -102,29 +102,27 @@ Blockly.Extensions.registerMutator('dict_mutator', Blockly.Constants.Dictionary.
 Blockly.defineBlocksWithJsonArray([
     {
         type: "dict_item",
-        message0: "键 %1",
+        message0: "键 %1 值 %2",
         args0: [
             {
                 type: "input_value",
                 name: "KEY"
             },
-        ],
-        message1: "值 %1",
-        args1: [
             {
                 type: "input_value",
                 name: "VALUE"
-            },
+            }
         ],
         previousStatement: null,
         nextStatement: null,
         colour: 160,
         tooltip: "字典项",
-        helpUrl: ""
+        helpUrl: "",
+        inputsInline: true // 设置为单行显示
     }
 ]);
 
-Blockly.JavaScript.forBlock['element_dict'] = function (block) {
+Blockly.JavaScript['element_dict'] = function (block) {
     var code = '{';
     for (var i = 0; i < block.itemCount_; i++) {
         var key = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_KEY', Blockly.JavaScript.ORDER_ATOMIC);
@@ -138,7 +136,7 @@ Blockly.JavaScript.forBlock['element_dict'] = function (block) {
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.JavaScript.forBlock['dict_item'] = function (block) {
+Blockly.JavaScript['dict_item'] = function (block) {
     var key = Blockly.JavaScript.valueToCode(block, 'KEY', Blockly.JavaScript.ORDER_ATOMIC);
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     return key + ': ' + value;
