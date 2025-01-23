@@ -6,10 +6,10 @@ const toolbox = {
             name: "元素",
             colour: 100,
             contents: [
-                // {
-                //     kind: "block",
-                //     type: "doc_type",
-                // },
+                {
+                    kind: "block",
+                    type: "element_title",
+                },
                 // {
                 //     kind: "block",
                 //     type: "element_html",
