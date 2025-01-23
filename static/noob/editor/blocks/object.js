@@ -14,8 +14,8 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock['element_dict'] = function (block) {
     var code = '{\n';
-    var keys = block.getFieldValue('KEYS').split(',');
-    var values = block.getFieldValue('VALUES').split(',');
+    var keys = (block.getFieldValue('KEYS') || '').split(',');
+    var values = (block.getFieldValue('VALUES') || '').split(',');
     for (var i = 0; i < keys.length; i++) {
         if (keys[i] && values[i]) {
             code += `    "${keys[i]}": "${values[i]}",\n`;
