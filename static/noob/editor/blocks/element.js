@@ -313,6 +313,7 @@ Blockly.JavaScript.forBlock['element_span'] = function (block) {
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
     let attributes = ""
+    console.log(attribute);
     if (attribute) {
         attribute = JSON.parse(attribute);
         for (var key in attribute) {
@@ -320,6 +321,7 @@ function handleAttrAndStyle(block) {
         }
     }
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
+    console.log(style);
     if (style) {
         style = JSON.parse(style);
         let styles = ""
