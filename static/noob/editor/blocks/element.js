@@ -185,7 +185,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "标题"
             },
             {
-                type: "field_input",
+                type: "input_value",
                 name: "ATTRIBUTE",
                 check: "Dictionary",
             }
