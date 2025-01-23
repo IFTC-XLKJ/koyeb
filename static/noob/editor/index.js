@@ -37,7 +37,7 @@ addEventListener("load", e => {
         const code = BlocksToJS();
         if (lastCode !== code) {
             lastCode = code;
-            previewFrame.srcdoc = "data:text/html;charset=utf-8," + encodeURIComponent(code);
+            previewFrame.srcdoc = code;
         }
         if (previewFrame.contentWindow.document.title !== docTitle.innerText) {
             docTitle.innerText = previewFrame.contentWindow.document.title;
