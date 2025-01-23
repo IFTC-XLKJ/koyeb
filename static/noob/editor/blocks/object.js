@@ -27,7 +27,7 @@ Blockly.JavaScript.forBlock['element_dict'] = function (block) {
 
 Blockly.Extensions.registerMutator('dict_mutator', {
     blockMutator: true,
-    init: function () {
+    initMutator: function () {
         this.keys_ = [];
         this.values_ = [];
         this.keyConnections_ = [];
