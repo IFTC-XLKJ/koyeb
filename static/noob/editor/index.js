@@ -42,7 +42,7 @@ addEventListener("load", e => {
         if (previewFrame.contentDocument.title) {
             docTitle.innerText = previewFrame.contentDocument.title;
         } else {
-            docTitle.innerText = "";
+            docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
         }
     }, 1000)
 })
