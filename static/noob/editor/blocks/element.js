@@ -166,3 +166,29 @@ Blockly.JavaScript.forBlock['element_meta'] = function (block) {
     var code = `<meta name="${name}" content="${content}">\n`;
     return code;
 };
+// h1-h6 标签
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_h",
+        message0: "标题 %1 %2",
+        args0: [
+            {
+                type: "field_number",
+                name: "LEVEL",
+                value: 1,
+                min: 1,
+                max: 6
+            },
+            {
+                type: "input_value",
+                name: "CONTENT",
+            }
+        ]
+    }
+])
+Blockly.JavaScript.forBlock['element_h'] = function (block) {
+    var level = block.getFieldValue('LEVEL');
+    var content = Blockly.JavaScript.valueToCode(block, 'CONTENT', Blockly.JavaScript.ORDER_ATOMIC);
+    var code = `<h${level}>${content}</h${level}>\n`;
+    return code;
+};
