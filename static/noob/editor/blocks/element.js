@@ -1,5 +1,3 @@
-const { text } = require("body-parser");
-
 // 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
@@ -188,7 +186,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         colour: 160,
-        tooltip: "meta 标签",
+        tooltip: "大标题",
         helpUrl: "",
         nextStatement: true,
         previousStatement: true,
