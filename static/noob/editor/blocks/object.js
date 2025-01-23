@@ -88,6 +88,7 @@ Blockly.Extensions.registerMutator('dict_mutator', {
         }
     },
     rebuildShape_: function () {
+        console.log(this.keyConnections_)
         if (this.keyConnections_) {
             this.keyConnections_ = [];
         }
