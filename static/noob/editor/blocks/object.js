@@ -77,14 +77,20 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
     updateShape_: function () {
         if (this.itemCount_ && this.itemCount_ > 0) {
             for (var i = 0; i < this.itemCount_; i++) {
-                if (!this.getInput('ADD' + i)) {
-                    this.appendValueInput('ADD' + i)
+                if (!this.getInput('ADD' + i + '_KEY')) {
+                    this.appendValueInput('ADD' + i + '_KEY')
                         .setAlign(Blockly.ALIGN_RIGHT)
-                        .appendField('项');
+                        .appendField('键');
+                }
+                if (!this.getInput('ADD' + i + '_VALUE')) {
+                    this.appendValueInput('ADD' + i + '_VALUE')
+                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .appendField('值');
                 }
             }
-            while (this.getInput('ADD' + i)) {
-                this.removeInput('ADD' + i);
+            while (this.getInput('ADD' + i + '_KEY')) {
+                this.removeInput('ADD' + i + '_KEY');
+                this.removeInput('ADD' + i + '_VALUE');
                 i++;
             }
         }
@@ -96,7 +102,17 @@ Blockly.Extensions.registerMutator('dict_mutator', Blockly.Constants.Dictionary.
 Blockly.defineBlocksWithJsonArray([
     {
         type: "dict_item",
-        message0: "项",
+        message0: "键 %1 值 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "KEY"
+            },
+            {
+                type: "input_value",
+                name: "VALUE"
+            }
+        ],
         previousStatement: null,
         nextStatement: null,
         colour: 160,
