@@ -91,7 +91,9 @@ Blockly.defineBlocksWithJsonArray([
         output: "String",
         colour: 160,
         tooltip: "",
-        helpUrl: ""
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true
     }
 ]);
 Blockly.JavaScript.forBlock['element_title'] = function (block) {
