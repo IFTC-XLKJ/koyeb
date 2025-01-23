@@ -16,7 +16,7 @@ Blockly.Blocks['dict_mutator'] = {
         this.appendDummyInput()
             .appendField("字典项");
         this.appendStatementInput("STACK");
-        this.setColour(290); // 紫色
+        this.setColour(290);
         this.setTooltip("添加或移除字典项");
         this.setHelpUrl("");
     }
