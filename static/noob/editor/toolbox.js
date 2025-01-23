@@ -10,10 +10,10 @@ const toolbox = {
                     kind: "block",
                     type: "element_title",
                 },
-                // {
-                //     kind: "block",
-                //     type: "element_html",
-                // },
+                {
+                    kind: "block",
+                    type: "element_charset",
+                },
                 // {
                 //     kind: "block",
                 //     type: "element_head",
