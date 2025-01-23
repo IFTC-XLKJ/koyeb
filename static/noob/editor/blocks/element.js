@@ -139,7 +139,7 @@ Blockly.JavaScript.forBlock['element_charset'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_meta",
-        message0: "元 %1 %2",
+        message0: "元 名称 %1 内容 %2",
         args0: [
             {
                 type: "field_input",
