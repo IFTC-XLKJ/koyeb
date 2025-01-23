@@ -1,6 +1,6 @@
 Blockly.defineBlocksWithJsonArray([
     {
-        type: "element_dict",
+        type: "object_dict",
         message0: "字典",
         colour: 290,
         tooltip: "创建一个字典",
@@ -122,7 +122,7 @@ Blockly.defineBlocksWithJsonArray([
     }
 ]);
 
-Blockly.JavaScript.forBlock['element_dict'] = function (block) {
+Blockly.JavaScript.forBlock['object_dict'] = function (block) {
     var code = '{';
     for (var i = 0; i < block.itemCount_; i++) {
         var key = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_KEY', Blockly.JavaScript.ORDER_ATOMIC);
@@ -141,3 +141,25 @@ Blockly.JavaScript.forBlock['dict_item'] = function (block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     return key + ': ' + value;
 };
+
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "dict_get",
+        message0: "字典 %1 获取 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "DICT",
+                check: "Dictionary"
+            },
+            {
+                type: "input_value",
+                name: "KEY"
+            }
+        ],
+        output: ["Any", "String", "Number", "Boolean", "Array", "Dictionary"],
+        colour: 290,
+        tooltip: "获取字典中的值",
+        inputsInline: true
+    }
+])
