@@ -4,7 +4,7 @@ const toolbox = {
         {
             kind: "category",
             name: "元素",
-            colour: 100,
+            colour: 160,
             contents: [
                 {
                     kind: "label",
@@ -41,7 +41,7 @@ const toolbox = {
         {
             kind: "category",
             name: "字典",
-            colour: 200,
+            colour: 290,
             contents: [
                 {
                     kind: "block",
