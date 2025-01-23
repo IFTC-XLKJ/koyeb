@@ -49,6 +49,7 @@ body {
 }
 
 #previewFrame {
+    background-color: white;
     width: 30vw;
     height: calc(100vh - 50px - 21px);
     border: none;
