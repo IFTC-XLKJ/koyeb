@@ -200,6 +200,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         nextStatement: true,
         previousStatement: true,
+        inputsInline: true,
     }
 ])
 Blockly.JavaScript.forBlock['element_h'] = function (block) {
