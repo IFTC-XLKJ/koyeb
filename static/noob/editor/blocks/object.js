@@ -32,8 +32,6 @@ Blockly.Extensions.registerMutator('dict_mutator', {
         this.values_ = [];
         this.keyConnections_ = [];
         this.valueConnections_ = [];
-        this.keyConnections_ = [];
-        this.valueConnections_ = [];
     },
     mutationToDom: function () {
         var container = document.createElement('mutation');
@@ -90,6 +88,9 @@ Blockly.Extensions.registerMutator('dict_mutator', {
         }
     },
     rebuildShape_: function () {
+        if (this.keyConnections_) {
+            this.keyConnections_ = [];
+        }
         for (var i = 0; i < this.keyConnections_.length; i++) {
             this.keyConnections_[i].disconnect();
             this.valueConnections_[i].disconnect();
