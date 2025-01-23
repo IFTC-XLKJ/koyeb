@@ -170,7 +170,7 @@ Blockly.JavaScript.forBlock['element_meta'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_h",
-        message0: "标题 %1 级 内容 %2",
+        message0: "标题 %1 级 内容 %2 属性 %3",
         args0: [
             {
                 type: "field_number",
@@ -183,6 +183,11 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_input",
                 name: "CONTENT",
                 text: "标题"
+            },
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+                check: "Dictionary",
             }
         ],
         colour: 160,
