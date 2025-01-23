@@ -276,6 +276,39 @@ Blockly.JavaScript.forBlock['element_div'] = function (block) {
     var code = `<div${handleAttrAndStyle(block)}>${content}</div>\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_span",
+        message0: "行内元素 内容 %1 属性 %2 样式 %3",
+        args0: [
+            {
+                type: "field_input",
+                name: "CONTENT",
+                text: "行内元素"
+            },
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+            },
+            {
+                type: "input_value",
+                name: "STYLE",
+                check: "Dictionary",
+            },
+        ],
+        colour: 160,
+        tooltip: "行内元素",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_span'] = function (block) {
+    var content = block.getFieldValue('CONTENT');
+    var code = `<span${handleAttrAndStyle(block)}>${content}</span>\n`;
+    return code;
+};
 
 function handleAttrAndStyle(block) {
     var attribute = block.getFieldValue('ATTRIBUTE');
