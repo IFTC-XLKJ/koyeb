@@ -1,4 +1,3 @@
-// 字典
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_dict",
@@ -22,6 +21,10 @@ Blockly.Blocks['dict_mutator'] = {
         this.setHelpUrl("");
     }
 };
+
+if (!Blockly.Constants) {
+    Blockly.Constants = {};
+}
 
 Blockly.Constants.Dictionary = {};
 
