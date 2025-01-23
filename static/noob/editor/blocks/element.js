@@ -250,7 +250,7 @@ Blockly.defineBlocksWithJsonArray([
         args0: [
             {
                 type: "input_value",
-                name:"ATTRIBUTE",
+                name: "ATTRIBUTE",
             },
             {
                 type: "input_value",
@@ -312,9 +312,10 @@ Blockly.JavaScript.forBlock['element_span'] = function (block) {
 
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
-    let attributes = ""
+    let attributes = "";
     console.log(attribute);
     if (attribute) {
+        attribute = attribute.replace(/^'(.*)'$/, '"$1"');
         attribute = JSON.parse(attribute);
         for (var key in attribute) {
             attributes += ` ${key}="${attribute[key]}"`;
@@ -323,12 +324,13 @@ function handleAttrAndStyle(block) {
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
     console.log(style);
     if (style) {
+        style = style.replace(/^'(.*)'$/, '"$1"');
         style = JSON.parse(style);
-        let styles = ""
+        let styles = "";
         for (var key in style) {
-            style += `${key}:${style[key]};`;
+            styles += `${key}:${style[key]};`;
         }
-        attributes = ` style="${style}"`;
+        attributes += ` style="${styles}"`;
     }
     return attributes;
 }
