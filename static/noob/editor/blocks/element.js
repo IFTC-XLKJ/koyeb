@@ -77,20 +77,25 @@ Blockly.JavaScript.forBlock['element_body'] = function (block) {
     var code = `<body>\n${html}</body>\n`;
     return code;
 }
-Blockly.Blocks['element_title'] = {
-    init: function() {
-        this.appendDummyInput()
-            .appendField("Title: ")
-            .appendField(new Blockly.FieldTextInput("Document"), "TITLE");  // 设置默认值为 "Document"
-        this.setOutput(true, "String");
-        this.setColour(160);
-        this.setTooltip("");
-        this.setHelpUrl("");
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_title",
+        message0: "标题 %1",
+        args0: [
+            {
+                type: "field_input",
+                name: "TITLE",
+                text: "Document"
+            }
+        ],
+        output: "String",
+        colour: 160,
+        tooltip: "",
+        helpUrl: ""
     }
-};
-
+]);
 Blockly.JavaScript.forBlock['element_title'] = function (block) {
-    var title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+    var title = block.getFieldValue('TITLE');
     if (!title) {
         title = '';
     }
