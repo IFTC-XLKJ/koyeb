@@ -311,7 +311,7 @@ Blockly.JavaScript.forBlock['element_span'] = function (block) {
 };
 
 function handleAttrAndStyle(block) {
-    var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ADDITION) || null;
+    var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
     let attributes = ""
     if (attribute) {
         attribute = JSON.parse(attribute);
@@ -319,7 +319,7 @@ function handleAttrAndStyle(block) {
             attributes += ` ${key}="${attribute[key]}"`;
         }
     }
-    var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ADDITION) || null;
+    var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
     if (style) {
         style = JSON.parse(style);
         let styles = ""
