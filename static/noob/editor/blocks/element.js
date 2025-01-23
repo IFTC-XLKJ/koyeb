@@ -50,7 +50,6 @@ Blockly.Blocks['element_head'] = {
             .appendField('头部')
         this.appendStatementInput('html')
             .appendField('')
-            .setCheck(["element_title", "element_meta", "element_charset"]);
         this.setOutput(false, "String");
         this.setColour(160);
         this.setMovable(false);
@@ -99,7 +98,6 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         nextStatement: true,
         previousStatement: true,
-        output: "element_title",
     }
 ]);
 Blockly.JavaScript.forBlock['element_title'] = function (block) {
@@ -127,7 +125,6 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         nextStatement: true,
         previousStatement: true,
-        output: "element_charset",
     }
 ])
 Blockly.JavaScript.forBlock['element_charset'] = function (block) {
@@ -157,7 +154,6 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         nextStatement: true,
         previousStatement: true,
-        output: "element_meta",
     }
 ]);
 Blockly.JavaScript.forBlock['element_meta'] = function (block) {
