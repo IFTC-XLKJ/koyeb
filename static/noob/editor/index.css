@@ -26,6 +26,10 @@ body {
     display: inline-flex;
     width: 30vw;
     height: 21px;
+    box-sizing: border-box;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 #previewFrame {
