@@ -88,8 +88,7 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
     }
 };
 
-Blockly.Extensions.registerMutator('dict_mutator',
-    Blockly.Constants.Dictionary.MUTATOR_MIXIN, null, ['dict_item']);
+Blockly.Extensions.registerMutator('dict_mutator', Blockly.Constants.Dictionary.MUTATOR_MIXIN, null, ['dict_item']);
 
 Blockly.defineBlocksWithJsonArray([
     {
