@@ -31,12 +31,16 @@ addEventListener("load", e => {
     console.log('Workspace initialized:', workspace);
     loadBlocks(initBlocks())
     const previewFrame = document.getElementById("previewFrame");
+    const docTitle = document.getElementById("docTitle");
     let lastCode = BlocksToJS();
     setInterval(function () {
         const code = BlocksToJS();
         if (lastCode !== code) {
             lastCode = code;
             previewFrame.srcdoc = "data:text/html;charset=utf-8," + encodeURIComponent(code);
+        }
+        if (previewFrame.contentWindow.document.title !== docTitle.innerText) {
+            docTitle.innerText = previewFrame.contentWindow.document.title;
         }
     }, 1000)
 })
