@@ -45,7 +45,7 @@ addEventListener("load", e => {
         } else {
             docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
         }
-    }, 1000)
+    }, 300)
 })
 function initBlocks() {
     return {
