@@ -30,6 +30,15 @@ addEventListener("load", e => {
     });
     console.log('Workspace initialized:', workspace);
     loadBlocks(initBlocks())
+    const previewFrame = document.getElementById("previewFrame");
+    let lastCode = BlocksToJS();
+    setInterval(function () {
+        const code = BlocksToJS();
+        if (lastCode !== code) {
+            lastCode = code;
+            previewFrame.srcdoc = "data:text/html;charset=utf-8," + encodeURIComponent(code);
+        }
+    }, 1000)
 })
 function initBlocks() {
     return {
