@@ -26,7 +26,7 @@ Blockly.JavaScript.forBlock['doc_type'] = function (block) {
 Blockly.Blocks['element_html'] = {
     init: function () {
         this.setNextStatement(true);
-        this.setPreviousStatement(true);
+        // this.setPreviousStatement(true);
         this.appendDummyInput()
             .appendField('页面')
         this.appendStatementInput('html')
@@ -68,7 +68,7 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
 Blockly.Blocks['element_body'] = {
     init: function () {
         this.setNextStatement(true);
-        this.setPreviousStatement(true);
+        // this.setPreviousStatement(true);
         this.appendDummyInput()
             .appendField('主体')
         this.appendStatementInput('html')
@@ -170,7 +170,7 @@ Blockly.JavaScript.forBlock['element_meta'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_h",
-        message0: "\b%1 级标题 内容 %2",
+        message0: "%1 级标题 内容 %2",
         args0: [
             {
                 type: "field_number",
