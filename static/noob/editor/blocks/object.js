@@ -88,13 +88,11 @@ Blockly.Extensions.registerMutator('dict_mutator', {
         }
     },
     rebuildShape_: function () {
-        console.log(this.keyConnections_)
         if (this.keyConnections_) {
-            this.keyConnections_ = [];
-        }
-        for (var i = 0; i < this.keyConnections_.length; i++) {
-            this.keyConnections_[i].disconnect();
-            this.valueConnections_[i].disconnect();
+            for (var i = 0; i < this.keyConnections_.length; i++) {
+                this.keyConnections_[i].disconnect();
+                this.valueConnections_[i].disconnect();
+            }
         }
         this.keyConnections_ = [];
         this.valueConnections_ = [];
