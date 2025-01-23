@@ -25,7 +25,12 @@ Blockly.JavaScript.forBlock['element_dict'] = function (block) {
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
-Blockly.Extensions.registerMutator('dict_mutator', {
+Blockly.Extensions.registerMutator('dict_mutator', function () {
+    this.keys_ = [];
+    this.values_ = [];
+    this.keyConnections_ = [];
+    this.valueConnections_ = [];
+}, {
     mutationToDom: function () {
         var container = document.createElement('mutation');
         var keys = this.keys_.map(function (key) { return key.value; }).join(',');
@@ -103,11 +108,6 @@ Blockly.Extensions.registerMutator('dict_mutator', {
             this.valueConnections_.push(input2.connection);
         }
     }
-}, {
-    keys_: [],
-    values_: [],
-    keyConnections_: [],
-    valueConnections_: []
 });
 
 Blockly.Blocks['dict_container'] = {
