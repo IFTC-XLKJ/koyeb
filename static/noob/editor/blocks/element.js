@@ -170,7 +170,7 @@ Blockly.JavaScript.forBlock['element_meta'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_h",
-        message0: "%1 级标题 内容 %2",
+        message0: "\b%1 级标题 内容 %2",
         args0: [
             {
                 type: "field_number",
