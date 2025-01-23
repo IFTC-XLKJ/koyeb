@@ -45,7 +45,7 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
-                    type: "object_dict",
+                    type: "element_dict",
                 }
             ]
         }
