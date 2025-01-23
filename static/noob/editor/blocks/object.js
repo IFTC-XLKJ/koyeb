@@ -14,7 +14,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.Blocks['dict_mutator'] = {
     init: function () {
         this.appendDummyInput()
-            .appendField("字典项");
+            .appendField("字典");
         this.appendStatementInput("STACK");
         this.setColour(290);
         this.setTooltip("添加或移除字典项");
@@ -102,7 +102,7 @@ Blockly.Extensions.registerMutator('dict_mutator', Blockly.Constants.Dictionary.
 Blockly.defineBlocksWithJsonArray([
     {
         type: "dict_item",
-        message0: "键 %1 值 %2",
+        message0: "键: %1 值: %2",
         args0: [
             {
                 type: "input_value",
@@ -116,7 +116,7 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
         nextStatement: null,
         colour: 290,
-        tooltip: "字典项",
+        tooltip: "字典键值对",
         helpUrl: "",
         inputsInline: true
     }
