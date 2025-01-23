@@ -70,6 +70,10 @@ app.get("/noob/editor", async (req, res) => {
     }
 })
 
+app.get("/noob/share/:workId", async (req, res) => {
+    const { workId } = req.params;
+})
+
 app.all("/BingSiteAuth.xml", (req, res) => {
     requestLog(req);
     res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
