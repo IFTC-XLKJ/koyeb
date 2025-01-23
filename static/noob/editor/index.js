@@ -121,13 +121,17 @@ function wait(ms) {
 }
 
 function BlocksToJS() {
-    let code = Blockly.JavaScript.workspaceToCode(workspace);
-    // 使用正则表达式提取 <!DOCTYPE 和 </html> 之间的内容
+    let code
+    try {
+        code = Blockly.JavaScript.workspaceToCode(workspace);
+    } catch (e) {
+        code = `<div style="color: red;">${e.message}</div>`;
+    }
     const match = code.match(/<!DOCTYPE.*?<\/html>/s);
     if (match && match[0]) {
         return match[0];
     } else {
-        return code; // 如果没有匹配到，返回原始代码
+        return code;
     }
 }
 
