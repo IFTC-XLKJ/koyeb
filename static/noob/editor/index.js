@@ -113,7 +113,10 @@ function wait(ms) {
 }
 
 function BlocksToJS() {
-    const code = Blockly.JavaScript.workspaceToCode(workspace);
+    let code = Blockly.JavaScript.workspaceToCode(workspace);
+    // 处理code，使得<!DOCTYPE html>的前面和</html>的后面没有内容
+    code = code.replace(/<!DOCTYPE html>\n/g, "<!DOCTYPE html>\n\n");
+    code = code.replace(/\n<\/html>\n/g, "\n\n<\/html>\n");
     return code;
 }
 
