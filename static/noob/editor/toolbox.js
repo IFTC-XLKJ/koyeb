@@ -36,6 +36,10 @@ const toolbox = {
                     kind: "block",
                     type: "element_h",
                 },
+                {
+                    kind: "block",
+                    type: "element_p",
+                },
             ]
         },
         {
@@ -46,7 +50,11 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "object_dict",
-                }
+                },
+                {
+                    kind: "block",
+                    type: "dict_get",
+                },
             ]
         }
     ]
