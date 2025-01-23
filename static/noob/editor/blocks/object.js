@@ -1,3 +1,30 @@
+// 字典
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_dict",
+        message0: "字典",
+        colour: 160,
+        tooltip: "创建一个字典（键值对）",
+        helpUrl: "",
+        output: "Dictionary",
+        inputsInline: false,
+        mutator: "dict_mutator"
+    }
+]);
+
+Blockly.JavaScript.forBlock['element_dict'] = function (block) {
+    var code = '{\n';
+    var keys = block.getFieldValue('KEYS').split(',');
+    var values = block.getFieldValue('VALUES').split(',');
+    for (var i = 0; i < keys.length; i++) {
+        if (keys[i] && values[i]) {
+            code += `    "${keys[i]}": "${values[i]}",\n`;
+        }
+    }
+    code = code.slice(0, -2) + '\n}'; // Remove the last comma and newline
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+};
+
 Blockly.Extensions.registerMutator('dict_mutator', {
     mutationToDom: function () {
         var container = document.createElement('mutation');
@@ -82,6 +109,7 @@ Blockly.Extensions.registerMutator('dict_mutator', {
     keyConnections_: [],
     valueConnections_: []
 });
+
 Blockly.Blocks['dict_container'] = {
     init: function () {
         this.appendDummyInput()
@@ -92,6 +120,7 @@ Blockly.Blocks['dict_container'] = {
         this.contextMenu = false;
     }
 };
+
 Blockly.Blocks['dict_item'] = {
     init: function () {
         this.appendDummyInput()
@@ -105,28 +134,4 @@ Blockly.Blocks['dict_item'] = {
         this.setTooltip('字典项');
         this.contextMenu = false;
     }
-};
-Blockly.defineBlocksWithJsonArray([
-    {
-        type: "object_dict",
-        message0: "字典",
-        colour: 160,
-        tooltip: "创建一个字典",
-        helpUrl: "",
-        output: "Dictionary",
-        inputsInline: false,
-        mutator: "dict_mutator"
-    }
-]);
-Blockly.JavaScript.forBlock['object_dict'] = function (block) {
-    var code = '{\n';
-    var keys = block.getFieldValue('KEYS').split(',');
-    var values = block.getFieldValue('VALUES').split(',');
-    for (var i = 0; i < keys.length; i++) {
-        if (keys[i] && values[i]) {
-            code += `    "${keys[i]}": "${values[i]}",\n`;
-        }
-    }
-    code = code.slice(0, -2) + '\n}'; // Remove the last comma and newline
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
