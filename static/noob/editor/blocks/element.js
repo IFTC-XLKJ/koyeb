@@ -88,7 +88,6 @@ Blockly.defineBlocksWithJsonArray([
                 text: "Document"
             }
         ],
-        output: "String",
         colour: 160,
         tooltip: "",
         helpUrl: "",
