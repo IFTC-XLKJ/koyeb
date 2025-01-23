@@ -8,7 +8,7 @@ const toolbox = {
             contents: [
                 {
                     kind: "label",
-                    text: "-- 头元素 --",
+                    text: "-- 头部元素 --",
                     "web-class": "labels"
                 },
                 {
@@ -27,6 +27,11 @@ const toolbox = {
                 //     kind: "block",
                 //     type: "element_body",
                 // },
+                {
+                    kind: "label",
+                    text: "-- 主体元素 --",
+                    "web-class": "labels"
+                },
             ]
         }
     ]
