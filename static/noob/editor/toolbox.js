@@ -48,6 +48,11 @@ const toolbox = {
                     kind: "block",
                     type: "element_span",
                 },
+                {
+                    kind: "label",
+                    text: "-- 快捷属性 --",
+                    "web-class": "labels"
+                },
             ]
         },
         {
