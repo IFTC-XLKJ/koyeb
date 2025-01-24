@@ -49,6 +49,10 @@ const toolbox = {
                     type: "element_span",
                 },
                 {
+                    kind: "block",
+                    type: "element_img",
+                },
+                {
                     kind: "label",
                     text: "-- 快捷属性 --",
                     "web-class": "labels"
