@@ -44,6 +44,10 @@ const toolbox = {
                     kind: "block",
                     type: "element_div",
                 },
+                {
+                    kind: "block",
+                    type: "element_span",
+                },
             ]
         },
         {
