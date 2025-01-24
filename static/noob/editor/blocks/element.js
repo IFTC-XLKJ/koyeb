@@ -360,9 +360,20 @@ Blockly.defineBlocksWithJsonArray([
                 name: "STYLE",
                 check: "Dictionary",
             }
-        ]
+        ],
+        colour: 160,
+        tooltip: "图片",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
     }
 ])
+Blockly.JavaScript.forBlock['element_img'] = function (block) {
+    var url = block.getFieldValue('URL');
+    var code = `<img src="${url}"${handleAttrAndStyle(block)}>`;
+    return code;
+};
 
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
