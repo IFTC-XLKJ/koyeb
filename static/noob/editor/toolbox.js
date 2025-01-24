@@ -78,7 +78,11 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "text",
-                }
+                },
+                {
+                    kind: "block",
+                    type: "text_join",
+                },
             ]
         },
         {
