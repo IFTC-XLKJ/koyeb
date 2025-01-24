@@ -31,7 +31,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "text_join",
-        message0: "",
+        message0: "%1 + %2",
         args0: [
             {
                 type: "input_value",
