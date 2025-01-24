@@ -495,10 +495,16 @@ class FieldMultilineText extends Blockly.FieldTextInput {
     }
 
     showEditor_() {
-        super.showEditor_();
-        var textarea = this.htmlInput_;
-        textarea.style.height = '200px';
-        textarea.style.resize = 'both';
+        this.editor_ = document.createElement('textarea');
+        this.editor_.className = 'blocklyHtmlInput';
+        this.editor_.style.height = '200px';
+        this.editor_.style.resize = 'both';
+        this.editor_.value = this.getValue();
+        this.editor_.spellcheck = false;
+
+        Blockly.WidgetDiv.DIV.appendChild(this.editor_);
+        this.editor_.focus();
+        this.editor_.select();
     }
 
     static fromJson(options) {
