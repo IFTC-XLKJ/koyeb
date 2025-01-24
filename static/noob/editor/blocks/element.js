@@ -202,9 +202,10 @@ Blockly.defineBlocksWithJsonArray([
         message0: "样式 %1",
         args0: [
             {
-                type: "field_multilinetext",
+                type: "field_input",
                 name: "STYLESHEET",
-                text: "body {\r\n    background-color: lightgrey;\r\n}"
+                text: "body {\r\n    background-color: lightgrey;\r\n}",
+                multiline: true
             }
         ],
         colour: 160,
