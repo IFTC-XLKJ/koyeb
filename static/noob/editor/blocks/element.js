@@ -196,6 +196,30 @@ Blockly.JavaScript.forBlock['element_link'] = function (block) {
     var code = `<link rel="${rel}" href="${url}">\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_style",
+        message0: "样式 %1",
+        args0: [
+            {
+                type: "field_multilinetext",
+                name: "STYLESHEET",
+                text: "body {\r\n    background-color: lightgrey;\r\n}"
+            }
+        ],
+        colour: 160,
+        tooltip: "style 标签",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_style'] = function (block) {
+    var stylesheet = block.getFieldValue('STYLESHEET');
+    var code = `<style>\n${stylesheet}</style>\n`;
+    return code;
+};
 // h1-h6 标签
 Blockly.defineBlocksWithJsonArray([
     {
