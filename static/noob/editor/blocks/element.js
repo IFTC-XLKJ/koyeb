@@ -488,20 +488,23 @@ function handleAttrAndStyle(block) {
     return attributes;
 }
 
-Blockly.FieldMultilineText = function (text) {
-    Blockly.FieldMultilineText.superClass_.constructor.call(this, text);
-};
-Object.assign(Blockly.FieldMultilineText.prototype, Blockly.FieldTextInput.prototype);
+// Define the custom field
+class FieldMultilineText extends Blockly.FieldTextInput {
+    constructor(text) {
+        super(text);
+    }
 
-Blockly.FieldMultilineText.prototype.showEditor_ = function () {
-    Blockly.FieldMultilineText.superClass_.showEditor_.call(this);
-    var textarea = this.htmlInput_;
-    textarea.style.height = '200px';
-    textarea.style.resize = 'both';
-};
+    showEditor_() {
+        super.showEditor_();
+        var textarea = this.htmlInput_;
+        textarea.style.height = '200px';
+        textarea.style.resize = 'both';
+    }
 
-Blockly.FieldMultilineText.fromJson = function (options) {
-    return new Blockly.FieldMultilineText(options.text);
-};
+    static fromJson(options) {
+        return new FieldMultilineText(options.text);
+    }
+}
 
-Blockly.fieldRegistry.register('field_multilinetext', Blockly.FieldMultilineText);
+// Register the custom field
+Blockly.fieldRegistry.register('field_multilinetext', FieldMultilineText);
