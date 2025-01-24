@@ -495,6 +495,7 @@ class FieldMultilineText extends Blockly.FieldTextInput {
     }
 
     showEditor_() {
+        Blockly.WidgetDiv.show(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
         this.editor_ = document.createElement('textarea');
         this.editor_.className = 'blocklyHtmlInput';
         this.editor_.style.height = '200px';
