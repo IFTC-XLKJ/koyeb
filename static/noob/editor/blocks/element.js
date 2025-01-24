@@ -505,11 +505,12 @@ class FieldMultilineText extends Blockly.FieldTextInput {
         if (!div) {
             throw new Error('WidgetDiv is not initialized.');
         }
+        console.log(this)
         this.editor_ = document.createElement('textarea');
         this.editor_.className = 'blocklyHtmlInput';
         this.editor_.style.height = '200px';
         this.editor_.style.resize = 'both';
-        this.editor_.parentElement.style.textAlign = 'left';
+        this.editor_.style.textAlign = 'left';
         this.editor_.value = this.getValue();
         this.editor_.spellcheck = false;
 
