@@ -123,7 +123,7 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript.forBlock['object_dict'] = function (block) {
-    var code = '({';
+    var code = '{';
     for (var i = 0; i < block.itemCount_; i++) {
         var key = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_KEY', Blockly.JavaScript.ORDER_ATOMIC);
         var value = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_VALUE', Blockly.JavaScript.ORDER_ATOMIC);
@@ -132,7 +132,7 @@ Blockly.JavaScript.forBlock['object_dict'] = function (block) {
             code += ', ';
         }
     }
-    code += '})';
+    code += '}';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
