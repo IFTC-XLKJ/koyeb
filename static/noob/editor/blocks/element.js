@@ -491,7 +491,7 @@ function handleAttrAndStyle(block) {
 Blockly.FieldMultilineText = function (text) {
     Blockly.FieldMultilineText.superClass_.constructor.call(this, text);
 };
-Blockly.utils.object.inherits(Blockly.FieldMultilineText, Blockly.FieldTextInput);
+Blockly.utils.object.mixin(Blockly.FieldMultilineText.prototype, Blockly.FieldTextInput.prototype);
 
 Blockly.FieldMultilineText.prototype.showEditor_ = function () {
     Blockly.FieldMultilineText.superClass_.showEditor_.call(this);
