@@ -509,6 +509,7 @@ class FieldMultilineText extends Blockly.FieldTextInput {
         this.editor_.className = 'blocklyHtmlInput';
         this.editor_.style.height = '200px';
         this.editor_.style.resize = 'both';
+        this.editor_.style.textAlign = 'left';
         this.editor_.value = this.getValue();
         this.editor_.spellcheck = false;
 
