@@ -44,6 +44,9 @@ Blockly.defineBlocksWithJsonArray([
         ],
         output: "String",
         colour: 20,
+        tooltip: "拼接文本",
+        helpUrl: "",
+        inputsInline: true
     }
 ]);
 Blockly.JavaScript.forBlock['text'] = function (block) {
