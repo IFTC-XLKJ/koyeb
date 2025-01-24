@@ -28,6 +28,10 @@ const toolbox = {
                     type: "element_link",
                 },
                 {
+                    kind: "block",
+                    type: "element_style",
+                },
+                {
                     kind: "label",
                     text: "-- 主体元素 --",
                     "web-class": "labels"
