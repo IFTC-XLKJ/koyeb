@@ -166,6 +166,30 @@ Blockly.JavaScript.forBlock['element_meta'] = function (block) {
     var code = `<meta name="${name}" content="${content}">\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_link",
+        message0: "链接 关系 %1 URL %2",
+        args0: [
+            {
+                type: "field_input",
+                name: "REL",
+                text: "canonical"
+            },
+            {
+                type: "field_input",
+                name: "URL",
+                text: "https://www.example.com"
+            }
+        ],
+        colour: 160,
+        tooltip: "link 标签",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
 // h1-h6 标签
 Blockly.defineBlocksWithJsonArray([
     {
