@@ -315,20 +315,19 @@ function handleAttrAndStyle(block) {
     let attributes = "";
     console.log(attribute);
     if (attribute) {
-        attribute = attribute.replace(/'(?=(?:[^"\\]|\\.)*"[^"\\]*(?:$|[^"]*"[^"\\]*"))/g, '"');
         try {
             attribute = JSON.parse(attribute);
             for (var key in attribute) {
                 attributes += ` ${key}="${attribute[key]}"`;
             }
         } catch (e) {
-            console.error("Error parsing attribute:", e);
+            const previewFrame = document.getElementById("previewFrame");
+            previewFrame.srcdoc = `<div style="color:red;">${e}</div>`
         }
     }
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
     console.log(style);
     if (style) {
-        style = style.replace(/'(?=(?:[^"\\]|\\.)*"[^"\\]*(?:$|[^"]*"[^"\\]*"))/g, '"');
         try {
             style = JSON.parse(style);
             let styles = "";
@@ -337,7 +336,8 @@ function handleAttrAndStyle(block) {
             }
             attributes += ` style="${styles}"`;
         } catch (e) {
-            console.error("Error parsing style:", e);
+            const previewFrame = document.getElementById("previewFrame");
+            previewFrame.srcdoc = `<div style="color:red;">${e}</div>`
         }
     }
     return attributes;
