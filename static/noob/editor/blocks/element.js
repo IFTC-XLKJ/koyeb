@@ -505,7 +505,6 @@ class FieldMultilineText extends Blockly.FieldTextInput {
         if (!div) {
             throw new Error('WidgetDiv is not initialized.');
         }
-        console.log(this)
         this.editor_ = document.createElement('textarea');
         this.editor_.className = 'blocklyHtmlInput';
         this.editor_.style.height = '200px';
@@ -520,11 +519,14 @@ class FieldMultilineText extends Blockly.FieldTextInput {
 
         // Position the editor correctly
         const xy = this.getAbsoluteXY_();
-        console.log(this)
         const scale = this.sourceBlock_.workspace.scale;
         div.style.left = (xy.x + window.scrollX) + 'px';
         div.style.top = (xy.y + window.scrollY) + 'px';
         div.style.transform = `scale(${scale})`;
+
+        // Adjust the position to be above the block
+        const editorHeight = this.editor_.offsetHeight;
+        div.style.top = (xy.y + window.scrollY - editorHeight) + 'px';
     }
 
     static fromJson(options) {
