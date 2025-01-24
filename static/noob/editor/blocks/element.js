@@ -374,6 +374,46 @@ Blockly.JavaScript.forBlock['element_img'] = function (block) {
     var code = `<img src="${url}"${handleAttrAndStyle(block)}>`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_a",
+        message0: "超链接 URL %1 内容 %2 属性 %3 样式 %4",
+        args0: [
+            {
+                type: "field_input",
+                name: "URL",
+                text: "https://iftc.koyeb.app/"
+            },
+            {
+                type: "field_input",
+                name: "CONTENT",
+                text: "超链接"
+            },
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "STYLE",
+                check: "Dictionary",
+            }
+        ],
+        colour: 160,
+        tooltip: "超链接",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_a'] = function (block) {
+    var url = block.getFieldValue('URL');
+    var content = block.getFieldValue('CONTENT');
+    var code = `<a href="${url}"${handleAttrAndStyle(block)}>${content}</a>\n`;
+    return code;
+};
 
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
