@@ -414,6 +414,22 @@ Blockly.JavaScript.forBlock['element_a'] = function (block) {
     var code = `<a href="${url}"${handleAttrAndStyle(block)}>${content}</a>\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_br",
+        message0: "换行",
+        colour: 160,
+        tooltip: "换行",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_br'] = function (block) {
+    var code = `<br>\n`;
+    return code;
+};
 
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
