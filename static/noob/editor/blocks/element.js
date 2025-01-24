@@ -190,6 +190,12 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true,
     }
 ])
+Blockly.JavaScript.forBlock['element_link'] = function (block) {
+    var rel = block.getFieldValue('REL');
+    var url = block.getFieldValue('URL');
+    var code = `<link rel="${rel}" href="${url}">\n`;
+    return code;
+};
 // h1-h6 标签
 Blockly.defineBlocksWithJsonArray([
     {
