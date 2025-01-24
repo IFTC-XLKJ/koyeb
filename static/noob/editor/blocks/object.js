@@ -123,7 +123,7 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript.forBlock['object_dict'] = function (block) {
-    var code = '{';
+    var code = '({';
     for (var i = 0; i < block.itemCount_; i++) {
         var key = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_KEY', Blockly.JavaScript.ORDER_ATOMIC);
         var value = Blockly.JavaScript.valueToCode(block, 'ADD' + i + '_VALUE', Blockly.JavaScript.ORDER_ATOMIC);
@@ -132,7 +132,7 @@ Blockly.JavaScript.forBlock['object_dict'] = function (block) {
             code += ', ';
         }
     }
-    code += '}';
+    code += '})';
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
@@ -200,3 +200,21 @@ Blockly.JavaScript.forBlock['dict_set'] = function (block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     return dict + '[' + key + '] = ' + value + ';\n';
 }
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "dict_del",
+        message0: "字典 %1 删除 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "DICT",
+                check: "Dictionary"
+            },
+            {
+                type: "input_value",
+                name: "KEY"
+            }
+        ],
+        previousStatement: null,
+    }
+])
