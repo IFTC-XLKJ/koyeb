@@ -52,6 +52,14 @@ const toolbox = {
                     kind: "block",
                     type: "element_img",
                 },
+                {
+                    kind: "block",
+                    type: "element_a",
+                },
+                {
+                    kind: "block",
+                    type: "element_br",
+                },
             ]
         },
         {
