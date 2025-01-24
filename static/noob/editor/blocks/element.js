@@ -348,7 +348,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_input",
                 name: "URL",
-                text: "https://iftc.koyeb.app/favicon.ico"
+                text: "https://iftc.koyeb.app/static/favicon.jpg"
             },
             {
                 type: "input_value",
