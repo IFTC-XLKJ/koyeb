@@ -496,7 +496,7 @@ class FieldMultilineText extends Blockly.FieldTextInput {
 
     showEditor_() {
         // Ensure WidgetDiv is initialized
-        if (!Blockly.WidgetDiv.DIV) {
+        if (!Blockly.WidgetDiv.getDiv()) {
             Blockly.WidgetDiv.createDom();
         }
 
@@ -515,6 +515,13 @@ class FieldMultilineText extends Blockly.FieldTextInput {
         div.appendChild(this.editor_);
         this.editor_.focus();
         this.editor_.select();
+
+        // Position the editor correctly
+        const xy = this.getAbsoluteXY_();
+        const scale = this.workspace_.scale;
+        div.style.left = (xy.x + window.scrollX) + 'px';
+        div.style.top = (xy.y + window.scrollY) + 'px';
+        div.style.transform = `scale(${scale})`;
     }
 
     static fromJson(options) {
