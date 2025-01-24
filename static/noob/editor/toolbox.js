@@ -23,10 +23,10 @@ const toolbox = {
                     kind: "block",
                     type: "element_meta",
                 },
-                // {
-                //     kind: "block",
-                //     type: "element_body",
-                // },
+                {
+                    kind: "block",
+                    type: "element_link",
+                },
                 {
                     kind: "label",
                     text: "-- 主体元素 --",
