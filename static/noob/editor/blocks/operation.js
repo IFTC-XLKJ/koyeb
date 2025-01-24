@@ -29,6 +29,24 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "文本",
         helpUrl: ""
     },
+    {
+        type: "text_join",
+        message0: "",
+        args0: [
+            {
+                type: "input_value",
+                name: "ADD0",
+                check: "String"
+            },
+            {
+                type: "input_value",
+                name: "ADD1",
+                check: "String"
+            }
+        ],
+        output: "String",
+        colour: 20,
+    }
 ]);
 Blockly.JavaScript.forBlock['text'] = function (block) {
     var text = block.getFieldValue('TEXT');
