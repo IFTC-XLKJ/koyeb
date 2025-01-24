@@ -319,6 +319,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "ATTRIBUTE",
+                check: "Dictionary",
             },
             {
                 type: "input_value",
@@ -339,6 +340,29 @@ Blockly.JavaScript.forBlock['element_span'] = function (block) {
     var code = `<span${handleAttrAndStyle(block)}>${content}</span>\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_img",
+        message0: "图片 URL %1 属性 %2 样式 %3",
+        args0: [
+            {
+                type: "field_input",
+                name: "URL",
+                text: "https://iftc.koyeb.app/favicon.ico"
+            },
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "STYLE",
+                check: "Dictionary",
+            }
+        ]
+    }
+])
 
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
