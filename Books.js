@@ -181,6 +181,50 @@ class Books {
             throw error;
         }
     }
+    async updateChapter(type, id, data) {
+        let filter = `书ID="${id}"`;
+        let fields = ``;
+        if (type == "name") {
+            fields = `章节名="${data}"`;
+        } else if (type == "content") {
+            fields = `章节内容="${data}"`;
+        } else {
+            return {
+                code: 400,
+                msg: "type参数值错误"
+            }
+        }
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVChaptersKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    type: "UPDATE",
+                    fields: fields,
+                    filter: filter,
+                    page: 1,
+                    limit: 1,
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    } 
 }
 
 function generateBookID() {
