@@ -36,12 +36,10 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "ADD0",
-                check: "String"
             },
             {
                 type: "input_value",
                 name: "ADD1",
-                check: "String"
             }
         ],
         output: "String",
