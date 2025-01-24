@@ -174,12 +174,12 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_input",
                 name: "REL",
-                text: "canonical"
+                text: "icon"
             },
             {
                 type: "field_input",
                 name: "URL",
-                text: "https://www.example.com"
+                text: "https://iftc.koyeb.app/favicon.ico"
             }
         ],
         colour: 160,
