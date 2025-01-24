@@ -499,4 +499,9 @@ Blockly.FieldMultilineText.prototype.showEditor_ = function () {
     textarea.style.height = '200px';
     textarea.style.resize = 'both';
 };
+
+Blockly.FieldMultilineText.fromJson = function (options) {
+    return new Blockly.FieldMultilineText(options.text);
+};
+
 Blockly.fieldRegistry.register('field_multilinetext', Blockly.FieldMultilineText);
