@@ -32,5 +32,5 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 Blockly.JavaScript.forBlock['text'] = function (block) {
     var text = block.getFieldValue('TEXT');
-    return ['"' + text + '"', Blockly.JavaScript.ORDER_ATOMIC];
+    return ['("' + text + '")', Blockly.JavaScript.ORDER_ATOMIC];
 }
