@@ -495,14 +495,13 @@ class FieldMultilineText extends Blockly.FieldTextInput {
     }
 
     showEditor_() {
-        console.log(Blockly.WidgetDiv.DIV)
         // Ensure WidgetDiv is initialized
         if (!Blockly.WidgetDiv.DIV) {
             Blockly.WidgetDiv.createDom();
         }
 
         Blockly.WidgetDiv.show(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
-        const div = Blockly.WidgetDiv.DIV;
+        const div = Blockly.WidgetDiv.getDiv();
         if (!div) {
             throw new Error('WidgetDiv is not initialized.');
         }
