@@ -202,10 +202,9 @@ Blockly.defineBlocksWithJsonArray([
         message0: "样式 %1",
         args0: [
             {
-                type: "field_input",
+                type: "field_multilinetext",
                 name: "STYLESHEET",
                 text: "body {\r\n    background-color: lightgrey;\r\n}",
-                multiline: true
             }
         ],
         colour: 160,
@@ -488,3 +487,16 @@ function handleAttrAndStyle(block) {
     }
     return attributes;
 }
+
+Blockly.FieldMultilineText = function (text) {
+    Blockly.FieldMultilineText.superClass_.constructor.call(this, text);
+};
+Blockly.utils.object.inherits(Blockly.FieldMultilineText, Blockly.FieldTextInput);
+
+Blockly.FieldMultilineText.prototype.showEditor_ = function () {
+    Blockly.FieldMultilineText.superClass_.showEditor_.call(this);
+    var textarea = this.htmlInput_;
+    textarea.style.height = '200px';
+    textarea.style.resize = 'both';
+};
+Blockly.fieldRegistry.register('field_multilinetext', Blockly.FieldMultilineText);
