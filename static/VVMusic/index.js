@@ -10,6 +10,7 @@ const toast = new Toast();
 const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
+const musicList = document.getElementById('music');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         const keyword = searchInput.value;
@@ -94,8 +95,21 @@ addEventListener('load', function () {
 
 function renderMusicList(musics) {
     console.log('搜索成功', musics);
+    musicList.innerHTML = '';
     musics.forEach(music => {
         const { id, name, artist, pic } = music;
+        const author = artist.map(item => item.name).join(' ');
+        musicList.innerHTML += `
+        <div class="music-item" data-id="${id}" data-name='${name}' data-pagesize='${pageSize}' data-page='${pageNum}' data-author='${author}'>
+            <div class="music-item-img">
+                <img src="${pic}" alt="${name}" title="${name} - ${author}">
+            </div>
+            <div class="music-item-info">
+                <div class="music-item-name">${name}</div>
+                <div class="music-item-author">${author}</div>
+            </div>
+        </div>
+        `;
     });
 }
 
