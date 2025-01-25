@@ -8,17 +8,27 @@ var isPlay = false;
 const toast = new Toast();
 
 const searchInput = document.querySelector('#s input');
+const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
 searchInput.addEventListener('keydown', function (e) {
     if (e.key == 'Enter') {
         const keyword = searchInput.value;
-        if (keyword == '') {
+        if (!keyword) {
             const id = toast.warn('搜索内容不能为空', 2000)
             console.log(id)
             return;
         }
         getMusicList(keyword);
     }
+});
+searchBtn.addEventListener('click', function () {
+    const keyword = searchInput.value;
+    if (!keyword) {
+        const id = toast.warn('搜索内容不能为空', 2000)
+        console.log(id)
+        return;
+    }
+    getMusicList(keyword);
 });
 
 clear.addEventListener('click', function () {
