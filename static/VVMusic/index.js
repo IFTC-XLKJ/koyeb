@@ -234,6 +234,57 @@ audio.addEventListener('pause', () => {
     playerPlay.innerHTML = playIcon;
 });
 
+function updatetime() {
+    var time = document.getElementById('player-progress-time');
+    var lrc = document.getElementById('music-lrc');
+    audio.ontimeupdate = function () {
+        if (!isPlay) {
+            return;
+        }
+        var currentTime = Math.ceil(audio.currentTime);
+        for (var i = 0; i < lrcstimes.length; i++) {
+            if (last < current) {
+                if (lrcstimes[i + 1] <= currentTime + (lrcstimes[i + 1] - lrcstimes[i])) {
+                    last = lrcstimes[i];
+                    lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
+                }
+                if (currentTime >= lrcstimes[lrcstimes.length - 1]) {
+                    last = lrcstimes[i];
+                    lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
+                }
+            } else {
+                if (lrcstimes[i + 1] <= currentTime + (lrcstimes[i + 1] - lrcstimes[i])) {
+                    current = lrcstimes[i];
+                }
+                if (currentTime >= lrcstimes[lrcstimes.length - 1]) {
+                    current = lrcstimes[i];
+                }
+            }
+        }
+        time.innerHTML = formatSecondsToTime(currentTime);
+        progress.value = currentTime;
+    };
+    audio.addEventListener("end", function () {
+        isPlay = false;
+        lrc.innerHTML = '';
+        last = 0;
+        current = 0;
+        audio.play();
+    });
+}
+
+function formatSecondsToTime(seconds) {
+    var minutes = Math.floor(seconds / 60);
+    var remainingSeconds = seconds % 60;
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if (remainingSeconds < 10) {
+        remainingSeconds = "0" + remainingSeconds;
+    }
+    return minutes + ":" + remainingSeconds;
+}
+
 function subsequenceFromStartLast(sequence, at1) {
     const start = at1;
     const end = sequence.length - 1 + 1;
