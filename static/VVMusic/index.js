@@ -13,7 +13,7 @@ searchInput.addEventListener('keydown', function (e) {
     if (e.key == 'Enter') {
         var search = searchInput.value;
         if (search == '') {
-            toast.warn('搜索内容不能为空', 2000, document.body)
+            const id = toast.warn('搜索内容不能为空', 2000)
             return;
         }
     }
