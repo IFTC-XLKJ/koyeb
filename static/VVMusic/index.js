@@ -334,7 +334,7 @@ function updatetime() {
             if (currentTime <= lrcstimes[i] * (10 ** 6)) {
                 if (current != i) {
                     console.log(lrclist[i])
-                    lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
+                    lrc.innerHTML = `<p class="poplrc">${lrclist[i - 1]}</p>`;
                     current = i;
                 }
                 break;
