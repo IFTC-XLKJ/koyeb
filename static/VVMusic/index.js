@@ -1,5 +1,5 @@
+relayout();
 addEventListener('load', function () {
-    relayout();
 });
 
 addEventListener('resize', function () {
