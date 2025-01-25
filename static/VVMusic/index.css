@@ -4,13 +4,13 @@
 
 @font-face {
     font-family: "MoMoZhanJiShouXueTi";
-    src: url("/fonts/MoMoZhanJiShouXueTi.ttf");
+    src: url("https://static.codemao.cn/IFTC/Fonts/BJHZcyz_1g.ttf");
     font-weight: normal;
 }
 
 @font-face {
     font-family: "ErZiYuanXinYouShouHuiBJian";
-    src: url("/fonts/ErZiYuanXinYouShouHuiBJian.ttf");
+    src: url("https://static.codemao.cn/IFTC/Fonts/Bk0zqkzd1e.ttf");
 }
 
 body {
