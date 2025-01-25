@@ -251,7 +251,7 @@ function totaltime() {
     audio.onloadedmetadata = function () {
         var duration = audio.duration * (10 ** 6);
         lrc.innerHTML = '';
-        totaltime.innerHTML = formatSecondsToTime((duration) / (10 ** 6));
+        totaltime.innerHTML = formatSecondsToTime(Math.ceil((duration) / (10 ** 6)));
         progress.max = duration;
     };
 }
@@ -295,7 +295,7 @@ function updatetime(lrcstimes, lrclist) {
                 }
             }
         }
-        time.innerHTML = formatSecondsToTime((currentTime) / (10 ** 6));
+        time.innerHTML = formatSecondsToTime(Math.ceil((currentTime) / (10 ** 6)));
         progress.value = currentTime;
     };
     audio.addEventListener("end", function () {
