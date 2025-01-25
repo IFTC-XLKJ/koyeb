@@ -15,6 +15,8 @@ const clear = document.getElementById('clear');
 const musicList = document.getElementById('music');
 const page = document.getElementById('page');
 const playerCover = document.querySelector('#player-cover img');
+const playerName = document.querySelector('#player-name');
+const playerAuthor = document.querySelector('#player-author');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
@@ -178,7 +180,7 @@ function renderMusicList(musics) {
             const id = musicItem.getAttribute('data-id');
             const music = await getMusic(id);
             if (music) {
-                const { url, lyric, pic } = music.song_data;
+                const { url, lyric, pic, name, artist } = music.song_data;
                 if (url) {
                     const response = await fetch(url);
                     if (response.ok) {
@@ -190,6 +192,8 @@ function renderMusicList(musics) {
                                 toast.success('加载成功', 2000)
                                 audio.src = url;
                                 playerCover.src = pic;
+                                playerName.innerHTML = name;
+                                playerAuthor.innerHTML = artist;
                                 lrcfile = lyric;
                                 let lrcstimes = [];
                                 let lrclist = [];
