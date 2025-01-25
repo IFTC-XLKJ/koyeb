@@ -22,7 +22,7 @@ function relayout() {
 }
 
 addEventListener('load', function () {
-    var fps = docuemnt.getElementById("fps");
+    var fps = document.getElementById("fps");
     var fpsCounter = {
         startTime: 0,
         frameCount: 0,
