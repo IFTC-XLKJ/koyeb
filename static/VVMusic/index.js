@@ -250,7 +250,7 @@ function totaltime() {
     const lrc = document.getElementById('music-lrc');
     audio.onloadedmetadata = function () {
         console.log(audio.duration);
-        var duration = Math.ceil(audio.duration);
+        var duration = audio.duration * (10**6);
         lrc.innerHTML = '';
         totaltime.innerHTML = formatSecondsToTime(duration);
         progress.max = duration;
@@ -276,7 +276,7 @@ function updatetime(lrcstimes, lrclist) {
         if (!isPlay) {
             return;
         }
-        var currentTime = Math.ceil(audio.currentTime);
+        const currentTime = audio.currentTime * (10**6);
         for (var i = 0; i < lrcstimes.length; i++) {
             if (last < current) {
                 if (lrcstimes[i + 1] <= currentTime + (lrcstimes[i + 1] - lrcstimes[i])) {
