@@ -107,6 +107,9 @@ addEventListener('load', function () {
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
 
+let lrcstimes = [];
+let lrclist = [];
+
 function renderMusicList(musics) {
     console.log('搜索成功', musics);
     musicList.innerHTML = '';
@@ -203,12 +206,8 @@ function renderMusicList(musics) {
                                     favicon.rel = 'shortcut icon';
                                     favicon.href = pic;
                                     lrcfile = lyric;
-                                    let lrcstimes = [
-                                        0
-                                    ];
-                                    let lrclist = [
-                                        name + ' - ' + artist
-                                    ];
+                                    lrcstimes = [0];
+                                    lrclist = [name + ' - ' + artist];
                                     lyric.split(/\n/).forEach((item, index) => {
                                         console.log(item);
                                         if (item.match(/^\[.+\]/)) {
@@ -218,7 +217,7 @@ function renderMusicList(musics) {
                                     })
                                     totaltime();
                                     audio.play()
-                                    updatetime(lrcstimes, lrclist);
+                                    updatetime();
                                     console.log(lrcstimes, lrclist);
                                 } else {
                                     toast.loadend(id)
@@ -268,7 +267,7 @@ audio.addEventListener('pause', () => {
 
 var last = 0;
 var current = 0;
-function updatetime(lrcstimes, lrclist) {
+function updatetime() {
     const time = document.getElementById('player-progress-time');
     const lrc = document.getElementById('music-lrc');
     audio.ontimeupdate = function () {
