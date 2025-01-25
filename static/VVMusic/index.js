@@ -298,13 +298,13 @@ function updatetime(lrcstimes, lrclist) {
         time.innerHTML = formatSecondsToTime(Math.ceil((currentTime) / (10 ** 6)));
         progress.value = currentTime;
     };
-    audio.addEventListener("end", function () {
+    audio.onend = function () {
         isPlay = false;
         lrc.innerHTML = '';
         last = 0;
         current = 0;
         audio.play();
-    });
+    };
 }
 
 playerPlay.addEventListener('click', () => {
