@@ -227,11 +227,11 @@ function renderMusicList(musics) {
 }
 
 audio.addEventListener('play', () => {
-    playerPlay.innerHTML = playIcon;
+    playerPlay.innerHTML = pauseIcon;
 });
 
 audio.addEventListener('pause', () => {
-    playerPlay.innerHTML = pauseIcon;
+    playerPlay.innerHTML = playIcon;
 });
 
 function subsequenceFromStartLast(sequence, at1) {
