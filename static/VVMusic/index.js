@@ -206,6 +206,7 @@ function renderMusicList(musics) {
                                     }
                                 })
                                 audio.play()
+                                updatetime(lrcstimes, lrclist);
                                 console.log(lrcstimes, lrclist);
                             } else {
                                 toast.loadend(id)
@@ -227,14 +228,16 @@ function renderMusicList(musics) {
 }
 
 audio.addEventListener('play', () => {
+    isPlay = true;
     playerPlay.innerHTML = pauseIcon;
 });
 
 audio.addEventListener('pause', () => {
+    isPlay = false;
     playerPlay.innerHTML = playIcon;
 });
 
-function updatetime() {
+function updatetime(lrcstimes, lrclist) {
     const time = document.getElementById('player-progress-time');
     const lrc = document.getElementById('music-lrc');
     audio.ontimeupdate = function () {
