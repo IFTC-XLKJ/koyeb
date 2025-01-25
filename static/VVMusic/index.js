@@ -293,7 +293,8 @@ addEventListener("contextmenu", e => {
     }
 })
 
-addEventListener("scroll", () => {
+const app = document.getElementById('app');
+app.addEventListener("scroll", () => {
     const oldMenuMain = document.querySelector('.menu-main');
     if (oldMenuMain) {
         oldMenuMain.remove();
