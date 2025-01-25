@@ -183,43 +183,49 @@ function renderMusicList(musics) {
             if (music) {
                 const { url, lyric, pic, name, artist } = music.song_data;
                 if (url) {
-                    const response = await fetch(url);
-                    if (response.ok) {
-                        const blob = await response.blob();
-                        if (blob) {
-                            const url = URL.createObjectURL(blob);
-                            if (url) {
-                                toast.loadend(id)
-                                toast.success('加载成功', 2000)
-                                audio.src = url;
-                                playerCover.src = pic;
-                                playerName.innerHTML = name;
-                                playerAuthor.innerHTML = artist;
-                                lrcfile = lyric;
-                                let lrcstimes = [];
-                                let lrclist = [];
-                                lyric.split(/\n/).forEach((item, index) => {
-                                    console.log(item);
-                                    if (item.match(/^\[.+\]/)) {
-                                        lrcstimes.push(lrcTimeToNum(item.match(/^\[(.+)\]/)[1]));
-                                        lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
-                                    }
-                                })
-                                audio.play()
-                                updatetime(lrcstimes, lrclist);
-                                console.log(lrcstimes, lrclist);
+                    try {
+                        const response = await fetch(url);
+                        if (response.ok) {
+                            const blob = await response.blob();
+                            if (blob) {
+                                const url = URL.createObjectURL(blob);
+                                if (url) {
+                                    toast.loadend(id)
+                                    toast.success('加载成功', 2000)
+                                    audio.src = url;
+                                    playerCover.src = pic;
+                                    playerName.innerHTML = name;
+                                    playerAuthor.innerHTML = artist;
+                                    lrcfile = lyric;
+                                    let lrcstimes = [];
+                                    let lrclist = [];
+                                    lyric.split(/\n/).forEach((item, index) => {
+                                        console.log(item);
+                                        if (item.match(/^\[.+\]/)) {
+                                            lrcstimes.push(lrcTimeToNum(item.match(/^\[(.+)\]/)[1]));
+                                            lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
+                                        }
+                                    })
+                                    audio.play()
+                                    updatetime(lrcstimes, lrclist);
+                                    console.log(lrcstimes, lrclist);
+                                } else {
+                                    toast.loadend(id)
+                                    toast.error('加载失败', 2000)
+                                }
                             } else {
                                 toast.loadend(id)
                                 toast.error('加载失败', 2000)
                             }
                         } else {
+                            console.error('网络请求失败', response.statusText);
                             toast.loadend(id)
-                            toast.error('加载失败', 2000)
+                            toast.error('网络请求失败：' + response.statusText, 2000)
                         }
-                    } else {
-                        console.error('网络请求失败', response.statusText);
+                    } catch (error) {
+                        console.error('网络请求失败', error);
                         toast.loadend(id)
-                        toast.error('网络请求失败：' + response.statusText, 2000)
+                        toast.error('网络请求失败：' + error, 2000)
                     }
                 }
             }
