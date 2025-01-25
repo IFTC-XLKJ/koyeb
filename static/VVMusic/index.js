@@ -6,6 +6,13 @@ var pauseIcon = '<svg t="1718518409100" class="icon" viewBox="0 0 1024 1024" ver
 var audio = new Audio();
 var isPlay = false;
 
+const searchInput = document.querySelector('#s input');
+const clear = document.getElementById('clear');
+clear.addEventListener('click', function () {
+    searchInput.value = '';
+    searchInput.focus();
+});
+
 addEventListener('load', function () {
 });
 
