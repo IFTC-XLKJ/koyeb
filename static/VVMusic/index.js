@@ -15,6 +15,7 @@ addEventListener('resize', function () {
 
 addEventListener('keydown', function (e) {
     const key = e.key;
+    console.log(key)
     if (key == " ") {
     }
 })
