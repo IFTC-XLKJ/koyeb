@@ -304,6 +304,7 @@ dialog {
     animation-name: popIn;
     animation-duration: 0.5s;
     animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
 }
 
 #share {
