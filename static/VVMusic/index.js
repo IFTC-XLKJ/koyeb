@@ -19,6 +19,7 @@ searchInput.addEventListener('keydown', async function (e) {
             return;
         }
         const musics = await getMusicList(keyword);
+        renderMusicList(musics);
     }
 });
 searchBtn.addEventListener('click', async function () {
@@ -29,6 +30,7 @@ searchBtn.addEventListener('click', async function () {
         return;
     }
     const musics = await getMusicList(keyword);
+    renderMusicList(musics);
 });
 
 clear.addEventListener('click', function () {
@@ -90,12 +92,21 @@ addEventListener('load', function () {
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
 
+function renderMusicList(musics) {
+    console.log('搜索成功', musics);
+}
+
 async function getMusicList(keyword) {
     const response = await fetch(searchURL(keyword));
     if (response.ok) {
         const data = await response.json();
         if (data.status) {
-            console.log('搜索成功', data.song_data);
+            if (data.song_data.length == 0) {
+                toast.warn('没有搜索到结果', 2000)
+                return;
+            } else {
+                return data.song_data;
+            }
         } else {
             console.error('遇到未知的错误');
             toast.error('遇到未知的错误', 2000)
