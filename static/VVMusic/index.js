@@ -5,9 +5,20 @@ var playIcon = '<svg t="1718518330674" class="icon" viewBox="0 0 1024 1024" vers
 var pauseIcon = '<svg t="1718518409100" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5269" width="30" height="30"><path d="M128 106.858667C128 94.976 137.621333 85.333333 149.12 85.333333h85.76c11.648 0 21.12 9.6 21.12 21.525334V917.12c0 11.882667-9.621333 21.525333-21.12 21.525333H149.12A21.290667 21.290667 0 0 1 128 917.141333V106.88z m640 0c0-11.882667 9.621333-21.525333 21.12-21.525334h85.76c11.648 0 21.12 9.6 21.12 21.525334V917.12c0 11.882667-9.621333 21.525333-21.12 21.525333h-85.76a21.290667 21.290667 0 0 1-21.12-21.525333V106.88z" fill="#3D3D3D" p-id="5270"></path></svg>';
 var audio = new Audio();
 var isPlay = false;
+const toast = new Toast();
 
 const searchInput = document.querySelector('#s input');
 const clear = document.getElementById('clear');
+searchInput.addEventListener('keydown', function () {
+    if (e.key == 'Enter') {
+        var search = searchInput.value;
+        if (search == '') {
+            toast.warn('搜索内容不能为空', 2000, document.body)
+            return;
+        }
+    }
+});
+
 clear.addEventListener('click', function () {
     searchInput.value = '';
     searchInput.focus();
