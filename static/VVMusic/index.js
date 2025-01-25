@@ -315,19 +315,15 @@ playerPlay.addEventListener('click', () => {
 });
 
 
-playerProgress.addEventListener('change', (e) => {
-    audio.currentTime = e.target.value;
+playerProgress.addEventListener('change', e => {
+    audio.currentTime = playerProgress.value / 10 ** 6;
     last = 0;
     current = 0;
     audio.play();
 })
-playerProgress.addEventListener('input', (e) => {
+playerProgress.addEventListener('input', e => {
     audio.pause();
 })
-
-audio.addEventListener('timeupdate', e => {
-
-});
 
 function formatSecondsToTime(seconds) {
     var minutes = Math.floor(seconds / 60);
