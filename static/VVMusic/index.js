@@ -315,8 +315,15 @@ playerPlay.addEventListener('click', () => {
     }
 });
 
-playerPlay.addEventListener('change', e => {
-    audio.currentTime = playerPlay.value;
+
+playerProgress.addEventListener('change', (e) => {
+    audio.currentTime = e.target.value;
+    last = 0;
+    current = 0;
+    audio.play();
+})
+playerProgress.addEventListener('input', (e) => {
+    audio.pause();
 })
 
 audio.addEventListener('timeupdate', e => {
