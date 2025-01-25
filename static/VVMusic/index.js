@@ -94,7 +94,9 @@ async function getMusicList(keyword) {
     const response = await fetch(searchURL(keyword));
     if (response.ok) {
         const data = await response.json();
-        if (data.status) { } else {
+        if (data.status) {
+            console.log('搜索成功', data.song_data);
+        } else {
             console.error('遇到未知的错误');
             toast.error('遇到未知的错误', 2000)
             return;
