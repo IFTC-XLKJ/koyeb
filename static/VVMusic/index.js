@@ -20,3 +20,28 @@ function relayout() {
     lrc.style.height = 30 + 'px';
     console.log(winwidth, winheight)
 }
+
+addEventListener('load', function () {
+    var fps = docuemnt.getElementById("fps");
+    var fpsCounter = {
+        startTime: 0,
+        frameCount: 0,
+        fps: 0,
+        update: function (timestamp) {
+            if (this.startTime === 0) {
+                this.startTime = timestamp;
+            } else {
+                var elapsedTime = timestamp - this.startTime;
+                if (elapsedTime >= 1000) {
+                    this.fps = this.frameCount;
+                    this.frameCount = 0;
+                    this.startTime = timestamp;
+                }
+            }
+            fps.innerHTML = `FPS:${this.fps}`;
+            this.frameCount++;
+            requestAnimationFrame(this.update.bind(this));
+        }
+    };
+    requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
+});
