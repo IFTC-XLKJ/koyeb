@@ -301,6 +301,12 @@ app.addEventListener("scroll", () => {
         oldMenuMain.remove();
     }
 })
+app.addEventListener("click", () => {
+    const oldMenuMain = document.querySelector('.menu-main');
+    if (oldMenuMain) {
+        oldMenuMain.remove();
+    }
+})
 
 function totaltime() {
     const totaltime = document.getElementById('player-progress-time-total');
