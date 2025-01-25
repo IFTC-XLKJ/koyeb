@@ -200,6 +200,7 @@ function renderMusicList(musics) {
                                         lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
                                     }
                                 })
+                                audio.play()
                                 console.log(lrcstimes, lrclist);
                             } else {
                                 toast.loadend(id)
@@ -236,7 +237,7 @@ async function getMusicList(keyword) {
                 return data.song_data;
             }
         } else {
-            console.error('遇到未知的错误');
+            console.error('遇到未知的错误', data.msg);
             toast.loadend(id)
             toast.error('遇到未知的错误', 2000)
             return;
@@ -259,7 +260,7 @@ async function getMusic(id) {
             toast.success('获取资源成功', 2000)
             return data;
         } else {
-            console.error('遇到未知的错误');
+            console.error('遇到未知的错误', data.msg);
             toast.loadend(id1)
             toast.error('遇到未知的错误', 2000)
             return;
