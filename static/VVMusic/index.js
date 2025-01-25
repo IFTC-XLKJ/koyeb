@@ -245,6 +245,11 @@ function renderMusicList(musics) {
 
 addEventListener("contextmenu", e => {
     const target = e.target;
+    const oldMenuMain = document.querySelector('.menu-main');
+    if (oldMenuMain) {
+        oldMenuMain.remove();
+    }
+    console.log(target)
     if (target.classList.contains('music-item')) {
         e.preventDefault();
         const id = target.getAttribute('data-id');
