@@ -202,8 +202,12 @@ function renderMusicList(musics) {
                                     favicon.rel = 'shortcut icon';
                                     favicon.href = pic;
                                     lrcfile = lyric;
-                                    let lrcstimes = [];
-                                    let lrclist = [];
+                                    let lrcstimes = [
+                                        0
+                                    ];
+                                    let lrclist = [
+                                        name + ' - ' + artist
+                                    ];
                                     lyric.split(/\n/).forEach((item, index) => {
                                         console.log(item);
                                         if (item.match(/^\[.+\]/)) {
