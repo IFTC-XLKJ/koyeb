@@ -221,6 +221,12 @@ function renderMusicList(musics) {
     });
 }
 
+
+function lrcTimeToNum(time) {
+    const times = time.split(':');
+    return parseInt(times[0]) * 60 + parseFloat(times[1]);
+}
+
 async function getMusicList(keyword) {
     const id = toast.loading('搜索中...');
     const response = await fetch(searchURL(keyword));
