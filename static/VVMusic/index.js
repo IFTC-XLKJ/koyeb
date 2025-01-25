@@ -189,13 +189,14 @@ function renderMusicList(musics) {
                 const { url, lyric, pic, name, artist } = music.song_data;
                 if (url) {
                     try {
+                        const id1 = toast.load('加载中...')
                         const response = await fetch(url);
                         if (response.ok) {
                             const blob = await response.blob();
                             if (blob) {
                                 const url = URL.createObjectURL(blob);
                                 if (url) {
-                                    toast.loadend(id)
+                                    toast.loadend(id1)
                                     toast.success('加载成功', 2000)
                                     audio.src = url;
                                     playerCover.src = pic;
