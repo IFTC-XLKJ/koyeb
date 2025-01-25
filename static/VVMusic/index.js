@@ -11,6 +11,7 @@ const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
 const musicList = document.getElementById('music');
+const page = docuemnt.getElementById('page');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         const keyword = searchInput.value;
@@ -111,6 +112,11 @@ function renderMusicList(musics) {
         </div>
         `;
     });
+    page.innerHTML = `
+    <button class='page left' id='previous'>上一页</button>
+    <input type='number' min='1' id='page-input' value='${pageNum}'>
+    <button class='page right' id='next'>下一页</button>
+    `;
 }
 
 async function getMusicList(keyword) {
