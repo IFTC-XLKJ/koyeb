@@ -268,9 +268,27 @@ addEventListener("contextmenu", e => {
         menuMain.style.top = e.clientY + 'px';
         menuMain.style.left = e.clientX + 'px';
         menuMain.innerHTML = `
-        <div class="menu-item" data-id="${target.getAttribute('data-id')}">复制链接</div>
+        <div class="menu-item" data-id="${target.getAttribute('data-id')}" data-type="copy-url">复制链接</div>
         `;
         document.body.appendChild(menuMain);
+        const menuItems = document.querySelectorAll('.menu-item');
+        menuItems.forEach(menuItem => {
+            menuItem.addEventListener('click', async (e) => {
+                if (menuItem.getAttribute('data-type') === 'copy-url') {
+                    const id = menuItem.getAttribute('data-id');
+                    const id1 = toast.loading("获取链接中...")
+                    const music = await getMusic(id);
+                    toast.loadend(id1)
+                    if (music) {
+                        const { url } = music.song_data;
+                        if (url) {
+                            navigator.clipboard.writeText(url);
+                            toast.success('复制成功', 2000)
+                        }
+                    }
+                }
+            });
+        });
     }
 })
 
