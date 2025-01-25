@@ -119,7 +119,7 @@ function renderMusicList(musics) {
         musicList.innerHTML += `
         <div class="music-item" data-id="${id}" data-name='${name}' data-pagesize='${pageSize}' data-page='${pageNum}' data-author='${author}'>
             <div class="music-item-img">
-                <img src="${pic}" alt="${name}" title="${name} - ${author}">
+                <img class="music-item-img-img" src="${pic}" alt="${name}" title="${name} - ${author}">
             </div>
             <div class="music-item-info">
                 <div class="music-item-name">${name}</div>
@@ -256,7 +256,7 @@ addEventListener("contextmenu", e => {
         target.classList.contains('music-item-author') ||
         target.classList.contains('music-item-name') || 
         target.classList.contains('music-item-img') ||
-        (target.tagName === 'IMG' && target.parentElement.classList.contains('music-item'))
+        target.parentElement.classList.contains('music-item-img-img')
     ) {
         e.preventDefault();
         const id = target.getAttribute('data-id');
