@@ -97,23 +97,29 @@ function renderMusicList(musics) {
 }
 
 async function getMusicList(keyword) {
+    const id = toast.loading('搜索中...');
     const response = await fetch(searchURL(keyword));
     if (response.ok) {
         const data = await response.json();
         if (data.status) {
             if (data.song_data.length == 0) {
+                toast.loadend(id)
                 toast.warn('没有搜索到结果', 2000)
                 return;
             } else {
+                toast.loadend(id)
+                toast.success('搜索成功', 2000)
                 return data.song_data;
             }
         } else {
             console.error('遇到未知的错误');
+            toast.loadend(id)
             toast.error('遇到未知的错误', 2000)
             return;
         }
     } else {
         console.error('网络请求失败', response.statusText);
+        toast.loadend(id)
         toast.error('网络请求失败：' + response.statusText, 2000)
         return;
     }
