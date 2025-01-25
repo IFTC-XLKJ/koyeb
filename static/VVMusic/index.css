@@ -331,3 +331,15 @@ dialog {
     display: flex;
     justify-content: center;
 }
+
+#check {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+}
