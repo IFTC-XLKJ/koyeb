@@ -249,9 +249,9 @@ function totaltime() {
     const totaltime = document.getElementById('player-progress-time-total');
     const lrc = document.getElementById('music-lrc');
     audio.onloadedmetadata = function () {
-        var duration = audio.duration * (10**6);
+        var duration = audio.duration * (10 ** 6);
         lrc.innerHTML = '';
-        totaltime.innerHTML = formatSecondsToTime(duration);
+        totaltime.innerHTML = formatSecondsToTime((duration) / (10 ** 6));
         progress.max = duration;
     };
 }
@@ -275,7 +275,7 @@ function updatetime(lrcstimes, lrclist) {
         if (!isPlay) {
             return;
         }
-        const currentTime = audio.currentTime * (10**6);
+        const currentTime = audio.currentTime * (10 ** 6);
         for (var i = 0; i < lrcstimes.length; i++) {
             if (last < current) {
                 if (lrcstimes[i + 1] <= currentTime + (lrcstimes[i + 1] - lrcstimes[i])) {
@@ -295,7 +295,7 @@ function updatetime(lrcstimes, lrclist) {
                 }
             }
         }
-        time.innerHTML = formatSecondsToTime(currentTime);
+        time.innerHTML = formatSecondsToTime((currentTime) / (10 ** 6));
         progress.value = currentTime;
     };
     audio.addEventListener("end", function () {
