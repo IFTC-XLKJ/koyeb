@@ -18,6 +18,7 @@ const playerCover = document.querySelector('#player-cover img');
 const playerName = document.querySelector('#player-name');
 const playerAuthor = document.querySelector('#player-author');
 const playerPlay = document.querySelector('#player-play');
+const playerProgress = document.querySelector('#player-progress-bar input');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
@@ -215,6 +216,7 @@ function renderMusicList(musics) {
                                             lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
                                         }
                                     })
+                                    totaltime();
                                     audio.play()
                                     updatetime(lrcstimes, lrclist);
                                     console.log(lrcstimes, lrclist);
@@ -240,6 +242,18 @@ function renderMusicList(musics) {
             }
         })
     });
+}
+
+
+function totaltime() {
+    const totaltime = document.getElementById('player-progress-time-total');
+    const lrc = document.getElementById('music-lrc');
+    audio.onloadedmetadata = function () {
+        var duration = Math.ceil(audio.duration);
+        lrc.innerHTML = '';
+        totaltime.innerHTML = formatSecondsToTime(duration);
+        progress.max = duration;
+    };
 }
 
 audio.addEventListener('play', () => {
