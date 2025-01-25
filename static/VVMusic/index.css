@@ -318,9 +318,9 @@ dialog {
 #fps {
     width: 100px;
     height: 30px;
-    position: relative;
-    left: calc(100vw - 100px);
-    top: 0px;
+    position: fixed;
+    right: 3px;
+    top: 100px;
     text-align: right;
 }
 
