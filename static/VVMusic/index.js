@@ -249,7 +249,6 @@ function totaltime() {
     const totaltime = document.getElementById('player-progress-time-total');
     const lrc = document.getElementById('music-lrc');
     audio.onloadedmetadata = function () {
-        console.log(audio.duration);
         var duration = audio.duration * (10**6);
         lrc.innerHTML = '';
         totaltime.innerHTML = formatSecondsToTime(duration);
@@ -296,7 +295,6 @@ function updatetime(lrcstimes, lrclist) {
                 }
             }
         }
-        console.log(audio.currentTime);
         time.innerHTML = formatSecondsToTime(currentTime);
         progress.value = currentTime;
     };
