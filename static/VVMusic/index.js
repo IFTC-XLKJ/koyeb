@@ -284,6 +284,7 @@ addEventListener("contextmenu", e => {
                         if (url) {
                             navigator.clipboard.writeText(url);
                             toast.success('复制成功', 2000)
+                            menuMain.remove();
                         }
                     }
                 }
