@@ -6,6 +6,7 @@ var pauseIcon = '<svg t="1718518409100" class="icon" viewBox="0 0 1024 1024" ver
 var audio = new Audio();
 var isPlay = false;
 const toast = new Toast();
+let keyword = '';
 
 const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
@@ -14,23 +15,23 @@ const musicList = document.getElementById('music');
 const page = docuemnt.getElementById('page');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
-        const keyword = searchInput.value;
-        if (!keyword) {
+        if (!searchInput.value) {
             const id = toast.warn('搜索内容不能为空', 2000)
             console.log(id)
             return;
         }
+        keyword = searchInput.value;
         const musics = await getMusicList(keyword);
         renderMusicList(musics);
     }
 });
 searchBtn.addEventListener('click', async function () {
-    const keyword = searchInput.value;
-    if (!keyword) {
+    if (!searchInput.value) {
         const id = toast.warn('搜索内容不能为空', 2000)
         console.log(id)
         return;
     }
+    keyword = searchInput.value;
     const musics = await getMusicList(keyword);
     renderMusicList(musics);
 });
@@ -118,29 +119,23 @@ function renderMusicList(musics) {
     <button class='page right' id='next'>下一页</button>
     `;
     const pageInput = document.getElementById('page-input');
-    pageInput.addEventListener('blur', (e) => {
-        isPIFocus = false;
-        check.focus();
-    })
-    pageInput.addEventListener('focus', (e) => {
-        isPIFocus = true;
-        check.blur();
-    })
-    pageInput.addEventListener('keyup', (e) => {
+    pageInput.addEventListener('keyup', async (e) => {
         if (e.key == 'Enter') {
             pageNum = pageInput.value;
             if (pageNum <= 0) {
                 pageNum = 1;
             }
-            getMusic();
+            const musics = await getMusicList(keyword);
+            renderMusicList(musics);
         }
     })
-    pageInput.addEventListener('change', (e) => {
+    pageInput.addEventListener('change', async (e) => {
         pageNum = pageInput.value;
         if (pageNum <= 0) {
             pageNum = 1;
         }
-        getMusic();
+        const musics = await getMusicList(keyword);
+        renderMusicList(musics);
     })
 }
 
