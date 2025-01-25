@@ -94,6 +94,9 @@ addEventListener('load', function () {
 
 function renderMusicList(musics) {
     console.log('搜索成功', musics);
+    musics.forEach(music => {
+        const { id, name, artist, pic } = music;
+    });
 }
 
 async function getMusicList(keyword) {
