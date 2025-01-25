@@ -351,6 +351,13 @@ dialog {
     padding: 5px;
 }
 
+.tip-item {
+    width: fit-content;
+    background-color: lightgrey;
+    padding: 5px;
+    border-radius: 5px;
+}
+
 .menu-main {
     position: fixed;
     padding: 5px;
