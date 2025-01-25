@@ -375,6 +375,6 @@ dialog {
     cursor: pointer;
 }
 
-.menu-item :hover {
+.menu-item:hover {
     background-color: #F0F0F0AA;
 }
