@@ -189,7 +189,7 @@ function renderMusicList(musics) {
                 const { url, lyric, pic, name, artist } = music.song_data;
                 if (url) {
                     try {
-                        const id1 = toast.load('加载中...')
+                        const id1 = toast.loading('加载中...')
                         const response = await fetch(url);
                         if (response.ok) {
                             const blob = await response.blob();
