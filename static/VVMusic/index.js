@@ -221,6 +221,11 @@ function renderMusicList(musics) {
     });
 }
 
+function subsequenceFromStartLast(sequence, at1) {
+    const start = at1;
+    const end = sequence.length - 1 + 1;
+    return sequence.slice(start, end);
+}
 
 function lrcTimeToNum(time) {
     const times = time.split(':');
