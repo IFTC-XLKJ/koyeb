@@ -94,7 +94,11 @@ async function getMusicList(keyword) {
     const response = await fetch(searchURL(keyword));
     if (response.ok) {
         const data = await response.json();
-        console.log('网络请求成功', data);
+        if (data.status) { } else {
+            console.error('遇到未知的错误');
+            toast.error('遇到未知的错误', 2000)
+            return;
+        }
     } else {
         console.error('网络请求失败', response.statusText);
         toast.error('网络请求失败：' + response.statusText, 2000)
