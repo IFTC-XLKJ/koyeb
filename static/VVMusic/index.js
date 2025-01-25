@@ -3,7 +3,7 @@ var pageNum = 1;
 var pageSize = 10;
 var playIcon = '<svg t="1718518330674" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4283" width="30" height="30"><path d="M128 138.666667c0-47.232 33.322667-66.666667 74.176-43.562667l663.146667 374.954667c40.96 23.168 40.853333 60.8 0 83.882666L202.176 928.896C161.216 952.064 128 932.565333 128 885.333333v-746.666666z" fill="#3D3D3D" p-id="4284"></path></svg>';
 var pauseIcon = '<svg t="1718518409100" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5269" width="30" height="30"><path d="M128 106.858667C128 94.976 137.621333 85.333333 149.12 85.333333h85.76c11.648 0 21.12 9.6 21.12 21.525334V917.12c0 11.882667-9.621333 21.525333-21.12 21.525333H149.12A21.290667 21.290667 0 0 1 128 917.141333V106.88z m640 0c0-11.882667 9.621333-21.525333 21.12-21.525334h85.76c11.648 0 21.12 9.6 21.12 21.525334V917.12c0 11.882667-9.621333 21.525333-21.12 21.525333h-85.76a21.290667 21.290667 0 0 1-21.12-21.525333V106.88z" fill="#3D3D3D" p-id="5270"></path></svg>';
-var audio = new Audio();
+const audio = new Audio();
 var isPlay = false;
 const toast = new Toast();
 let keyword = '';
@@ -13,6 +13,7 @@ const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
 const musicList = document.getElementById('music');
 const page = document.getElementById('page');
+const playerCover = document.querySelector('#player-cover img');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
@@ -176,7 +177,7 @@ function renderMusicList(musics) {
             const id = musicItem.getAttribute('data-id');
             const music = await getMusic(id);
             if (music.status) {
-                const { url, lyric } = music.song_data;
+                const { url, lyric, pic } = music.song_data;
                 if (url) {
                     const response = await fetch(url);
                     if (response.ok) {
@@ -186,6 +187,8 @@ function renderMusicList(musics) {
                             if (url) {
                                 toast.loadend(id)
                                 toast.success('加载成功', 2000)
+                                audio.src = url;
+                                playerCover.src = pic;
                             } else {
                                 toast.loadend(id)
                                 toast.error('加载失败', 2000)
@@ -242,7 +245,7 @@ async function getMusic(id) {
         if (data.status) {
             toast.loadend(id1)
             toast.success('获取资源成功', 2000)
-            return data.data;
+            return data;
         } else {
             console.error('遇到未知的错误');
             toast.loadend(id1)
