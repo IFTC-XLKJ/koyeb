@@ -7,6 +7,7 @@ const audio = new Audio();
 var isPlay = false;
 const toast = new Toast();
 let keyword = '';
+let lrcfile;
 
 const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
@@ -189,6 +190,17 @@ function renderMusicList(musics) {
                                 toast.success('加载成功', 2000)
                                 audio.src = url;
                                 playerCover.src = pic;
+                                lrcfile = lyric;
+                                let lrcstimes = [];
+                                let lrclist = [];
+                                lyric.split(/\n/).forEach((item, index) => {
+                                    console.log(item);
+                                    if (item.match(/^\[.+\]/)) {
+                                        lrcstimes.push(lrcTimeToNum(item.match(/^\[(.+)\]/)[1]));
+                                        lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
+                                    }
+                                })
+                                console.log(lrcstimes, lrclist);
                             } else {
                                 toast.loadend(id)
                                 toast.error('加载失败', 2000)
