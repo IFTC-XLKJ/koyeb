@@ -176,13 +176,7 @@ function renderMusicList(musics) {
             const id = musicItem.getAttribute('data-id');
             const music = await getMusic(id);
             if (music.status) {
-                const { song_id, song_name, song_author, song_url, song_pic } = music.data;
-                const lrc = await getMusicLrc(song_id);
-                if (lrc.status) {
-                    const { lrc_content } = lrc.data;
-                    const lrc_data = lrc_content.split('\n');
-                    const lrc_obj = {};
-                }
+                const { url } = music.song_data;
             }
         })
     });
