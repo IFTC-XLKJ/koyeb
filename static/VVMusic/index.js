@@ -271,6 +271,13 @@ addEventListener("contextmenu", e => {
     }
 })
 
+addEventListener("scroll", () => {
+    const oldMenuMain = document.querySelector('.menu-main');
+    if (oldMenuMain) {
+        oldMenuMain.remove();
+    }
+})
+
 function totaltime() {
     const totaltime = document.getElementById('player-progress-time-total');
     const lrc = document.getElementById('music-lrc');
