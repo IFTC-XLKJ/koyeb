@@ -315,7 +315,7 @@ playerPlay.addEventListener('click', () => {
     }
 });
 
-playerPlay.addEventListener('input', e => {
+playerPlay.addEventListener('change', e => {
     audio.currentTime = playerPlay.value;
 })
 
