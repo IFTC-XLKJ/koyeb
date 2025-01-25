@@ -188,8 +188,8 @@ function renderMusicList(musics) {
             if (music) {
                 const { url, lyric, pic, name, artist } = music.song_data;
                 if (url) {
+                    const id1 = toast.loading('加载中...')
                     try {
-                        const id1 = toast.loading('加载中...')
                         const response = await fetch(url);
                         if (response.ok) {
                             const blob = await response.blob();
@@ -224,21 +224,21 @@ function renderMusicList(musics) {
                                     updatetime();
                                     console.log(lrcstimes, lrclist);
                                 } else {
-                                    toast.loadend(id)
+                                    toast.loadend(id1)
                                     toast.error('加载失败', 2000)
                                 }
                             } else {
-                                toast.loadend(id)
+                                toast.loadend(id1)
                                 toast.error('加载失败', 2000)
                             }
                         } else {
                             console.error('网络请求失败', response.statusText);
-                            toast.loadend(id)
+                            toast.loadend(id1)
                             toast.error('网络请求失败：' + response.statusText, 2000)
                         }
                     } catch (error) {
                         console.error('网络请求失败', error);
-                        toast.loadend(id)
+                        toast.loadend(id1)
                         toast.error('网络请求失败：' + error, 2000)
                     }
                 }
