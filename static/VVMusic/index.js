@@ -333,22 +333,13 @@ function updatetime() {
         }
         const currentTime = audio.currentTime * (10 ** 6);
         for (var i = 0; i < lrcstimes.length; i++) {
-            if (last < current) {
-                if (lrcstimes[i + 1] <= currentTime + (lrcstimes[i + 1] - lrcstimes[i])) {
-                    last = lrcstimes[i];
+            if (currentTime <= lrcstimes[i] * (10 ** 6)) {
+                if (current != i) {
+                    console.log(lrclist[i])
                     lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
+                    current = i;
                 }
-                if (currentTime >= lrcstimes[lrcstimes.length - 1]) {
-                    last = lrcstimes[i];
-                    lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
-                }
-            } else {
-                if (lrcstimes[i + 1] <= currentTime + (lrcstimes[i + 1] - lrcstimes[i])) {
-                    current = lrcstimes[i];
-                }
-                if (currentTime >= lrcstimes[lrcstimes.length - 1]) {
-                    current = lrcstimes[i];
-                }
+                break;
             }
         }
         time.innerHTML = formatSecondsToTime(Math.ceil((currentTime) / (10 ** 6)));
