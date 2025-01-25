@@ -196,6 +196,11 @@ function renderMusicList(musics) {
                                     playerCover.src = pic;
                                     playerName.innerHTML = name;
                                     playerAuthor.innerHTML = artist;
+                                    document.title = name + ' - ' + artist;
+                                    const favicon = document.querySelector("link[rel*='icon']") || document.createElement('link');
+                                    favicon.type = 'image/jpeg';
+                                    favicon.rel = 'shortcut icon';
+                                    favicon.href = pic;
                                     lrcfile = lyric;
                                     let lrcstimes = [];
                                     let lrclist = [];
