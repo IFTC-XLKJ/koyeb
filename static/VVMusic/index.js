@@ -293,6 +293,18 @@ function updatetime(lrcstimes, lrclist) {
     });
 }
 
+playerPlay.addEventListener('click', () => {
+    if (isPlay) {
+        audio.pause();
+    } else {
+        audio.play();
+    }
+});
+
+audio.addEventListener('timeupdate', e => {
+
+});
+
 function formatSecondsToTime(seconds) {
     var minutes = Math.floor(seconds / 60);
     var remainingSeconds = seconds % 60;
