@@ -137,6 +137,20 @@ function renderMusicList(musics) {
         const musics = await getMusicList(keyword);
         renderMusicList(musics);
     })
+    const previous = document.getElementById('previous');
+    previous.addEventListener('click', async (e) => {
+        if (pageNum > 1) {
+            pageNum--;
+            const musics = await getMusicList(keyword);
+            renderMusicList(musics);
+        }
+    })
+    const next = document.getElementById('next');
+    next.addEventListener('click', async (e) => {
+        pageNum++;
+        const musics = await getMusicList(keyword);
+        renderMusicList(musics);
+    })
 }
 
 async function getMusicList(keyword) {
