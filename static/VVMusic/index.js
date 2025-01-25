@@ -250,7 +250,14 @@ addEventListener("contextmenu", e => {
         oldMenuMain.remove();
     }
     console.log(target)
-    if (target.classList.contains('music-item')) {
+    if (
+        target.classList.contains('music-item') ||
+        target.classList.contains('music-item-info') ||
+        target.classList.contains('music-item-author') ||
+        target.classList.contains('music-item-name') || 
+        target.classList.contains('music-item-img') ||
+        (target.tagName === 'IMG' && target.parentElement.classList.contains('music-item'))
+    ) {
         e.preventDefault();
         const id = target.getAttribute('data-id');
         const menuMain = document.createElement('div');
