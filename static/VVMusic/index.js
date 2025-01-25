@@ -12,7 +12,7 @@ const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
 const musicList = document.getElementById('music');
-const page = docuemnt.getElementById('page');
+const page = document.getElementById('page');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
