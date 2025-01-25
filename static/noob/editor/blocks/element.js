@@ -488,18 +488,14 @@ function handleAttrAndStyle(block) {
     return attributes;
 }
 
-// Define the custom field
 class FieldMultilineText extends Blockly.FieldTextInput {
     constructor(text) {
         super(text);
     }
-
     showEditor_() {
-        // Ensure WidgetDiv is initialized
         if (!Blockly.WidgetDiv.getDiv()) {
             Blockly.WidgetDiv.createDom();
         }
-
         Blockly.WidgetDiv.show(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
         const div = Blockly.WidgetDiv.getDiv();
         if (!div) {
@@ -512,19 +508,13 @@ class FieldMultilineText extends Blockly.FieldTextInput {
         this.editor_.style.textAlign = 'left';
         this.editor_.value = this.getValue();
         this.editor_.spellcheck = false;
-
         div.appendChild(this.editor_);
         this.editor_.focus();
         this.editor_.select();
-
-        // Position the editor correctly
         Blockly.WidgetDiv.positionWithAnchor(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
     }
-
     static fromJson(options) {
         return new FieldMultilineText(options.text);
     }
 }
-
-// Register the custom field
 Blockly.fieldRegistry.register('field_multilinetext', FieldMultilineText);
