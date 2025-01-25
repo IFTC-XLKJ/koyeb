@@ -256,7 +256,7 @@ addEventListener("contextmenu", e => {
         target.classList.contains('music-item-author') ||
         target.classList.contains('music-item-name') || 
         target.classList.contains('music-item-img') ||
-        target.parentElement.classList.contains('music-item-img-img')
+        target.classList.contains('music-item-img-img')
     ) {
         e.preventDefault();
         const id = target.getAttribute('data-id');
