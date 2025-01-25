@@ -237,6 +237,8 @@ audio.addEventListener('pause', () => {
     playerPlay.innerHTML = playIcon;
 });
 
+var last = 0;
+var current = 0;
 function updatetime(lrcstimes, lrclist) {
     const time = document.getElementById('player-progress-time');
     const lrc = document.getElementById('music-lrc');
