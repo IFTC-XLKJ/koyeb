@@ -9,6 +9,8 @@ const toast = new Toast();
 let keyword = '';
 let lrcfile;
 
+const tips = document.getElementById('tips');
+tips.style.width = '300px';
 const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
