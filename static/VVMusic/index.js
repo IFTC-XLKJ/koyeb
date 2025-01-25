@@ -17,6 +17,7 @@ const page = document.getElementById('page');
 const playerCover = document.querySelector('#player-cover img');
 const playerName = document.querySelector('#player-name');
 const playerAuthor = document.querySelector('#player-author');
+const playerPlay = document.querySelector('#player-play');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
@@ -224,6 +225,14 @@ function renderMusicList(musics) {
         })
     });
 }
+
+audio.addEventListener('play', () => {
+    playerPlay.innerHTML = playIcon;
+});
+
+audio.addEventListener('pause', () => {
+    playerPlay.innerHTML = pauseIcon;
+});
 
 function subsequenceFromStartLast(sequence, at1) {
     const start = at1;
