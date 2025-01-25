@@ -321,6 +321,7 @@ playerProgress.addEventListener('change', e => {
     current = 0;
     audio.play();
 })
+
 playerProgress.addEventListener('input', e => {
     audio.pause();
 })
