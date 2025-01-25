@@ -151,6 +151,13 @@ function renderMusicList(musics) {
         const musics = await getMusicList(keyword);
         renderMusicList(musics);
     })
+    const musiclist = document.getElementsByClassName('music-item');
+    musiclist.forEach(musicItem => {
+        musicItem.addEventListener('click', async (e) => {
+            console.log(musicItem)
+            const id = musicItem.getAttribute('data-id');
+        })
+    });
 }
 
 async function getMusicList(keyword) {
