@@ -317,6 +317,10 @@ playerPlay.addEventListener('click', () => {
     }
 });
 
+playerPlay.addEventListener('input', e => {
+    audio.currentTime = playerPlay.value;
+})
+
 audio.addEventListener('timeupdate', e => {
 
 });
