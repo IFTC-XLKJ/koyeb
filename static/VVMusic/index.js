@@ -26,7 +26,6 @@ searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
             const id = toast.warn('搜索内容不能为空', 2000)
-            console.log(id)
             return;
         }
         keyword = searchInput.value;
@@ -40,7 +39,6 @@ searchInput.addEventListener('keydown', async function (e) {
 searchBtn.addEventListener('click', async function () {
     if (!searchInput.value) {
         const id = toast.warn('搜索内容不能为空', 2000)
-        console.log(id)
         return;
     }
     keyword = searchInput.value;
