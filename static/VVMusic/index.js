@@ -11,6 +11,7 @@ let lrcfile;
 
 const tips = document.getElementById('tips');
 tips.style.width = '300px';
+tips.style.display = 'flex';
 const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
