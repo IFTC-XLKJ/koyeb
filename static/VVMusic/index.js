@@ -177,7 +177,7 @@ function renderMusicList(musics) {
             console.log(musicItem)
             const id = musicItem.getAttribute('data-id');
             const music = await getMusic(id);
-            if (music.status) {
+            if (music) {
                 const { url, lyric, pic } = music.song_data;
                 if (url) {
                     const response = await fetch(url);
