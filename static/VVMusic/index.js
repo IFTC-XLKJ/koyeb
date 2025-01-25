@@ -173,7 +173,7 @@ function renderMusicList(musics) {
     musiclist.forEach(musicItem => {
         musicItem.addEventListener('click', async (e) => {
             console.log(musicItem)
-            const id = musicItem.getAttribute('data-id');
+            const id1 = musicItem.getAttribute('data-id');
             const music = await getMusic(id);
             if (music.status) {
                 const { url, lyric } = music.song_data;
@@ -184,21 +184,21 @@ function renderMusicList(musics) {
                         if (blob) {
                             const url = URL.createObjectURL(blob);
                             if (url) {
-                                toast.loadend(id)
+                                toast.loadend(id1)
                                 toast.success('加载成功', 2000)
                                 playMusic(url, lyric);
                             } else {
-                                toast.loadend(id)
+                                toast.loadend(id1)
                                 toast.error('加载失败', 2000)
                             }
                         } else {
                             console.error('创建URL对象失败');
-                            toast.loadend(id)
+                            toast.loadend(id1)
                             toast.error('加载失败', 2000)
                         }
                     } else {
                         console.error('网络请求失败', response.statusText);
-                        toast.loadend(id)
+                        toast.loadend(id1)
                         toast.error('网络请求失败：' + response.statusText, 2000)
                     }
                 }
