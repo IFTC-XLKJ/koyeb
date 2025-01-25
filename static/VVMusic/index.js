@@ -216,6 +216,8 @@ function renderMusicList(musics) {
                                             lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
                                         }
                                     })
+                                    lrclist.push(name + ' - ' + artist);
+                                    lrcstimes.push(audio.duration);
                                     totaltime();
                                     audio.play()
                                     updatetime();
@@ -333,7 +335,7 @@ function updatetime() {
         for (var i = 0; i < lrcstimes.length; i++) {
             if (currentTime <= lrcstimes[i] * (10 ** 6)) {
                 if (current != i) {
-                    console.log(lrclist[i])
+                    console.log(lrclist[i - 1])
                     lrc.innerHTML = `<p class="poplrc">${lrclist[i - 1]}</p>`;
                     current = i;
                 }
