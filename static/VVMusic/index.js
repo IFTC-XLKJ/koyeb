@@ -243,6 +243,21 @@ function renderMusicList(musics) {
     });
 }
 
+addEventListener("contextmenu", e => {
+    const target = e.target;
+    if (target.classList.contains('music-item')) {
+        e.preventDefault();
+        const id = target.getAttribute('data-id');
+        const menuMain = document.createElement('div');
+        menuMain.className = 'menu-main';
+        menuMain.style.top = e.clientY + 'px';
+        menuMain.style.left = e.clientX + 'px';
+        menuMain.innerHTML = `
+        <div class="menu-item" data-id="${target.getAttribute('data-id')}">复制链接</div>
+        `;
+        document.body.appendChild(menuMain);
+    }
+})
 
 function totaltime() {
     const totaltime = document.getElementById('player-progress-time-total');
@@ -313,7 +328,6 @@ playerPlay.addEventListener('click', () => {
         audio.play();
     }
 });
-
 
 playerProgress.addEventListener('change', e => {
     audio.currentTime = playerProgress.value / 10 ** 6;
