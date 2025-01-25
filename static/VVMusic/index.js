@@ -10,7 +10,7 @@ const toast = new Toast();
 const searchInput = document.querySelector('#s input');
 const searchBtn = document.getElementById('search');
 const clear = document.getElementById('clear');
-searchInput.addEventListener('keydown', function (e) {
+searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         const keyword = searchInput.value;
         if (!keyword) {
@@ -18,17 +18,17 @@ searchInput.addEventListener('keydown', function (e) {
             console.log(id)
             return;
         }
-        getMusicList(keyword);
+        const musics = await getMusicList(keyword);
     }
 });
-searchBtn.addEventListener('click', function () {
+searchBtn.addEventListener('click', async function () {
     const keyword = searchInput.value;
     if (!keyword) {
         const id = toast.warn('搜索内容不能为空', 2000)
         console.log(id)
         return;
     }
-    getMusicList(keyword);
+    const musics = await getMusicList(keyword);
 });
 
 clear.addEventListener('click', function () {
@@ -91,6 +91,15 @@ addEventListener('load', function () {
 });
 
 async function getMusicList(keyword) {
+    const response = await fetch(searchURL(keyword));
+    if (response.ok) {
+        const data = await response.json();
+        console.log('网络请求成功', data);
+    } else {
+        console.error('网络请求失败', response.statusText);
+        toast.error('网络请求失败：' + response.statusText, 2000)
+        return;
+    }
 }
 
 
