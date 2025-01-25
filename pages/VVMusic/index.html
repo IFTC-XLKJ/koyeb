@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>VV音乐（网易云音乐）</title>
+    <link id="favicon" rel="icon" href="/static/favicon.jpg" type="image/jpeg">
+    <script src="/static/"></script>
+    <!--<script src="./data.js"></script>-->
+    <script src="/jquery-2.2.4.min.js"></script>
+    <script src="https://static.pgaot.com/Assets/js/sipg_jcokxlcsd9.js"></script>
+    <script src="https://static.pgaot.com/Assets/js.class/pgdbs.class.js"></script>
+    <script
+        src="https://shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.3568fe5b83b522f9bbdf30a05205eef2d885d97956c78f565f2d7edb605f05eb.js"></script>
+    <script
+        src="https://shequ.pgaot.com/AdminPages/pages/Mysqldb/vip/pickduckDBJQ.09acf4d4695fb1a5f1f94b8dd8a0c877ed7099b0bccab1c904087a70445dc8b3.js"></script>
+    <link href="/static/VVMusic/loader.css" rel="stylesheet">
+    <link href="/static/VVMusic/index.css" rel="stylesheet">
+    <style>
+
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="s">
+            <input type="text" placeholder="请输入歌名、歌手、歌曲ID" inputmode="search">
+            <button id="clear">×</button>
+            <button id="search">搜索</button>
+        </div>
+        <div id="fps">FPS:0</div>
+        <div id="music"></div>
+        <div id="page"></div>
+    </div>
+    <a class="icp" href="https://icp.gov.moe/?keyword=20248862" target="_blank">萌ICP备20248862号</a>
+    <div id="player">
+        <div id="player-cover">
+            <img src="./default-cover.png" alt="default">
+        </div>
+        <div id="player-info">
+            <div id="player-name">default</div>
+            <div id="player-author">default</div>
+        </div>
+        <div id="player-controls">
+            <div id="player-progress">
+                <div id="player-play">
+                    <svg t="1718518330674" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="4283" width="30" height="30">
+                        <path
+                            d="M128 138.666667c0-47.232 33.322667-66.666667 74.176-43.562667l663.146667 374.954667c40.96 23.168 40.853333 60.8 0 83.882666L202.176 928.896C161.216 952.064 128 932.565333 128 885.333333v-746.666666z"
+                            fill="#3D3D3D" p-id="4284"></path>
+                    </svg>
+                </div>
+                <div id="player-progress-bar">
+                    <input id="progress" type="range" min="0" max="0" value="0">
+                </div>
+                <div id="player-progress-time-container">
+                    <div id="player-progress-time">00:00</div>
+                    <div id="player-progress-time-divider">/</div>
+                    <div id="player-progress-time-total">00:00</div>
+                </div>
+                <div id="download">
+                    <svg t="1719746769530" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="5396" width="30" height="30">
+                        <path
+                            d="M895.5 831.7H128c-35.1 0-63.8 28.7-63.8 63.8 0 35.1 28.7 63.8 63.8 63.8h767.5c35.1 0 63.8-28.7 63.8-63.8 0-35.1-28.7-63.8-63.8-63.8zM811 383H672.2V123.8c0-33.3-27-60.4-60.4-60.4H412.4c-33.3 0-60.4 27-60.4 60.4V383H213.2c-26.7 0-40.7 31.8-22.5 51.5L489.6 758c12.1 13.1 32.9 13.1 45.1 0l298.8-323.5c18.1-19.7 4.2-51.5-22.5-51.5z"
+                            p-id="5397"></path>
+                    </svg>
+                </div>
+                <div id="share">
+                    <svg t="1721388062406" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="4283" width="30" height="30">
+                        <path
+                            d="M738.048 666.048c-31.04 0-59.968 9.728-83.648 26.24L426.816 532.672C427.264 528.192 427.52 523.712 427.52 519.104c0-0.768-0.128-1.472-0.128-2.24l236.672-167.36c21.888 12.224 47.104 19.264 73.984 19.264 84.16 0 152.384-68.224 152.384-152.384C890.432 132.224 822.272 64 738.048 64c-84.096 0-152.32 68.224-152.32 152.384 0 12.032 1.472 23.744 4.096 35.008L372.864 404.864C347.648 384.384 315.52 372.096 280.512 372.096c-81.152 0-146.944 65.792-146.944 147.008 0 81.152 65.792 146.944 146.944 146.944 34.752 0 66.496-12.096 91.648-32.192l221.12 155.072c-1.344 7.872-2.112 15.872-2.112 24.064 0 81.216 65.792 147.008 146.944 147.008 81.216 0 147.008-65.792 147.008-147.008S819.264 666.048 738.048 666.048z"
+                            fill="#2c2c2c" p-id="4284"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="music-lrc">歌词推送</div>
+    <dialog id="loading">
+        <div class="loader">
+            <div class="loader-inner">
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+                <div class="loader-block"></div>
+            </div>
+        </div>
+    </dialog>
+    <dialog id="tips">
+        <div id="tiptext">default</div>
+    </dialog>
+    <input id="check"
+        style="position: fixed;top: 0;left: 0;width: 0;height: 0;margin: 0;padding: 0;outline: none;border: none;">
+</body>
+
+</html>
