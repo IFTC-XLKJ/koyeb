@@ -11,11 +11,13 @@ const searchInput = document.querySelector('#s input');
 const clear = document.getElementById('clear');
 searchInput.addEventListener('keydown', function (e) {
     if (e.key == 'Enter') {
-        var search = searchInput.value;
-        if (search == '') {
+        const keyword = searchInput.value;
+        if (keyword == '') {
             const id = toast.warn('搜索内容不能为空', 2000)
+            console.log(id)
             return;
         }
+        getMusicList(keyword);
     }
 });
 
@@ -77,6 +79,10 @@ addEventListener('load', function () {
     };
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
+
+async function getMusicList(keyword) {
+}
+
 
 function searchURL(keyword) {
     return 'https://www.lihouse.xyz/coco_widget/music_resource/info?key=' + keyword + '&page=' + pageNum + '&limit=' + pageSize;
