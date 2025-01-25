@@ -108,7 +108,7 @@ function renderMusicList(musics) {
     musicList.innerHTML = '';
     musics.forEach(music => {
         const { id, name, artist, pic } = music;
-        const author = artist.map(item => item.name).join(' ');
+        const author = artist.map(String).join(" ");
         musicList.innerHTML += `
         <div class="music-item" data-id="${id}" data-name='${name}' data-pagesize='${pageSize}' data-page='${pageNum}' data-author='${author}'>
             <div class="music-item-img">
