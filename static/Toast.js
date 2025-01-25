@@ -106,8 +106,8 @@ class Toast {
 
     loadend(id) {
         const toast = document.getElementById(id);
-        const mask = toast.parentElement;
         if (toast) {
+            const mask = toast.parentElement;
             mask.remove();
             this.toasts = this.toasts.filter(toast => toast != id);
         }
