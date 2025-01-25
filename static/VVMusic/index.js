@@ -235,8 +235,8 @@ audio.addEventListener('pause', () => {
 });
 
 function updatetime() {
-    var time = document.getElementById('player-progress-time');
-    var lrc = document.getElementById('music-lrc');
+    const time = document.getElementById('player-progress-time');
+    const lrc = document.getElementById('music-lrc');
     audio.ontimeupdate = function () {
         if (!isPlay) {
             return;
