@@ -9,7 +9,7 @@ const toast = new Toast();
 
 const searchInput = document.querySelector('#s input');
 const clear = document.getElementById('clear');
-searchInput.addEventListener('keydown', function () {
+searchInput.addEventListener('keydown', function (e) {
     if (e.key == 'Enter') {
         var search = searchInput.value;
         if (search == '') {
@@ -77,3 +77,7 @@ addEventListener('load', function () {
     };
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
+
+function searchURL(keyword) {
+    return 'https://www.lihouse.xyz/coco_widget/music_resource/info?key=' + keyword + '&page=' + pageNum + '&limit=' + pageSize;
+}
