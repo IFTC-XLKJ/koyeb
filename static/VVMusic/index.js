@@ -22,6 +22,9 @@ searchInput.addEventListener('keydown', async function (e) {
         }
         keyword = searchInput.value;
         const musics = await getMusicList(keyword);
+        if (!musics) {
+            return;
+        }
         renderMusicList(musics);
     }
 });
@@ -33,6 +36,9 @@ searchBtn.addEventListener('click', async function () {
     }
     keyword = searchInput.value;
     const musics = await getMusicList(keyword);
+    if (!musics) {
+        return;
+    }
     renderMusicList(musics);
 });
 
@@ -126,6 +132,9 @@ function renderMusicList(musics) {
                 pageNum = 1;
             }
             const musics = await getMusicList(keyword);
+            if (!musics) {
+                return;
+            }
             renderMusicList(musics);
         }
     })
@@ -135,6 +144,9 @@ function renderMusicList(musics) {
             pageNum = 1;
         }
         const musics = await getMusicList(keyword);
+        if (!musics) {
+            return;
+        }
         renderMusicList(musics);
     })
     const previous = document.getElementById('previous');
@@ -142,6 +154,9 @@ function renderMusicList(musics) {
         if (pageNum > 1) {
             pageNum--;
             const musics = await getMusicList(keyword);
+            if (!musics) {
+                return;
+            }
             renderMusicList(musics);
         }
     })
@@ -149,6 +164,9 @@ function renderMusicList(musics) {
     next.addEventListener('click', async (e) => {
         pageNum++;
         const musics = await getMusicList(keyword);
+        if (!musics) {
+            return;
+        }
         renderMusicList(musics);
     })
     const musiclist = document.querySelectorAll('.music-item');
@@ -156,6 +174,16 @@ function renderMusicList(musics) {
         musicItem.addEventListener('click', async (e) => {
             console.log(musicItem)
             const id = musicItem.getAttribute('data-id');
+            const music = await getMusic(id);
+            if (music.status) {
+                const { song_id, song_name, song_author, song_url, song_pic } = music.data;
+                const lrc = await getMusicLrc(song_id);
+                if (lrc.status) {
+                    const { lrc_content } = lrc.data;
+                    const lrc_data = lrc_content.split('\n');
+                    const lrc_obj = {};
+                }
+            }
         })
     });
 }
@@ -186,6 +214,28 @@ async function getMusicList(keyword) {
         toast.loadend(id)
         toast.error('网络请求失败：' + response.statusText, 2000)
         return;
+    }
+}
+
+async function getMusic(id) {
+    const id = toast.loading('获取资源中...');
+    const response = await fetch(getMusicURL(id));
+    if (response.ok) {
+        const data = await response.json();
+        if (data.status) {
+            toast.loadend(id)
+            toast.success('获取资源成功', 2000)
+            return data.data;
+        } else {
+            console.error('遇到未知的错误');
+            toast.loadend(id)
+            toast.error('遇到未知的错误', 2000)
+            return;
+        }
+    } else {
+        console.error('网络请求失败', response.statusText);
+        toast.loadend(id)
+        toast.error('网络请求失败：' + response.statusText, 2000)
     }
 }
 
