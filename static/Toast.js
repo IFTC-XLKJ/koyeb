@@ -9,13 +9,6 @@ const mathRandomInt = (a, b) => {
 
 class Toast {
     constructor() {
-        if (!document.querySelector('link[href="./Toast.css"]')) {
-            const link = document.createElement("link");
-            link.rel = "stylesheet";
-            link.href = "./Toast.css";
-            document.head.appendChild(link);
-        }
-
         this.toasts = [];
     }
 
