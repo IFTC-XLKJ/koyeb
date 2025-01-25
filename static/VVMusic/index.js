@@ -6,6 +6,12 @@ addEventListener('resize', function () {
     relayout();
 });
 
+addEventListener('keydown', function (e) {
+    const key = e.key;
+    if (key == " ") {
+    }
+})
+
 function relayout() {
     var winwidth = window.innerWidth;
     var winheight = window.innerHeight;
