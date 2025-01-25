@@ -117,6 +117,31 @@ function renderMusicList(musics) {
     <input type='number' min='1' id='page-input' value='${pageNum}'>
     <button class='page right' id='next'>下一页</button>
     `;
+    const pageInput = document.getElementById('page-input');
+    pageInput.addEventListener('blur', (e) => {
+        isPIFocus = false;
+        check.focus();
+    })
+    pageInput.addEventListener('focus', (e) => {
+        isPIFocus = true;
+        check.blur();
+    })
+    pageInput.addEventListener('keyup', (e) => {
+        if (e.key == 'Enter') {
+            pageNum = pageInput.value;
+            if (pageNum <= 0) {
+                pageNum = 1;
+            }
+            getMusic();
+        }
+    })
+    pageInput.addEventListener('change', (e) => {
+        pageNum = pageInput.value;
+        if (pageNum <= 0) {
+            pageNum = 1;
+        }
+        getMusic();
+    })
 }
 
 async function getMusicList(keyword) {
