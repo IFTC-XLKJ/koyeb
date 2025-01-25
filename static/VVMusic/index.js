@@ -121,12 +121,12 @@ function renderMusicList(musics) {
         const author = artist.map(String).join(" ");
         musicList.innerHTML += `
         <div class="music-item" data-id="${id}" data-name='${name}' data-pagesize='${pageSize}' data-page='${pageNum}' data-author='${author}'>
-            <div class="music-item-img">
-                <img class="music-item-img-img" src="${pic}" alt="${name}" title="${name} - ${author}">
+            <div class="music-item-img" data-id="${id}">
+                <img class="music-item-img-img" src="${pic}" alt="${name}" title="${name} - ${author}" data-id="${id}">
             </div>
-            <div class="music-item-info">
-                <div class="music-item-name">${name}</div>
-                <div class="music-item-author">${author}</div>
+            <div class="music-item-info" data-id="${id}">
+                <div class="music-item-name" data-id="${id}">${name}</div>
+                <div class="music-item-author" data-id="${id}">${author}</div>
             </div>
         </div>
         `;
