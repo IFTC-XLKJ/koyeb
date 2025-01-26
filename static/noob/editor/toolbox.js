@@ -115,6 +115,24 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "text_join",
+                    inputs: {
+                        ADD0: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello"
+                                }
+                            }
+                        },
+                        ADD1: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "NOOB!"
+                                }
+                            }
+                        }
+                    }
                 },
             ]
         },
