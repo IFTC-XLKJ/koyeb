@@ -35,7 +35,7 @@ searchInput.addEventListener('keydown', async function (e) {
             return;
         }
         renderMusicList(musics);
-    } else if (e.key == 'Escape') {
+    } else if (e.key == 'Escape' || e.key == 'Delete') {
         searchInput.value = '';
     }
 });
@@ -276,7 +276,7 @@ function renderMusicList(musics) {
     });
 }
 
-addEventListener("contextmenu", e => {
+addEventListener("contextmenu", async e => {
     e.preventDefault();
     const target = e.target;
     const oldMenuMain = document.querySelector('.menu-main');
@@ -320,6 +320,16 @@ addEventListener("contextmenu", e => {
                 }
             });
         });
+    } else if (target == searchInput) {
+        navigator.clipboard.readText()
+            .then(async text => {
+                searchInput.value = text;
+                const musics = await getMusicList(keyword);
+                if (!musics) {
+                    return;
+                }
+                renderMusicList(musics);
+            });
     }
 })
 
