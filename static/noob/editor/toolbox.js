@@ -187,6 +187,9 @@ const toolbox = {
                         VALUE: {
                             shadow: {
                                 type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                }
                             }
                         }
                     }
