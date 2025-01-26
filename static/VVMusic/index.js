@@ -22,6 +22,7 @@ const playerName = document.querySelector('#player-name');
 const playerAuthor = document.querySelector('#player-author');
 const playerPlay = document.querySelector('#player-play');
 const playerProgress = document.querySelector('#player-progress-bar input');
+const download = document.getElementById('download');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
@@ -428,6 +429,31 @@ function lrcTimeToNum(time) {
     const times = time.split(':');
     return parseInt(times[0]) * 60 + parseFloat(times[1]);
 }
+
+download.addEventListener('click', async () => {
+    const id = toast.loading('下载中...');
+    const blobURL = audio.src;
+    if (blobURL) {
+        const response = await fetch(blobURL);
+        if (response.ok) {
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${playerName.innerText} - ${playerAuthor.innerText}.mp3`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            toast.loadend(id)
+            toast.success('下载成功', 2000)
+        } else {
+            toast.loadend(id)
+            toast.error('下载失败', 2000)
+        }
+    } else {
+        toast.loadend(id)
+        toast.warn("请先播放歌曲再下载", 2000)
+    }
+})
 
 async function getMusicList(keyword) {
     const id = toast.loading('搜索中...');
