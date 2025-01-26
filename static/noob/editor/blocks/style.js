@@ -1,5 +1,21 @@
 Blockly.defineBlocksWithJsonArray([
     {
+        type: 'style_selector',
+        message0: '%1',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'SELECTOR',
+                text: 'div'
+            }
+        ],
+        output: 'StyleSelector',
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        inputsInline: true
+    },
+    {
         type: 'style_group',
         message0: '元素选择器 %1 %2',
         args0: [
@@ -25,22 +41,6 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: true,
         previousStatement: true,
     },
-    {
-        type: 'style_selector',
-        message0: '选择器 %1',
-        args0: [
-            {
-                type: 'field_input',
-                name: 'SELECTOR',
-                text: 'div'
-            }
-        ],
-        output: 'StyleSelector',
-        colour: 230,
-        tooltip: '',
-        helpUrl: '',
-        inputsInline: true
-    }
 ])
 Blockly.JavaScript.forBlock['style_group'] = function (block) {
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
@@ -49,5 +49,5 @@ Blockly.JavaScript.forBlock['style_group'] = function (block) {
 }
 Blockly.JavaScript.forBlock['style_selector'] = function (block) {
     var selector = block.getFieldValue('SELECTOR');
-    return selector;
+    return [selector, Blockly.JavaScript.ORDER_ATOMIC];
 }
