@@ -80,7 +80,8 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
             for (var i = 0; i < this.itemCount_; i++) {
                 if (!this.getInput('ADD' + i + '_KEY')) {
                     var input = this.appendValueInput('ADD' + i + '_KEY')
-                        .setAlign(Blockly.ALIGN_RIGHT);
+                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .appendField('键:');
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
                     var field = Blockly.utils.xml.createElement('field');
@@ -91,7 +92,8 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                 }
                 if (!this.getInput('ADD' + i + '_VALUE')) {
                     var input = this.appendValueInput('ADD' + i + '_VALUE')
-                        .setAlign(Blockly.ALIGN_RIGHT);
+                        .setAlign(Blockly.ALIGN_RIGHT)
+                        .appendField('值:');
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
                     var field = Blockly.utils.xml.createElement('field');
