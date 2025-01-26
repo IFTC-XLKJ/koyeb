@@ -49,7 +49,7 @@ Blockly.defineBlocksWithJsonArray([
         message0: "目标 属性值 %1",
         args0: [
             {
-                type: "fields_dropdown",
+                type: "field_dropdown",
                 name: "ATTRIBUTE",
                 options: [
                     ["当前窗口/框架目标", "_self"],
