@@ -17,6 +17,7 @@ Blockly.defineBlocksWithJsonArray([
                 ]
             }
         ],
+        colour: 230,
         output: "AttrString",
         tooltip: "属性",
         helpUrl: "",
@@ -32,6 +33,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "xxx"
             }
         ],
+        colour: 230,
         output: "AttrString",
         tooltip: "自定义属性",
         helpUrl: "",
