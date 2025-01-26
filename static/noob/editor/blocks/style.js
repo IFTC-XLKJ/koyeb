@@ -35,7 +35,34 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: true,
         previousStatement: true,
     },
+    {
+        type: "style_color",
+        message0: '颜色 %1',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'COLOR',
+                text: '#000000'
+            }
+        ],
+        output: 'StyleColor',
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        inputsInline: true,
+        nextStatement: true,
+        previousStatement: true,
+    },
+    {
+        type: "style_background",
+        message0: '背景%1',
+    }
 ]);
+
+Blockly.JavaScript.forBlock['style_color'] = function (block) {
+    var color = block.getFieldValue('COLOR');
+    return [`color: ${color};`, Blockly.JavaScript.ORDER_ATOMIC];
+};
 
 Blockly.JavaScript.forBlock['style_group'] = function (block) {
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
