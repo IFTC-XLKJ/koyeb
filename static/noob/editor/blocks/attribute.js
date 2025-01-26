@@ -41,8 +41,10 @@ Blockly.defineBlocksWithJsonArray([
     },
 ])
 Blockly.JavaScript.forBlock["attr_get"] = function (block) {
-    return [`"${block.getFieldValue("ATTRIBUTE")}"`, Blockly.JavaScript.ORDER_NONE]
+    var code = `"${block.getFieldValue("ATTRIBUTE")}"`;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
 }
 Blockly.JavaScript.forBlock["attr_data_get"] = function (block) {
-    return [`"data-${block.getFieldValue("ATTRIBUTE")}"`, Blockly.JavaScript.ORDER_NONE]
+    var code = `"data-${block.getFieldValue("ATTRIBUTE")}"`;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
 }
