@@ -35,6 +35,8 @@ searchInput.addEventListener('keydown', async function (e) {
             return;
         }
         renderMusicList(musics);
+    } else if (e.key == 'Escape') {
+        searchInput.value = '';
     }
 });
 searchBtn.addEventListener('click', async function () {
