@@ -32,6 +32,10 @@ const toolbox = {
                     type: "element_style",
                 },
                 {
+                    kind: "block",
+                    type: "element_script",
+                }
+                {
                     kind: "label",
                     text: "-- 主体元素 --",
                     "web-class": "labels"
