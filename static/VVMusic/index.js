@@ -79,6 +79,18 @@ addEventListener('keydown', function (e) {
             playerPlay.innerHTML = pauseIcon;
             isPlay = true;
         }
+    } else if (key == "ArrowLeft") {
+        e.preventDefault();
+        audio.currentTime -= 5;
+    } else if (key == "ArrowRight") {
+        e.preventDefault();
+        audio.currentTime += 5;
+    } else if (key == "ArrowUp") {
+        e.preventDefault();
+        audio.volume += 0.1;
+    } else if (key == "ArrowDown") {
+        e.preventDefault();
+        audio.volume -= 0.1;
     }
 })
 
