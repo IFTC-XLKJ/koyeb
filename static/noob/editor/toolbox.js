@@ -84,7 +84,7 @@ const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "style_selector",
+                    type: "style_color",
                 },
                 // {
                 //     kind: "block",
