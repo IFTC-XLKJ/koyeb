@@ -1,7 +1,7 @@
 Blockly.defineBlocksWithJson([
     {
         type: "attr_get",
-        message0: "%1",
+        message0: "属性 %1",
         args0: [
             {
                 type: "field_dropdown",
@@ -9,9 +9,6 @@ Blockly.defineBlocksWithJson([
                 options: [
                     ["class", "class"],
                     ["id", "id"],
-                    ["style", "style"],
-                    ["src", "src"],
-                    ["href", "href"],
                     ["alt", "alt"],
                     ["title", "title"],
                     ["target", "target"],
@@ -19,9 +16,28 @@ Blockly.defineBlocksWithJson([
                     ["value", "value"],
                 ]
             }
+        ],
+        output: "String",
+        style: "attribute_blocks",
+        tooltip: "属性",
+        helpUrl: "",
+        inputInline: true,
+    },
+    {
+        type: "attr_data_get",
+        message0: "自定义属性 %1",
+        args0: [
+            {
+                type: "field_input",
+                name: "ATTRIBUTE",
+                text: "xxx"
+            }
         ]
     }
 ])
 Blockly.JavaScript.forBlock["attr_get"] = function (block) {
     return [`${block.getFieldValue("ATTRIBUTE")}`, Blockly.JavaScript.ORDER_NONE]
+}
+Blockly.JavaScript.forBlock["attr_data_get"] = function (block) {
+    return [`data-${block.getFieldValue("ATTRIBUTE")}`, Blockly.JavaScript.ORDER_NONE]
 }
