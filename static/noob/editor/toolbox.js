@@ -98,6 +98,17 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "属性",
+            colour: 120,
+            contents: [
+                {
+                    kind: "block",
+                    type: "attr_get",
+                },
+            ]
+        },
+        {
+            kind: "category",
             name: "运算",
             colour: 20,
             contents: [
