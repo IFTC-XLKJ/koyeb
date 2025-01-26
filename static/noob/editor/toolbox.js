@@ -98,7 +98,7 @@ const toolbox = {
                     kind: "block",
                     type: "text",
                     fields: {
-                        TEXT: "Hello World"
+                        TEXT: "Hello,NOOB!"
                     }
                 },
                 {
