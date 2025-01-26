@@ -9,11 +9,11 @@ Blockly.defineBlocksWithJsonArray([
                 options: [
                     ["类名", "class"],
                     ["ID", "id"],
-                    ["alt", "alt"],
-                    ["title", "title"],
-                    ["target", "target"],
-                    ["type", "type"],
-                    ["value", "value"],
+                    ["备用文本", "alt"],
+                    ["标题", "title"],
+                    ["目标", "target"],
+                    ["类型", "type"],
+                    ["值", "value"],
                 ]
             }
         ],
