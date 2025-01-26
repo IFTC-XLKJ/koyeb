@@ -75,10 +75,10 @@ const toolbox = {
                     kind: "block",
                     type: "style_group",
                 },
-                // {
-                //     kind: "block",
-                //     type: "element_style_css_selector",
-                // },
+                {
+                    kind: "block",
+                    type: "style_selector",
+                },
                 // {
                 //     kind: "block",
                 //     type: "element_style_css_property",
