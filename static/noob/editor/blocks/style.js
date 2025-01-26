@@ -47,3 +47,7 @@ Blockly.JavaScript.forBlock['style_group'] = function (block) {
     var style_group = Blockly.JavaScript.statementToCode(block, 'STYLE_GROUP');
     return style + ' {' + style_group + '}';
 }
+Blockly.JavaScript.forBlock['style_selector'] = function (block) {
+    var selector = block.getFieldValue('SELECTOR');
+    return selector;
+}
