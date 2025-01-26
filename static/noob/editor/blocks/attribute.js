@@ -7,8 +7,8 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_dropdown",
                 name: "ATTRIBUTE",
                 options: [
-                    ["class", "class"],
-                    ["id", "id"],
+                    ["类名", "class"],
+                    ["ID", "id"],
                     ["alt", "alt"],
                     ["title", "title"],
                     ["target", "target"],
@@ -48,3 +48,5 @@ Blockly.JavaScript.forBlock["attr_data_get"] = function (block) {
     var code = `"data-${block.getFieldValue("ATTRIBUTE")}"`;
     return [code, Blockly.JavaScript.ORDER_ATOMIC];
 }
+
+console.log("attribute.js 加载完成")
