@@ -493,7 +493,6 @@ function handleAttrAndStyle(block) {
         }
     }
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
-    console.log(style);
     if (style) {
         try {
             style = JSON.parse(style);
