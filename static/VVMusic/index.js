@@ -218,7 +218,7 @@ function renderMusicList(musics) {
                                         }
                                     })
                                     lrclist.push(name + ' - ' + artist);
-                                    lrcstimes.push(audio.duration);
+                                    lrcstimes.push(lrcstimes[lrcstimes.length - 1] + 1);
                                     totaltime();
                                     audio.play()
                                     updatetime();
@@ -340,10 +340,10 @@ function updatetime() {
         }
         const currentTime = audio.currentTime * (10 ** 6);
         for (var i = 0; i < lrcstimes.length; i++) {
-            if (currentTime <= lrcstimes[i] * (10 ** 6)) {
+            if (currentTime <= lrcstimes[i + 1] * (10 ** 6)) {
                 if (current != i) {
-                    console.log(lrclist[i - 1])
-                    lrc.innerHTML = `<p class="poplrc">${lrclist[i - 1]}</p>`;
+                    console.log(lrclist[i])
+                    lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
                     current = i;
                 }
                 break;
