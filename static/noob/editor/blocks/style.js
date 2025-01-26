@@ -6,7 +6,13 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: 'input_value',
                 name: 'STYLE',
-                check: 'String'
+                check: 'StyleSelector',
+                shadow: {
+                    type: 'style_selector',
+                    fields: {
+                        SELECTOR: 'div'
+                    }
+                }
             },
             {
                 type: 'input_statement',
@@ -18,6 +24,24 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         nextStatement: true,
         previousStatement: true,
+    },
+    {
+        type: 'style_selector',
+        message0: '选择器 %1',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'SELECTOR',
+                text: 'div'
+            }
+        ],
+        output: 'StyleSelector',
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true
     }
 ])
 Blockly.JavaScript.forBlock['style_group'] = function (block) {
