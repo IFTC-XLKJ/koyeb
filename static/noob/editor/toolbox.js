@@ -151,6 +151,21 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "dict_get",
+                    inputs: {
+                        DICT: {
+                            shadow: {
+                                type: "variables_get",
+                            }
+                        },
+                        KEY: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "key"
+                                }
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",
