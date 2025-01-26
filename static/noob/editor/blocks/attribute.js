@@ -13,7 +13,12 @@ Blockly.defineBlocksWithJsonArray([
                     ["标题", "title"],
                     ["目标", "target"],
                     ["类型", "type"],
+                    ["提示词", "placeholder"],
                     ["值", "value"],
+                    ["名称", "name"],
+                    ["宽度", "width"],
+                    ["高度", "height"],
+                    ["链接", "href"],
                 ]
             }
         ],
