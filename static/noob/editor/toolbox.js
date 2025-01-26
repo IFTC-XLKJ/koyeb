@@ -74,6 +74,13 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "style_group",
+                    inputs: {
+                        STYLE: {
+                            shadow: {
+                                type: "style_selector",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
