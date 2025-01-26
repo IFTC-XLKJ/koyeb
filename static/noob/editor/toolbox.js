@@ -68,6 +68,25 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "样式",
+            colour: 230,
+            contents: [
+                {
+                    kind: "block",
+                    type: "style_group",
+                },
+                // {
+                //     kind: "block",
+                //     type: "element_style_css_selector",
+                // },
+                // {
+                //     kind: "block",
+                //     type: "element_style_css_property",
+                // },
+            ]
+        },
+        {
+            kind: "category",
             name: "运算",
             colour: 20,
             contents: [
