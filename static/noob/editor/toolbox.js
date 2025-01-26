@@ -175,6 +175,24 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "object_dict",
+                    inputs: {
+                        KEY: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "key"
+                                }
+                            }
+                        },
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                }
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",
