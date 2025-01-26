@@ -215,7 +215,7 @@ Blockly.defineBlocksWithJsonArray([
     }
 ])
 Blockly.JavaScript.forBlock['element_style'] = function (block) {
-    var stylesheet = block.getFieldValue('STYLESHEET');
+    var stylesheet = Blockly.JavaScript.statementToCode(block, 'STYLESHEET');
     var code = `<style>\n${stylesheet}</style>\n`;
     return code;
 };
