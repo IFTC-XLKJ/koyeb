@@ -41,27 +41,12 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
         this.updateShape_();
     },
     decompose: function (workspace) {
-        console.log('decompose called');
         var containerBlock = workspace.newBlock('dict_mutator');
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
         for (var i = 0; i < this.itemCount_; i++) {
-            console.log('Creating dict_item block', i);
             var itemBlock = workspace.newBlock('dict_item');
             itemBlock.initSvg();
-
-            // 添加影子块到键
-            var keyShadow = workspace.newBlock('text');
-            keyShadow.setShadow(true);
-            keyShadow.setFieldValue('key' + i, 'TEXT');
-            itemBlock.getInput('KEY').connection.connect(keyShadow.outputConnection);
-
-            // 添加影子块到值
-            var valueShadow = workspace.newBlock('text');
-            valueShadow.setShadow(true);
-            valueShadow.setFieldValue('value' + i, 'TEXT');
-            itemBlock.getInput('VALUE').connection.connect(valueShadow.outputConnection);
-
             connection.connect(itemBlock.previousConnection);
             connection = itemBlock.nextConnection;
         }
