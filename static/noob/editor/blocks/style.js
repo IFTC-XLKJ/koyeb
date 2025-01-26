@@ -23,12 +23,6 @@ Blockly.defineBlocksWithJsonArray([
                 type: 'input_value',
                 name: 'STYLE',
                 check: 'StyleSelector',
-                shadow: {
-                    type: 'style_selector',
-                    fields: {
-                        SELECTOR: 'div'
-                    }
-                }
             },
             {
                 type: 'input_statement',
