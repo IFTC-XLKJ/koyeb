@@ -63,8 +63,22 @@ addEventListener('resize', function () {
 
 addEventListener('keydown', function (e) {
     const key = e.key;
-    console.log(key)
+    const target = e.target;
+    console.log(key, target)
+    if (target == searchInput) {
+        return;
+    }
     if (key == " ") {
+        e.preventDefault();
+        if (isPlay) {
+            audio.pause();
+            playerPlay.innerHTML = playIcon;
+            isPlay = false;
+        } else {
+            audio.play();
+            playerPlay.innerHTML = pauseIcon;
+            isPlay = true;
+        }
     }
 })
 
