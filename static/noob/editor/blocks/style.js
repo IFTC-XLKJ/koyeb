@@ -41,13 +41,15 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: true,
         previousStatement: true,
     },
-])
-Blockly.JavaScript.forBlock['style_group'] = function (block) {
+]);
+
+Blockly.JavaScript['style_group'] = function (block) {
     var style = Blockly.JavaScript.valueToCode(block, 'STYLE', Blockly.JavaScript.ORDER_ATOMIC);
     var style_group = Blockly.JavaScript.statementToCode(block, 'STYLE_GROUP');
     return style + ' {' + style_group + '}';
-}
-Blockly.JavaScript.forBlock['style_selector'] = function (block) {
+};
+
+Blockly.JavaScript['style_selector'] = function (block) {
     var selector = block.getFieldValue('SELECTOR');
     return [selector, Blockly.JavaScript.ORDER_ATOMIC];
-}
+};
