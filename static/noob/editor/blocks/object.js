@@ -82,6 +82,13 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                         .setAlign(Blockly.ALIGN_RIGHT);
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
+    
+                    // 设置影子块的值
+                    var field = Blockly.utils.xml.createElement('field');
+                    field.setAttribute('name', 'TEXT');
+                    field.appendChild(document.createTextNode('default_key'));
+                    shadowBlock.appendChild(field);
+    
                     input.connection.setShadowDom(shadowBlock);
                 }
                 if (!this.getInput('ADD' + i + '_VALUE')) {
@@ -89,8 +96,20 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                         .setAlign(Blockly.ALIGN_RIGHT);
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
+    
+                    // 设置影子块的值
+                    var field = Blockly.utils.xml.createElement('field');
+                    field.setAttribute('name', 'TEXT');
+                    field.appendChild(document.createTextNode('default_value'));
+                    shadowBlock.appendChild(field);
+    
                     input.connection.setShadowDom(shadowBlock);
                 }
+            }
+            // Remove extra inputs
+            for (var i = this.itemCount_; this.getInput('ADD' + i + '_KEY'); i++) {
+                this.removeInput('ADD' + i + '_KEY');
+                this.removeInput('ADD' + i + '_VALUE');
             }
         }
     }
