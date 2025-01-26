@@ -41,10 +41,12 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
         this.updateShape_();
     },
     decompose: function (workspace) {
+        console.log('decompose called');
         var containerBlock = workspace.newBlock('dict_mutator');
         containerBlock.initSvg();
         var connection = containerBlock.getInput('STACK').connection;
         for (var i = 0; i < this.itemCount_; i++) {
+            console.log('Creating dict_item block', i);
             var itemBlock = workspace.newBlock('dict_item');
             itemBlock.initSvg();
 
