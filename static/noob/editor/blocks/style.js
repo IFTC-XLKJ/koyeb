@@ -15,7 +15,9 @@ Blockly.defineBlocksWithJsonArray([
         ],
         colour: 230,
         tooltip: '',
-        helpUrl: ''
+        helpUrl: '',
+        nextStatement: true,
+        previousStatement: true,
     }
 ])
 Blockly.JavaScript.forBlock['style_group'] = function (block) {
