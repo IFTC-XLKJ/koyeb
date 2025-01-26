@@ -219,6 +219,29 @@ Blockly.JavaScript.forBlock['element_style'] = function (block) {
     var code = `<style>\n${stylesheet}</style>\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_script",
+        message0: "脚本 %1",
+        args0: [
+            {
+                type: "input_statement",
+                name: "SCRIPT",
+            }
+        ],
+        colour: 160,
+        tooltip: "script 标签",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_script'] = function (block) {
+    var script = Blockly.JavaScript.statementToCode(block, 'SCRIPT');
+    var code = `<script>\n${script}</script>\n`;
+    return code;
+};
 // h1-h6 标签
 Blockly.defineBlocksWithJsonArray([
     {
