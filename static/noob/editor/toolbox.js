@@ -1,3 +1,5 @@
+const { text } = require("body-parser");
+
 const toolbox = {
     kind: "categoryToolbox",
     contents: [
@@ -97,6 +99,9 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "text",
+                    fields: {
+                        TEXT: "Hello World"
+                    }
                 },
                 {
                     kind: "block",
