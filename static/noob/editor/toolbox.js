@@ -170,6 +170,26 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "dict_set",
+                    inputs: {
+                        DICT: {
+                            shadow: {
+                                type: "variables_get",
+                            }
+                        },
+                        KEY: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "key"
+                                }
+                            }
+                        },
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                            }
+                        }
+                    }
                 },
             ]
         }
