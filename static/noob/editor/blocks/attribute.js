@@ -18,7 +18,6 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "String",
-        style: "attribute_blocks",
         tooltip: "属性",
         helpUrl: "",
         inputInline: true,
@@ -32,8 +31,12 @@ Blockly.defineBlocksWithJsonArray([
                 name: "ATTRIBUTE",
                 text: "xxx"
             }
-        ]
-    }
+        ],
+        output: "String",
+        tooltip: "自定义属性",
+        helpUrl: "",
+        inputInline: true,
+    },
 ])
 Blockly.JavaScript.forBlock["attr_get"] = function (block) {
     return [`${block.getFieldValue("ATTRIBUTE")}`, Blockly.JavaScript.ORDER_NONE]
