@@ -202,9 +202,8 @@ Blockly.defineBlocksWithJsonArray([
         message0: "样式 %1",
         args0: [
             {
-                type: "field_multilinetext",
+                type: "input_statement",
                 name: "STYLESHEET",
-                text: "body {\r\n    background-color: lightgrey;\r\n}",
             }
         ],
         colour: 160,
@@ -487,34 +486,3 @@ function handleAttrAndStyle(block) {
     }
     return attributes;
 }
-
-class FieldMultilineText extends Blockly.FieldTextInput {
-    constructor(text) {
-        super(text);
-    }
-    showEditor_() {
-        if (!Blockly.WidgetDiv.getDiv()) {
-            Blockly.WidgetDiv.createDom();
-        }
-        Blockly.WidgetDiv.show(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
-        const div = Blockly.WidgetDiv.getDiv();
-        if (!div) {
-            throw new Error('WidgetDiv is not initialized.');
-        }
-        this.editor_ = document.createElement('textarea');
-        this.editor_.className = 'blocklyHtmlInput';
-        this.editor_.style.height = '200px';
-        this.editor_.style.resize = 'both';
-        this.editor_.style.textAlign = 'left';
-        this.editor_.value = this.getValue();
-        this.editor_.spellcheck = false;
-        div.appendChild(this.editor_);
-        this.editor_.focus();
-        this.editor_.select();
-        Blockly.WidgetDiv.positionWithAnchor(this, this.sourceBlock_.RTL, this.widgetDispose_.bind(this));
-    }
-    static fromJson(options) {
-        return new FieldMultilineText(options.text);
-    }
-}
-Blockly.fieldRegistry.register('field_multilinetext', FieldMultilineText);
