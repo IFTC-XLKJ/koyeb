@@ -1,4 +1,4 @@
-Blockly.defineBlocksWithJson([
+Blockly.defineBlocksWithJsonArray([
     {
         type: "attr_get",
         message0: "属性 %1",
