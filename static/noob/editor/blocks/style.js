@@ -13,7 +13,6 @@ Blockly.defineBlocksWithJsonArray([
                 name: 'STYLE_GROUP'
             }
         ],
-        output: 'String',
         colour: 230,
         tooltip: '',
         helpUrl: ''
