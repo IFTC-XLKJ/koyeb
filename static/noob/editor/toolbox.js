@@ -34,7 +34,7 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "element_script",
-                }
+                },
                 {
                     kind: "label",
                     text: "-- 主体元素 --",
