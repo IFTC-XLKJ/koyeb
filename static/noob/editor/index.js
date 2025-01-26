@@ -30,6 +30,9 @@ addEventListener("load", e => {
     });
     console.log('Workspace initialized:', workspace);
     loadBlocks(initBlocks())
+    workspace.registerButtonCallback("createVar", function (ws) {
+        Blockly.Variables.createVariableButtonHandler(workspace, null, 'any')
+    })
     const previewFrame = document.getElementById("previewFrame");
     const docTitle = document.getElementById("docTitle");
     docTitle.style.width = `${innerWidth * 0.3}px`;
