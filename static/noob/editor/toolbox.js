@@ -120,6 +120,27 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "变量",
+            colour: 330,
+            contents: [
+                {
+                    kind: "button",
+                    text: "创建变量",
+                    callbackKey: "createVar",
+                    "web-class": "createVar"
+                },
+                {
+                    kind: "block",
+                    type: "variables_get",
+                },
+                {
+                    kind: "block",
+                    type: "variables_set",
+                },
+            ]
+        },
+        {
+            kind: "category",
             name: "字典",
             colour: 290,
             contents: [
