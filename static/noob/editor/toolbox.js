@@ -109,6 +109,10 @@ const toolbox = {
                     kind: "block",
                     type: "attr_data_get",
                 },
+                {
+                    kind: "block",
+                    type: "attr_target_value"
+                },
             ]
         },
         {
