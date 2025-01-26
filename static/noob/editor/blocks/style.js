@@ -60,7 +60,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock['style_color'] = function (block) {
     var color = block.getFieldValue('COLOR');
-    return [`color: ${color};`, Blockly.JavaScript.ORDER_ATOMIC];
+    return `color: ${color};\n`;
 };
 
 Blockly.JavaScript.forBlock['style_group'] = function (block) {
