@@ -324,6 +324,7 @@ addEventListener("contextmenu", async e => {
         navigator.clipboard.readText()
             .then(async text => {
                 searchInput.value = text;
+                keyword = text;
                 const musics = await getMusicList(keyword);
                 if (!musics) {
                     return;
