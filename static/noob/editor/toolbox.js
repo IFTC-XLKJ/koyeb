@@ -1,5 +1,3 @@
-const { text } = require("body-parser");
-
 const toolbox = {
     kind: "categoryToolbox",
     contents: [
