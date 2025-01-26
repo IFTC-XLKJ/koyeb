@@ -136,6 +136,16 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "variables_set",
+                    inputs: {
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                }
+                            }
+                        }
+                    }
                 },
             ]
         },
