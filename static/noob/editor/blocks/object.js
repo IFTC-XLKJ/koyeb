@@ -75,6 +75,7 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
         }
     },
     updateShape_: function () {
+        console.log('updateShape_ called with itemCount_:', this.itemCount_);
         if (this.itemCount_ && this.itemCount_ > 0) {
             for (var i = 0; i < this.itemCount_; i++) {
                 if (!this.getInput('ADD' + i + '_KEY')) {
@@ -82,13 +83,10 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                         .setAlign(Blockly.ALIGN_RIGHT);
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
-    
-                    // 设置影子块的值
                     var field = Blockly.utils.xml.createElement('field');
                     field.setAttribute('name', 'TEXT');
-                    field.appendChild(document.createTextNode('default_key'));
+                    field.appendChild(document.createTextNode('key'));
                     shadowBlock.appendChild(field);
-    
                     input.connection.setShadowDom(shadowBlock);
                 }
                 if (!this.getInput('ADD' + i + '_VALUE')) {
@@ -96,20 +94,31 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                         .setAlign(Blockly.ALIGN_RIGHT);
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
-    
-                    // 设置影子块的值
                     var field = Blockly.utils.xml.createElement('field');
                     field.setAttribute('name', 'TEXT');
-                    field.appendChild(document.createTextNode('default_value'));
+                    field.appendChild(document.createTextNode('value'));
                     shadowBlock.appendChild(field);
-    
                     input.connection.setShadowDom(shadowBlock);
                 }
             }
-            // Remove extra inputs
+            var inputsToRemove = [];
             for (var i = this.itemCount_; this.getInput('ADD' + i + '_KEY'); i++) {
+                inputsToRemove.push('ADD' + i + '_KEY');
+                inputsToRemove.push('ADD' + i + '_VALUE');
+            }
+            console.log('Inputs to remove:', inputsToRemove);
+            for (var i = 0; i < inputsToRemove.length; i++) {
+                console.log('Removing input:', inputsToRemove[i]);
+                this.removeInput(inputsToRemove[i]);
+            }
+        } else {
+            var i = 0;
+            while (this.getInput('ADD' + i + '_KEY')) {
+                console.log('Removing input: ADD' + i + '_KEY');
                 this.removeInput('ADD' + i + '_KEY');
+                console.log('Removing input: ADD' + i + '_VALUE');
                 this.removeInput('ADD' + i + '_VALUE');
+                i++;
             }
         }
     }
