@@ -476,6 +476,34 @@ Blockly.JavaScript.forBlock['element_br'] = function (block) {
     var code = `<br>\n`;
     return code;
 };
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "element_hr",
+        message0: "水平线 属性 %1 样式 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "STYLE",
+                check: "Dictionary",
+            }
+        ],
+        colour: 160,
+        tooltip: "水平线",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    }
+])
+Blockly.JavaScript.forBlock['element_hr'] = function (block) {
+    var code = `<hr${handleAttrAndStyle(block)}>\n`;
+    return code;
+};
 
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
