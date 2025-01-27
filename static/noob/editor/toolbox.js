@@ -140,6 +140,22 @@ const toolbox = {
                     kind: "block",
                     type: "element_br",
                 },
+                {
+                    kind: "block",
+                    type: "element_hr",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
+                },
             ]
         },
         {
