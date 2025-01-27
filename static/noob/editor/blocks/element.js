@@ -182,7 +182,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "https://iftc.koyeb.app/favicon.ico"
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "link 标签",
         helpUrl: "",
         nextStatement: true,
@@ -206,7 +206,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: "STYLESHEET",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "style 标签",
         helpUrl: "",
         nextStatement: true,
@@ -229,7 +229,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: "SCRIPT",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "script 标签",
         helpUrl: "",
         nextStatement: true,
