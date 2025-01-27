@@ -186,7 +186,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: "KEY"
             }
         ],
-        output: "Any",
+        output: "any",
         colour: "#9F73FE",
         tooltip: "获取字典中的值",
         inputsInline: true
