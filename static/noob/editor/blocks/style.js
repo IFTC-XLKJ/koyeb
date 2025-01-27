@@ -123,8 +123,30 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true,
         nextStatement: true,
         previousStatement: true,
+    },
+    {
+        type: "style_border_radius",
+        message0: '边框圆角 %1',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'RADIUS',
+                text: '5px'
+            }
+        ],
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        inputsInline: true,
+        nextStatement: true,
+        previousStatement: true,
     }
 ]);
+
+Blockly.JavaScript.forBlock['style_border_radius'] = function (block) {
+    var radius = block.getFieldValue('RADIUS');
+    return `border-radius: ${radius};\n`;
+};
 
 Blockly.JavaScript.forBlock['style_border'] = function (block) {
     var border = block.getFieldValue('BORDER');
