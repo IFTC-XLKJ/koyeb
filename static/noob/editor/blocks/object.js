@@ -282,6 +282,7 @@ Blockly.defineBlocksWithJsonArray([
 ])
 Blockly.JavaScript.forBlock['dict_parse_string'] = function (block) {
     var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
+    dict = replaceFirstAndLastChar(dict, "'", "'");
     return ['JSON.parse(' + dict + ')', Blockly.JavaScript.ORDER_ATOMIC];
 }
 Blockly.JavaScript.forBlock['dict_parse_object'] = function (block) {
