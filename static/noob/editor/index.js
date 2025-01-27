@@ -144,3 +144,10 @@ addEventListener("resize", e => {
     const docTitle = document.getElementById("docTitle");
     docTitle.style.width = `${innerWidth * 0.3}px`;
 })
+
+function replaceFirstAndLastChar(str, firstChar, lastChar) {
+    if (str.length < 2) {
+        return str;
+    }
+    return firstChar + str.slice(1, -1) + lastChar;
+}
