@@ -88,3 +88,8 @@ body {
 .blocklyFlyoutBackground {
     fill: rgba(255, 255, 255, 0.5);
 }
+
+.nav-text {
+    justify-content: center;
+    align-items: center;
+}
