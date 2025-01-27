@@ -508,7 +508,6 @@ Blockly.JavaScript.forBlock['element_hr'] = function (block) {
 function handleAttrAndStyle(block) {
     var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
     let attributes = "";
-    console.log(attribute);
     if (attribute) {
         try {
             attribute = JSON.parse(attribute);
