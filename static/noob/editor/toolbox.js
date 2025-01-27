@@ -190,6 +190,10 @@ const toolbox = {
                     kind: "block",
                     type: "style_border",
                 },
+                {
+                    kind: "block",
+                    type: "style_border_radius",
+                },
             ]
         },
         {
