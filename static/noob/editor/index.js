@@ -51,7 +51,28 @@ addEventListener("load", e => {
             }
         }
     }, 300)
+    const file = document.getElementById("file");
+    const fileMenu = document.getElementById("fileMenu");
+    file.addEventListener("click", e => {
+        e.preventDefault();
+        if (fileMenu.dataset.navMenu == "show") {
+            fileMenu.dataset.navMenu = "hidden";
+        } else {
+            fileMenu.dataset.navMenu = "show";
+            addEventListener("click", e => {
+                if (e.target.id == "file") {
+                    return;
+                }
+                fileMenu.dataset.navMenu = "hidden";
+            });
+        }
+    })
 })
+
+function newFile() {
+    location.href = "/noob/editor"
+}
+
 function initBlocks() {
     return {
         blocks: {
