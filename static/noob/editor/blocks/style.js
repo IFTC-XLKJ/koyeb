@@ -83,10 +83,55 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: '',
         helpUrl: '',
         inputsInline: true,
-        nextStatement:true,
+        nextStatement: true,
+        previousStatement: true,
+    },
+    {
+        type: "style_border",
+        message0: '边框 宽度 %1 样式 %2 颜色 %3',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'BORDER',
+                text: '1px'
+            },
+            {
+                type: 'field_dropdown',
+                name: 'STYLE',
+                options: [
+                    ["none","无边框"],
+                    ["hidden","隐藏边框"],
+                    ["dotted","点线边框"],
+                    ["dashed","虚线边框"],
+                    ["solid","实线边框"],
+                    ["double","双线边框"],
+                    ["groove","3D凹槽边框"],
+                    ["ridge","3D垄状边框"],
+                    ["inset","3D内嵌边框"],
+                    ["outset","3D外凸边框"]
+                ]
+            },
+            {
+                type: 'field_input',
+                name: 'COLOR',
+                text: '#000000'
+            }
+        ],
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        inputsInline: true,
+        nextStatement: true,
         previousStatement: true,
     }
 ]);
+
+Blockly.JavaScript.forBlock['style_border'] = function (block) {
+    var border = block.getFieldValue('BORDER');
+    var style = block.getFieldValue('STYLE');
+    var color = block.getFieldValue('COLOR');
+    return `border: ${border} ${style} ${color};\n`;
+};
 
 Blockly.JavaScript.forBlock['style_font_size'] = function (block) {
     var size = block.getFieldValue('SIZE');
