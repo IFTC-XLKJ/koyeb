@@ -247,3 +247,44 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
     }
 ])
+
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: "dict_parse_string",
+        message0: "字典 将字符串 %1 解析为对象",
+        args0: [
+            {
+                type: "input_value",
+                name: "DICT",
+                check: "String"
+            }
+        ],
+        output: "Object",
+        colour: 290,
+        tooltip: "将字典解析为对象",
+        inputsInline: true
+    },
+    {
+        type: "dict_parse_object",
+        message0: "字典 将对象 %1 解析为字符串",
+        args0: [
+            {
+                type: "input_value",
+                name: "DICT",
+                check: "Dictionary"
+            }
+        ],
+        output: "String",
+        colour: 290,
+        tooltip: "将字典解析为字符串",
+        inputsInline:true
+    }
+])
+Blockly.JavaScript.forBlock['dict_parse_string'] = function (block) {
+    var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
+    return ['JSON.parse(' + dict + ')', Blockly.JavaScript.ORDER_ATOMIC];
+}
+Blockly.JavaScript.forBlock['dict_parse_object'] = function (block) {
+    var dict = Blockly.JavaScript.valueToCode(block, 'DICT', Blockly.JavaScript.ORDER_ATOMIC);
+    return ['JSON.stringify(' + dict + ')', Blockly.JavaScript.ORDER_ATOMIC];
+}
