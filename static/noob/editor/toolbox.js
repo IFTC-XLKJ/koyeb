@@ -342,6 +342,55 @@ const toolbox = {
                     }
                 },
             ]
+        },
+        {
+            kind: "category",
+            name: "脚本",
+            colour: 230,
+            contents: [
+                {
+                    kind: "block",
+                    type: "script_console_log",
+                    inputs: {
+                        CONSOLE_LOG: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello,NOOB!"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "script_console_warn",
+                    inputs: {
+                        CONSOLE_WARN: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello,NOOB!"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "script_console_error",
+                    inputs: {
+                        CONSOLE_ERROR: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello,NOOB!"
+                                }
+                            }
+                        }
+                    }
+                },
+            ]
         }
     ]
 }
