@@ -70,7 +70,7 @@ Blockly.defineBlocksWithJsonArray([
     }
 ])
 
-Blockly.JavaScript.forBlocks["variables_define"] = function (block) {
+Blockly.JavaScript.forBlock["variables_define"] = function (block) {
     var variable = Blockly.JavaScript.variableDB_.getName(block.getFieldValue("VARIABLE"), Blockly.Variables.NAME_TYPE);
     var value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "0";
     var code = "let " + variable + " = " + value + ";\n";
