@@ -363,6 +363,31 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "dict_parse_string",
+                    inputs: {
+                        DICT: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "{\"key\":\"value\"}"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "dict_parse_object",
+                    inputs: {
+                        DICT: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        }
+                    }
+                }
             ]
         },
         {
