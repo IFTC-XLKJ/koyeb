@@ -10,7 +10,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "Number",
-        colour: 20,
+        colour: "#F8AA87",
         tooltip: "数字",
         helpUrl: ""
     },
@@ -25,7 +25,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "String",
-        colour: 20,
+        colour: "#F8AA87",
         tooltip: "文本",
         helpUrl: ""
     },
@@ -43,7 +43,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "String",
-        colour: 20,
+        colour: "#F8AA87",
         tooltip: "拼接文本",
         helpUrl: "",
         inputsInline: true
@@ -76,7 +76,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "Number",
-        colour: 20,
+        colour: "#F8AA87",
         tooltip: "数字运算",
         helpUrl: "",
         inputsInline: true

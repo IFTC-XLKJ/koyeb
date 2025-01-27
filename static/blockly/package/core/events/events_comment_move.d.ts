@@ -3,15 +3,21 @@
  * Copyright 2018 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { Coordinate } from '../utils/coordinate.js';
+/**
+ * Class for comment move event.
+ *
+ * @class
+ */
 import type { WorkspaceComment } from '../comments/workspace_comment.js';
-import { CommentBase, CommentBaseJson } from './events_comment_base.js';
+import { Coordinate } from '../utils/coordinate.js';
 import type { Workspace } from '../workspace.js';
+import { CommentBase, CommentBaseJson } from './events_comment_base.js';
+import { EventType } from './type.js';
 /**
  * Notifies listeners that a workspace comment has moved.
  */
 export declare class CommentMove extends CommentBase {
-    type: string;
+    type: EventType;
     /** The comment that is being moved. */
     comment_?: WorkspaceComment;
     /** The location of the comment before the move, in workspace coordinates. */

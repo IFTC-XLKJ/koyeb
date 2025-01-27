@@ -3,8 +3,14 @@
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-import { Coordinate } from './utils/coordinate.js';
+/**
+ * Object for configuring and updating a workspace grid in
+ * Blockly.
+ *
+ * @class
+ */
 import { GridOptions } from './options.js';
+import { Coordinate } from './utils/coordinate.js';
 /**
  * Class for a workspace's grid.
  */

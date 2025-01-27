@@ -3,9 +3,6 @@
  * Copyright 2012 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * @file Generating JavaScript for procedure blocks.
- */
 import type { Block } from '../../core/block.js';
 import type { JavascriptGenerator } from './javascript_generator.js';
 import { Order } from './javascript_generator.js';

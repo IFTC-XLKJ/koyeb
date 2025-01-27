@@ -3,9 +3,6 @@
  * Copyright 2016 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * @file Generating Lua for procedure blocks.
- */
 import type { Block } from '../../core/block.js';
 import type { LuaGenerator } from './lua_generator.js';
 import { Order } from './lua_generator.js';

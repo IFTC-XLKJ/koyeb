@@ -3,12 +3,12 @@
  * Copyright 2023 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+import { ISelectable } from '../blockly.js';
 import { IBubble } from '../interfaces/i_bubble.js';
 import { Coordinate } from '../utils/coordinate.js';
 import { Rect } from '../utils/rect.js';
 import { Size } from '../utils/size.js';
 import { WorkspaceSvg } from '../workspace_svg.js';
-import { ISelectable } from '../blockly.js';
 /**
  * The abstract pop-up bubble class. This creates a UI that looks like a speech
  * bubble, where it has a "tail" that points to the block, and a "head" that
@@ -96,7 +96,7 @@ export declare abstract class Bubble implements IBubble, ISelectable {
     protected getColour(): string;
     /** Sets the colour of the background and tail of this bubble. */
     setColour(colour: string): void;
-    /** Passes the pointer event off to the gesture system. */
+    /** Brings the bubble to the front and passes the pointer event off to the gesture system. */
     private onMouseDown;
     /** Positions the bubble relative to its anchor. Does not render its tail. */
     protected positionRelativeToAnchor(): void;

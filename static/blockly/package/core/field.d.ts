@@ -17,13 +17,13 @@ import type { IASTNodeLocationSvg } from './interfaces/i_ast_node_location_svg.j
 import type { IASTNodeLocationWithBlock } from './interfaces/i_ast_node_location_with_block.js';
 import type { IKeyboardAccessible } from './interfaces/i_keyboard_accessible.js';
 import type { IRegistrable } from './interfaces/i_registrable.js';
+import { ISerializable } from './interfaces/i_serializable.js';
 import type { ConstantProvider } from './renderers/common/constants.js';
 import type { KeyboardShortcut } from './shortcut_registry.js';
 import * as Tooltip from './tooltip.js';
 import type { Coordinate } from './utils/coordinate.js';
 import { Rect } from './utils/rect.js';
 import { Size } from './utils/size.js';
-import { ISerializable } from './interfaces/i_serializable.js';
 /**
  * A function that is called to validate changes to the field's value before
  * they are set.
@@ -74,18 +74,18 @@ export declare abstract class Field<T = any> implements IASTNodeLocationSvg, IAS
      * Used to cache the field's tooltip value if setTooltip is called when the
      * field is not yet initialized. Is *not* guaranteed to be accurate.
      */
-    private tooltip_;
+    private tooltip;
     protected size_: Size;
     /**
      * Holds the cursors svg element when the cursor is attached to the field.
      * This is null if there is no cursor on the field.
      */
-    private cursorSvg_;
+    private cursorSvg;
     /**
      * Holds the markers svg element when the marker is attached to the field.
      * This is null if there is no marker on the field.
      */
-    private markerSvg_;
+    private markerSvg;
     /** The rendered field's SVG group element. */
     protected fieldGroup_: SVGGElement | null;
     /** The rendered field's SVG border element. */
@@ -95,7 +95,7 @@ export declare abstract class Field<T = any> implements IASTNodeLocationSvg, IAS
     /** The rendered field's text content element. */
     protected textContent_: Text | null;
     /** Mouse down event listener data. */
-    private mouseDownWrapper_;
+    private mouseDownWrapper;
     /** Constants associated with the source block's renderer. */
     protected constants_: ConstantProvider | null;
     /**
@@ -564,7 +564,7 @@ export declare abstract class Field<T = any> implements IASTNodeLocationSvg, IAS
      * @param fireChangeEvent Whether to fire a change event if the value changes.
      * @returns New value, or an Error object.
      */
-    private processValidation_;
+    private processValidation;
     /**
      * Get the current value of the field.
      *

@@ -12,12 +12,13 @@ import type { Block } from '../block.js';
 import type { BlockSvg } from '../block_svg.js';
 import { Workspace } from '../workspace.js';
 import { BlockBase, BlockBaseJson } from './events_block_base.js';
+import { EventType } from './type.js';
 /**
  * Notifies listeners when some element of a block has changed (e.g.
  * field values, comments, etc).
  */
 export declare class BlockChange extends BlockBase {
-    type: string;
+    type: EventType;
     /**
      * The element that changed; one of 'field', 'comment', 'collapsed',
      * 'disabled', 'inline', or 'mutation'

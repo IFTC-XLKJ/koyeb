@@ -10,8 +10,8 @@
  */
 import './events/events_block_change.js';
 import { Field, FieldConfig, FieldValidator } from './field.js';
-import type { WorkspaceSvg } from './workspace_svg.js';
 import { Size } from './utils/size.js';
+import type { WorkspaceSvg } from './workspace_svg.js';
 /**
  * Supported types for FieldInput subclasses.
  *
@@ -47,9 +47,9 @@ export declare abstract class FieldInput<T extends InputTypes> extends Field<str
      */
     protected valueWhenEditorWasOpened_: string | T | null;
     /** Key down event data. */
-    private onKeyDownWrapper_;
+    private onKeyDownWrapper;
     /** Key input event data. */
-    private onKeyInputWrapper_;
+    private onKeyInputWrapper;
     /**
      * Whether the field should consider the whole parent block to be its click
      * target.
@@ -150,13 +150,13 @@ export declare abstract class FieldInput<T extends InputTypes> extends Field<str
      * Mobile browsers may have issues with in-line textareas (focus and
      * keyboards).
      */
-    private showPromptEditor_;
+    private showPromptEditor;
     /**
      * Create and show a text input editor that sits directly over the text input.
      *
      * @param quietInput True if editor should be created without focus.
      */
-    private showInlineEditor_;
+    private showInlineEditor;
     /**
      * Create the text input editor widget.
      *
@@ -193,7 +193,7 @@ export declare abstract class FieldInput<T extends InputTypes> extends Field<str
      *
      * @param _e Keyboard event.
      */
-    private onHtmlInputChange_;
+    private onHtmlInputChange;
     /**
      * Set the HTML input value and the field's internal value. The difference
      * between this and `setValue` is that this also updates the HTML input

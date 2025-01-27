@@ -19,7 +19,7 @@ import type { WorkspaceSvg } from './workspace_svg.js';
 export declare class ContextMenuRegistry {
     static registry: ContextMenuRegistry;
     /** Registry of all registered RegistryItems, keyed by ID. */
-    private registry_;
+    private registeredItems;
     /** Resets the existing singleton instance of ContextMenuRegistry. */
     constructor();
     /** Clear and recreate the registry. */

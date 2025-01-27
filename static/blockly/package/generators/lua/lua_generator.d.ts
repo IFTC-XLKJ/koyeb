@@ -3,6 +3,12 @@
  * Copyright 2016 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+/**
+ * @file Lua code generator class, including helper methods for
+ * generating Lua for blocks.
+ *
+ * Based on Ellen Spertus's blocky-lua project.
+ */
 import type { Block } from '../../core/block.js';
 import { CodeGenerator } from '../../core/generator.js';
 import type { Workspace } from '../../core/workspace.js';

@@ -3,10 +3,15 @@
  * Copyright 2016 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+/**
+ * Class for a button in the flyout.
+ *
+ * @class
+ */
+import type { IASTNodeLocationSvg } from './blockly.js';
 import { Coordinate } from './utils/coordinate.js';
 import type * as toolbox from './utils/toolbox.js';
 import type { WorkspaceSvg } from './workspace_svg.js';
-import type { IASTNodeLocationSvg } from './blockly.js';
 /**
  * Class for a button or label in the flyout.
  */

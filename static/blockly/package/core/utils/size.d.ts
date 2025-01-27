@@ -29,7 +29,7 @@ export declare class Size {
      * @returns True iff the sizes have equal widths and equal heights, or if both
      *     are null.
      */
-    static equals(a: Size | null, b: Size | null): boolean;
+    static equals(a?: Size | null, b?: Size | null): boolean;
     /**
      * Returns a new size with the maximum width and height values out of both
      * sizes.

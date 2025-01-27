@@ -4,12 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import type { Block } from '../block.js';
-import { IconType } from './icon_types.js';
-import { Coordinate } from '../utils.js';
-import { Icon } from './icon.js';
 import type { IHasBubble } from '../interfaces/i_has_bubble.js';
 import type { ISerializable } from '../interfaces/i_serializable.js';
+import { Coordinate } from '../utils.js';
 import { Size } from '../utils/size.js';
+import { Icon } from './icon.js';
+import { IconType } from './icon_types.js';
 /**
  * An icon which allows the user to add comment text to a block.
  */
@@ -22,10 +22,8 @@ export declare class CommentIcon extends Icon implements IHasBubble, ISerializab
      * weight values are rendered farther toward the end of the block.
      */
     static readonly WEIGHT = 3;
-    /** The bubble used to show editable text to the user. */
+    /** The bubble used to show comment text to the user. */
     private textInputBubble;
-    /** The bubble used to show non-editable text to the user. */
-    private textBubble;
     /** The text of this comment. */
     private text;
     /** The size of this comment (which is applied to the editable bubble). */
@@ -90,6 +88,7 @@ export declare class CommentIcon extends Icon implements IHasBubble, ISerializab
     private showEditableBubble;
     /** Shows the non editable text bubble for this comment. */
     private showNonEditableBubble;
+    protected createBubble(): void;
     /** Hides any open bubbles owned by this comment. */
     private hideBubble;
     /**

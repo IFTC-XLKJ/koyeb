@@ -2,7 +2,7 @@ Blockly.defineBlocksWithJsonArray([
     {
         type: "object_dict",
         message0: "字典",
-        colour: 290,
+        colour: "#9F73FE",
         tooltip: "创建一个字典",
         helpUrl: "",
         output: "Dictionary",
@@ -16,7 +16,7 @@ Blockly.Blocks['dict_mutator'] = {
         this.appendDummyInput()
             .appendField("字典");
         this.appendStatementInput("STACK");
-        this.setColour(290);
+        this.setColour("#9F73FE");
         this.setTooltip("添加或移除字典项");
         this.setHelpUrl("");
     }
@@ -144,7 +144,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         previousStatement: null,
         nextStatement: null,
-        colour: 290,
+        colour: "#9F73FE",
         tooltip: "字典键值对",
         helpUrl: "",
         inputsInline: true
@@ -187,7 +187,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "Any",
-        colour: 290,
+        colour: "#9F73FE",
         tooltip: "获取字典中的值",
         inputsInline: true
     }
@@ -218,7 +218,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         previousStatement: null,
         nextStatement: null,
-        colour: 290,
+        colour: "#9F73FE",
         tooltip: "设置字典中的值",
         inputsInline: true
     }
@@ -260,7 +260,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "Object",
-        colour: 290,
+        colour: "#9F73FE",
         tooltip: "将字典解析为对象",
         inputsInline: true
     },
@@ -275,7 +275,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         output: "String",
-        colour: 290,
+        colour: "#9F73FE",
         tooltip: "将字典解析为字符串",
         inputsInline:true
     }

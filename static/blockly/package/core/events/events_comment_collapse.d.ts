@@ -4,11 +4,12 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { WorkspaceComment } from '../comments/workspace_comment.js';
-import { CommentBase, CommentBaseJson } from './events_comment_base.js';
 import type { Workspace } from '../workspace.js';
+import { CommentBase, CommentBaseJson } from './events_comment_base.js';
+import { EventType } from './type.js';
 export declare class CommentCollapse extends CommentBase {
     newCollapsed?: boolean | undefined;
-    type: string;
+    type: EventType;
     constructor(comment?: WorkspaceComment, newCollapsed?: boolean | undefined);
     /**
      * Encode the event as JSON.

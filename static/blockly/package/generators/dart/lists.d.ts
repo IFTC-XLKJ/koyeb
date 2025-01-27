@@ -3,9 +3,6 @@
  * Copyright 2014 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * @file Generating Dart for list blocks.
- */
 import type { Block } from '../../core/block.js';
 import type { DartGenerator } from './dart_generator.js';
 import { Order } from './dart_generator.js';

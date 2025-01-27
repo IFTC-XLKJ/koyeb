@@ -12,7 +12,7 @@ export declare class WorkspaceAudio {
     /** Database of pre-loaded sounds. */
     private sounds;
     /** Time that the last sound was played. */
-    private lastSound_;
+    private lastSound;
     /** Whether the audio is muted or not. */
     private muted;
     /**

@@ -4,9 +4,9 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 import { IRenderedElement } from '../interfaces/i_rendered_element.js';
-import { WorkspaceSvg } from '../workspace_svg.js';
 import { Coordinate } from '../utils/coordinate.js';
 import { Size } from '../utils/size.js';
+import { WorkspaceSvg } from '../workspace_svg.js';
 export declare class CommentView implements IRenderedElement {
     private readonly workspace;
     /** The root group element of the comment view. */
@@ -65,6 +65,8 @@ export declare class CommentView implements IRenderedElement {
     private disposing;
     /** Whether this comment view has been disposed or not. */
     private disposed;
+    /** Size of this comment when the resize drag was initiated. */
+    private preResizeSize?;
     constructor(workspace: WorkspaceSvg);
     /**
      * Creates the rect we use for highlighting the comment when it's selected.
@@ -91,6 +93,11 @@ export declare class CommentView implements IRenderedElement {
     /**
      * Sets the size of the comment in workspace units, and updates the view
      * elements to reflect the new size.
+     */
+    setSizeWithoutFiringEvents(size: Size): void;
+    /**
+     * Sets the size of the comment in workspace units, updates the view
+     * elements to reflect the new size, and triggers size change listeners.
      */
     setSize(size: Size): void;
     /**
@@ -128,7 +135,7 @@ export declare class CommentView implements IRenderedElement {
     private updateResizeHandlePosition;
     /**
      * Triggers listeners when the size of the comment changes, either
-     * progrmatically or manually by the user.
+     * programmatically or manually by the user.
      */
     private onSizeChange;
     /**
@@ -189,7 +196,7 @@ export declare class CommentView implements IRenderedElement {
     removeTextChangeListener(listener: () => void): void;
     /**
      * Triggers listeners when the text of the comment changes, either
-     * progrmatically or manually by the user.
+     * programmatically or manually by the user.
      */
     private onTextChange;
     /** Updates the preview text element to reflect the given text. */

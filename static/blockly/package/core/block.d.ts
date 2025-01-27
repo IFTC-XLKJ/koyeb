@@ -15,16 +15,16 @@ import { Connection } from './connection.js';
 import { ConnectionType } from './connection_type.js';
 import type { Abstract } from './events/events_abstract.js';
 import type { Field } from './field.js';
+import { IconType } from './icons/icon_types.js';
+import type { MutatorIcon } from './icons/mutator_icon.js';
 import { Input } from './inputs/input.js';
 import type { IASTNodeLocation } from './interfaces/i_ast_node_location.js';
 import { type IIcon } from './interfaces/i_icon.js';
-import type { MutatorIcon } from './icons/mutator_icon.js';
 import * as Tooltip from './tooltip.js';
 import { Coordinate } from './utils/coordinate.js';
 import { Size } from './utils/size.js';
 import type { VariableModel } from './variable_model.js';
 import type { Workspace } from './workspace.js';
-import { IconType } from './icons/icon_types.js';
 /**
  * Class for one block.
  * Not normally called directly, workspace.newBlock() is preferred.
@@ -55,7 +55,7 @@ export declare class Block implements IASTNodeLocation {
      * Colour of the block as HSV hue value (0-360)
      * This may be null if the block colour was not set via a hue number.
      */
-    private hue_;
+    private hue;
     /** Colour of the block in '#RRGGBB' format. */
     protected colour_: string;
     /** Name of the block style. */
@@ -100,22 +100,28 @@ export declare class Block implements IASTNodeLocation {
      */
     suppressPrefixSuffix: boolean | null;
     /**
-     * An optional property for declaring developer variables.  Return a list of
-     * variable names for use by generators.  Developer variables are never
-     * shown to the user, but are declared as global variables in the generated
-     * code.
+     * An optional method for declaring developer variables, to be used
+     * by generators.  Developer variables are never shown to the user,
+     * but are declared as global variables in the generated code.
+     *
+     * @returns a list of developer variable names.
      */
     getDeveloperVariables?: () => string[];
     /**
-     * An optional function that reconfigures the block based on the contents of
-     * the mutator dialog.
+     * An optional method that reconfigures the block based on the
+     * contents of the mutator dialog.
+     *
+     * @param rootBlock The root block in the mutator flyout.
      */
-    compose?: (p1: Block) => void;
+    compose?: (rootBlock: Block) => void;
     /**
-     * An optional function that populates the mutator's dialog with
-     * this block's components.
+     * An optional function that populates the mutator flyout with
+     * blocks representing this block's configuration.
+     *
+     * @param workspace The mutator flyout's workspace.
+     * @returns The root block created in the flyout's workspace.
      */
-    decompose?: (p1: Workspace) => Block;
+    decompose?: (workspace: Workspace) => Block;
     id: string;
     outputConnection: Connection | null;
     nextConnection: Connection | null;
@@ -128,10 +134,10 @@ export declare class Block implements IASTNodeLocation {
     contextMenu: boolean;
     protected parentBlock_: this | null;
     protected childBlocks_: this[];
-    private deletable_;
-    private movable_;
-    private editable_;
-    private isShadow_;
+    private deletable;
+    private movable;
+    private editable;
+    private shadow;
     protected collapsed_: boolean;
     protected outputShape_: number | null;
     /**
@@ -144,7 +150,7 @@ export declare class Block implements IASTNodeLocation {
      * @internal
      */
     initialized: boolean;
-    private readonly xy_;
+    private readonly xy;
     isInFlyout: boolean;
     isInMutator: boolean;
     RTL: boolean;
@@ -157,9 +163,9 @@ export declare class Block implements IASTNodeLocation {
     /**
      * String for block help, or function that returns a URL. Null for no help.
      */
-    helpUrl: string | Function | null;
+    helpUrl: string | (() => string) | null;
     /** A bound callback function to use when the parent workspace changes. */
-    private onchangeWrapper_;
+    private onchangeWrapper;
     /**
      * A count of statement inputs on the block.
      *
@@ -224,7 +230,7 @@ export declare class Block implements IASTNodeLocation {
      * @param opt_healStack Disconnect right-side block and connect to left-side
      *     block.  Defaults to false.
      */
-    private unplugFromRow_;
+    private unplugFromRow;
     /**
      * Returns the connection on the value input that is connected to another
      * block. When an insertion marker is connected to a connection with a block
@@ -234,7 +240,7 @@ export declare class Block implements IASTNodeLocation {
      *
      * @returns The connection on the value input, or null.
      */
-    private getOnlyValueConnection_;
+    private getOnlyValueConnection;
     /**
      * Unplug this statement block from its superior block.  Optionally reconnect
      * the block underneath with the block on top.
@@ -242,7 +248,7 @@ export declare class Block implements IASTNodeLocation {
      * @param opt_healStack Disconnect child statement and reconnect stack.
      *     Defaults to false.
      */
-    private unplugFromStack_;
+    private unplugFromStack;
     /**
      * Returns all connections originating from this block.
      *
@@ -471,7 +477,7 @@ export declare class Block implements IASTNodeLocation {
      * @param url URL string for block help, or function that returns a URL.  Null
      *     for no help.
      */
-    setHelpUrl(url: string | Function): void;
+    setHelpUrl(url: string | (() => string)): void;
     /**
      * Sets the tooltip for this block.
      *
@@ -777,14 +783,14 @@ export declare class Block implements IASTNodeLocation {
      * @param json Structured data describing the block.
      * @param warningPrefix Warning prefix string identifying block.
      */
-    private jsonInitColour_;
+    private jsonInitColour;
     /**
      * Initialize the style of this block from the JSON description.
      *
      * @param json Structured data describing the block.
      * @param warningPrefix Warning prefix string identifying block.
      */
-    private jsonInitStyle_;
+    private jsonInitStyle;
     /**
      * Add key/values from mixinObj to this block object. By default, this method
      * will check that the keys in mixinObj will not overwrite existing values in
@@ -806,7 +812,7 @@ export declare class Block implements IASTNodeLocation {
      *     of newline tokens, how should it be aligned?
      * @param warningPrefix Warning prefix string identifying block.
      */
-    private interpolate_;
+    private interpolate;
     /**
      * Validates that the tokens are within the correct bounds, with no
      * duplicates, and that all of the arguments are referred to. Throws errors if
@@ -815,7 +821,7 @@ export declare class Block implements IASTNodeLocation {
      * @param tokens An array of tokens to validate
      * @param argsCount The number of args that need to be referred to.
      */
-    private validateTokens_;
+    private validateTokens;
     /**
      * Inserts args in place of numerical tokens. String args are converted to
      * JSON that defines a label field. Newline characters are converted to
@@ -828,7 +834,7 @@ export declare class Block implements IASTNodeLocation {
      *     or dummy inputs, if necessary.
      * @returns The JSON definitions of field and inputs to add to the block.
      */
-    private interpolateArguments_;
+    private interpolateArguments;
     /**
      * Creates a field from the JSON definition of a field. If a field with the
      * given type cannot be found, this attempts to create a different field using
@@ -837,7 +843,7 @@ export declare class Block implements IASTNodeLocation {
      * @param element The element to try to turn into a field.
      * @returns The field defined by the JSON, or null if one couldn't be created.
      */
-    private fieldFromJson_;
+    private fieldFromJson;
     /**
      * Creates an input from the JSON definition of an input. Sets the input's
      * check and alignment if they are provided.
@@ -848,7 +854,7 @@ export declare class Block implements IASTNodeLocation {
      * @returns The input that has been created, or null if one could not be
      *     created for some reason (should never happen).
      */
-    private inputFromJson_;
+    private inputFromJson;
     /**
      * Returns true if the given string matches one of the input keywords.
      *
@@ -856,7 +862,7 @@ export declare class Block implements IASTNodeLocation {
      * @returns True if the given string matches one of the input keywords, false
      *     otherwise.
      */
-    private isInputKeyword_;
+    private isInputKeyword;
     /**
      * Turns a string into the JSON definition of a label field. If the string
      * becomes an empty string when trimmed, this returns null.
@@ -864,7 +870,7 @@ export declare class Block implements IASTNodeLocation {
      * @param str String to turn into the JSON definition of a label field.
      * @returns The JSON definition or null.
      */
-    private stringToFieldJson_;
+    private stringToFieldJson;
     /**
      * Move a named input to a different location on this block.
      *

@@ -3,9 +3,9 @@
  * Copyright 2024 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+import { BlockSvg } from '../block_svg.js';
 import { IDragStrategy } from '../interfaces/i_draggable.js';
 import { Coordinate } from '../utils.js';
-import { BlockSvg } from '../block_svg.js';
 export declare class BlockDragStrategy implements IDragStrategy {
     private block;
     private workspace;
@@ -25,6 +25,8 @@ export declare class BlockDragStrategy implements IDragStrategy {
      * block, to add to the drag location. In workspace units.
      */
     private dragOffset;
+    /** Was there already an event group in progress when the drag started? */
+    private inGroup;
     constructor(block: BlockSvg);
     /** Returns true if the block is currently movable. False otherwise. */
     isMovable(): boolean;
@@ -94,6 +96,8 @@ export declare class BlockDragStrategy implements IDragStrategy {
      * connections.
      */
     endDrag(e?: PointerEvent): void;
+    /** Disposes of any state at the end of the drag. */
+    private disposeStep;
     /** Connects the given candidate connections. */
     private applyConnections;
     /**

@@ -11,15 +11,15 @@
  */
 import './events/events_click.js';
 import type { BlockSvg } from './block_svg.js';
+import { RenderedWorkspaceComment } from './comments.js';
 import type { Field } from './field.js';
 import type { IBubble } from './interfaces/i_bubble.js';
+import { IDragger } from './interfaces/i_dragger.js';
 import type { IFlyout } from './interfaces/i_flyout.js';
+import type { IIcon } from './interfaces/i_icon.js';
 import { Coordinate } from './utils/coordinate.js';
 import { WorkspaceDragger } from './workspace_dragger.js';
 import type { WorkspaceSvg } from './workspace_svg.js';
-import type { IIcon } from './interfaces/i_icon.js';
-import { IDragger } from './interfaces/i_dragger.js';
-import { RenderedWorkspaceComment } from './comments.js';
 /**
  * Class for one gesture.
  */
@@ -101,7 +101,7 @@ export declare class Gesture {
     /** The event that most recently updated this gesture. */
     private mostRecentEvent;
     /** Boolean for whether or not this gesture is a multi-touch gesture. */
-    private isMultiTouch_;
+    private multiTouch;
     /** A map of cached points used for tracking multi-touch gestures. */
     private cachedPoints;
     /**

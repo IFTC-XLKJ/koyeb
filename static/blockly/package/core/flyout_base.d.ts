@@ -6,6 +6,7 @@
 import { BlockSvg } from './block_svg.js';
 import { DeleteArea } from './delete_area.js';
 import { FlyoutButton } from './flyout_button.js';
+import { IAutoHideable } from './interfaces/i_autohideable.js';
 import type { IFlyout } from './interfaces/i_flyout.js';
 import type { Options } from './options.js';
 import * as blocks from './serialization/blocks.js';
@@ -13,7 +14,6 @@ import { Coordinate } from './utils/coordinate.js';
 import { Svg } from './utils/svg.js';
 import * as toolbox from './utils/toolbox.js';
 import { WorkspaceSvg } from './workspace_svg.js';
-import { IAutoHideable } from './interfaces/i_autohideable.js';
 declare enum FlyoutItemType {
     BLOCK = "block",
     BUTTON = "button"
@@ -150,7 +150,7 @@ export declare abstract class Flyout extends DeleteArea implements IAutoHideable
     /**
      * Whether the flyout is visible.
      */
-    private isVisible_;
+    private visible;
     /**
      * Whether the workspace containing this flyout is visible.
      */

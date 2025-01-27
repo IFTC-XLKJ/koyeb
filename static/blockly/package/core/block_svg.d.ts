@@ -10,28 +10,28 @@
  */
 import './events/events_selected.js';
 import { Block } from './block.js';
+import { IDeletable } from './blockly.js';
+import { BlockCopyData } from './clipboard/block_paster.js';
 import type { Connection } from './connection.js';
 import { ConnectionType } from './connection_type.js';
 import { ContextMenuOption, LegacyContextMenuOption } from './contextmenu_registry.js';
 import type { Field } from './field.js';
+import { IconType } from './icons/icon_types.js';
+import { MutatorIcon } from './icons/mutator_icon.js';
 import type { Input } from './inputs/input.js';
 import type { IASTNodeLocationSvg } from './interfaces/i_ast_node_location_svg.js';
 import type { IBoundedElement } from './interfaces/i_bounded_element.js';
 import type { ICopyable } from './interfaces/i_copyable.js';
 import type { IDragStrategy, IDraggable } from './interfaces/i_draggable.js';
 import { IIcon } from './interfaces/i_icon.js';
-import { MutatorIcon } from './icons/mutator_icon.js';
 import { RenderedConnection } from './rendered_connection.js';
 import type { IPathObject } from './renderers/common/i_path_object.js';
 import type { BlockStyle } from './theme.js';
 import { Coordinate } from './utils/coordinate.js';
 import { Rect } from './utils/rect.js';
+import { FlyoutItemInfo } from './utils/toolbox.js';
 import type { Workspace } from './workspace.js';
 import type { WorkspaceSvg } from './workspace_svg.js';
-import { IconType } from './icons/icon_types.js';
-import { BlockCopyData } from './clipboard/block_paster.js';
-import { IDeletable } from './blockly.js';
-import { FlyoutItemInfo } from './utils/toolbox.js';
 /**
  * Class for a block's SVG representation.
  * Not normally called directly, workspace.newBlock() is preferred.
@@ -49,7 +49,23 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
      */
     static readonly COLLAPSED_WARNING_ID = "TEMP_COLLAPSED_WARNING_";
     decompose?: (p1: Workspace) => BlockSvg;
-    saveConnections?: (p1: BlockSvg) => void;
+    /**
+     * An optional method which saves a record of blocks connected to
+     * this block so they can be later restored after this block is
+     * recoomposed (reconfigured).  Typically records the connected
+     * blocks on properties on blocks in the mutator flyout, so that
+     * rearranging those component blocks will automatically rearrange
+     * the corresponding connected blocks on this block after this block
+     * is recomposed.
+     *
+     * To keep the saved connection information up-to-date, MutatorIcon
+     * arranges for an event listener to call this method any time the
+     * mutator flyout is open and a change occurs on this block's
+     * workspace.
+     *
+     * @param rootBlock The root block in the mutator flyout.
+     */
+    saveConnections?: (rootBlock: BlockSvg) => void;
     customContextMenu?: (p1: Array<ContextMenuOption | LegacyContextMenuOption>) => void;
     /**
      * Height of this block, not including any statement blocks above or below.
@@ -62,26 +78,26 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
      */
     width: number;
     /**
+     * Width of this block, not including any connected value blocks.
+     * Width is in workspace units.
+     *
+     * @internal
+     */
+    childlessWidth: number;
+    /**
      * Map from IDs for warnings text to PIDs of functions to apply them.
      * Used to be able to maintain multiple warnings.
      */
     private warningTextDb;
     /** Block's mutator icon (if any). */
     mutator: MutatorIcon | null;
-    private svgGroup_;
+    private svgGroup;
     style: BlockStyle;
     /** @internal */
     pathObject: IPathObject;
     /** Is this block a BlockSVG? */
     readonly rendered = true;
     private visuallyDisabled;
-    /**
-     * Is this block currently rendering? Used to stop recursive render calls
-     * from actually triggering a re-render.
-     */
-    private renderIsInProgress_;
-    /** Whether mousedown events have been bound yet. */
-    private eventsInit_;
     workspace: WorkspaceSvg;
     outputConnection: RenderedConnection;
     nextConnection: RenderedConnection;
@@ -125,7 +141,7 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
     getColourTertiary(): string | undefined;
     /** Selects this block. Highlights the block visually. */
     select(): void;
-    /** Unselects this block. Unhighlights the blockv visually.   */
+    /** Unselects this block. Unhighlights the block visually. */
     unselect(): void;
     /**
      * Sets the parent of this block to be a new block or null.
@@ -192,6 +208,15 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
      */
     getBoundingRectangle(): Rect;
     /**
+     * Returns the coordinates of a bounding box describing the dimensions of this
+     * block alone.
+     * Coordinate system: workspace coordinates.
+     *
+     * @returns Object with coordinates of the bounding box.
+     */
+    getBoundingRectangleWithoutChildren(): Rect;
+    private getBoundingRectangleWithDimensions;
+    /**
      * Notify every input on this block to mark its fields as dirty.
      * A dirty field is a field that needs to be re-rendered.
      */
@@ -206,7 +231,7 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
      * Makes sure that when the block is collapsed, it is rendered correctly
      * for that state.
      */
-    private updateCollapsed_;
+    private updateCollapsed;
     /**
      * Open the next (or previous) FieldTextInput.
      *
@@ -219,7 +244,7 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
      *
      * @param e Pointer down event.
      */
-    private onMouseDown_;
+    private onMouseDown;
     /**
      * Load the block's help page in a new window.
      *
@@ -433,10 +458,11 @@ export declare class BlockSvg extends Block implements IASTNodeLocationSvg, IBou
      * <g> tags do not respect z-index so SVG renders them in the
      * order that they are in the DOM.  By placing this block first within the
      * block group's <g>, it will render on top of any other blocks.
+     * Use sparingly, this method is expensive because it reorders the DOM
+     * nodes.
      *
-     * @param blockOnly: True to only move this block to the front without
+     * @param blockOnly True to only move this block to the front without
      *     adjusting its parents.
-     * @internal
      */
     bringToFront(blockOnly?: boolean): void;
     /**

@@ -3,13 +3,15 @@
  * Copyright 2024 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+import { IBubble, WorkspaceSvg } from '../blockly.js';
 import { IDragStrategy } from '../interfaces/i_draggable.js';
 import { Coordinate } from '../utils.js';
-import { IBubble, WorkspaceSvg } from '../blockly.js';
 export declare class BubbleDragStrategy implements IDragStrategy {
     private bubble;
     private workspace;
     private startLoc;
+    /** Was there already an event group in progress when the drag started? */
+    private inGroup;
     constructor(bubble: IBubble, workspace: WorkspaceSvg);
     isMovable(): boolean;
     startDrag(): void;

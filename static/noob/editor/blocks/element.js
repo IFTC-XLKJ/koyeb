@@ -11,7 +11,7 @@ Blockly.Blocks['doc_type'] = {
                 ['HTML 4.01 过渡', 'html4-transitional']
             ]), 'DOCTYPE');
         this.setOutput(false, "String");
-        this.setColour(160);
+        this.setColour("#449CD6");
         this.setMovable(false);
         this.setDeletable(false);
         this.setTooltip("文档类型声明，用于声明文档的版本和类型")
@@ -32,7 +32,7 @@ Blockly.Blocks['element_html'] = {
         this.appendStatementInput('html')
             .appendField('');
         this.setOutput(false, "String");
-        this.setColour(160);
+        this.setColour("#449CD6");
         this.setMovable(false);
         this.setDeletable(false);
         this.setTooltip("网页的根元素，包含头部和主体")
@@ -53,7 +53,7 @@ Blockly.Blocks['element_head'] = {
         this.appendStatementInput('html')
             .appendField('')
         this.setOutput(false, "String");
-        this.setColour(160);
+        this.setColour("#449CD6");
         this.setMovable(false);
         this.setDeletable(false);
         this.setTooltip("网页头部部分（元数据部分）")
@@ -74,7 +74,7 @@ Blockly.Blocks['element_body'] = {
         this.appendStatementInput('html')
             .appendField('');
         this.setOutput(false, "String");
-        this.setColour(160);
+        this.setColour("#449CD6");
         this.setMovable(false);
         this.setDeletable(false);
         this.setTooltip("网页主体部分（UI部分）")
@@ -97,7 +97,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "Document"
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "网页的标题，可动态设置",
         helpUrl: "",
         nextStatement: true,
@@ -124,7 +124,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "utf-8"
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "建议设置为utf-8，不设置容易乱码",
         helpUrl: "",
         nextStatement: true,
@@ -153,7 +153,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "IFTC"
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "meta 标签",
         helpUrl: "",
         nextStatement: true,

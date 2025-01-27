@@ -4,7 +4,7 @@ const toolbox = {
         {
             kind: "category",
             name: "元素",
-            colour: 160,
+            colour: "#449CD6",
             contents: [
                 {
                     kind: "label",
@@ -218,7 +218,7 @@ const toolbox = {
         {
             kind: "category",
             name: "运算",
-            colour: 20,
+            colour: "#F8AA87",
             contents: [
                 {
                     kind: "block",
@@ -280,13 +280,17 @@ const toolbox = {
         {
             kind: "category",
             name: "变量",
-            colour: 330,
+            colour: "#FDBA54",
             contents: [
+                // {
+                //     kind: "button",
+                //     text: "创建变量",
+                //     callbackKey: "createVar",
+                //     "web-class": "createVar"
+                // },
                 {
-                    kind: "button",
-                    text: "创建变量",
-                    callbackKey: "createVar",
-                    "web-class": "createVar"
+                    kind: "block",
+                    type: "variables_define",
                 },
                 {
                     kind: "block",
@@ -311,7 +315,7 @@ const toolbox = {
         {
             kind: "category",
             name: "字典",
-            colour: 290,
+            colour: "#9F73FE",
             contents: [
                 {
                     kind: "block",
@@ -437,6 +441,42 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "script_try_catch",
+                    inputs: {
+                        TRY: {
+                            block: {
+                                type: "script_console_log",
+                                inputs: {
+                                    CONSOLE_LOG: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "Hello,NOOB!"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "script_try_catch_geterror",
+                }
+            ]
+        },
+        {
+            kind: "category",
+            name: "函数",
+            colour: 210,
+            contents: [
+                // {
+                //     kind: "block",
+                //     type: "define_function",
+                // }
             ]
         }
     ]

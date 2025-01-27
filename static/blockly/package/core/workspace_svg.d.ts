@@ -14,7 +14,9 @@ import './events/events_viewport.js';
 import type { Block } from './block.js';
 import type { BlockSvg } from './block_svg.js';
 import * as browserEvents from './browser_events.js';
+import { WorkspaceComment } from './comments/workspace_comment.js';
 import { ComponentManager } from './component_manager.js';
+import { ContextMenuOption } from './contextmenu_registry.js';
 import type { FlyoutButton } from './flyout_button.js';
 import { Gesture } from './gesture.js';
 import { Grid } from './grid.js';
@@ -26,6 +28,7 @@ import type { IMetricsManager } from './interfaces/i_metrics_manager.js';
 import type { IToolbox } from './interfaces/i_toolbox.js';
 import type { Cursor } from './keyboard_nav/cursor.js';
 import type { Marker } from './keyboard_nav/marker.js';
+import { LayerManager } from './layer_manager.js';
 import { MarkerManager } from './marker_manager.js';
 import { Options } from './options.js';
 import type { Renderer } from './renderers/common/renderer.js';
@@ -42,10 +45,7 @@ import * as toolbox from './utils/toolbox.js';
 import type { VariableModel } from './variable_model.js';
 import { Workspace } from './workspace.js';
 import { WorkspaceAudio } from './workspace_audio.js';
-import { WorkspaceComment } from './comments/workspace_comment.js';
 import { ZoomControls } from './zoom_controls.js';
-import { ContextMenuOption } from './contextmenu_registry.js';
-import { LayerManager } from './layer_manager.js';
 /**
  * Class for a workspace.  This is an onscreen area with optional trashcan,
  * scrollbars, bubbles, and dragging.
@@ -66,7 +66,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      * Whether the workspace is visible.  False if the workspace has been hidden
      * by calling `setVisible(false)`.
      */
-    private isVisible_;
+    private visible;
     /**
      * Whether this workspace has resizes enabled.
      * Disable during batch operations for a performance improvement.
@@ -138,8 +138,6 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
     startScrollX: number;
     /** Vertical scroll value when scrolling started in pixel units. */
     startScrollY: number;
-    /** Distance from mouse to object being dragged. */
-    private dragDeltaXY;
     /** Current scale. */
     scale: number;
     /** Cached scale value. Used to detect changes in viewport. */
@@ -160,7 +158,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      * Category-based toolbox providing blocks which may be dragged into this
      * workspace.
      */
-    private toolbox_;
+    private toolbox;
     /**
      * The current gesture in progress on this workspace, if any.
      *
@@ -342,7 +340,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      *
      * @param blocks List of blocks to update the style on.
      */
-    private updateBlockStyles_;
+    private updateBlockStyles;
     /**
      * Getter for the inverted screen CTM.
      *
@@ -471,7 +469,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      * Update items that use screen coordinate calculations
      * because something has changed (e.g. scroll position, window size).
      */
-    private updateScreenCalculations_;
+    private updateScreenCalculations;
     /**
      * If enabled, resize the parts of the workspace that change when the
      * workspace contents (e.g. block positions) change.  This will also scroll
@@ -639,7 +637,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      *
      * @param e Pointer down event.
      */
-    private onMouseDown_;
+    private onMouseDown;
     /**
      * Start tracking a drag of an object on this workspace.
      *
@@ -695,7 +693,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      *
      * @param e Mouse wheel event.
      */
-    private onMouseWheel_;
+    private onMouseWheel;
     /**
      * Calculate the bounding box for the blocks on the workspace.
      * Coordinate system: workspace coordinates.
@@ -704,7 +702,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      *     blocks on the workspace.
      */
     getBlocksBoundingBox(): Rect;
-    /** Clean up the workspace by ordering all the blocks in a column. */
+    /** Clean up the workspace by ordering all the blocks in a column such that none overlap. */
     cleanUp(): void;
     /**
      * Show the context menu for the workspace.
@@ -976,7 +974,7 @@ export declare class WorkspaceSvg extends Workspace implements IASTNodeLocationS
      * @param xyRatio Contains an x and/or y property which is a float between 0
      *     and 1 specifying the degree of scrolling.
      */
-    private static setTopLevelWorkspaceMetrics_;
+    private static setTopLevelWorkspaceMetrics;
 }
 /**
  * Size the workspace when the contents change.  This also updates

@@ -3,12 +3,9 @@
  * Copyright 2015 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
-/**
- * @file Generating PHP for text blocks.
- */
 import type { Block } from '../../core/block.js';
-import { Order } from './php_generator.js';
 import type { PhpGenerator } from './php_generator.js';
+import { Order } from './php_generator.js';
 export declare function text(block: Block, generator: PhpGenerator): [string, Order];
 export declare function text_join(block: Block, generator: PhpGenerator): [string, Order];
 export declare function text_append(block: Block, generator: PhpGenerator): string;

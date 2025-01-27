@@ -129,6 +129,7 @@ export const {
   isSelectable,
   isSerializable,
   isVariableBackedParameterModel,
+  layers,
   procedures,
   registry,
   renderManagement,

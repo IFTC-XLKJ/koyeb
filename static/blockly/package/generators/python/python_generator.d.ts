@@ -3,6 +3,10 @@
  * Copyright 2012 Google LLC
  * SPDX-License-Identifier: Apache-2.0
  */
+/**
+ * @file Python code generator class, including helper methods for
+ * generating Python for blocks.
+ */
 import type { Block } from '../../core/block.js';
 import { CodeGenerator } from '../../core/generator.js';
 import type { Workspace } from '../../core/workspace.js';
