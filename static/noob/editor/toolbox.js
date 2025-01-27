@@ -182,6 +182,10 @@ const toolbox = {
                     kind: "block",
                     type: "style_background_color",
                 },
+                {
+                    kind: "block",
+                    type: "style_font_size",
+                },
             ]
         },
         {
