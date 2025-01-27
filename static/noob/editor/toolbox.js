@@ -43,26 +43,98 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "element_h",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
                     type: "element_p",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
                     type: "element_div",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
                     type: "element_span",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
                     type: "element_img",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
                     type: "element_a",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    }
                 },
                 {
                     kind: "block",
