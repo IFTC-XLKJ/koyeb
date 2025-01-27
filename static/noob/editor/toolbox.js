@@ -256,6 +256,24 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "num_operator",
+                    inputs: {
+                        NUM0: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 1
+                                }
+                            }
+                        },
+                        NUM1: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 1
+                                }
+                            }
+                        }
+                    }
                 },
             ]
         },
