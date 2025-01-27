@@ -93,6 +93,8 @@ body {
 }
 
 .nav-text {
+    padding-left: 3px;
+    padding-right: 3px;
     justify-content: center;
     align-items: center;
 }
@@ -106,4 +108,12 @@ body {
 
 #fileMenu {
     left: 35px;
+}
+
+[data-nav-menu="hidden"] {
+    display: none;
+}
+
+[data-nav-menu="show"] {
+    display: flex;
 }
