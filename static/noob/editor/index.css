@@ -66,11 +66,12 @@ body {
 }
 
 .menuMain {
-    display: flex;
+    display: grid;
     position: fixed;
     border-radius: 5px;
     background-color: white;
     padding: 3px;
+    grid-template-columns: auto;
 }
 
 .menuItem {
@@ -94,4 +95,15 @@ body {
 .nav-text {
     justify-content: center;
     align-items: center;
+}
+
+#fileMenu {
+    user-select: none;
+    text-align: center;
+    position: fixed;
+    top: 55px;
+}
+
+#fileMenu {
+    left: 35px;
 }
