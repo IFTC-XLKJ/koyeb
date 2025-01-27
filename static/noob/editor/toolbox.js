@@ -186,6 +186,10 @@ const toolbox = {
                     kind: "block",
                     type: "style_font_size",
                 },
+                {
+                    kind: "block",
+                    type: "style_border",
+                },
             ]
         },
         {
