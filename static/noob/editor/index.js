@@ -73,6 +73,24 @@ function newFile() {
     location.href = "/noob/editor"
 }
 
+function saveFileAs() {
+    const filename = "新的NOOB作品.nb";
+    const file = new Blob([JSON.stringify(saveBlocks(), null, 4)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(file);
+    a.download = filename;
+    a.click();
+}
+
+function exportFile() {
+    const filename = "新的NOOB作品.html";
+    const file = new Blob([BlocksToJS()], { type: "text/html" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(file);
+    a.download = filename;
+    a.click();
+}
+
 function initBlocks() {
     return {
         blocks: {
