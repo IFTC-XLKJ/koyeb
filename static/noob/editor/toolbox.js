@@ -253,6 +253,10 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "num_operator",
+                },
             ]
         },
         {
