@@ -99,17 +99,17 @@ Blockly.defineBlocksWithJsonArray([
                 type: 'field_dropdown',
                 name: 'STYLE',
                 options: [
-                    ["none","无边框"],
-                    ["hidden","隐藏边框"],
-                    ["dotted","点线边框"],
-                    ["dashed","虚线边框"],
-                    ["solid","实线边框"],
-                    ["double","双线边框"],
-                    ["groove","3D凹槽边框"],
-                    ["ridge","3D垄状边框"],
-                    ["inset","3D内嵌边框"],
-                    ["outset","3D外凸边框"]
-                ]
+                    ["无边框","none"],
+                    ["隐藏边框", "hidden"],
+                    ["点线边框", "dotted"],
+                    ["虚线边框", "dashed"],
+                    ["实线边框", "solid"],
+                    ["双线边框", "double"],
+                    ["3D凹槽边框","groove"],
+                    ["3D垄状边框","ridge"],
+                    ["3D内嵌边框","inset"],
+                    ["3D外凸边框","outset"]
+                ],
             },
             {
                 type: 'field_input',
