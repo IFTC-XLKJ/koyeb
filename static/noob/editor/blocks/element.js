@@ -271,7 +271,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "大标题",
         helpUrl: "",
         nextStatement: true,
@@ -306,7 +306,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "段落",
         helpUrl: "",
         nextStatement: true,
@@ -339,7 +339,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: "块级元素"
             },
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "块级元素",
         helpUrl: "",
         nextStatement: true,
@@ -373,7 +373,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             },
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "行内元素",
         helpUrl: "",
         nextStatement: true,
@@ -407,7 +407,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "图片",
         helpUrl: "",
         nextStatement: true,
@@ -446,7 +446,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "超链接",
         helpUrl: "",
         nextStatement: true,
@@ -464,7 +464,7 @@ Blockly.defineBlocksWithJsonArray([
     {
         type: "element_br",
         message0: "换行",
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "换行",
         helpUrl: "",
         nextStatement: true,
@@ -492,7 +492,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             }
         ],
-        colour: 160,
+        colour: "#449CD6",
         tooltip: "水平线",
         helpUrl: "",
         nextStatement: true,
