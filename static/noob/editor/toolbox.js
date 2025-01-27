@@ -371,7 +371,7 @@ const toolbox = {
                             shadow: {
                                 type: "text",
                                 fields: {
-                                    TEXT: "{\"key\":\"value\"}"
+                                    TEXT: '{\"key\":\"value\"}'
                                 }
                             }
                         }
