@@ -94,3 +94,9 @@ Blockly.JavaScript.forBlock['text'] = function (block) {
     var text = block.getFieldValue('TEXT');
     return ['"' + text + '"', Blockly.JavaScript.ORDER_ATOMIC];
 }
+
+Blockly.JavaScript.forBlock['text_join'] = function (block) {
+    var text0 = Blockly.JavaScript.valueToCode(block, 'ADD0', Blockly.JavaScript.ORDER_ATOMIC);
+    var text1 = Blockly.JavaScript.valueToCode(block, 'ADD1', Blockly.JavaScript.ORDER_ATOMIC);
+    return ["(" + text0 + ' + ' + text1 + ")", Blockly.JavaScript.ORDER_ATOMIC];
+}
