@@ -92,7 +92,7 @@ Blockly.JavaScript.forBlock['num_operator'] = function (block) {
 
 Blockly.JavaScript.forBlock['text'] = function (block) {
     var text = block.getFieldValue('TEXT');
-    return ['"' + text + '"', Blockly.JavaScript.ORDER_ATOMIC];
+    return ['\"' + text + '\"', Blockly.JavaScript.ORDER_ATOMIC];
 }
 
 Blockly.JavaScript.forBlock['text_join'] = function (block) {
