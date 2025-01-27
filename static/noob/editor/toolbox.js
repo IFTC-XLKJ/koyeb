@@ -178,10 +178,10 @@ const toolbox = {
                     kind: "block",
                     type: "style_color",
                 },
-                // {
-                //     kind: "block",
-                //     type: "element_style_css_property",
-                // },
+                {
+                    kind: "block",
+                    type: "style_background_color",
+                },
             ]
         },
         {
