@@ -91,7 +91,7 @@ function exportFile() {
     a.click();
 }
 
-function openFile() {
+function importFile() {
     const file = document.createElement("input");
     file.type = "file";
     file.accept = ".nb";
