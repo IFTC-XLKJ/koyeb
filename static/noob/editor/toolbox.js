@@ -194,6 +194,14 @@ const toolbox = {
                     kind: "block",
                     type: "style_border_radius",
                 },
+                {
+                    kind: "block",
+                    type: "style_margin",
+                },
+                {
+                    kind: "block",
+                    type: "style_padding",
+                },
             ]
         },
         {
