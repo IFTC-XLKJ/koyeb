@@ -1,3 +1,7 @@
+let vars = [
+    ["变量", "variable"]
+]
+
 Blockly.defineBlocksWithJsonArray([
     {
         type: "variables_define",
@@ -93,3 +97,20 @@ Blockly.JavaScript.forBlock["variables_define"] = function (block) {
 function word(word) {
     return encodeURIComponent(word).replaceAll("%", "_");
 }
+
+Blockly.FieldVars = class extends Blockly.FieldDropdown {
+    constructor(opt_value, opt_validator) {
+        super(roles, opt_validator);
+        console.log(this)
+        const options = this.getOptions();
+        this.setValue(opt_value || options[0][1]);
+    }
+    getOptions() {
+        return vars;
+    }
+    showEditor_() {
+        super.showEditor_();
+        this.doValueUpdate_(this.getOptions());
+    }
+};
+Blockly.fieldRegistry.register("field_vars", Blockly.FieldVars)
