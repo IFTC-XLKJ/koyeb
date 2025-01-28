@@ -140,8 +140,88 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true,
         nextStatement: true,
         previousStatement: true,
-    }
+    },
+    {
+        type: "style_margin",
+        message0: '边框外边距 左 %1 上 %2 右 %3 下 %4',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'LEFT',
+                text: '0px'
+            },
+            {
+                type: 'field_input',
+                name: 'TOP',
+                text: '0px'
+            },
+            {
+                type: 'field_input',
+                name: 'RIGHT',
+                text: '0px'
+            },
+            {
+                type: 'field_input',
+                name: 'BOTTOM',
+                text: '0px'
+            }
+        ],
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        inputsInline: true,
+        nextStatement: true,
+        previousStatement: true,
+    },
+    {
+        type: "style_padding",
+        message0: '边框内边距 左 %1 上 %2 右 %3 下 %4',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'LEFT',
+                text: '0px'
+            },
+            {
+                type: 'field_input',
+                name: 'TOP',
+                text: '0px'
+            },
+            {
+                type: 'field_input',
+                name: 'RIGHT',
+                text: '0px'
+            },
+            {
+                type: 'field_input',
+                name: 'BOTTOM',
+                text: '0px'
+            }
+        ],
+        colour: 230,
+        tooltip: '',
+        helpUrl: '',
+        inputsInline: true,
+        nextStatement: true,
+        previousStatement: true,
+    },
 ]);
+
+Blockly.JavaScript.forBlock['style_padding'] = function (block) {
+    var left = block.getFieldValue('LEFT') || '0px';
+    var top = block.getFieldValue('TOP') || '0px';
+    var right = block.getFieldValue('RIGHT') || '0px';
+    var bottom = block.getFieldValue('BOTTOM') || '0px';
+    return `padding: ${left} ${top} ${right} ${bottom};\n`;
+};
+
+Blockly.JavaScript.forBlock['style_margin'] = function (block) {
+    var left = block.getFieldValue('LEFT') || '0px';
+    var top = block.getFieldValue('TOP') || '0px';
+    var right = block.getFieldValue('RIGHT') || '0px';
+    var bottom = block.getFieldValue('BOTTOM') || '0px';
+    return `margin: ${left} ${top} ${right} ${bottom};\n`;
+};
 
 Blockly.JavaScript.forBlock['style_border_radius'] = function (block) {
     var radius = block.getFieldValue('RADIUS');
