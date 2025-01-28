@@ -48,17 +48,17 @@ addEventListener("load", e => {
         main.style.borderRadius = "5px";
         main.style.padding = "10px";
         main.innerHTML = `<h1 style="text-align: center;">创建变量</h1>
-    <div>
-        <label for="varName">变量名:</label>
-        <input type="text" id="varName" style="outline: none;border: none;border-bottom: 1px solid #ccc;padding: 5px;">
-    </div>
-    <div style="float: right;">
-        <button onclick="mask.remove()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;">取消</button>
-        <button onclick="mask.remove();createVar()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;background-color: lightskyblue;color: white;">确定</button>
-    </div>`
+<div>
+    <label for="varName">变量名:</label>
+    <input type="text" id="varName" style="outline: none;border: none;border-bottom: 1px solid #ccc;padding: 5px;">
+</div>
+<div style="float: right;">
+    <button onclick="mask.remove()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;">取消</button>
+    <button onclick="mask.remove();createVar()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;background-color: lightskyblue;color: white;">确定</button>
+</div>`
         mask.appendChild(main);
         document.body.appendChild(mask);
-        
+
     })
     const previewFrame = document.getElementById("previewFrame");
     const docTitle = document.getElementById("docTitle");
