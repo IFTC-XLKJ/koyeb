@@ -283,6 +283,24 @@ const toolbox = {
             colour: "#FDBA54",
             contents: [
                 {
+                    kind: "button",
+                    text: "创建变量",
+                    callbackKey: "createVar",
+                    "web-class": "varBtn"
+                },
+                {
+                    kind: "button",
+                    text: "重命名变量",
+                    callbackKey: "renameVar",
+                    "web-class": "varBtn"
+                },
+                {
+                    kind: "button",
+                    text: "删除变量",
+                    callbackKey: "deleteVar",
+                    "web-class": "varBtn"
+                },
+                {
                     kind: "block",
                     type: "variables_define",
                     inputs: {
