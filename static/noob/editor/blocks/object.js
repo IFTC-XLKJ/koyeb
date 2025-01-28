@@ -75,7 +75,6 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
         }
     },
     updateShape_: function () {
-        console.log('updateShape_ called with itemCount_:', this.itemCount_);
         if (this.itemCount_ && this.itemCount_ > 0) {
             for (var i = 0; i < this.itemCount_; i++) {
                 if (!this.getInput('ADD' + i + '_KEY')) {
