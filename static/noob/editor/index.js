@@ -91,7 +91,28 @@ function exportFile() {
     a.click();
 }
 
-
+function openFile() {
+    const file = document.createElement("input");
+    file.type = "file";
+    file.accept = ".nb";
+    file.click();
+    file.addEventListener("change", e => {
+        if (e.target.files.length > 0) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.readAsText(file);
+            reader.onload = e => {
+                const blocks = JSON.parse(e.target.result);
+                if (blocks.blocks.length === 0) return;
+                if (blocks.blocks.blocks[0].type != "doc_type") return;
+                if (blocks.blocks.blocks[0].next.block.type != "element_html") return;
+                if (blocks.blocks.blocks[0].next.block.inputs.html.block.type != "element_head") return;
+                if (blocks.blocks.blocks[0].next.block.inputs.html.block.next.block.type != "element_body") return;
+                loadBlocks(blocks);
+            };
+        }
+    });
+}
 
 function initBlocks() {
     return {
