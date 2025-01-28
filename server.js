@@ -72,6 +72,7 @@ app.get("/VVMusic", async (req, res) => {
 
 app.get("/noob/editor", async (req, res) => {
     requestLog(req);
+    const { workId } = req.query;
     const params = {};
     res.set({
         "Content-Type": "text/html;charset=utf-8",
