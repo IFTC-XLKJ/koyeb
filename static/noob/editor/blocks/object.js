@@ -258,7 +258,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "String"
             }
         ],
-        output: "Object",
+        output: "Dictionary",
         colour: "#9F73FE",
         tooltip: "将字典解析为对象",
         inputsInline: true
