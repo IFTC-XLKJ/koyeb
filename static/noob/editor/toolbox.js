@@ -282,12 +282,6 @@ const toolbox = {
             name: "变量",
             colour: "#FDBA54",
             contents: [
-                // {
-                //     kind: "button",
-                //     text: "创建变量",
-                //     callbackKey: "createVar",
-                //     "web-class": "createVar"
-                // },
                 {
                     kind: "block",
                     type: "variables_define",
