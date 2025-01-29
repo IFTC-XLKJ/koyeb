@@ -108,6 +108,142 @@ addEventListener("load", e => {
                 }, 2000);
                 return;
             }
+            if (name.slice(0, 1) === "%") {
+                tips.innerText = "不能以%开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "&") {
+                tips.innerText = "不能以&开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "*") {
+                tips.innerText = "不能以*开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "!") {
+                tips.innerText = "不能以!开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "?") {
+                tips.innerText = "不能以?开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "=") {
+                tips.innerText = "不能以=开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "+") {
+                tips.innerText = "不能以+开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "-") {
+                tips.innerText = "不能以-开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "~") {
+                tips.innerText = "不能以~开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "^") {
+                tips.innerText = "不能以^开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === ":") {
+                tips.innerText = "不能以:开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "|") {
+                tips.innerText = "不能以|开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "`") {
+                tips.innerText = "不能以`开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "\\") {
+                tips.innerText = "不能以\\开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "\"") {
+                tips.innerText = "不能以\"开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "\'") {
+                tips.innerText = "不能以\'开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.includes(" ")) {
+                tips.innerText = "变量名不能有空格";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
             if (vars.find(v => v[0] === name)) {
                 tips.innerText = "变量已存在";
                 tips.style.display = "flex";
