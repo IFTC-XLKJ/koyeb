@@ -80,7 +80,6 @@ function word(word) {
 Blockly.FieldVars = class extends Blockly.FieldDropdown {
     constructor(opt_value, opt_validator) {
         super(vars, opt_validator);
-        console.log(this)
         const options = this.getOptions();
         this.setValue(opt_value || options[0][1]);
     }
