@@ -492,6 +492,58 @@ addEventListener("load", e => {
             mask.remove();
         })
     })
+    workspace.registerButtonCallback("deleteVar", function (ws) {
+        let options = vars.map(v => v[0])
+        const mask = document.createElement("div");
+        mask.style.position = "fixed";
+        mask.style.top = "0";
+        mask.style.left = "0";
+        mask.style.width = "100vw";
+        mask.style.height = "100vh";
+        mask.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+        mask.style.zIndex = "99999";
+        const main = document.createElement("div");
+        main.style.position = "fixed";
+        main.style.top = "50vh";
+        main.style.left = "50vw";
+        main.style.transform = "translate(-50%, -50%)";
+        main.style.backgroundColor = "white";
+        main.style.borderRadius = "5px";
+        main.style.padding = "10px";
+        main.innerHTML = `<h1 style="text-align: center;">删除变量</h1>
+<div>
+    <label for="varName">变量名:</label>
+    <select id="varName" style="outline: none;border: none;border-bottom: 1px solid #ccc;padding: 5px;width: 100px;">
+        ${options.map(v => `<option value="${v}">${v}</option>`)}}
+    </select>
+    <p id="tips" style="color: red;display: none;margin: 0;padding: 0;">&nbsp;</p>
+</div>
+<div style="float: right;">
+    <button id="cancel" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;">取消</button>
+    <button id="confirm" onclick="mask.remove();createVar()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;background-color: lightskyblue;color: white;">确定</button>
+</div>`
+        mask.appendChild(main);
+        document.body.appendChild(mask);
+        const varName = document.getElementById("varName");
+        const cancel = document.getElementById("cancel");
+        const confirm = document.getElementById("confirm");
+        cancel.addEventListener("click", e => {
+            mask.remove();
+        })
+        confirm.addEventListener("click", e => {
+            const name = varName.value;
+            if (vars.length === 1) {
+                tips.innerText = "必须保留一个变量（不保留会报错）";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            vars = vars.filter(v => v[0] != name)
+            mask.remove();
+        })
+    })
     const previewFrame = document.getElementById("previewFrame");
     const docTitle = document.getElementById("docTitle");
     docTitle.style.width = `${innerWidth * 0.3}px`;
