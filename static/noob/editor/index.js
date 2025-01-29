@@ -51,14 +51,74 @@ addEventListener("load", e => {
 <div>
     <label for="varName">变量名:</label>
     <input type="text" id="varName" style="outline: none;border: none;border-bottom: 1px solid #ccc;padding: 5px;">
+    <p id="tips" style="color: red;display: none;margin: 0;padding: 0;">&nbsp;</p>
 </div>
 <div style="float: right;">
-    <button onclick="mask.remove()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;">取消</button>
-    <button onclick="mask.remove();createVar()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;background-color: lightskyblue;color: white;">确定</button>
+    <button id="cancel" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;">取消</button>
+    <button id="confirm" onclick="mask.remove();createVar()" style="border: none;width: 50px;height: 30px;border-radius: 5px;margin: 5px;cursor: pointer;background-color: lightskyblue;color: white;">确定</button>
 </div>`
         mask.appendChild(main);
         document.body.appendChild(mask);
-
+        const varName = document.getElementById("varName");
+        const cancel = document.getElementById("cancel");
+        const confirm = document.getElementById("confirm");
+        cancel.addEventListener("click", e => {
+            mask.remove();
+        })
+        confirm.addEventListener("click", e => {
+            varName.value = varName.value.trim();
+            const name = varName.value;
+            if (name.length === 0) {
+                tips.innerText = "不能为空";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (!Number.isNaN(Number(name))) {
+                tips.innerText = "不能为数字";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "_") {
+                tips.innerText = "不能以_开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (name.slice(0, 1) === "@") {
+                tips.innerText = "不能以@开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (!Number.isNaN(Number(name.slice(0, 1)))) {
+                tips.innerText = "不能以数字开头";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            if (vars.find(v => v[0] === name)) {
+                tips.innerText = "变量已存在";
+                tips.style.display = "flex";
+                setTimeout(() => {
+                    tips.style.display = "none";
+                }, 2000);
+                return;
+            }
+            vars = [[name, encodeURIComponent(name).replaceAll("%", "_")], ...vars]
+            mask.remove();
+        })
     })
     const previewFrame = document.getElementById("previewFrame");
     const docTitle = document.getElementById("docTitle");
@@ -223,9 +283,9 @@ function BlocksToJS() {
     }
     const match = code.match(/<!DOCTYPE.*?<\/html>/s);
     if (match && match[0]) {
-        return match[0];
+        return defineVars() + match[0];
     } else {
-        return code;
+        return defineVars() + code;
     }
 }
 
@@ -239,4 +299,13 @@ function replaceFirstAndLastChar(str, firstChar, lastChar) {
         return str;
     }
     return firstChar + str.slice(1, -1) + lastChar;
+}
+
+function defineVars() {
+    let html = `<script>`
+    vars.forEach(v => {
+        html += `let ${v};`
+    });
+    html += `<\/script>`
+    return html;
 }
