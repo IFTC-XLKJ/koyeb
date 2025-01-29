@@ -483,6 +483,13 @@ addEventListener("load", e => {
                 }, 2000);
                 return;
             }
+            const oldName = oldVarName.value;
+            vars.forEach(v => {
+                if (v[0] === oldName) {
+                    v[0] = name;
+                }
+            });
+            mask.remove();
         })
     })
     const previewFrame = document.getElementById("previewFrame");
