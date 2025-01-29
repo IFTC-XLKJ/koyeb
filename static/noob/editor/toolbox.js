@@ -310,20 +310,6 @@ const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "variables_define",
-                    inputs: {
-                        VALUE: {
-                            shadow: {
-                                type: "math_number",
-                                fields: {
-                                    NUM: 0
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    kind: "block",
                     type: "variables_get",
                 },
                 {
