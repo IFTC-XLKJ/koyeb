@@ -139,7 +139,9 @@ app.get("/api/noob/works", async (req, res) => {
     requestLog(req);
     const { id, password } = req.query;
     if (id && password) {
+        const noob = new NOOB();
         try {
+            const json = await noob.getWorks(id, password);
         } catch (e) {
             res.status(500).json({
                 code: 500,
