@@ -148,10 +148,10 @@ app.get("/api/noob/works", async (req, res) => {
                 json.fields.forEach((item) => {
                     data.push({
                         ID: item.ID,
-                        name: item.作品名,
+                        name: String(item.作品名),
                         workId: item.作品ID,
-                        data: item.作品数据,
-                        code: item.作品代码,
+                        data: String(item.作品数据),
+                        code: String(item.作品代码),
                     })
                 })
                 res.json({
