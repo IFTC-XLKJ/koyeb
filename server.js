@@ -135,6 +135,27 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/noob/works", async (req, res) => {
+    requestLog(req);
+    const { id, password } = req.query;
+    if (id && password) {
+        try {
+        } catch (e) {
+            res.status(500).json({
+                code: 500,
+                msg: String(e),
+                timestamp: time(),
+            });
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "请求参数错误",
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
     const { type, id, data } = req.query;
