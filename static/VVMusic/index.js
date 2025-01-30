@@ -9,11 +9,8 @@ const toast = new Toast();
 let keyword = '';
 let lrcfile;
 
-if (localStorage.getItem('music-search-history')) {
-    const history = JSON.parse(localStorage.getItem('music-search-history'));
-} else {
+if (!localStorage.getItem('music-search-history')) {
     localStorage.setItem('music-search-history', JSON.stringify([]));
-    const history = [];
 }
 
 const tips = document.getElementById('tips');
