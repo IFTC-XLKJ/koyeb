@@ -44,7 +44,7 @@ class NOOB {
                     return { code: 401, msg: "账号或密码错误", timestamp: time() };
                 }
             } else {
-                return { code: 400, msg: "未知出错", timestamp: time() };
+                return { code: user.code, msg: user.msg, timestamp: time() };
             }
         } catch (error) {
             console.error('Error:', error);
