@@ -34,6 +34,15 @@ searchInput.addEventListener('keydown', async function (e) {
             return;
         }
         keyword = searchInput.value;
+        const history = JSON.parse(localStorage.getItem('music-search-history'));
+        if (history.includes(keyword)) {
+            const index = history.indexOf(keyword);
+            history.splice(index, 1);
+            history.unshift({ date: Date.now(), keyword });
+        } else {
+            history.unshift({ date: Date.now(), keyword });
+        }
+        localStorage.setItem('music-search-history', JSON.stringify(history));
         const musics = await getMusicList(keyword);
         if (!musics) {
             return;
@@ -41,7 +50,21 @@ searchInput.addEventListener('keydown', async function (e) {
         renderMusicList(musics);
     } else if (e.key == 'Escape' || e.key == 'Delete') {
         searchInput.value = '';
+        keyword = searchInput.value;
+        renderHistory();
     }
+});
+searchInput.addEventListener('focus', function () {
+    keyword = searchInput.value;
+    renderHistory();
+});
+// searchInput.addEventListener('blur', function () {
+//     const history = document.getElementById('history');
+//     history.innerHTML = '';
+// });
+searchInput.addEventListener('input', function () {
+    keyword = searchInput.value;
+    renderHistory();
 });
 searchBtn.addEventListener('click', async function () {
     if (!searchInput.value) {
@@ -531,3 +554,63 @@ function searchURL(keyword) {
 function getMusicURL(id) {
     return 'https://www.lihouse.xyz/coco_widget/music_resource/id/' + id;
 }
+
+function renderHistory() {
+    const History = document.getElementById('history');
+    History.innerHTML = '';
+    try {
+        const history = JSON.parse(localStorage.getItem('music-search-history'));
+        if (history) {
+            for (var i = 0; i < history.length; i++) {
+                console.log(history[i].keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword == '');
+                if (history[i].keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword == '') {
+                    const historyItem = history[i];
+                    const historyItemDom = document.createElement('div');
+                    historyItemDom.className = 'history-item';
+                    historyItemDom.setAttribute("iftc-date", historyItem.date)
+                    historyItemDom.innerHTML = `
+                    <div class="history-item-name">${historyItem.keyword.replaceAll("<", "&lt;")}</div>
+                    <div class="history-item-delete">×</div>`;
+                    console.log(historyItem);
+                    History.appendChild(historyItemDom);
+                    const historyItemsDelete = historyItemDom.querySelectorAll('.history-item-delete');
+                    historyItemsDelete.forEach(historyItemDelete => {
+                        historyItemDelete.addEventListener('mouseover', e => {
+                            historyItemDelete.style.color = 'red';
+                        })
+                        historyItemDelete.addEventListener('mouseout', e => {
+                            historyItemDelete.style.color = 'black';
+                        })
+                        historyItemDelete.addEventListener('click', e => {
+                            const history = JSON.parse(localStorage.getItem('music-search-history'));
+                            const index = history.filter(item => {
+                                console.log(item, historyItem);
+                                item.date == historyItem.date
+                            })
+                            history.splice(index, 1);
+                            localStorage.setItem('music-search-history', JSON.stringify(history));
+                            renderHistory();
+                        })
+                    });
+                    const historyItemsName = historyItemDom.querySelectorAll('.history-item-name');
+                    historyItemsName.forEach(historyItemName => {
+                        historyItemName.addEventListener('click', e => {
+                            keyword = historyItemName.innerText;
+                            searchInput.value = keyword;
+                            renderHistory();
+                        })
+                    });
+                }
+            }
+        }
+    } catch (e) { }
+}
+
+let lastScrollTop = 0;
+app.addEventListener('scroll', e => {
+    let currentScrollTop = app.scrollTop - lastScrollTop
+    const history = document.getElementById('history');
+    const historyTop = history.offsetTop;
+    history.style.top = historyTop - currentScrollTop + 'px';
+    lastScrollTop = app.scrollTop;
+})
