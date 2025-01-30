@@ -141,7 +141,7 @@ app.get("/api/noob/works", async (req, res) => {
     if ((id || id == 0) && password) {
         const noob = new NOOB();
         try {
-            const json = await noob.getWorks(id, password);
+            const json = await noob.getWorks(id, decodeURIComponent(password));
             if (json.code == 200) {
                 res.json({
                     code: 200,
