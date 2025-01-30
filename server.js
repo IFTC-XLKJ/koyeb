@@ -138,7 +138,7 @@ app.all("/api", (req, res) => {
 app.get("/api/noob/works", async (req, res) => {
     requestLog(req);
     const { id, password } = req.query;
-    if (id && password) {
+    if ((id || id = 0) && password) {
         const noob = new NOOB();
         try {
             const json = await noob.getWorks(id, password);
