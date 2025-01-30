@@ -13,7 +13,8 @@ class NOOB {
     constructor() { }
     async getWorks(id, password) {
         try {
-            const user = new User().login(id, password);;
+            const USER = new User();
+            const user = USER.login(id, password);
             if (user.code == 200) {
                 if (user.fields[0]) {
                     const timestamp = time();
@@ -44,6 +45,7 @@ class NOOB {
                     return { code: 401, msg: "账号或密码错误", timestamp: time() };
                 }
             } else {
+                console.log(user);
                 return { code: user.code, msg: user.msg, timestamp: time() };
             }
         } catch (error) {
