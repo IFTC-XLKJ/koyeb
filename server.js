@@ -153,6 +153,7 @@ app.get("/api/noob/works", async (req, res) => {
                 res.status(json.code).json({
                     code: json.code,
                     msg: json.msg,
+                    error: json.error,
                     timestamp: time(),
                 })
             }
