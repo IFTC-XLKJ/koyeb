@@ -142,6 +142,20 @@ app.get("/api/noob/works", async (req, res) => {
         const noob = new NOOB();
         try {
             const json = await noob.getWorks(id, password);
+            if (json.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "请求成功",
+                    timestamp: time(),
+                    data: json.fields,
+                })
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                })
+            }
         } catch (e) {
             res.status(500).json({
                 code: 500,
