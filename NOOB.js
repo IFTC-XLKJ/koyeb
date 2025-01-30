@@ -6,3 +6,9 @@ const NOOBKey = "LkduYVIN+ZUTA2pX6P23IcX+TZ/pbiiMk08tX2/Rm0dbeqAqR82HeOjnd+soDEp
 const getDataURL = "https://api.pgaot.com/dbs/cloud/get_table_data";
 const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
+
+class NOOB {
+    constructor() { }
+}
+
+module.exports = NOOB;
