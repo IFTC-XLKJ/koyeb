@@ -7,6 +7,7 @@ const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
 const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
+const { workerData } = require("worker_threads");
 
 const app = express();
 app.use(bodyParser.json())
@@ -143,11 +144,21 @@ app.get("/api/noob/works", async (req, res) => {
         try {
             const json = await noob.getWorks(id, decodeURIComponent(password));
             if (json.code == 200) {
+                const data = [];
+                json.fields.forEach((item) => {
+                    data.push({
+                        ID: item.ID,
+                        name: item.作品名,
+                        workId: item.作品ID,
+                        data: item.作品数据,
+                        code: item.作品代码,
+                    })
+                })
                 res.json({
                     code: 200,
                     msg: "请求成功",
                     timestamp: time(),
-                    data: json.fields,
+                    data: data,
                 })
             } else {
                 res.status(json.code).json({
