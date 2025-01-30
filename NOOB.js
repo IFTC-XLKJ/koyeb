@@ -13,7 +13,7 @@ class NOOB {
     constructor() { }
     async getWorks(id, password) {
         try {
-            const user = await User.login(id, password);
+            const user = new User().login(id, password);;
             if (user.code == 200) {
                 if (user.fields[0]) {
                     const timestamp = time();
