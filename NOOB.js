@@ -47,6 +47,7 @@ class NOOB {
                 return { code: 400, msg: "未知出错", timestamp: time() };
             }
         } catch (error) {
+            console.error('Error:', error);
             return { code: 500, msg: "服务内部错误", error: error.message, timestamp: time() }
         }
     }
