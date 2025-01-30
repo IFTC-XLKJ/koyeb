@@ -14,7 +14,7 @@ class NOOB {
     async getWorks(id, password) {
         try {
             const USER = new User();
-            const user = USER.login(id, password);
+            const user = await USER.login(id, password);
             if (user.code == 200) {
                 if (user.fields[0]) {
                     const timestamp = time();
