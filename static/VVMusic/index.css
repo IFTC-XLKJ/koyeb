@@ -379,3 +379,35 @@ dialog {
 .menu-item:hover {
     background-color: #F0F0F0AA;
 }
+
+#history {
+    width: 100vw;
+    max-height: 300px;
+    overflow-y: auto;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateY(-20px);
+    position: fixed;
+    z-index: 1000;
+    display: grid;
+    grid-template-columns: auto;
+    text-align: left;
+}
+
+.history-item {
+    width: 370px;
+    padding: 3px;
+    box-shadow: 0 0 5px rgba(51, 51, 51, 0.5);
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+    display: grid;
+    grid-template-columns: 1fr 20px;
+}
+
+.history-item:hover {
+    background-color: #cfcfcf;
+}
