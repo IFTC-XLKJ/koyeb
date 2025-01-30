@@ -53,3 +53,7 @@ class NOOB {
 }
 
 module.exports = NOOB;
+
+function time() {
+    return Date.now()
+}
