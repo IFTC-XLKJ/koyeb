@@ -8,6 +8,7 @@ const crypto = require("crypto");
 const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const { workerData } = require("worker_threads");
+const { create } = require("domain");
 
 const app = express();
 app.use(bodyParser.json())
@@ -151,7 +152,9 @@ app.get("/api/noob/works", async (req, res) => {
                         name: String(item.作品名),
                         workId: item.作品ID,
                         data: String(item.作品数据),
-                        code: String(item.作品代码),
+                        code: String(item.代码),
+                        createdAt: item.createdAt,
+                        updatedAt: item.updatedAt,
                     })
                 })
                 res.json({
