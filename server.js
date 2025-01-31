@@ -12,7 +12,7 @@ const cors = require("cors");
 const app = express();
 const corsOptions = {
     origin: function (origin, callback) {
-        console.log("Origin:", origin);
+        console.log("Origin:", origin || "Unknown");
         callback(null, true)
     }
 }
