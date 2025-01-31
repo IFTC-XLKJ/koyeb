@@ -7,10 +7,10 @@ const UUIDdb = require("./UUID_db.js");
 const crypto = require("crypto");
 const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
-const { workerData } = require("worker_threads");
-const { create } = require("domain");
+const cors = require("cors");
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.json())
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
