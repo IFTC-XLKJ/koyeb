@@ -10,14 +10,10 @@ const NOOB = require("./NOOB.js");
 const cors = require("cors");
 
 const app = express();
-var whitelist = ['https://vvpan.deno.dev', 'https://iftc.koyeb.app']
 const corsOptions = {
     origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
+        console.log("Origin:", origin);
+        callback(null, true)
     }
 }
 app.use(cors(corsOptions))
