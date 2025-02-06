@@ -308,7 +308,7 @@ class User {
                     "Content-Type": contentType,
                 },
                 body: JSON.stringify({
-                    filter: `昵称 LIKE "%${keyword}%" OR 邮箱 LIKE "%${keyword}%" OR ID LIKE "%${keyword}%" 头衔 LIKE "%${keyword}%"`,
+                    filter: `昵称 LIKE "%${keyword}%" OR 邮箱 LIKE "%${keyword}%" OR ID LIKE "%${keyword}%" OR 头衔 LIKE "%${keyword}%"`,
                     page: 1,
                     limit: 1000000000000,
                 })
