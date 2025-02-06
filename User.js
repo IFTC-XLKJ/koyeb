@@ -120,7 +120,19 @@ class User {
         if (all.code != 200) {
             throw new Error(all.msg);
         }
-        const count = all.count;
+        const count = all.fields[0].ID + 1;
+        if (all.fields.filter((item) => item.邮箱 == email)) {
+            return {
+                code: 400,
+                msg: "邮箱已被注册"
+            };
+        }
+        if (all.fields.filter((item) => item.昵称 == nickname)) {
+            return {
+                code: 400,
+                msg: "昵称已被注册"
+            };
+        }
         var raw = JSON.stringify({
             type: "INSERT",
             filter: `ID,昵称,头像,邮箱,密码,V币,头衔,头衔色`,
