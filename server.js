@@ -143,6 +143,55 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/user/search", async (req, res) => {
+    requestLog(req);
+    const { keyword } = req.query;
+    const user = new User();
+    try {
+        const json = await user.search(decodeURIComponent(keyword || ""));
+        if (json.code == 200) {
+            const data = [];
+            json.fields.forEach((item) => {
+                data.push({
+                    ID: item.ID,
+                    username: String(item.昵称),
+                    avatar: item.头像,
+                    VC: item.V币,
+                    email: item.邮箱,
+                    VIP: !!item.VIP,
+                    signed: item.签到,
+                    op: item.管理员 == 1,
+                    freezed: item.封号 == 1,
+                    title: item.头衔,
+                    titleColor: item.头衔色,
+                    createdAt: item.createdAt,
+                    updatedAt: item.updatedAt,
+                })
+            })
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: data,
+                count: data.length,
+                timestamp: time(),
+            });
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: String(e),
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/noob/works", async (req, res) => {
     requestLog(req);
     const { id, password } = req.query;
