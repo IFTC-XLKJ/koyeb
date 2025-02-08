@@ -148,7 +148,7 @@ app.get("/api/ykl/chat", async (req, res) => {
     requestLog(req);
     try {
         const { chatId } = req.query;
-        const response = await fetch(`https://qq.catfun.top/chat.php?chatId=${chatId || 906833900}`, {
+        const response = await fetch(`http://qq.catfun.top/chat.php?chatId=${chatId || 906833900}`, {
             method: "GET",
             verbose: true
         });
