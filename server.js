@@ -154,13 +154,13 @@ app.get("/api/ykl/chat", async (req, res) => {
         });
         if (response.ok) {
             const data = await response.json();
-            console.log("API请求成功", data.filter(item => item.avatar != 0).filter(item => item.avatar == chatId));
+            console.log("API请求成功", JSON.parse(JSON.stringify(data.filter(item => item.avatar != 0).filter(item => item.avatar == chatId), ["username", "message", "timestamp"], 4)));
             console.log(`http://qq.catfun.top/chat.php`)
             res.json({
                 code: 200,
                 msg: "请求成功",
                 chatId: Number(chatId) || 906833900,
-                data: data.filter(item => item.avatar != 0).filter(item => item.avatar == chatId),
+                data: JSON.parse(JSON.stringify(data.filter(item => item.avatar != 0).filter(item => item.avatar == chatId), ["username", "message", "timestamp"], 4)),
                 timestamp: time(),
             });
         } else {
