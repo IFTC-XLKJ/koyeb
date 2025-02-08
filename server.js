@@ -148,7 +148,7 @@ app.get("/api/ykl/chat", async (req, res) => {
     requestLog(req);
     try {
         const { chatId } = req.query;
-        const response = await fetch(`https://qq.catfun.top/chat.php?chatId=${chatId}`);
+        const response = await fetch(`https://qq.catfun.top/chat.php?chatId=${chatId || 906833900}`);
         if (response.ok) {
             const data = await response.json();
             console.log("API请求成功", data);
