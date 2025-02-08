@@ -155,6 +155,7 @@ app.get("/api/ykl/chat", async (req, res) => {
         if (response.ok) {
             const data = await response.json();
             console.log("API请求成功", data.filter(item => item.avatar != 0));
+            console.log(`http://qq.catfun.top/chat.php?chatId=${chatId || 906833900}`)
             res.json({
                 code: 200,
                 msg: "请求成功",
