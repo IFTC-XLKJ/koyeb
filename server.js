@@ -158,7 +158,7 @@ app.get("/api/ykl/chat", async (req, res) => {
             res.json({
                 code: 200,
                 msg: "请求成功",
-                chatId: chatId || 906833900,
+                chatId: Number(chatId) || 906833900,
                 data: data,
                 timestamp: time(),
             });
