@@ -143,6 +143,39 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/ykl/chat", async (req, res) => {
+    requestLog(req);
+    try {
+        const { chatId } = req.query;
+        const response = await fetch(`https://qq.catfun.top/chat.php?chatId=${chatId}`);
+        if (response.ok) {
+            const data = await response.json();
+            console.log("API请求成功", data);
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: data,
+                timestamp: time(),
+            });
+        } else {
+            console.error("API请求失败");
+            res.status(400).json({
+                code: 400,
+                msg: "请求失败",
+                timestamp: time(),
+            })
+        }
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: String(e),
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/user/search", async (req, res) => {
     requestLog(req);
     const { keyword } = req.query;
