@@ -4,109 +4,27 @@
 <head>
     <meta charset="UTF-8">
     <title>注册页面</title>
-    <style type="text/css">
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #e0f7fa;
-            /* 浅天蓝色背景 */
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .register-form {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-
-        .register-form h2 {
-            color: #00acc1;
-            /* 天蓝色标题 */
-            margin-bottom: 20px;
-        }
-
-        .register-form input[type="text"],
-        .register-form input[type="password"],
-        .register-form input[type="email"],
-        .register-form input[type="file"] {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #b2ebf2;
-            /* 更浅的天蓝色边框 */
-            border-radius: 4px;
-        }
-
-        .register-form button {
-            width: calc(100% - 22px);
-            padding: 10px;
-            margin-top: 20px;
-            border: none;
-            background-color: #00acc1;
-            /* 天蓝色按钮 */
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .register-form button:hover {
-            background-color: #008ba3;
-            /* 深一点的天蓝色 */
-        }
-
-        .register-form .button-group {
-            margin-top: 15px;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .register-form .button-group button {
-            width: auto;
-            padding: 10px 20px;
-            margin: 0 5px;
-            background-color: #00acc1;
-            /* 天蓝色按钮 */
-            border: none;
-            color: white;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .register-form .button-group button:hover {
-            background-color: #008ba3;
-            /* 深一点的天蓝色 */
-        }
-    </style>
+    <link rel="stylesheet" href="/static/signup/index.css">
 </head>
 
 <body>
     <div class="register-form">
         <h2>用户注册</h2>
         <form name="registerForm">
-            用户名: <input type="text" name="username"><br>
-            密码: <input type="password" name="password"><br>
-            确认密码: <input type="password" name="confirmPassword"><br>
-            邮箱: <input type="email" name="email"><br>
-            邮箱验证码:
+            用户名<input type="text" name="username"><br>
+            密码<input type="password" name="password"><br>
+            确认密码<input type="password" name="confirmPassword"><br>
+            邮箱<input type="email" name="email"><br>
+            邮箱验证码
             <div class="button-group">
                 <input type="text" name="emailVerifyCode">
                 <button type="button">获取验证码</button>
             </div><br>
-            头像: <input type="file" name="avatar" accept="image/*"><br>
+            头像<input type="file" name="avatar" accept="image/*"><br>
             <input type="submit" value="注册">
         </form>
     </div>
+    <script src="/static/signup/index.js"></script>
 </body>
 
 </html>
