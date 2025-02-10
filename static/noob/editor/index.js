@@ -728,7 +728,7 @@ function replaceFirstAndLastChar(str, firstChar, lastChar) {
 function defineVars() {
     let html = `<script>`
     vars.forEach(v => {
-        html += `let ${v};`
+        html += `let ${v[1]};`
     });
     html += `<\/script>`
     return html;
