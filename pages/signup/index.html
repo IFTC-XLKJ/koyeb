@@ -88,24 +88,6 @@
             /* 深一点的天蓝色 */
         }
     </style>
-    <script type="text/javascript">
-        function validateForm() {
-            var username = document.forms["registerForm"]["username"].value;
-            var password = document.forms["registerForm"]["password"].value;
-            var confirmPassword = document.forms["registerForm"]["confirmPassword"].value;
-            var email = document.forms["registerForm"]["email"].value;
-            var emailVerifyCode = document.forms["registerForm"]["emailVerifyCode"].value;
-
-            if (username == "" || password == "" || confirmPassword == "" || email == "" || emailVerifyCode == "") {
-                alert("所有字段都是必填的");
-                return false;
-            }
-            if (password !== confirmPassword) {
-                alert("密码不匹配");
-                return false;
-            }
-        }
-    </script>
 </head>
 
 <body>
