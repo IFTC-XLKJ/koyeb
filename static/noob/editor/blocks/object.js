@@ -78,7 +78,7 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
         if (this.itemCount_ && this.itemCount_ > 0) {
             for (var i = 0; i < this.itemCount_; i++) {
                 if (!this.getInput('ADD' + i + '_KEY')) {
-                    var input = this.appendValueInput('ADD' + i + '_KEY')
+                    const input = this.appendValueInput('ADD' + i + '_KEY')
                         .setAlign(Blockly.ALIGN_RIGHT)
                         .appendField('键:');
                     var shadowBlock = Blockly.utils.xml.createElement('shadow');
@@ -90,12 +90,12 @@ Blockly.Constants.Dictionary.MUTATOR_MIXIN = {
                     input.connection.setShadowDom(shadowBlock);
                 }
                 if (!this.getInput('ADD' + i + '_VALUE')) {
-                    var input = this.appendValueInput('ADD' + i + '_VALUE')
+                    const input = this.appendValueInput('ADD' + i + '_VALUE')
                         .setAlign(Blockly.ALIGN_RIGHT)
                         .appendField('值:');
-                    var shadowBlock = Blockly.utils.xml.createElement('shadow');
+                    const shadowBlock = Blockly.utils.xml.createElement('shadow');
                     shadowBlock.setAttribute('type', 'text');
-                    var field = Blockly.utils.xml.createElement('field');
+                    const field = Blockly.utils.xml.createElement('field');
                     field.setAttribute('name', 'TEXT');
                     field.appendChild(document.createTextNode('value'));
                     shadowBlock.appendChild(field);
