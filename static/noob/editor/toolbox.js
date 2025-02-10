@@ -330,6 +330,25 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "列表",
+            colour: "#F9CC37",
+            contents: [
+                {
+                    kind: "block",
+                    type: "lists_create_with",
+                },
+                // {
+                //     kind: "block",
+                //     type: "array_get"
+                // },
+                // {
+                //     kind: "block",
+                //     type: "array_set"
+                // },
+            ]
+        },
+        {
+            kind: "category",
             name: "字典",
             colour: "#9F73FE",
             contents: [
