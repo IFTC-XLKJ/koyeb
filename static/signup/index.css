@@ -1,0 +1,87 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e0f7fa;
+    /* 浅天蓝色背景 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.register-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.register-form h2 {
+    color: #00acc1;
+    /* 天蓝色标题 */
+    margin-bottom: 20px;
+}
+
+.register-form input[type="text"],
+.register-form input[type="password"],
+.register-form input[type="email"],
+.register-form input[type="file"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #b2ebf2;
+    /* 更浅的天蓝色边框 */
+    border-radius: 4px;
+}
+
+.register-form button {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color: #00acc1;
+    /* 天蓝色按钮 */
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.register-form button:hover {
+    background-color: #008ba3;
+}
+
+.register-form .button-group {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.register-form .button-group button {
+    width: auto;
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #00acc1;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.register-form .button-group button:hover {
+    background-color: #008ba3;
+}
+
+input {
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 5px #008ba3;
+}
