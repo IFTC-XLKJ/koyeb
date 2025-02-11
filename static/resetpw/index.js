@@ -7,7 +7,7 @@ resetpwForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     globalThis.password = password.value;
     try {
-        const response = await fetch(`/api/user/resetpassword?email=${encodeURIComponent(email.value.trim())}&ID=${encodeURIComponent(ID.value)}&password=${encodeURIComponent(password.value)}`);
+        const response = await fetch(`/api/user/resetpassword?email=${encodeURIComponent(email.value.trim())}&ID=${ID.value}&password=${encodeURIComponent(password.value)}`);
         if (response.ok) {
             const data = await response.json();
             if (data.code == 200) {
