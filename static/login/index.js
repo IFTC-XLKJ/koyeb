@@ -10,7 +10,9 @@ loginForm.addEventListener("submit", async (e) => {
         if (response.ok) {
             if (data.code == 200) {
                 alert("登录成功");
-                location.href = "/";
+                const url = new URL(location.href);
+                const page = url.searchParams.get("page") || "/";
+                location.href = page;
             } else {
                 alert("登录失败，原因：" + data.msg);
             }
