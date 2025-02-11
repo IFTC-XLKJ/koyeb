@@ -16,6 +16,19 @@ registerForm.addEventListener("submit", async (e) => {
     if (password.value != confirmPassword.value) {
         alert("两次输入的密码不一致");
     }
+    try {
+        const response = await fetch(`/api/verifycode?email=${encodeURIComponent(email.value.trim())}&code=${encodeURIComponent(emailVerifyCode.value.trim())}`)
+        if (response.ok) {
+            const data = await response.json();
+            if (response.status == 200) {
+            }
+        } else {
+            alert("验证码验证失败");
+            return;
+        }
+    } catch (error) {
+        alert("验证码验证失败");
+    }
 });
 
 getCode.addEventListener("click", async (e) => {
