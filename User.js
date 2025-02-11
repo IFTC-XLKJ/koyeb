@@ -121,13 +121,13 @@ class User {
             throw new Error(all.msg);
         }
         const count = all.fields[0].ID + 1;
-        if (all.fields.filter((item) => item.邮箱 == email)) {
+        if (all.fields.filter((item) => item.邮箱 == email).length > 0) {
             return {
                 code: 400,
                 msg: "邮箱已被注册"
             };
         }
-        if (all.fields.filter((item) => item.昵称 == nickname)) {
+        if (all.fields.filter((item) => item.昵称 == nickname).length > 0) {
             return {
                 code: 400,
                 msg: "昵称已被注册"
