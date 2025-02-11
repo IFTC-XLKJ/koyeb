@@ -24,4 +24,21 @@ getCode.addEventListener("click", async (e) => {
         alert("请输入正确的邮箱");
         return;
     }
+    try {
+        const response = await fetch(`/api/sendcode?email=${email.value.trim()}&title=注册验证码&content=你的验证码是：" + Math.floor(Math.random() * 1000000)`, {
+            method: "GET",
+        });
+        if (response.ok) {
+            const data = await response.json();
+            if (data.code != 200) {
+                alert("发送验证码失败，原因：" + data.message);
+                return;
+            }
+            alert("发送验证码成功");
+        } else {
+            alert("发送验证码失败，原因：" + response.statusText);
+        }
+    } catch (error) {
+        alert("发送验证码失败，原因：" + error);
+    }
 });
