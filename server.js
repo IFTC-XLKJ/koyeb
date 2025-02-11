@@ -104,6 +104,30 @@ app.get("/noob/editor", async (req, res) => {
     }
 })
 
+app.get("/signup", async (req, res) => {
+    requestLog(req);
+    const params = {};
+    res.set({
+        "Content-Type": "text/html;charset=utf-8",
+    });
+    try {
+        const content = await mixed("pages/signup/index.html", params);
+        if (typeof content !== "string") {
+            throw new Error("Invalid content type");
+        }
+        console.log("Content:", content);
+        console.log("Type of content:", typeof content);
+        res.send(content);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: String(e),
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/noob/share/:workId", async (req, res) => {
     const { workId } = req.params;
 })
