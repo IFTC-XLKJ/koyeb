@@ -1,7 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #e0f7fa;
-    /* 浅天蓝色背景 */
+    background-color: #caebff;
     margin: 0;
     padding: 0;
     display: flex;
@@ -20,8 +19,7 @@ body {
 }
 
 .register-form h2 {
-    color: #00acc1;
-    /* 天蓝色标题 */
+    color: #43b7ff;
     margin-bottom: 20px;
 }
 
@@ -32,7 +30,7 @@ body {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
-    border: 1px solid #b2ebf2;
+    border: 1px solid #caebff;
     /* 更浅的天蓝色边框 */
     border-radius: 4px;
 }
@@ -42,7 +40,7 @@ body {
     padding: 10px;
     margin-top: 20px;
     border: none;
-    background-color: #00acc1;
+    background-color: #43b7ff;
     /* 天蓝色按钮 */
     color: white;
     border-radius: 4px;
@@ -53,7 +51,7 @@ body {
 }
 
 .register-form button:hover {
-    background-color: #008ba3;
+    background-color: #43b7ff;
 }
 
 .register-form .button-group {
@@ -66,7 +64,7 @@ body {
     width: auto;
     padding: 10px 20px;
     margin: 0 5px;
-    background-color: #00acc1;
+    background-color: #43b7ff;
     border: none;
     color: white;
     border-radius: 4px;
@@ -75,7 +73,7 @@ body {
 }
 
 .register-form .button-group button:hover {
-    background-color: #008ba3;
+    background-color: #43b7ff;
 }
 
 input {
@@ -83,5 +81,5 @@ input {
 }
 
 input:focus {
-    box-shadow: 0 0 5px #008ba3;
+    box-shadow: 0 0 5px #43b7ff;
 }
