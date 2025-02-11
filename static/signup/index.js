@@ -9,6 +9,10 @@ const avatar = document.getElementById("avatar");
 
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (user.value.trim().startsWith("#")) {
+        alert("用户名不能以#开头");
+        return;
+    }
     if (password.value != confirmPassword.value) {
         alert("两次输入的密码不一致");
     }
