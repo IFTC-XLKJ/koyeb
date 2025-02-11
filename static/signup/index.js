@@ -34,7 +34,7 @@ registerForm.addEventListener("submit", async (e) => {
                             alert("注册失败，原因：" + data.msg);
                             return;
                         } else {
-                            alert("注册成功，请登录");
+                            alert("注册成功，你的用户ID是" + data.id + "，请登录");
                             location.href = "/login";
                         }
                     } else {
