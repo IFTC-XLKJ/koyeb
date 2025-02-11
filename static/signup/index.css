@@ -85,6 +85,8 @@ input:focus {
 }
 
 #getCode {
-    width: 200px;
-    height: 40px;
+    width: 180px;
+    height: 36px;
+    margin-top: 10px;
+    padding: 10px;
 }
