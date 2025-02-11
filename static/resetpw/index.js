@@ -12,7 +12,6 @@ resetpwForm.addEventListener("submit", async (e) => {
             const data = await response.json();
             if (data.code == 200) {
                 alert("重置密码的邮件已发送，请检查邮箱");
-                window.location.href = "/login";
             } else {
                 alert("重置密码失败，原因：" + data.message);
             }
