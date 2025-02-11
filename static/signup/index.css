@@ -31,17 +31,16 @@ body {
     padding: 10px;
     margin: 10px 0;
     border: 1px solid #caebff;
-    /* 更浅的天蓝色边框 */
     border-radius: 4px;
 }
 
-.register-form button {
+.register-form button,
+input[type="submit"] {
     width: calc(100% - 22px);
     padding: 10px;
     margin-top: 20px;
     border: none;
     background-color: #43b7ff;
-    /* 天蓝色按钮 */
     color: white;
     border-radius: 4px;
     cursor: pointer;
@@ -51,7 +50,7 @@ body {
 }
 
 .register-form button:hover {
-    background-color: #43b7ff;
+    background-color: #16a4fd;
 }
 
 .register-form .button-group {
@@ -60,7 +59,8 @@ body {
     justify-content: space-between;
 }
 
-.register-form .button-group button {
+.register-form .button-group button,
+input[type="sumbit"] {
     width: auto;
     padding: 10px 20px;
     margin: 0 5px;
@@ -72,8 +72,9 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.register-form .button-group button:hover {
-    background-color: #43b7ff;
+.register-form .button-group button:hover,
+input[type="sumbit"]:hover {
+    background-color: #16a4fd;
 }
 
 input {
@@ -92,6 +93,7 @@ input:focus {
     font-size: 14px;
 }
 
-#getCode:hover {
+#getCode:hover,
+input[type="sumbit"]:hover {
     background-color: #16a4fd;
 }
