@@ -17,7 +17,7 @@ registerForm.addEventListener("submit", async (e) => {
         alert("两次输入的密码不一致");
     }
     try {
-        const response = await fetch(`/api/verifycode?email=${encodeURIComponent(email.value.trim())}&code=${encodeURIComponent(emailVerifyCode.value.trim())}`)
+        const response = await fetch(`/api/verifycode?email=${encodeURIComponent(email.value.trim())}&code=${emailVerifyCode.value}`)
         const data = await response.json();
         if (response.ok) {
             if (data.code == 200) {
