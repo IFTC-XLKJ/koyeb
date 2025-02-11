@@ -56,3 +56,29 @@ input[type="submit"] {
     display: flex;
     justify-content: space-between;
 }
+
+.login-form .button-group button,
+input[type="sumbit"] {
+    width: auto;
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #43b7ff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-form .button-group button:hover,
+input[type="sumbit"]:hover {
+    background-color: #16a4fd;
+}
+
+input {
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 5px #43b7ff;
+}
