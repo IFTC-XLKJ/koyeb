@@ -25,7 +25,7 @@ body {
 
 .resetpw-form input[type="password"],
 .resetpw-form input[type="email"],
-.resetpw-form input[type="text"] {
+.resetpw-form input[type="number"] {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
