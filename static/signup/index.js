@@ -34,6 +34,8 @@ registerForm.addEventListener("submit", async (e) => {
                             location.href = "/login";
                         }
                     } else {
+                        const data = await response.json();
+                        console.log(data);
                         alert("注册失败，原因：" + response.statusText);
                     }
                 } catch (error) {
