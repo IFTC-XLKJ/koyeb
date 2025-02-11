@@ -27,7 +27,7 @@ registerForm.addEventListener("submit", async (e) => {
                     if (response.ok) {
                         const data = await response.json();
                         if (data.code != 200) {
-                            alert("注册失败，原因：" + data.message);
+                            alert("注册失败，原因：" + data.msg);
                             return;
                         } else {
                             alert("注册成功，请登录");
@@ -35,8 +35,7 @@ registerForm.addEventListener("submit", async (e) => {
                         }
                     } else {
                         const data = await response.json();
-                        console.log(data);
-                        alert("注册失败，原因：" + response.statusText);
+                        alert("注册失败，原因：" + data.msg);
                     }
                 } catch (error) {
                     alert("注册失败，原因：" + error);
