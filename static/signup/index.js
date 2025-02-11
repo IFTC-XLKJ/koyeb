@@ -42,3 +42,13 @@ getCode.addEventListener("click", async (e) => {
         alert("发送验证码失败，原因：" + error);
     }
 });
+
+avatar.addEventListener("change", async (e) => {
+    try {
+        const formData = new FormData();
+        formData.append("file", e.target.files[0]);
+        formData.append("path", "vv/avatar")
+    } catch (error) {
+        alert("上传头像失败，原因：" + error);
+    }
+});
