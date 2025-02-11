@@ -11,16 +11,16 @@
     <div class="register-form">
         <h2>用户注册</h2>
         <form id="registerForm">
-            用户名<input type="text" id="user"><br>
-            密码<input type="password" id="password"><br>
-            确认密码<input type="password" id="confirmPassword"><br>
-            邮箱<input type="email" id="email"><br>
+            用户名<input type="text" id="user" required><br>
+            密码<input type="password" id="password" required><br>
+            确认密码<input type="password" id="confirmPassword" required><br>
+            邮箱<input type="email" id="email" required><br>
             邮箱验证码
             <div class="button-group">
-                <input type="text" id="emailVerifyCode">
+                <input type="text" id="emailVerifyCode" required>
                 <button type="button" id="getCode">获取验证码</button>
             </div><br>
-            头像<input type="file" id="avatar" accept="image/*"><br>
+            头像<input type="file" id="avatar" accept="image/*" required><br>
             <input type="submit" value="注册">
         </form>
     </div>
