@@ -17,9 +17,11 @@ registerForm.addEventListener("submit", async (e) => {
 getCode.addEventListener("click", async (e) => {
     if (email.value.trim() == "") {
         alert("请输入邮箱");
+        return;
     }
     const regex = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     if (!regex.test(email.value.trim())) {
         alert("请输入正确的邮箱");
+        return;
     }
 });
