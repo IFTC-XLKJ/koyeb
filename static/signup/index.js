@@ -23,8 +23,21 @@ registerForm.addEventListener("submit", async (e) => {
             if (data.code == 200) {
                 globalThis.email = email.value.trim();
                 try {
+                    const response = await fetch(`/api/user/register?nickname=${encodeURIComponent(user.value)}&password=${encodeURIComponent(password.value)}&email=${encodeURIComponent(globalThis.email)}&avatar=${encodeURIComponent(globalThis.avatar)}`)
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.code != 200) {
+                            alert("注册失败，原因：" + data.message);
+                            return;
+                        } else {
+                            alert("注册成功，请登录");
+                            location.href = "/login";
+                        }
+                    } else {
+                        alert("注册失败，原因：" + response.statusText);
+                    }
                 } catch (error) {
-                    alert("");
+                    alert("注册失败，原因：" + error);
                     return;
                 }
             } else {
@@ -50,9 +63,7 @@ getCode.addEventListener("click", async (e) => {
         return;
     }
     try {
-        const response = await fetch(`/api/sendcode?email=${encodeURIComponent(email.value.trim())}&title=${encodeURIComponent("vv账号 - 注册验证码")}&content=${encodeURIComponent("你的验证码为 {captcha}")}`, {
-            method: "GET",
-        });
+        const response = await fetch(`/api/sendcode?email=${encodeURIComponent(email.value.trim())}&title=${encodeURIComponent("vv账号 - 注册验证码")}&content=${encodeURIComponent("你的验证码为 {captcha}")}`);
         if (response.ok) {
             const data = await response.json();
             if (data.code != 200) {
