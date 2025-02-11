@@ -8,4 +8,5 @@ const getCode = document.getElementById("getCode");
 const avatar = document.getElementById("avatar");
 
 registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
 });
