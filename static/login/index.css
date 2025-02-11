@@ -31,3 +31,28 @@ body {
     border: 1px solid #caebff;
     border-radius: 4px;
 }
+
+.login-form button,
+input[type="submit"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color: #43b7ff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.login-form button:hover {
+    background-color: #16a4fd;
+}
+
+.login-form .button-group {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
