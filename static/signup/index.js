@@ -22,6 +22,10 @@ registerForm.addEventListener("submit", async (e) => {
             const data = await response.json();
             if (data.code == 200) {
                 globalThis.email = email.value.trim();
+                if (!globalThis.avatar) {
+                    alert("请上传头像，选择完成后会自动上传，上传完成后会提示");
+                    return;
+                }
                 try {
                     const response = await fetch(`/api/user/register?nickname=${encodeURIComponent(user.value)}&password=${encodeURIComponent(password.value)}&email=${encodeURIComponent(globalThis.email)}&avatar=${encodeURIComponent(globalThis.avatar)}`)
                     if (response.ok) {
