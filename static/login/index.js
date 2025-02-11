@@ -26,3 +26,9 @@ loginForm.addEventListener("submit", async (e) => {
         alert("登录失败，原因：" + error);
     }
 });
+
+if (localStorage.getItem("ID") && localStorage.getItem("password")) {
+    const url = new URL(location.href);
+    const page = url.searchParams.get("page") || "/";
+    location.href = page;
+}
