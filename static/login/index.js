@@ -12,6 +12,7 @@ loginForm.addEventListener("submit", async (e) => {
                 alert("登录成功");
                 const url = new URL(location.href);
                 const page = url.searchParams.get("page") || "/";
+                localStorage.setItem("ID", data.id)
                 location.href = page;
             } else {
                 alert("登录失败，原因：" + data.msg);
