@@ -77,7 +77,8 @@ input[type="sumbit"]:hover {
     background-color: #16a4fd;
 }
 
-input {
+input,
+button {
     outline: none;
 }
 
