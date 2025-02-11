@@ -22,12 +22,12 @@ registerForm.addEventListener("submit", async (e) => {
         if (response.ok) {
             if (data.code == 200) {
                 globalThis.email = email.value.trim();
-                if (!globalThis.avatar) {
+                if (!globalThis.Avatar) {
                     alert("请上传头像，选择完成后会自动上传，上传完成后会提示");
                     return;
                 }
                 try {
-                    const response = await fetch(`/api/user/register?nickname=${encodeURIComponent(user.value)}&password=${encodeURIComponent(password.value)}&email=${encodeURIComponent(globalThis.email)}&avatar=${encodeURIComponent(globalThis.avatar)}`)
+                    const response = await fetch(`/api/user/register?nickname=${encodeURIComponent(user.value)}&password=${encodeURIComponent(password.value)}&email=${encodeURIComponent(globalThis.email)}&avatar=${encodeURIComponent(globalThis.Avatar)}`)
                     if (response.ok) {
                         const data = await response.json();
                         if (data.code != 200) {
@@ -110,7 +110,7 @@ avatar.addEventListener("change", async (e) => {
                 alert("上传头像失败，原因：" + data.message);
                 return;
             }
-            globalThis.avatar = data.url;
+            globalThis.Avatar = data.url;
             alert("上传头像成功");
         }
     } catch (error) {
