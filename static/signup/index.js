@@ -9,4 +9,7 @@ const avatar = document.getElementById("avatar");
 
 registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (password.value != confirmPassword.value) {
+        alert("两次输入的密码不一致");
+    }
 });
