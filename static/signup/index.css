@@ -83,3 +83,8 @@ input {
 input:focus {
     box-shadow: 0 0 5px #43b7ff;
 }
+
+#getCode {
+    width: 200px;
+    height: 40px;
+}
