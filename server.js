@@ -634,7 +634,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
                             <title>重置密码</title>
                         </head>
                         <body>
-                            <div>您好，您正在重置密码，还差最后一步，请访问<a href="${url}">${url}</a>完成密码重置</div>
+                            <div>您好，您正在重置密码，还差最后一步，请访问 <a href="${url}">${url}</a> 完成密码重置</div>
                         </body>
                     </html>`)
                 console.log(typeof json2)
