@@ -18,8 +18,8 @@ registerForm.addEventListener("submit", async (e) => {
     }
     try {
         const response = await fetch(`/api/verifycode?email=${encodeURIComponent(email.value.trim())}&code=${encodeURIComponent(emailVerifyCode.value.trim())}`)
+        const data = await response.json();
         if (response.ok) {
-            const data = await response.json();
             if (data.code == 200) {
                 globalThis.email = email.value.trim();
                 if (!globalThis.avatar) {
@@ -46,14 +46,15 @@ registerForm.addEventListener("submit", async (e) => {
                     return;
                 }
             } else {
-                alert("验证码验证失败");
+                alert("验证码验证失败，原因：" + data.msg);
+                return;
             }
         } else {
-            alert("验证码验证失败");
+            alert("验证码验证失败，原因：" + data.msg);
             return;
         }
     } catch (error) {
-        alert("验证码验证失败");
+        alert("验证码验证失败，原因：" + error);
     }
 });
 
