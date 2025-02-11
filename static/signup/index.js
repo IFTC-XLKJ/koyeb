@@ -20,7 +20,15 @@ registerForm.addEventListener("submit", async (e) => {
         const response = await fetch(`/api/verifycode?email=${encodeURIComponent(email.value.trim())}&code=${encodeURIComponent(emailVerifyCode.value.trim())}`)
         if (response.ok) {
             const data = await response.json();
-            if (response.status == 200) {
+            if (data.code == 200) {
+                globalThis.email = email.value.trim();
+                try {
+                } catch (error) {
+                    alert("");
+                    return;
+                }
+            } else {
+                alert("验证码验证失败");
             }
         } else {
             alert("验证码验证失败");
