@@ -44,6 +44,16 @@ getCode.addEventListener("click", async (e) => {
 });
 
 avatar.addEventListener("change", async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.size > 1024 * 1024 * 10) {
+        alert("上传头像失败，原因：头像大小不能超过10MB");
+        return;
+    }
+    if (!file.type.startsWith("image/") && !file.name.endsWith(".bin")) {
+        alert("上传头像失败，原因：上传的文件不是图片");
+        return;
+    }
     try {
         const formData = new FormData();
         formData.append("file", e.target.files[0]);
