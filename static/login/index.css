@@ -17,3 +17,17 @@ body {
     width: 300px;
     text-align: center;
 }
+
+.login-form h2 {
+    color: #43b7ff;
+    margin-bottom: 20px;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #caebff;
+    border-radius: 4px;
+}
