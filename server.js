@@ -142,6 +142,11 @@ app.all("/sitemap.xml", (req, res) => {
     res.sendFile(path.join(__dirname, "sitemap.xml"));
 })
 
+app.get("/favicon.ico", (req, res) => {
+    requestLog(req);
+    res.sendFile(path.join(__dirname, "favicon.ico"));
+})
+
 app.all("/api", (req, res) => {
     requestLog(req);
     const apis = [
