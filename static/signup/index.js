@@ -25,7 +25,7 @@ getCode.addEventListener("click", async (e) => {
         return;
     }
     try {
-        const response = await fetch(`/api/sendcode?email=${email.value.trim()}&title=注册验证码&content=你的验证码是：" + Math.floor(Math.random() * 1000000)`, {
+        const response = await fetch(`/api/sendcode?email=${encodeURIComponent(email.value.trim())}&title=${encodeURIComponent("vv账号 - 注册验证码")}&content=${encodeURIComponent("你的验证码为 {captcha}")}`, {
             method: "GET",
         });
         if (response.ok) {
