@@ -23,8 +23,8 @@ body {
     margin-bottom: 20px;
 }
 
-.resetpw-form input[type="text"],
-.resetpw-form input[type="password"] {
+.resetpw-form input[type="password"],
+.register-form input[type="email"] {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
