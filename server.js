@@ -286,6 +286,7 @@ app.get("/api/user/search", async (req, res) => {
             res.json({
                 code: 200,
                 msg: "请求成功",
+                keyword: decodeURIComponent(keyword || ""),
                 data: data,
                 count: data.length,
                 timestamp: time(),
