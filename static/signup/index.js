@@ -69,7 +69,7 @@ getCode.addEventListener("click", async (e) => {
         return;
     }
     try {
-        const response = await fetch(`/api/sendcode?email=${encodeURIComponent(email.value.trim())}&title=${encodeURIComponent("vv账号 - 注册验证码")}&content=${encodeURIComponent("你的验证码为 {captcha}")}`);
+        const response = await fetch(`/api/sendcode?email=${encodeURIComponent(email.value.trim())}&title=${encodeURIComponent("VV账号 - 注册验证码")}&content=${encodeURIComponent("你的验证码为 {captcha}")}`);
         if (response.ok) {
             const data = await response.json();
             if (data.code != 200) {
