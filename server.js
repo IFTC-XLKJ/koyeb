@@ -183,7 +183,7 @@ app.get("/noob/share/:workId", async (req, res) => {
 app.get('/proxy/*', (req, res) => {
     const requestedPath = req.url；
     const url = requestedPath.replace("/proxy/", "");
-    res.json({url})
+    res.senf(url)
 });
 
 app.all("/BingSiteAuth.xml", (req, res) => {
