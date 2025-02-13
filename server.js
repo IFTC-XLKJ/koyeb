@@ -181,7 +181,7 @@ app.get("/noob/share/:workId", async (req, res) => {
 })
 
 app.all('/proxy/*', (req, res) => {
-    const requestedPath = req.url；
+    const requestedPath = req.url;
     const url = requestedPath.replace("/proxy/", "");
     res.senf(url)
 });
