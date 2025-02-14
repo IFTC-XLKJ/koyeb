@@ -183,7 +183,7 @@ app.get("/noob/share/:workId", async (req, res) => {
 app.all('/proxy/*', async (req, res) => {
     const requestedPath = req.url;
     const url = requestedPath.replace("/proxy/", "");
-    const response = await fetch(url, { method: req.method, headers: req.headers, body: req.body });
+    const response = await fetch(url, { method: req.method, headers: req.headers, body: req.body || undefined });
     if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
         const blob = await response.blob();
         res.send(blob)
