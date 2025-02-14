@@ -180,10 +180,20 @@ app.get("/noob/share/:workId", async (req, res) => {
     const { workId } = req.params;
 })
 
-app.all('/proxy/*', (req, res) => {
+app.all('/proxy/*', async (req, res) => {
     const requestedPath = req.url;
     const url = requestedPath.replace("/proxy/", "");
-    res.send(url)
+    const response = await fetch(url, { method: req.method, headers: req.headers, body: req.body });
+    if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
+        const blob = await response.blob();
+        res.send(blob)
+    }
+    try {
+        const json = await response.json();
+        res.status(response.status).json(json);
+    } catch (error) {
+        res.status(response.status).send(response.statusText);
+    }
 });
 
 app.all("/BingSiteAuth.xml", (req, res) => {
@@ -292,7 +302,7 @@ app.get("/api/user/search", async (req, res) => {
             res.json({
                 code: 200,
                 msg: "请求成功",
-                keyword: !!keyword ?  decodeURIComponent(keyword) : null,
+                keyword: !!keyword ? decodeURIComponent(keyword) : null,
                 data: data,
                 count: data.length,
                 timestamp: time(),
