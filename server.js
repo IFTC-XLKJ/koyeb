@@ -183,16 +183,21 @@ app.get("/noob/share/:workId", async (req, res) => {
 app.all('/proxy/*', async (req, res) => {
     const requestedPath = req.url;
     const url = requestedPath.replace("/proxy/", "");
-    const response = await fetch(url, { method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body });
-    if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
-        const blob = await response.blob();
-        res.send(blob)
-    }
     try {
-        const json = await response.json();
-        res.status(response.status).json(json);
+        const response = await fetch(url, { method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body });
+        if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
+            const blob = await response.blob();
+            res.send(blob)
+        }
+        try {
+            const json = await response.json();
+            res.status(response.status).json(json);
+        } catch (error) {
+            res.status(response.status).send(response.statusText);
+        }
     } catch (error) {
-        res.status(response.status).send(response.statusText);
+        console.error(error);
+        res.status(500).send("Internal Server Error");
     }
 });
 
