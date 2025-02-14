@@ -185,6 +185,7 @@ app.all('/proxy/*', async (req, res) => {
     const url = requestedPath.replace("/proxy/", "");
     try {
         const response = await fetch(url, { method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body, verbose: true });
+        const contentType = response.headers.get("content-type");
         if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
             const blob = await response.blob();
             res.send(blob)
