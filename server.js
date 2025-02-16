@@ -1006,7 +1006,7 @@ app.get("/api/user/details", async (req, res) => {
                         VC: data.V币,
                         email: data.邮箱,
                         VIP: !!data.VIP,
-                        signed: data.签到,
+                        signed: data.签到 || "没有签过到",
                         op: data.管理员 == 1,
                         freezed: data.封号 == 1,
                         title: data.头衔,
