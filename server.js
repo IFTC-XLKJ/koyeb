@@ -243,6 +243,20 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/book/random", async (req, res) => {
+    requestLog(req);
+    const { num } = req.query;
+    try {} catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: String(e),
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/ykl/chat", async (req, res) => {
     requestLog(req);
     try {
