@@ -272,6 +272,7 @@ app.get("/api/book/random", async (req, res) => {
                 code: json.code,
                 msg: `随机获取${num || 10}本图书成功`,
                 data: data,
+                total: json.count,
                 timestamp: time(),
             });
         } else {
