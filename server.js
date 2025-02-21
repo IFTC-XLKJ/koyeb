@@ -9,6 +9,7 @@ const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const { create } = require("domain");
 
 const app = express();
 const corsOptions = {
@@ -217,6 +218,8 @@ app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "favicon.ico"));
 })
 
+app.get("/")
+
 app.all("/api", (req, res) => {
     requestLog(req);
     const apis = [
@@ -250,10 +253,25 @@ app.get("/api/book/random", async (req, res) => {
         const books = new Books();
         const json = await books.randomBook(num || 10);
         if (json.code == 200) {
+            const data = []
+            for (let i = 0; i < json.fields.length; i++) {
+                data.push({
+                    ID: json.fields[i].ID,
+                    name: json.fields[i].书名,
+                    bookID: json.fields[i].书ID,
+                    author: json.fields[i].作者,
+                    description: json.fields[i].介绍,
+                    cover: json.fields[i].封面,
+                    sign: json.fields[i].签约 == 1,
+                    VIP: json.fields[i].VIP == 1,
+                    createdAt: json.fields[i].createdAt,
+                    updatedAt: json.fields[i].updatedAt,
+                })
+            }
             res.json({
                 code: json.code,
-                msg: json.msg,
-                data: json.fields,
+                msg: "随机获取" + num || 10 + "本图书成功",
+                data: data,
                 timestamp: time(),
             });
         } else {
