@@ -270,7 +270,7 @@ app.get("/api/book/random", async (req, res) => {
             }
             res.json({
                 code: json.code,
-                msg: `随机获取${num || 10}本图书成功`,
+                msg: `随机获取最多${num || 10}本图书成功`,
                 data: data,
                 total: json.count,
                 timestamp: time(),
