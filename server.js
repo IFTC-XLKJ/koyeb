@@ -246,7 +246,24 @@ app.all("/api", (req, res) => {
 app.get("/api/book/random", async (req, res) => {
     requestLog(req);
     const { num } = req.query;
-    try {} catch (e) {
+    try {
+        const books = new Books();
+        const json = await Books.randomBook(num || 10);
+        if (json.code == 200) {
+            res.json({
+                code: json.code,
+                msg: json.msg,
+                data: json.fields,
+                timestamp: time(),
+            });
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
+    } catch (e) {
         console.error(e);
         res.status(500).json({
             code: 500,
