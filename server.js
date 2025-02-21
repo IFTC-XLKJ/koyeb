@@ -248,7 +248,7 @@ app.get("/api/book/random", async (req, res) => {
     const { num } = req.query;
     try {
         const books = new Books();
-        const json = await Books.randomBook(num || 10);
+        const json = await books.randomBook(num || 10);
         if (json.code == 200) {
             res.json({
                 code: json.code,
