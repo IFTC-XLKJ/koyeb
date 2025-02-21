@@ -257,11 +257,11 @@ app.get("/api/book/random", async (req, res) => {
             for (let i = 0; i < json.fields.length; i++) {
                 data.push({
                     ID: json.fields[i].ID,
-                    name: json.fields[i].书名,
+                    name: String(json.fields[i].书名),
                     bookID: json.fields[i].书ID,
-                    author: json.fields[i].作者,
-                    description: json.fields[i].介绍,
-                    cover: json.fields[i].封面,
+                    author: String(json.fields[i].作者),
+                    description: String(json.fields[i].介绍),
+                    cover: String(json.fields[i].封面),
                     sign: json.fields[i].签约 == 1,
                     VIP: json.fields[i].VIP == 1,
                     createdAt: json.fields[i].createdAt,
