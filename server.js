@@ -9,7 +9,7 @@ const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
-const { GameDig } = require('./node_modules/gamedig/dist/index.cjs');
+const { GameDig } = require("./node_modules/gamedig/dist/index.cjs")
 const { error } = require("console");
 const app = express();
 const corsOptions = {
@@ -279,6 +279,7 @@ app.get("/api/query-game-sever", (req, res) => {
             timestamp: time(),
         });
     } catch (e) {
+        console.error(e);
         res.status(500).json({
             code: 500,
             msg: "内部服务错误",
