@@ -1297,7 +1297,6 @@ app.get(dir + '/login', function (request, response) {
     };
     createWebAPIRequest('/weapi/login', data, null, response)
 });
-
 //登录信息刷新
 app.get(dir + '/login/refresh', function (request, response) {
     var cookie = request.get('Cookie') ? request.get('Cookie') : (request.query.cookie ? request.query.cookie : '');
