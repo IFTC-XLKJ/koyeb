@@ -261,7 +261,8 @@ app.get("/api/query-game-sever", async (req, res) => {
         const result = await GameDig.query({
             type: type,
             host: host,
-            port: port
+            port: port,
+            givenPortOnly: true
         })
         if (result.error) {
             res.json({
