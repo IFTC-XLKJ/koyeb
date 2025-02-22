@@ -249,10 +249,10 @@ app.all("/api", (req, res) => {
 app.get("/api/query-game-sever", (req, res) => {
     requestLog(req);
     const { type, host, port } = req.query;
-    if (!type && !host && (!port || port != 0)) {
+    if (!type && !host) {
         res.status(400).json({
             code: 400,
-            msg: "请求参数错误(type、host、port)",
+            msg: "请求参数错误(type、host)",
             timestamp: time(),
         });
         res.end();
