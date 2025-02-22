@@ -246,7 +246,7 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/query-game-sever", (req, res) => {
+app.get("/api/query-game-sever", async (req, res) => {
     requestLog(req);
     const { type, host, port } = req.query;
     if (!type && !host) {
@@ -258,7 +258,7 @@ app.get("/api/query-game-sever", (req, res) => {
         res.end();
     }
     try {
-        const result = GameDig.query({
+        const result = await GameDig.query({
             type: type,
             host: host,
             port: port
