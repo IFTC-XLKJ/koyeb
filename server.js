@@ -248,7 +248,7 @@ app.all("/api", (req, res) => {
 
 app.get("/api/code", (req, res) => {
     const { code } = req.query
-    res.status(code).send(JSON.stringify({
+    res.status(code).json(JSON.stringify({
         code: code,
         msg: "请求成功",
         timestamp: time(),
