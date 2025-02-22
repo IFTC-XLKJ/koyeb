@@ -1186,7 +1186,7 @@ setInterval(() => {
 
 
 const dir = "/api/music";
-const cookie = null;
+let cookie = null;
 const user = {};
 const jsessionid = randomString('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUVWXYZ\\/+', 176) + ':' + (new Date).getTime();
 const nuid = randomString('0123456789abcdefghijklmnopqrstuvwxyz', 32);
@@ -1275,10 +1275,10 @@ app.get(dir + '/mine', function (request, response) {
 });
 //手机登录
 app.get(dir + '/login/cellphone', function (request, response) {
-    var phone = request.query.phone;
-    var md5sum = crypto.createHash('md5');
+    const phone = request.query.phone;
+    const md5sum = crypto.createHash('md5');
     md5sum.update(request.query.password);
-    var data = {
+    const data = {
         'phone': phone,
         'password': md5sum.digest('hex'),
         'rememberLogin': 'true'
