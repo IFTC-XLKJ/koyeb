@@ -1287,10 +1287,10 @@ app.get(dir + '/login/cellphone', function (request, response) {
 });
 //邮箱登录-已失效
 app.get(dir + '/login', function (request, response) {
-    var email = request.query.email;
-    var md5sum = crypto.createHash('md5');
+    const email = request.query.email;
+    const md5sum = crypto.createHash('md5');
     md5sum.update(request.query.password);
-    var data = {
+    const data = {
         'username': email,
         'password': md5sum.digest('hex'),
         'rememberLogin': 'true'
