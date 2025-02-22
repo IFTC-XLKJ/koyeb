@@ -246,6 +246,15 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/code", (req, res) => {
+    const { code } = req.query
+    res.status(code).send(JSON.stringify({
+        code: code,
+        msg: "请求成功",
+        timestamp: time(),
+    }));
+})
+
 app.get("/api/book/random", async (req, res) => {
     requestLog(req);
     const { num } = req.query;
