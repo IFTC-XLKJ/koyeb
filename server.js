@@ -258,7 +258,7 @@ app.get("/api/query-game-sever", (req, res) => {
         res.end();
     }
     try {
-        const result = Gamedig.query({
+        const result = GameDig.query({
             type: type,
             host: host,
             port: port
