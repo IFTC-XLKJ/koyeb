@@ -249,6 +249,14 @@ app.all("/api", (req, res) => {
 app.get("/api/query-game-sever", (req, res) => {
     requestLog(req);
     const { type, host, port } = req.query;
+    if (!type && !host && (!port || port != 0)) {
+        res.status(400).json({
+            code: 400,
+            msg: "请求参数错误",
+            timestamp: time(),
+        });
+        res.end();
+    }
     try {
         const result = Gamedig.query({
             type: type,
