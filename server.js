@@ -1187,7 +1187,7 @@ setInterval(() => {
 
 const dir = "/api/music";
 let cookie = null;
-const user = {};
+let user = {};
 const jsessionid = randomString('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKMNOPQRSTUVWXYZ\\/+', 176) + ':' + (new Date).getTime();
 const nuid = randomString('0123456789abcdefghijklmnopqrstuvwxyz', 32);
 function randomString(pattern, length) {
