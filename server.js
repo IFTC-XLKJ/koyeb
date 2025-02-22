@@ -272,6 +272,7 @@ app.get("/api/query-game-sever", (req, res) => {
             });
             res.end();
         }
+        console.log(result);
         res.json({
             code: 200,
             msg: "查询成功",
