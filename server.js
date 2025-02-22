@@ -252,7 +252,7 @@ app.get("/api/query-game-sever", (req, res) => {
     if (!type && !host && (!port || port != 0)) {
         res.status(400).json({
             code: 400,
-            msg: "请求参数错误",
+            msg: "请求参数错误(type、host、port)",
             timestamp: time(),
         });
         res.end();
