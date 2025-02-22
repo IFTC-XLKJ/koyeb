@@ -9,6 +9,8 @@ const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
+const Gamedig = require('gamedig');
+const { error } = require("console");
 const app = express();
 const corsOptions = {
     origin: function (origin, callback) {
@@ -243,6 +245,40 @@ app.all("/api", (req, res) => {
         timestamp: time(),
     });
 });
+
+app.get("/api/query-game-sever", (req, res) => {
+    requestLog(req);
+    const { type, host, port } = req.query;
+    try {
+        const result = Gamedig.query({
+            type: type,
+            host: host,
+            port: port
+        })
+        if (result.error) {
+            res.json({
+                code: 400,
+                msg: "查询失败",
+                error: result.error,
+                timestamp: time(),
+            });
+            res.end();
+        }
+        res.json({
+            code: 200,
+            msg: "查询成功",
+            data: result,
+            timestamp: time(),
+        });
+    } catch (e) {
+        res.status(500).json({
+            code: 500,
+            msg: "内部服务错误",
+            error: String(e),
+            timestamp: time(),
+        });
+    }
+})
 
 app.get("/api/code", (req, res) => {
     const { code } = req.query
