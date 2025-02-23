@@ -259,7 +259,7 @@ app.get("/api/participle", async (req, res) => {
         console.log(words);
         res.json({
             code: 200,
-            msg: "请求成功",
+            msg: "分词成功",
             data: words,
             timestamp: time(),
         });
