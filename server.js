@@ -248,7 +248,7 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/", async (req, res) => {
+app.get("/api/text", async (req, res) => {
     const { text } = req.query;
     const tokenizer = new natural.WordTokenizer();
     console.log(tokenizer.tokenize(text));
