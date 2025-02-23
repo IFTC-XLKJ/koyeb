@@ -29,8 +29,8 @@
     "crypto-js": "^4.2.0",
     "express": "^4.21.2",
     "gamedig": "^5.2.0",
-    "jieba-js": "^1.0.2",
     "node-fetch": "^3.3.2",
+    "node-segment": "^0.0.2",
     "qqbot": "^1.0.0"
   }
 }

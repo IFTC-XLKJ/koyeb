@@ -10,7 +10,7 @@ const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
-const jieba = require('jieba-js');
+const Segment = require('node-segment').Segment;
 
 const app = express();
 const corsOptions = {
@@ -251,11 +251,14 @@ app.all("/api", (req, res) => {
 app.get("/api/participle", async (req, res) => {
     const { text } = req.query;
     console.log(text);
-    const result = await jieba.cut(text);
+    const segment = new Segment();
+    segment.load();
+    let words = segment.doSegment(text);
+    console.log(words);
     res.json({
         code: 200,
         msg: "请求成功",
-        data: result,
+        data: words,
         timestamp: time(),
     });
 });
