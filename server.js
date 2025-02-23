@@ -11,6 +11,7 @@ const cors = require("cors");
 const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
 const Segment = require('node-segment').Segment;
+console.log(Segment);
 
 const app = express();
 const corsOptions = {
@@ -252,8 +253,9 @@ app.get("/api/participle", async (req, res) => {
     const { text } = req.query;
     console.log(text);
     const segment = new Segment();
-    segment.load();
-    let words = segment.doSegment(text);
+    const words = segment.doSegment(text, {
+        stripPunctuation: true
+    });
     console.log(words);
     res.json({
         code: 200,
