@@ -252,17 +252,29 @@ app.all("/api", (req, res) => {
 app.get("/api/participle", async (req, res) => {
     const { text } = req.query;
     console.log(text);
-    const segment = new Segment();
-    const words = segment.doSegment(text, {
-        stripPunctuation: true
+    const segment = new Segment({
+        defaultOptions: {
+            stripPunctuation: true // 根据需要调整配置
+        }
     });
-    console.log(words);
-    res.json({
-        code: 200,
-        msg: "请求成功",
-        data: words,
-        timestamp: time(),
-    });
+    try {
+        const words = segment.doSegment(text);
+        console.log(words);
+        res.json({
+            code: 200,
+            msg: "请求成功",
+            data: words,
+            timestamp: time(),
+        });
+    } catch (error) {
+        console.error('分词过程中出错:', error.message);
+        res.status(500).json({
+            code: 500,
+            msg: "分词过程中出错",
+            error: error.message,
+            timestamp: time(),
+        });
+    }
 });
 
 app.get("/api/query-game-server", async (req, res) => {
