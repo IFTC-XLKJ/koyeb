@@ -10,7 +10,7 @@ const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
-const { webkit } = require('playwright');
+const natural = require('natural');
 
 const app = express();
 const corsOptions = {
@@ -248,29 +248,16 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/webpage-screenshot", async (req, res) => {
-    const { url } = req.query;
-    if (!url) {
-        res.status(400).json({
-            code: 400,
-            msg: "请求参数错误(url)",
-            timestamp: time(),
-        });
-        res.end();
-    }
-    const browser = await webkit.launch({
-            executablePath: '/app/ms-playwright/webkit-2123/Playwright.exe'
-        });
-    const page = await browser.newPage();
-    await page.goto(url);
-    const screenshotBuffer = await page.screenshot();
-    const blob = new (require('fetch-blob/from'))(screenshotBuffer, { type: 'image/png' });
-    console.log(blob);
-    await browser.close();
-    res.set({
-        "Content-Type": "image/png",
-    })
-    res.send(blob);
+app.get("/api/", async (req, res) => {
+    const { text } = req.query;
+    const tokenizer = new natural.WordTokenizer();
+    console.log(tokenizer.tokenize(text));
+    res.json({
+        code: 200,
+        msg: "请求成功",
+        data: tokenizer.tokenize(text),
+        timestamp: time(),
+    });
 });
 
 app.get("/api/query-game-server", async (req, res) => {
