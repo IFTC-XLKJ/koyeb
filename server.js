@@ -235,7 +235,7 @@ app.all("/api", (req, res) => {
         "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
         "添加图书 GET /book/addbook?name={图书名(必填)}&id={用户ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
         "添加图书章节 GET /book/addchapter?id={用户ID(必填)}&bookid={图书ID(必填)}&num={章节序号(必填)}&name={章节名(必填)}&content={章节内容(必填)}",
-        "游戏服务器查询 GET /api/query-game-sever?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
+        "游戏服务器查询 GET /api/query-game-server?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
     ]
     res.json({
         code: 200,
@@ -247,7 +247,7 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/query-game-sever", async (req, res) => {
+app.get("/api/query-game-server", async (req, res) => {
     requestLog(req);
     const { type, host, port } = req.query;
     if (!type && !host) {
