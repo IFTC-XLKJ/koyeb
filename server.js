@@ -10,7 +10,6 @@ const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
-const puppeteer = require('puppeteer');
 
 const app = express();
 const corsOptions = {
@@ -258,15 +257,6 @@ app.get("/api/webpage-screenshot", async (req, res) => {
         });
         res.end();
     }
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(url);
-    const screenshotBuffer = await page.screenshot({ encoding: 'binary' });
-    await browser.close();
-    res.set({
-        "Content-Type": "image/png",
-    });
-    res.send(screenshotBuffer);
 });
 
 app.get("/api/query-game-server", async (req, res) => {
