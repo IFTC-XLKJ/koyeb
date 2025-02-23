@@ -258,11 +258,9 @@ app.get("/api/webpage-screenshot", async (req, res) => {
         });
         res.end();
     }
-    const browser = await webkit.launch(
-        {
-            executablePath: '/path/to/your/project/ms-playwright/webkit2123/your-executable'
-        }
-    );
+    const browser = await webkit.launch({
+            executablePath: '/ms-playwright/webkit2123/Playwright.exe'
+        });
     const page = await browser.newPage();
     await page.goto(url);
     const screenshotBuffer = await page.screenshot();
