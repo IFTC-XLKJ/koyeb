@@ -9,8 +9,9 @@ const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
-const { GameDig } = require("./node_modules/gamedig/dist/index.cjs")
-const { error } = require("console");
+const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
+const puppeteer = require('puppeteer');
+
 const app = express();
 const corsOptions = {
     origin: function (origin, callback) {
@@ -245,6 +246,27 @@ app.all("/api", (req, res) => {
         count: apis.length,
         timestamp: time(),
     });
+});
+
+app.get("/api/webpage-screenshot", async (req, res) => {
+    const { url } = req.query;
+    if (!url) {
+        res.status(400).json({
+            code: 400,
+            msg: "请求参数错误(url)",
+            timestamp: time(),
+        });
+        res.end();
+    }
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto(url);
+    const screenshotBuffer = await page.screenshot({ encoding: 'binary' });
+    await browser.close();
+    res.set({
+        "Content-Type": "image/png",
+    });
+    res.send(screenshotBuffer);
 });
 
 app.get("/api/query-game-server", async (req, res) => {
