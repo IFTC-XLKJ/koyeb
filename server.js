@@ -252,11 +252,8 @@ app.all("/api", (req, res) => {
 app.get("/api/participle", async (req, res) => {
     const { text } = req.query;
     console.log(text);
-    const segment = new Segment({
-        defaultOptions: {
-            stripPunctuation: true // 根据需要调整配置
-        }
-    });
+    const segment = new Segment();
+    segment.useDefault();
     try {
         const words = segment.doSegment(text);
         console.log(words);
