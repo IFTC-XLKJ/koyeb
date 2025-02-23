@@ -251,7 +251,7 @@ app.all("/api", (req, res) => {
 app.get("/api/participle", async (req, res) => {
     const { text } = req.query;
     console.log(text);
-    const result = jieba.cut(text);
+    const result = await jieba.cut(text);
     res.json({
         code: 200,
         msg: "请求成功",
