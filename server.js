@@ -10,7 +10,7 @@ const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
-const natural = require('natural');
+const jieba = require('jieba-js');
 
 const app = express();
 const corsOptions = {
@@ -248,15 +248,14 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/text", async (req, res) => {
+app.get("/api/participle", async (req, res) => {
     const { text } = req.query;
     console.log(text);
-    const tokenizer = new natural.WordTokenizer();
-    console.log(tokenizer.tokenize(text));
+    const result = jieba.cut(text);
     res.json({
         code: 200,
         msg: "请求成功",
-        data: tokenizer.tokenize(text),
+        data: result,
         timestamp: time(),
     });
 });
