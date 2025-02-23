@@ -259,7 +259,7 @@ app.get("/api/webpage-screenshot", async (req, res) => {
         res.end();
     }
     const browser = await webkit.launch({
-            executablePath: '/app/ms-playwright/webkit2123/Playwright.exe'
+            executablePath: '/app/ms-playwright/webkit-2123/Playwright.exe'
         });
     const page = await browser.newPage();
     await page.goto(url);
