@@ -341,10 +341,25 @@ app.get("/api/user/loginbytoken", async (req, res) => {
                         timestamp: time(),
                     });
                 }
+                const data = json.fields[0];
                 res.json({
                     code: 200,
                     msg: "登录成功",
-                    data: json.fields[0],
+                    data: {
+                        ID: data.ID,
+                        username: String(data.昵称),
+                        avatar: data.头像,
+                        VC: data.V币,
+                        email: data.邮箱,
+                        VIP: !!data.VIP,
+                        signed: data.签到 || 0,
+                        op: data.管理员 == 1,
+                        freezed: data.封号 == 1,
+                        title: data.头衔,
+                        titleColor: data.头衔色,
+                        createdAt: data.createdAt,
+                        updatedAt: data.updatedAt,
+                    },
                     timestamp: time(),
                 });
             } else {
