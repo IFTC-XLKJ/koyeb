@@ -252,6 +252,46 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/user/updatetoken", async (req, res) => {
+    requestLog(req);
+    const { id, password } = req.query;
+    if (id && password) {
+        const user = new User();
+        try {
+            const json = await user.updateToken(id, password);
+            if (json.code == 200) {
+                if (!json.fields[0]) {
+                    res.json({
+                        code: 401,
+                        msg: "密码错误",
+                        timestamp: time(),
+                    });
+                }
+                res.json({
+                    code: 200,
+                    msg: "更新成功",
+                    token: json.fields[0].token,
+                    timestamp: time(),
+                })
+            }
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少参数",
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/user/loginbytoken", async (req, res) => {
     requestLog(req);
     const { token } = req.query;
