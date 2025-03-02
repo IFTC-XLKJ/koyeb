@@ -240,6 +240,7 @@ app.all("/api", (req, res) => {
         "获取随机图书 GET /book/random?num={获取数量(选填，默认10)}",
         "游戏服务器查询 GET /api/query-game-server?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
         "中文分词模块 GET /api/participle?text={要分词的文本(必填)}",
+        "使用Token登录 GET /api/loginbytoken?token={Token(必填)}"
     ]
     res.json({
         code: 200,
