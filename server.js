@@ -237,7 +237,9 @@ app.all("/api", (req, res) => {
         "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
         "添加图书 GET /book/addbook?name={图书名(必填)}&id={用户ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
         "添加图书章节 GET /book/addchapter?id={用户ID(必填)}&bookid={图书ID(必填)}&num={章节序号(必填)}&name={章节名(必填)}&content={章节内容(必填)}",
+        "获取随机图书 GET /book/random?num={获取数量(选填，默认10)}",
         "游戏服务器查询 GET /api/query-game-server?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
+        "中文分词模块 GET /api/participle?text={要分词的文本(必填)}",
     ]
     res.json({
         code: 200,
@@ -247,6 +249,45 @@ app.all("/api", (req, res) => {
         count: apis.length,
         timestamp: time(),
     });
+});
+
+app.get("/api/user/loginbytoken", async (req, res) => {
+    requestLog(req);
+    const { token } = req.query;
+    if (token) {
+        const user = new User();
+        try {
+            const json = await user.loginByToken(token);
+            if (json.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "登录成功",
+                    data: json.fields[0],
+                    timestamp: time(),
+                });
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+            }
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少token参数",
+            timestamp: time(),
+        });
+    }
 });
 
 app.get("/api/participle", async (req, res) => {
