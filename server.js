@@ -273,7 +273,7 @@ app.get("/api/user/gettoken", async (req, res) => {
                     code: 200,
                     msg: "获取成功",
                     timestamp: time(),
-                    token: json.fields[0].token,
+                    token: json.fields[0].token || null,
                 })
             }
         } catch (e) {
