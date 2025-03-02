@@ -398,6 +398,37 @@ class User {
             throw error;
         }
     }
+    async getToken(id, password) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVZHkey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType,
+                },
+                body: JSON.stringify({
+                    filter: `ID=${id} AND 密码="${md5Hash(password)}`,
+                    page: 1,
+                    limit: 1,
+                    fields: `token`
+                })
+            })
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+            throw error;
+        }
+    }
 }
 
 function md5Hash(input) {
