@@ -260,7 +260,7 @@ app.get("/api/user/gettoken", async (req, res) => {
     if ((id || id == 0) && password) {
         const user = new User();
         try {
-            const json = await user.getToken(id, password);
+            const json = await user.getToken(id, decodeURIComponent(password));
             if (json.code == 200) {
                 if (!json.fields[0]) {
                     res.status(400).json({
@@ -300,7 +300,7 @@ app.get("/api/user/updatetoken", async (req, res) => {
     if ((id || id == 0) && password) {
         const user = new User();
         try {
-            const json = await user.updateToken(id, password);
+            const json = await user.updateToken(id, decodeURIComponent(password));
             if (json.code == 200) {
                 res.json({
                     code: 200,
