@@ -412,7 +412,7 @@ class User {
                     "Content-Type": contentType,
                 },
                 body: JSON.stringify({
-                    filter: `ID=${id} AND 密码="${md5Hash(password)}`,
+                    filter: `ID=${id} AND 密码="${md5Hash(password)}"`,
                     page: 1,
                     limit: 1,
                     fields: `token`
