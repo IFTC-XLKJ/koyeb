@@ -259,6 +259,13 @@ app.get("/api/user/loginbytoken", async (req, res) => {
         try {
             const json = await user.loginByToken(token);
             if (json.code == 200) {
+                if (!json.fields[0]) {
+                    res.json({
+                        code: 401,
+                        msg: "token错误",
+                        timestamp: time(),
+                    });
+                }
                 res.json({
                     code: 200,
                     msg: "登录成功",
