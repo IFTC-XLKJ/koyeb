@@ -240,7 +240,9 @@ app.all("/api", (req, res) => {
         "获取随机图书 GET /book/random?num={获取数量(选填，默认10)}",
         "游戏服务器查询 GET /api/query-game-server?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
         "中文分词模块 GET /api/participle?text={要分词的文本(必填)}",
-        "使用Token登录 GET /api/loginbytoken?token={Token(必填)}"
+        "使用Token登录 GET /api/loginbytoken?token={Token(必填)}",
+        "更新Token GET /api/updatetoken?id={用户ID(必填)}&password={密码(必填)}",
+        "获取Token GET /api/gettoken?id={用户ID(必填)}&password={密码(必填)}",
     ]
     res.json({
         code: 200,
@@ -252,10 +254,50 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/user/gettoken", async (req, res) => {
+    requestLog(req);
+    const { id, password } = req.query;
+    if ((id || id == 0) && password) {
+        const user = new User();
+        try {
+            const json = await user.getToken(id, password);
+            if (json.code == 200) {
+                if (!json.fields[0]) {
+                    res.status(400).json({
+                        code: 401,
+                        msg: "账号或密码错误",
+                        timestamp: time(),
+                    });
+                }
+                res.json({
+                    code: 200,
+                    msg: "获取成功",
+                    timestamp: time(),
+                    token: json.fields[0].token,
+                })
+            }
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误",
+                error: String(e),
+                timestamp: time(),
+            })
+        }
+    } else {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少参数",
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/user/updatetoken", async (req, res) => {
     requestLog(req);
     const { id, password } = req.query;
-    if (id && password) {
+    if ((id || id == 0) && password) {
         const user = new User();
         try {
             const json = await user.updateToken(id, password);
