@@ -260,17 +260,9 @@ app.get("/api/user/updatetoken", async (req, res) => {
         try {
             const json = await user.updateToken(id, password);
             if (json.code == 200) {
-                if (!json.fields[0]) {
-                    res.json({
-                        code: 401,
-                        msg: "密码错误",
-                        timestamp: time(),
-                    });
-                }
                 res.json({
                     code: 200,
                     msg: "更新成功",
-                    token: json.fields[0].token,
                     timestamp: time(),
                 })
             }
