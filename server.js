@@ -254,6 +254,46 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/op/login", async (req, res) => {
+    requestLog(req);
+    const { id, password } = req.query;
+    if ((id || id == 0) && password) {
+        const user = new User();
+        try {
+            const json = await user.opLogin(id, decodeURIComponent(password));
+            if (json.code == 200) {
+                if (!json.fields[0]) {
+                    res.status(400).json({
+                        code: 401,
+                        msg: "账号或密码错误或不是管理员",
+                        timestamp: time(),
+                    })
+                }
+                res.json({
+                    code: 200,
+                    msg: "登录成功",
+                    id: json.id,
+                    timestamp: time(),
+                });
+            } else {
+                res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+            }
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({
+                code: 500,
+                msg: "服务内部错误",
+                error: String(e),
+                timestamp: time(),
+            });
+        }
+    }
+})
+
 app.get("/api/user/gettoken", async (req, res) => {
     requestLog(req);
     const { id, password } = req.query;
