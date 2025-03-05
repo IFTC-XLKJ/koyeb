@@ -1410,7 +1410,7 @@ function requestLog(req) {
     if (req.headers["user-agent"] == "Koyeb Health Check") {
         return;
     }
-    console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} UA: ${req.headers["user-agent"]}`)
+    console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`)
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Body: ${JSON.stringify(req.body)}`);
