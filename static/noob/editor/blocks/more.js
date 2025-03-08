@@ -9,7 +9,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: ""
     },
 ])
-Blockly.JavaScript.forBlock['Eruda控制台'] = function (block) {
+Blockly.JavaScript.forBlock['load_Eruda'] = function (block) {
     const code = `const script = document.createElement('script');
 script.src = 'https://cdn.jsdelivr.net/npm/eruda';
 script.onload = () => {
