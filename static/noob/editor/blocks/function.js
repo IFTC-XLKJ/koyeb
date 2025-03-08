@@ -13,7 +13,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: 'STACK'
             }
         ],
-        colour: 290,
+        colour: "#F88767",
         tooltip: '函数',
         helpUrl: '',
         nextStatement: true,
@@ -28,7 +28,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: 'VALUE',
             }
         ],
-        colour: 290,
+        colour: "#F88767",
         tooltip: '返回',
         helpUrl: '',
         previousStatement: true,
@@ -43,7 +43,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: '函数'
             }
         ],
-        colour: 290,
+        colour: "#F88767",
         tooltip: '调用函数',
         helpUrl: '',
         inputsInline: true
@@ -58,7 +58,7 @@ Blockly.defineBlocksWithJsonArray([
                 text: '函数'
             }
         ],
-        colour: 290,
+        colour: "#F88767",
         tooltip: '调用函数并返回',
         helpUrl: '',
         nextStatement: true,
