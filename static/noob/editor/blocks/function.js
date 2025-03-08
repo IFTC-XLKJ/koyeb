@@ -36,12 +36,12 @@ Blockly.defineBlocksWithJsonArray([
         output: null,
     }
 ])
-Blockly.JavaScript['function'] = function (block) {
+Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
     return `function ${name}() {\n${stack}\n}\n`;
 }
-Blockly.JavaScript['function_call'] = function (block) {
+Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
     return `${name}();\n`;
 }
