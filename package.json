@@ -1,7 +1,6 @@
 {
   "name": "example-bun",
   "module": "server.js",
-  "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
   },
