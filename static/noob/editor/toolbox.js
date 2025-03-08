@@ -535,7 +535,15 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "return",
+                },
+                {
+                    kind: "block",
                     type: "function_call",
+                },
+                {
+                    kind: "block",
+                    type: "function_return",
                 },
             ]
         }
