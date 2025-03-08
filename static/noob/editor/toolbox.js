@@ -508,10 +508,14 @@ const toolbox = {
             name: "函数",
             colour: 210,
             contents: [
-                // {
-                //     kind: "block",
-                //     type: "define_function",
-                // }
+                {
+                    kind: "block",
+                    type: "function",
+                },
+                {
+                    kind: "block",
+                    type: "function_call",
+                },
             ]
         }
     ]
