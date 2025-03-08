@@ -29,22 +29,22 @@ Blockly.Extensions.registerMutator("array_craete_mutator", {
         }
         for (let i = 0; i < this.itemCount_; i++) {
             if (!this.getInput('ADD' + i)) {
-                console.log(i)
-                const input = this.appendValueInput('ADD' + i).setAlign(Blockly.inputs.Align.RIGHT);
-                console.log(input);
-                input.connection.setShadowState({
-                    type: "text",
-                    fields: {
-                        TEXT: 'value'
-                    }
-                });
-                input.connection.targetConnection.setShadowState({
-                    type: "text",
-                    fields: {
-                        TEXT: 'value'
-                    }
-                });
-                console.log(input);
+                // console.log(i)
+                // const input = this.appendValueInput('ADD' + i).setAlign(Blockly.inputs.Align.RIGHT);
+                // console.log(input);
+                // input.connection.setShadowState({
+                //     type: "text",
+                //     fields: {
+                //         TEXT: 'value'
+                //     }
+                // });
+                // input.connection.targetConnection.setShadowState({
+                //     type: "text",
+                //     fields: {
+                //         TEXT: 'value'
+                //     }
+                // });
+                // console.log(input);
             }
         }
         for (let i = this.itemCount_; this.getInput('ADD' + i); i++) {
