@@ -70,7 +70,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
-    return `function ${name}() {\n${stack}\n}\n`;
+    return `async function ${name}() {\n${stack}\n}\n`;
 }
 Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
