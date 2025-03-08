@@ -500,7 +500,21 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "script_try_catch_geterror",
-                }
+                },
+                {
+                    kind: "block",
+                    type: "wait_for_seconds",
+                    inputs: {
+                        SECONDS: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 1
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
