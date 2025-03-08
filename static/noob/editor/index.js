@@ -583,7 +583,7 @@ function newFile() {
 }
 
 function saveFileAs() {
-    const filename = "新的NOOB作品.nb";
+    const filename = getWorkName() + ".nb";
     const file = new Blob([JSON.stringify(saveBlocks(), null, 4)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(file);
@@ -592,7 +592,7 @@ function saveFileAs() {
 }
 
 function exportFile() {
-    const filename = "新的NOOB作品.html";
+    const filename = getWorkName() + ".html";
     const file = new Blob([BlocksToJS()], { type: "text/html" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(file);
@@ -621,6 +621,11 @@ function importFile() {
             };
         }
     });
+}
+
+function getWorkName() {
+    const title = document.getElementById("title").children[0].value;
+    return title;
 }
 
 function initBlocks() {
