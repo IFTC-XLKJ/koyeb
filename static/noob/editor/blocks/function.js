@@ -61,8 +61,6 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#F88767",
         tooltip: '调用函数并返回',
         helpUrl: '',
-        nextStatement: true,
-        previousStatement: true,
         inputsInline: true,
         output: null,
     }
