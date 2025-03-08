@@ -8,7 +8,7 @@ Blockly.defineBlocksWithJsonArray([
         output: "Dictionary",
     }
 ])
-Blockly.JavaScript['get_document'] = function (block) {
+Blockly.JavaScript.forBlock['get_document'] = function (block) {
     var code = 'document';
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
