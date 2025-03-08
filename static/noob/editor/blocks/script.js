@@ -77,7 +77,28 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         inputInline: true
     },
+    {
+        type: "wait_for_seconds",
+        message0: "等待 %1 秒",
+        args0: [
+            {
+                type: "input_value",
+                name: "SECONDS",
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: 230,
+        tooltip: "等待",
+        helpUrl: "",
+        inputInline: true
+    }
 ])
+
+Blockly.JavaScript.forBlock['wait_for_seconds'] = function (block) {
+    var seconds = Blockly.JavaScript.valueToCode(block, 'SECONDS', Blockly.JavaScript.ORDER_ATOMIC);
+    return `await new Promise(resolve => setTimeout(resolve, ${seconds} * 1000));\n`;
+}
 
 Blockly.JavaScript.forBlock['script_try_catch_geterror'] = function (block) {
     return ['try_catch_error', Blockly.JavaScript.ORDER_FUNCTION_CALL];
