@@ -238,8 +238,8 @@ Blockly.defineBlocksWithJsonArray([
     }
 ])
 Blockly.JavaScript.forBlock['element_script'] = function (block) {
-    var script = Blockly.JavaScript.statementToCode(block, 'SCRIPT');
-    var code = `<script>(async function() {\n${script}\n})();</script>\n`;
+    const script = Blockly.JavaScript.statementToCode(block, 'SCRIPT');
+    const code = `<script>(async function() {\n${script}\n})();</script>\n`;
     return code;
 };
 // h1-h6 标签
