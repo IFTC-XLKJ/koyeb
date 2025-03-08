@@ -6,8 +6,6 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "获取文档",
         helpUrl: "",
         output: "Dictionary",
-        nextStatement: true,
-        previousStatement: true,
     }
 ])
 Blockly.JavaScript['get_document'] = function (block) {
