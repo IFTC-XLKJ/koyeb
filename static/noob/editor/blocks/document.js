@@ -8,3 +8,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: ""
     }
 ])
+Blockly.JavaScript['get_document'] = function (block) {
+    var code = 'document';
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}
