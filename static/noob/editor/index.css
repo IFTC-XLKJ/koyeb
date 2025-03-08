@@ -30,6 +30,10 @@ body {
     justify-content: center;
 }
 
+.nav-input {
+    padding: 5px;
+}
+
 #main {
     display: grid;
     grid-template-columns: 30vw 70vw;
