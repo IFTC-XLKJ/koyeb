@@ -243,6 +243,9 @@ app.all("/api", (req, res) => {
         "使用Token登录 GET /api/loginbytoken?token={Token(必填)}",
         "更新Token GET /api/updatetoken?id={用户ID(必填)}&password={密码(必填)}",
         "获取Token GET /api/gettoken?id={用户ID(必填)}&password={密码(必填)}",
+        "管理员登录 GET /api/op/login?id={管理员ID(必填)}&password={密码(必填)}",
+        "搜索用户 GET /api/user/search?keyword={关键词(选填)}",
+        "获取NOOB作品 GET /api/noob/works?id={用户ID(必填)}&password={密码(必填)}",
     ]
     res.json({
         code: 200,
