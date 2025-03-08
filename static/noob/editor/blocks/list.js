@@ -22,20 +22,29 @@ Blockly.Extensions.registerMutator("array_craete_mutator", {
         };
     },
     updateShape_: function () {
-        console.log(this)
         if (this.itemCount_ && this.getInput('EMPTY')) {
             this.removeInput('EMPTY');
         } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
-            this.appendDummyInput('EMPTY')
-                .appendField("空");
-            this.setColour("#F9CC37");
+            this.appendDummyInput('EMPTY').appendField("空");
         }
         for (let i = 0; i < this.itemCount_; i++) {
             if (!this.getInput('ADD' + i)) {
-                const input = this.appendValueInput('ADD' + i)
-                if (i === 0) {
-                    input.appendField("");
-                }
+                console.log(i)
+                const input = this.appendValueInput('ADD' + i).setAlign(Blockly.inputs.Align.RIGHT);
+                console.log(input);
+                input.connection.setShadowState({
+                    type: "text",
+                    fields: {
+                        TEXT: 'value'
+                    }
+                });
+                input.connection.targetConnection.setShadowState({
+                    type: "text",
+                    fields: {
+                        TEXT: 'value'
+                    }
+                });
+                console.log(input);
             }
         }
         for (let i = this.itemCount_; this.getInput('ADD' + i); i++) {
