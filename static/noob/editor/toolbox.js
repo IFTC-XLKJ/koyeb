@@ -505,6 +505,27 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "文档",
+            colour: 160,
+            contents: [
+                {
+                    kind: "block",
+                    type: "document_get",
+                    inputs: {
+                        DOCUMENT: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello,NOOB!"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        {
+            kind: "category",
             name: "函数",
             colour: 210,
             contents: [
