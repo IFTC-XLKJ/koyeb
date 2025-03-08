@@ -536,6 +536,17 @@ const toolbox = {
                     type: "function_return",
                 },
             ]
-        }
+        },
+        {
+            kind: "category",
+            name: "更多",
+            colour: "#FF6680",
+            contents: [
+                {
+                    kind: "block",
+                    type: "load_Eruda",
+                },
+            ]
+        },
     ]
 }
