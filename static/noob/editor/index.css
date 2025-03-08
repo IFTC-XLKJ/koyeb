@@ -12,7 +12,7 @@ body {
     user-select: none;
     background-color: #00C0FF;
     display: grid;
-    grid-template-columns: repeat(1, auto) 1fr;
+    grid-template-columns: repeat(2, auto) 280px 1fr;
 }
 
 .nav-item {
