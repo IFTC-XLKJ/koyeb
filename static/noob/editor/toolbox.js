@@ -510,7 +510,7 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
-                    type: "document_get",
+                    type: "get_document",
                     inputs: {
                         DOCUMENT: {
                             shadow: {
