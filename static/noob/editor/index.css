@@ -40,8 +40,12 @@ body {
     padding: 5px;
     outline: none;
     border: none;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: #3ecfff;
     border-radius: 5px;
+}
+
+.nav-input input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
 }
 
 #main {
