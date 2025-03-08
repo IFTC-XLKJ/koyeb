@@ -49,6 +49,11 @@ body {
     color: rgba(255, 255, 255, 0.4);
 }
 
+.nav-input input:focus {
+    color: rgba(255, 255, 255, 1);
+    background-color: #11c4ff;
+}
+
 #main {
     display: grid;
     grid-template-columns: 30vw 70vw;
