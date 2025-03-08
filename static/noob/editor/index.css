@@ -46,10 +46,15 @@ body {
 }
 
 .nav-input input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.2);
 }
 
 .nav-input input:focus {
+    color: rgba(255, 255, 255, 1);
+    background-color: #69daff;
+}
+
+.nav-input input:hover {
     color: rgba(255, 255, 255, 1);
     background-color: #69daff;
 }
