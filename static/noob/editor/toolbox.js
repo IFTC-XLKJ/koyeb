@@ -527,7 +527,7 @@ const toolbox = {
         {
             kind: "category",
             name: "函数",
-            colour: 210,
+            colour: "#F88767",
             contents: [
                 {
                     kind: "block",
