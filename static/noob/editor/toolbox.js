@@ -511,16 +511,6 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "get_document",
-                    inputs: {
-                        DOCUMENT: {
-                            shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "Hello,NOOB!"
-                                }
-                            }
-                        }
-                    }
                 },
             ]
         },
