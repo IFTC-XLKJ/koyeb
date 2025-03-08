@@ -654,8 +654,6 @@ app.get("/api/noob/works", async (req, res) => {
                         ID: item.ID,
                         name: String(item.作品名),
                         workId: item.作品ID,
-                        data: String(item.作品数据),
-                        code: String(item.代码),
                         createdAt: item.createdAt,
                         updatedAt: item.updatedAt,
                     })
