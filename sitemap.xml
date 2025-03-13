@@ -17,4 +17,16 @@
     <loc>https://iftc.koyeb.app/VVMusic</loc>
     <lastmod>2025-01-22T04:02:47+00:00</lastmod>
   </url>
+  <url>
+    <loc>https://iftc.koyeb.app/login</loc>
+    <lastmod>2025-01-22T04:02:47+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://iftc.koyeb.app/signup</loc>
+    <lastmod>2025-01-22T04:02:47+00:00</lastmod>
+  </url>
+  <url>
+    <loc>https://iftc.koyeb.app/resetpw</loc>
+    <lastmod>2025-01-22T04:02:47+00:00</lastmod>
+  </url>
 </urlset>
