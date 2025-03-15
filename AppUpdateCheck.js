@@ -28,7 +28,7 @@ class AppUpdateCheck {
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
-                    filter: `应用包名="${packageName}" AND 版本号>${versionCode}`,
+                    filter: `应用包名="${packageName}"`,
                     page: 1,
                     limit: 1,
                 })
