@@ -35,10 +35,19 @@ class AppUpdateCheck {
             });
             const json = await response.json();
             console.log(json);
-            if (json.code === 200 && json.data.length > 0) {
-                return json.fields[0];
+            if (json.code == 200) {
+                const data = json.fields[0];
+                if (data) {} else {
+                    return {
+                        code: 404,
+                        msg: "找不到更新"
+                    };
+                }
             } else {
-                return null;
+                return {
+                    code: 400,
+                    msg: "查询失败"
+                };
             }
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
