@@ -53,6 +53,10 @@ class AppUpdateCheck {
                             code: 200,
                             msg: "test版本更新",
                             update: false,
+                            downloadURL: data.更新链接,
+                            versionCode: data.版本号,
+                            versionName: data.版本名,
+                            description: data.更新内容,
                         };
                     } else {
                         return {
