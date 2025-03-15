@@ -36,7 +36,7 @@ class AppUpdateCheck {
             const json = await response.json();
             console.log(json);
             if (json.code === 200 && json.data.length > 0) {
-                return json.data[0];
+                return json.fields[0];
             } else {
                 return null;
             }
