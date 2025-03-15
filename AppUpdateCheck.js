@@ -43,6 +43,7 @@ class AppUpdateCheck {
                             code: 200,
                             msg: "有新版本",
                             update: true,
+                            downloadURL: data.更新链接,
                         };
                     } else if (data.版本号 == 0) {
                         return {
