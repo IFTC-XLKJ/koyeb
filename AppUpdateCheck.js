@@ -37,16 +37,38 @@ class AppUpdateCheck {
             console.log(json);
             if (json.code == 200) {
                 const data = json.fields[0];
-                if (data) {} else {
+                if (data) {
+                    if (data.版本号 > versionCode) {
+                        return {
+                            code: 200,
+                            msg: "有新版本",
+                            update: true,
+                        };
+                    } else if (data.版本号 == 0) {
+                        return {
+                            code: 200,
+                            msg: "test版本更新",
+                            update: false,
+                        };
+                    } else {
+                        return {
+                            code: 200,
+                            msg: "无更新",
+                            update: false,
+                        };
+                    }
+                } else {
                     return {
                         code: 404,
-                        msg: "找不到更新"
+                        msg: "找不到更新",
+                        update: false,
                     };
                 }
             } else {
                 return {
                     code: 400,
-                    msg: "查询失败"
+                    msg: "查询失败",
+                    update: false,
                 };
             }
         } catch (error) {
