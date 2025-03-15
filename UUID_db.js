@@ -9,6 +9,11 @@ const contentType = "application/json";
 
 class UUID_db {
     constructor() { }
+    /**
+     * 获取数据
+     * @param {String} uuid 
+     * @returns 
+     */
     async getData(uuid) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
