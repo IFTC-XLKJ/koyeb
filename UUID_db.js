@@ -12,7 +12,7 @@ class UUID_db {
     /**
      * 获取数据
      * @param {String} uuid 
-     * @returns 
+     * @returns {Promise}
      */
     async getData(uuid) {
         const timestamp = Date.now();
@@ -44,6 +44,14 @@ class UUID_db {
             throw error;
         }
     }
+    /**
+     * 添加数据
+     * @param {String} uuid 
+     * @param {String} type 
+     * @param {String} id 
+     * @param {String} data 
+     * @returns {Promise}
+     */
     async addData(uuid, type, id, data) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
