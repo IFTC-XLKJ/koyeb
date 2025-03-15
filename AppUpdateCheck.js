@@ -47,4 +47,8 @@ class AppUpdateCheck {
     }
 }
 
+function time() {
+    return Date.now();
+}
+
 module.exports = AppUpdateCheck;
