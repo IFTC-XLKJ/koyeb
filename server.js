@@ -278,8 +278,30 @@ app.get("/api/appupdatecheck", async (req, res) => {
         });
         return;
     }
+    if (!isValidPackageName(packageName)) {
+        res.status(400).json({
+            code: 400,
+            msg: "packageName参数格式错误",
+            timestamp: time(),
+        });
+        return;
+    }
     try {
         const json = await appUpdateCheck.check(packageName, Number(versionCode));
+        if (json) {
+            res.json({
+                code: 200,
+                msg: "获取成功",
+                data: json,
+                timestamp: time(),
+            });
+        } else {
+            res.status(404).json({
+                code: 404,
+                msg: "没有新版本",
+                timestamp: time(),
+            });
+        }
     } catch (e) {
         console.error(e);
         res.status(500).json({
@@ -290,6 +312,11 @@ app.get("/api/appupdatecheck", async (req, res) => {
         });
     }
 })
+
+function isValidPackageName(packageName) {
+    const pattern = /^(?!-)[a-z0-9-]+(?<!-)(\.(?!-)[a-z0-9-]+(?<!-))*$/;
+    return pattern.test(packageName);
+}
 
 app.get("/api/op/login", async (req, res) => {
     requestLog(req);
