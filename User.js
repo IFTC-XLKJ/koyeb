@@ -461,11 +461,21 @@ class User {
     }
 }
 
+/**
+ * MD5加密
+ * @param {String} input 
+ * @returns {String}
+ */
+
 function md5Hash(input) {
     const hash = crypto.createHash("md5");
     hash.update(input);
     return hash.digest("hex");
 }
+/**
+ * 生成token
+ * @returns {String}
+ */
 
 function generateToken() {
     const timestamp = Date.now();
