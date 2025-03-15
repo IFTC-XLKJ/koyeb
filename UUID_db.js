@@ -84,6 +84,13 @@ class UUID_db {
             throw error;
         }
     }
+    /**
+     * 发送邮件
+     * @param {String} email 
+     * @param {String} title 
+     * @param {String} content 
+     * @returns {Promise}
+     */
     sendEmail(email, title, content) {
         let t = Math.round(new Date().getTime() / 1000);
         var raw = JSON.stringify({
