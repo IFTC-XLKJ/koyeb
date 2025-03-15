@@ -261,8 +261,25 @@ app.all("/api", (req, res) => {
 
 app.get("/api/appupdatecheck", async (req, res) => {
     requestLog(req);
+    const { packageName, versionCode } = req.query;
+    if (!packageName || !versionCode) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少packageName或versionCode参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    if (Number.isNaN(Number(versionCode))) {
+        res.status(400).json({
+            code: 400,
+            msg: "versionCode参数类型错误，必须为数值类型",
+            timestamp: time(),
+        });
+        return;
+    }
     try {
-        const json = await appUpdateCheck.check();
+        const json = await appUpdateCheck.check(packageName, Number(versionCode));
         if (json.code == 200) {
             res.json({
                 code: 200,
