@@ -293,6 +293,8 @@ app.get("/api/appupdatecheck", async (req, res) => {
                 code: 200,
                 msg: json.msg,
                 update: json.update,
+                downloadURL: json.downloadURL,
+                versionCode: json.versionCode,
                 timestamp: time(),
             });
         } else {
