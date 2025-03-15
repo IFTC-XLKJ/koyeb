@@ -398,6 +398,12 @@ class User {
             throw error;
         }
     }
+    /**
+     * 管理员登录
+     * @param {Number} id 
+     * @param {String} password 
+     * @returns {Promise}
+     */
     async getToken(id, password) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
@@ -429,6 +435,12 @@ class User {
             throw error;
         }
     }
+    /**
+     * 管理员登录
+     * @param {Number} id 
+     * @param {String} password 
+     * @returns {Promise}
+     */
     async opLogin(id, password) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
