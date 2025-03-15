@@ -44,6 +44,9 @@ class AppUpdateCheck {
                             msg: "有新版本",
                             update: true,
                             downloadURL: data.更新链接,
+                            versionCode: data.版本号,
+                            versionName: data.版本名,
+                            description: data.更新内容,
                         };
                     } else if (data.版本号 == 0) {
                         return {
