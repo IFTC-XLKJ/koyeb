@@ -288,17 +288,17 @@ app.get("/api/appupdatecheck", async (req, res) => {
     }
     try {
         const json = await appUpdateCheck.check(packageName, Number(versionCode));
-        if (json) {
+        if (json.code == 200) {
             res.json({
                 code: 200,
-                msg: "获取成功",
-                data: json,
+                msg: json.msg,
+                update: json.update,
                 timestamp: time(),
             });
         } else {
-            res.status(404).json({
-                code: 404,
-                msg: "没有新版本",
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
                 timestamp: time(),
             });
         }
