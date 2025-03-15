@@ -295,6 +295,8 @@ app.get("/api/appupdatecheck", async (req, res) => {
                 update: json.update,
                 downloadURL: json.downloadURL,
                 versionCode: json.versionCode,
+                versionName: json.versionName,
+                description: json.description,
                 timestamp: time(),
             });
         } else {
