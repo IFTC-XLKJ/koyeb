@@ -259,6 +259,35 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/appupdatecheck", async (req, res) => {
+    requestLog(req);
+    try {
+        const json = await appUpdateCheck.check();
+        if (json.code == 200) {
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: json.data,
+                timestamp: time(),
+            });
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: String(e),
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/op/login", async (req, res) => {
     requestLog(req);
     const { id, password } = req.query;
