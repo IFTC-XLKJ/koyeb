@@ -280,20 +280,6 @@ app.get("/api/appupdatecheck", async (req, res) => {
     }
     try {
         const json = await appUpdateCheck.check(packageName, Number(versionCode));
-        if (json.code == 200) {
-            res.json({
-                code: 200,
-                msg: "请求成功",
-                data: json.data,
-                timestamp: time(),
-            });
-        } else {
-            res.status(json.code).json({
-                code: json.code,
-                msg: json.msg,
-                timestamp: time(),
-            });
-        }
     } catch (e) {
         console.error(e);
         res.status(500).json({
