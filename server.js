@@ -14,6 +14,7 @@ const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
 console.log(Segment);
 
+const ips = [];
 const appUpdateCheck = new AppUpdateCheck();
 const app = express();
 const corsOptions = {
@@ -1478,6 +1479,7 @@ function requestLog(req) {
     }
     addRequestCount();
 
+    ips.push(`${req.ip}或${req.headers["x-forwarded-for"]}`)
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`)
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
