@@ -1436,7 +1436,7 @@ app.listen(port, () => {
 });
 
 function time() {
-    return Date.now();
+    return Date.now() + 2880000;
 }
 
 function generateUUID() {
