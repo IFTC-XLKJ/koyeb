@@ -1484,7 +1484,7 @@ function requestLog(req) {
     }
     addRequestCount();
 
-    ips.unshift(`${req.ip}或${req.headers["x-forwarded-for"]}`)
+    ips.unshift(`${new Date().toLocaleString()} ${req.url} ${req.ip}或${req.headers["x-forwarded-for"]}`)
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`)
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
