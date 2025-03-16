@@ -87,3 +87,7 @@ footer ul li a:hover {
     width: 100vw;
     position: fixed;
 }
+
+#contentMain {
+    width: 100vw;
+}
