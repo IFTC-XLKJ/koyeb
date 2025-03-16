@@ -1477,13 +1477,12 @@ function requestLog(req) {
         return;
     }
     addRequestCount();
-    const uuid_db = new UUIDdb();
-    uuid_db.sendEmail('3326292078@qq.com​', '收到请求', `IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]} Method: ${req.method} URL: ${req.url} Headers: ${JSON.stringify(req.headers)} Body: ${JSON.stringify(req.body)}`);
 
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`)
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Body: ${JSON.stringify(req.body)}`);
+
 }
 
 setInterval(() => {
@@ -1510,6 +1509,9 @@ async function getRequestCount() {
     const count = json['iftc.koyeb.app']
     return count == 'null' ? 0 : Number(count);
 }
+
+
+
 
 
 
