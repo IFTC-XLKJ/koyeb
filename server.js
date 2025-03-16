@@ -1487,12 +1487,13 @@ setInterval(() => {
     const time = new Date().toLocaleString();
     console.log("服务器正在运行中...", time);
 }, 30000);
+
 const twapi = 'https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282'
-function addRequestCount() {
+async function addRequestCount() {
     const requestCount = await getRequestCount();
 }
 
-function getRequestCount() {
+async function getRequestCount() {
     const resp = await fetch(twapi);
 }
 
