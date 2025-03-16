@@ -86,6 +86,7 @@ footer ul li a:hover {
 #content {
     width: 100vw;
     position: fixed;
+    grid-template-rows: repeat(2, auto);
 }
 
 #contentMain {
