@@ -260,6 +260,11 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/requestips", async (req, res) => {
+    requestLog(req);
+    res.send(ips.join("<br>"))
+})
+
 app.get("/api/appupdatecheck", async (req, res) => {
     requestLog(req);
     const { packageName, versionCode } = req.query;
