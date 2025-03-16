@@ -48,7 +48,7 @@ function setBanner() {
         bannerDiv.addEventListener("load", e => {
             loadnum++
             if (loadnum == banners.length) {
-                content.style.display = "flex"
+                content.style.display = "grid"
                 content.style.top = banner.offsetHeight + 50 + "px"
             }
         })
@@ -62,8 +62,8 @@ function setBanner() {
         });
         index = (index + 1) % banners.length;
     }, 5000)
-    content.style.display = "flex"
-    content.style.top = banner.offsetHeight + 50 + "px"
+    // content.style.display = "grid"
+    // content.style.top = banner.offsetHeight + 50 + "px"
 }
 
 // API测试请求
