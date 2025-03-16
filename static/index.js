@@ -33,6 +33,7 @@ addEventListener("load", e => {
 function setBanner() {
     let index = 0
     const banner = document.getElementById("bannerMain")
+    let loadnum = 0
     banners.forEach((BANNER, i) => {
         const bannerDiv = document.createElement("img");
         bannerDiv.className = "banner";
@@ -44,6 +45,13 @@ function setBanner() {
         })
         bannerDiv.setAttribute("iftc-index", i)
         banner.appendChild(bannerDiv);
+        bannerDiv.addEventListener("load", e => {
+            loadnum++
+            if (loadnum == banners.length) {
+                content.style.display = "flex"
+                content.style.top = banner.offsetHeight + 50 + "px"
+            }
+        })
     });
     setInterval(() => {
         const bannerDiv = document.querySelectorAll(".banner")[index];
@@ -54,6 +62,8 @@ function setBanner() {
         });
         index = (index + 1) % banners.length;
     }, 5000)
+    content.style.display = "flex"
+    content.style.top = banner.offsetHeight + 50 + "px"
 }
 
 // API测试请求
@@ -70,3 +80,5 @@ function setBanner() {
 onerror = function (msg, url, line, col, error) {
     console.error("Error: " + msg + "\nURL: " + url + "\nLine: " + line + "\nColumn: " + col + "\nError object: " + JSON.stringify(error));
 }
+setInterval(() => {
+}, 1000)
