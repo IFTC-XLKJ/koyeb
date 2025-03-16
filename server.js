@@ -1489,12 +1489,23 @@ setInterval(() => {
 }, 30000);
 
 const twapi = 'https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282'
+
 async function addRequestCount() {
     const requestCount = await getRequestCount();
+    const url = twapi + '&action=update&tag=iftc.koyeb.app&value=' + (requestCount + 1);
+    console.log(url)
+    const resp = await fetch(url);
+    const json = await resp.json();
+    console.log(json);
 }
 
 async function getRequestCount() {
-    const resp = await fetch(twapi);
+    const url = twapi + '&action=get&tag=iftc.koyeb.app'
+    console.log(url);
+    const resp = await fetch(url);
+    const json = await resp.json();
+    const count = json['iftc.koyeb.app']
+    return count == 'null' ? 0 : Number(count);
 }
 
 
