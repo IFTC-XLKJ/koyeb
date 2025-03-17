@@ -287,13 +287,9 @@ app.get("/api/bot/user/details", async (req, res) => {
                 }
                 res.json({
                     code: 200,
-                    msg: `用户ID：${data.ID}\r`,
+                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}`,
                     avatar: data.头像,
                     data: {
-                        ID: data.ID,
-                        username: String(data.昵称),
-                        avatar: data.头像,
-                        VC: data.V币,
                         email: data.邮箱,
                         VIP: !!data.VIP,
                         signed: data.签到 || 0,
