@@ -21,7 +21,7 @@ const app = express();
 const corsOptions = {
     origin: function (origin, callback) {
         console.log("Origin:", origin || "Unknown");
-        callback(null, true)
+        callback(null, true);
     }
 }
 app.use(cors(corsOptions))
