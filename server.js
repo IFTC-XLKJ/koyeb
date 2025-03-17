@@ -262,9 +262,13 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/bot/user/details", async (req, res) => {
+    requestLog(req);
+})
+
 app.get("/api/requestips", async (req, res) => {
     requestLog(req);
-    res.send(ips.join("<br>"))
+    res.json(ips)
 })
 
 app.get("/api/appupdatecheck", async (req, res) => {
@@ -1486,7 +1490,15 @@ function requestLog(req) {
     }
     addRequestCount();
 
-    ips.unshift(`${new Date(time() + 2880000).toLocaleString()} ${req.url} ${req.ip}或${req.headers["x-forwarded-for"]}`)
+    ips.unshift({
+        ip: req.headers["x-forwarded-for"],
+        url: req.url,
+        method: req.method,
+        headers: req.headers,
+        body: req.body,
+        time: new Date(time() + 2880000).toLocaleString(),
+    })
+
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`)
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
