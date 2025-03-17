@@ -287,19 +287,8 @@ app.get("/api/bot/user/details", async (req, res) => {
                 }
                 res.json({
                     code: 200,
-                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}`,
+                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${data.邮箱}\nVIP：${!!data.VIP ? '是' : '否'}\n管理员：${data.管理员 == 1 ? '是' : '否'}\n冻结：${data.封号 == 1 ? '是' : '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || 0)}\n注册于${timestampToDate(data.createdAt)}\n更新于${timestampToDate(data.updatedAt)}`,
                     avatar: data.头像,
-                    data: {
-                        email: data.邮箱,
-                        VIP: !!data.VIP,
-                        signed: data.签到 || 0,
-                        op: data.管理员 == 1,
-                        freezed: data.封号 == 1,
-                        title: data.头衔,
-                        titleColor: data.头衔色,
-                        createdAt: data.createdAt,
-                        updatedAt: data.updatedAt,
-                    },
                     timestamp: time(),
                 });
             } else {
@@ -1589,6 +1578,14 @@ async function getRequestCount() {
     const count = json['iftc.koyeb.app']
     return count == 'null' ? 0 : Number(count);
 }
+
+function timestampToDate(timestamp) {
+    const time = new Date(timestamp + 2880000);
+    return time.toLocalString()
+}
+
+
+
 
 
 
