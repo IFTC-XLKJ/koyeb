@@ -223,6 +223,11 @@ app.get("/favicon.ico", (req, res) => {
     res.sendFile(path.join(__dirname, "favicon.ico"));
 })
 
+app.get("/102134969.json", (req, res) => {
+    requestLog(req);
+    res.json({"bot_appid":102134969});
+})
+
 app.get("/")
 
 app.all("/api", (req, res) => {
