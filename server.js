@@ -290,6 +290,7 @@ app.get("/api/bot/user/details", async (req, res) => {
                         timestamp: time(),
                     });
                 }
+                data.邮箱 = data.邮箱 || '';
                 const email_name = data.邮箱.split('@')[0];
                 const email_domain = data.邮箱.split('@')[1];
                 res.json({
