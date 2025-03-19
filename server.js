@@ -267,6 +267,8 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get('/api/bot/user/login', )
+
 app.get("/api/bot/user/details", async (req, res) => {
     requestLog(req);
     const { id } = req.query;
