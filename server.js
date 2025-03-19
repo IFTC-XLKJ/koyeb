@@ -292,7 +292,7 @@ app.get("/api/bot/user/details", async (req, res) => {
                 }
                 data.邮箱 = data.邮箱 || '';
                 const email_name = data.邮箱.split('@')[0];
-                const email_domain = data.邮箱.split('@')[1];
+                const email_domain = data.邮箱.split('@')[1] || '未知';
                 res.json({
                     code: 200,
                     msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + '@' + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是' : '否'}\n管理员：${data.管理员 == 1 ? '是' : '否'}\n冻结：${data.封号 == 1 ? '是' : '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
