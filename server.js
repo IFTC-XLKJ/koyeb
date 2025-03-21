@@ -261,6 +261,7 @@ app.all("/api", (req, res) => {
         code: 200,
         msg: "请求成功",
         copyright: "IFTC",
+        origin: req.headers["referer"] || null,
         apis: apis,
         count: apis.length,
         timestamp: time(),
