@@ -1520,6 +1520,7 @@ app.get('/api/qrcode', async (req, res) => {
                 errorCorrectionLevel: 'H',
             });
             const svg = qrcode.toString();
+            console.log(svg);
             res.setHeader('Content-Type', 'image/svg+xml');
             res.send(svg);
         } else {
