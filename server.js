@@ -1509,17 +1509,31 @@ app.get('/api/qrcode', async (req, res) => {
         });
     }
     try {
-        const qrBuffer = await QRCode.toBuffer(data, {
-            type: type,
-            color: {
-                dark: '#000000',
-                light: '#ffffff'
-            },
-            errorCorrectionLevel: 'H',
-        });
-        res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
-        res.setHeader('Content-Length', qrBuffer.length);
-        res.send(qrBuffer);
+        if (type == "svg") {
+            const qrcode = new QRCode({
+                data: data,
+                color: {
+                    dark: '#000000',
+                    light: '#ffffff'
+                },
+                errorCorrectionLevel: 'H',
+            });
+            const svg = qrcode.toString();
+            res.setHeader('Content-Type', 'image/svg+xml');
+            res.send(svg);
+        } else {
+            const qrBuffer = await QRCode.toBuffer(data, {
+                type: "png",
+                color: {
+                    dark: '#000000',
+                    light: '#ffffff'
+                },
+                errorCorrectionLevel: 'H',
+            });
+            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
+            res.setHeader('Content-Length', qrBuffer.length);
+            res.send(qrBuffer);
+        }
     } catch (err) {
         console.error(err);
         res.status(500).json({
