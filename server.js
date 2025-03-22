@@ -1518,9 +1518,9 @@ app.get('/api/qrcode', async (req, res) => {
                     dark: '#000000',
                     light: '#ffffff'
                 },
-                errorCorrectionLevel: 'H',
+                ecLevel: 'H',
             });
-            const svg = qrcode.toString();
+            const svg = qrcode.svg();
             console.log(typeof svg, svg);
             res.setHeader('Content-Type', 'image/svg+xml');
             res.send(svg);
