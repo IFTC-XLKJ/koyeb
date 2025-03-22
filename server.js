@@ -12,6 +12,8 @@ const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
 const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
+const QRCode = require('qrcode');
+const { error } = require("console");
 console.log(Segment);
 
 const ips = [];
@@ -1506,24 +1508,24 @@ app.get('/api/qrcode', async (req, res) => {
         });
     }
     try {
-        // 使用 toBuffer 方法生成二维码并获取其二进制数据
         const qrBuffer = await QRCode.toBuffer(data, {
             type: 'png',
             color: {
-                dark: '#000000',  // 二维码颜色
-                light: '#ffffff' // 背景颜色
+                dark: '#000000',
+                light: '#ffffff'
             }
         });
-
-        // 设置响应头，指定内容类型为 PNG 图像
         res.setHeader('Content-Type', 'image/png');
         res.setHeader('Content-Length', qrBuffer.length);
-
-        // 发送二维码的二进制数据
         res.send(qrBuffer);
     } catch (err) {
         console.error(err);
-        res.status(500).send('生成二维码时出错');
+        res.status(500).json({
+            code: 500,
+            msg: '生成二维码失败',
+            error: err.message,
+            timestamp: time()
+        });
     }
 });
 
