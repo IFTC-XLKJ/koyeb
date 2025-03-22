@@ -1512,8 +1512,7 @@ app.get('/api/qrcode', async (req, res) => {
     try {
         if (type == "svg") {
             const qrcode = new QRCodeSvg({
-                data: data,
-                content: "",
+                content: data,
                 color: {
                     dark: '#000000',
                     light: '#ffffff'
