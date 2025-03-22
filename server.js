@@ -13,6 +13,7 @@ const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
 const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
+const QRCodeSvg = require('qrcode-svg');
 const { error } = require("console");
 console.log(Segment);
 
@@ -1510,7 +1511,7 @@ app.get('/api/qrcode', async (req, res) => {
     }
     try {
         if (type == "svg") {
-            const qrcode = new QRCode({
+            const qrcode = new QRCodeSvg({
                 data: data,
                 color: {
                     dark: '#000000',
