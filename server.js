@@ -1500,6 +1500,7 @@ app.get("/api/console/clear", (req, res) => {
 })
 
 app.get('/api/qrcode', async (req, res) => {
+    requestLog(req);
     const data = req.query.data;
     const type = req.query.type || 'png';
     if (!data) {
