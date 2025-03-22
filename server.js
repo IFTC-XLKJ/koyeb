@@ -1517,7 +1517,7 @@ app.get('/api/qrcode', async (req, res) => {
             },
             errorCorrectionLevel: 'H',
         });
-        res.setHeader('Content-Type', 'image/png');
+        res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
         res.setHeader('Content-Length', qrBuffer.length);
         res.send(qrBuffer);
     } catch (err) {
