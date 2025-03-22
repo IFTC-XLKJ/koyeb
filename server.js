@@ -1549,7 +1549,16 @@ function requestLog(req) {
         return;
     }
     addRequestCount();
-    if (!(req.url.startsWith("/api/user/login") || req.url.startsWith("/api/user/register") || req.url.startsWith("/api/user/verifycode") || req.url.startsWith("/api/user/resetpassword"))) {
+    if (!(
+        req.url.startsWith("/api/user/login") ||
+        req.url.startsWith("/api/user/register") ||
+        req.url.startsWith("/api/sendcode") ||
+        req.url.startsWith("/api/verifycode") ||
+        req.url.startsWith("/api/user/resetpassword") ||
+        req.url.startsWith("/api/loginbytoken") ||
+        req.url.startsWith("/api/updatetoken") ||
+        req.url.startsWith("/api/gettoken")
+    )) {
         ips.unshift({
             ip: req.headers["x-forwarded-for"],
             url: req.url,
