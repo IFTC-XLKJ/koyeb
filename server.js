@@ -1514,7 +1514,8 @@ app.get('/api/qrcode', async (req, res) => {
             color: {
                 dark: '#000000',
                 light: '#ffffff'
-            }
+            },
+            errorCorrectionLevel: 'H',
         });
         res.setHeader('Content-Type', 'image/png');
         res.setHeader('Content-Length', qrBuffer.length);
