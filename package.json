@@ -30,6 +30,7 @@
     "gamedig": "^5.2.0",
     "node-fetch": "^3.3.2",
     "node-segment": "^0.0.2",
-    "qqbot": "^1.0.0"
+    "qqbot": "^1.0.0",
+    "qrcode": "^1.5.4"
   }
 }
