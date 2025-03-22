@@ -1496,6 +1496,37 @@ app.get("/api/console/clear", (req, res) => {
     });
 })
 
+app.get('/api/qrcode', async (req, res) => {
+    const data = req.query.data;
+    if (!data) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少data参数",
+            timestamp: time(),
+        });
+    }
+    try {
+        // 使用 toBuffer 方法生成二维码并获取其二进制数据
+        const qrBuffer = await QRCode.toBuffer(data, {
+            type: 'png',
+            color: {
+                dark: '#000000',  // 二维码颜色
+                light: '#ffffff' // 背景颜色
+            }
+        });
+
+        // 设置响应头，指定内容类型为 PNG 图像
+        res.setHeader('Content-Type', 'image/png');
+        res.setHeader('Content-Length', qrBuffer.length);
+
+        // 发送二维码的二进制数据
+        res.send(qrBuffer);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('生成二维码时出错');
+    }
+});
+
 app.listen(port, () => {
     startTime = Date.now();
     console.log(`服务器已在端口 ${port} 开启`);
