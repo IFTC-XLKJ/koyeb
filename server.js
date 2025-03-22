@@ -225,7 +225,7 @@ app.get("/favicon.ico", (req, res) => {
 
 app.get("/102134969.json", (req, res) => {
     requestLog(req);
-    res.json({"bot_appid":102134969});
+    res.json({ "bot_appid": 102134969 });
 })
 
 app.get("/")
@@ -268,7 +268,7 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get('/api/bot/user/login', )
+app.get('/api/bot/user/login',)
 
 app.get("/api/bot/user/details", async (req, res) => {
     requestLog(req);
@@ -1549,15 +1549,16 @@ function requestLog(req) {
         return;
     }
     addRequestCount();
-
-    ips.unshift({
-        ip: req.headers["x-forwarded-for"],
-        url: req.url,
-        method: req.method,
-        headers: req.headers,
-        body: req.body,
-        time: new Date(time() + 2880000).toLocaleString(),
-    })
+    if (!(req.url.startsWith("/api/user/login") || req.url.startsWith("/api/user/register") || req.url.startsWith("/api/user/verifycode") || req.url.startsWith("/api/user/resetpassword"))) {
+        ips.unshift({
+            ip: req.headers["x-forwarded-for"],
+            url: req.url,
+            method: req.method,
+            headers: req.headers,
+            body: req.body,
+            time: new Date(time() + 2880000).toLocaleString(),
+        })
+    }
 
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`)
     console.log(`请求源：${req.headers["referer"]}`)
