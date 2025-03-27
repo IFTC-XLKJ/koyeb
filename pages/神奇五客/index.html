@@ -57,7 +57,7 @@
                     const id = card.getAttribute('iftc-id');
                     cards.forEach(c => {
                         c.open = false;
-                        if (c.getAttribute('iftc-id') == id) c.opem = true;
+                        if (c.getAttribute('iftc-id') == id) c.opem = isOpen;
                     });
                 });
             });
