@@ -88,7 +88,7 @@ app.get("/VVMusic", async (req, res) => {
     }
 });
 
-app.get("/神奇五客", async (req, res) => {
+app.get("/MagicFive", async (req, res) => {
     requestLog(req);
     const params = {};
     res.set({
