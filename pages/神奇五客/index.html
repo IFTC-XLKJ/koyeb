@@ -54,6 +54,7 @@
             cards.forEach(card => {
                 card.addEventListener("toggle", e => {
                     const state = e.newState;
+                    if (status == "closed") return;
                     cards.forEach(c => {
                         c.open = false;
                     });
