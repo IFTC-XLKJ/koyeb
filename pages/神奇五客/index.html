@@ -44,7 +44,15 @@
         <script>
             const cards = document.querySelectorAll('card');
             cards.forEach(card => {
-                card
+                card.addEventListener("toggle", e => {
+                    const state = e.newSate;
+                    cards.forEach(c => {
+                        c.open = false;
+                    });
+                    if (state == "open") {
+                        card.open = true;
+                    }
+                });
             });
         </script>
     </body>
