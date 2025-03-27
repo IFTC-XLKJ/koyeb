@@ -55,7 +55,6 @@
                 card.addEventListener("toggle", e => {
                     const state = e.newState;
                     const id = card.getAttribute('iftc-id');
-                    if (status == "closed") return;
                     cards.forEach(c => {
                         if (c.getAttribute('iftc-id') == id) return;
                         c.open = false;
