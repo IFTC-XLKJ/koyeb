@@ -53,11 +53,11 @@
             const cards = document.querySelectorAll('.card');
             cards.forEach(card => {
                 card.addEventListener("toggle", e => {
-                    const state = e.newState;
+                    const isOpen = e.target.open;
                     const id = card.getAttribute('iftc-id');
                     cards.forEach(c => {
-                        if (c.getAttribute('iftc-id') == id) return;
                         c.open = false;
+                        if (c.getAttribute('iftc-id') == id) c.opem = true;
                     });
                 });
             });
