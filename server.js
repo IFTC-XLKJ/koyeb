@@ -1679,7 +1679,7 @@ async function getRequestCount() {
 }
 
 function timestampToDate(timestamp) {
-    const time = new Date(timestamp + 2880000);
+    const time = new Date(timestamp + 2880000 - 7200000);
     return time.toLocaleString()
 }
 
