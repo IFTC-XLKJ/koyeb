@@ -665,8 +665,10 @@ app.get("/api/query-game-server", async (req, res) => {
 })
 
 app.get("/api/code", (req, res) => {
-    const { code } = req.query
-    res.status(code).json(JSON.stringify({
+    const { code } = req.query;
+    const newCode = Number(code);
+    if (isNaN(newCode)) res.status(500).json({});
+    res.status(newCode).json(JSON.stringify({
         code: code,
         msg: "请求成功",
         timestamp: time(),
