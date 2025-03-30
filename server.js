@@ -668,11 +668,11 @@ app.get("/api/code", (req, res) => {
     const { code } = req.query;
     const newCode = Number(code);
     if (isNaN(newCode)) res.status(500).json({});
-    res.status(newCode).json(JSON.stringify({
+    res.status(newCode).json({
         code: code,
         msg: "请求成功",
         timestamp: time(),
-    }));
+    });
 })
 
 app.get("/api/book/random", async (req, res) => {
