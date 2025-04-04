@@ -88,6 +88,30 @@ app.get("/VVMusic", async (req, res) => {
     }
 });
 
+app.get("/MagicFive", async (req, res) => {
+    requestLog(req);
+    const params = {};
+    res.set({
+        "Content-Type": "text/html;charset=utf-8",
+    });
+    try {
+        const content = await mixed("pages/神奇五客/index.html", params);
+        if (typeof content !== "string") {
+            throw new Error("Invalid content type");
+        }
+        console.log("Content:", content);
+        console.log("Type of content:", typeof content);
+        res.send(content);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: String(e),
+            timestamp: time(),
+        });
+    }
+});
+
 app.get("/noob/editor", async (req, res) => {
     requestLog(req);
     const { workId } = req.query;
@@ -264,7 +288,7 @@ app.all("/api", (req, res) => {
         code: 200,
         msg: "请求成功",
         copyright: "IFTC",
-        origin: req.headers["referer"] || null,
+        origin: (req.headers["referer"] || req.headers["x-forwarded-for"]) || null,
         apis: apis,
         count: apis.length,
         timestamp: time(),
@@ -643,12 +667,14 @@ app.get("/api/query-game-server", async (req, res) => {
 })
 
 app.get("/api/code", (req, res) => {
-    const { code } = req.query
-    res.status(code).json(JSON.stringify({
+    const { code } = req.query;
+    const newCode = Number(code);
+    if (isNaN(newCode)) res.status(500).json({});
+    res.status(newCode).json({
         code: code,
         msg: "请求成功",
         timestamp: time(),
-    }));
+    });
 })
 
 app.get("/api/book/random", async (req, res) => {
@@ -1657,7 +1683,7 @@ async function getRequestCount() {
 }
 
 function timestampToDate(timestamp) {
-    const time = new Date(timestamp + 2880000);
+    const time = new Date(timestamp + 2880000 - 7200000);
     return time.toLocaleString()
 }
 
