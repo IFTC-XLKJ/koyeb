@@ -305,6 +305,7 @@ app.post("/api/deepseek-v3", async (req, res) => {
         },
         ...req.body.messages || []
     ];
+    console.log(messages);
     try {
         const response = await fetch(api, {
             method: "POST",
