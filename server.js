@@ -298,7 +298,7 @@ app.all("/api", (req, res) => {
 app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
-    const apiKey = "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";
+    const apiKey = "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";
     const messages = [
         {
             role: "system",
@@ -317,10 +317,10 @@ app.post("/api/deepseek-v3", async (req, res) => {
                 'X-Title': encodeURIComponent('IFTC官网'),
             },
             body: JSON.stringify({
-                model: "deepseek/deepseek-chat-v3-0324:free",
+                model: "deepseek/deepseek-v3-base:free",
                 messages: messages
             }),
-        })
+        });
         const json = await response.json();
         if (json.error) {
             res.status(json.error.code).json({
