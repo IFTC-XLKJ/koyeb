@@ -315,7 +315,7 @@ app.post("/api/deepseek-v3", async (req, res) => {
             body: JSON.stringify({
                 model: "deepseek/deepseek-chat-v3-0324:free",
                 messages: messages
-            })
+            }),
         })
         const json = await response.json();
         res.json(json);
