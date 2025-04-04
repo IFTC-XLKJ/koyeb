@@ -311,6 +311,8 @@ app.post("/api/deepseek-v3", async (req, res) => {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer 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",
+                'HTTP-Referer': 'iftc.koyeb.app',
+                'X-Title': 'IFTC官网',
             },
             body: JSON.stringify({
                 model: "deepseek/deepseek-chat-v3-0324:free",
