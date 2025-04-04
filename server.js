@@ -303,7 +303,7 @@ app.post("/api/deepseek-v3", async (req, res) => {
             role: "system",
             content: "请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）"
         },
-        ...req.body.messages
+        ...req.body.messages || []
     ];
     try {
         const response = await fetch(api, {
