@@ -1,75 +1,78 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-        <title>《神奇五客》系列人物介绍</title>
-        <meta name="description" content="神奇五客">
-        <style>
-            body {
-                background-image: url("");
-            }
 
-            details {
-                border: 1px solid #aaa;
-                border-radius: 4px;
-                padding: 0.5em 0.5em 0;
-                margin-bottom: 8px;
-            }
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>《神奇五客》系列人物介绍</title>
+    <meta name="description" content="神奇五客">
+    <style>
+        body {
+            background-image: url("");
+        }
 
-            summary {
-                font-weight: bold;
-                margin: -0.5em -0.5em 0;
-                padding: 0.5em;
-            }
+        details {
+            border: 1px solid #aaa;
+            border-radius: 4px;
+            padding: 0.5em 0.5em 0;
+            margin-bottom: 8px;
+        }
 
-            details[open] {
-                padding: 0.5em;
-            }
+        summary {
+            font-weight: bold;
+            margin: -0.5em -0.5em 0;
+            padding: 0.5em;
+        }
 
-            details[open] summary {
-                border-bottom: 1px solid #aaa;
-                margin-bottom: 0.5em;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="list">
-            <details class="card" iftc-id="1">
-                <summary>人物卡片1 - VV</summary>
-姓名：VV<br>
-性别：男<br>
-血型：XP（具有强辐射）<br>
-简介：本书最大主角，超出常人，智商300，班级第一，遇事冷静，上知天文下知地理，无所不知无所不能，精通计算机、机械等科学知识，在全市乃至全球，观察力也属他最强，会一部分武功。
-            </details>
-            <details class="card" iftc-id="2">
-                <summary>人物卡片2 - 李小寒</summary>
-姓名：李小寒<br>
-性别：女<br>
-血型：O<br>
-简介：本书第二主角，班级第二，精通所有科目除了史政，只能刚好及格，智商200。 
-           </details>
-            <details class="card" iftc-id="3">
-                <summary>人物卡片3 - 张烨</summary>
-姓名：张烨<br>
-性别：男<br>
-血型：AB<br>
-简介：本书第三主角，班级第五，体育超出常人，并且是小黑子，智商150，能通过意念召唤Kun。
-           </details>
-        </div>
-        <script>
-            /* const cards = document.querySelectorAll('.card');
-            cards.forEach(card => {
-                card.addEventListener("toggle", e => {
-                    const isOpen = e.target.open;
-                    if (!isOpen) return;
-                    const id = card.getAttribute('iftc-id');
-                    cards.forEach(c => {
-                        c.open = false;
-                        if (c.getAttribute('iftc-id') == id) c.opem = true;
-                    });
+        details[open] {
+            padding: 0.5em;
+        }
+
+        details[open] summary {
+            border-bottom: 1px solid #aaa;
+            margin-bottom: 0.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="list">
+        <details class="card" iftc-id="1">
+            <summary>人物卡片1 - VV</summary>
+            姓名：VV<br>
+            性别：男<br>
+            血型：XP（具有强辐射）<br>
+            简介：本书最大主角，超出常人，智商300，班级第一，遇事冷静，上知天文下知地理，无所不知无所不能，精通计算机、机械等科学知识，在全市乃至全球，观察力也属他最强，会一部分武功。
+        </details>
+        <details class="card" iftc-id="2">
+            <summary>人物卡片2 - 李小寒</summary>
+            姓名：李小寒<br>
+            性别：女<br>
+            血型：O<br>
+            简介：本书第二主角，班级第二，精通所有科目除了史政，只能刚好及格，智商200。
+        </details>
+        <details class="card" iftc-id="3">
+            <summary>人物卡片3 - 张烨</summary>
+            姓名：张烨<br>
+            性别：男<br>
+            血型：AB<br>
+            简介：本书第三主角，班级第五，体育超出常人，并且是小黑子，智商150，能通过意念召唤Kun。
+        </details>
+    </div>
+    <script>
+        /* const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener("toggle", e => {
+                const isOpen = e.target.open;
+                if (!isOpen) return;
+                const id = card.getAttribute('iftc-id');
+                cards.forEach(c => {
+                    c.open = false;
+                    if (c.getAttribute('iftc-id') == id) c.opem = true;
                 });
-            });*/
-        </script>
-    </body>
+            });
+        });*/
+    </script>
+</body>
+
 </html>
