@@ -298,6 +298,7 @@ app.all("/api", (req, res) => {
 app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
+    const apiKey2 = "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";
     const messages = [
         {
             role: "system",
@@ -311,7 +312,7 @@ app.post("/api/deepseek-v3", async (req, res) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": "Bearer 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",
+                "Authorization": `Bearer ${apiKey2}`,
                 'HTTP-Referer': 'iftc.koyeb.app',
                 'X-Title': encodeURIComponent('IFTC官网'),
             },
