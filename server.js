@@ -325,7 +325,9 @@ app.post("/api/deepseek-v3", async (req, res) => {
     }
 })
 
-app.get('/api/bot/user/login',)
+app.get('/api/bot/user/login', (req, res) => {
+    requestLog(req);
+});
 
 app.get("/api/bot/user/details", async (req, res) => {
     requestLog(req);
