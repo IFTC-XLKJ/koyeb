@@ -295,7 +295,10 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.all("/api/deepseek-v3", )
+app.all("/api/deepseek-v3", (req, res) => {
+    requestLog(req);
+    const api = "https://openrouter.ai/api/v1/chat/completions";
+})
 
 app.get('/api/bot/user/login',)
 
