@@ -317,8 +317,11 @@ app.post("/api/deepseek-v3", async (req, res) => {
                 messages: messages
             })
         })
+        const json = await response.json();
+        res.json(json);
     } catch (error) {
         console.error(error);
+        res.status(500).send("Internal Server Error");
     }
 })
 
