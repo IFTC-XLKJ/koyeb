@@ -321,6 +321,13 @@ app.post("/api/deepseek-v3", async (req, res) => {
             }),
         })
         const json = await response.json();
+        if (json.error) {
+            res.status(json.error.code).json({
+                code: json.error.code,
+                msg: json.error.message,
+                timestamp: time(),
+            });
+        }
         res.json(json);
     } catch (error) {
         console.error(error);
