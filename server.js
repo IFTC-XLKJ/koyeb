@@ -295,9 +295,31 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.all("/api/deepseek-v3", (req, res) => {
+app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
+    const messages = [
+        {
+            role: "system",
+            content: "请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）"
+        },
+        ...req.body.messages
+    ];
+    try {
+        const response = await fetch(api, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer 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",
+            },
+            body: JSON.stringify({
+                model: "deepseek/deepseek-chat-v3-0324:free",
+                messages: messages
+            })
+        })
+    } catch (error) {
+        console.error(error);
+    }
 })
 
 app.get('/api/bot/user/login',)
