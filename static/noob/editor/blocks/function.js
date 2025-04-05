@@ -11,7 +11,6 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: 'input_value',
                 name: 'PARAM',
-                text: '参数',
                 check: 'Array'
             },
             {
