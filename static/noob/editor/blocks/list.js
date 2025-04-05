@@ -46,7 +46,7 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
         return { itemCount: this.itemCount_ };
     },
 
-    updateShape() {
+    updateShape_() {
         if (this.getInput('EMPTY')) {
             this.removeInput('EMPTY');
         }
@@ -82,14 +82,16 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     },
 
     mutationToDom() {
-        const container = document.createElement('mutation');
-        container.setAttribute('items', this.itemCount_);
+        const container = xmlUtils.createElement('mutation');
+        container.setAttribute('items', String(this.itemCount_));
         return container;
     },
 
     domToMutation(xml) {
-        this.itemCount_ = parseInt(xml.getAttribute('items')) || 0;
-        this.updateShape();
+        const items = xmlElement.getAttribute('items');
+        if (!items) throw new TypeError('element did not have items');
+        this.itemCount_ = parseInt(items, 10);
+        this.updateShape_();
     },
 
     decompose(workspace) {
@@ -120,7 +122,7 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
         }
 
         this.itemCount_ = connections.length;
-        this.updateShape();
+        this.updateShape_();
 
         connections.forEach((conn, i) => conn?.reconnect(this, `ADD${i}`));
     }
@@ -140,7 +142,7 @@ const arrayCreateConfig = {
 Blockly.Blocks['array_create'] = {
     init() {
         this.jsonInit(arrayCreateConfig);
-        this.updateShape();
+        this.updateShape_();
     },
 
     render() {
