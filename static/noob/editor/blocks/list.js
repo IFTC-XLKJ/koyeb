@@ -110,7 +110,8 @@ const arrayCreateConfig = {
     output: 'Array',
     tooltip: '创建一个数组',
     mutator: 'array_create_mutator',
-    colour: ARRAY_COLOR
+    colour: ARRAY_COLOR,
+    inputsInline: true
 };
 
 Blockly.Blocks['array_create'] = {
