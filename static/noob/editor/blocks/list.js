@@ -87,7 +87,7 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
         containerBlock.initSvg();
         let connection = containerBlock.getInput('STACK').connection;
         for (let i = 0; i < this.itemCount_; i++) {
-            const itemBlock = workspace.newBlock('lists_create_with_item');
+            const itemBlock = workspace.newBlock('list_item');
             itemBlock.initSvg();
             if (!itemBlock.previousConnection) {
                 throw new Error('itemBlock has no previousConnection');
