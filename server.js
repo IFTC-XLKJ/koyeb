@@ -298,7 +298,7 @@ app.all("/api", (req, res) => {
 app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
-    const apiKey = "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";
+    const apiKey = "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";
     const messages = [
         {
             role: "system",
