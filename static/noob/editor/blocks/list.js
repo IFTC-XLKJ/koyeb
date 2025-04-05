@@ -95,16 +95,19 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     },
 
     decompose(workspace) {
-        const container = workspace.newBlock('lists_create_with_container');
-        container.setColour(ARRAY_COLOR);
-        let connection = container.getInput('STACK').connection;
+        const containerBlock = workspace.newBlock('lists_create_with_container');
+        containerBlock.initSvg();
+        let connection = containerBlock.getInput('STACK').connection;
         for (let i = 0; i < this.itemCount_; i++) {
             const itemBlock = workspace.newBlock('lists_create_with_item');
-            itemBlock.setColour(ARRAY_COLOR);
+            itemBlock.initSvg();
+            if (!itemBlock.previousConnection) {
+                throw new Error('itemBlock has no previousConnection');
+            }
             connection.connect(itemBlock.previousConnection);
             connection = itemBlock.nextConnection;
         }
-        return container;
+        return containerBlock;
     },
 
     compose(containerBlock) {
