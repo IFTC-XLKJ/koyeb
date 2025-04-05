@@ -117,7 +117,13 @@ Blockly.Blocks['array_create'] = {
     init() {
         this.jsonInit(arrayCreateConfig);
         this.updateShape();
-        this.svgGroup_.classList.add('ArrayBlocks');
+    },
+
+    render() {
+        Blockly.Block.prototype.render.call(this);
+        if (this.svgGroup_) {
+            this.svgGroup_.classList.add('ArrayBlocks');
+        }
     }
 };
 
