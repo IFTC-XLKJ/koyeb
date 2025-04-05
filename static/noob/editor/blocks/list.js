@@ -18,11 +18,18 @@ Blockly.Blocks['lists_create_with_container'] = {
         this.appendDummyInput()
             .appendField('数组');
         this.appendStatementInput('STACK')
-            .setCheck('list_item')
             .appendField('');
         this.setColour(ARRAY_COLOR);
-        this.setTooltip('');
-        this.setHelpUrl('');
+    }
+};
+
+Blockly.Blocks['lists_create_with_item'] = {
+    init() {
+        this.appendValueInput('ADD')
+            .appendField('');
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(ARRAY_COLOR);
     }
 };
 
