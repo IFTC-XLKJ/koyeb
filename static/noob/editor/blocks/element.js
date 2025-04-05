@@ -25,7 +25,6 @@ Blockly.JavaScript.forBlock['doc_type'] = function (block) {
 // 页面
 Blockly.Blocks['element_html'] = {
     init: function () {
-        // this.setNextStatement(true);
         this.setPreviousStatement(true);
         this.appendDummyInput()
             .appendField('页面')
@@ -61,7 +60,7 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    var code = `<head>\n${html}</head>\n`;
+    var code = `<head iftc-annotation="NOOB编辑器">\n${html}</head>\n`;
     return code;
 }
 // 主体
