@@ -25,6 +25,20 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: true,
     },
     {
+        type: 'function_param',
+        message0: '参数 %1',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'NAME',
+                text: '参数'
+            }
+        ],
+        colour: "#F88767",
+        tooltip: '参数',
+        helpUrl: '',
+    },
+    {
         type: 'return',
         message0: '返回 %1',
         args0: [
@@ -78,6 +92,10 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
     console.log(param);
     var paramCode = '';
     for (var i = 0; i < param.length; i++) {
+        if (param[i] == null || param[i] == undefined) {
+            param[i] = '';
+        }
+        param[i] = String(param[i]);
         paramCode += `funparam_${param[i]
             .replaceAll(",", "_")
             .replaceAll("-", "_")
