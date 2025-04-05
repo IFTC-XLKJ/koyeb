@@ -66,7 +66,6 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
 // 主体
 Blockly.Blocks['element_body'] = {
     init: function () {
-        // this.setNextStatement(true);
         this.setPreviousStatement(true);
         this.appendDummyInput()
             .appendField('主体')
