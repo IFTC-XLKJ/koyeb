@@ -12,7 +12,7 @@ Blockly.defineBlocksWithJsonArray([
                 type: 'input_value',
                 name: 'PARAM',
                 text: '参数',
-                check: 'String'
+                check: 'Array'
             },
             {
                 type: 'input_statement',
