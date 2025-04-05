@@ -99,3 +99,23 @@ Blockly.JavaScript.forBlock['array_create'] = (block) => {
 
     return [`[${elements.join(', ')}]`, Blockly.JavaScript.ORDER_ATOMIC];
 };
+// Add these block definitions if they don't exist
+Blockly.Blocks['lists_create_with_container'] = {
+    init() {
+        this.appendDummyInput()
+            .appendField("数组元素");
+        this.appendStatementInput('STACK');
+        this.setColour(ARRAY_COLOR);
+        this.setMutator(true);
+    }
+};
+
+Blockly.Blocks['lists_create_with_item'] = {
+    init() {
+        this.appendDummyInput()
+            .appendField("元素");
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+        this.setColour(ARRAY_COLOR); // Critical color assignment
+    }
+};
