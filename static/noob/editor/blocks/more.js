@@ -10,11 +10,7 @@ Blockly.defineBlocksWithJsonArray([
     },
 ])
 Blockly.JavaScript.forBlock['load_Eruda'] = function (block) {
-    const code = `<script>const script = document.createElement('script');
-script.src = '/static/eruda.min.js';
-script.onload = () => {
-    eruda.init()
-};
-document.head.appendChild(script);</script>`;
+    const code = `<script src="/static/eruda.min.js"></script>
+<script>eruda.init();</script>`;
     return code;
 }
