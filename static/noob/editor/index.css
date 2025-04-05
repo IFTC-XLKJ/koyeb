@@ -10,6 +10,7 @@ body {
 
 #nav {
     user-select: none;
+    -webkit-user-select: none;
     background-color: #00C0FF;
     display: grid;
     grid-template-columns: auto auto 280px 1fr;
