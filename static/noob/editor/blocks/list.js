@@ -13,6 +13,19 @@ Blockly.Blocks['list_item'] = {
     }
 };
 
+Blockly.Blocks['lists_create_with_container'] = {
+    init() {
+        this.appendDummyInput()
+            .appendField('数组');
+        this.appendStatementInput('STACK')
+            .setCheck('list_item')
+            .appendField('');
+        this.setColour(ARRAY_COLOR);
+        this.setTooltip('');
+        this.setHelpUrl('');
+    }
+};
+
 // Mutator extension for array creation
 Blockly.Extensions.registerMutator('array_create_mutator', {
     itemCount_: 0,
@@ -69,16 +82,13 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     decompose(workspace) {
         const container = workspace.newBlock('lists_create_with_container');
         container.setColour(ARRAY_COLOR);
-
         let connection = container.getInput('STACK').connection;
-
         for (let i = 0; i < this.itemCount_; i++) {
             const itemBlock = workspace.newBlock('lists_create_with_item');
             itemBlock.setColour(ARRAY_COLOR);
             connection.connect(itemBlock.previousConnection);
             connection = itemBlock.nextConnection;
         }
-
         return container;
     },
 
