@@ -27,7 +27,9 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     },
 
     updateShape() {
-        this.removeInput('EMPTY');
+        if (this.getInput('EMPTY')) {
+            this.removeInput('EMPTY');
+        }
 
         if (!this.itemCount_) {
             this.appendDummyInput('EMPTY').appendField("空");
