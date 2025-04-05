@@ -1729,11 +1729,11 @@ function timestampToDate(timestamp) {
     return time.toLocaleString()
 }
 
-function getAIAPIKey() {
+async function getAIAPIKey() {
     const url = twapi + '&action=get&tag=openrouter';
     console.log(url);
-    const resp = fetch(url);
-    const json = resp.json();
+    const resp = await fetch(url);
+    const json = await resp.json();
     return json['openrouter'];
 }
 
