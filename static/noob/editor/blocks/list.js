@@ -82,13 +82,14 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     },
 
     mutationToDom() {
+        const xmlUtils = Blockly.utils.xml;
         const container = xmlUtils.createElement('mutation');
         container.setAttribute('items', String(this.itemCount_));
         return container;
     },
 
     domToMutation(xml) {
-        const items = xmlElement.getAttribute('items');
+        const items = xml.getAttribute('items');
         if (!items) throw new TypeError('element did not have items');
         this.itemCount_ = parseInt(items, 10);
         this.updateShape_();
