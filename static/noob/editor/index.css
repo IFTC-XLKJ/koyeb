@@ -13,7 +13,7 @@ body {
     -webkit-user-select: none;
     background-color: #00C0FF;
     display: grid;
-    grid-template-columns: auto auto 280px 1fr;
+    grid-template-columns: auto auto auto 280px 1fr;
 }
 
 .nav-item {
@@ -146,4 +146,8 @@ body {
 
 [data-nav-menu="show"] {
     display: flex;
+}
+
+#docTitleInput {
+    margin-left: 100px;
 }
