@@ -74,7 +74,7 @@ Blockly.defineBlocksWithJsonArray([
 ])
 Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
-    var param = Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE);
+    var param = JSON.parse(Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE));
     console.log(param);
     var paramCode = param.join('_funparam_, ');
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
