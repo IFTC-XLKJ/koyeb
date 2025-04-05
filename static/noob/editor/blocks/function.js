@@ -1,7 +1,7 @@
 Blockly.defineBlocksWithJsonArray([
     {
         type: 'function',
-        message0: '函数 %1 %2 %3',
+        message0: '函数 %1 参数列表< %2 > %3',
         args0: [
             {
                 type: 'field_input',
@@ -75,6 +75,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
     var param = Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE);
+    console.log(param);
     var paramCode = param.join('_funparam_, ');
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
     return `async function ${name}(${paramCode}) {\n${stack}\n}\n`;
