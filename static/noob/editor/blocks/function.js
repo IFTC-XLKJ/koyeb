@@ -76,7 +76,40 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
     var param = JSON.parse(Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]");
     console.log(param);
-    var paramCode = param.join('_funparam_, ');
+    var paramCode = '';
+    for (var i = 0; i < param.length; i++) {
+        paramCode += `funparam_${param[i]
+            .replaceAll(",", "_")
+            .replaceAll("-", "_")
+            .replaceAll(".", "_")
+            .replaceAll("(", "_")
+            .replaceAll(")", "_")
+            .replaceAll("[", "_")
+            .replaceAll("]", "_")
+            .replaceAll("{", "_")
+            .replaceAll("}", "_")
+            .replaceAll("*", "_")
+            .replaceAll("!", "_")
+            .replaceAll("@", "_")
+            .replaceAll("~", "_")
+            .replaceAll("`", "_")
+            .replaceAll("'", "_")
+            .replaceAll("\"", "_")
+            .replaceAll("#", "_")
+            .replaceAll("$", "_")
+            .replaceAll("%", "_")
+            .replaceAll("^", "_")
+            .replaceAll("&", "_")
+            .replaceAll(";", "_")
+            .replaceAll("/", "_")
+            .replaceAll("\\", "_")
+            .replaceAll("<", "_")
+            .replaceAll(">", "_")
+            .replaceAll("?", "_")
+            .replaceAll("=", "_")
+            .replaceAll("+", "_")
+            .replaceAll("|", "_")}${i < param.length - 1 ? ', ' : ''}`;
+    }
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
     return `async function ${name}(${paramCode}) {\n${stack}\n}\n`;
 }
