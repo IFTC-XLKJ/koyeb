@@ -59,19 +59,25 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     },
 
     updateInputs() {
-        const existingInputs = this.inputList
-            .map(input => input.id)
-            .filter(id => typeof id === 'string' && id.startsWith('ADD'));
-
-        // Remove excess inputs
-        existingInputs.slice(this.itemCount_).forEach(id => this.removeInput(id));
-
-        // Add missing inputs
-        for (let i = existingInputs.length; i < this.itemCount_; i++) {
-            this.appendValueInput(`ADD${i}`)
-                .setAlign(Blockly.ALIGN_RIGHT)
-                .appendField(`项目 ${i + 1}`)
-                .setCheck(null);
+        if (this.itemCount_ && this.getInput('EMPTY')) {
+            this.removeInput('EMPTY');
+        } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
+            this.appendDummyInput('EMPTY').appendField(
+                Msg['LISTS_CREATE_EMPTY_TITLE'],
+            );
+        }
+        // Add new inputs.
+        for (let i = 0; i < this.itemCount_; i++) {
+            if (!this.getInput('ADD' + i)) {
+                const input = this.appendValueInput('ADD' + i).setAlign(Align.RIGHT);
+                if (i === 0) {
+                    input.appendField(Msg['LISTS_CREATE_WITH_INPUT_WITH']);
+                }
+            }
+        }
+        // Remove deleted inputs.
+        for (let i = this.itemCount_; this.getInput('ADD' + i); i++) {
+            this.removeInput('ADD' + i);
         }
     },
 
