@@ -39,7 +39,9 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
     },
 
     updateInputs() {
-        const existingInputs = this.getInputIds().filter(id => id.startsWith('ADD'));
+        const existingInputs = this.inputList
+            .map(input => input.id)
+            .filter(id => id.startsWith('ADD'));
 
         // Remove excess inputs
         existingInputs.slice(this.itemCount_).forEach(id => this.removeInput(id));
