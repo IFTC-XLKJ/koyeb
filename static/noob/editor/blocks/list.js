@@ -1,7 +1,5 @@
-// Define color constant
 const ARRAY_COLOR = "#F9CC37";
 
-// Block for list items
 Blockly.Blocks['list_item'] = {
     init() {
         this.appendDummyInput().appendField("项目");
@@ -33,28 +31,22 @@ Blockly.Blocks['lists_create_with_item'] = {
     }
 };
 
-// Mutator extension for array creation
 Blockly.Extensions.registerMutator('array_create_mutator', {
     itemCount_: 0,
-
     loadExtraState(state) {
         this.itemCount_ = state.itemCount;
         this.updateShape_();
     },
-
     saveExtraState() {
         return { itemCount: this.itemCount_ };
     },
-
     updateShape_() {
         if (this.getInput('EMPTY')) {
             this.removeInput('EMPTY');
         }
-
         if (!this.itemCount_) {
             this.appendDummyInput('EMPTY').appendField("空");
         }
-
         this.updateInputs();
     },
 
@@ -66,7 +58,6 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
                 Msg['LISTS_CREATE_EMPTY_TITLE'],
             );
         }
-        // Add new inputs.
         for (let i = 0; i < this.itemCount_; i++) {
             if (!this.getInput('ADD' + i)) {
                 const input = this.appendValueInput('ADD' + i).setAlign(Align.RIGHT);
@@ -75,26 +66,22 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
                 }
             }
         }
-        // Remove deleted inputs.
         for (let i = this.itemCount_; this.getInput('ADD' + i); i++) {
             this.removeInput('ADD' + i);
         }
     },
-
     mutationToDom() {
         const xmlUtils = Blockly.utils.xml;
         const container = xmlUtils.createElement('mutation');
         container.setAttribute('items', String(this.itemCount_));
         return container;
     },
-
     domToMutation(xml) {
         const items = xml.getAttribute('items');
         if (!items) throw new TypeError('element did not have items');
         this.itemCount_ = parseInt(items, 10);
         this.updateShape_();
     },
-
     decompose(workspace) {
         const containerBlock = workspace.newBlock('lists_create_with_container');
         containerBlock.initSvg();
@@ -110,10 +97,8 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
         }
         return containerBlock;
     },
-
     compose(containerBlock) {
         let itemBlock = containerBlock.getInputTargetBlock('STACK');
-        // Count number of inputs.
         const connections = [];
         while (itemBlock) {
             if (itemBlock.isInsertionMarker()) {
@@ -123,7 +108,6 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
             connections.push(itemBlock.valueConnection_);
             itemBlock = itemBlock.getNextBlock();
         }
-        // Disconnect any children that don't belong.
         for (let i = 0; i < this.itemCount_; i++) {
             const connection = this.getInput('ADD' + i).connection.targetConnection;
             if (connection && !connections.includes(connection)) {
@@ -132,14 +116,12 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
         }
         this.itemCount_ = connections.length;
         this.updateShape_();
-        // Reconnect any child blocks.
         for (let i = 0; i < this.itemCount_; i++) {
             connections[i]?.reconnect(this, 'ADD' + i);
         }
     }
 }, null, ['list_item']);
 
-// Array creation block definition
 const arrayCreateConfig = {
     type: 'array_create',
     message0: '数组',
@@ -164,7 +146,6 @@ Blockly.Blocks['array_create'] = {
     }
 };
 
-// JS code generator
 Blockly.JavaScript.forBlock['array_create'] = (block) => {
     const elements = [];
     for (let i = 0; i < block.itemCount_; i++) {
