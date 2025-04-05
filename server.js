@@ -15,6 +15,7 @@ const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const { error } = require("console");
+const { get } = require("http");
 console.log(Segment);
 
 const ips = [];
@@ -298,7 +299,7 @@ app.all("/api", (req, res) => {
 app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
-    const apiKey = "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";
+    const apiKey = await getAIAPIKey();
     const messages = [
         {
             role: "system",
@@ -1703,23 +1704,23 @@ setInterval(() => {
     console.log("服务器正在运行中...", time);
 }, 30000);
 
-const twapi = 'https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282'
+const twapi = 'https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282';
 
 async function addRequestCount() {
     const requestCount = await getRequestCount();
     const url = twapi + '&action=update&tag=iftc.koyeb.app&value=' + (requestCount + 1);
-    console.log(url)
+    console.log(url);
     const resp = await fetch(url);
     const json = await resp.json();
     console.log(json);
 }
 
 async function getRequestCount() {
-    const url = twapi + '&action=get&tag=iftc.koyeb.app'
+    const url = twapi + '&action=get&tag=iftc.koyeb.app';
     console.log(url);
     const resp = await fetch(url);
     const json = await resp.json();
-    const count = json['iftc.koyeb.app']
+    const count = json['iftc.koyeb.app'];
     return count == 'null' ? 0 : Number(count);
 }
 
@@ -1728,6 +1729,13 @@ function timestampToDate(timestamp) {
     return time.toLocaleString()
 }
 
+function getAIAPIKey() {
+    const url = twapi + '&action=get&tag=openrouter';
+    console.log(url);
+    const resp = fetch(url);
+    const json = resp.json();
+    return json['openrouter'];
+}
 
 
 
