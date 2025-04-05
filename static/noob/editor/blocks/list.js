@@ -39,7 +39,7 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
 
     loadExtraState(state) {
         this.itemCount_ = state.itemCount;
-        this.updateShape();
+        this.updateShape_();
     },
 
     saveExtraState() {
