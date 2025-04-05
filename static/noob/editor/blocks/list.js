@@ -60,7 +60,7 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
         }
         for (let i = 0; i < this.itemCount_; i++) {
             if (!this.getInput('ADD' + i)) {
-                const input = this.appendValueInput('ADD' + i).setAlign(Align.RIGHT);
+                const input = this.appendValueInput('ADD' + i).setAlign(Blockly.inputs.Align.RIGHT);
                 if (i === 0) {
                     input.appendField(Msg['LISTS_CREATE_WITH_INPUT_WITH']);
                 }
