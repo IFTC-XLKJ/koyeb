@@ -131,6 +131,7 @@ body {
 
 #fileMenu {
     user-select: none;
+    -webkit-user-select: none;
     text-align: center;
     position: fixed;
     top: 55px;
