@@ -118,7 +118,7 @@ Blockly.Blocks['array_create'] = {
 };
 
 // JS code generator
-Blockly.JavaScript['array_create'] = (block) => {
+Blockly.JavaScript.forBlock['array_create'] = (block) => {
     const elements = [];
     for (let i = 0; i < block.itemCount_; i++) {
         const code = Blockly.JavaScript.valueToCode(block, `ADD${i}`, Blockly.JavaScript.ORDER_NONE) || 'null';
