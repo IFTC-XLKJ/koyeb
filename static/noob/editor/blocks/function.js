@@ -1,7 +1,7 @@
 Blockly.defineBlocksWithJsonArray([
     {
         type: 'function',
-        message0: '函数 %1 参数列表< %2 > %3',
+        message0: '函数 %1 参数列表<%2> %3',
         args0: [
             {
                 type: 'field_input',
