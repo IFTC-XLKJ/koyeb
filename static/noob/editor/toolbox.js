@@ -536,6 +536,14 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "function",
+                    inputs: {
+                        PARAM: {
+                            shadow: {
+                                type: "array_create",
+                                fields: {}
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",
