@@ -547,6 +547,20 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "function_param",
+                    inputs: {
+                        PARAM: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "参数"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
                     type: "return",
                 },
                 {
