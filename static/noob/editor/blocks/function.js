@@ -1,12 +1,18 @@
 Blockly.defineBlocksWithJsonArray([
     {
         type: 'function',
-        message0: '函数 %1 %2',
+        message0: '函数 %1 %2 %3',
         args0: [
             {
                 type: 'field_input',
                 name: 'NAME',
                 text: '函数'
+            },
+            {
+                type: 'input_value',
+                name: 'PARAM',
+                text: '参数',
+                check: 'String'
             },
             {
                 type: 'input_statement',
