@@ -335,7 +335,7 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
-                    type: "lists_create_with",
+                    type: "array_create",
                 },
                 // {
                 //     kind: "block",
