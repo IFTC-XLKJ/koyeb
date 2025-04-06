@@ -75,7 +75,7 @@ Blockly.defineBlocksWithJsonArray([
         message0: '调用函数 %1 并返回',
         args0: [
             {
-                type: 'input_value',
+                type: 'field_input',
                 name: 'NAME',
                 text: '函数'
             }
