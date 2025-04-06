@@ -296,6 +296,14 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/discussion/get", (req, res) => {
+    requestLog(req);
+    const { page } = req.query;
+    const pageNum = Number(page) || 1;
+    const pageSize = 10;
+    const start = (pageNum - 1) * pageSize;
+})
+
 app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
