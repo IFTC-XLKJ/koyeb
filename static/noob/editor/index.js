@@ -706,7 +706,9 @@ function BlocksToJS() {
     try {
         code = Blockly.JavaScript.workspaceToCode(workspace);
     } catch (e) {
-        code = `<div style="color: red;">${e.stack}</div>`;
+        code = `<div style="color: red;">${e.stack
+            .replaceAll("\n", "<br>")
+            .replaceAll(" ", "&nbsp;")}</div>`;
     }
     const match = code.match(/<!DOCTYPE.*?<\/html>/s);
     if (match && match[0]) {
