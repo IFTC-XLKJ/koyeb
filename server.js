@@ -338,7 +338,7 @@ app.post("/api/deepseek-v3", async (req, res) => {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey}`,
+                "Authorization": `Bearer ${apiKey.replaceAll('"', '')}`,
                 'HTTP-Referer': 'iftc.koyeb.app',
                 'X-Title': encodeURIComponent('IFTC官网'),
             },
@@ -1761,7 +1761,7 @@ async function getAIAPIKey() {
     console.log(url);
     const resp = await fetch(url);
     const json = await resp.json();
-    return json['openrouter'].replaceAll('"', '');
+    return json['openrouter'];
 }
 
 
