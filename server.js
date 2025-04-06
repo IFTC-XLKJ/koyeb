@@ -303,6 +303,16 @@ app.get("/api/discussion/get", (req, res) => {
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
     const end = start + pageSize;
+    try {
+    } catch (error) {
+        console.error(error);
+        res.json({
+            code: 500,
+            msg: "请求失败",
+            error: String(error),
+            timestamp: time(),
+        });
+    }
 })
 
 app.post("/api/deepseek-v3", async (req, res) => {
