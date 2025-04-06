@@ -143,11 +143,11 @@ Blockly.JavaScript.forBlock['function_param'] = function (block) {
 };
 Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
-    return `${name}();\n`;
+    return `await ${name}();\n`;
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
-    var code = `${name}()`;
+    var code = `await ${name}()`;
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.JavaScript.forBlock['return'] = function (block) {
