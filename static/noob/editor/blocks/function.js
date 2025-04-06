@@ -151,7 +151,7 @@ Blockly.JavaScript.forBlock['function_param'] = function (block) {
 };
 Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
-    const paramCodeArray = JSON.parse(
+    const paramCodeArray = funparamformatarray(
         Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]"
     );
     var paramCode = '';
@@ -162,7 +162,7 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
-    const paramCodeArray = JSON.parse(
+    const paramCodeArray = funparamformatarray(
         Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]"
     );
     var paramCode = '';
@@ -176,3 +176,7 @@ Blockly.JavaScript.forBlock['return'] = function (block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
     return `return ${value};\n`;
 };
+
+function funparamformatarray(paramCode) {
+    return paramCode.slice(1, -1).split(",");
+}
