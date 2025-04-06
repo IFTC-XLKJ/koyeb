@@ -14,12 +14,12 @@ const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
-const { error } = require("console");
-const { get } = require("http");
+const Discussion = require("./Discussion.js");
 console.log(Segment);
 
 const ips = [];
 const appUpdateCheck = new AppUpdateCheck();
+const discussion = new Discussion();
 const app = express();
 const corsOptions = {
     origin: function (origin, callback) {
@@ -302,6 +302,7 @@ app.get("/api/discussion/get", (req, res) => {
     const pageNum = Number(page) || 1;
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
+    const end = start + pageSize;
 })
 
 app.post("/api/deepseek-v3", async (req, res) => {
