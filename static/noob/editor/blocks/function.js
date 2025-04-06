@@ -141,7 +141,8 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
 }
 Blockly.JavaScript.forBlock['function_return'] = function(block) {
     var name = block.getFieldValue('NAME');
-    return `${name}();\n`;
+    var code = `${name}()`;
+    return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.JavaScript.forBlock['return'] = function(block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
