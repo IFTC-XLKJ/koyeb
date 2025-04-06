@@ -154,7 +154,6 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
         if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
             paramCodeArray[i] = '';
         }
-        paramCodeArray[i] = String(paramCodeArray[i]);
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length- 1 ? ', ' : ''}`;
     }
     return `await ${name}(${paramCode});\n`;
