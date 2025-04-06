@@ -145,5 +145,5 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
 }
 Blockly.JavaScript.forBlock['return'] = function (block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
-    return `return ${value};\n`;
+    return [`return ${value};\n`, Blockly.JavaScript.ORDER_NONE];
 }
