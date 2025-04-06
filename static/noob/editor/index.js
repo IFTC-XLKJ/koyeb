@@ -709,6 +709,7 @@ function BlocksToJS() {
         code = `<div style="color: red;">${e.stack
             .replaceAll("\n", "<br>")
             .replaceAll(" ", "&nbsp;")}</div>`;
+        console.error(e);
     }
     const match = code.match(/<!DOCTYPE.*?<\/html>/s);
     if (match && match[0]) {
