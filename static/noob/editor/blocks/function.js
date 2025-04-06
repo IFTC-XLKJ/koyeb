@@ -140,7 +140,7 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
     return `${name}();\n`;
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
-    var name = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
+    var name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_NONE);
     return `${name}();\n`;
 }
 Blockly.JavaScript.forBlock['return'] = function (block) {
