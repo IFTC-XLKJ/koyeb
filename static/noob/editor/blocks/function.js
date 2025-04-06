@@ -69,7 +69,6 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true,
         nextStatement: true,
         previousStatement: true,
-        output: null,
     },
     {
         type: 'function_return',
