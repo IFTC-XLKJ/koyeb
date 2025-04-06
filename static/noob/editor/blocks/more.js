@@ -8,6 +8,9 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "加载Eruda控制台",
         helpUrl: ""
     },
+    {
+        type: ""
+    }
 ])
 Blockly.JavaScript.forBlock['load_Eruda'] = function (block) {
     const code = `<script src="/static/eruda.min.js" iftc-annotation="Eruda控制台"></script>
