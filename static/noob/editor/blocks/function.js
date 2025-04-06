@@ -55,12 +55,17 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: 'function_call',
-        message0: '调用函数 %1',
+        message0: '调用函数 %1 %2',
         args0: [
             {
                 type: 'field_input',
                 name: 'NAME',
                 text: '函数'
+            },
+            {
+                type: 'input_value',
+                name: 'PARAM',
+                check: 'Array'
             }
         ],
         colour: "#F88767",
@@ -89,11 +94,9 @@ Blockly.defineBlocksWithJsonArray([
 ])
 Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
-    // In `Blockly.JavaScript.forBlock['function']`:
     const paramCodeArray = JSON.parse(
         Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]"
     );
-    // Add error handling if `valueToCode` returns unexpected data
     var paramCode = '';
     for (var i = 0; i < paramCodeArray.length; i++) {
         if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
@@ -143,7 +146,18 @@ Blockly.JavaScript.forBlock['function_param'] = function (block) {
 };
 Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
-    return `await ${name}();\n`;
+    const paramCodeArray = JSON.parse(
+        Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]"
+    );
+    var paramCode = '';
+    for (var i = 0; i < paramCodeArray.length; i++) {
+        if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
+            paramCodeArray[i] = '';
+        }
+        paramCodeArray[i] = String(paramCodeArray[i]);
+        paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length- 1 ? ', ' : ''}`;
+    }
+    return `await ${name}(${paramCode});\n`;
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
