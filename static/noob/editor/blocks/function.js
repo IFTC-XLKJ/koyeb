@@ -131,10 +131,10 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
     return `async function ${name}(${paramCode}) {\n${stack}\n}\n`;
 }
-Blockly.JavaScript.forBlock['function_param'] = function (block) {
+Blockly.JavaScript.forBlock['function_return'] = function(block) {
     var name = block.getFieldValue('NAME');
-    return `funparam_${name}`;
-}
+    return `${name}();\n`;
+};
 Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
     return `${name}();\n`;
@@ -143,7 +143,7 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_NONE);
     return `${name}();\n`;
 }
-Blockly.JavaScript.forBlock['return'] = function (block) {
+Blockly.JavaScript.forBlock['return'] = function(block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
-    return [`return ${value};\n`, Blockly.JavaScript.ORDER_NONE];
-}
+    return `return ${value};\n`;
+};
