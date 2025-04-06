@@ -55,7 +55,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: 'function_call',
-        message0: '调用函数 %1 %2',
+        message0: '调用函数 %1 传参 %2',
         args0: [
             {
                 type: 'field_input',
