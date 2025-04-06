@@ -1761,7 +1761,7 @@ async function getAIAPIKey() {
     console.log(url);
     const resp = await fetch(url);
     const json = await resp.json();
-    return json['openrouter'];
+    return json['openrouter'].replaceAll('"', '');
 }
 
 
