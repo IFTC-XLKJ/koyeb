@@ -69,6 +69,7 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true,
         nextStatement: true,
         previousStatement: true,
+        output: null,
     },
     {
         type: 'function_return',
@@ -89,14 +90,18 @@ Blockly.defineBlocksWithJsonArray([
 ])
 Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
-    var param = JSON.parse(Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]");
+    // In `Blockly.JavaScript.forBlock['function']`:
+    const paramCodeArray = JSON.parse(
+        Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]"
+    );
+    // Add error handling if `valueToCode` returns unexpected data
     var paramCode = '';
-    for (var i = 0; i < param.length; i++) {
-        if (param[i] == null || param[i] == undefined) {
-            param[i] = '';
+    for (var i = 0; i < paramCodeArray.length; i++) {
+        if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
+            paramCodeArray[i] = '';
         }
-        param[i] = String(param[i]);
-        paramCode += `funparam_${param[i]
+        paramCodeArray[i] = String(paramCodeArray[i]);
+        paramCode += `funparam_${paramCodeArray[i]
             .replaceAll(",", "_")
             .replaceAll("-", "_")
             .replaceAll(".", "_")
@@ -126,25 +131,27 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
             .replaceAll("?", "_")
             .replaceAll("=", "_")
             .replaceAll("+", "_")
-            .replaceAll("|", "_")}${i < param.length - 1 ? ', ' : ''}`;
+            .replaceAll("|", "_")}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
     return `async function ${name}(${paramCode}) {\n${stack}\n}\n`;
 }
-Blockly.JavaScript.forBlock['function_param'] = function(block) {
-    var name = block.getFieldValue('NAME');
-    return [`funparam_${name}`, Blockly.JavaScript.ORDER_ATOMIC];
+Blockly.JavaScript.forBlock['function_param'] = function (block) {
+    return [
+        `funparam_${block.getFieldValue('NAME')}`,
+        Blockly.JavaScript.ORDER_ATOMIC
+    ];
 };
 Blockly.JavaScript.forBlock['function_call'] = function (block) {
     var name = block.getFieldValue('NAME');
     return `${name}();\n`;
 }
-Blockly.JavaScript.forBlock['function_return'] = function(block) {
+Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
     var code = `${name}()`;
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
-Blockly.JavaScript.forBlock['return'] = function(block) {
+Blockly.JavaScript.forBlock['return'] = function (block) {
     var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
     return `return ${value};\n`;
 };
