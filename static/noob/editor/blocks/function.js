@@ -90,7 +90,6 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
     var param = JSON.parse(Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]");
-    console.log(param);
     var paramCode = '';
     for (var i = 0; i < param.length; i++) {
         if (param[i] == null || param[i] == undefined) {
@@ -145,6 +144,6 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
     return `${name}();\n`;
 }
 Blockly.JavaScript.forBlock['return'] = function (block) {
-    var name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_NONE);
-    return `return ${name};\n`;
+    var value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE);
+    return `return ${value};\n`;
 }
