@@ -77,12 +77,17 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: 'function_return',
-        message0: '调用函数 %1 并返回',
+        message0: '调用函数 %1 传参 %2 并返回',
         args0: [
             {
                 type: 'field_input',
                 name: 'NAME',
                 text: '函数'
+            },
+            {
+                type: 'input_value',
+                name: 'PARAM',
+                check: 'Array'
             }
         ],
         colour: "#F88767",
@@ -160,7 +165,17 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
-    var code = `await ${name}()`;
+    const paramCodeArray = JSON.parse(
+        Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]"
+    );
+    var paramCode = '';
+    for (var i = 0; i < paramCodeArray.length; i++) {
+        if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
+            paramCodeArray[i] = '';
+        }
+        paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
+    }
+    var code = `await ${name}(${paramCode})`;
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.JavaScript.forBlock['return'] = function (block) {
