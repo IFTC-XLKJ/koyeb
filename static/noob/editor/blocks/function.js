@@ -156,9 +156,6 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
     );
     var paramCode = '';
     for (var i = 0; i < paramCodeArray.length; i++) {
-        if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
-            paramCodeArray[i] = '';
-        }
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length- 1 ? ', ' : ''}`;
     }
     return `await ${name}(${paramCode});\n`;
@@ -170,9 +167,6 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
     );
     var paramCode = '';
     for (var i = 0; i < paramCodeArray.length; i++) {
-        if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
-            paramCodeArray[i] = '';
-        }
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
     var code = `await ${name}(${paramCode})`;
