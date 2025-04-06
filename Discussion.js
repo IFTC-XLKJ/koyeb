@@ -13,4 +13,4 @@ class Discussion {
     }
 }
 
-export default Discussion;
+module.exports = Discussion;
