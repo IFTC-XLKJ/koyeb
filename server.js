@@ -1081,8 +1081,8 @@ app.get("/api/book/chapters", async (req, res) => {
                 json.fields.forEach(field => {
                     data.push({
                         ID: field.ID,
-                        name: field.章节名,
-                        content: field.章节内容,
+                        name: String(field.章节名),
+                        content: String(field.章节内容,)
                         num: field.章节编号,
                         createdAt: field.createdAt,
                         updatedAt: field.updatedAt
