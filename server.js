@@ -9,7 +9,9 @@ const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
-const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
+const {
+    GameDig
+} = require("./node_modules/gamedig/dist/index.cjs");
 const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
@@ -115,7 +117,9 @@ app.get("/MagicFive", async (req, res) => {
 
 app.get("/noob/editor", async (req, res) => {
     requestLog(req);
-    const { workId } = req.query;
+    const {
+        workId
+    } = req.query;
     const params = {};
     res.set({
         "Content-Type": "text/html;charset=utf-8",
@@ -211,14 +215,18 @@ app.get("/resetpw", async (req, res) => {
 })
 
 app.get("/noob/share/:workId", async (req, res) => {
-    const { workId } = req.params;
+    const {
+        workId
+    } = req.params;
 })
 
 app.all('/proxy/*', async (req, res) => {
     const requestedPath = req.url;
     const url = requestedPath.replace("/proxy/", "");
     try {
-        const response = await fetch(url, { method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body, verbose: true });
+        const response = await fetch(url, {
+            method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined: req.body, verbose: true
+        });
         const contentType = response.headers.get("content-type");
         if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
             const blob = await response.blob();
@@ -253,7 +261,9 @@ app.get("/favicon.ico", (req, res) => {
 
 app.get("/102134969.json", (req, res) => {
     requestLog(req);
-    res.json({ "bot_appid": 102134969 });
+    res.json({
+        "bot_appid": 102134969
+    });
 })
 
 app.get("/")
@@ -298,7 +308,9 @@ app.all("/api", (req, res) => {
 
 app.get("/api/discussion/get", async (req, res) => {
     requestLog(req);
-    const { page } = req.query;
+    const {
+        page
+    } = req.query;
     const pageNum = Number(page) || 1;
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
@@ -310,28 +322,29 @@ app.get("/api/discussion/get", async (req, res) => {
         });
     }
     try {
-      const json = await discussion.get(Number(page));
-      if (json.code == 200) {
-          const fields = json.fields;
-          const data = [];
-          for(let i = start;i < end;i++) {
-              const field = fields[i];
-              data.push({
-                  field: field
-              })
-          }
-          res.json({
-              code: 200,
-              msg: "获取成功",
-              data: data,
-              timestamp: time(),
-          })
-      } else {
-          res.status(json.code).json({
-              code: json.code,
-              msg: json.msg
-          })
-      }
+        const json = await discussion.get(Number(page));
+        if (json.code == 200) {
+            const fields = json.fields;
+            const data = [];
+            for (let i = start; i < end; i++) {
+                const field = fields[i];
+                data.push({
+                    field: field
+                })
+            }
+            res.json({
+                code: 200,
+                msg: "获取成功",
+                data: data,
+                timestamp: time(),
+            })
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
     } catch (error) {
         console.error(error);
         res.json({
@@ -347,17 +360,16 @@ app.post("/api/deepseek-v3", async (req, res) => {
     requestLog(req);
     const api = "https://openrouter.ai/api/v1/chat/completions";
     const apiKey = await getAIAPIKey();
-    const messages = [
-        {
-            role: "system",
-            content: 
-`请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
-你的设定的性格是幽默风趣，喜欢开玩笑，喜欢使用表情符号，喜欢使用网络用语，喜欢使用emoji表情。
-请记住你是一个AI助手，你的任务是帮助用户解决问题。
-请使用中文回答问题，除非用户要求使用英文。
-请使用简体中文回答问题，除非用户要求使用繁体中文。
-`
-        },
+    const messages = [{
+        role: "system",
+        content:
+        `请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
+        你的设定的性格是幽默风趣，喜欢开玩笑，喜欢使用表情符号，喜欢使用网络用语，喜欢使用emoji表情。
+        请记住你是一个AI助手，你的任务是帮助用户解决问题。
+        请使用中文回答问题，除非用户要求使用英文。
+        请使用简体中文回答问题，除非用户要求使用繁体中文。
+        `
+    },
         ...req.body.messages || []
     ];
     console.log(messages);
@@ -394,19 +406,23 @@ app.post("/api/deepseek-v3", async (req, res) => {
 
 app.get('/api/bot/user/login', (req, res) => {
     requestLog(req);
-    const { code } = req.query;
+    const {
+        code
+    } = req.query;
     if (!code) {
-      res.json({
-        code: 400,
-        msg: "缺少code参数",
-        timestamp: time()
-      })
+        res.json({
+            code: 400,
+            msg: "缺少code参数",
+            timestamp: time()
+        })
     }
 });
 
 app.get("/api/bot/user/details", async (req, res) => {
     requestLog(req);
-    const { id } = req.query;
+    const {
+        id
+    } = req.query;
     if (Number.isNaN(Number(id))) {
         res.status(400).json({
             code: 400,
@@ -432,7 +448,7 @@ app.get("/api/bot/user/details", async (req, res) => {
                 const email_domain = data.邮箱.split('@')[1] || '未知';
                 res.json({
                     code: 200,
-                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知' : '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是' : '否'}\n管理员：${data.管理员 == 1 ? '是' : '否'}\n冻结：${data.封号 == 1 ? '是' : '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
+                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知': '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是': '否'}\n管理员：${data.管理员 == 1 ? '是': '否'}\n冻结：${data.封号 == 1 ? '是': '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
                     avatar: data.头像,
                     timestamp: time(),
                 });
@@ -467,7 +483,10 @@ app.get("/api/requestips", async (req, res) => {
 
 app.get("/api/appupdatecheck", async (req, res) => {
     requestLog(req);
-    const { packageName, versionCode } = req.query;
+    const {
+        packageName,
+        versionCode
+    } = req.query;
     if (!packageName || !versionCode) {
         res.status(400).json({
             code: 400,
@@ -530,7 +549,10 @@ function isValidPackageName(packageName) {
 
 app.get("/api/op/login", async (req, res) => {
     requestLog(req);
-    const { id, password } = req.query;
+    const {
+        id,
+        password
+    } = req.query;
     if ((id || id == 0) && password) {
         const user = new User();
         try {
@@ -570,7 +592,10 @@ app.get("/api/op/login", async (req, res) => {
 
 app.get("/api/user/gettoken", async (req, res) => {
     requestLog(req);
-    const { id, password } = req.query;
+    const {
+        id,
+        password
+    } = req.query;
     if ((id || id == 0) && password) {
         const user = new User();
         try {
@@ -610,7 +635,10 @@ app.get("/api/user/gettoken", async (req, res) => {
 
 app.get("/api/user/updatetoken", async (req, res) => {
     requestLog(req);
-    const { id, password } = req.query;
+    const {
+        id,
+        password
+    } = req.query;
     if ((id || id == 0) && password) {
         const user = new User();
         try {
@@ -642,7 +670,9 @@ app.get("/api/user/updatetoken", async (req, res) => {
 
 app.get("/api/user/loginbytoken", async (req, res) => {
     requestLog(req);
-    const { token } = req.query;
+    const {
+        token
+    } = req.query;
     if (token) {
         const user = new User();
         try {
@@ -702,7 +732,9 @@ app.get("/api/user/loginbytoken", async (req, res) => {
 });
 
 app.get("/api/participle", async (req, res) => {
-    const { text } = req.query;
+    const {
+        text
+    } = req.query;
     console.log(text);
     const segment = new Segment();
     segment.useDefault();
@@ -728,7 +760,11 @@ app.get("/api/participle", async (req, res) => {
 
 app.get("/api/query-game-server", async (req, res) => {
     requestLog(req);
-    const { type, host, port } = req.query;
+    const {
+        type,
+        host,
+        port
+    } = req.query;
     if (!type && !host) {
         res.status(400).json({
             code: 400,
@@ -772,7 +808,9 @@ app.get("/api/query-game-server", async (req, res) => {
 })
 
 app.get("/api/code", (req, res) => {
-    const { code } = req.query;
+    const {
+        code
+    } = req.query;
     const newCode = Number(code);
     if (isNaN(newCode)) res.status(500).json({});
     res.status(newCode).json({
@@ -784,7 +822,9 @@ app.get("/api/code", (req, res) => {
 
 app.get("/api/book/random", async (req, res) => {
     requestLog(req);
-    const { num } = req.query;
+    const {
+        num
+    } = req.query;
     try {
         const books = new Books();
         const json = await books.randomBook(num || 10);
@@ -832,7 +872,9 @@ app.get("/api/book/random", async (req, res) => {
 app.get("/api/ykl/chat", async (req, res) => {
     requestLog(req);
     try {
-        const { chatId } = req.query;
+        const {
+            chatId
+        } = req.query;
         const response = await fetch(`http://qq.catfun.top/chat.php`, {
             method: "GET",
             verbose: true
@@ -868,7 +910,9 @@ app.get("/api/ykl/chat", async (req, res) => {
 
 app.get("/api/user/search", async (req, res) => {
     requestLog(req);
-    const { keyword } = req.query;
+    const {
+        keyword
+    } = req.query;
     const user = new User();
     try {
         const json = await user.search(decodeURIComponent(keyword || ""));
@@ -894,7 +938,7 @@ app.get("/api/user/search", async (req, res) => {
             res.json({
                 code: 200,
                 msg: "请求成功",
-                keyword: !!keyword ? decodeURIComponent(keyword) : null,
+                keyword: !!keyword ? decodeURIComponent(keyword): null,
                 data: data,
                 count: data.length,
                 timestamp: time(),
@@ -918,7 +962,10 @@ app.get("/api/user/search", async (req, res) => {
 
 app.get("/api/noob/works", async (req, res) => {
     requestLog(req);
-    const { id, password } = req.query;
+    const {
+        id,
+        password
+    } = req.query;
     if ((id || id == 0) && password) {
         const noob = new NOOB();
         try {
@@ -966,7 +1013,11 @@ app.get("/api/noob/works", async (req, res) => {
 
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
-    const { type, id, data } = req.query;
+    const {
+        type,
+        id,
+        data
+    } = req.query;
     if (type && (id || id == 0) && data) {
         const books = new Books();
         try {
@@ -1003,7 +1054,13 @@ app.get("/api/book/updatebook", async (req, res) => {
 
 app.get("/api/book/addchapter", async (req, res) => {
     requestLog(req);
-    const { id, bookid, num, name, content } = req.query;
+    const {
+        id,
+        bookid,
+        num,
+        name,
+        content
+    } = req.query;
     if (num < 1) {
         res.status(400).json({
             code: 400,
@@ -1055,7 +1112,13 @@ app.get("/api/book/addchapter", async (req, res) => {
 
 app.get("/api/book/addbook", async (req, res) => {
     requestLog(req);
-    const { name, id, description, cover, author } = req.query;
+    const {
+        name,
+        id,
+        description,
+        cover,
+        author
+    } = req.query;
     if (name && (id || id == 0) && description && cover && author) {
         const books = new Books();
         try {
@@ -1092,7 +1155,9 @@ app.get("/api/book/addbook", async (req, res) => {
 
 app.get("/api/book/chapters", async (req, res) => {
     requestLog(req);
-    const { id } = req.query;
+    const {
+        id
+    } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
         res.status(400).json({
@@ -1151,10 +1216,12 @@ app.get("/api/book/chapters", async (req, res) => {
 
 app.get("/api/book/search", async (req, res) => {
     requestLog(req);
-    const { keyword } = req.query;
+    const {
+        keyword
+    } = req.query;
     const books = new Books();
     try {
-        const json = await books.search(decodeURIComponent(keyword ? keyword : ""));
+        const json = await books.search(decodeURIComponent(keyword ? keyword: ""));
         if (json.code == 200) {
             const data = []
             json.fields.forEach(field => {
@@ -1219,7 +1286,11 @@ app.get("/api/ip", (req, res) => {
 app.get("/api/user/resetpassword", async (req, res) => {
     requestLog(req);
     const uuid = generateUUID();
-    const { email, id, password } = req.query;
+    const {
+        email,
+        id,
+        password
+    } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
         res.status(400).json({
@@ -1236,14 +1307,14 @@ app.get("/api/user/resetpassword", async (req, res) => {
                 const url = `https://iftc.koyeb.app/api/user/resetpassword/${uuid}`
                 const json2 = await UUID_db.sendEmail(decodeURIComponent(email), "重置密码", `<!DOCTYPE html>
                     <html lang="zh-CN">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                            <title>重置密码</title>
-                        </head>
-                        <body>
-                            <div>您好，您正在重置密码，还差最后一步，请访问 <a href="${url}">${url}</a> 完成密码重置</div>
-                        </body>
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>重置密码</title>
+                    </head>
+                    <body>
+                    <div>您好，您正在重置密码，还差最后一步，请访问 <a href="${url}">${url}</a> 完成密码重置</div>
+                    </body>
                     </html>`)
                 console.log(typeof json2)
                 if (json2.status == 1) {
@@ -1289,7 +1360,9 @@ app.get("/api/user/resetpassword", async (req, res) => {
 
 app.get("/api/user/resetpassword/:uuid", async (req, res) => {
     requestLog(req);
-    const { uuid } = req.params;
+    const {
+        uuid
+    } = req.params;
     if (uuid) {
         const user = new User();
         const UUID_db = new UUIDdb();
@@ -1357,7 +1430,10 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
 
 app.get("/api/verifycode", async (req, res) => {
     requestLog(req);
-    const { email, code } = req.query;
+    const {
+        email,
+        code
+    } = req.query;
     console.log(email, code);
     if (email && code) {
         const user = new User();
@@ -1394,7 +1470,11 @@ app.get("/api/verifycode", async (req, res) => {
 
 app.get("/api/sendcode", async (req, res) => {
     requestLog(req);
-    const { email, title, content } = req.query;
+    const {
+        email,
+        title,
+        content
+    } = req.query;
     console.log(email, title, content);
     if (email && title && content) {
         const user = new User();
@@ -1431,7 +1511,12 @@ app.get("/api/sendcode", async (req, res) => {
 
 app.get("/api/user/update", async (req, res) => {
     requestLog(req);
-    const { type, id, password, data } = req.query;
+    const {
+        type,
+        id,
+        password,
+        data
+    } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
         res.status(400).json({
@@ -1476,11 +1561,16 @@ app.get("/api/user/update", async (req, res) => {
 
 app.get("/api/user/register", async (req, res) => {
     requestLog(req);
-    const { nickname, avatar, email, password } = req.query;
+    const {
+        nickname,
+        avatar,
+        email,
+        password
+    } = req.query;
     if (nickname && email && password) {
         const user = new User();
         try {
-            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
+            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar): "https://iftc.koyeb.app/static/avatar.png");
             if (json.code == 200) {
                 res.json({
                     code: 200,
@@ -1513,7 +1603,10 @@ app.get("/api/user/register", async (req, res) => {
 
 app.get("/api/user/login", async (req, res) => {
     requestLog(req)
-    const { user, password } = req.query;
+    const {
+        user,
+        password
+    } = req.query;
     console.log(user, password);
     if ((user || user == 0) && password) {
         const auser = new User();
@@ -1558,7 +1651,9 @@ app.get("/api/user/login", async (req, res) => {
 
 app.get("/api/user/details", async (req, res) => {
     requestLog(req);
-    const { id } = req.query;
+    const {
+        id
+    } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
         res.status(400).json({
@@ -1646,7 +1741,7 @@ app.get('/api/qrcode', async (req, res) => {
     }
     try {
         if (type == "svg") {
-            const qrcode = new QRCodeSvg({
+            const qrcode = new QRCodeSvg( {
                 content: data,
                 color: {
                     dark: '#000000',
@@ -1667,7 +1762,7 @@ app.get('/api/qrcode', async (req, res) => {
                 },
                 errorCorrectionLevel: 'H',
             });
-            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
+            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml': 'image/png');
             res.setHeader('Content-Length', qrBuffer.length);
             res.send(qrBuffer);
         }
@@ -1693,11 +1788,12 @@ function time() {
 
 function generateUUID() {
     var d = new Date().getTime();
-    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-        var r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-    });
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+        function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r: (r & 0x3 | 0x8)).toString(16);
+        });
     return uuid;
 }
 
@@ -1712,12 +1808,17 @@ function formatDuration(milliseconds) {
     let s = Math.floor((milliseconds / 1000) % 60);
     let m = Math.floor((milliseconds / (1000 * 60)) % 60);
     let h = Math.floor(milliseconds / (1000 * 60 * 60));
-    return `${String(h).padStart(2, '0')}时${String(m).padStart(2, '0')}分${String(s).padStart(2, '0')}秒${String(ms).padStart(3, '0')}毫秒`;
+    return `${String(h).padStart(2,
+        '0')}时${String(m).padStart(2,
+        '0')}分${String(s).padStart(2,
+        '0')}秒${String(ms).padStart(3,
+        '0')}毫秒`;
 }
 
 async function mixed(filepath, params) {
     try {
-        let content = await fs.readFile(filepath, "utf-8");
+        let content = await fs.readFile(filepath,
+            "utf-8");
         const keys = Object.keys(params);
         console.log(keys);
         keys.forEach((key) => {
@@ -1785,7 +1886,7 @@ async function getRequestCount() {
     const resp = await fetch(url);
     const json = await resp.json();
     const count = json['iftc.koyeb.app'];
-    return count == 'null' ? 0 : Number(count);
+    return count == 'null' ? 0: Number(count);
 }
 
 function timestampToDate(timestamp) {
@@ -1800,20 +1901,3 @@ async function getAIAPIKey() {
     const json = await resp.json();
     return json['openrouter'];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
