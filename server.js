@@ -302,9 +302,17 @@ app.get("/api/discussion/get", (req, res) => {
     const pageNum = Number(page) || 1;
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
+    const end = start + pageSize;
+    if (isNaN(Number(page))) {
+        res
+    }
     try {
       const json = await discussion.get(page);
-      if (json.code == 200) {} else {
+      if (json.code == 200) {
+          const fields = json.fields;
+          const data = [];
+          for(let i = start;i < end;i++) {}
+      } else {
           res.status(json.code).json({
               code: json.code,
               msg: json.msg
