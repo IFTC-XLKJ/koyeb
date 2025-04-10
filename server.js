@@ -350,7 +350,7 @@ app.get("/api/discussion/get", async (req, res) => {
         res.json({
             code: 500,
             msg: "请求失败",
-            error: error.stack
+            error: error.stack,
             timestamp: time(),
         });
     }
