@@ -303,8 +303,11 @@ app.get("/api/discussion/get", (req, res) => {
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
     const end = start + pageSize;
-    if (isNaN(Number(page))) {
-        res
+    if (isNaN(Number(page)) && ~~Number(page) != Number(page) && Number(page) <= 0) {
+        res.status(400).json({
+            code: 400,
+            msg: "page参数必须为大于0的整数"
+        });
     }
     try {
       const json = await discussion.get(page);
