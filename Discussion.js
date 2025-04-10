@@ -8,8 +8,8 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Discussion {
-    get(page) {
-
+    get(page, start, end) {
+        
     }
 }
 
