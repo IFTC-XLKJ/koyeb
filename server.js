@@ -332,6 +332,7 @@ app.get("/api/discussion/get", async (req, res) => {
                     ID: field.ID,
                     username: field.昵称,
                     avatar: field.头像,
+                    content: field.内容,
                     createdAt: field.createdAt,
                     updatedAt: field.updatedAt,
                     field: field
