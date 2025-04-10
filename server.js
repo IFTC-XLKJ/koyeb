@@ -367,6 +367,13 @@ app.post("/api/deepseek-v3", async (req, res) => {
 app.get('/api/bot/user/login', (req, res) => {
     requestLog(req);
     const { code } = req.query;
+    if (!code) {
+      res.json({
+        code: 400,
+        msg: "缺少code参数",
+        timestamp: time()
+      })
+    }
 });
 
 app.get("/api/bot/user/details", async (req, res) => {
