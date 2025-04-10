@@ -336,6 +336,7 @@ app.get("/api/discussion/get", async (req, res) => {
                     title: field.头衔,
                     titleColor: field.头衔色,
                     content: field.内容,
+                    discussionId: field.论坛ID,
                     createdAt: field.createdAt,
                     updatedAt: field.updatedAt,
                     field: field
