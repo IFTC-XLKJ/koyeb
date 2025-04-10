@@ -1082,7 +1082,7 @@ app.get("/api/book/chapters", async (req, res) => {
                     data.push({
                         ID: field.ID,
                         name: String(field.章节名),
-                        content: String(field.章节内容,)
+                        content: String(field.章节内容),
                         num: field.章节编号,
                         createdAt: field.createdAt,
                         updatedAt: field.updatedAt
