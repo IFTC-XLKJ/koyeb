@@ -317,7 +317,7 @@ app.get("/api/discussion/get", (req, res) => {
           for(let i = start;i < end;i++) {
               const field = fields[i];
               data.push({
-                  
+                  field: field
               })
           }
           res.json({
