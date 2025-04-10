@@ -304,6 +304,7 @@ app.get("/api/discussion/get", (req, res) => {
     const start = (pageNum - 1) * pageSize;
     const end = start + pageSize;
     try {
+      const json = discussion.get(page, start, end);
     } catch (error) {
         console.error(error);
         res.json({
