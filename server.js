@@ -310,11 +310,22 @@ app.get("/api/discussion/get", (req, res) => {
         });
     }
     try {
-      const json = await discussion.get(page);
+      const json = await discussion.get(Number(page));
       if (json.code == 200) {
           const fields = json.fields;
           const data = [];
-          for(let i = start;i < end;i++) {}
+          for(let i = start;i < end;i++) {
+              const field = fields[i];
+              data.push({
+                  
+              })
+          }
+          res.json({
+              code: 200,
+              msg: "获取成功",
+              data: data,
+              timestamp: time(),
+          })
       } else {
           res.status(json.code).json({
               code: json.code,
