@@ -339,7 +339,6 @@ app.get("/api/discussion/get", async (req, res) => {
                     discussionId: field.论坛ID,
                     createdAt: field.createdAt,
                     updatedAt: field.updatedAt,
-                    field: field
                 })
             }
             res.json({
