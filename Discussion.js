@@ -42,4 +42,8 @@ class Discussion {
     }
 }
 
+function time() {
+    return Date.now();
+}
+
 module.exports = Discussion;
