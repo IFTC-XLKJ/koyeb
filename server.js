@@ -345,6 +345,7 @@ app.get("/api/discussion/get", async (req, res) => {
                 code: 200,
                 msg: "获取成功",
                 data: data,
+                pageSize: pageSize,
                 total: json.count,
                 timestamp: time(),
             })
