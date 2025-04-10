@@ -328,6 +328,7 @@ app.get("/api/discussion/get", async (req, res) => {
             const data = [];
             for (let i = start; i < end; i++) {
                 const field = fields[i];
+                if (!field) break;
                 data.push({
                     ID: field.ID,
                     username: field.昵称,
