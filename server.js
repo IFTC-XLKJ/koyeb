@@ -1164,6 +1164,7 @@ app.get("/api/runtime", (req, res) => {
         code: 200,
         msg: "请求成功",
         runtime: formatDuration(Date.now() - startTime),
+        runtimestamp: Date.now() - startTime,
         timestamp: time(),
     });
 })
