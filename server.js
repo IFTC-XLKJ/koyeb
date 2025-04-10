@@ -311,7 +311,6 @@ app.get("/api/discussion/get", async (req, res) => {
     let {
         page
     } = req.query;
-    page = Number(page) || 1;
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
     const end = start + pageSize;
@@ -321,6 +320,7 @@ app.get("/api/discussion/get", async (req, res) => {
             msg: "page参数必须为大于0的整数"
         });
     }
+    page = Number(page) || 1;
     try {
         const json = await discussion.get(Number(page));
         if (json.code == 200) {
