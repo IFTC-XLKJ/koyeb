@@ -296,7 +296,7 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/discussion/get", (req, res) => {
+app.get("/api/discussion/get", async (req, res) => {
     requestLog(req);
     const { page } = req.query;
     const pageNum = Number(page) || 1;
