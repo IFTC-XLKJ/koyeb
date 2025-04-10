@@ -308,10 +308,10 @@ app.all("/api", (req, res) => {
 
 app.get("/api/discussion/get", async (req, res) => {
     requestLog(req);
-    const {
+    let {
         page
     } = req.query;
-    const pageNum = Number(page) || 1;
+    page = Number(page) || 1;
     const pageSize = 10;
     const start = (pageNum - 1) * pageSize;
     const end = start + pageSize;
