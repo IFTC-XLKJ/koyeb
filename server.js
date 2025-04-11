@@ -37,8 +37,9 @@ let startTime;
 try {
     await fs.writeFile("output.txt", "Hello World!");
     console.log("写入文件成功")
+    console.log(await fs.readFile("output.txt"));
 } catch(e) {
-    console.error("写入文件失败", e);
+    console.error(e);
 }
 app.get("/", async (req, res) => {
     requestLog(req);
