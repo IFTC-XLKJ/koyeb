@@ -37,7 +37,7 @@ let startTime;
 try {
     await fs.writeFile("output.txt", "Hello World!");
     console.log("写入文件成功")
-    console.log(await fs.readFile("output.txt"));
+    console.log(await fs.readFile("output.txt", "utf-8"));
 } catch(e) {
     console.error(e);
 }
