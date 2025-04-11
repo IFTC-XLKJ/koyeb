@@ -312,7 +312,7 @@ app.get("/api/discussion/get", async (req, res) => {
         page
     } = req.query;
     const pageSize = 10;
-    const start = (pageNum - 1) * pageSize;
+    const start = (page - 1) * pageSize;
     const end = start + pageSize;
     if (isNaN(Number(page)) && ~~Number(page) != Number(page) && Number(page) <= 0) {
         res.status(400).json({
