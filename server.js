@@ -317,7 +317,8 @@ app.get("/api/discussion/get", async (req, res) => {
     if (isNaN(Number(page)) || ~~Number(page) != Number(page) || Number(page) <= 0) {
         res.status(400).json({
             code: 400,
-            msg: "page参数必须为大于0的整数"
+            msg: "page参数必须为大于0的整数",
+            timestamp: time(),
         });
     }
     page = Number(page);
