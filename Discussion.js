@@ -8,7 +8,7 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Discussion {
-    async get(page, start, end) {
+    async get(page) {
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
         try {
