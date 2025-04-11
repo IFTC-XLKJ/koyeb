@@ -35,6 +35,12 @@ const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 let startTime;
 try {
+    try {
+        const stats = await fs.stat("output.txt");
+        console.log("文件存在")
+    }catch(e) {
+        console.log("文件不存在")
+    }
     await fs.writeFile("output.txt", "Hello World!");
     console.log("写入文件成功")
     console.log(await fs.readFile("output.txt", "utf-8"));
