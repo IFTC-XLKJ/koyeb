@@ -32,7 +32,6 @@ class Discussion {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             const json = await response.json();
-            const num = end - start;
             console.log(json);
             return json;
         } catch (error) {
