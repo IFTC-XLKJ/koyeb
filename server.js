@@ -320,7 +320,7 @@ app.get("/api/discussion/get", async (req, res) => {
             msg: "page参数必须为大于0的整数"
         });
     }
-    page = Number(page) || 1;
+    page = Number(page);
     try {
         const json = await discussion.get(Number(page));
         if (json.code == 200) {
