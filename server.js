@@ -34,7 +34,12 @@ app.use(bodyParser.json());
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 let startTime;
-
+try {
+    await fs.writeFile("output.txt", "Hello World!");
+    console.log("写入文件成功")
+} catch(e) {
+    console.error("写入文件失败", e);
+}
 app.get("/", async (req, res) => {
     requestLog(req);
     if (req.headers["user-agent"] == "Koyeb Health Check") {
@@ -305,6 +310,7 @@ app.all("/api", (req, res) => {
         timestamp: time(),
     });
 });
+
 
 app.get("/api/discussion/get", async (req, res) => {
     requestLog(req);
