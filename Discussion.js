@@ -25,7 +25,7 @@ class Discussion {
                     filter: ``,
                     page: 1,
                     limit: 10000000000,
-                    sort: "updatedAt desc",
+                    sort: "updatedAt asc",
                 })
             });
             if (!response.ok) {
