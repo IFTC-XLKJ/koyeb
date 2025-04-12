@@ -336,7 +336,7 @@ app.post("/api/discussion/publish", async (req, res) => {
         title,
         titleColor
     } = req.body;
-    if (!ID || !username || !avatar || !content || !title || !titleColor) {
+    if (!(ID || ID == 0) || !username || !avatar || !content || !title || !titleColor) {
         res.status(400).json({
             code: 400,
             msg: "缺少参数",
