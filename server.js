@@ -348,6 +348,14 @@ app.post("/api/discussion/publish", async (req, res) => {
         });
         return;
     }
+    if (checkProhibitedWords(content)) {
+        res.status(400).json({
+            code: 400,
+            msg: "内容含有违禁词",
+            timestamp: time(),
+        });
+        return;
+    }
     try {
         const json = await discussion.publish(ID, username, avatar, content, title, titleColor);
         if (json.code == 200) {
@@ -1978,4 +1986,10 @@ async function getAIAPIKey() {
     const resp = await fetch(url);
     const json = await resp.json();
     return json['openrouter'];
+}
+
+async function checkProhibitedWords(text) {
+    const prohibitedWords = await fs.readFile('Prohibited_words.json', 'utf8');
+    const prohibitedWordsList = JSON.parse(prohibitedWords);
+    return prohibitedWordsList.some(word => text.includes(word));
 }
