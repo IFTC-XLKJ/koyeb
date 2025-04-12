@@ -318,9 +318,9 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/discussion/getbyid", async (req, res) => {
-    requestLog(req);
-})
+// app.get("/api/discussion/getbyid", async (req, res) => {
+//     requestLog(req);
+// })
 
 app.post("/api/discussion/publish", async (req, res) => {
     requestLog(req);
