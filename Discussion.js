@@ -39,10 +39,38 @@ class Discussion {
             throw error;
         }
     }
+    async publish(ID, username, avatar, content, title, titleColor) {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVDiscussionKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    type: "INSERT",
+                    filter: "ID,昵称,头像,内容,头衔,头衔色,论坛ID",
+                    fields: `(${ID},"${username}","${avatar}","${content}","${title}","${titleColor}","${genDiscussionID()}")`,
+                })
+            });
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
 }
 
 function time() {
     return Date.now();
+}
+
+function genDiscussionID() {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 }
 
 module.exports = Discussion;
