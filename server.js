@@ -345,6 +345,20 @@ app.post("/api/discussion/publish", async (req, res) => {
         return;
     }
     try {
+        const json = await discussion.publish(ID, username, avatar, content, title, titleColor);
+        if (json.code == 200) {
+            res.json({
+                code: 200,
+                msg: "发布成功",
+                timestamp: time(),
+            });
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
     } catch (e) {
         res.status(400).json({
             code: 400,
