@@ -356,7 +356,7 @@ app.post("/api/discussion/publish", async (req, res) => {
         });
     }
     try {
-        if (checkProhibitedWords(content)) {
+        if (await checkProhibitedWords(content)) {
             res.status(400).json({
                 code: 400,
                 msg: "内容含有违禁词",
@@ -364,14 +364,14 @@ app.post("/api/discussion/publish", async (req, res) => {
             });
             return;
         }
-        if (checkProhibitedWords(title)) {
+        if (await checkProhibitedWords(title)) {
             res.status(400).json({
                 code: 400,
                 msg: "头衔含有违禁词",
                 timestamp: time(),
             });
         }
-        if (checkProhibitedWords(titleColor)) {
+        if (await checkProhibitedWords(titleColor)) {
             res.status(400).json({
                 code: 400,
                 msg: "头衔颜色含有违禁词",
@@ -379,14 +379,14 @@ app.post("/api/discussion/publish", async (req, res) => {
             });
             return;
         }
-        if (checkProhibitedWords(username)) {
+        if (await checkProhibitedWords(username)) {
             res.status(400).json({
                 code: 400,
                 msg: "昵称含有违禁词",
                 timestamp: time(),
             });
         }
-        if (checkProhibitedWords(avatar)) {
+        if (await checkProhibitedWords(avatar)) {
             res.status(400).json({
                 code: 400,
                 msg: "头像含有违禁词",
