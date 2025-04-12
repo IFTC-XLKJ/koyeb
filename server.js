@@ -348,11 +348,48 @@ app.post("/api/discussion/publish", async (req, res) => {
         });
         return;
     }
+    if (typeof ID == "string") {
+        res.status(400).json({
+            code: 400,
+            msg: "ID必须为数字",
+            timestamp: time(),
+        });
+    }
     try {
         if (checkProhibitedWords(content)) {
             res.status(400).json({
                 code: 400,
                 msg: "内容含有违禁词",
+                timestamp: time(),
+            });
+            return;
+        }
+        if (checkProhibitedWords(title)) {
+            res.status(400).json({
+                code: 400,
+                msg: "头衔含有违禁词",
+                timestamp: time(),
+            });
+        }
+        if (checkProhibitedWords(titleColor)) {
+            res.status(400).json({
+                code: 400,
+                msg: "头衔颜色含有违禁词",
+                timestamp: time(),
+            });
+            return;
+        }
+        if (checkProhibitedWords(username)) {
+            res.status(400).json({
+                code: 400,
+                msg: "昵称含有违禁词",
+                timestamp: time(),
+            });
+        }
+        if (checkProhibitedWords(avatar)) {
+            res.status(400).json({
+                code: 400,
+                msg: "头像含有违禁词",
                 timestamp: time(),
             });
             return;
