@@ -58,6 +58,12 @@ class Discussion {
                     fields: `(${ID},"${username}","${avatar}","${content}","${title}","${titleColor}","${genDiscussionID()}")`,
                 })
             });
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             throw error;
