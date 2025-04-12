@@ -324,7 +324,7 @@ app.all("/api/randomusername", async (req, res) => {
         code: 200,
         msg: "请求成功",
         copyright: "IFTC",
-        username: randomUsername(),
+        username: await randomUsername(),
         timestamp: time(),
     });
 })
