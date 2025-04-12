@@ -318,6 +318,33 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.post("/api/discussion/publish", async (req, res) => {
+    requestLog(req);
+    if (req.headers["content-type"] != "application/json") {
+        res.status(415).json({
+            code: 415,
+            msg: "不支持的媒体类型",
+            timestamp: time(),
+        });
+        return;
+    }
+    try {
+        const {
+            ID,
+            username,
+            avatar,
+            content,
+            title,
+            titleColor
+        } = req.query;
+    } catch (e) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少参数",
+            timestamp: time(),
+        });
+    }
+});
 
 app.get("/api/discussion/get", async (req, res) => {
     requestLog(req);
