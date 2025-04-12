@@ -2050,7 +2050,7 @@ async function checkProhibitedWords(text) {
 }
 
 async function randomUsername() {
-    const wordds = await fs.readFile("random_username.json", "utf-8");
+    const wordds = await fs.readFile("Random_username.json", "utf-8");
     const words = JSON.parse(wordds);
     const adjs = words.adj;
     const nouns = words.noun;
