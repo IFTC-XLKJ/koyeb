@@ -335,7 +335,7 @@ app.post("/api/discussion/publish", async (req, res) => {
         content,
         title,
         titleColor
-    } = req.query;
+    } = req.body;
     if (!ID || !username || !avatar || !content || !title || !titleColor) {
         res.status(400).json({
             code: 400,
