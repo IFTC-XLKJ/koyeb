@@ -2028,5 +2028,5 @@ async function getAIAPIKey() {
 async function checkProhibitedWords(text) {
     const prohibitedWords = await fs.readFile('Prohibited_words.json', 'utf8');
     const prohibitedWordsList = JSON.parse(prohibitedWords).words.split("\n");
-    return prohibitedWordsList.some(word => text.includes(word));
+    return prohibitedWordsList.includes(text);
 }
