@@ -320,13 +320,23 @@ app.all("/api", (req, res) => {
 
 app.all("/api/randomusername", async (req, res) => {
     requestLog(req);
-    res.json({
-        code: 200,
-        msg: "请求成功",
-        copyright: "IFTC",
-        username: await randomUsername(),
-        timestamp: time(),
-    });
+    try {
+        res.json({
+            code: 200,
+            msg: "请求成功",
+            copyright: "IFTC",
+            username: await randomUsername(),
+            timestamp: time(),
+        });
+    } catch (e) {
+        res.json({
+            code: 500,
+            msg: "请求失败",
+            error: e.stack,
+            copyright: "IFTC",
+            timestamp: time(),
+        });
+    }
 })
 
 // app.get("/api/discussion/getbyid", async (req, res) => {
