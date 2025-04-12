@@ -2029,6 +2029,7 @@ async function checkProhibitedWords(text) {
     const prohibitedWords = await fs.readFile('Prohibited_words.json', 'utf8');
     const prohibitedWordsList = JSON.parse(prohibitedWords).words.split("\n");
     for (const word of prohibitedWordsList) {
+        console.log(text.includes(word));
         return text.includes(word);
     }
 }
