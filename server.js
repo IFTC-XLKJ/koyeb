@@ -348,15 +348,15 @@ app.post("/api/discussion/publish", async (req, res) => {
         });
         return;
     }
-    if (checkProhibitedWords(content)) {
-        res.status(400).json({
-            code: 400,
-            msg: "内容含有违禁词",
-            timestamp: time(),
-        });
-        return;
-    }
     try {
+        if (checkProhibitedWords(content)) {
+            res.status(400).json({
+                code: 400,
+                msg: "内容含有违禁词",
+                timestamp: time(),
+            });
+            return;
+        }
         const json = await discussion.publish(ID, username, avatar, content, title, titleColor);
         if (json.code == 200) {
             res.json({
