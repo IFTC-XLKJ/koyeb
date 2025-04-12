@@ -318,6 +318,17 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.all("/api/randomusername", async (req, res) => {
+    requestLog(req);
+    res.json({
+        code: 200,
+        msg: "请求成功",
+        copyright: "IFTC",
+        username: randomUsername(),
+        timestamp: time(),
+    });
+})
+
 // app.get("/api/discussion/getbyid", async (req, res) => {
 //     requestLog(req);
 // })
@@ -2036,4 +2047,14 @@ async function checkProhibitedWords(text) {
             return true;
         }
     }
+}
+
+async function randomUsername() {
+    const wordds = await fs.readFile("random_username.json", "utf-8");
+    const words = JSON.parse(wordds);
+    const adjs = words.adj;
+    const nouns = words.noun;
+    const adj = adjs[Math.floor(Math.random() * adjs.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    return adj + noun;
 }
