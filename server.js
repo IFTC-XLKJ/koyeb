@@ -370,6 +370,7 @@ app.post("/api/discussion/publish", async (req, res) => {
                 msg: "头衔含有违禁词",
                 timestamp: time(),
             });
+            return;
         }
         if (await checkProhibitedWords(titleColor)) {
             res.status(400).json({
@@ -385,6 +386,7 @@ app.post("/api/discussion/publish", async (req, res) => {
                 msg: "昵称含有违禁词",
                 timestamp: time(),
             });
+            return;
         }
         if (await checkProhibitedWords(avatar)) {
             res.status(400).json({
