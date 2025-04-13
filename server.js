@@ -17,6 +17,8 @@ const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
+
+console.log(process.env.IFTC);
 console.log(Segment);
 
 const ips = [];
