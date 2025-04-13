@@ -1434,7 +1434,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
     const uuid = generateUUID();
     const {
         email,
-        id,
+        ID,
         password
     } = req.query;
     console.log(Number(id));
