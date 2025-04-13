@@ -1445,7 +1445,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
             timestamp: time(),
         });
     }
-    if (email && (id || id == 0) && password) {
+    if (email || (id || id == 0) || password) {
         const UUID_db = new UUIDdb();
         try {
             const json = await UUID_db.addData(uuid, "resetpassword", id, decodeURIComponent(password));
