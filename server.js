@@ -1437,13 +1437,14 @@ app.get("/api/user/resetpassword", async (req, res) => {
         id,
         password
     } = req.query;
-    console.log(typeof Number(id));
+    console.log(Number(id));
     if (Number.isNaN(Number(id))) {
         res.status(400).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
             timestamp: time(),
         });
+        return;
     }
     if (email || (id || id == 0) || password) {
         const UUID_db = new UUIDdb();
