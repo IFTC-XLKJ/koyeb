@@ -1437,8 +1437,8 @@ app.get("/api/user/resetpassword", async (req, res) => {
         ID,
         password
     } = req.query;
-    console.log(Number(id));
-    if (Number.isNaN(Number(id))) {
+    console.log(Number(ID));
+    if (Number.isNaN(Number(ID))) {
         res.status(400).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
@@ -1446,10 +1446,10 @@ app.get("/api/user/resetpassword", async (req, res) => {
         });
         return;
     }
-    if (email || (id || id == 0) || password) {
+    if (email || (ID || ID == 0) || password) {
         const UUID_db = new UUIDdb();
         try {
-            const json = await UUID_db.addData(uuid, "resetpassword", id, decodeURIComponent(password));
+            const json = await UUID_db.addData(uuid, "resetpassword", ID, decodeURIComponent(password));
             if (json.code == 200) {
                 const url = `https://iftc.koyeb.app/api/user/resetpassword/${uuid}`
                 const json2 = await UUID_db.sendEmail(decodeURIComponent(email), "重置密码", `<!DOCTYPE html>
