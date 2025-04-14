@@ -131,3 +131,8 @@ async function getRandomUsername() {
     const username = json.username;
     return username;
 }
+
+random_username.addEventListener("click", async e => {
+    const username = await getRandomUsername();
+    user.value = username;
+});
