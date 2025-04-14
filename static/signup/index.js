@@ -129,4 +129,5 @@ async function getRandomUsername() {
     if (!response.ok) return;
     const json = await response.json();
     const username = json.username;
+    return username;
 }
