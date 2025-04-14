@@ -125,7 +125,7 @@ if (localStorage.getItem("ID") && localStorage.getItem("password")) {
 }
 
 async function getRandomUsername() {
-    const response = await fetch("https://iftc.koyeb.app/api/randomusername");
+    const response = await fetch("/api/randomusername");
     if (!response.ok) return;
     const json = await response.json();
     const username = json.username;
