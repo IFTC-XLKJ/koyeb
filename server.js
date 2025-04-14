@@ -2070,6 +2070,6 @@ async function randomUsername() {
     const nouns = words.noun;
     const adj = adjs[Math.floor(Math.random() * adjs.length)];
     const noun = nouns[Math.floor(Math.random() * nouns.length)];
-    const id = (Math.random().toString(36)btoa((Math.random() * (10 ** 16)).toString(36))).slice(0, 4);
+    const id = (btoa((Math.random() * (10 ** 16)).toString(36))).slice(0, 4);
     return adj + noun + id;
 }
