@@ -123,3 +123,10 @@ if (localStorage.getItem("ID") && localStorage.getItem("password")) {
     const page = url.searchParams.get("page") || "/";
     location.href = page;
 }
+
+async function getRandomUsername() {
+    const response = await fetch("https://iftc.koyeb.app/api/randomusername");
+    if (!response.ok) return;
+    const json = await response.json();
+    const username = json.username;
+}
