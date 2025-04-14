@@ -133,6 +133,7 @@ async function getRandomUsername() {
 }
 
 random_username.addEventListener("click", async e => {
+    e.preventDefault();
     const username = await getRandomUsername();
     user.value = username;
 });
