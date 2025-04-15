@@ -309,7 +309,8 @@ app.all("/api", (req, res) => {
         "获取NOOB作品 GET /noob/works?id={用户ID(必填)}&password={密码(必填)}",
         "应用更新检查 GET /appupdatecheck?packageName={应用包名}&versionCode={版本号}",
         "请求记录 GET /requestips",
-        "获取论坛 GET /discussion/get?page={页数，每页返回10条(必填)}",
+        "获取论坛帖子 GET /discussion/get?page={页数，每页返回10条(必填)}",
+        '发布论坛帖子 POST /discussion/publish {"ID": "用户ID(必填)", "username": "用户名(必填)", "avatar": "头像(必填)"}'
     ]
     res.json({
         code: 200,
