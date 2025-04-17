@@ -324,6 +324,8 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.post("/api/")
+
 app.all("/api/randomusername", async (req, res) => {
     requestLog(req);
     try {
@@ -2061,6 +2063,7 @@ async function checkProhibitedWords(text) {
     console.log(prohibitedWordsList);
     for (const word of prohibitedWordsList) {
         if (text.includes(word)) {
+            console.log(word)
             return true;
         }
     }
