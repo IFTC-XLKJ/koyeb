@@ -59,6 +59,8 @@ class Discussion {
                 })
             });
             if (!response.ok) {
+                const json = await response.json();
+                console.log(json)
                 throw new Error('Network response was not ok ' + response.statusText);
             }
             const json = await response.json();
