@@ -384,6 +384,7 @@ app.post("/api/discussion/publish", async (req, res) => {
             timestamp: time(),
         });
     }
+    console.log(content)
     try {
         if (await checkProhibitedWords(content)) {
             res.status(400).json({
