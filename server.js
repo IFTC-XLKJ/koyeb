@@ -386,7 +386,7 @@ app.post("/api/discussion/publish", async (req, res) => {
     }
     console.log(content)
     try {
-        if (await checkProhibitedWords(decodeURIComponent(content))) {
+        if (await checkProhibitedWords(content)) {
             res.status(400).json({
                 code: 400,
                 msg: "内容含有违禁词",
@@ -479,7 +479,7 @@ app.get("/api/discussion/get", async (req, res) => {
                     avatar: field.头像,
                     title: field.头衔,
                     titleColor: field.头衔色,
-                    content: field.内容,
+                    content: decodeURIComponent(field.内容),
                     discussionId: field.论坛ID,
                     createdAt: field.createdAt,
                     updatedAt: field.updatedAt,
