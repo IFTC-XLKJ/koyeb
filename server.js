@@ -386,7 +386,7 @@ app.post("/api/discussion/publish", async (req, res) => {
     }
     console.log(content)
     try {
-        if (await checkProhibitedWords(content)) {
+        if (await checkProhibitedWords(decodeURIComponent(content))) {
             res.status(400).json({
                 code: 400,
                 msg: "内容含有违禁词",
