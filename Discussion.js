@@ -55,7 +55,7 @@ class Discussion {
                 body: JSON.stringify({
                     type: "INSERT",
                     filter: "ID,昵称,头像,内容,头衔,头衔色,论坛ID",
-                    fields: `(${ID},"${username}","${avatar}","${content}","${title}","${titleColor}","${genDiscussionID()}")`,
+                    fields: `(${ID},"${username}","${avatar}","${content.replaceAll('"', "'")}","${title}","${titleColor}","${genDiscussionID()}")`,
                 })
             });
             if (!response.ok) {
