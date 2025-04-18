@@ -475,12 +475,12 @@ app.get("/api/discussion/get", async (req, res) => {
                 if (!field) break;
                 data.push({
                     ID: field.ID,
-                    username: field.昵称,
-                    avatar: field.头像,
-                    title: field.头衔,
+                    username: String(field.昵称),
+                    avatar: String(field.头像),
+                    title: String(field.头衔),
                     titleColor: String(field.头衔色),
                     content: decodeURIComponent(field.内容),
-                    discussionId: field.论坛ID,
+                    discussionId: String(field.论坛ID),
                     createdAt: field.createdAt,
                     updatedAt: field.updatedAt,
                 })
