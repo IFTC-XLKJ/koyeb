@@ -478,7 +478,7 @@ app.get("/api/discussion/get", async (req, res) => {
                     username: field.昵称,
                     avatar: field.头像,
                     title: field.头衔,
-                    titleColor: field.头衔色,
+                    titleColor: String(field.头衔色),
                     content: decodeURIComponent(field.内容),
                     discussionId: field.论坛ID,
                     createdAt: field.createdAt,
