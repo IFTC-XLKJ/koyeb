@@ -27,6 +27,8 @@ window.workspace = Blockly.inject('editor', {
         scaleSpeed: 1.5
     }
 });
+const workspaceSearch = new WorkspaceSearch(workspace);
+workspaceSearch.init();
 console.log('Workspace initialized:', workspace);
 loadBlocks(initBlocks())
 workspace.registerButtonCallback("createVar", function (ws) {
