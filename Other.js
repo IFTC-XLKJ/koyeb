@@ -15,6 +15,17 @@ class Other {
                 res.status(500).send(null);
             }
         });
+        this.app.get("/file/blockly/shadow-block-converter", async (req, res) => {
+            const content = await this.getFile("node_modules/@blockly/shadow-block-converter/dist/index.js");
+            if (content) {
+                res.set({
+                    "Content-Type": "text/javascript",
+                });
+                res.send(content);
+            } else {
+                res.status(500).send(null);
+            }
+        });
         console.log("Other");
     }
     async getFile(path) {
