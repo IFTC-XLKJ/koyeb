@@ -15,6 +15,7 @@ class Other {
                 res.status(500).send(null);
             }
         });
+        console.log("Other");
     }
     async getFile(path) {
         try {
