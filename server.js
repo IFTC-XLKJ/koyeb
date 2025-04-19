@@ -347,10 +347,6 @@ app.all("/api/randomusername", async (req, res) => {
     }
 })
 
-// app.get("/api/discussion/getbyid", async (req, res) => {
-//     requestLog(req);
-// })
-
 app.post("/api/discussion/publish", async (req, res) => {
     requestLog(req);
     if (req.headers["content-type"] != "application/json") {
