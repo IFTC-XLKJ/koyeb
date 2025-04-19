@@ -30,8 +30,13 @@ window.workspace = Blockly.inject('editor', {
 const workspaceSearch = new WorkspaceSearch(workspace);
 workspaceSearch.init();
 addEventListener("keydown", e => {
-    const { key } = e;
-    console.log(e);
+    const { key, ctrlKey, shiftKey } = e;
+    if (ctrlKey && shiftKey && key == "F") {
+        workspaceSearch.open();
+    }
+    if (key == "Escape") {
+        workspaceSearch.close();
+    }
 })
 console.log('Workspace initialized:', workspace);
 loadBlocks(initBlocks())
