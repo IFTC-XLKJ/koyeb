@@ -17,6 +17,7 @@ const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
+const Other = require("./Other.js");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -2077,3 +2078,6 @@ async function randomUsername() {
     const id = (btoa((Math.random() * (10 ** 16)).toString(36))).slice(0, 4);
     return adj + noun + id;
 }
+
+
+new Other(app);
