@@ -71,7 +71,6 @@ class Discussion {
             throw error;
         }
     }
-    // async getbyid(ID) {}
 }
 
 function time() {
