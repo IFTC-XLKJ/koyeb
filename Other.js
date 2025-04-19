@@ -4,7 +4,7 @@ const fs = require("fs").promises;
 class Other {
     constructor(app) {
         this.app = app;
-        this.app.get("/file/blockly/workspace-serach", async (req, res) => {
+        this.app.get("/file/blockly/workspace-search", async (req, res) => {
             const content = await this.getFile("node_modules/@blockly/plugin-workspace-search/dist/index.js");
             if (content) {
                 res.set({
