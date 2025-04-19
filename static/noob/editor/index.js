@@ -37,7 +37,7 @@ addEventListener("keydown", e => {
     if (key == "Escape") {
         workspaceSearch.close();
     }
-})
+});
 console.log('Workspace initialized:', workspace);
 loadBlocks(initBlocks())
 workspace.registerButtonCallback("createVar", function (ws) {
