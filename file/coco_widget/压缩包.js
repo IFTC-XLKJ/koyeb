@@ -2,6 +2,7 @@ var { window, document } = this;
 var { fetch, console } = window;
 
 const METHOD_COLOR = '#1E90FF';
+window.zip_task = {};
 window.importScript = (src, load, error) => {
     const script = document.createElement("script");
     script.src = src;
@@ -9,6 +10,7 @@ window.importScript = (src, load, error) => {
     script.onerror = error;
     document.head.appendChild(script);
 }
+window.genId = () => return (Math.random() * (10 ** 16)).toString(36);
 
 const types = {
     isInvisibleWidget: true,
