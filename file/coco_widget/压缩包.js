@@ -1,4 +1,5 @@
 var { window, document } = this;
+var { fetch, console } = window;
 
 window.importScript = (src, load, error) => {
     const script = document.createElement("script");
@@ -17,7 +18,21 @@ const types = {
     isGlobalWidget: true,
     author: "IFTC",
     properties: [],
-    methods: [],
+    methods: [{
+        key: 'unzip',
+        label: '解压',
+        params: [{
+            key: 'URL',
+            label: 'URL',
+            valueType: 'string',
+            defaultValue: "https://example.com/file.zip",
+            blockOptions: {
+                callMethodLabel: false,
+                color: '#feae8a',
+                line: '坐标'
+            },
+        },],
+    }],
     events: [{
         key: 'scriptLoad',
         label: '资源加载完成',
@@ -34,7 +49,24 @@ class Widget extends InvisibleWidget {
         super(props);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js", () => this.emit("scriptLoad"), e => this.emit("scriptErr") && console.log(e) && this.widgetError(e.message));
     }
-
+    async fetchAndUnzip(url) {
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const arrayBuffer = await response.arrayBuffer();
+            const zip = await JSZip.loadAsync(arrayBuffer);
+            for (const [filename, file] of Object.entries(zip.files)) {
+                if (!file.dir) {
+                    const content = await file.async("string");
+                    console.log(`File: ${filename}, Content: ${content}`);
+                }
+            }
+        } catch (error) {
+            console.error('Error fetching or unzipping the file:', error);
+        }
+    }
 }
 
 exports.types = types;
