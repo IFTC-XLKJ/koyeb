@@ -108,6 +108,25 @@ const types = {
         },
         valueType: 'object',
     }, {
+        key: 'blobToDataURL',
+        label: 'Blob对象装DataURL',
+        params: [{
+            key: 'blob',
+            label: 'Blob对象',
+            valueType: ['string', 'object'],
+            defaultValue: '',
+        }, {
+            key: 'id',
+            label: 'ID',
+            valueType: 'string',
+            defaultValue: 'id',
+        },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        tooltip: '可将获取文件的Blob对象转换成DataURL，如图片的Blob对象转换成DataURL就能使用图片框显示',
+    }, {
         key: 'newZip',
         label: '创建压缩包',
         params: [],
@@ -153,7 +172,7 @@ const types = {
             key: 'dirname',
             label: '文件夹名',
             valueType: 'string',
-            defaultValue: 'file.txt',
+            defaultValue: 'file',
         }],
         blockOptions: {
             callMethodLabel: false,
@@ -184,7 +203,27 @@ const types = {
             label: '错误信息',
             valueType: 'string',
         }],
-    }],
+    }, {
+        key: 'unzipFailure',
+        label: '解压失败',
+        params: [{
+            key: 'msg',
+            label: '错误信息',
+            valueType: 'string',
+        }],
+    }, {
+        key: 'blobToDataURLed',
+        label: 'Blob对象转DataURL完成',
+        params: [{
+            key: 'id',
+            label: 'ID',
+            valueType: 'string',
+        }, {
+            key: 'dataUrl',
+            label: 'DataURL',
+            valueType: 'string',
+        }],
+    },],
 };
 
 class Widget extends InvisibleWidget {
@@ -209,12 +248,6 @@ class Widget extends InvisibleWidget {
             const arrayBuffer = await response.arrayBuffer();
             const zip = await JSZip.loadAsync(arrayBuffer);
             return zip;
-            // for (const [filename, file] of Object.entries(zip.files)) {
-            //     if (!file.dir) {
-            //         const content = await file.async("blob");
-            //         console.log(`File: ${filename}, Content: ${content}`);
-            //     }
-            // }
         } catch (error) {
             console.error('Error fetching or unzipping the file:', error);
             this.widgetError("unzipFailure", error.message);
@@ -250,7 +283,7 @@ class Widget extends InvisibleWidget {
     }
     textToBlob(text) {
         const blob = new Blob([text], { type: 'text/plain' });
-        return;
+        return blob;
     }
     addFile(taskId, filename, content) {
         const zip = window.zip_task[taskId];
@@ -262,6 +295,16 @@ class Widget extends InvisibleWidget {
         const zip = window.zip_task[taskId];
         if (!zip) return null;
         zip.folder(dirname);
+    }
+    blobToDataURL(blob, id) {
+        const reader = new FileReader();
+        const that = this;
+        reader.onloadend = function() {
+            const dataUrl = reader.result;
+            console.log(dataUrl);
+            that.emit("blobToDataURLed", id, dataUrl);
+        };
+        reader.readAsDataURL(blob);
     }
 }
 
