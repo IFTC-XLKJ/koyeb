@@ -3,14 +3,16 @@ var { fetch, console } = window;
 
 const METHOD_COLOR = '#1E90FF';
 window.zip_task = {};
-window.importScript = (src, load, error) => {
+function importScript(src, load, error) {
     const script = document.createElement("script");
     script.src = src;
     script.onload = load;
     script.onerror = error;
     document.head.appendChild(script);
 }
-window.genId = () => (Math.random() * (10 ** 16)).toString(36);
+function genId() {
+    return (Math.random() * (10 ** 17)).toString(36)
+};
 
 const types = {
     isInvisibleWidget: true,
@@ -22,6 +24,24 @@ const types = {
     author: "IFTC",
     properties: [],
     methods: [{
+        key: 'scriptLoaded',
+        label: '资源加载完成',
+        params: [],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        valueType: 'boolean',
+    }, {
+        key: 'zipTask',
+        label: '压缩包任务',
+        params: [],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        valueType: 'object',
+    }, {
         key: 'unzip',
         label: '解压',
         params: [{
@@ -29,6 +49,18 @@ const types = {
             label: 'URL',
             valueType: 'string',
             defaultValue: "https://iftc.koyeb.app/file/coco_widget/test.zip",
+        },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+    }, {
+        key: 'getFiles',
+        label: '获取所有文件',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
         },],
         blockOptions: {
             callMethodLabel: false,
@@ -44,13 +76,37 @@ const types = {
         key: 'scriptErr',
         label: '资源加载失败',
         params: [],
+    }, {
+        key: 'unzipSuccess',
+        label: '解压成功',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+        }],
+    }, {
+        key: 'unzipFailure',
+        label: '解压失败',
+        params: [{
+            key: 'msg',
+            label: '错误信息',
+            valueType: 'string',
+        }],
     }],
 };
 
 class Widget extends InvisibleWidget {
     constructor(props) {
         super(props);
-        importScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js", () => this.emit("scriptLoad"), e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
+        this.scriptLoaded = () => {
+            return false;
+        }
+        importScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js", () => {
+            this.emit("scriptLoad");
+            this.scriptLoaded = () => {
+                return true;
+            };
+        }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     async fetchAndUnzip(url) {
         try {
@@ -60,18 +116,33 @@ class Widget extends InvisibleWidget {
             }
             const arrayBuffer = await response.arrayBuffer();
             const zip = await JSZip.loadAsync(arrayBuffer);
-            for (const [filename, file] of Object.entries(zip.files)) {
-                if (!file.dir) {
-                    const content = await file.async("string");
-                    console.log(`File: ${filename}, Content: ${content}`);
-                }
-            }
+            return zip;
+            // for (const [filename, file] of Object.entries(zip.files)) {
+            //     if (!file.dir) {
+            //         const content = await file.async("blob");
+            //         console.log(`File: ${filename}, Content: ${content}`);
+            //     }
+            // }
         } catch (error) {
             console.error('Error fetching or unzipping the file:', error);
+            this.widgetError("unzipFailure", error.message);
         }
     }
     async unzip(url) {
         const json = await this["fetchAndUnzip"](url);
+        console.log(json);
+        const taskId = genId();
+        window.zip_task[taskId] = json;
+        this.emit("unzipSuccess", taskId);
+    }
+    zipTask() {
+        return window.zip_task;
+    }
+    getFiles(taskId) {
+        const zip = window.zip_task[taskId];
+        if (!zip) return null;
+        const files = Object.keys(zip.files);
+        return files;
     }
 }
 
