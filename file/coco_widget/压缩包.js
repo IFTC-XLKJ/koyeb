@@ -1,6 +1,7 @@
 var { window, document } = this;
 var { fetch, console } = window;
 
+const METHOD_COLOR = '#1E90FF';
 window.importScript = (src, load, error) => {
     const script = document.createElement("script");
     script.src = src;
@@ -26,12 +27,12 @@ const types = {
             label: 'URL',
             valueType: 'string',
             defaultValue: "https://example.com/file.zip",
-            blockOptions: {
-                callMethodLabel: false,
-                color: '#feae8a',
-                line: '坐标'
-            },
         },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        valueType: 'object',
     }],
     events: [{
         key: 'scriptLoad',
