@@ -322,6 +322,7 @@ app.all("/api", (req, res) => {
         apis: apis,
         count: apis.length,
         timestamp: time(),
+        Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" || void 0
     });
 });
 
