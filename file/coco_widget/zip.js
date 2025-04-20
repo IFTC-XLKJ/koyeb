@@ -118,6 +118,47 @@ const types = {
         },
         valueType: 'string',
         tooltip: '返回任务ID'
+    }, {
+        key: 'addFile',
+        label: '添加文件',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+            defaultValue: 'taskId',
+        }, {
+            key: 'filepath',
+            label: '文件名',
+            valueType: 'string',
+            defaultValue: 'file.txt',
+        }, {
+            key: 'content',
+            label: '内容',
+            valueType: ['string', 'object'],
+            defaultValue: '',
+        },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+    }, {
+        key: 'addFolder',
+        label: '添加文件夹',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+            defaultValue: 'taskId',
+        }, {
+            key: 'dirname',
+            label: '文件夹名',
+            valueType: 'string',
+            defaultValue: 'file.txt',
+        }],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
     },],
     events: [{
         key: 'scriptLoad',
@@ -206,6 +247,21 @@ class Widget extends InvisibleWidget {
         const taskId = genId();
         window.zip_task[taskId] = new JSZip();
         return taskId;
+    }
+    textToBlob(text) {
+        const blob = new Blob([text], { type: 'text/plain' });
+        return;
+    }
+    addFile(taskId, filename, content) {
+        const zip = window.zip_task[taskId];
+        if (!zip) return null;
+        if (typeof content == 'string') content = this.textToBlob(content);
+        zip.file(filename, content);
+    }
+    addFolder(taskId, dirname) {
+        const zip = window.zip_task[taskId];
+        if (!zip) return null;
+        zip.folder(dirname);
     }
 }
 
