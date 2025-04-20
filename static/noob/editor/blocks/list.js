@@ -55,7 +55,7 @@ Blockly.Extensions.registerMutator('array_create_mutator', {
             this.removeInput('EMPTY');
         } else if (!this.itemCount_ && !this.getInput('EMPTY')) {
             this.appendDummyInput('EMPTY').appendField(
-                Msg['LISTS_CREATE_EMPTY_TITLE'],
+                Blockly.Msg['LISTS_CREATE_EMPTY_TITLE'],
             );
         }
         for (let i = 0; i < this.itemCount_; i++) {
