@@ -70,6 +70,9 @@ class Widget extends InvisibleWidget {
             console.error('Error fetching or unzipping the file:', error);
         }
     }
+    async unzip(url) {
+        const json = await this.fetchAndUnzip(url);
+    }
 }
 
 exports.types = types;
