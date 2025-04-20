@@ -53,6 +53,7 @@ const types = {
         blockOptions: {
             callMethodLabel: false,
             color: METHOD_COLOR,
+            line: '解压'
         },
     }, {
         key: 'getFiles',
@@ -61,13 +62,63 @@ const types = {
             key: 'taskId',
             label: '任务ID',
             valueType: 'string',
+            defaultValue: 'taskId',
+        },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        valueType: 'array',
+    }, {
+        key: 'getFile',
+        label: '获取文件',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+            defaultValue: 'taskId',
+        }, {
+            key: 'filepath',
+            label: '文件名',
+            valueType: 'string',
+            defaultValue: 'file',
+        }, {
+            key: 'type',
+            label: '读取类型',
+            dropdown: [
+                {
+                    label: '字符串',
+                    value: 'string',
+                },
+                {
+                    label: 'Blob对象',
+                    value: 'blob',
+                },
+                {
+                    label: '无符号8位整数数组',
+                    value: 'uint8array',
+                },
+            ],
+            valueType: 'string',
+            defaultValue: 'string',
         },],
         blockOptions: {
             callMethodLabel: false,
             color: METHOD_COLOR,
         },
         valueType: 'object',
-    }],
+    }, {
+        key: 'newZip',
+        label: '创建压缩包',
+        params: [],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+            line: '压缩',
+        },
+        valueType: 'string',
+        tooltip: '返回任务ID'
+    },],
     events: [{
         key: 'scriptLoad',
         label: '资源加载完成',
@@ -143,6 +194,18 @@ class Widget extends InvisibleWidget {
         if (!zip) return null;
         const files = Object.keys(zip.files);
         return files;
+    }
+    async getFile(taskId, filepath, type) {
+        const zip = window.zip_task[taskId];
+        if (!zip) return null;
+        const file = zip.files[filepath];
+        const content = await file.async(type);
+        return content;
+    }
+    newZip() {
+        const taskId = genId();
+        window.zip_task[taskId] = new JSZip();
+        return taskId;
     }
 }
 
