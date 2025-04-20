@@ -50,7 +50,7 @@ const types = {
 class Widget extends InvisibleWidget {
     constructor(props) {
         super(props);
-        importScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js", () => this.emit("scriptLoad"), e => this.emit("scriptErr") && console.log(e) && this.widgetError(e.message));
+        importScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js", () => this.emit("scriptLoad"), e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     async fetchAndUnzip(url) {
         try {
