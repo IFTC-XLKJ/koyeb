@@ -10,7 +10,7 @@ window.importScript = (src, load, error) => {
     script.onerror = error;
     document.head.appendChild(script);
 }
-window.genId = () => return (Math.random() * (10 ** 16)).toString(36);
+window.genId = () => (Math.random() * (10 ** 16)).toString(36);
 
 const types = {
     isInvisibleWidget: true,
@@ -28,7 +28,7 @@ const types = {
             key: 'URL',
             label: 'URL',
             valueType: 'string',
-            defaultValue: "https://example.com/file.zip",
+            defaultValue: "https://iftc.koyeb.app/file/coco_widget/test.zip",
         },],
         blockOptions: {
             callMethodLabel: false,
@@ -71,7 +71,7 @@ class Widget extends InvisibleWidget {
         }
     }
     async unzip(url) {
-        const json = await this.fetchAndUnzip(url);
+        const json = await this["fetchAndUnzip"](url);
     }
 }
 
