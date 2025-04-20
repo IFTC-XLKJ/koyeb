@@ -108,6 +108,25 @@ const types = {
         },
         valueType: 'object',
     }, {
+        key: 'isDir',
+        label: '是否为目录',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+            defaultValue: 'taskId',
+        }, {
+            key: 'filepath',
+            label: '文件名',
+            valueType: 'string',
+            defaultValue: 'file',
+        },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        valueType: 'boolean',
+    }, {
         key: 'blobToDataURL',
         label: 'Blob对象装DataURL',
         params: [{
@@ -178,6 +197,16 @@ const types = {
             callMethodLabel: false,
             color: METHOD_COLOR,
         },
+    },{
+        key: 'genZip',
+        label: '生成压缩包',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+            defaultValue: 'taskId',
+        },],
+        valueType: 'object'
     },],
     events: [{
         key: 'scriptLoad',
@@ -204,14 +233,6 @@ const types = {
             valueType: 'string',
         }],
     }, {
-        key: 'unzipFailure',
-        label: '解压失败',
-        params: [{
-            key: 'msg',
-            label: '错误信息',
-            valueType: 'string',
-        }],
-    }, {
         key: 'blobToDataURLed',
         label: 'Blob对象转DataURL完成',
         params: [{
@@ -221,6 +242,22 @@ const types = {
         }, {
             key: 'dataUrl',
             label: 'DataURL',
+            valueType: 'string',
+        }],
+    }, {
+        key: 'genSucces',
+        label: '生成成功',
+        params: [{
+            key: 'blob',
+            label: 'Blob',
+            valueType: 'object',
+        }],
+    }, {
+        key: 'genFailure',
+        label: '生成失败',
+        params: [{
+            key: 'msg',
+            label: '错误信息',
             valueType: 'string',
         }],
     },],
@@ -305,6 +342,25 @@ class Widget extends InvisibleWidget {
             that.emit("blobToDataURLed", id, dataUrl);
         };
         reader.readAsDataURL(blob);
+    }
+    isDir(taskId, filename) {
+        const zip = window.zip_task[taskId];
+        if (!zip) return null;
+        const file = zip.files[filename];
+        return file.isDir;
+    }
+    async genZip(taskId) {
+        const zip = window.zip_task[taskId];
+        if (!zip) {
+            this.widgetError("未知的压缩包任务");
+            return null;
+        }
+        try {
+            const content = await zip.generateAsync({type:"blob"});
+            this.emit("genSuccess", content);
+        } catch(e) {
+            this.emit("genFailure", e.message);
+        }
     }
 }
 
