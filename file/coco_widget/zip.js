@@ -206,7 +206,10 @@ const types = {
             valueType: 'string',
             defaultValue: 'taskId',
         },],
-        valueType: 'object'
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
     },],
     events: [{
         key: 'scriptLoad',
@@ -245,7 +248,7 @@ const types = {
             valueType: 'string',
         }],
     }, {
-        key: 'genSucces',
+        key: 'genSuccess',
         label: '生成成功',
         params: [{
             key: 'blob',
