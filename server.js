@@ -582,6 +582,7 @@ app.get('/api/bot/user/login', async (req, res) => {
                 const json = await user.setQQ(ID, qq);
                 if (json.code == 200) {
                     res.send(`QQ绑定成功`);
+                    UUID_db.deleteData(uuid);
                     return;
                 } else {
                     res.send(`QQ绑定出错：${json.msg}`);
