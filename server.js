@@ -557,7 +557,7 @@ app.post("/api/deepseek-v3", async (req, res) => {
     }
 })
 
-app.get('/api/bot/user/login', (req, res) => {
+app.get('/api/bot/user/login', async (req, res) => {
     requestLog(req);
     const {
         uuid
