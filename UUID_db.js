@@ -121,5 +121,6 @@ class UUID_db {
                 });
         });
     }
+    async deleteData(uuid) {}
 }
 module.exports = UUID_db;
