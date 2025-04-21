@@ -563,11 +563,7 @@ app.get('/api/bot/user/login', (req, res) => {
         uuid
     } = req.query;
     if (!uuid) {
-        res.json({
-            code: 400,
-            msg: "缺少uuid参数",
-            timestamp: time()
-        })
+        res.send(`缺少uuid参数`);
         return;
     }
     const UUIDdb = new UUID_db();
