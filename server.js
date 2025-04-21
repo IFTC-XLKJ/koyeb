@@ -380,8 +380,8 @@ app.get("/api/bindqq", async (req, res) => {
                 return;
             }
             const uuid = generateUUID();
-            const json = await UUID_db.addData(uuid, "bot-login", ID, QQ);
-            if (json.code == 200) {
+            const json2 = await UUID_db.addData(uuid, "bot-login", ID, QQ);
+            if (json2.code == 200) {
                 res.json({
                     code: 200,
                     msg: "请求成功",
@@ -390,9 +390,9 @@ app.get("/api/bindqq", async (req, res) => {
                 });
                 return;
             } else {
-                res.status(json.code).json({
-                    code: json.code,
-                    msg: json.msg,
+                res.status(json2.code).json({
+                    code: json2.code,
+                    msg: json2.msg,
                     timestamp: time(),
                 });
                 return;
