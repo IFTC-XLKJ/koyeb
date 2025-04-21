@@ -567,6 +567,7 @@ app.get('/api/bot/user/login', async (req, res) => {
         return;
     }
     const UUID_db = new UUIDdb();
+    const user = new User();
     try {
         const json = await UUID_db.getData();
         if (json.code == 200) {
