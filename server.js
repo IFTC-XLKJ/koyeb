@@ -573,6 +573,13 @@ app.get('/api/bot/user/login', (req, res) => {
     const UUIDdb = new UUID_db();
     try {
         const json = await UUIDdb.getData();
+        if (json.code == 200) {} else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
     } catch(e) {
         res.status(500),json({
             code: 500,
