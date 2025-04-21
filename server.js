@@ -365,6 +365,14 @@ app.get("/api/bindqq", async (req, res) => {
         });
         return;
     }
+    if (isNaN(Number(ID)) && !(Number(ID) == ~~Number(ID)) && Number(ID) < 0) {
+        res.status(400).json({
+            code: 400,
+            msg: "ID必须为大于等于0的整数",
+            timestamp: time(),
+        })
+        return;
+    }
     const user = new User();
     const UUID_db = new UUIDdb();
     try {
