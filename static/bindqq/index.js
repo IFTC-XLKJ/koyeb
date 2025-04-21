@@ -6,5 +6,8 @@ const qq = document.getElementById("qq");
 bindqqForm.addEventListener("submit", async e => {
     e preventDefault();
     globalThis.password = password.value;
-    try {} catch(e) {}
+    try {} catch(e) {
+        alert(`请求绑定QQ出错：${e.message}`);
+        console.log(e);
+    }
 })
