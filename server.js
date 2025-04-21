@@ -362,18 +362,27 @@ app.get("/api/bindqq", async (req, res) => {
             code: 400,
             msg: "缺少ID或password或QQ参数",
             timestamp: time(),
-        })
+        });
         return;
     }
     const user = new User();
     const UUID_db = new UUIDdb();
-    try {} catch(e) {
+    try {
+        const json = await user.login(ID, decodeURIComponent(password));
+        if (json.code == 200) {} else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
+    } catch(e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
             error: e.stack,
             timestamp: time(),
-        })
+        });
     }
 })
 
