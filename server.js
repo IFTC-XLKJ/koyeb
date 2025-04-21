@@ -573,15 +573,18 @@ app.get('/api/bot/user/login', async (req, res) => {
             const data = json.fields[0];
             if (!data) {
                 res.send(`未查询到该UUID`);
+                return;
             }
             if (data.类型 == "bot-login") {} else {
                 res.send(`UUID的操作类型错误`);
             }
         } else {
             res.send(`查询出错：${json.msg}`);
+            return;
         }
     } catch(e) {
         res.send(`服务内部错误：${e.stack}`);
+        return;
     }
 });
 
