@@ -577,6 +577,7 @@ app.get('/api/bot/user/login', async (req, res) => {
             }
             if (data.类型 == "bot-login") {} else {
                 res.send(`UUID的操作类型错误`);
+                return;
             }
         } else {
             res.send(`查询出错：${json.msg}`);
