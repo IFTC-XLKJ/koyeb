@@ -3,7 +3,9 @@ const user = document.getElementById("user");
 const password = document.getElementById("password");
 const qq = document.getElementById("qq");
 
-bindqqForm.addEventListener("submit", async e => {
+bindqqForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    e.preventDefault();
     e.preventDefault();
     try {
         const response = await fetch(`/api/bindqq?ID=${user.value}&QQ=${qq.value)}&password=${encodeURIComponent(password.value)}`);
