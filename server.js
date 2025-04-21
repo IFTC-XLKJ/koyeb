@@ -568,7 +568,9 @@ app.get('/api/bot/user/login', (req, res) => {
             msg: "缺少uuid参数",
             timestamp: time()
         })
+        return;
     }
+    const UUIDdb = new UUID_db();
 });
 
 app.get("/api/bot/user/details", async (req, res) => {
