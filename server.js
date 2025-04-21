@@ -357,7 +357,7 @@ app.get("/api/bindqq", async (req, res) => {
         password,
         QQ
     } = req.query;
-    if (!((ID || ID == 0) || password || QQ)) {
+    if (!((ID || ID == 0) && password && QQ)) {
         res.status(400).json({
             code: 400,
             msg: "缺少ID或password或QQ参数",
