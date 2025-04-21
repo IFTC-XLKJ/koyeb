@@ -379,6 +379,7 @@ app.get("/api/bindqq", async (req, res) => {
                 });
                 return;
             }
+            const json = await UUID_db.addData();
         } else {
             res.status(json.code).json({
                 code: json.code,
