@@ -565,7 +565,7 @@ app.get('/api/bot/user/login', (req, res) => {
     if (!uuid) {
         res.json({
             code: 400,
-            msg: "缺少code参数",
+            msg: "缺少uuid参数",
             timestamp: time()
         })
     }
