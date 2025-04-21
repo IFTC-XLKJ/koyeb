@@ -571,6 +571,14 @@ app.get('/api/bot/user/login', (req, res) => {
         return;
     }
     const UUIDdb = new UUID_db();
+    try {} catch(e) {
+        res.status(500),json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time()
+        })
+    }
 });
 
 app.get("/api/bot/user/details", async (req, res) => {
