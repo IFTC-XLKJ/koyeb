@@ -566,9 +566,9 @@ app.get('/api/bot/user/login', (req, res) => {
         res.send(`缺少uuid参数`);
         return;
     }
-    const UUIDdb = new UUID_db();
+    const UUID_db = new UUIDdb();
     try {
-        const json = await UUIDdb.getData();
+        const json = await UUID_db.getData();
         if (json.code == 200) {
             const data = json.fields[0];
             if (!data) {
