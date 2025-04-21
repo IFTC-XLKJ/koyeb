@@ -350,7 +350,7 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.post("/api/")
+app.post("/api/bindqq", async (req, res) => {})
 
 app.all("/api/randomusername", async (req, res) => {
     requestLog(req);
