@@ -580,7 +580,9 @@ app.get('/api/bot/user/login', async (req, res) => {
                 const ID = data.ID;
                 const qq = data.数据;
                 const json = await user.setQQ(ID, qq);
-                if (json.code == 200) {} else {
+                if (json.code == 200) {
+                    res.send(`QQ绑定成功`);
+                } else {
                     res.send(`QQ绑定出错：${json.msg}`);
                     return;
                 }
