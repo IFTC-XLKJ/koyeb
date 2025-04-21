@@ -370,7 +370,7 @@ app.get("/api/bindqq", async (req, res) => {
             code: 400,
             msg: "ID必须为大于等于0的整数",
             timestamp: time(),
-        })
+        });
         return;
     }
     const user = new User();
