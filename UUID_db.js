@@ -121,6 +121,37 @@ class UUID_db {
                 });
         });
     }
-    async deleteData(uuid) {}
+    async deleteData(uuid) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": UUID_dbKEY,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType,
+                },
+                body: JSON.stringify({
+                    type: "INSERT",
+                    filter: `UUID,类型,ID,数据`,
+                    fields: `("${uuid}","${type}","${id}","${data}")`,
+                    page: 1,
+                    limit: 1,
+                }),
+            })
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+            throw error;
+        }
+    }
 }
 module.exports = UUID_db;
