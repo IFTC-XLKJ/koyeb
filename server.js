@@ -357,6 +357,24 @@ app.get("/api/bindqq", async (req, res) => {
         password,
         QQ
     } = req.query;
+    if (!((ID || ID == 0) || password || QQ)) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少ID或password或QQ参数",
+            timestamp: time(),
+        })
+        return;
+    }
+    const user = new User();
+    const UUID_db = new UUIDdb();
+    try {} catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        })
+    }
 })
 
 app.all("/api/randomusername", async (req, res) => {
