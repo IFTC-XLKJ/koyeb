@@ -135,11 +135,8 @@ class UUID_db {
                     "Content-Type": contentType,
                 },
                 body: JSON.stringify({
-                    type: "INSERT",
-                    filter: `UUID,类型,ID,数据`,
-                    fields: `("${uuid}","${type}","${id}","${data}")`,
-                    page: 1,
-                    limit: 1,
+                    type: "DELETE",
+                    filter: `UUID="${uuid}"`,
                 }),
             })
             if (!response.ok) {
