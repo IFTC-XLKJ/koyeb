@@ -575,7 +575,9 @@ app.get('/api/bot/user/login', async (req, res) => {
                 res.send(`未查询到该UUID`);
                 return;
             }
-            if (data.类型 == "bot-login") {} else {
+            if (data.类型 == "bot-login") {
+                const qq = data.数据;
+            } else {
                 res.send(`UUID的操作类型错误`);
                 return;
             }
