@@ -24,7 +24,8 @@ body {
 }
 
 .bindqq-form input[type="text"],
-.bindqq-form input[type="password"] {
+.bindqq-form input[type="password"],
+.bindqq-form input[type="number"] {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
