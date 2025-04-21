@@ -369,12 +369,23 @@ app.get("/api/bindqq", async (req, res) => {
     const UUID_db = new UUIDdb();
     try {
         const json = await user.login(ID, decodeURIComponent(password));
-        if (json.code == 200) {} else {
+        if (json.code == 200) {
+            const data = json.fields[0];
+            if (!data) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "用户ID或密码错误",
+                    timestamp: time(),
+                });
+                return;
+            }
+        } else {
             res.status(json.code).json({
                 code: json.code,
                 msg: json.msg,
                 timestamp: time(),
             });
+            return;
         }
     } catch(e) {
         res.status(500).json({
@@ -383,6 +394,7 @@ app.get("/api/bindqq", async (req, res) => {
             error: e.stack,
             timestamp: time(),
         });
+        return;
     }
 })
 
