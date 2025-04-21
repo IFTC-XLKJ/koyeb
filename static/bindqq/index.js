@@ -6,4 +6,5 @@ const qq = document.getElementById("qq");
 bindqqForm.addEventListener("submit", async e => {
     e preventDefault();
     globalThis.password = password.value;
+    try {} catch(e) {}
 })
