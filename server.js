@@ -578,11 +578,7 @@ app.get('/api/bot/user/login', (req, res) => {
                 })
             }
         } else {
-            res.status(json.code).json({
-                code: json.code,
-                msg: json.msg,
-                timestamp: time(),
-            })
+            res.send(`查询出错：${json.msg}`);
         }
     } catch(e) {
         res.send(`服务内部错误：${e.stack}`);
