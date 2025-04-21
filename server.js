@@ -580,6 +580,10 @@ app.get('/api/bot/user/login', async (req, res) => {
                 const ID = data.ID;
                 const qq = data.数据;
                 const json = await user.setQQ(ID, qq);
+                if (json.code == 200) {} else {
+                    res.send(`QQ绑定出错：${json.msg}`);
+                    return;
+                }
             } else {
                 res.send(`UUID的操作类型错误`);
                 return;
