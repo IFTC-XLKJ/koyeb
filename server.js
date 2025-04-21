@@ -576,7 +576,10 @@ app.get('/api/bot/user/login', (req, res) => {
         if (json.code == 200) {
             const data = json.fields[0];
             if (!data) {
-                res.status(400).json({})
+                res.status(400).json({
+                    code: 400,
+                    msg: ""
+                })
             }
         } else {
             res.status(json.code).json({
