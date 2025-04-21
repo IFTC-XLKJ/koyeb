@@ -12,6 +12,14 @@ bindqqForm.addEventListener("submit", async e => {
             if (data.code == 200) {
                 const uuid = data.uuid;
                 alert(`请求绑定QQ成功，请加入官群(870350184)，并通过 @VV助手 /登录 ${uuid}`);
+                try {
+                    await navigator.clipboard.writeText(`/登录 ${uuid}`);
+                    console.log('复制成功！');
+                    alert("指令自动复制成功")
+                } catch (err) {
+                    console.error('复制失败：', err);
+                    alert("指令自动复制失败，原因：" + err.message);
+                }
             } else {
                 alert("请求绑定QQ失败，原因：" + data.msg);
             }
