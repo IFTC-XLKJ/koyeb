@@ -471,6 +471,9 @@ class User {
             throw error;
         }
     }
+    async setQQ(ID, QQ) {
+        
+    }
 }
 
 /**
