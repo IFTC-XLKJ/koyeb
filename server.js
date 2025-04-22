@@ -371,7 +371,14 @@ app.get("/api/bookshelf/get", async (req, res) => {
         });
         return;
     }
-    try {} catch(e) {}
+    try {} catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        })
+    }
 });
 
 app.get("/api/bindqq", async (req, res) => {
