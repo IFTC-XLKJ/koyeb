@@ -355,6 +355,15 @@ app.get("/api/bookshelf/get", async (req, res) => {
     const {
         ID
     } = req.query;
+    if (isNaN(Number(ID)) && !(Number(ID) == ~~Number(ID)) && Number(ID) < 0) {
+        res.status(400).json({
+            code: 400,
+            msg: "ID必须为大于等于0的整数",
+            timestamp: time(),
+        });
+        return;
+    }
+    
 });
 
 app.get("/api/bindqq", async (req, res) => {
