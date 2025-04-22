@@ -364,9 +364,17 @@ app.get("/api/bookshelf/get", async (req, res) => {
         return;
     }
     const books = new Books();
-    const page = 
+    const page = Number(page);
+    const num = 10;
     try {
-        const json = await books.getBookshelf()
+        const json = await books.getBookshelf(ID, page, num);
+        if (json.code == 200) {} else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
     } catch(e) {
         res.status(500).json({
             code: 500,
