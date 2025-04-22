@@ -256,7 +256,7 @@ class Books {
             throw error;
         }
     }
-    async getBookshelf(ID) {
+    async getBookshelf(ID, page, num) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -271,7 +271,7 @@ class Books {
                 },
                 body: JSON.stringify({
                     sort: "updatedAt desc",
-                    page: 1,
+                    page: page,
                     limit: num
                 })
             })
