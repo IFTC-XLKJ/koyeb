@@ -352,6 +352,9 @@ app.all("/api", (req, res) => {
 
 app.get("/api/bookshelf/get", async (req, res) => {
     requestLog(req);
+    const {
+        ID
+    } = req.query;
 });
 
 app.get("/api/bindqq", async (req, res) => {
