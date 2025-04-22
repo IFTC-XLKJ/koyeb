@@ -256,6 +256,7 @@ class Books {
             throw error;
         }
     }
+    async getBookshelf() {}
 }
 
 function generateBookID() {
