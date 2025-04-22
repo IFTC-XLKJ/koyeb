@@ -365,10 +365,10 @@ app.get("/api/bookshelf/get", async (req, res) => {
         return;
     }
     const books = new Books();
-    const page = Number(page);
+    const p = Number(page);
     const num = 10;
     try {
-        const json = await books.getBookshelf(ID, page, num);
+        const json = await books.getBookshelf(ID, p, num);
         if (json.code == 200) {
             const fields = json.fields:
             const data = [];
@@ -379,8 +379,10 @@ app.get("/api/bookshelf/get", async (req, res) => {
                 code: 200,
                 msg: "获取成功",
                 data: data,
+                page: p,
+                pageSize: num,
                 timestamp: time(),
-            })
+            });
         } else {
             res.status(json.code).json({
                 code: json.code,
