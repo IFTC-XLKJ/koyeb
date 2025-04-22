@@ -353,25 +353,21 @@ app.all("/api", (req, res) => {
 app.get("/api/bookshelf/get", async (req, res) => {
     requestLog(req);
     const {
-        ID
+        ID,page
     } = req.query;
-    if (!(ID || ID == 0)) {
+    if (!(ID || ID == 0) || !page) {
         res.status(400).json({
             code: 400,
-            msg: "缺少ID参数",
+            msg: "缺少ID或page参数",
             timestamp: time(),
         });
         return;
     }
-    if (isNaN(Number(ID)) && !(Number(ID) == ~~Number(ID)) && Number(ID) < 0) {
-        res.status(400).json({
-            code: 400,
-            msg: "ID必须为大于等于0的整数",
-            timestamp: time(),
-        });
-        return;
-    }
-    try {} catch(e) {
+    const books = new Books();
+    const page = 
+    try {
+        const json = await books.getBookshelf()
+    } catch(e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
