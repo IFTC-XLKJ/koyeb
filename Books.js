@@ -270,6 +270,7 @@ class Books {
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
+                    filter: `ID=${ID}`,
                     sort: "updatedAt desc",
                     page: page,
                     limit: num
