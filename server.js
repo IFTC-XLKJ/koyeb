@@ -353,7 +353,8 @@ app.all("/api", (req, res) => {
 app.get("/api/bookshelf/get", async (req, res) => {
     requestLog(req);
     const {
-        ID,page
+        ID,
+        page
     } = req.query;
     if (!(ID || ID == 0) || !page) {
         res.status(400).json({
