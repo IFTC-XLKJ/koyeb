@@ -371,7 +371,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
         });
         return;
     }
-    
+    try {} catch(e) {}
 });
 
 app.get("/api/bindqq", async (req, res) => {
