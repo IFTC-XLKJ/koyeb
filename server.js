@@ -370,7 +370,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
     try {
         const json = await books.getBookshelf(ID, p, num);
         if (json.code == 200) {
-            const fields = json.fields:
+            const fields = json.fields;
             const data = [];
             fields.forEach(field => {
                 data.push(field.书ID);
