@@ -264,13 +264,13 @@ class Books {
             const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
-                    "X-Pgaot-Key": VVBooksKey,
+                    "X-Pgaot-Key": VVBookshelfKey,
                     "X-Pgaot-Sign": signature,
                     "X-Pgaot-Time": timestamp.toString(),
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
-                    sort: "RAND()",
+                    sort: "updatedAt desc",
                     page: 1,
                     limit: num
                 })
