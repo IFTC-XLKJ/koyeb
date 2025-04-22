@@ -368,7 +368,19 @@ app.get("/api/bookshelf/get", async (req, res) => {
     const num = 10;
     try {
         const json = await books.getBookshelf(ID, page, num);
-        if (json.code == 200) {} else {
+        if (json.code == 200) {
+            const fields = json.fields:
+            const data = [];
+            fields.forEach(field => {
+                data.push(field.书ID);
+            });
+            res.json({
+                code: 200,
+                msg: "获取成功",
+                data: data,
+                timestamp: time(),
+            })
+        } else {
             res.status(json.code).json({
                 code: json.code,
                 msg: json.msg,
