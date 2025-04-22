@@ -355,6 +355,14 @@ app.get("/api/bookshelf/get", async (req, res) => {
     const {
         ID
     } = req.query;
+    if (!(ID || ID == 0)) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少ID参数",
+            timestamp: time(),
+        });
+        return;
+    }
     if (isNaN(Number(ID)) && !(Number(ID) == ~~Number(ID)) && Number(ID) < 0) {
         res.status(400).json({
             code: 400,
