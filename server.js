@@ -369,16 +369,16 @@ app.get("/api/books/get", async (req, res) => {
             const data = [];
             json.fields.forEach(item => {
                 data.push({
-                    ID: field.ID,
-                    bookID: field.书ID,
-                    name: String(field.书名),
-                    author: String(field.作者),
-                    cover: String(field.封面),
-                    description: String(field.介绍),
-                    sign: field.签约 == 1,
-                    VIP: field.VIP == 1,
-                    createdAt: field.createdAt,
-                    updatedAt: field.updatedAt
+                    ID: item.ID,
+                    bookID: item.书ID,
+                    name: String(item.书名),
+                    author: String(item.作者),
+                    cover: String(item.封面),
+                    description: String(item.介绍),
+                    sign: item.签约 == 1,
+                    VIP: item.VIP == 1,
+                    createdAt: item.createdAt,
+                    updatedAt: item.updatedAt
                 });
             });
             res.json({
