@@ -295,6 +295,9 @@ class Books {
     */
     async getBooks(IDs) {
         let filter = "";
+        IDs.forEach((ID, i) => {
+            filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "": " OR "}`;
+        })
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
