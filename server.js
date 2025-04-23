@@ -368,8 +368,23 @@ app.get("/api/books/get", async (req, res) => {
             const data = [];
             json.fields.forEach(item => {
                 data.push({
-                    
-                })
+                    ID: field.ID,
+                    bookID: field.书ID,
+                    name: String(field.书名),
+                    author: String(field.作者),
+                    cover: String(field.封面),
+                    description: String(field.介绍),
+                    sign: field.签约 == 1,
+                    VIP: field.VIP == 1,
+                    createdAt: field.createdAt,
+                    updatedAt: field.updatedAt
+                });
+            });
+            res.json({
+                code: 200,
+                msg: "获取成功",
+                data: data,
+                timestamp: time(),
             })
         } else {
             res.status(json.code).json({
