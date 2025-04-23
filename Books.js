@@ -287,6 +287,7 @@ class Books {
             throw error;
         }
     }
+    async getBooks(IDs) {}
 }
 
 function generateBookID() {
