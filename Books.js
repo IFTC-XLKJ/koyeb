@@ -305,16 +305,15 @@ class Books {
             const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
-                    "X-Pgaot-Key": VVBookshelfKey,
+                    "X-Pgaot-Key": VVBooksKey,
                     "X-Pgaot-Sign": signature,
                     "X-Pgaot-Time": timestamp.toString(),
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
-                    filter: `ID=${ID}`,
-                    sort: "updatedAt desc",
-                    page: page,
-                    limit: num
+                    filter: filter,
+                    page: 1,
+                    limit: IDs.length
                 })
             })
             if (!response.ok) {
