@@ -364,12 +364,19 @@ app.get("/api/books/get", async (req, res) => {
     const books = new Books();
     try {
         const json = await books.getBooks(IDs);
-        if (json.code == 200) {} else {
+        if (json.code == 200) {
+            const data = [];
+            json.fields.forEach(item => {
+                data.push({
+                    
+                })
+            })
+        } else {
             res.status(json.code).json({
                 code: json.code,
                 msg: json.msg,
                 timestamp: time(),
-            })
+            });
         }
     } catch(e) {
         console.log(e)
