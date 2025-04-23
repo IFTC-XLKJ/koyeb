@@ -11,7 +11,9 @@ const contentType = "application/json";
 
 class Books {
     constructor() {}
-
+    /**
+    * @param {String}
+    */
     async search(keyword) {
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
