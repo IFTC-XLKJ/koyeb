@@ -350,6 +350,18 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/books/get", async (req, res) => {
+    requestLog(req);
+    const IDs = (req.query.IDs || "").split(",");
+    if (IDs.length == 0) {
+        res.status(400).json({
+            code: 400,
+            msg: ""
+        })
+        return;
+    }
+});
+
 app.get("/api/bookshelf/get", async (req, res) => {
     requestLog(req);
     const {
