@@ -290,10 +290,41 @@ class Books {
         }
     }
     /**
-     * @param {Array} IDs
-     * @return {Object}
-     */
-    async getBooks(IDs) {}
+    * @param {Array} IDs
+    * @return {Object}
+    */
+    async getBooks(IDs) {
+        let filter = "";
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBookshelfKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: `ID=${ID}`,
+                    sort: "updatedAt desc",
+                    page: page,
+                    limit: num
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
 }
 
 function generateBookID() {
