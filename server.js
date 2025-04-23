@@ -353,6 +353,7 @@ app.all("/api", (req, res) => {
 app.get("/api/books/get", async (req, res) => {
     requestLog(req);
     const IDs = (req.query.IDs || "").split(",");
+    console.log(req.query.IDs)
     if (IDs.length == 0) {
         res.status(400).json({
             code: 400,
