@@ -358,8 +358,20 @@ app.get("/api/books/get", async (req, res) => {
             code: 400,
             msg: "IDs必须至少有一个BID",
             timestamp: time(),
-        })
+        });
         return;
+    }
+    const books = new Books();
+    try {
+        const json = await books.getBooks(IDs);
+    } catch(e) {
+        console.log(e)
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        });
     }
 });
 
