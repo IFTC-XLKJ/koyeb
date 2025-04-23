@@ -354,7 +354,7 @@ app.get("/api/books/get", async (req, res) => {
     requestLog(req);
     const IDs = (req.query.IDs || "").split(",");
     console.log(req.query.IDs, IDs)
-    if (IDs.length == 0) {
+    if (IDs.length == 1 && IDs[0] == "") {
         res.status(400).json({
             code: 400,
             msg: "IDs必须至少有一个BID",
