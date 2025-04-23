@@ -356,7 +356,8 @@ app.get("/api/books/get", async (req, res) => {
     if (IDs.length == 0) {
         res.status(400).json({
             code: 400,
-            msg: ""
+            msg: "IDs必须至少有一个BID",
+            timestamp: time(),
         })
         return;
     }
