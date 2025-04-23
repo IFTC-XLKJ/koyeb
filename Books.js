@@ -289,6 +289,10 @@ class Books {
             throw error;
         }
     }
+    /**
+     * @param {Array} IDs
+     * @return {Object}
+     */
     async getBooks(IDs) {}
 }
 
