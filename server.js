@@ -376,7 +376,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
                 data.push({
                     BID: field.书ID,
                     lastRead: field.updatedAt,
-                    createdAt: fie.createdAt,
+                    createdAt: field.createdAt,
                 });
             });
             res.json({
