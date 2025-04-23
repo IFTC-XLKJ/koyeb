@@ -296,6 +296,7 @@ class Books {
     async getBooks(IDs) {
         let filter = "";
         IDs.forEach((ID, i) => {
+            if (typeof ID != "number") return;
             filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "": " OR "}`;
         })
         const timestamp = Date.now();
