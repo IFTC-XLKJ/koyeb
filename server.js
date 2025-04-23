@@ -373,7 +373,11 @@ app.get("/api/bookshelf/get", async (req, res) => {
             const fields = json.fields;
             const data = [];
             fields.forEach(field => {
-                data.push(field.书ID);
+                data.push({
+                    BID: field.书ID,
+                    lastRead: field.updatedAt,
+                    createdAt: fie.createdAt,
+                });
             });
             res.json({
                 code: 200,
