@@ -334,17 +334,18 @@ class Books {
         const signaturePromise = sign.get(timestamp);
         try {
             const signature = await signaturePromise;
-            const response = await fetch(getDataURL,
+            const response = await fetch(setDataURL,
                 {
                     method: "POST",
                     headers: {
-                        "X-Pgaot-Key": VVBooksKey,
+                        "X-Pgaot-Key": VVBookshelfKey,
                         "X-Pgaot-Sign": signature,
                         "X-Pgaot-Time": timestamp.toString(),
                         "Content-Type": contentType
                     },
                     body: JSON.stringify({
-                        filter: filter,
+                        type: "UPDATE"
+                        filter: `ID=${ID} AND BID=${BID}`,
                         page: 1,
                         limit: IDs.length
                     })
