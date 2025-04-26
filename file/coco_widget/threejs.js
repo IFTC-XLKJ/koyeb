@@ -74,14 +74,14 @@ class Widget extends VisibleWidget {
             return false;
         }
         Object.assign(this, props);
-        this._canvas = null;
+        this._canvas = document.querySelector(`#${this.__widgetId} [iftc-id='threejs-canvas']`);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
             console.log(this.__widgetId, THREE);
             window.Three[this.__widgetId] = {};
             window.Three[this.__widgetId].scene = new THREE.Scene();
             window.Three[this.__widgetId].camera = new THREE.PerspectiveCamera(75, this.__width / this.__height, 0.1, 1000);
             window.Three[this.__widgetId].renderer = new THREE.WebGLRenderer({
-                canvas: document.querySelector(`#${this.__widgetId} [iftc-id='threejs-canvas']`),
+                canvas: this._canvas,
             });
             console.log(window.Three);
             this.emit("scriptLoad");
