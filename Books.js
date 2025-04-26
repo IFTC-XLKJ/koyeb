@@ -345,8 +345,8 @@ class Books {
                     },
                     body: JSON.stringify({
                         type: "UPDATE",
-                        filter: `ID=${ID} AND BID=${BID}`,
-                        fields: `BID=${BID}`,
+                        filter: `ID=${ID} AND 书ID=${BID}`,
+                        fields: `书ID=${BID}`,
                     })
                 })
             if (!response.ok) {
