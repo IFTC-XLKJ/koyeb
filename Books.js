@@ -328,6 +328,7 @@ class Books {
             throw error;
         }
     }
+    async updateBookshelf(ID, BID, time) {}
 }
 
 function generateBookID() {
