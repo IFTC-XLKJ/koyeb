@@ -519,53 +519,34 @@
             const numValues = numPoints * numComponents;
             const byteLength = numValues * attributeType.BYTES_PER_ELEMENT;
             const dataType = getDracoDataType( draco, attributeType );
-
             const ptr = draco._malloc( byteLength );
-
             decoder.GetAttributeDataArrayForAllPoints( dracoGeometry, attribute, dataType, byteLength, ptr );
             const array = new attributeType( draco.HEAPF32.buffer, ptr, numValues ).slice();
-
             draco._free( ptr );
-
             return {
                 name: attributeName,
                 array: array,
                 itemSize: numComponents
             };
-
         }
-
         function getDracoDataType( draco, attributeType ) {
-
             switch ( attributeType ) {
-
                 case Float32Array:
                     return draco.DT_FLOAT32;
-
                 case Int8Array:
                     return draco.DT_INT8;
-
                 case Int16Array:
                     return draco.DT_INT16;
-
                 case Int32Array:
                     return draco.DT_INT32;
-
                 case Uint8Array:
                     return draco.DT_UINT8;
-
                 case Uint16Array:
                     return draco.DT_UINT16;
-
                 case Uint32Array:
                     return draco.DT_UINT32;
-
             }
-
         }
-
     }
-
     THREE.DRACOLoader = DRACOLoader;
-
 } )();
