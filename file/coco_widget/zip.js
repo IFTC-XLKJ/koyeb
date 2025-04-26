@@ -42,6 +42,15 @@ const types = {
         },
         valueType: 'object',
     }, {
+        key: 'zipTaskID',
+        label: '压缩包任务ID',
+        params: [],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+        valueType: 'array',
+    }, {
         key: 'unzip',
         label: '解压',
         params: [{
@@ -387,6 +396,9 @@ class Widget extends InvisibleWidget {
         const zip = window.zip_task[taskId];
         if (!zip) return null;
         zip.remove(filepath);
+    }
+    zipTaskID() {
+        return Object.keys(window.zip_task);
     }
 }
 
