@@ -74,7 +74,7 @@ const types = {
             key: 'url',
             label: 'URL',
             valueType: 'string',
-            defaultValue: "https://iftc.koyeb.app/file/threejs/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
+            defaultValue: "https://iftc.koyeb.app/file/coco_widget/test/LittlestTokyo.glb",
         }, {
             key: 'scale',
             label: '缩放',
