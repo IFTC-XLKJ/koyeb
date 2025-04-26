@@ -1,6 +1,8 @@
 var { window, document } = this;
 var { fetch, console } = window;
 
+import * as THREE from 'three';
+
 const METHOD_COLOR = '#1E90FF';
 const ICONS = [
     "https://iftc.koyeb.app/static/three-favicon.ico",
