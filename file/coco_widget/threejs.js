@@ -65,6 +65,17 @@ const types = {
     methods: [{
         key: "loadModel",
         label: "加载模型",
+        params: [{
+            key: 'url',
+            label: 'URL',
+            valueType: 'string',
+            defaultValue: "https://iftc.koyeb.app/file/threejs/models/gltf/DamagedHelmet/glTF/DamagedHelmet.gltf",
+        }, {
+            key: 'scale',
+            label: '缩放',
+            valueType: 'number',
+            defaultValue: 1,
+        }]
     }],
     events: [],
 };
@@ -96,7 +107,8 @@ class Widget extends VisibleWidget {
                 return true;
             };
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
-        
+        importScript("https://iftc.koyeb.app/file/threejs/addons/loaders/GLTFLoader.js", () => {
+        }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     render() {
         return (<></>);
