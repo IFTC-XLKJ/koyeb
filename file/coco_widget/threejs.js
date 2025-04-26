@@ -69,13 +69,14 @@ const types = {
 class Widget extends VisibleWidget {
     constructor(props) {
         super(props);
-        console.log(this)
         this.scriptLoaded = () => {
             return false;
         }
         Object.assign(this, props);
         this._canvas = document.querySelector(`#${this.__widgetId} [iftc-id='threejs-canvas']`);
+        console.log(document.querySelector(`#${this.__widgetId}`))
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
+            console.log(this)
             console.log(this.__widgetId, THREE);
             window.Three[this.__widgetId] = {};
             window.Three[this.__widgetId].scene = new THREE.Scene();
