@@ -1,8 +1,6 @@
 var { window, document } = this;
 var { fetch, console } = window;
 
-import * as THREE from 'three';
-
 const METHOD_COLOR = '#1E90FF';
 const ICONS = [
     "https://iftc.koyeb.app/static/three-favicon.ico",
@@ -73,6 +71,7 @@ class Widget extends VisibleWidget {
         Object.assign(this, props);
         this._canvas = null;
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
+            console.log(THREE);
             this.emit("scriptLoad");
             this.scriptLoaded = () => {
                 return true;
