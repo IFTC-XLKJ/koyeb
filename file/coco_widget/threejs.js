@@ -60,4 +60,4 @@ const types = {
     ],
     methods: [],
     events: [],
-}
+};
