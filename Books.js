@@ -346,9 +346,7 @@ class Books {
                     body: JSON.stringify({
                         type: "UPDATE"
                         filter: `ID=${ID} AND BID=${BID}`,
-                        page: 1,
-                        limit: IDs.length
-                    })
+                    });
                 })
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
