@@ -23,4 +23,41 @@ const types = {
     author: "IFTC",
     version: "1.0.0",
     isGlobalWidget: false,
+    properties: [
+        {
+            key: '__width',
+            label: '宽度',
+            valueType: 'number',
+            defaultValue: 200,
+            blockOptions: {
+                generateBlock: false,
+            },
+        },
+        {
+            key: '__height',
+            label: '高度',
+            valueType: 'number',
+            defaultValue: 150,
+            blockOptions: {
+                generateBlock: false,
+            },
+        },
+        {
+            key: '__size',
+            label: '',
+            valueType: 'number',
+            defaultValue: 0,
+            readonly: true,
+            blockOptions: {
+                setter: {
+                    keys: ['__height', '__width'],
+                },
+                getter: {
+                    keys: ['__height', '__width'],
+                },
+            },
+        },
+    ],
+    methods: [],
+    events: [],
 }
