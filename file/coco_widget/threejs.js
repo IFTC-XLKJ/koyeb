@@ -61,3 +61,19 @@ const types = {
     methods: [],
     events: [],
 };
+
+class Widget extends VisibleWidget {
+    constructor(props) {
+        super(props);
+        Object.assign(this, props);
+        this._canvas = null;
+    }
+    render() {
+        return (
+            <canvas iftc-id="threejs-canvas"></canvas>
+        );
+    }
+}
+
+exports.types = types;
+exports.widget = Widget;
