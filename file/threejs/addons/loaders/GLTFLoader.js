@@ -1,88 +1,52 @@
 (function () {
-
     class GLTFLoader extends THREE.Loader {
-
         constructor(manager) {
-
             super(manager);
             this.dracoLoader = null;
             this.ktx2Loader = null;
             this.meshoptDecoder = null;
             this.pluginCallbacks = [];
             this.register(function (parser) {
-
                 return new GLTFMaterialsClearcoatExtension(parser);
-
             });
             this.register(function (parser) {
-
                 return new GLTFTextureBasisUExtension(parser);
-
             });
             this.register(function (parser) {
-
                 return new GLTFTextureWebPExtension(parser);
-
             });
             this.register(function (parser) {
-
                 return new GLTFMaterialsTransmissionExtension(parser);
-
             });
             this.register(function (parser) {
-
                 return new GLTFLightsExtension(parser);
-
             });
             this.register(function (parser) {
-
                 return new GLTFMeshoptCompression(parser);
-
             });
-
         }
-
         load(url, onLoad, onProgress, onError) {
-
             const scope = this;
             let resourcePath;
-
             if (this.resourcePath !== '') {
-
                 resourcePath = this.resourcePath;
-
             } else if (this.path !== '') {
-
                 resourcePath = this.path;
-
             } else {
-
                 resourcePath = THREE.LoaderUtils.extractUrlBase(url);
-
             } // Tells the LoadingManager to track an extra item, which resolves after
             // the model is fully loaded. This means the count of items loaded will
             // be incorrect, but ensures manager.onLoad() does not fire early.
-
-
             this.manager.itemStart(url);
-
             const _onError = function (e) {
-
                 if (onError) {
-
                     onError(e);
-
                 } else {
-
                     console.error(e);
-
                 }
-
                 scope.manager.itemError(url);
                 scope.manager.itemEnd(url);
-
             };
-
             const loader = new THREE.FileLoader(this.manager);
             loader.setPath(this.path);
             loader.setResponseType('arraybuffer');
