@@ -350,7 +350,9 @@ app.all("/api", (req, res) => {
     });
 });
 
-app.get("/api/bookshelf/update")
+app.get("/api/bookshelf/update", async (req, res) => {
+    requestLog(req);
+});
 
 app.get("/api/books/get", async (req, res) => {
     requestLog(req);
