@@ -65,6 +65,9 @@ const types = {
 class Widget extends VisibleWidget {
     constructor(props) {
         super(props);
+        this.scriptLoaded = () => {
+            return false;
+        }
         Object.assign(this, props);
         this._canvas = null;
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/0.174.0/three.tsl.js", () => {
