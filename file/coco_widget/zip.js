@@ -270,7 +270,7 @@ const types = {
         label: '生成成功',
         params: [{
             key: 'blob',
-            label: 'Blob',
+            label: 'Blob对象',
             valueType: 'object',
         }],
     }, {
