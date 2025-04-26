@@ -364,6 +364,14 @@ app.get("/api/bookshelf/update", async (req, res) => {
         });
         return;
     }
+    try {} catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        })
+    }
 });
 
 app.get("/api/books/get", async (req, res) => {
