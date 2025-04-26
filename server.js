@@ -230,6 +230,30 @@ app.get("/resetpw", async (req, res) => {
     }
 })
 
+app.get("/bindqq", async (req, res) => {
+    requestLog(req);
+    const params = {};
+    res.set({
+        "Content-Type": "text/html;charset=utf-8",
+    });
+    try {
+        const content = await mixed("pages/bindqq/index.html", params);
+        if (typeof content !== "string") {
+            throw new Error("Invalid content type");
+        }
+        console.log("Content:", content);
+        console.log("Type of content:", typeof content);
+        res.send(content);
+    } catch (e) {
+        console.error(e);
+        res.status(500).json({
+            code: 500,
+            msg: String(e),
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/noob/share/:workId", async (req, res) => {
     const {
         workId
@@ -241,7 +265,7 @@ app.all('/proxy/*', async (req, res) => {
     const url = requestedPath.replace("/proxy/", "");
     try {
         const response = await fetch(url, {
-            method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body, verbose: true
+            method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined: req.body, verbose: true
         });
         const contentType = response.headers.get("content-type");
         if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
@@ -322,11 +346,192 @@ app.all("/api", (req, res) => {
         apis: apis,
         count: apis.length,
         timestamp: time(),
-        Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true : void 0,
+        Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true: void 0,
     });
 });
 
-app.post("/api/")
+app.get("/api/books/get", async (req, res) => {
+    requestLog(req);
+    const IDs = (req.query.IDs || "").split(",");
+    console.log(req.query.IDs, IDs)
+    if (IDs.length == 1 && IDs[0] == "") {
+        res.status(400).json({
+            code: 400,
+            msg: "IDs必须至少有一个BID",
+            timestamp: time(),
+        });
+        return;
+    }
+    const books = new Books();
+    try {
+        const json = await books.getBooks(IDs);
+        if (json.code == 200) {
+            const data = [];
+            json.fields.forEach(item => {
+                data.push({
+                    ID: item.ID,
+                    bookID: item.书ID,
+                    name: String(item.书名),
+                    author: String(item.作者),
+                    cover: String(item.封面),
+                    description: String(item.介绍),
+                    sign: item.签约 == 1,
+                    VIP: item.VIP == 1,
+                    createdAt: item.createdAt,
+                    updatedAt: item.updatedAt
+                });
+            });
+            res.json({
+                code: 200,
+                msg: "获取成功",
+                data: data,
+                timestamp: time(),
+            })
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
+    } catch(e) {
+        console.log(e)
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        });
+    }
+});
+
+app.get("/api/bookshelf/get", async (req, res) => {
+    requestLog(req);
+    const {
+        ID,
+        page
+    } = req.query;
+    if (!(ID || ID == 0) || !page) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少ID或page参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    const books = new Books();
+    const p = Number(page);
+    const num = 10;
+    try {
+        const json = await books.getBookshelf(ID, p, num);
+        if (json.code == 200) {
+            const fields = json.fields;
+            const data = [];
+            fields.forEach(field => {
+                data.push({
+                    BID: field.书ID,
+                    lastRead: field.updatedAt,
+                    createdAt: field.createdAt,
+                });
+            });
+            res.json({
+                code: 200,
+                msg: "获取成功",
+                data: data,
+                page: p,
+                pageSize: num,
+                timestamp: time(),
+            });
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
+    } catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        })
+    }
+});
+
+app.get("/api/bindqq", async (req, res) => {
+    requestLog(req);
+    const {
+        ID,
+        password,
+        QQ
+    } = req.query;
+    if (!((ID || ID == 0) && password && QQ)) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少ID或password或QQ参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    if (isNaN(Number(ID)) && !(Number(ID) == ~~Number(ID)) && Number(ID) < 0) {
+        res.status(400).json({
+            code: 400,
+            msg: "ID必须为大于等于0的整数",
+            timestamp: time(),
+        });
+        return;
+    }
+    const user = new User();
+    const UUID_db = new UUIDdb();
+    try {
+        const json = await user.login(ID, decodeURIComponent(password));
+        if (json.code == 200) {
+            const data = json.fields[0];
+            if (!data) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "用户ID或密码错误",
+                    timestamp: time(),
+                });
+                return;
+            }
+            const uuid = generateUUID();
+            const json2 = await UUID_db.addData(uuid, "bot-login", ID, QQ);
+            if (json2.code == 200) {
+                res.json({
+                    code: 200,
+                    msg: "请求成功",
+                    uuid: uuid,
+                    timestamp: time(),
+                });
+                return;
+            } else {
+                res.status(json2.code).json({
+                    code: json2.code,
+                    msg: json2.msg,
+                    timestamp: time(),
+                });
+                return;
+            }
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+            return;
+        }
+    } catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        });
+        return;
+    }
+})
 
 app.all("/api/randomusername", async (req, res) => {
     requestLog(req);
@@ -516,14 +721,14 @@ app.post("/api/deepseek-v3", async (req, res) => {
     const messages = [{
         role: "system",
         content:
-            `请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
+        `请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
         你的设定的性格是幽默风趣，喜欢开玩笑，喜欢使用表情符号，喜欢使用网络用语，喜欢使用emoji表情。
         请记住你是一个AI助手，你的任务是帮助用户解决问题。
         请使用中文回答问题，除非用户要求使用英文。
         请使用简体中文回答问题，除非用户要求使用繁体中文。
         `
     },
-    ...req.body.messages || []
+        ...req.body.messages || []
     ];
     console.log(messages);
     try {
@@ -557,17 +762,48 @@ app.post("/api/deepseek-v3", async (req, res) => {
     }
 })
 
-app.get('/api/bot/user/login', (req, res) => {
+app.get('/api/bot/user/login', async (req, res) => {
     requestLog(req);
     const {
-        code
+        uuid
     } = req.query;
-    if (!code) {
-        res.json({
-            code: 400,
-            msg: "缺少code参数",
-            timestamp: time()
-        })
+    if (!uuid) {
+        res.send(`缺少uuid参数`);
+        return;
+    }
+    const UUID_db = new UUIDdb();
+    const user = new User();
+    try {
+        const json = await UUID_db.getData(uuid);
+        if (json.code == 200) {
+            const data = json.fields[0];
+            if (!data) {
+                res.send(`未查询到该UUID`);
+                return;
+            }
+            if (data.类型 == "bot-login") {
+                const ID = data.ID;
+                const qq = data.数据;
+                const json = await user.setQQ(ID, qq);
+                if (json.code == 200) {
+                    res.send(`QQ绑定成功`);
+                    UUID_db.deleteData(uuid);
+                    return;
+                } else {
+                    res.send(`QQ绑定出错：${json.msg}`);
+                    return;
+                }
+            } else {
+                res.send(`UUID的操作类型错误`);
+                return;
+            }
+        } else {
+            res.send(`查询出错：${json.msg}`);
+            return;
+        }
+    } catch(e) {
+        res.send(`服务内部错误：${e.stack}`);
+        return;
     }
 });
 
@@ -601,7 +837,7 @@ app.get("/api/bot/user/details", async (req, res) => {
                 const email_domain = data.邮箱.split('@')[1] || '未知';
                 res.json({
                     code: 200,
-                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知' : '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是' : '否'}\n管理员：${data.管理员 == 1 ? '是' : '否'}\n冻结：${data.封号 == 1 ? '是' : '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
+                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知': '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是': '否'}\n管理员：${data.管理员 == 1 ? '是': '否'}\n冻结：${data.封号 == 1 ? '是': '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
                     avatar: data.头像,
                     timestamp: time(),
                 });
@@ -1091,7 +1327,7 @@ app.get("/api/user/search", async (req, res) => {
             res.json({
                 code: 200,
                 msg: "请求成功",
-                keyword: !!keyword ? decodeURIComponent(keyword) : null,
+                keyword: !!keyword ? decodeURIComponent(keyword): null,
                 data: data,
                 count: data.length,
                 timestamp: time(),
@@ -1374,7 +1610,7 @@ app.get("/api/book/search", async (req, res) => {
     } = req.query;
     const books = new Books();
     try {
-        const json = await books.search(decodeURIComponent(keyword ? keyword : ""));
+        const json = await books.search(decodeURIComponent(keyword ? keyword: ""));
         if (json.code == 200) {
             const data = []
             json.fields.forEach(field => {
@@ -1724,7 +1960,7 @@ app.get("/api/user/register", async (req, res) => {
     if (nickname && email && password) {
         const user = new User();
         try {
-            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
+            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar): "https://iftc.koyeb.app/static/avatar.png");
             if (json.code == 200) {
                 res.json({
                     code: 200,
@@ -1895,7 +2131,7 @@ app.get('/api/qrcode', async (req, res) => {
     }
     try {
         if (type == "svg") {
-            const qrcode = new QRCodeSvg({
+            const qrcode = new QRCodeSvg( {
                 content: data,
                 color: {
                     dark: '#000000',
@@ -1916,7 +2152,7 @@ app.get('/api/qrcode', async (req, res) => {
                 },
                 errorCorrectionLevel: 'H',
             });
-            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
+            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml': 'image/png');
             res.setHeader('Content-Length', qrBuffer.length);
             res.send(qrBuffer);
         }
@@ -1946,7 +2182,7 @@ function generateUUID() {
         function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            return (c === 'x' ? r: (r & 0x3 | 0x8)).toString(16);
         });
     return uuid;
 }
@@ -1964,9 +2200,9 @@ function formatDuration(milliseconds) {
     let h = Math.floor(milliseconds / (1000 * 60 * 60));
     return `${String(h).padStart(2,
         '0')}时${String(m).padStart(2,
-            '0')}分${String(s).padStart(2,
-                '0')}秒${String(ms).padStart(3,
-                    '0')}毫秒`;
+        '0')}分${String(s).padStart(2,
+        '0')}秒${String(ms).padStart(3,
+        '0')}毫秒`;
 }
 
 async function mixed(filepath, params) {
@@ -2040,7 +2276,7 @@ async function getRequestCount() {
     const resp = await fetch(url);
     const json = await resp.json();
     const count = json['iftc.koyeb.app'];
-    return count == 'null' ? 0 : Number(count);
+    return count == 'null' ? 0: Number(count);
 }
 
 function timestampToDate(timestamp) {

@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #caebff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.bindqq-form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    text-align: center;
+}
+
+.bindqq-form h2 {
+    color: #43b7ff;
+    margin-bottom: 20px;
+}
+
+.bindqq-form input[type="text"],
+.bindqq-form input[type="password"],
+.bindqq-form input[type="number"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #caebff;
+    border-radius: 4px;
+}
+
+.bindqq-form button,
+input[type="submit"] {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    background-color: #43b7ff;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.bindqq-form button:hover {
+    background-color: #16a4fd;
+}
+
+.bindqq-form .button-group {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bindqq-form .button-group button,
+input[type="sumbit"] {
+    width: auto;
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: #43b7ff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.bindqq-form .button-group button:hover,
+input[type="sumbit"]:hover {
+    background-color: #16a4fd;
+}
+
+input,
+button {
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0 0 5px #43b7ff;
+}

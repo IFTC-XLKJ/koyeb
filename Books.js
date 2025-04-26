@@ -4,13 +4,16 @@ const sign = new Sign();
 
 const VVBooksKey = "LkduYVIN+ZXEbj7I08kftBnkN25M8c/Lk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOjde4PvOKPIgi4zSawQ3bPn9Q881jaCLyWeXITCxSdPFrNdG9sIVZTuo15DuJZVFC0=";
 const VVChaptersKey = "LkduYVIN+ZU7HRQmxLWhqnKzMchYy67Wk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOiH89YaJEeMQLX8zy7eaUFC++TXSbBeR/IVOztIj8bZzSLmnuMRvy5Po15DuJZVFC0=";
+const VVBookshelfKey = "LkduYVIN+ZVaaiEkRwRMONFKsAEwHhRTk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOirXRP4ihiq7tcEwKL9QWLikK7VdhZMN7kgfOP0kEhNXW33vIxCMpVoo15DuJZVFC0="
 const getDataURL = "https://api.pgaot.com/dbs/cloud/get_table_data";
 const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Books {
-    constructor() { }
-
+    constructor() {}
+    /**
+    * @param {String}
+    */
     async search(keyword) {
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
@@ -242,6 +245,76 @@ class Books {
                     sort: "RAND()",
                     page: 1,
                     limit: num
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
+    async getBookshelf(ID, page, num) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBookshelfKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: `ID=${ID}`,
+                    sort: "updatedAt desc",
+                    page: page,
+                    limit: num
+                })
+            })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
+    /**
+    * @param {Array} IDs
+    * @return {Object}
+    */
+    async getBooks(IDs) {
+        let filter = "";
+        IDs.forEach((ID, i) => {
+            if (isNaN(Number(ID)) || ID.trim() == "") return;
+            filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "": " OR "}`;
+        })
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBooksKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: filter,
+                    page: 1,
+                    limit: IDs.length
                 })
             })
             if (!response.ok) {
