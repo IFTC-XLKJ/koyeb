@@ -95,8 +95,9 @@ class Widget extends VisibleWidget {
         const add = setInterval(() => {
             this.__widget = document.querySelector(`#${this.__widgetId}`)
             if (this.__widget) {
-                this.__widget.appendChild(this._canvas);
                 clearInterval(add);
+                if (this.__widget.querySelector("[iftc-id='threejs-canvas']")) return;
+                this.__widget.appendChild(this._canvas);
             }
         }, 100);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
