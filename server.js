@@ -356,6 +356,14 @@ app.get("/api/bookshelf/update", async (req, res) => {
         ID,
         BID
     } = req.query;
+    if (!(ID && BID)) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少ID或BID参数",
+            timestamp: time(),
+        });
+        return;
+    }
 });
 
 app.get("/api/books/get", async (req, res) => {
