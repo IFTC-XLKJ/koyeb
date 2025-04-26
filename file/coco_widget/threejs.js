@@ -28,7 +28,7 @@ const types = {
             key: '__width',
             label: '宽度',
             valueType: 'number',
-            defaultValue: 200,
+            defaultValue: 360,
             blockOptions: {
                 generateBlock: false,
             },
@@ -37,7 +37,7 @@ const types = {
             key: '__height',
             label: '高度',
             valueType: 'number',
-            defaultValue: 150,
+            defaultValue: 640,
             blockOptions: {
                 generateBlock: false,
             },
