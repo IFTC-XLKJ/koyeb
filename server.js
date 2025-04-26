@@ -367,8 +367,14 @@ app.get("/api/bookshelf/update", async (req, res) => {
     const books = new Books();
     try {
         const json = await books.updateBookshelf(ID, BID, time());
-        if (json.code == 200) {} else {
-            res.status(json.code),json({
+        if (json.code == 200) {
+            res.json({
+                code: 200,
+                msg: "更新成功",
+                timestamp: time(),
+            })
+        } else {
+            res.status(json.code).json({
                 code: json.code,
                 msg: json.msg,
                 timestamp: time(),
