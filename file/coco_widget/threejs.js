@@ -83,6 +83,7 @@ class Widget extends VisibleWidget {
             window.Three[this.__widgetId].renderer = new THREE.WebGLRenderer({
                 canvas: document.querySelector(`#${this.__widgetId} [iftc-id='threejs-canvas']`),
             });
+            console.log(window.Three);
             this.emit("scriptLoad");
             this.scriptLoaded = () => {
                 return true;
