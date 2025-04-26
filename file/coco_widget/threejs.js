@@ -83,6 +83,7 @@ const types = {
 class Widget extends VisibleWidget {
     constructor(props) {
         super(props);
+        this.loadSourceNames = [];
         this.scriptLoaded = () => {
             return false;
         }
@@ -101,6 +102,7 @@ class Widget extends VisibleWidget {
             }
         }, 100);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
+            this.loadSourceCount.push("THREE");
             console.log(this)
             console.log(this.__widgetId, THREE);
             window.Three[this.__widgetId] = {};
@@ -117,7 +119,11 @@ class Widget extends VisibleWidget {
             };
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
         importScript("https://iftc.koyeb.app/file/threejs/addons/loaders/GLTFLoader.js", () => {
+            this.loadSourceCount.push("GLTFLoader");
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
+    }
+    getLoadSourceNames() {
+        return this.loadSourceNames;
     }
     render() {
         return (<></>);
