@@ -126,6 +126,9 @@ class Widget extends VisibleWidget {
         importScript("https://iftc.koyeb.app/file/threejs/addons/loaders/GLTFLoader.js", () => {
             this.loadSourceNames.push("GLTFLoader");
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
+        importScript("https://iftc.koyeb.app/file/threejs/addons/loaders/DRACOLoader.js", () => {
+            this.loadSourceNames.push("DRACOLoader");
+        }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     getLoadSourceNames() {
         return this.loadSourceNames;
@@ -154,12 +157,7 @@ class Widget extends VisibleWidget {
             loader.setDRACOLoader(dracoLoader);
             loader.load(url,
                 (gltf) => {
-                    const model = gltf.scene;
-                    model.scale.set(scale, scale, scale);
-                    window.Three[this.__widgetId].scene.add(model);
-                    window.Three[this.__widgetId].renderer.setSize(this.__width, this.__height);
-                    window.Three[this.__widgetId].renderer.render(window.Three[this.__widgetId].scene, window.Three[this.__widgetId].camera);
-                    resolve(model);
+                    window.Three[this.__widget].scene.add(gltf.scene);
                 },
                 (xhr) => {
                     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
