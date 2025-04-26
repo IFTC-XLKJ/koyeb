@@ -76,6 +76,9 @@ class Widget extends VisibleWidget {
         this._canvas = null;
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
             console.log(THREE);
+            window.THREE[this.widgetId] = {};
+            window.THREE[this.widgetId].scene = new THREE.Scene();
+            window.THREE[this.widgetId].camera = new THREE.PerspectiveCamera(75, this.__width / this.__height, 0.1, 1000);
             this.emit("scriptLoad");
             this.scriptLoaded = () => {
                 return true;
