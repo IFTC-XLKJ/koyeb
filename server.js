@@ -370,7 +370,7 @@ app.get("/api/bookshelf/update", async (req, res) => {
             msg: "服务内部错误",
             error: e.stack,
             timestamp: time(),
-        })
+        });
     }
 });
 
