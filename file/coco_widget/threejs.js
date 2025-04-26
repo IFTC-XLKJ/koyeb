@@ -79,7 +79,10 @@ class Widget extends VisibleWidget {
     }
     render() {
         return (
-            <canvas iftc-id="threejs-canvas"></canvas>
+            <canvas iftc-id="threejs-canvas" style={{
+                width: this.__width + "px",
+                height: this.__height + "px",
+            }}></canvas>
         );
     }
 }
