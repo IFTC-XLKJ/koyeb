@@ -344,7 +344,7 @@ class Books {
                         "Content-Type": contentType
                     },
                     body: JSON.stringify({
-                        type: "UPDATE"
+                        type: "UPDATE",
                         filter: `ID=${ID} AND BID=${BID}`,
                         fields: ``,
                     })
