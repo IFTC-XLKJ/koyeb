@@ -364,7 +364,9 @@ app.get("/api/bookshelf/update", async (req, res) => {
         });
         return;
     }
-    try {} catch(e) {
+    try {
+        const json = await bookshelf.update(ID, BID, time());
+    } catch(e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
