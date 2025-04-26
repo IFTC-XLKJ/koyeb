@@ -147,7 +147,11 @@ class Widget extends VisibleWidget {
             if (!window.Three[this.__widgetId].renderer) {
                 return reject("THREE renderer not loaded");
             }
+            const dracoLoader = new THREE.DRACOLoader();
+            dracoLoader.setDecoderPath('/draco/');
+            dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
             const loader = new THREE.GLTFLoader();
+            loader.setDRACOLoader(dracoLoader);
             loader.load(url,
                 (gltf) => {
                     const model = gltf.scene;
