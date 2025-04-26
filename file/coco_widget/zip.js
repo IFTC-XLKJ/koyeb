@@ -197,7 +197,25 @@ const types = {
             callMethodLabel: false,
             color: METHOD_COLOR,
         },
-    },{
+    }, {
+        key: 'removeFileOrFolder',
+        label: '移除文件或文件夹',
+        params: [{
+            key: 'taskId',
+            label: '任务ID',
+            valueType: 'string',
+            defaultValue: 'taskId',
+        }, {
+            key: 'filepath',
+            label: '文件或文件夹名',
+            valueType: 'string',
+            defaultValue: 'file.txt',
+        },],
+        blockOptions: {
+            callMethodLabel: false,
+            color: METHOD_COLOR,
+        },
+    }, {
         key: 'genZip',
         label: '生成压缩包',
         params: [{
@@ -364,6 +382,11 @@ class Widget extends InvisibleWidget {
         } catch(e) {
             this.emit("genFailure", e.message);
         }
+    }
+    removeFileOrFolder(taskId, filepath) {
+        const zip = window.zip_task[taskId];
+        if (!zip) return null;
+        zip.remove(filepath);
     }
 }
 
