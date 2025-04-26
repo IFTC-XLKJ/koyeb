@@ -367,6 +367,13 @@ app.get("/api/bookshelf/update", async (req, res) => {
     const books = new Books();
     try {
         const json = await books.updateBookshelf(ID, BID, time());
+        if (json.code == 200) {} else {
+            res.status(json.code),json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
     } catch(e) {
         res.status(500).json({
             code: 500,
