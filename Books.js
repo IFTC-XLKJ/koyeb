@@ -345,7 +345,7 @@ class Books {
                     },
                     body: JSON.stringify({
                         type: "UPDATE",
-                        filter: `ID=${ID} AND BID="${BID}"`,
+                        filter: `ID=${ID} AND BID=${BID}`,
                         fields: ``,
                     })
                 })
