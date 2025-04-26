@@ -109,6 +109,7 @@ class Widget extends VisibleWidget {
             window.Three[this.__widgetId].renderer = new THREE.WebGLRenderer({
                 canvas: this._canvas,
             });
+            window.Three[this.__widgetId].camera.position.set(0, 1, 2);
             console.log(window.Three);
             this.emit("scriptLoad");
             this.scriptLoaded = () => {
