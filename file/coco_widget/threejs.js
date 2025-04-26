@@ -87,12 +87,18 @@ class Widget extends VisibleWidget {
             return false;
         }
         Object.assign(this, props);
-        this.__widget = document.querySelector(`#${this.__widgetId}`)
         this._canvas = document.createElement("canvas");
         this._canvas.setAttribute("iftc-id", "threejs-canvas");
         this._canvas.style.width = this.__width + "px";
         this._canvas.style.height = this.__height + "px";
-        this.__widget.appendChild(this._canvas);
+        console.log(this.__widgetId, this.__widget)
+        const add = setInterval(() => {
+            this.__widget = document.querySelector(`#${this.__widgetId}`)
+            if (this.__widget) {
+                this.__widget.appendChild(this._canvas);
+                clearInterval(add);
+            }
+        }, 100);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
             console.log(this)
             console.log(this.__widgetId, THREE);
