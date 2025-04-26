@@ -67,6 +67,12 @@ class Widget extends VisibleWidget {
         super(props);
         Object.assign(this, props);
         this._canvas = null;
+        importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/0.174.0/three.tsl.js", () => {
+            this.emit("scriptLoad");
+            this.scriptLoaded = () => {
+                return true;
+            };
+        }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     render() {
         return (
