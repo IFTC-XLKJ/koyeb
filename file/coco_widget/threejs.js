@@ -62,7 +62,10 @@ const types = {
             },
         },
     ],
-    methods: [],
+    methods: [{
+        key: "loadModel",
+        label: "加载模型",
+    }],
     events: [],
 };
 
@@ -93,6 +96,7 @@ class Widget extends VisibleWidget {
                 return true;
             };
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
+        
     }
     render() {
         return (<></>);
