@@ -1,6 +1,10 @@
 var { window, document } = this;
 var { fetch, console } = window;
 
+if (!window.Three) {
+    window.Three = {};
+}
+
 const METHOD_COLOR = '#1E90FF';
 const ICONS = [
     "https://iftc.koyeb.app/static/three-favicon.ico",
