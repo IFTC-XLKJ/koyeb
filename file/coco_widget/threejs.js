@@ -92,6 +92,7 @@ class Widget extends VisibleWidget {
         this._canvas.setAttribute("iftc-id", "threejs-canvas");
         this._canvas.style.width = this.__width + "px";
         this._canvas.style.height = this.__height + "px";
+        this.__widget.appendChild(this._canvas);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
             console.log(this)
             console.log(this.__widgetId, THREE);
