@@ -63,6 +63,11 @@ const types = {
         },
     ],
     methods: [{
+        key: "getLoadSourceNames",
+        label: "获取加载的资源",
+        params: [],
+        valueType: "array",
+    }, {
         key: "loadModel",
         label: "加载模型",
         params: [{
