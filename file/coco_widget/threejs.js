@@ -107,7 +107,7 @@ class Widget extends VisibleWidget {
             }
         }, 100);
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
-            this.loadSourceCount.push("THREE");
+            this.loadSourceNames.push("THREE");
             console.log(this)
             console.log(this.__widgetId, THREE);
             window.Three[this.__widgetId] = {};
@@ -124,7 +124,7 @@ class Widget extends VisibleWidget {
             };
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
         importScript("https://iftc.koyeb.app/file/threejs/addons/loaders/GLTFLoader.js", () => {
-            this.loadSourceCount.push("GLTFLoader");
+            this.loadSourceNames.push("GLTFLoader");
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     getLoadSourceNames() {
