@@ -303,20 +303,21 @@ class Books {
         const signaturePromise = sign.get(timestamp);
         try {
             const signature = await signaturePromise;
-            const response = await fetch(getDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBooksKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    filter: filter,
-                    page: 1,
-                    limit: IDs.length
+            const response = await fetch(getDataURL,
+                {
+                    method: "POST",
+                    headers: {
+                        "X-Pgaot-Key": VVBooksKey,
+                        "X-Pgaot-Sign": signature,
+                        "X-Pgaot-Time": timestamp.toString(),
+                        "Content-Type": contentType
+                    },
+                    body: JSON.stringify({
+                        filter: filter,
+                        page: 1,
+                        limit: IDs.length
+                    })
                 })
-            })
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
@@ -328,7 +329,37 @@ class Books {
             throw error;
         }
     }
-    async updateBookshelf(ID, BID, time) {}
+    async updateBookshelf(ID, BID, time) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL,
+                {
+                    method: "POST",
+                    headers: {
+                        "X-Pgaot-Key": VVBooksKey,
+                        "X-Pgaot-Sign": signature,
+                        "X-Pgaot-Time": timestamp.toString(),
+                        "Content-Type": contentType
+                    },
+                    body: JSON.stringify({
+                        filter: filter,
+                        page: 1,
+                        limit: IDs.length
+                    })
+                })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
 }
 
 function generateBookID() {
