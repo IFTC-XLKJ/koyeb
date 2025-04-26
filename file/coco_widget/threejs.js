@@ -15,8 +15,12 @@ function importScript(src, load, error) {
 }
 
 const types = {
-    isInvisibleWidget: true,
+    isInvisibleWidget: false,
     type: "THREEJS",
-    icon: "https://cdn.jsdelivr.net/gh/IFTC/IFTC@latest/static/noob/editor/blocks/icons/threejs.svg",
+    icon: ICONS[0],
+    title: "ThreeJS",
+    varsion: "1.0.0",
     author: "IFTC",
+    version: "1.0.0",
+    isGlobalWidget: false,
 }
