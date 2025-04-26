@@ -53,48 +53,28 @@
             loader.setRequestHeader(this.requestHeader);
             loader.setWithCredentials(this.withCredentials);
             loader.load(url, function (data) {
-
                 try {
-
                     scope.parse(data, resourcePath, function (gltf) {
-
                         onLoad(gltf);
                         scope.manager.itemEnd(url);
-
                     }, _onError);
-
                 } catch (e) {
-
                     _onError(e);
-
                 }
-
             }, onProgress, _onError);
-
         }
-
         setDRACOLoader(dracoLoader) {
-
             this.dracoLoader = dracoLoader;
             return this;
-
         }
-
         setDDSLoader() {
-
             throw new Error('THREE.GLTFLoader: "MSFT_texture_dds" no longer supported. Please update to "KHR_texture_basisu".');
-
         }
-
         setKTX2Loader(ktx2Loader) {
-
             this.ktx2Loader = ktx2Loader;
             return this;
-
         }
-
         setMeshoptDecoder(meshoptDecoder) {
-
             this.meshoptDecoder = meshoptDecoder;
             return this;
 
