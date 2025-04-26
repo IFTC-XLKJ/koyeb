@@ -69,6 +69,7 @@ const types = {
 class Widget extends VisibleWidget {
     constructor(props) {
         super(props);
+        console.log(this)
         this.scriptLoaded = () => {
             return false;
         }
