@@ -347,7 +347,7 @@ class Books {
                         type: "UPDATE"
                         filter: `ID=${ID} AND BID=${BID}`,
                         fields: ``,
-                    });
+                    })
                 })
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
