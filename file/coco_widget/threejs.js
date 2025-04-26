@@ -130,6 +130,27 @@ class Widget extends VisibleWidget {
     getLoadSourceNames() {
         return this.loadSourceNames;
     }
+    loadModel(url, scale) {
+        return new Promise((resolve, reject) => {
+            if (!this.scriptLoaded()) {
+                return reject("script not loaded");
+            }
+            if (!window.Three[this.__widgetId]) {
+                return reject("THREE not loaded");
+            }
+            if (!window.Three[this.__widgetId].scene) {
+                return reject("THREE scene not loaded");
+            }
+            if (!window.Three[this.__widgetId].camera) {
+                return reject("THREE camera not loaded");
+            }
+            if (!window.Three[this.__widgetId].renderer) {
+                return reject("THREE renderer not loaded");
+            }
+            const loader = new THREE.GLTFLoader();
+            loader.load(url, reject);
+        })
+    }
     render() {
         return (<></>);
     }
