@@ -350,6 +350,8 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/bookshelf/update")
+
 app.get("/api/books/get", async (req, res) => {
     requestLog(req);
     const IDs = (req.query.IDs || "").split(",");
