@@ -73,8 +73,11 @@ class Widget extends VisibleWidget {
             return false;
         }
         Object.assign(this, props);
-        this._canvas = document.querySelector(`#${this.__widgetId} [iftc-id='threejs-canvas']`);
-        console.log(document.querySelector(`#${this.__widgetId}`))
+        this.__widget = document.querySelector(`#${this.__widgetId}`)
+        this._canvas = document.createElement("canvas");
+        this._canvas.setAttribute("iftc-id", "threejs-canvas");
+        this._canvas.style.width = this.__width + "px";
+        this._canvas.style.height = this.__height + "px";
         importScript("https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js", () => {
             console.log(this)
             console.log(this.__widgetId, THREE);
@@ -92,12 +95,7 @@ class Widget extends VisibleWidget {
         }, e => this.emit("scriptErr") || console.log(e) || this.widgetError(e.message));
     }
     render() {
-        return (
-            <canvas iftc-id="threejs-canvas" style={{
-                width: this.__width + "px",
-                height: this.__height + "px",
-            }}></canvas>
-        );
+        return (<></>);
     }
 }
 
