@@ -153,7 +153,7 @@ class Widget extends VisibleWidget {
             const loader = new THREE.GLTFLoader();
             loader.setDRACOLoader(dracoLoader);
             loader.load(url,
-                (gltf) => {
+                gltf => {
                     const model = gltf.scene;
                     model.scale.set(scale, scale, scale);
                     window.Three[this.__widgetId].scene.add(model);
@@ -161,10 +161,10 @@ class Widget extends VisibleWidget {
                     window.Three[this.__widgetId].renderer.render(window.Three[this.__widgetId].scene, window.Three[this.__widgetId].camera);
                     resolve(model);
                 },
-                (xhr) => {
+                xhr => {
                     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
                 },
-                (error) => {
+                error => {
                     console.log('An error happened', error);
                     reject(error.message)
                 }
