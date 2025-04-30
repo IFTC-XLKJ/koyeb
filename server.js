@@ -350,6 +350,46 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/bookshelf/update", async (req, res) => {
+    requestLog(req);
+    const {
+        ID,
+        BID
+    } = req.query;
+    if (!(ID && BID)) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少ID或BID参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    const books = new Books();
+    try {
+        const json = await books.updateBookshelf(ID, BID, time());
+        if (json.code == 200) {
+            res.json({
+                code: 200,
+                msg: "更新成功",
+                timestamp: time(),
+            })
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
+    } catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.stack,
+            timestamp: time(),
+        });
+    }
+});
+
 app.get("/api/books/get", async (req, res) => {
     requestLog(req);
     const IDs = (req.query.IDs || "").split(",");
