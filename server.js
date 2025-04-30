@@ -350,6 +350,53 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/morse", async (req, res) => {
+    requestLog(req);
+    const {
+        text,
+        type
+    } = req.query;
+    if (!type || !text) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少text或type参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    try {
+        const xmorse = require("xmorse");
+        if (type == "encode") {
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: xmorse.encode(text),
+                timestamp: time(),
+            });
+        } else if (type == "decode") {
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: xmorse.decode(text),
+                timestamp: time(),
+            });
+        } else {
+            res.status(400).json({
+                code: 400,
+                msg: "type参数错误",
+                timestamp: time(),
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务器错误",
+            error: error.message,
+            timestamp: time(),
+        });
+    }
+});
+
 app.get("/api/bookshelf/update", async (req, res) => {
     requestLog(req);
     const {
