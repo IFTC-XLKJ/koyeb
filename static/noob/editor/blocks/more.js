@@ -4,7 +4,7 @@ Blockly.defineBlocksWithJsonArray([
         message0: "加载Eruda控制台",
         previousStatement: null,
         nextStatement: null,
-        colour: 230,
+        colour: "#449CD6",
         tooltip: "加载Eruda控制台",
         helpUrl: ""
     },
