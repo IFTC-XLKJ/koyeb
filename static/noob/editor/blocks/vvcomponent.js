@@ -5,7 +5,7 @@ Blockly.defineBlocksWithJsonArray([
         args0: [
             {
                 type: "input_value",
-                name: "",
+                name: "selector",
             }
         ],
     }
