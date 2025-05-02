@@ -6,6 +6,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "selector",
+                check: "String"
             }
         ],
         output: "String",
