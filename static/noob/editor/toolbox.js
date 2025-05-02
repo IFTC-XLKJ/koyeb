@@ -581,6 +581,24 @@ const toolbox = {
         },
         {
             kind: "category",
+            name: "VV组件",
+            contents: [
+                {
+                    kind: "block",
+                    type: "function_return",
+                    inputs: {
+                        PARAM: {
+                            shadow: {
+                                type: "array_create",
+                                fields: {}
+                            }
+                        }
+                    }
+                },
+            ]
+        },
+        {
+            kind: "category",
             name: "更多",
             colour: "#FF6680",
             contents: [
