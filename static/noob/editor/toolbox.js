@@ -585,11 +585,11 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
-                    type: "function_return",
+                    type: "vv_dragger",
                     inputs: {
                         PARAM: {
                             shadow: {
-                                type: "array_create",
+                                type: "text",
                                 fields: {}
                             }
                         }
