@@ -582,6 +582,7 @@ const toolbox = {
         {
             kind: "category",
             name: "VV组件",
+            colour: "#FF6680",
             contents: [
                 {
                     kind: "block",
