@@ -727,7 +727,7 @@ function BlocksToJS() {
     if (match && match[0]) {
         return defineVars() + match[0];
     } else {
-        return defineVars() + code;
+        return defineVars() + `<script src=""></script>` + code;
     }
 }
 
