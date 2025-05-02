@@ -720,14 +720,14 @@ function BlocksToJS() {
     } catch (e) {
         code = `<div style="color: red;background-color: #eee;border-radius: 5px;"><pre><code>${e.stack
             .replaceAll("\n", "<br>")
-            .replaceAll(" ", "&nbsp;")}</code></pre></div>`;
+            .replaceAll(" ", "&nbsp;")}<\/code><\/pre></div>`;
         console.error(e);
     }
     const match = code.match(/<!DOCTYPE.*?<\/html>/s);
     if (match && match[0]) {
         return defineVars() + match[0];
     } else {
-        return defineVars() + `<script src=""></script>` + code;
+        return defineVars() + `<script src=""><\/script>` + code;
     }
 }
 
