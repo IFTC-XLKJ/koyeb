@@ -15,3 +15,9 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true,
     }
 ]);
+
+Blockly.JavaScript.forBlock["vv_dragger"] = function (block) {
+    var selector = Blockly.JavaScript.valueToCode(block, "selector", Blockly.JavaScript.ORDER_ATOMIC) || "''";
+    var code = `new Dragger(${selector})`;
+    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+}
