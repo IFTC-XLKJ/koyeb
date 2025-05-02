@@ -8,5 +8,10 @@ Blockly.defineBlocksWithJsonArray([
                 name: "selector",
             }
         ],
+        output: "String",
+        colour: "#449CD6",
+        tooltip: "拖拽器",
+        helpUrl: "",
+        inputsInline: true,
     }
 ]);
