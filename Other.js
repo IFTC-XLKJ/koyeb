@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs").promises;
 const UUID_db = require("./UUID_db.js");
+const fetch = require("node-fetch");
 
 const uuid_db = new UUID_db();
 
@@ -48,8 +49,10 @@ class Other {
                     if (data.类型 == "cloudfun") {
                         const ID = data.ID;
                         const src = data.数据;
-                        const fun = require(src);
-                        const result = await fun(req, res);
+                        const res = await fetch(src);
+                        const code = await res.text();
+                        const fun = eval(code);
+                        console.log(fun, typeof fun);
                     }
                 } else {
                     res.status(json.code).json({
