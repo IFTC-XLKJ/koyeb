@@ -1,9 +1,5 @@
-async function handle(req, res) {
-    res.json({
-        code: 200,
-        msg: "ok",
-        timestamp: Date.now(),
-    });
+async function handle(request) {
+    return new request.response();
 }
 
 module.exports = handle;
