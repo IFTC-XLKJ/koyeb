@@ -44,7 +44,9 @@ class Other {
                     }
                     if (data.类型 == "cloudfun") {
                         const ID = data.ID;
-                        const json = await this.app.cloudfun.call(ID, method, body, query, headers);
+                        const src = data.数据;
+                        const fun = require(src);
+                        const result = await fun(req, res, body, query, headers);
                     }
                 } else {
                     res.status(json.code).json({
