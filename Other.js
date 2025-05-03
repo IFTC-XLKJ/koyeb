@@ -46,6 +46,12 @@ class Other {
                         const ID = data.ID;
                         const json = await this.app.cloudfun.call(ID, method, body, query, headers);
                     }
+                } else {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
                 }
             } catch (e) {
                 console.error(e);
@@ -63,6 +69,10 @@ class Other {
             return null;
         }
     }
+}
+
+function time() {
+    return Date.now();
 }
 
 module.exports = Other;
