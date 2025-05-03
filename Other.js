@@ -49,8 +49,8 @@ class Other {
                     if (data.类型 == "cloudfun") {
                         const ID = data.ID;
                         const src = data.数据;
-                        const res = await fetch(src);
-                        const code = await res.text();
+                        const response = await fetch(src);
+                        const code = await response.text();
                         const fun = eval(code);
                         console.log(fun, typeof fun);
                         const request = {
