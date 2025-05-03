@@ -1,6 +1,7 @@
 body {
     font-family: 'XiaoLaiMonoSC', sans-serif;
     background-color: lightskyblue;
+    color: white;
 }
 
 @media screen and (max-width: 400px) {
