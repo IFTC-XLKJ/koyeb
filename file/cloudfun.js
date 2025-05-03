@@ -1,4 +1,4 @@
-async function(req, res) {
+async function handle(req, res) {
     res.json({
         code: 200,
         msg: "ok",
@@ -6,4 +6,4 @@ async function(req, res) {
     });
 }
 
-module.exports = Other;
+module.exports = handle;
