@@ -1,5 +1,8 @@
 const path = require("path");
 const fs = require("fs").promises;
+const UUID_db = require("./UUID_db.js");
+
+const uuid_db = new UUID_db();
 
 class Other {
     constructor(app) {
@@ -31,6 +34,12 @@ class Other {
                 uuid
             } = req.params;
             const { method, body, query, headers } = req;
+            try {
+                const 
+            } catch (e) {
+                console.error(e);
+                res.status(500).send(null);
+            }
         });
         console.log("Other");
     }
