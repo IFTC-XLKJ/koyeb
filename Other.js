@@ -26,14 +26,19 @@ class Other {
                 res.status(500).send(null);
             }
         });
-        this.app.all("/api/cloudfun/:uuid", async (req, res) => {});
+        this.app.all("/api/cloudfun/:uuid", async (req, res) => {
+            const {
+                uuid
+            } = req.params;
+            const { method, body, query, headers } = req;
+        });
         console.log("Other");
     }
     async getFile(path) {
         try {
             const content = await fs.readFile(path, "utf-8");
             return content;
-        } catch(e) {
+        } catch (e) {
             console.error(e);
             return null;
         }
