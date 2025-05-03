@@ -33,20 +33,23 @@ class Other {
             const {
                 uuid
             } = req.params;
-            const { method, body, query, headers } = req;
             try {
                 const json = await uuid_db.getData(uuid);
                 if (json.code == 200) {
                     const data = json.fields[0];
                     if (!data) {
-                        res.status(404).send(`未查询到该UUID`);
+                        res.status(404).json({
+                            code: 404,
+                            msg: "未找到数据",
+                            timestamp: time(),
+                        });
                         return;
                     }
                     if (data.类型 == "cloudfun") {
                         const ID = data.ID;
                         const src = data.数据;
                         const fun = require(src);
-                        const result = await fun(req, res, body, query, headers);
+                        const result = await fun(req, res);
                     }
                 } else {
                     res.status(json.code).json({
