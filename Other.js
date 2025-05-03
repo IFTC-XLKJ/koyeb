@@ -56,6 +56,7 @@ class Other {
                         const request = {
                             response: class {
                                 constructor(content, options) {
+                                    if (options) options = {};
                                     res.status(options.status || 200).send(content);
                                 }
                             },
