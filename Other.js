@@ -35,7 +35,18 @@ class Other {
             } = req.params;
             const { method, body, query, headers } = req;
             try {
-                const 
+                const json = await uuid_db.getData(uuid);
+                if (json.code == 200) {
+                    const data = json.fields[0];
+                    if (!data) {
+                        res.status(404).send(`未查询到该UUID`);
+                        return;
+                    }
+                    if (data.类型 == "cloudfun") {
+                        const ID = data.ID;
+                        const json = await this.app.cloudfun.call(ID, method, body, query, headers);
+                    }
+                }
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
