@@ -7,7 +7,7 @@ async function handle(request) { // 主函数
         headers: request.headers,
         body: request.body,
         query: request.query,
-        UUID: request.uuid,
+        UUID: request.UUID,
         timestamp: time(),
     }, {
         status: 200,
