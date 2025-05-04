@@ -186,7 +186,9 @@ class Other {
                                             throw error;
                                         }
                                     }
-                                    async get() { }
+                                    async get(options) {
+                                        if (!options) options = {};
+                                    }
                                 }
                             },
                         };
