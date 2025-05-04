@@ -51,7 +51,7 @@ class Other {
                         const src = data.数据;
                         const response = await fetch(src);
                         const code = await response.text();
-                        const fun = eval(`globalThis.require = null;var require = null;const require = null;\n${code}`);
+                        const fun = eval(`globalThis.require = null;var require = null;\n${code}`);
                         console.log(fun, typeof fun);
                         const request = {
                             response: class {
