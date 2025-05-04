@@ -69,9 +69,15 @@ class Other {
                                     for (const key in this.#headers) {
                                         res.set(key, this.#headers[key]);
                                     }
+                                    res.set({
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
                                     res.status(this.#status).send(this.#content);
                                 }
                                 json() {
+                                    res.set({
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
                                     res.json(this.#content);
                                 }
                             },
