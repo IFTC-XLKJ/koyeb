@@ -154,6 +154,17 @@ class Other {
                                         const sha256sum = hash.digest("hex");
                                         return sha256sum
                                     }
+                                    async #post(url) {
+                                        const timestamp = Date.now();
+                                        const signaturePromise = this.#sign(timestamp);
+                                        try {
+                                            const signature = await signaturePromise;
+                                        } catch (error) {
+                                            console.error("There was a problem with the fetch operation:", error);
+                                            throw error;
+                                        }
+                                    }
+                                    async get() {}
                                 }
                             },
                         };
