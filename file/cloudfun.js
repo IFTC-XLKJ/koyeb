@@ -1,5 +1,5 @@
 async function handle(request) {
-    return new request.response(JSON.stringify({
+    const response = new request.response(JSON.stringify({
         code: 200,
         msg: "Hello World",
         method: request.method,
@@ -12,6 +12,7 @@ async function handle(request) {
             "Content-Type": "application/json",
         },
     });
+    return response.json();
 }
 
 function time() {
