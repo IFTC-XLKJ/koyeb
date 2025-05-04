@@ -60,6 +60,7 @@ class Other {
                                     res.status(options.status || 200).send(content);
                                 }
                             },
+                            method: req.method,
                         };
                         fun(request);
                     }
