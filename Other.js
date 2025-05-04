@@ -155,7 +155,7 @@ class Other {
                                         const sha256sum = hash.digest("hex");
                                         return sha256sum
                                     }
-                                    async #post(url, type, filter, fields, page, limit, sort) {
+                                    async #post(url, type, filter, fields, page, limit, sort, tableid) {
                                         const timestamp = Date.now();
                                         const signaturePromise = this.#sign(timestamp);
                                         try {
@@ -189,19 +189,24 @@ class Other {
                                     }
                                     async get(options) {
                                         if (!options) options = {};
-                                        return await this.#post(this.#getDataURL, void 0, options.filter || "", options.fields || "", options.page || 1, options.limit || 1, options.sort);
+                                        return await this.#post(this.#getDataURL, void 0, options.filter || "", options.fields || "", options.page || 1, options.limit || 1, options.sort, void 0);
                                     }
                                     async insert(options) {
                                         if (!options) options = {};
-                                        return await this.#post(this.#setDataURL, "INSERT", options.filter || "", options.fields || "", void 0, void 0, void 0);
+                                        return await this.#post(this.#setDataURL, "INSERT", options.filter || "", options.fields || "", void 0, void 0, void 0, void 0);
                                     }
                                     async update(options) {
                                         if (!options) options = {};
-                                        return await this.#post(this.#setDataURL, "UPDATE", options.filter || "", options.fields || "", void 0, void 0, void 0);
+                                        return await this.#post(this.#setDataURL, "UPDATE", options.filter || "", options.fields || "", void 0, void 0, void 0, void 0);
                                     }
                                     async delete(options) {
                                         if (!options) options = {};
-                                        return await this.#post(this.#setDataURL, "DELETE", options.filter || "", void 0, void 0, void 0, void 0);
+                                        return await this.#post(this.#setDataURL, "DELETE", options.filter || "", void 0, void 0, void 0, void 0, void 0);
+                                    }
+                                    async getMulitiple(options) {
+                                        if (!options) options = {};
+                                        if (!options.tableid) throw new Error("tableid is required");
+                                        return await this.#post(this.#getDataURL, "GET", options.filter || "", void 0, void 0, void 0, void 0, options.tableid);
                                     }
                                 }
                             },
