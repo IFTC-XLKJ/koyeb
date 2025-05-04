@@ -4,7 +4,7 @@ async function handle(request) { // 主函数
     const { tools } = request; // 工具
     const { pgdbs } = tools; // 点鸭数据表
     /* const table = new pgdbs(密钥); */ // 创建点鸭数据表对象，密钥如：LkduYVIN+ZUTpqJ20se4bcYnTx4M······qbVzwEZSUfOxQGfnmh8Yo15DuJZVFC0=
-    console.log(tools, pgdbs);
+    console.log(tools, "pgdbs", pgdbs, "DOMParser", DOMParser);
     const response = new request.response({
         code: 200,
         msg: "Hello World",
