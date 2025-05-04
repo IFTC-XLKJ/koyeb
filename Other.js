@@ -2,6 +2,7 @@ const path = require("path");
 const fs = require("fs").promises;
 const UUID_db = require("./UUID_db.js");
 const fetch = require("node-fetch");
+const { JSDOM } = require("jsdom");
 
 const uuid_db = new UUID_db();
 
@@ -209,6 +210,13 @@ class Other {
                                         return await this.#post(this.#getDataURL, "GET", options.filter || "", void 0, void 0, void 0, void 0, options.tableid);
                                     }
                                 },
+                                DOMParser: class {
+                                    parseFromString(str, contentType) {
+                                        return new JSDOM(str, {
+                                            contentType: contentType
+                                        }).window.document;
+                                    }
+                                }
                             },
                         };
                         fun(request);
