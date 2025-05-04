@@ -1,5 +1,5 @@
 async function handle(request) { // 主函数
-    const response = new request.response({ // 创建响应对象
+    const response = new request.response({
         code: 200,
         msg: "Hello World",
         method: request.method,
@@ -9,7 +9,7 @@ async function handle(request) { // 主函数
         timestamp: time(),
     }, {
         status: 200,
-    });
+    }); // 创建响应对象
     return response.json(); // 返回响应，添加return表示函数执行完毕
 }
 
