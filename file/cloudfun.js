@@ -8,6 +8,9 @@ async function handle(request) {
         timestamp: time(),
     }), {
         status: 200,
+        headers: {
+            "Content-Type": "application/json",
+        },
     });
 }
 
