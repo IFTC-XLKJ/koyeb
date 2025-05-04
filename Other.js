@@ -85,6 +85,54 @@ class Other {
                                     })
                                     res.json(this.#content);
                                 }
+                                html() {
+                                    res.set({
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                css() {
+                                    res.set({
+                                        "Content-Type": "text/css;charset=utf-8",
+                                        "X-COPYRIGHTS": "IFTC"
+                                    });
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                js() {
+                                    res.set({
+                                        "Content-Type": "text/javascript;charset=utf-8",
+                                        "X-COPYRIGHTS": "IFTC"
+                                    });
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                text() {
+                                    res.set({
+                                        "Content-Type": "text/plain;charset=utf-8",
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                image() {
+                                    res.set({
+                                        "Content-Type": "image/png",
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                audio() {
+                                    res.set({
+                                        "Content-Type": "audio/mpeg",
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                video() {
+                                    res.set({
+                                        "Content-Type": "video/mp4",
+                                        "X-COPYRIGHTS": "IFTC"
+                                    })
+                                    res.status(this.#status).send(this.#content);
+                                }
                             },
                             method: req.method,
                             query: req.query,
