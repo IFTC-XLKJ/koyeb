@@ -3,7 +3,7 @@ async function handle(request) { // 主函数
     /* const fun = require(资源路径); */ // 引入资源
     const { tools } = request;
     const { pgdbs } = tools; // 点鸭数据表
-    /* const table = new pgdbs(密钥); */ // 创建点鸭数据表对象
+    /* const table = new pgdbs(密钥); */ // 创建点鸭数据表对象，密钥如：LkduYVIN+ZUTpqJ20se4bcYnTx4M······qbVzwEZSUfOxQGfnmh8Yo15DuJZVFC0=
     console.log(tools, pgdbs);
     const response = new request.response({
         code: 200,
