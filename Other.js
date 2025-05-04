@@ -140,6 +140,18 @@ class Other {
                             headers: req.headers,
                             UUID: uuid,
                             tools: {
+                                pgdbs: class {
+                                    constructor(key) {
+                                        if (!key) throw new Error("key is required");
+                                        this.#key = key;
+                                    }
+                                    #sign(text) {
+                                        const hash = crypto.createHash("sha256");
+                                        hash.update(text);
+                                        const sha256sum = hash.digest("hex");
+                                        return sha256sum
+                                    }
+                                }
                             },
                         };
                         fun(request);
