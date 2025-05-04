@@ -53,12 +53,10 @@ class Other {
                         const response = await fetch(src);
                         const code = await response.text();
                         const fun = eval(`globalThis.require = null;
-                        globalThis.nativeEval = eval;
-                        globalThis.eval = null;
                         var require = async function(src) {
                             const response = await fetch(src);
                             const code = await response.text();
-                            return nativeEval(code);
+                            return eval(code);
                         };\n${code}`);
                         console.log(fun, typeof fun);
                         const request = {
