@@ -141,6 +141,7 @@ class Other {
                             UUID: uuid,
                             tools: {
                                 pgdbs: class {
+                                    #key;
                                     #contentType = "application/json";
                                     #getDataURL = "https://api.pgaot.com/dbs/cloud/get_table_data";
                                     #setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
