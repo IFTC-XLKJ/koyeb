@@ -1,4 +1,5 @@
 async function handle(request) { // 主函数
+    console.log(request);
     const response = new request.response({
         code: 200,
         msg: "Hello World",
