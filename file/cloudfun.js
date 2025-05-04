@@ -5,6 +5,7 @@ async function handle(request) {
         method: request.method,
         headers: request.headers,
         body: request.body,
+        query: request.query,
         timestamp: time(),
     }, {
         status: 200,
