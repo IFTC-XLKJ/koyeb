@@ -51,8 +51,7 @@ class Other {
                         const src = data.数据;
                         const response = await fetch(src);
                         const code = await response.text();
-                        const fun = eval(`// const fetch = require("node-fetch");
-                        globalThis.require = null;
+                        const fun = eval(`globalThis.require = null;
                         var require = async function(src) {
                             const response = await fetch(src);
                             const code = await response.text();
