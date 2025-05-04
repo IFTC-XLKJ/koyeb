@@ -1,5 +1,8 @@
 async function handle(request) { // 主函数
     console.log(request, require);
+    const { tools } = request;
+    const { fetch } = tools;
+    console.log(tools, fetch)
     const response = new request.response({
         code: 200,
         msg: "Hello World",
