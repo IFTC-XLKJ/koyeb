@@ -1,5 +1,5 @@
 async function handle(request) { // 主函数
-    console.log(request, require, DOMParser, fetch);
+    console.log(request, require, "DOMParser", DOMParser, fetch);
     /* const fun = require(资源路径); */ // 引入资源
     const { tools } = request; // 工具
     const { pgdbs } = tools; // 点鸭数据表
