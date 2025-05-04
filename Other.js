@@ -55,13 +55,24 @@ class Other {
                         console.log(fun, typeof fun);
                         const request = {
                             response: class {
+                                #status = 200;
+                                #headers = {};
+                                #content = null;
                                 constructor(content, options) {
                                     if (!options) options = {};
-                                    if (!options.headers) options.headers = {};
-                                    for (const key in options.headers) {
-                                        res.set(key, options.headers[key]);
+                                    if (typeof options != "object") options = {};
+                                    this.#status = options.status || 200;
+                                    this.#headers = options.headers || {};
+                                    this.#content = content || null;
+                                }
+                                send() {
+                                    for (const key in this.#headers) {
+                                        res.set(key, this.#headers[key]);
                                     }
-                                    res.status(options.status || 200).send(content);
+                                    res.status(this.#status).send(this.#content);
+                                }
+                                json() {
+                                    res.json(this.#content);
                                 }
                             },
                             method: req.method,
