@@ -56,7 +56,11 @@ class Other {
                         const request = {
                             response: class {
                                 constructor(content, options) {
-                                    if (options) options = {};
+                                    if (!options) options = {};
+                                    if (!options.headers) options.headers = {};
+                                    for (const key in options.headers) {
+                                        res.set(key, options.headers[key]);
+                                    }
                                     res.status(options.status || 200).send(content);
                                 }
                             },
