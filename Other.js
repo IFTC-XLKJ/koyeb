@@ -154,7 +154,7 @@ class Other {
                                         const sha256sum = hash.digest("hex");
                                         return sha256sum
                                     }
-                                    async #post(url, type, filter, fields, page, limit) {
+                                    async #post(url, type, filter, fields, page, limit, sort) {
                                         const timestamp = Date.now();
                                         const signaturePromise = this.#sign(timestamp);
                                         try {
@@ -188,6 +188,7 @@ class Other {
                                     }
                                     async get(options) {
                                         if (!options) options = {};
+                                        return await this.#post(this.#getDataURL, void 0, options.filter || "", options.fields || "", options.page || 1, options.limit || 1, options.sort);
                                     }
                                 }
                             },
