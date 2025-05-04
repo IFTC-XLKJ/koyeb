@@ -85,6 +85,7 @@ class Other {
                             query: req.query,
                             body: req.body,
                             headers: req.headers,
+                            UUID: uuid,
                         };
                         fun(request);
                     }
