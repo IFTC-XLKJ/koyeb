@@ -208,7 +208,7 @@ class Other {
                                         if (!options.tableid) throw new Error("tableid is required");
                                         return await this.#post(this.#getDataURL, "GET", options.filter || "", void 0, void 0, void 0, void 0, options.tableid);
                                     }
-                                }
+                                },
                             },
                         };
                         fun(request);
