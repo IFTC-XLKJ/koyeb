@@ -61,6 +61,9 @@ class Other {
                                 }
                             },
                             method: req.method,
+                            query: req.query,
+                            body: req.body,
+                            headers: req.headers,
                         };
                         fun(request);
                     }
