@@ -1,12 +1,12 @@
 async function handle(request) {
-    const response = new request.response(JSON.stringify({
+    const response = new request.response({
         code: 200,
         msg: "Hello World",
         method: request.method,
         headers: request.headers,
         body: request.body,
         timestamp: time(),
-    }), {
+    }, {
         status: 200,
         headers: {
             "Content-Type": "application/json",
