@@ -86,6 +86,9 @@ class Other {
                             body: req.body,
                             headers: req.headers,
                             UUID: uuid,
+                            tools: {
+                                fetch: fetch,
+                            },
                         };
                         fun(request);
                     }
