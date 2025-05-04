@@ -154,17 +154,39 @@ class Other {
                                         const sha256sum = hash.digest("hex");
                                         return sha256sum
                                     }
-                                    async #post(url) {
+                                    async #post(url, type, filter, fields, page, limit) {
                                         const timestamp = Date.now();
                                         const signaturePromise = this.#sign(timestamp);
                                         try {
                                             const signature = await signaturePromise;
+                                            const response = await fetch(url, {
+                                                method: "POST",
+                                                headers: {
+                                                    "X-Pgaot-Key": this.#key,
+                                                    "X-Pgaot-Sign": signature,
+                                                    "X-Pgaot-Time": timestamp.toString(),
+                                                    "Content-Type": this.#contentType,
+                                                },
+                                                body: JSON.stringify({
+                                                    type: type,
+                                                    filter: filter,
+                                                    fields: fields,
+                                                    page: page,
+                                                    limit: limit,
+                                                }),
+                                            });
+                                            if (!response.ok) {
+                                                throw new Error("Network response was not ok " + response.statusText);
+                                            }
+                                            const json = await response.json();
+                                            console.log(json);
+                                            return json;
                                         } catch (error) {
                                             console.error("There was a problem with the fetch operation:", error);
                                             throw error;
                                         }
                                     }
-                                    async get() {}
+                                    async get() { }
                                 }
                             },
                         };
