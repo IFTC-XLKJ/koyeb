@@ -1,7 +1,7 @@
 async function handle(request) { // 主函数
     console.log(request, require);
+    /* const fun = require(资源路径); */ // 引入资源
     const { tools } = request;
-    const { fetch } = tools;
     console.log(tools, fetch)
     const response = new request.response({
         code: 200,
