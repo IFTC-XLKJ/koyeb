@@ -190,6 +190,18 @@ class Other {
                                         if (!options) options = {};
                                         return await this.#post(this.#getDataURL, void 0, options.filter || "", options.fields || "", options.page || 1, options.limit || 1, options.sort);
                                     }
+                                    async insert(options) {
+                                        if (!options) options = {};
+                                        return await this.#post(this.#setDataURL, "INSERT", options.filter || "", options.fields || "", void 0, void 0, void 0);
+                                    }
+                                    async update(options) {
+                                        if (!options) options = {};
+                                        return await this.#post(this.#setDataURL, "UPDATE", options.filter || "", options.fields || "", void 0, void 0, void 0);
+                                    }
+                                    async delete(options) {
+                                        if (!options) options = {};
+                                        return await this.#post(this.#setDataURL, "DELETE", options.filter || "", void 0, void 0, void 0, void 0);
+                                    }
                                 }
                             },
                         };
