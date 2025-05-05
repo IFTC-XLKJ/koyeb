@@ -1,6 +1,7 @@
 const toast = new Toast();
 const Console = document.getElementById("console");
 const cloudfunSockets = [];
+const socketURL = "wss://cloudfun.deno.dev/"
 create.addEventListener("click", async () => {
     if (localStorage.getItem("ID") && localStorage.getItem("password")) {
         const input = document.createElement("input");
