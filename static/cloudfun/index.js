@@ -1,6 +1,6 @@
 const toast = new Toast();
 create.addEventListener("click", async () => {
-    const loadid = toast.showToast("正在创建云函数", 0, "center", "small", "loading", false);
+    const loadid = toast.showToast("正在创建云函数", 0, "center", "small", "loading", false, false);
     if (localStorage.getItem("ID") && localStorage.getItem("password")) {
 
     } else {
