@@ -181,7 +181,7 @@ class UUID_db {
             throw error;
         }
     }
-    async update(ID, data) {
+    async update(ID, UUID, data) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -196,7 +196,7 @@ class UUID_db {
                 },
                 body: JSON.stringify({
                     type: "UPDATE",
-                    filter: `ID=${id}`,
+                    filter: `ID=${id} AND UUID="${UUID}"`,
                     fields: `数据="${data}"`,
                 })
             })
