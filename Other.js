@@ -358,6 +358,20 @@ class Other {
                                             contentType: contentType
                                         }).window.document;
                                     }
+                                },
+                                console: {
+                                    log: function (...args) {
+                                        
+                                    },
+                                    warn: function (...args) {
+                                        console.warn(...args);
+                                    },
+                                    error: function (...args) {
+                                        console.error(...args);
+                                    },
+                                    info: function (...args) {
+                                        console.info(...args);
+                                    }
                                 }
                             },
                         };
@@ -416,14 +430,17 @@ async function getLogs(UUID) {
 }
 
 async function setLogs(UUID, logs) {
-    const response = await fetch("https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282&action=store", {
+    const oldLogs = await getLogs(UUID);
+    const newLogs = [...oldLogs, ...logs];
+    const response = await fetch("https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282&action=update", {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: `tag=cloudfun-${UUID}&value=${JSON.stringify(logs)}`,
+        body: `tag=cloudfun-${UUID}&value=${JSON.stringify(newLogs)}`,
     });
     const data = await response.json();
+    console.log(data);
 }
 
 module.exports = Other;
