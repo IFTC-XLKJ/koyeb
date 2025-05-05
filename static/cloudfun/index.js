@@ -10,13 +10,14 @@ create.addEventListener("click", async () => {
                 const loadid = toast.showToast("正在创建云函数", 0, "center", "small", "loading", false, false);
                 const formData = new FormData();
                 formData.append("path", "vv/cloudfun");
-                formData.append("file", file);
+                formData.append("file", file, file.name);
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", {
                     method: "POST",
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
-                    body: formData,
+                    body: formData,,
+                    redirect: 'follow'
                 });
                 if (response.ok) {
                     const data = await response.json();
