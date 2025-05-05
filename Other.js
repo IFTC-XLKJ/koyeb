@@ -85,6 +85,7 @@ class Other {
                 res.status(500).send(null);
             }
         });
+        this.app.get("/api/cloudfun/get", async (req, res) => {});
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
             const {
                 uuid
