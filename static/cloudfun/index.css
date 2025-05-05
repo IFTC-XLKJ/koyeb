@@ -25,10 +25,10 @@ button {
 }
 
 #consoles {
-    display: flex;
     width: 100%;
 }
 
 #labels {
+    display: flex;
     list-style-type: none;
 }
