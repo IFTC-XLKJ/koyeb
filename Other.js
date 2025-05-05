@@ -9,7 +9,7 @@ const user = new User();
 const uuid_db = new UUID_db();
 
 class Other {
-    constructor(app) {
+    constructor(app, requestLog) {
         this.app = app;
         this.app.get("/file/blockly/workspace-search", async (req, res) => {
             const content = await this.getFile("node_modules/@blockly/plugin-workspace-search/dist/index.js");
