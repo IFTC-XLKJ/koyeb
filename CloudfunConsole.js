@@ -40,7 +40,7 @@ class CloudfunConsole {
         }
     }
     async setLogs(uuid, logs) {
-        const fields = logs.map(log => `("${uuid}", "${log.type}", "${log.log}")`).join(", ");
+        const fields = logs.map(log => `("${uuid}", "${log.type}", "${log.msg}")`).join(", ");
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
