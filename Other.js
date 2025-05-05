@@ -249,8 +249,8 @@ class Other {
                 }
                 const data = userData.fields[0];
                 if (!data) {
-                    res.status(400).json({
-                        code: 400,
+                    res.status(401).json({
+                        code: 401,
                         msg: "账号或密码错误",
                         timestamp: time(),
                     });
