@@ -238,7 +238,25 @@ class Other {
         this.app.get("/api/cloudfun/new", async (req, res) => {
             const { ID, password, file } = req.query;
             try {
-                constjson = await uuid_db.addData(generateUUID(), "cloudfun", ID, file);
+                const userData = await user.login(ID, password);
+                if (userData.code != 200) {
+                    res.status(userData.code).json({
+                        code: userData.code,
+                        msg: userData.msg,
+                        timestamp: time(),
+                    });
+                    return;
+                }
+                const data = userData.fields[0];
+                if (!data) {
+                    res.status(400).json({
+                        code: 400,
+                        msg: "账号或密码错误",
+                        timestamp: time(),
+                    });
+                    return;
+                }
+                const json = await uuid_db.addData(generateUUID(), "cloudfun", ID, file);
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
