@@ -101,6 +101,7 @@ class Other {
                 if (json.code == 200) {
                     const data = [];
                     json.fields.forEach(field => {
+                        if (field.type != "cloudfun") return;
                         data.push({
                             ID: field.ID,
                             name: String(field.章节名),
