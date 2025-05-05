@@ -541,8 +541,8 @@ async function getMusic(id) {
         }
     } else {
         console.error('网络请求失败', response.statusText);
-        toast.loadend(id1)
-        toast.error('网络请求失败：' + response.statusText, 2000)
+        toast.hideToast(id1)
+        toast.showToast('网络请求失败：' + response.statusText, 2000, 'center', 'small', 'error', false, true);
     }
 }
 
