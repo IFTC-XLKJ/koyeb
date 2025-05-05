@@ -28,23 +28,10 @@ create.addEventListener("click", async () => {
                             setTimeout(() => {
                                 window.location.reload();
                             }, 2000);
+                        } else if (json.code == 401) {
+                            toast.hideToast(loadid);
+                            toast.showToast(json.msg, 2, "center", "small", "error", false, true);
                         }
-                    } else if (data.code == 401) {
-                        toast.hideToast(loadid);
-                        toast.showToast("登录信息已过期，请重新登录", 2, "center", "small", "error", false, true);
-                        setTimeout(() => {
-                            window.location.reload();
-                        }, 2000);
-                    }
-                    else if (data.code == 500) {
-                        toast.hideToast(loadid);
-                        toast.showToast("文件已存在", 2, "center", "small", "error", false, true);
-                    } else if (data.code == 400) {
-                        toast.hideToast(loadid);
-                        toast.showToast("文件格式错误", 2, "center", "small", "error", false, true);
-                    } else if (data.code == 403) {
-                        toast.hideToast(loadid);
-                        toast.showToast("没有权限", 2, "center", "small", "error", false, true);
                     } else {
                         toast.hideToast(loadid);
                         toast.showToast(data.msg, 2, "center", "small", "error", false, true);
