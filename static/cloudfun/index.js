@@ -20,23 +20,29 @@ create.addEventListener("click", async () => {
                     const data = await response.json();
                     if (data.code == 200) {
                         const url = data.url;
-                        const response = await fetch(`/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
-                        const json = await response.json();
-                        if (json.code == 200) {
+                        try {
+                            const response = await fetch(`/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
+                            const json = await response.json();
+                            if (json.code == 200) {
+                                toast.hideToast(loadid);
+                                toast.showToast("创建成功", 2, "center", "small", "success", false, true);
+                                setTimeout(() => {
+                                    window.location.reload();
+                                }, 2000);
+                            } else if (json.code == 401) {
+                                toast.hideToast(loadid);
+                                toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+                                await wait(2000);
+                                location.href = "/login";
+                            } else {
+                                toast.hideToast(loadid);
+                                toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+                                await wait(2000);
+                            }
+                        } catch (e) {
                             toast.hideToast(loadid);
-                            toast.showToast("创建成功", 2, "center", "small", "success", false, true);
-                            setTimeout(() => {
-                                window.location.reload();
-                            }, 2000);
-                        } else if (json.code == 401) {
-                            toast.hideToast(loadid);
-                            toast.showToast(json.msg, 2, "center", "small", "error", false, true);
-                            await wait(2000);
-                            location.href = "/login";
-                        } else {
-                            toast.hideToast(loadid);
-                            toast.showToast(json.msg, 2, "center", "small", "error", false, true);
-                            await wait(2000);
+                            toast.showToast("创建失败", 2, "center", "small", "error", false, true);
+                            console.error(e);
                         }
                     } else {
                         toast.hideToast(loadid);
