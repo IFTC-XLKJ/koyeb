@@ -96,7 +96,8 @@ class Other {
                 });
                 return;
             }
-            try { 
+            try {
+                
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
