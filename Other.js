@@ -104,9 +104,8 @@ class Other {
                         if (field.type != "cloudfun") return;
                         data.push({
                             ID: field.ID,
-                            name: String(field.章节名),
-                            content: String(field.章节内容),
-                            num: field.章节编号,
+                            UUID: String(field.UUID),
+                            file: String(field.数据),
                             createdAt: field.createdAt,
                             updatedAt: field.updatedAt
                         });
