@@ -110,7 +110,7 @@ class Other {
                             updatedAt: field.updatedAt
                         });
                     });
-                    res.status(200).json({
+                    res.json({
                         code: 200,
                         msg: "获取成功",
                         data: data,
