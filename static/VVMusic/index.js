@@ -253,7 +253,7 @@ function renderMusicList(musics) {
                                 const url = URL.createObjectURL(blob);
                                 if (url) {
                                     toast.loadend(id1)
-                                    toast.success('加载成功', 2000)
+                                    toast.showToast('加载成功', 2, 'center', 'small', 'success', false, true);
                                     audio.src = url;
                                     playerCover.src = pic;
                                     playerName.innerHTML = name;
@@ -281,16 +281,16 @@ function renderMusicList(musics) {
                                     console.log(lrcstimes, lrclist);
                                 } else {
                                     toast.loadend(id1)
-                                    toast.error('加载失败', 2000)
+                                    toast.showToast('加载失败', 2, 'center', 'small', 'error', false, true);
                                 }
                             } else {
                                 toast.loadend(id1)
-                                toast.error('加载失败', 2000)
+                                toast.showToast('加载失败', 2, 'center', 'small', 'error', false, true);
                             }
                         } else {
                             console.error('网络请求失败', response.statusText);
                             toast.loadend(id1)
-                            toast.error('网络请求失败：' + response.statusText, 2000)
+                            toast.showToast('网络请求失败：' + response.statusText, 2, 'center', 'small', 'error', false, true);
                         }
                     } catch (error) {
                         console.error('网络请求失败', error);
