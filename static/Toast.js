@@ -9,6 +9,17 @@ class Toast {
         this.shadow = this.shadow || true;
         this.toasts = [];
     }
+    /**
+     * 显示 Toast 提示框
+     * @param {String} message 
+     * @param {Number} duration 
+     * @param {String} position 
+     * @param {String} iconSize 
+     * @param {String} icon 
+     * @param {String} customIcon 
+     * @param {Boolean} clickBg 
+     * @returns {String} id
+     */
     showToast(message, duration, position, iconSize, icon, customIcon, clickBg) {
         const id = this.genId();
         const successIcon = 'm64.5 173.8c5.1 5.4 17.9 6.6 25.3 0 9.6-9.2 108.1-109.2 111.1-112.3 7.6-9-2.8-23.5-15.4-15.4-1.7 1.4-103.3 96.3-103.3 96.3 0 0-4.4 4.7-11.2 0-6.4-4.6-32-29.3-38.1-35-11.9-9-26.7 5.1-16.8 16.8 9.6 10.3 46.5 47.7 48.4 49.6z';
