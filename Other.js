@@ -257,6 +257,19 @@ class Other {
                     return;
                 }
                 const json = await uuid_db.addData(generateUUID(), "cloudfun", ID, file);
+                if (json.code == 200) {
+                    res.status(200).json({
+                        code: 200,
+                        msg: "创建成功",
+                        timestamp: time(),
+                    });
+                } else {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                }
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
