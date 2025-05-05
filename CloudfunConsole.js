@@ -70,4 +70,4 @@ class CloudfunConsole {
     }
 }
 
-module.exports = UUID_db;
+module.exports = CloudfunConsole;
