@@ -108,6 +108,20 @@ update.addEventListener("click", async () => {
                     item.addEventListener("click", e => {
                         uuids.forEach(i => i.classList.remove("current-label"));
                         item.classList.add("current-label");
+                        const ws = cloudfunSockets.find(ws => ws.url.endsWith(item.getAttribute("iftc-uuid")));
+                        if (ws) {
+                            ws.onmessage = e => {
+                                const data = JSON.parse(e.data);
+                                const consoleElement = document.querySelector(`ul[iftc-uuid="${item.getAttribute("iftc-uuid")}"]`);
+                                if (data.type == "console") {
+                                    consoleElement.innerHTML += `<li>${data.msg}</li>`;
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
+                                } else if (data.type == "error") {
+                                    consoleElement.innerHTML += `<li style="color: red;">${data.msg}</li>`;
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
+                                }
+                            };
+                        }
                     });
                 });
             } else {
