@@ -11,47 +11,53 @@ create.addEventListener("click", async () => {
                 const formData = new FormData();
                 formData.append("path", "vv/cloudfun");
                 formData.append("file", file, file.name);
-                const response = await fetch("https://api.pgaot.com/user/up_cat_file", {
-                    method: "POST",
-                    body: formData,
-                    redirect: 'follow'
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.code == 200) {
-                        const url = data.url;
-                        try {
-                            const response = await fetch(`/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
-                            const json = await response.json();
-                            if (json.code == 200) {
+                try {
+                    const response = await fetch("https://api.pgaot.com/user/up_cat_file", {
+                        method: "POST",
+                        body: formData,
+                        redirect: 'follow'
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.code == 200) {
+                            const url = data.url;
+                            try {
+                                const response = await fetch(`/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
+                                const json = await response.json();
+                                if (json.code == 200) {
+                                    toast.hideToast(loadid);
+                                    toast.showToast("创建成功", 2, "center", "small", "success", false, true);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                } else if (json.code == 401) {
+                                    toast.hideToast(loadid);
+                                    toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+                                    await wait(2000);
+                                    location.href = "/login";
+                                } else {
+                                    toast.hideToast(loadid);
+                                    toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+                                    await wait(2000);
+                                }
+                            } catch (e) {
                                 toast.hideToast(loadid);
-                                toast.showToast("创建成功", 2, "center", "small", "success", false, true);
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 2000);
-                            } else if (json.code == 401) {
-                                toast.hideToast(loadid);
-                                toast.showToast(json.msg, 2, "center", "small", "error", false, true);
-                                await wait(2000);
-                                location.href = "/login";
-                            } else {
-                                toast.hideToast(loadid);
-                                toast.showToast(json.msg, 2, "center", "small", "error", false, true);
-                                await wait(2000);
+                                toast.showToast(e.message, 2, "center", "small", "error", false, true);
+                                console.error(e);
                             }
-                        } catch (e) {
+                        } else {
                             toast.hideToast(loadid);
-                            toast.showToast("创建失败", 2, "center", "small", "error", false, true);
-                            console.error(e);
+                            toast.showToast(data.msg, 2, "center", "small", "error", false, true);
                         }
-                    } else {
-                        toast.hideToast(loadid);
-                        toast.showToast(data.msg, 2, "center", "small", "error", false, true);
+                        return;
                     }
-                    return;
+                    toast.hideToast(loadid);
+                    toast.showToast("上传失败", 2, "center", "small", "error", false, true);
+                } catch (e) {
+                    toast.hideToast(loadid);
+                    toast.showToast(e.message, 2, "center", "small", "error", false, true);
+                    console.error(e);
                 }
-                toast.hideToast(loadid);
-                toast.showToast("上传失败", 2, "center", "small", "error", false, true);
             }
         });
         input.click();
