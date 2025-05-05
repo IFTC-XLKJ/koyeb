@@ -362,10 +362,7 @@ class Other {
                                 },
                                 console: {
                                     log: function (...args) {
-                                        setLogs(uuid, [{
-                                            type: "log",
-                                            msg: args.join(" ")
-                                        }]);
+                                        await cloudfunConsole.setLogs(uuid, "log", args.join(' '));
                                         console.log(`log from ${uuid}`, ...args);
                                     },
                                     warn: function (...args) {
