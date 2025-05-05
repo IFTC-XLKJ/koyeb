@@ -101,7 +101,7 @@ class Other {
                 if (json.code == 200) {
                     const data = [];
                     json.fields.forEach(field => {
-                        if (field.type != "cloudfun") return;
+                        if (field.类型 != "cloudfun") return;
                         data.push({
                             ID: field.ID,
                             UUID: String(field.UUID),
