@@ -2428,4 +2428,4 @@ async function randomUsername() {
 }
 
 
-new Other(app);
+new Other(app, requestLog);
