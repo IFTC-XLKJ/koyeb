@@ -34,7 +34,7 @@ class Toast {
                     <svg class="icon_loading" viewBox="25 25 50 50">
                         <circle r="20" cy="50" cx="50"></circle>
                     </svg>
-                    <img class="icon_custom" src="${customIcon}"/>
+                    <img class="icon_custom" src="${customIcon ? customIcon : ''}"/>
                 </div>
                 <p class="message">${message}</p>
             </div>
