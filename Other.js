@@ -361,7 +361,7 @@ class Other {
                                     }
                                 },
                                 console: {
-                                    log: function (...args) {
+                                    log: async function (...args) {
                                         await cloudfunConsole.setLogs(uuid, "log", args.join(' '));
                                         console.log(`log from ${uuid}`, ...args);
                                     },
