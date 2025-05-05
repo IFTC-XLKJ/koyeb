@@ -535,8 +535,8 @@ async function getMusic(id) {
             return data;
         } else {
             console.error('遇到未知的错误', data.msg);
-            toast.loadend(id1)
-            toast.error('遇到未知的错误', 2000)
+            toast.hideToast(id1)
+            toast.showToast('遇到未知的错误', 2000, 'center', 'small', 'error', false, true);
             return;
         }
     } else {
