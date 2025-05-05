@@ -295,7 +295,7 @@ function renderMusicList(musics) {
                     } catch (error) {
                         console.error('网络请求失败', error);
                         toast.loadend(id1)
-                        toast.error('网络请求失败：' + error, 2000)
+                        toast.showToast('网络请求失败：' + error, 2, 'center', 'small', 'error', false, true);
                     }
                 }
             }
@@ -333,14 +333,14 @@ addEventListener("contextmenu", async e => {
             menuItem.addEventListener('click', async (e) => {
                 if (menuItem.getAttribute('data-type') === 'copy-url') {
                     const id = menuItem.getAttribute('data-id');
-                    const id1 = toast.loading("获取链接中...")
+                    const id1 = toast.showToast('获取资源中...', 0, 'center', 'small', 'loading', false, false);
                     const music = await getMusic(id);
                     toast.loadend(id1)
                     if (music) {
                         const { url } = music.song_data;
                         if (url) {
                             navigator.clipboard.writeText(url);
-                            toast.success('复制成功', 2000)
+                            toast.showToast('复制成功', 2, 'center', 'small', 'success', false, true);
                             menuMain.remove();
                         }
                     }
@@ -471,7 +471,7 @@ function lrcTimeToNum(time) {
 }
 
 download.addEventListener('click', async () => {
-    const id = toast.loading('下载中...');
+    const id = toast.showToast('下载中...', 0, 'center', 'small', 'loading', false, false);
     const blobURL = audio.src;
     if (blobURL) {
         const response = await fetch(blobURL);
@@ -484,14 +484,14 @@ download.addEventListener('click', async () => {
             a.click();
             window.URL.revokeObjectURL(url);
             toast.loadend(id)
-            toast.success('下载成功', 2000)
+            toast.showToast('下载成功', 2000, 'center', 'small', 'success', false, true);
         } else {
             toast.loadend(id)
-            toast.error('下载失败', 2000)
+            toast.showToast('下载失败', 2000, 'center', 'small', 'error', false, true);
         }
     } else {
         toast.loadend(id)
-        toast.warn("请先播放歌曲再下载", 2000)
+        toast.showToast('下载失败', 2000, 'center', 'small', 'error', false, true);
     }
 })
 
