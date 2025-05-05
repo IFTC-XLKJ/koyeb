@@ -91,7 +91,7 @@ class Other {
             if (!(ID && ID == 0)) {
                 res.status(400).json({
                     code: 400,
-                    msg: "参数错误",
+                    msg: "缺少参数",
                     timestamp: time(),
                 });
                 return;
