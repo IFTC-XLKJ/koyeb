@@ -92,8 +92,9 @@ update.addEventListener("click", async () => {
                 toast.showToast("获取成功", 2, "center", "small", "success", false, true);
                 const data = json.data;
                 data.forEach(item => {
-                    labels.innerHTML += `<li>${item.UUID}</li>`;
+                    labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
                 });
+                document.querySelector(".uuid").classList.add("current-label")
             } else {
                 await wait(1000);
                 get();
