@@ -4,7 +4,7 @@ Blockly.defineBlocksWithJsonArray([
         message0: "拖拽器 元素选择器%1",
         args0: [
             {
-                type: "input_value",
+                type: "field_input",
                 name: "selector",
                 check: "String"
             }
@@ -18,7 +18,6 @@ Blockly.defineBlocksWithJsonArray([
 ]);
 
 Blockly.JavaScript.forBlock["vv_dragger"] = function (block) {
-    var selector = Blockly.JavaScript.valueToCode(block, "selector", Blockly.JavaScript.ORDER_ATOMIC) || "''";
-    var code = `new Dragger(${selector})`;
-    return [code, Blockly.JavaScript.ORDER_ATOMIC];
+    const selector = Blockly.JavaScript.valueToCode(block, "selector", Blockly.JavaScript.ORDER_ATOMIC);
+    return ``;
 }
