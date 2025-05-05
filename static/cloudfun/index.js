@@ -20,7 +20,7 @@ create.addEventListener("click", async () => {
                     const data = await response.json();
                     if (data.code == 200) {
                         const url = data.data.url;
-                        const response = await fetch(`https://iftc.koyeb.app/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
+                        const response = await fetch(`/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
                         const json = await response.json();
                         if (json.code == 200) {
                             toast.hideToast(loadid);
