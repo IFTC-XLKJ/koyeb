@@ -85,7 +85,23 @@ class Other {
                 res.status(500).send(null);
             }
         });
-        this.app.get("/api/cloudfun/get", async (req, res) => {});
+        this.app.get("/api/cloudfun/get", async (req, res) => {
+            requestLog(req);
+            const { ID } = req.query;
+            if (!(ID && ID == 0)) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "参数错误",
+                    timestamp: time(),
+                });
+                return;
+            }
+            try { 
+            } catch (e) {
+                console.error(e);
+                res.status(500).send(null);
+            }
+        });
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
             const {
                 uuid
