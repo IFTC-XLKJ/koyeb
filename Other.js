@@ -196,6 +196,7 @@ class Other {
                         const src = data.数据;
                         const response = await fetch(src);
                         const code = await response.text();
+                        const logs = []
                         const fun = eval(`globalThis.require = null;
                         var require = async function(src) {
                             const response = await fetch(src);
@@ -363,8 +364,12 @@ class Other {
                                 },
                                 console: {
                                     log: async function (...args) {
-                                        await cloudfunConsole.setLogs(uuid, "log", args.join(' '));
-                                        console.log(`log from ${uuid}`, ...args);
+                                        const log = args.join(" ");
+                                        logs.push({
+                                            type: "log",
+                                            msg: log,
+                                        });
+                                        console.log(log);
                                     },
                                     warn: function (...args) {
                                     },
@@ -375,7 +380,13 @@ class Other {
                                 },
                             },
                         };
+                        if (fun[Symbol.toStringTag] == "AsyncFunction") {
+                            await fun(request);
+                            await cloudfunConsole.setLogs(uuid, logs);
+                            return;
+                        }
                         fun(request);
+                        await cloudfunConsole.setLogs(uuid, logs);
                     }
                 } else {
                     res.status(json.code).json({
