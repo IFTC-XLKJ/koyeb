@@ -237,6 +237,14 @@ class Other {
         });
         this.app.get("/api/cloudfun/new", async (req, res) => {
             const { ID, password, file } = req.query;
+            if (!ID || !password || !file) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "缺少参数",
+                    timestamp: time(),
+                });
+                return;
+            }
             try {
                 const userData = await user.login(ID, password);
                 if (userData.code != 200) {
