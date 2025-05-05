@@ -150,5 +150,36 @@ class UUID_db {
             throw error;
         }
     }
+    async getByID(ID) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": UUID_dbKEY,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType,
+                },
+                body: JSON.stringify({
+                    filter: `ID=${id}`,
+                    page: 1,
+                    limit: 1000000000000,
+                    sort: "updatedAt desc"
+                })
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error("There was a problem with the fetch operation:", error);
+            throw error;
+        }
+    }
 }
 module.exports = UUID_db;
