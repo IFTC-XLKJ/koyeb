@@ -112,20 +112,19 @@ update.addEventListener("click", async () => {
                         if (ws) {
                             ws.onmessage = e => {
                                 const data = JSON.parse(e.data);
-                                const consoleElement = document.querySelector(`ul[iftc-uuid="${item.getAttribute("iftc-uuid")}"]`);
                                 if (data.type == "console") {
                                     data.data.forEach(i => {
                                         if (i.type == "log") {
-                                            consoleElement.innerHTML += `<li>${i.msg}</li>`;
+                                            item.innerHTML += `<li>${i.msg}</li>`;
                                         }
                                         if (i.type == "error") {
-                                            consoleElement.innerHTML += `<li style="color: red;">${i.msg}</li>`;
+                                            item.innerHTML += `<li style="color: red;">${i.msg}</li>`;
                                         }
                                         if (i.type == "warn") {
-                                            consoleElement.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
+                                            item.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
                                         }
                                         if (i.type == "info") {
-                                            consoleElement.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
+                                            item.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
                                         }
                                     })
                                 } else if (data.type == "error") {
