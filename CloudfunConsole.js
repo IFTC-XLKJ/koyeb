@@ -39,7 +39,8 @@ class CloudfunConsole {
             throw error;
         }
     }
-    async setLogs(uuid, type, log) {
+    async setLogs(uuid, logs) {
+        const fields = logs.map(log => `("${uuid}", "${log.type}", "${log.log}")`).join(", ");
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -55,7 +56,7 @@ class CloudfunConsole {
                 body: JSON.stringify({
                     type: "INSERT",
                     filter: `UUID,类型,内容`,
-                    fields: `("${uuid}", "${type}", "${log}")`,
+                    fields: fields,
                 })
             })
             if (!response.ok) {
