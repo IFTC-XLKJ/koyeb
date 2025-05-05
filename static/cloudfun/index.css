@@ -31,4 +31,9 @@ button {
 #labels {
     display: flex;
     list-style-type: none;
+    padding: 0;
+}
+
+#labels li {
+    padding: 5px 10px;
 }
