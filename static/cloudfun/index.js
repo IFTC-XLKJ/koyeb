@@ -68,7 +68,7 @@ create.addEventListener("click", async () => {
 });
 
 (async function () {
-    const loadid = toast.showToast("正在加载...", 0, "center", "small", "normal", false, false);
+    const loadid = toast.showToast("正在加载...", 0, "center", "small", "loading", false, false);
     if (!localStorage.getItem("ID")) {
         toast.hideToast(loadid);
         toast.showToast("请先登录", 2, "center", "small", "error", false, true);
