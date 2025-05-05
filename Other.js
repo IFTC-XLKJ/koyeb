@@ -133,6 +133,20 @@ class Other {
                 });
             }
         });
+        this.app.get("/api/cloudfun/update", async (req, res) => {
+            requestLog(req);
+            const { ID, password, UUID } = req.query;
+            try {
+                const userData = await user.login(ID, password);
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务内部错误",
+                    error: e.message,
+                    timestamp: time(),
+                });
+            }
+        });
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
             const {
                 uuid
