@@ -67,6 +67,14 @@ create.addEventListener("click", async () => {
     }
 });
 
+update.addEventListener("click", async () => {
+    if (localStorage.getItem("ID") && localStorage.getItem("password")) {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".js";
+    }
+});
+
 (async function () {
     const loadid = toast.showToast("正在加载...", 0, "center", "small", "loading", false, false);
     if (!localStorage.getItem("ID")) {
