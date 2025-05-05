@@ -361,16 +361,17 @@ class Other {
                                 },
                                 console: {
                                     log: function (...args) {
-                                        
+                                        setLogs(uuid, [{
+                                            type: "log",
+                                            msg: args.join(" ")
+                                        }]);
+                                        console.log(`log from ${uuid}`, ...args);
                                     },
                                     warn: function (...args) {
-                                        console.warn(...args);
                                     },
                                     error: function (...args) {
-                                        console.error(...args);
                                     },
                                     info: function (...args) {
-                                        console.info(...args);
                                     }
                                 }
                             },
