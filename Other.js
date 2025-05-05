@@ -277,7 +277,8 @@ class Other {
                         msg: json.msg,
                         timestamp: time(),
                     });
-                }
+                } 
+                
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
