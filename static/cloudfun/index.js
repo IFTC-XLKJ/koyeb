@@ -94,6 +94,11 @@ update.addEventListener("click", async () => {
                 toast.showToast("获取成功", 2, "center", "small", "success", false, true);
                 const data = json.data;
                 data.forEach(item => {
+                    const ws = new WebSocket(`${socketURL}${item.UUID}`);
+                    ws.onopen = e => {
+                        console.log("WebSocket connection opened for UUID:", item.UUID);
+                        cloudfunSockets.push(ws);
+                    };
                     labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
                     Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console"></ul>`;
                 });
