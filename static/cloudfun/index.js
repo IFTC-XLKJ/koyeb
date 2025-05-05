@@ -1,6 +1,5 @@
 const toast = new Toast();
 create.addEventListener("click", async () => {
-    const loadid = toast.showToast("正在创建云函数", 0, "center", "small", "loading", false, false);
     if (localStorage.getItem("ID") && localStorage.getItem("password")) {
         const input = document.createElement("input");
         input.type = "file";
@@ -8,6 +7,7 @@ create.addEventListener("click", async () => {
         input.addEventListener("change", async e => {
             const file = e.target.files[0];
             if (file) {
+                const loadid = toast.showToast("正在创建云函数", 0, "center", "small", "loading", false, false);
                 const formData = new FormData();
                 formData.append("path", "vv/cloudfun");
                 formData.append("file", file);
@@ -29,7 +29,6 @@ create.addEventListener("click", async () => {
         input.click();
         // const json = await fetch(`https://iftc.koyeb.app/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${}}`);
     } else {
-        toast.hideToast(loadid);
         toast.showToast("请先登录", 2, "center", "small", "error", false, true);
         return;
     }
