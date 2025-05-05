@@ -1,4 +1,5 @@
 const toast = new Toast();
+const Console = document.getElementById("console");
 create.addEventListener("click", async () => {
     if (localStorage.getItem("ID") && localStorage.getItem("password")) {
         const input = document.createElement("input");
