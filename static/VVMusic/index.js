@@ -30,7 +30,7 @@ const download = document.getElementById('download');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
-            const id = toast.warn('搜索内容不能为空', 2000)
+            const id = toast.showToast('搜索内容不能为空', 2, 'center', 'small', 'error', false, true)
             return;
         }
         keyword = searchInput.value;
@@ -68,7 +68,7 @@ searchInput.addEventListener('input', function () {
 });
 searchBtn.addEventListener('click', async function () {
     if (!searchInput.value) {
-        const id = toast.warn('搜索内容不能为空', 2000)
+        const id = toast.showToast('搜索内容不能为空', 2, 'center', 'small', 'error', false, true);
         return;
     }
     keyword = searchInput.value;
@@ -252,7 +252,7 @@ function renderMusicList(musics) {
                             if (blob) {
                                 const url = URL.createObjectURL(blob);
                                 if (url) {
-                                    toast.loadend(id1)
+                                    toast.hideToast(id1)
                                     toast.showToast('加载成功', 2, 'center', 'small', 'success', false, true);
                                     audio.src = url;
                                     playerCover.src = pic;
@@ -280,21 +280,21 @@ function renderMusicList(musics) {
                                     updatetime();
                                     console.log(lrcstimes, lrclist);
                                 } else {
-                                    toast.loadend(id1)
+                                    toast.hideToast(id1)
                                     toast.showToast('加载失败', 2, 'center', 'small', 'error', false, true);
                                 }
                             } else {
-                                toast.loadend(id1)
+                                toast.hideToast(id1)
                                 toast.showToast('加载失败', 2, 'center', 'small', 'error', false, true);
                             }
                         } else {
                             console.error('网络请求失败', response.statusText);
-                            toast.loadend(id1)
+                            toast.hideToast(id1)
                             toast.showToast('网络请求失败：' + response.statusText, 2, 'center', 'small', 'error', false, true);
                         }
                     } catch (error) {
                         console.error('网络请求失败', error);
-                        toast.loadend(id1)
+                        toast.hideToast(id1)
                         toast.showToast('网络请求失败：' + error, 2, 'center', 'small', 'error', false, true);
                     }
                 }
@@ -513,13 +513,13 @@ async function getMusicList(keyword) {
         } else {
             console.error('遇到未知的错误', data.msg);
             toast.loadend(id)
-            toast.error('遇到未知的错误', 2000)
+            toast.showToast('遇到未知的错误', 2000, 'center', 'small', 'error', false, true);
             return;
         }
     } else {
         console.error('网络请求失败', response.statusText);
         toast.loadend(id)
-        toast.error('网络请求失败：' + response.statusText, 2000)
+        toast.showToast('网络请求失败：' + response.statusText, 2000, 'center', 'small', 'error', false, true);
         return;
     }
 }
