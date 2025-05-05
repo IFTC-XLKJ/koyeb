@@ -3,7 +3,9 @@ const fs = require("fs").promises;
 const UUID_db = require("./UUID_db.js");
 const fetch = require("node-fetch");
 const { JSDOM } = require("jsdom");
+const User = require("./User.js");
 
+const user = new User();
 const uuid_db = new UUID_db();
 
 class Other {
@@ -233,6 +235,15 @@ class Other {
                 res.status(500).send(null);
             }
         });
+        this.app.get("/api/cloudfun/new", async (req, res) => {
+            const { ID, password, file } = req.query;
+            try {
+                constjson = await uuid_db.addData(generateUUID(), "cloudfun", ID, file);
+            } catch (e) {
+                console.error(e);
+                res.status(500).send(null);
+            }
+        });
         console.log("Other");
     }
     async getFile(path) {
@@ -248,6 +259,17 @@ class Other {
 
 function time() {
     return Date.now();
+}
+
+function generateUUID() {
+    var d = new Date().getTime();
+    var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+        function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+    return uuid;
 }
 
 module.exports = Other;
