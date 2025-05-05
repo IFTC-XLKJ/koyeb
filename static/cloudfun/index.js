@@ -75,7 +75,12 @@ create.addEventListener("click", async () => {
         return;
     }
     async function get() {
-        const response = await fetch(`/api/cloudfun/get?ID=${localStorage.getItem('ID')}`)
+        try {
+            const response = await fetch(`/api/cloudfun/get?ID=${localStorage.getItem('ID')}`);
+        } catch (error) {
+            await wait(1000);
+            get();
+        }
     }
     get();
 })();
