@@ -164,7 +164,7 @@ class UUID_db {
                     "Content-Type": contentType,
                 },
                 body: JSON.stringify({
-                    filter: `ID=${id}`,
+                    filter: `ID=${ID}`,
                     page: 1,
                     limit: 1000000000000,
                     sort: "updatedAt desc"
