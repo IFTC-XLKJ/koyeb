@@ -97,14 +97,9 @@ update.addEventListener("click", async () => {
                 document.querySelector(".uuid").classList.add("current-label");
                 const uuids = document.querySelectorAll(".uuid");
                 uuids.forEach((item, index) => {
-                    item.addEventListener("click", () => {
+                    item.addEventListener("click", e => {
                         uuids.forEach(i => i.classList.remove("current-label"));
                         item.classList.add("current-label");
-                        const uuid = item.innerText;
-                        const data = json.data.find(i => i.UUID == uuid);
-                        // if (data) {
-                        //     Console.innerHTML = `<div class="console-header">UUID: ${data.UUID}</div><div class="console-body">${data.data}</div>`;
-                        // }
                     });
                 });
             } else {
