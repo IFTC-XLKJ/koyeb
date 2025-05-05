@@ -19,6 +19,8 @@ create.addEventListener("click", async () => {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.code == 200) {
+                        const url = data.data.url;
+                        const json = await fetch(`https://iftc.koyeb.app/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
                     } else {
                         toast.hideToast(loadid);
                         toast.showToast(data.msg, 2, "center", "small", "error", false, true);
@@ -30,7 +32,6 @@ create.addEventListener("click", async () => {
             }
         });
         input.click();
-        // const json = await fetch(`https://iftc.koyeb.app/api/cloudfun/new?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${}}`);
     } else {
         toast.showToast("请先登录", 2, "center", "small", "error", false, true);
         return;
