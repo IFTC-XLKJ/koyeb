@@ -37,6 +37,10 @@ button {
     width: 100%;
 }
 
+.console {
+    width: 100%;
+}
+
 #labels {
     display: flex;
     list-style-type: none;
