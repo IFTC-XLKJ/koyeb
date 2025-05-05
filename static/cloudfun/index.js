@@ -81,7 +81,6 @@ create.addEventListener("click", async () => {
             if (json.code == 200) {
                 toast.hideToast(loadid);
                 toast.showToast("获取成功", 2, "center", "small", "success", false, true);
-                document.getElementById("content").value = json.data;
             } else {
                 await wait(1000);
                 get();
