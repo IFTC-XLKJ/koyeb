@@ -43,6 +43,7 @@ class CloudfunConsole {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
+            const signature = await signaturePromise;
             const response = await fetch(setDataURL, {
                 method: "POST",
                 headers: {
