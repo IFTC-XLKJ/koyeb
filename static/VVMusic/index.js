@@ -335,7 +335,7 @@ addEventListener("contextmenu", async e => {
                     const id = menuItem.getAttribute('data-id');
                     const id1 = toast.showToast('获取资源中...', 0, 'center', 'small', 'loading', false, false);
                     const music = await getMusic(id);
-                    toast.loadend(id1)
+                    toast.hideToast(id1)
                     if (music) {
                         const { url } = music.song_data;
                         if (url) {
@@ -483,14 +483,14 @@ download.addEventListener('click', async () => {
             a.download = `${playerName.innerText} - ${playerAuthor.innerText}.mp3`;
             a.click();
             window.URL.revokeObjectURL(url);
-            toast.loadend(id)
+            toast.hideToast(id)
             toast.showToast('下载成功', 2000, 'center', 'small', 'success', false, true);
         } else {
-            toast.loadend(id)
+            toast.hideToast(id)
             toast.showToast('下载失败', 2000, 'center', 'small', 'error', false, true);
         }
     } else {
-        toast.loadend(id)
+        toast.hideToast(id)
         toast.showToast('下载失败', 2000, 'center', 'small', 'error', false, true);
     }
 })
