@@ -372,7 +372,7 @@ class Other {
                                     },
                                     info: function (...args) {
                                     }
-                                }
+                                },
                             },
                         };
                         fun(request);
