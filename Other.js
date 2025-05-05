@@ -63,11 +63,14 @@ class Other {
                     });
                     return;
                 }
-                const json = await uuid_db.addData(generateUUID(), "cloudfun", ID, file);
+                const uuid = generateUUID();
+                const json = await uuid_db.addData(uuid, "cloudfun", ID, file);
                 if (json.code == 200) {
                     res.status(200).json({
                         code: 200,
                         msg: "创建成功",
+                        uuid: uuid,
+                        url: `/api/cloudfun/${uuid}`,
                         timestamp: time(),
                     });
                 } else {
