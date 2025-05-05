@@ -125,7 +125,12 @@ class Other {
                 }
             } catch (e) {
                 console.error(e);
-                res.status(500).send(null);
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: e.message,
+                    timestamp: time(),
+                });
             }
         });
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
