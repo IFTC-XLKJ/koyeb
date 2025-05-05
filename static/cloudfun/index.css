@@ -25,6 +25,7 @@ button {
 }
 
 #consoles {
+    display: flex;
     width: 100%;
 }
 
