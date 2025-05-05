@@ -24,7 +24,7 @@ create.addEventListener("click", async () => {
                     if (data.code == 200) {
                     } else {
                         toast.hideToast(loadid);
-                        toast.showToast(data.message, 2, "center", "small", "error", false, true);
+                        toast.showToast(data.msg, 2, "center", "small", "error", false, true);
                     }
                     return;
                 }
