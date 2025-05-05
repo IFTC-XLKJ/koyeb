@@ -4,10 +4,11 @@ const UUID_db = require("./UUID_db.js");
 const fetch = require("node-fetch");
 const { JSDOM } = require("jsdom");
 const User = require("./User.js");
-const cloudfunConsole = require("./CloudfunConsole.js");
+const CloudfunConsole = require("./CloudfunConsole.js");
 
 const user = new User();
 const uuid_db = new UUID_db();
+const cloudfunConsole = new CloudfunConsole();
 
 class Other {
     constructor(app, requestLog) {
