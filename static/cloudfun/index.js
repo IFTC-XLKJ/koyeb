@@ -33,6 +33,10 @@ create.addEventListener("click", async () => {
                             toast.showToast(json.msg, 2, "center", "small", "error", false, true);
                             await wait(2000);
                             location.href = "/login";
+                        } else {
+                            toast.hideToast(loadid);
+                            toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+                            await wait(2000);
                         }
                     } else {
                         toast.hideToast(loadid);
