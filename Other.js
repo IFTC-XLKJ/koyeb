@@ -97,7 +97,32 @@ class Other {
                 return;
             }
             try {
-                
+                const json = await uuid_db.getByID(ID);
+                if (json.code == 200) {
+                    const data = [];
+                    json.fields.forEach(field => {
+                        data.push({
+                            ID: field.ID,
+                            name: String(field.章节名),
+                            content: String(field.章节内容),
+                            num: field.章节编号,
+                            createdAt: field.createdAt,
+                            updatedAt: field.updatedAt
+                        });
+                    });
+                    res.status(200).json({
+                        code: 200,
+                        msg: "获取成功",
+                        data: data,
+                        timestamp: time(),
+                    });
+                } else {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                }
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
