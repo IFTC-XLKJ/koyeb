@@ -403,4 +403,27 @@ function generateUUID() {
     return uuid;
 }
 
+async function getLogs(UUID) {
+    const response = await fetch("https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282&action=get", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `tag=cloudfun-${UUID}`,
+    });
+    const data = await response.json();
+    return data[`cloudfun-${UUID}`] == "null" ? [] : JSON.parse(data[`cloudfun-${UUID}`]);
+}
+
+async function setLogs(UUID, logs) {
+    const response = await fetch("https://tinywebdb.appinventor.space/api?user=stree&secret=7e59b282&action=store", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: `tag=cloudfun-${UUID}&value=${JSON.stringify(logs)}`,
+    });
+    const data = await response.json();
+}
+
 module.exports = Other;
