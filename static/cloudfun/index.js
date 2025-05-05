@@ -114,8 +114,20 @@ update.addEventListener("click", async () => {
                                 const data = JSON.parse(e.data);
                                 const consoleElement = document.querySelector(`ul[iftc-uuid="${item.getAttribute("iftc-uuid")}"]`);
                                 if (data.type == "console") {
-                                    consoleElement.innerHTML += `<li>${data.msg}</li>`;
-                                    consoleElement.scrollTop = consoleElement.scrollHeight;
+                                    data.data.forEach(i => {
+                                        if (i.type == "log") {
+                                            consoleElement.innerHTML += `<li>${i.msg}</li>`;
+                                        }
+                                        if (i.type == "error") {
+                                            consoleElement.innerHTML += `<li style="color: red;">${i.msg}</li>`;
+                                        }
+                                        if (i.type == "warn") {
+                                            consoleElement.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
+                                        }
+                                        if (i.type == "info") {
+                                            consoleElement.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
+                                        }
+                                    })
                                 } else if (data.type == "error") {
                                     consoleElement.innerHTML += `<li style="color: red;">${data.msg}</li>`;
                                     consoleElement.scrollTop = consoleElement.scrollHeight;
