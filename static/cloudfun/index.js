@@ -83,7 +83,7 @@ create.addEventListener("click", async () => {
                 toast.showToast("获取成功", 2, "center", "small", "success", false, true);
                 const data = json.data;
                 data.forEach(item => {
-                    labels.innerHTML += `<li></li>`;
+                    labels.innerHTML += `<li>${item.UUID}</li>`;
                 });
             } else {
                 await wait(1000);
