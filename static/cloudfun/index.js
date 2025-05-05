@@ -13,9 +13,6 @@ create.addEventListener("click", async () => {
                 formData.append("file", file, file.name);
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", {
                     method: "POST",
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
                     body: formData,
                     redirect: 'follow'
                 });
