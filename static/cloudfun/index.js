@@ -93,6 +93,7 @@ update.addEventListener("click", async () => {
                 const data = json.data;
                 data.forEach(item => {
                     labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
+                    Console.innerHTML += `<div iftc-uuid="${item.UUID}" class="console"></div>`;
                 });
                 document.querySelector(".uuid").classList.add("current-label");
                 const uuids = document.querySelectorAll(".uuid");
