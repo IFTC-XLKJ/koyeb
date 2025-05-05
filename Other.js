@@ -427,7 +427,7 @@ async function getLogs(UUID) {
         body: `tag=cloudfun-${UUID}`,
     });
     const data = await response.json();
-    return data[`cloudfun-${UUID}`] == "null" ? [] : JSON.parse(data[`cloudfun-${UUID}`]);
+    return data[`cloudfun-${UUID}`] == "null" ? [] : data[`cloudfun-${UUID}`];
 }
 
 async function setLogs(UUID, logs) {
