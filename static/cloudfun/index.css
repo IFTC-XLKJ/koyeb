@@ -27,3 +27,7 @@ button {
 #consoles {
     width: 100%;
 }
+
+#labels {
+    list-style-type: none;
+}
