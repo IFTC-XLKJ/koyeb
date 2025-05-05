@@ -5,7 +5,7 @@ create.addEventListener("click", async () => {
 
     } else {
         toast.hideToast(loadid);
-        toast.showToast("请先登录", 2, "center", "small", "error", false);
+        toast.showToast("请先登录", 2, "center", "small", "error", false, true);
         return;
     }
 });
