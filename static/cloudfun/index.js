@@ -16,7 +16,7 @@ create.addEventListener("click", async () => {
                     headers: {
                         "Content-Type": "multipart/form-data",
                     },
-                    body: formData,,
+                    body: formData,
                     redirect: 'follow'
                 });
                 if (response.ok) {
