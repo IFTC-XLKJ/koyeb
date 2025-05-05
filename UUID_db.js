@@ -189,15 +189,23 @@ class UUID_db {
             const response = await fetch(setDataURL, {
                 method: "POST",
                 headers: {
-                    "X-Pgaot-Key": VVZHkey,
+                    "X-Pgaot-Key": UUID_dbKEY,
                     "X-Pgaot-Sign": signature,
                     "X-Pgaot-Time": timestamp.toString(),
                     "Content-Type": contentType,
                 },
                 body: JSON.stringify({
                     type: "UPDATE",
+                    filter: `ID=${id}`,
+                    fields: `数据="${data}"`,
                 })
             })
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
         } catch (error) {
             console.error("There was a problem with the fetch operation:", error);
             throw error;
