@@ -496,18 +496,18 @@ download.addEventListener('click', async () => {
 })
 
 async function getMusicList(keyword) {
-    const id = toast.loading('搜索中...');
+    const id = toast.showToast('搜索中...', 0, 'center', 'small', 'loading', false, false);
     const response = await fetch(searchURL(keyword));
     if (response.ok) {
         const data = await response.json();
         if (data.status) {
             if (data.song_data.length == 0) {
                 toast.loadend(id)
-                toast.warn('没有搜索到结果', 2000)
+                toast.showToast('没有搜索到相关内容', 2000, 'center', 'small', 'error', false, true);
                 return;
             } else {
                 toast.loadend(id)
-                toast.success('搜索成功', 2000)
+                toast.showToast('搜索成功', 2000, 'center', 'small', 'success', false, true);
                 return data.song_data;
             }
         } else {
