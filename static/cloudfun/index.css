@@ -24,7 +24,7 @@ button {
     outline: none;
 }
 
-[iftc-cloudfun-current-console] {
+.current-label {
     background-color: #eee;
     border-radius: 5px 5px 0 0;
 }
