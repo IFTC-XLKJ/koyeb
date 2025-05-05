@@ -23,3 +23,7 @@ button {
     font-size: 16px;
     outline: none;
 }
+
+#consoles {
+    width: 100%;
+}
