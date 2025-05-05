@@ -13,3 +13,8 @@ body {
         margin-right: 50px;
     }
 }
+
+button {
+    background-color: white;
+    border: none;
+}
