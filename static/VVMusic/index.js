@@ -244,7 +244,7 @@ function renderMusicList(musics) {
             if (music) {
                 const { url, lyric, pic, name, artist } = music.song_data;
                 if (url) {
-                    const id1 = toast.loading('加载中...')
+                    const id1 = toast.showToast('加载中...', 0, 'center', 'small', 'loading', false, false);
                     try {
                         const response = await fetch(url);
                         if (response.ok) {
