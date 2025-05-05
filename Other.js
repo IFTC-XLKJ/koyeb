@@ -97,7 +97,7 @@ class Other {
                     if (!data) {
                         res.status(404).json({
                             code: 404,
-                            msg: "未找到数据",
+                            msg: "未知的云函数",
                             timestamp: time(),
                         });
                         return;
