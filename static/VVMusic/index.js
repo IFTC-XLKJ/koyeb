@@ -502,36 +502,36 @@ async function getMusicList(keyword) {
         const data = await response.json();
         if (data.status) {
             if (data.song_data.length == 0) {
-                toast.loadend(id)
+                toast.hideToast(id)
                 toast.showToast('没有搜索到相关内容', 2000, 'center', 'small', 'error', false, true);
                 return;
             } else {
-                toast.loadend(id)
+                toast.hideToast(id)
                 toast.showToast('搜索成功', 2000, 'center', 'small', 'success', false, true);
                 return data.song_data;
             }
         } else {
             console.error('遇到未知的错误', data.msg);
-            toast.loadend(id)
+            toast.hideToast(id)
             toast.showToast('遇到未知的错误', 2000, 'center', 'small', 'error', false, true);
             return;
         }
     } else {
         console.error('网络请求失败', response.statusText);
-        toast.loadend(id)
+        toast.hideToast(id)
         toast.showToast('网络请求失败：' + response.statusText, 2000, 'center', 'small', 'error', false, true);
         return;
     }
 }
 
 async function getMusic(id) {
-    const id1 = toast.loading('获取资源中...');
+    const id1 = toast.showToast('获取资源中...', 0, 'center', 'small', 'loading', false, false);
     const response = await fetch(getMusicURL(id));
     if (response.ok) {
         const data = await response.json();
         if (data.status) {
-            toast.loadend(id1)
-            toast.success('获取资源成功', 2000)
+            toast.hideToast(id1)
+            toast.showToast('获取资源成功', 2000, 'center', 'small', 'success', false, true);
             return data;
         } else {
             console.error('遇到未知的错误', data.msg);
