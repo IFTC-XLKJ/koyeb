@@ -31,6 +31,8 @@ create.addEventListener("click", async () => {
                         } else if (json.code == 401) {
                             toast.hideToast(loadid);
                             toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+                            await wait(2000);
+                            location.href = "/login";
                         }
                     } else {
                         toast.hideToast(loadid);
@@ -48,3 +50,7 @@ create.addEventListener("click", async () => {
         return;
     }
 });
+
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
