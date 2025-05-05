@@ -138,6 +138,24 @@ class Other {
             const { ID, password, UUID } = req.query;
             try {
                 const userData = await user.login(ID, password);
+                if (userData.code == 200) {
+                    const data = json.fields[0];
+                    if (!data) {
+                        res.status(404).json({
+                            code: 401,
+                            msg: "账号或密码错误",
+                            timestamp: time(),
+                        });
+                        return;
+                    }
+                    const json = await uuid_db
+                } else {
+                    res.status(userData.code).json({
+                        code: userData.code,
+                        msg: userData.msg,
+                        timestamp: time(),
+                    })
+                }
             } catch (e) {
                 res.status(500).json({
                     code: 500,
