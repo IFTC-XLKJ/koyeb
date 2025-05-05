@@ -135,7 +135,15 @@ class Other {
         });
         this.app.get("/api/cloudfun/update", async (req, res) => {
             requestLog(req);
-            const { ID, password, UUID } = req.query;
+            const { ID, password, UUID, file } = req.query;
+            if (!(ID && ID == 0) || !password || !UUID || !file) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "缺少参数",
+                    timestamp: time(),
+                });
+                return;
+            }
             try {
                 const userData = await user.login(ID, password);
                 if (userData.code == 200) {
@@ -148,7 +156,7 @@ class Other {
                         });
                         return;
                     }
-                    const json = await uuid_db
+                    const json = await uuid_db.update(ID, UUID, file);
                 } else {
                     res.status(userData.code).json({
                         code: userData.code,
