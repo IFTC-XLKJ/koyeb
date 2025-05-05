@@ -24,6 +24,10 @@ button {
     outline: none;
 }
 
+#main {
+    margin-top: 20px;
+}
+
 #consoles {
     width: 100%;
 }
