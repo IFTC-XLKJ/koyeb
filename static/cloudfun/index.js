@@ -67,6 +67,19 @@ create.addEventListener("click", async () => {
     }
 });
 
+(async function () {
+    const loadid = toast.showToast("正在加载...", 0, "center", "small", "normal", false, false);
+    if (!localStorage.getItem("ID")) {
+        toast.hideToast(loadid);
+        toast.showToast("请先登录", 2, "center", "small", "error", false, true);
+        return;
+    }
+    async function get() {
+        const response = await fetch(`/api/cloudfun/get?ID=${localStorage.getItem('ID')}`)
+    }
+    get();
+})();
+
 function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
