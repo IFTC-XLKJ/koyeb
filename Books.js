@@ -375,9 +375,9 @@ class Books {
                         "Content-Type": contentType
                     },
                     body: JSON.stringify({
-                        type: "UPDATE",
-                        filter: `ID=${ID} AND 书ID=${BID}`,
-                        fields: `书ID=${BID}`,
+                        type: "INSERT",
+                        filter: `ID,书ID`,
+                        fields: `(${ID}, ${BID})`,
                     })
                 })
             if (!response.ok) {
