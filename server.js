@@ -391,6 +391,19 @@ app.get("/api/bookshelf/add", async (req, res) => {
     const books = new Books();
     try {
         const json = books.addBookshelf(ID, BID);
+        if (json.code == 200) {
+            res.json({
+                code: 200,
+                msg: "加入书架成功",
+                timestamp: time(),
+            })
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
     } catch(e) {
         res.status(500).json({
             code: 500,
