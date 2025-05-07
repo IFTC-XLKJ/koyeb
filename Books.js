@@ -407,9 +407,8 @@ async noaddBookshelf(ID, BID) {
                         "Content-Type": contentType
                     },
                     body: JSON.stringify({
-                        type: "UPDATE",
+                        type: "DELETE",
                         filter: `ID=${ID} AND 书ID=${BID}`,
-                        fields: `书ID=${BID}`,
                     })
                 })
             if (!response.ok) {
