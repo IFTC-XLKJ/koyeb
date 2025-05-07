@@ -376,6 +376,10 @@ app.all("/api", (req, res) => {
 
 app.get("/api/bookshelf/add", async (req, res) => {
     requestLog(req);
+    const {
+        ID,
+        BID
+    } = req.query;
 });
 
 app.get("/api/morse", async (req, res) => {
