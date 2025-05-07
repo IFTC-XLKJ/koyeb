@@ -383,7 +383,7 @@ app.get("/api/bookshelf/add", async (req, res) => {
     if (!(ID && ID == 0) || !BID) {
         res.status(400).json({
             code: 400,
-            msg: "缺少text或type参数",
+            msg: "缺少参数",
             timestamp: time(),
         });
         return;
