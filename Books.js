@@ -391,8 +391,7 @@ class Books {
             throw error;
         }
     }
-}
-async noaddBookshelf(ID, BID) {
+    async noaddBookshelf(ID, BID) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -421,6 +420,7 @@ async noaddBookshelf(ID, BID) {
             console.error('There was a problem with the fetch operation:', error);
             throw error;
         }
+    }
 }
 
 function generateBookID() {
