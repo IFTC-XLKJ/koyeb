@@ -360,6 +360,7 @@ class Books {
             throw error;
         }
     }
+    async addBookshelf(ID, BID) {}
 }
 
 function generateBookID() {
