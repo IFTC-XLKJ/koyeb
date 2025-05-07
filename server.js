@@ -380,6 +380,14 @@ app.get("/api/bookshelf/add", async (req, res) => {
         ID,
         BID
     } = req.query;
+    if (!(ID && ID == 0) || !BID) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少text或type参数",
+            timestamp: time(),
+        });
+        return;
+    }
 });
 
 app.get("/api/morse", async (req, res) => {
