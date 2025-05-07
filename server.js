@@ -374,6 +374,10 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/bookshelf/add", async (req, res) => {
+    requestLog(req);
+});
+
 app.get("/api/morse", async (req, res) => {
     requestLog(req);
     const {
