@@ -388,6 +388,17 @@ app.get("/api/bookshelf/add", async (req, res) => {
         });
         return;
     }
+    const books = new Books();
+    try {
+        const json = books.addBookshelf(ID, BID);
+    } catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.message,
+            timestamp: time(),
+        })
+    }
 });
 
 app.get("/api/morse", async (req, res) => {
