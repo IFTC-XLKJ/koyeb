@@ -374,6 +374,45 @@ app.all("/api", (req, res) => {
     });
 });
 
+app.get("/api/bookshelf/getall", async (req, res) => {
+    requestLog(req);
+    const {
+        ID
+    } = req.query;
+    if (!(ID && ID == 0)) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    const books = new Books();
+    try {
+        const json = await books.noaddBookshelf(ID, BID);
+        if (json.code == 200) {
+            res.json({
+                code: 200,
+                msg: "取加书架成功",
+                timestamp: time(),
+            })
+        } else {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            })
+        }
+    } catch(e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误",
+            error: e.message,
+            timestamp: time(),
+        })
+    }
+})
+
 app.get("/api/bookshelf/noadd", async (req, res) => {
     requestLog(req);
     const {
