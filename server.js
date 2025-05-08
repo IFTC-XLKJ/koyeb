@@ -393,7 +393,9 @@ app.get("/api/bookshelf/getall", async (req, res) => {
         if (json.code == 200) {
             const data = [];
             json.fields.forEach(field => {
-                data.push(field)
+                data.push({
+                    field: field,
+                })
             });
             res.json({
                 code: 200,
