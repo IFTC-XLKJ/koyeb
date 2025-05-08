@@ -389,7 +389,7 @@ app.get("/api/bookshelf/getall", async (req, res) => {
     }
     const books = new Books();
     try {
-        const json = await books.noaddBookshelf(ID, BID);
+        const json = await books.getBookshelfAll(ID);
         if (json.code == 200) {
             res.json({
                 code: 200,
