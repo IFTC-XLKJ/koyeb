@@ -391,9 +391,14 @@ app.get("/api/bookshelf/getall", async (req, res) => {
     try {
         const json = await books.getBookshelfAll(ID);
         if (json.code == 200) {
+            const data = [];
+            json.fields.forEach(field => {
+                data.push(field)
+            });
             res.json({
                 code: 200,
-                msg: "取加书架成功",
+                msg: "获取成功",
+                data: data,
                 timestamp: time(),
             })
         } else {
