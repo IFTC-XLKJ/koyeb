@@ -394,6 +394,7 @@ app.get("/api/bookshelf/getall", async (req, res) => {
             const data = [];
             json.fields.forEach(field => {
                 data.push({
+                    BID: field.书ID,
                     field: field,
                 })
             });
