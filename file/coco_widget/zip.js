@@ -49,6 +49,7 @@ const types = {
         blockOptions: {
             callMethodLabel: false,
             color: METHOD_COLOR,
+            space: 30,
         },
         valueType: 'array',
     }, {
