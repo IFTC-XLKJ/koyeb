@@ -11,7 +11,7 @@ function importScript(src, load, error) {
     document.head.appendChild(script);
 }
 function genId() {
-    return (Math.random() * (10 ** 17)).toString(36)
+    return (Math.random() * (10 ** 17)).toString(36);
 };
 
 const types = {
@@ -23,6 +23,7 @@ const types = {
     isGlobalWidget: true,
     author: "IFTC",
     properties: [],
+    platforms: ["web", "android"],
     methods: [{
         key: 'scriptLoaded',
         label: '资源加载完成',
