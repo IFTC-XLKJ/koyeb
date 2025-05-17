@@ -548,7 +548,7 @@ async function getMusic(id) {
 
 
 function searchURL(keyword) {
-    return 'https://www.lihouse.xyz/coco_widget/music_resource/info?key=' + keyword + '&page=' + pageNum + '&limit=' + pageSize;
+    return 'https://iftc.deno.dev/music_resource/info?key=' + keyword + '&page=' + pageNum + '&limit=' + pageSize;
 }
 
 function getMusicURL(id) {
