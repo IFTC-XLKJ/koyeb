@@ -531,18 +531,18 @@ async function getMusic(id) {
         const data = await response.json();
         if (data.status) {
             toast.hideToast(id1)
-            toast.showToast('获取资源成功', 2000, 'center', 'small', 'success', false, true);
+            toast.showToast('获取资源成功', 2, 'center', 'small', 'success', false, true);
             return data;
         } else {
             console.error('遇到未知的错误', data.msg);
             toast.hideToast(id1)
-            toast.showToast('遇到未知的错误', 2000, 'center', 'small', 'error', false, true);
+            toast.showToast('遇到未知的错误', 2, 'center', 'small', 'error', false, true);
             return;
         }
     } else {
         console.error('网络请求失败', response.statusText);
         toast.hideToast(id1)
-        toast.showToast('网络请求失败：' + response.statusText, 2000, 'center', 'small', 'error', false, true);
+        toast.showToast('网络请求失败：' + response.statusText, 2, 'center', 'small', 'error', false, true);
     }
 }
 
