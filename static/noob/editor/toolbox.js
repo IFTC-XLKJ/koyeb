@@ -448,48 +448,6 @@ const toolbox = {
                         }
                     },
                 },
-                // {
-                //     kind: "block",
-                //     type: "script_console_log",
-                //     inputs: {
-                //         CONSOLE_LOG: {
-                //             shadow: {
-                //                 type: "text",
-                //                 fields: {
-                //                     TEXT: "Hello,NOOB!"
-                //                 }
-                //             }
-                //         }
-                //     }
-                // },
-                // {
-                //     kind: "block",
-                //     type: "script_console_warn",
-                //     inputs: {
-                //         CONSOLE_WARN: {
-                //             shadow: {
-                //                 type: "text",
-                //                 fields: {
-                //                     TEXT: "Hello,NOOB!"
-                //                 }
-                //             }
-                //         }
-                //     }
-                // },
-                // {
-                //     kind: "block",
-                //     type: "script_console_error",
-                //     inputs: {
-                //         CONSOLE_ERROR: {
-                //             shadow: {
-                //                 type: "text",
-                //                 fields: {
-                //                     TEXT: "Hello,NOOB!"
-                //                 }
-                //             }
-                //         }
-                //     }
-                // },
                 {
                     kind: "block",
                     type: "script_try_catch",
