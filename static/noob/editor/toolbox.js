@@ -499,10 +499,12 @@ const toolbox = {
                                 type: "script_console",
                                 fields: {
                                     type: "log",
-                                    shadow: {
-                                        type: "text",
-                                        fields: {
-                                            TEXT: "Hello,NOOB!"
+                                    content: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "Hello,NOOB!"
+                                            }
                                         }
                                     }
                                 },
