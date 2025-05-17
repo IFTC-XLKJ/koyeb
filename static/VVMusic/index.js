@@ -497,7 +497,11 @@ download.addEventListener('click', async () => {
 
 async function getMusicList(keyword) {
     const id = toast.showToast('搜索中...', 0, 'center', 'small', 'loading', false, false);
-    const response = await fetch(searchURL(keyword));
+    const response = await fetch(searchURL(keyword), {
+            hearders: {
+                'Access-Control-Allow-Credentials': true
+            },
+    });
     if (response.ok) {
         const data = await response.json();
         if (data.status) {
