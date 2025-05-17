@@ -497,8 +497,7 @@ const toolbox = {
                         TRY: {
                             block: {
                                 type: "script_console",
-                                fields: {
-                                    type: "log",
+                                inputs: {
                                     content: {
                                         shadow: {
                                             type: "text",
@@ -507,6 +506,9 @@ const toolbox = {
                                             }
                                         }
                                     }
+                                },
+                                fields: {
+                                    type: "log",
                                 },
                             }
                         }
