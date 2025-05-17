@@ -26,7 +26,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         previousStatement: null,
         nextStatement: null,
-        colour: 230,
+        colour: "#68CDFF",
         tooltip: "console.warn",
         helpUrl: "",
         inputInline: true
@@ -42,7 +42,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         previousStatement: null,
         nextStatement: null,
-        colour: 230,
+        colour: "#68CDFF",
         tooltip: "console.error",
         helpUrl: "",
         inputInline: true
@@ -62,7 +62,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         previousStatement: null,
         nextStatement: null,
-        colour: 230,
+        colour: "#68CDFF",
         tooltip: "try catch",
         helpUrl: "",
         inputInline: true
@@ -72,7 +72,7 @@ Blockly.defineBlocksWithJsonArray([
         message0: "获取捕获的错误变量",
         args0: [],
         output: "String",
-        colour: 230,
+        colour: "#68CDFF",
         tooltip: "获取捕获的错误变量",
         helpUrl: "",
         inputInline: true
@@ -88,7 +88,7 @@ Blockly.defineBlocksWithJsonArray([
         ],
         previousStatement: null,
         nextStatement: null,
-        colour: 230,
+        colour: "#68CDFF",
         tooltip: "等待",
         helpUrl: "",
         inputInline: true
