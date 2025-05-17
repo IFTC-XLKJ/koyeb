@@ -1,5 +1,3 @@
-const { type } = require("express/lib/response");
-
 Blockly.defineBlocksWithJsonArray([
     {
         type: "script_console",
