@@ -72,7 +72,33 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "等待",
         helpUrl: "",
         inputInline: true
-    }
+    },
+    {
+        type: 'controls_if',
+        message0: '如果 %1',
+        args0: [
+            {
+                type: 'input_value',
+                name: 'IF0',
+                check: 'Boolean',
+            },
+        ],
+        message1: '%1',
+        args1: [
+            {
+                'type': 'input_statement',
+                'name': 'DO0',
+            },
+        ],
+        'previousStatement': null,
+        'nextStatement': null,
+        'style': 'logic_blocks',
+        'helpUrl': '%{BKY_CONTROLS_IF_HELPURL}',
+        'suppressPrefixSuffix': true,
+        'mutator': 'controls_if_mutator',
+        'extensions': ['controls_if_tooltip'],
+        colour: "#68CDFF",
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
