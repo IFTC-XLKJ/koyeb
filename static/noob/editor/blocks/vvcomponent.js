@@ -14,12 +14,10 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "拖拽器",
         helpUrl: "",
         inputsInline: true,
-        nextStatement: true,
-        previousStatement: true,
     }
 ]);
 
 Blockly.JavaScript.forBlock["vv_dragger"] = function (block) {
-    const selector = Blockly.JavaScript.valueToCode(block, "selector", Blockly.JavaScript.ORDER_ATOMIC);
-    return ``;
+    const selector = block.getFieldValue('selector');
+    return `new Dragger("${selector}")`;
 }
