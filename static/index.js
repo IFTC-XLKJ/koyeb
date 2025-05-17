@@ -1,70 +1,11 @@
-const banners = [
-    {
-        title: "广告位招租",
-        content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
-        img: "/static/广告位招租.png",
-        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题: 内容: 图片: 链接:     说明:图片宽高比必须为16:9"
-    },
-    {
-        title: "广告位招租",
-        content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
-        img: "/static/广告位招租.png",
-        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题: 内容: 图片: 链接:     说明:图片宽高比必须为16:9"
-    },
-    {
-        title: "广告位招租",
-        content: "广告位招租(5元/月)，欢迎联系我(QQ:3164417130,邮箱:iftcceo@139.com)",
-        img: "/static/广告位招租.png",
-        url: "mailto:iftcceo@139.com?subject=广告位招租申请&body=标题: 内容: 图片: 链接:     说明:图片宽高比必须为16:9"
-    },
-]
-addEventListener("load", e => {
-    console.log("加载完成")
-    setBanner()
-    const navItems = document.querySelectorAll(".nav-item")
-    navItems.forEach(navItem => {
-        console.log(navItem)
-        navItem.addEventListener("click", e => {
-            location.href = navItem.getAttribute("iftc-page")
-        })
+console.log("加载完成")
+const navItems = document.querySelectorAll(".nav-item")
+navItems.forEach(navItem => {
+    console.log(navItem)
+    navItem.addEventListener("click", e => {
+        location.href = navItem.getAttribute("iftc-page")
     })
-})
-
-function setBanner() {
-    let index = 0
-    const banner = document.getElementById("bannerMain")
-    let loadnum = 0
-    banners.forEach((BANNER, i) => {
-        const bannerDiv = document.createElement("img");
-        bannerDiv.className = "banner";
-        bannerDiv.src = BANNER.img;
-        bannerDiv.alt = BANNER.title;
-        bannerDiv.addEventListener("click", e => {
-            e.preventDefault();
-            open(BANNER.url, "_blank");
-        })
-        bannerDiv.setAttribute("iftc-index", i)
-        banner.appendChild(bannerDiv);
-        bannerDiv.addEventListener("load", e => {
-            loadnum++
-            if (loadnum == banners.length) {
-                content.style.display = "grid"
-                content.style.top = banner.offsetHeight + 50 + "px"
-            }
-        })
-    });
-    setInterval(() => {
-        const bannerDiv = document.querySelectorAll(".banner")[index];
-        bannerDiv.scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-            inline: "center"
-        });
-        index = (index + 1) % banners.length;
-    }, 5000)
-    // content.style.display = "grid"
-    // content.style.top = banner.offsetHeight + 50 + "px"
-}
+});
 
 // API测试请求
 (async function () {
