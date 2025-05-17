@@ -92,8 +92,6 @@ Blockly.defineBlocksWithJsonArray([
         ],
         'previousStatement': null,
         'nextStatement': null,
-        'style': 'logic_blocks',
-        'helpUrl': '%{BKY_CONTROLS_IF_HELPURL}',
         'suppressPrefixSuffix': true,
         'mutator': 'controls_if_mutator',
         'extensions': ['controls_if_tooltip'],
