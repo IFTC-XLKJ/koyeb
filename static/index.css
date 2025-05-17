@@ -59,7 +59,6 @@ footer {
     height: fit-content;
     background-color: lightskyblue;
     display: grid;
-    grid-template-rows: 50px;
     grid-template-columns: repeat(2, 1fr);
     padding: 5px;
 }
