@@ -495,16 +495,14 @@ const toolbox = {
                     type: "script_try_catch",
                     inputs: {
                         TRY: {
-                            block: {
-                                type: "script_console",
+                            type: "script_console",
+                            fields: {
+                                type: "log"
+                            },
+                            shadow: {
+                                type: "text",
                                 fields: {
-                                    type: "log"
-                                },
-                                shadow: {
-                                    type: "text",
-                                    fields: {
-                                        TEXT: "Hello,NOOB!"
-                                    }
+                                    TEXT: "Hello,NOOB!"
                                 }
                             }
                         }
