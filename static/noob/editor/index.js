@@ -4,8 +4,7 @@ window.workspace = Blockly.inject('editor', {
     toolbox: toolbox,
     renderer: "Zelos",
     media: pathToMedia,
-    grid:
-    {
+    grid: {
         spacing: 20,
         length: 3,
         colour: '#ccc',
