@@ -436,46 +436,60 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
-                    type: "script_console_log",
+                    type: "script_console",
                     inputs: {
-                        CONSOLE_LOG: {
+                        content: {
                             shadow: {
                                 type: "text",
                                 fields: {
-                                    TEXT: "Hello,NOOB!"
+                                    TEXT: "Hello,NOOB!",
                                 }
                             }
                         }
-                    }
+                    },
                 },
-                {
-                    kind: "block",
-                    type: "script_console_warn",
-                    inputs: {
-                        CONSOLE_WARN: {
-                            shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "Hello,NOOB!"
-                                }
-                            }
-                        }
-                    }
-                },
-                {
-                    kind: "block",
-                    type: "script_console_error",
-                    inputs: {
-                        CONSOLE_ERROR: {
-                            shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "Hello,NOOB!"
-                                }
-                            }
-                        }
-                    }
-                },
+                // {
+                //     kind: "block",
+                //     type: "script_console_log",
+                //     inputs: {
+                //         CONSOLE_LOG: {
+                //             shadow: {
+                //                 type: "text",
+                //                 fields: {
+                //                     TEXT: "Hello,NOOB!"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // },
+                // {
+                //     kind: "block",
+                //     type: "script_console_warn",
+                //     inputs: {
+                //         CONSOLE_WARN: {
+                //             shadow: {
+                //                 type: "text",
+                //                 fields: {
+                //                     TEXT: "Hello,NOOB!"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // },
+                // {
+                //     kind: "block",
+                //     type: "script_console_error",
+                //     inputs: {
+                //         CONSOLE_ERROR: {
+                //             shadow: {
+                //                 type: "text",
+                //                 fields: {
+                //                     TEXT: "Hello,NOOB!"
+                //                 }
+                //             }
+                //         }
+                //     }
+                // },
                 {
                     kind: "block",
                     type: "script_try_catch",
