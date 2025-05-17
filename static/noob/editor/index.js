@@ -566,25 +566,19 @@ setInterval(function () {
         previewFrame.srcdoc = code;
     }
     if (previewFrame.contentDocument) {
-        if (previewFrame.contentDocument.title) {
-            docTitle.innerText = previewFrame.contentDocument.title;
-        } else {
-            docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
-        }
+        if (previewFrame.contentDocument.title) docTitle.innerText = previewFrame.contentDocument.title;
+        else docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
     }
-}, 300)
+}, 300);
 const file = document.getElementById("file");
 const fileMenu = document.getElementById("fileMenu");
 file.addEventListener("click", e => {
     e.preventDefault();
-    if (fileMenu.dataset.navMenu == "show") {
-        fileMenu.dataset.navMenu = "hidden";
-    } else {
+    if (fileMenu.dataset.navMenu == "show") fileMenu.dataset.navMenu = "hidden";
+    else {
         fileMenu.dataset.navMenu = "show";
         addEventListener("click", e => {
-            if (e.target.id == "file") {
-                return;
-            }
+            if (e.target.id == "file") return;
             fileMenu.dataset.navMenu = "hidden";
         });
     }
@@ -595,7 +589,7 @@ function openHelp() {
 }
 
 function newFile() {
-    location.href = "/noob/editor"
+    location.href = "/noob/editor";
 }
 
 function saveFileAs() {
@@ -748,10 +742,8 @@ function replaceFirstAndLastChar(str, firstChar, lastChar) {
 }
 
 function defineVars() {
-    let html = `<script>`
-    vars.forEach(v => {
-        html += `let ${v[1]};`
-    });
-    html += `<\/script>`
+    let html = `<script>`;
+    vars.forEach(v => html += `let ${v[1]};`);
+    html += `<\/script>`;
     return html;
 }
