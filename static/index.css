@@ -4,7 +4,7 @@ body {
     position: relative;
 }
 
-#nav {
+/* #nav {
     width: 100vw;
     height: 50px;
     position: sticky;
@@ -14,9 +14,9 @@ body {
     display: grid;
     grid-template-rows: 50px;
     grid-template-columns: repeat(2, 60px) 120px;
-}
+} */
 
-.nav-item {
+/* .nav-item {
     color: white;
     user-select: none;
     border-radius: 5px;
@@ -31,7 +31,7 @@ body {
 
 .nav-item:hover {
     background-color: #6cc7ff;
-}
+} */
 
 #banner {
     width: 100vw;
