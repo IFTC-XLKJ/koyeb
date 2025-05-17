@@ -97,6 +97,38 @@ Blockly.defineBlocksWithJsonArray([
         'extensions': ['controls_if_tooltip'],
         colour: "#68CDFF",
     },
+    {
+        'type': 'controls_ifelse',
+        'message0': '%{BKY_CONTROLS_IF_MSG_IF} %1',
+        'args0': [
+            {
+                'type': 'input_value',
+                'name': 'IF0',
+                'check': 'Boolean',
+            },
+        ],
+        'message1': '%{BKY_CONTROLS_IF_MSG_THEN} %1',
+        'args1': [
+            {
+                'type': 'input_statement',
+                'name': 'DO0',
+            },
+        ],
+        'message2': '%{BKY_CONTROLS_IF_MSG_ELSE} %1',
+        'args2': [
+            {
+                'type': 'input_statement',
+                'name': 'ELSE',
+            },
+        ],
+        'previousStatement': null,
+        'nextStatement': null,
+        'style': 'logic_blocks',
+        'tooltip': '%{BKYCONTROLS_IF_TOOLTIP_2}',
+        'helpUrl': '%{BKY_CONTROLS_IF_HELPURL}',
+        'suppressPrefixSuffix': true,
+        'extensions': ['controls_if_tooltip'],
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
