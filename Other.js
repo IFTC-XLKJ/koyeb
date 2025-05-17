@@ -6,6 +6,8 @@ const { JSDOM } = require("jsdom");
 const User = require("./User.js");
 const CloudfunConsole = require("./CloudfunConsole.js");
 const weather = require("weather-js");
+const axios = require('axios');
+
 
 const user = new User();
 const uuid_db = new UUID_db();
@@ -430,6 +432,24 @@ class Other {
                 res.status(500).send(null);
             }
         });
+        this.app.get("/api/translate", async (req, res) => {
+            const { text, from, to } = req.query;
+            try {
+                const response = await translateWithLibre(text, from, to);
+                res.json({
+                    code: 200,
+                    msg: "翻译成功",
+                    data: response,
+                    timestamp: time(),
+                });
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务内部错误",
+                    timestamp: time(),
+                });
+            }
+        });
         console.log("Other");
     }
     async getFile(path) {
@@ -456,6 +476,20 @@ function generateUUID() {
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
     return uuid;
+}
+
+async function translateWithLibre(text, sourceLang = 'auto', targetLang = 'zh') {
+    try {
+        const response = await axios.post('https://libretranslate.de/translate', {
+            q: text,
+            source: sourceLang,
+            target: targetLang,
+            format: 'text'
+        });
+        return response.data.translatedText;
+    } catch (error) {
+        console.error('Translation error:', error.response?.data || error.message);
+    }
 }
 
 module.exports = Other;

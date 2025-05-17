@@ -24,6 +24,7 @@
   "dependencies": {
     "@blockly/plugin-workspace-search": "^9.1.6",
     "@blockly/shadow-block-converter": "^6.0.13",
+    "axios": "^1.9.0",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
