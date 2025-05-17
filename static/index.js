@@ -14,5 +14,3 @@ console.log("加载完成")
 onerror = function (msg, url, line, col, error) {
     console.error("Error: " + msg + "\nURL: " + url + "\nLine: " + line + "\nColumn: " + col + "\nError object: " + JSON.stringify(error));
 }
-setInterval(() => {
-}, 1000)
