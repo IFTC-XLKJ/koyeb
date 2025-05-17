@@ -495,16 +495,18 @@ const toolbox = {
                     type: "script_try_catch",
                     inputs: {
                         TRY: {
-                            type: "script_console",
-                            fields: {
-                                type: "log",
-                                shadow: {
-                                    type: "text",
-                                    fields: {
-                                        TEXT: "Hello,NOOB!"
+                            block: {
+                                type: "script_console",
+                                fields: {
+                                    type: "log",
+                                    shadow: {
+                                        type: "text",
+                                        fields: {
+                                            TEXT: "Hello,NOOB!"
+                                        }
                                     }
-                                }
-                            },
+                                },
+                            }
                         }
                     }
                 },
