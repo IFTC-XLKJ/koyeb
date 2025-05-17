@@ -507,7 +507,7 @@ async function getMusicList(keyword) {
                 return;
             } else {
                 toast.hideToast(id)
-                toast.showToast('搜索成功', 2000, 'center', 'small', 'success', false, true);
+                toast.showToast('搜索成功', 2, 'center', 'small', 'success', false, true);
                 return data.song_data;
             }
         } else {
