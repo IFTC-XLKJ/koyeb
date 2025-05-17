@@ -14,6 +14,8 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "拖拽器",
         helpUrl: "",
         inputsInline: true,
+        nextStatement: true,
+        previousStatement: true,
     }
 ]);
 
