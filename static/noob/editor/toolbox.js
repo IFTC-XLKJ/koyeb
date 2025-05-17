@@ -436,6 +436,10 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
+                    type: "controls_if",
+                },
+                {
+                    kind: "block",
                     type: "script_console",
                     inputs: {
                         content: {
