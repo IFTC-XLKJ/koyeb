@@ -60,7 +60,7 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    var code = `<head iftc-annotation="NOOB编辑器">\n${html}</head>\n`;
+    var code = `<head iftc-annotation="NOOB编辑器">\n<script src="/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
 }
 // 主体
