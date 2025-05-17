@@ -4,35 +4,6 @@ body {
     position: relative;
 }
 
-/* #nav {
-    width: 100vw;
-    height: 50px;
-    position: sticky;
-    top: 0px;
-    left: 0px;
-    background-color: lightskyblue;
-    display: grid;
-    grid-template-rows: 50px;
-    grid-template-columns: repeat(2, 60px) 120px;
-} */
-
-/* .nav-item {
-    color: white;
-    user-select: none;
-    border-radius: 5px;
-    width: fit-content;
-    padding: 5px;
-    margin: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.nav-item:hover {
-    background-color: #6cc7ff;
-} */
-
 #banner {
     width: 100vw;
     margin: auto;
