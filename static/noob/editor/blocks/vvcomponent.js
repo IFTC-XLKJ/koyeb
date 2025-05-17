@@ -9,7 +9,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "String"
             }
         ],
-        output: "String",
+        output: "Dictionary",
         colour: "#449CD6",
         tooltip: "拖拽器",
         helpUrl: "",
