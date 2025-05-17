@@ -432,7 +432,7 @@ const toolbox = {
         {
             kind: "category",
             name: "脚本",
-            colour: 230,
+            colour: "#68CDFF",
             contents: [
                 {
                     kind: "block",
