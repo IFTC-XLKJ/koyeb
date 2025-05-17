@@ -497,14 +497,14 @@ const toolbox = {
                         TRY: {
                             type: "script_console",
                             fields: {
-                                type: "log"
-                            },
-                            shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "Hello,NOOB!"
+                                type: "log",
+                                shadow: {
+                                    type: "text",
+                                    fields: {
+                                        TEXT: "Hello,NOOB!"
+                                    }
                                 }
-                            }
+                            },
                         }
                     }
                 },
