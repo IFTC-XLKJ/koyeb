@@ -6,7 +6,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_dropdown",
                 name: "type",
-                opetions: [
+                options: [
                     ["输出", "log"],
                     ["警告", "warn"],
                     ["错误", "error"],
