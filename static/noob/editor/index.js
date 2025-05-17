@@ -590,6 +590,10 @@ file.addEventListener("click", e => {
     }
 })
 
+function openHelp() {
+    window.open("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
+}
+
 function newFile() {
     location.href = "/noob/editor"
 }
