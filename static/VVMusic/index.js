@@ -484,30 +484,26 @@ download.addEventListener('click', async () => {
             a.click();
             window.URL.revokeObjectURL(url);
             toast.hideToast(id)
-            toast.showToast('下载成功', 2000, 'center', 'small', 'success', false, true);
+            toast.showToast('下载成功', 2, 'center', 'small', 'success', false, true);
         } else {
             toast.hideToast(id)
-            toast.showToast('下载失败', 2000, 'center', 'small', 'error', false, true);
+            toast.showToast('下载失败', 2, 'center', 'small', 'error', false, true);
         }
     } else {
         toast.hideToast(id)
-        toast.showToast('下载失败', 2000, 'center', 'small', 'error', false, true);
+        toast.showToast('下载失败', 2, 'center', 'small', 'error', false, true);
     }
 })
 
 async function getMusicList(keyword) {
     const id = toast.showToast('搜索中...', 0, 'center', 'small', 'loading', false, false);
-    const response = await fetch(searchURL(keyword), {
-            hearders: {
-                'Access-Control-Allow-Credentials': true
-            },
-    });
+    const response = await fetch(searchURL(keyword));
     if (response.ok) {
         const data = await response.json();
         if (data.status) {
             if (data.song_data.length == 0) {
                 toast.hideToast(id)
-                toast.showToast('没有搜索到相关内容', 2000, 'center', 'small', 'error', false, true);
+                toast.showToast('没有搜索到相关内容', 2, 'center', 'small', 'error', false, true);
                 return;
             } else {
                 toast.hideToast(id)
@@ -517,13 +513,13 @@ async function getMusicList(keyword) {
         } else {
             console.error('遇到未知的错误', data.msg);
             toast.hideToast(id)
-            toast.showToast('遇到未知的错误', 2000, 'center', 'small', 'error', false, true);
+            toast.showToast('遇到未知的错误', 2, 'center', 'small', 'error', false, true);
             return;
         }
     } else {
         console.error('网络请求失败', response.statusText);
         toast.hideToast(id)
-        toast.showToast('网络请求失败：' + response.statusText, 2000, 'center', 'small', 'error', false, true);
+        toast.showToast('网络请求失败：' + response.statusText, 2, 'center', 'small', 'error', false, true);
         return;
     }
 }
