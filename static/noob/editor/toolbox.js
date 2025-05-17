@@ -496,16 +496,10 @@ const toolbox = {
                     inputs: {
                         TRY: {
                             block: {
-                                type: "script_console_log",
-                                inputs: {
-                                    CONSOLE_LOG: {
-                                        shadow: {
-                                            type: "text",
-                                            fields: {
-                                                TEXT: "Hello,NOOB!"
-                                            }
-                                        }
-                                    }
+                                kind: "block",
+                                type: "script_console",
+                                fields: {
+                                    TYPE: "log"
                                 }
                             }
                         }
