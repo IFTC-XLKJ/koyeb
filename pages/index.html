@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8" />
     <link rel="icon" href="/static/favicon.jpg" />
+    <script src="/file/component/Banner.js"></script>
     <link rel="stylesheet" href="/static/index.css" />
-    <script src="/static/index.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>IFTC官网</title>
     <meta name='description' content='IFTC官网'>
@@ -23,9 +23,11 @@
             <div class="nav-item" iftc-page="https://iftc-api.apifox.cn">API文档</div>
         </div>
         <div id="main">
-            <div id="banner">
-                <div id="bannerMain"></div>
-            </div>
+            <iftc-banner id="banner" width="70vw" style="display: flex;align-items: center;justify-content: center;">
+                <iftc-banner-content img="广告位招租.png" alt="114514"></iftc-banner-content>
+                <iftc-banner-content img="广告位招租.png" href="mailto:iftcceo@139.com"></iftc-banner-content>
+                <iftc-banner-content img="广告位招租.png"></iftc-banner-content>
+            </iftc-banner>
             <div id="content" style="display: none;">
                 <div id="contentMain"></div>
                 <footer id="footer">
@@ -41,6 +43,7 @@
             </div>
         </div>
     </div>
+    <script src="/static/index.js"></script>
 </body>
 
 </html>
