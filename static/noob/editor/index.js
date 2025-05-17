@@ -1,5 +1,5 @@
 const pathToMedia = "/static/blockly/package/media/";
-console.log("加载完成")
+console.log("加载完成");
 window.workspace = Blockly.inject('editor', {
     toolbox: toolbox,
     renderer: "Zelos",
@@ -31,12 +31,8 @@ const workspaceSearch = new WorkspaceSearch(workspace);
 workspaceSearch.init();
 addEventListener("keydown", e => {
     const { key, ctrlKey, shiftKey } = e;
-    if (ctrlKey && shiftKey && key == "F") {
-        workspaceSearch.open();
-    }
-    if (key == "Escape") {
-        workspaceSearch.close();
-    }
+    if (ctrlKey && shiftKey && key == "F") workspaceSearch.open();
+    if (key == "Escape") workspaceSearch.close();
 });
 workspace.addChangeListener(shadowBlockConversionChangeListener);
 console.log('Workspace initialized:', workspace);
@@ -73,9 +69,7 @@ workspace.registerButtonCallback("createVar", function (ws) {
     const varName = document.getElementById("varName");
     const cancel = document.getElementById("cancel");
     const confirm = document.getElementById("confirm");
-    cancel.addEventListener("click", e => {
-        mask.remove();
-    })
+    cancel.addEventListener("click", e => mask.remove())
     confirm.addEventListener("click", e => {
         varName.value = varName.value.trim();
         const name = varName.value;
@@ -304,42 +298,32 @@ workspace.registerButtonCallback("renameVar", function (ws) {
     const varName = document.getElementById("varName");
     const cancel = document.getElementById("cancel");
     const confirm = document.getElementById("confirm");
-    cancel.addEventListener("click", e => {
-        mask.remove();
-    })
+    cancel.addEventListener("click", e => mask.remove());
     confirm.addEventListener("click", e => {
         varName.value = varName.value.trim();
         const name = varName.value;
         if (name.length === 0) {
             tips.innerText = "不能为空";
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
+            setTimeout(() => tips.style.display = "none", 2000);
             return;
         }
         if (!Number.isNaN(Number(name))) {
             tips.innerText = "不能为数字";
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
+            setTimeout(() => tips.style.display = "none", 2000);
             return;
         }
         if (name.slice(0, 1) === "_") {
             tips.innerText = "不能以_开头";
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
+            setTimeout(() => tips.style.display = "none", 2000);
             return;
         }
         if (name.slice(0, 1) === "@") {
             tips.innerText = "不能以@开头";
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
+            setTimeout(() => tips.style.display = "none", 2000);
             return;
         }
         if (!Number.isNaN(Number(name.slice(0, 1)))) {
@@ -481,28 +465,20 @@ workspace.registerButtonCallback("renameVar", function (ws) {
         if (name.includes(" ")) {
             tips.innerText = "变量名不能有空格";
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
+            setTimeout(() => tips.style.display = "none", 2000);
             return;
         }
         if (vars.find(v => v[0] === name)) {
             tips.innerText = "变量已存在";
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
+            setTimeout(() => tips.style.display = "none", 2000);
             return;
         }
         const oldName = oldVarName.value;
-        vars.forEach(v => {
-            if (v[0] === oldName) {
-                v[0] = name;
-            }
-        });
+        vars.forEach(v => { if (v[0] === oldName) v[0] = name });
         mask.remove();
-    })
-})
+    });
+});
 workspace.registerButtonCallback("deleteVar", function (ws) {
     let options = vars.map(v => v[0])
     const mask = document.createElement("div");
@@ -538,9 +514,7 @@ workspace.registerButtonCallback("deleteVar", function (ws) {
     const varName = document.getElementById("varName");
     const cancel = document.getElementById("cancel");
     const confirm = document.getElementById("confirm");
-    cancel.addEventListener("click", e => {
-        mask.remove();
-    })
+    cancel.addEventListener("click", e => mask.remove());
     confirm.addEventListener("click", e => {
         const name = varName.value;
         if (vars.length === 1) {
@@ -551,8 +525,8 @@ workspace.registerButtonCallback("deleteVar", function (ws) {
         }
         vars = vars.filter(v => v[0] != name);
         mask.remove();
-    })
-})
+    });
+});
 const previewFrame = document.getElementById("previewFrame");
 const docTitle = document.getElementById("docTitle");
 docTitle.style.width = `${innerWidth * 0.3}px`;
