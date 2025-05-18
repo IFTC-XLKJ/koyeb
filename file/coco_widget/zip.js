@@ -22,6 +22,7 @@ const types = {
     version: "1.0.0",
     isGlobalWidget: true,
     author: "IFTC",
+    description: "超实用压缩包工具",
     properties: [],
     platforms: ["web", "android"],
     methods: [{
