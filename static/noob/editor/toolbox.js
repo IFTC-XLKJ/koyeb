@@ -454,6 +454,28 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "script_throw",
+                    inputs: {
+                        type: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "CustomError",
+                                }
+                            }
+                        },
+                        content: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello,NOOB!",
+                                }
+                            }
+                        }
+                    }
+                }
+                {
+                    kind: "block",
                     type: "script_try_catch",
                     inputs: {
                         TRY: {
