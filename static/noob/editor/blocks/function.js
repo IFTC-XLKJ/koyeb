@@ -141,7 +141,7 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
             .replaceAll("|", "_")}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
-    return `async function ${name}(${paramCode}) {\n${stack}\n}\n`;
+    return `globalThis.${name} = async function (${paramCode}) {\n${stack}\n}\n`;
 }
 Blockly.JavaScript.forBlock['function_param'] = function (block) {
     return [
@@ -158,7 +158,7 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
     for (var i = 0; i < paramCodeArray.length; i++) {
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length- 1 ? ', ' : ''}`;
     }
-    return `await ${name}(${paramCode});\n`;
+    return `await globalThis.${name}(${paramCode});\n`;
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
@@ -169,7 +169,7 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
     for (var i = 0; i < paramCodeArray.length; i++) {
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
-    var code = `await ${name}(${paramCode})`;
+    var code = `await $globalThis.${name}(${paramCode})`;
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.JavaScript.forBlock['return'] = function (block) {
