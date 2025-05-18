@@ -127,6 +127,31 @@ Blockly.defineBlocksWithJsonArray([
         extensions: ['controls_if_tooltip'],
         colour: "#68CDFF",
     },
+    {
+        type: 'controls_if_if',
+        message0: '如果',
+        nextStatement: null,
+        colour: "#68CDFF",
+        enableContextMenu: false,
+    },
+    {
+        'type': 'controls_if_elseif',
+        'message0': '%{BKY_CONTROLS_IF_ELSEIF_TITLE_ELSEIF}',
+        'previousStatement': null,
+        'nextStatement': null,
+        'enableContextMenu': false,
+        'style': 'logic_blocks',
+        'tooltip': '%{BKY_CONTROLS_IF_ELSEIF_TOOLTIP}',
+    },
+    // Block representing the else statement in the controls_if mutator.
+    {
+        'type': 'controls_if_else',
+        'message0': '%{BKY_CONTROLS_IF_ELSE_TITLE_ELSE}',
+        'previousStatement': null,
+        'enableContextMenu': false,
+        'style': 'logic_blocks',
+        'tooltip': '%{BKY_CONTROLS_IF_ELSE_TOOLTIP}',
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
