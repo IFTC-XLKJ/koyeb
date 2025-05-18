@@ -135,15 +135,13 @@ Blockly.defineBlocksWithJsonArray([
         enableContextMenu: false,
     },
     {
-        'type': 'controls_if_elseif',
-        'message0': '%{BKY_CONTROLS_IF_ELSEIF_TITLE_ELSEIF}',
-        'previousStatement': null,
-        'nextStatement': null,
-        'enableContextMenu': false,
-        'style': 'logic_blocks',
-        'tooltip': '%{BKY_CONTROLS_IF_ELSEIF_TOOLTIP}',
+        type: 'controls_if_elseif',
+        message0: '否则如果',
+        previousStatement: null,
+        nextStatement: null,
+        colour: "#68CDFF",
+        enableContextMenu: false,
     },
-    // Block representing the else statement in the controls_if mutator.
     {
         'type': 'controls_if_else',
         'message0': '%{BKY_CONTROLS_IF_ELSE_TITLE_ELSE}',
