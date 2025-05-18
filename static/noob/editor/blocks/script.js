@@ -107,24 +107,24 @@ Blockly.defineBlocksWithJsonArray([
                 check: 'Boolean',
             },
         ],
-        'message1': '%1',
-        'args1': [
+        message1: '%1',
+        args1: [
             {
-                'type': 'input_statement',
-                'name': 'DO0',
+                type: 'input_statement',
+                name: 'DO0',
             },
         ],
-        'message2': '%{BKY_CONTROLS_IF_MSG_ELSE} %1',
-        'args2': [
+        message2: '否则 %1',
+        args2: [
             {
-                'type': 'input_statement',
-                'name': 'ELSE',
+                type: 'input_statement',
+                name: 'ELSE',
             },
         ],
-        'previousStatement': null,
-        'nextStatement': null,
-        'suppressPrefixSuffix': true,
-        'extensions': ['controls_if_tooltip'],
+        previousStatement: null,
+        nextStatement: null,
+        suppressPrefixSuffix: true,
+        extensions: ['controls_if_tooltip'],
         colour: "#68CDFF",
     },
 ])
