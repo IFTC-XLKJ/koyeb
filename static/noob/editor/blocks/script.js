@@ -143,12 +143,11 @@ Blockly.defineBlocksWithJsonArray([
         enableContextMenu: false,
     },
     {
-        'type': 'controls_if_else',
-        'message0': '%{BKY_CONTROLS_IF_ELSE_TITLE_ELSE}',
-        'previousStatement': null,
-        'enableContextMenu': false,
-        'style': 'logic_blocks',
-        'tooltip': '%{BKY_CONTROLS_IF_ELSE_TOOLTIP}',
+        type: 'controls_if_else',
+        message0: '否则',
+        previousStatement: null,
+        colour: "#68CDFF",
+        enableContextMenu: false,
     },
 ])
 
