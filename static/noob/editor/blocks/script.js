@@ -20,8 +20,6 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
         nextStatement: null,
         colour: "#68CDFF",
-        tooltip: "",
-        helpUrl: "",
         inputInline: true
     },
     {
@@ -32,16 +30,18 @@ Blockly.defineBlocksWithJsonArray([
                 type: "input_value",
                 name: "type",
             },
+        ],
+        message1: "%1",
+        args1: [
             {
                 type: "input_value",
                 name: "content",
-            }
+            },
         ],
         previousStatement: null,
         nextStatement: null,
         colour: "#68CDFF",
         tooltip: "抛出异常",
-        helpUrl: "",
         inputInline: true
     },
     {
