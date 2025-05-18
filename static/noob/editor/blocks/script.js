@@ -192,5 +192,5 @@ Blockly.JavaScript.forBlock['script_try_catch'] = function (block) {
 Blockly.JavaScript.forBlock['script_throw'] = function (block) {
     const type = Blockly.JavaScript.valueToCode(block, 'type', Blockly.JavaScript.ORDER_ATOMIC);
     const content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
-    return `throw new Errors(${type}, ${content});\n`;
+    return `throw new Errors(${type}, ${content}, -1);\n`;
 }
