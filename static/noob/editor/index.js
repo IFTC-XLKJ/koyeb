@@ -1,4 +1,5 @@
 const pathToMedia = "/static/blockly/package/media/";
+Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "";
 console.log("加载完成");
 window.workspace = Blockly.inject('editor', {
     toolbox: toolbox,
