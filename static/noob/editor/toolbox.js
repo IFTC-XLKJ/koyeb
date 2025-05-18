@@ -473,7 +473,7 @@ const toolbox = {
                             }
                         }
                     }
-                }
+                },
                 {
                     kind: "block",
                     type: "script_try_catch",
