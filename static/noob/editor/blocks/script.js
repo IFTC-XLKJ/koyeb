@@ -86,28 +86,28 @@ Blockly.defineBlocksWithJsonArray([
         message1: '%1',
         args1: [
             {
-                'type': 'input_statement',
-                'name': 'DO0',
+                type: 'input_statement',
+                name: 'DO0',
             },
         ],
-        'previousStatement': null,
-        'nextStatement': null,
-        'suppressPrefixSuffix': true,
-        'mutator': 'controls_if_mutator',
-        'extensions': ['controls_if_tooltip'],
+        previousStatement: null,
+        nextStatement: null,
+        suppressPrefixSuffix: true,
+        mutator: 'controls_if_mutator',
+        extensions: ['controls_if_tooltip'],
         colour: "#68CDFF",
     },
     {
-        'type': 'controls_ifelse',
-        'message0': '%{BKY_CONTROLS_IF_MSG_IF} %1',
-        'args0': [
+        type: 'controls_ifelse',
+        message0: '如果 %1',
+        args0: [
             {
-                'type': 'input_value',
-                'name': 'IF0',
-                'check': 'Boolean',
+                type: 'input_value',
+                name: 'IF0',
+                check: 'Boolean',
             },
         ],
-        'message1': '%{BKY_CONTROLS_IF_MSG_THEN} %1',
+        'message1': '%1',
         'args1': [
             {
                 'type': 'input_statement',
@@ -123,11 +123,9 @@ Blockly.defineBlocksWithJsonArray([
         ],
         'previousStatement': null,
         'nextStatement': null,
-        'style': 'logic_blocks',
-        'tooltip': '%{BKYCONTROLS_IF_TOOLTIP_2}',
-        'helpUrl': '%{BKY_CONTROLS_IF_HELPURL}',
         'suppressPrefixSuffix': true,
         'extensions': ['controls_if_tooltip'],
+        colour: "#68CDFF",
     },
 ])
 
