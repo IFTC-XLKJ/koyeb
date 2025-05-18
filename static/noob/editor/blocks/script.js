@@ -25,7 +25,24 @@ Blockly.defineBlocksWithJsonArray([
         inputInline: true
     },
     {
-        type: ""
+        type: "script_throw",
+        message0: "抛出异常 %1 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "type",
+            },
+            {
+                type: "input_value",
+                name: "content",
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: "#68CDFF",
+        tooltip: "抛出异常",
+        helpUrl: "",
+        inputInline: true
     },
     {
         type: "script_try_catch",
@@ -170,4 +187,10 @@ Blockly.JavaScript.forBlock['script_try_catch'] = function (block) {
     var try_block = Blockly.JavaScript.statementToCode(block, 'TRY');
     var catch_block = Blockly.JavaScript.statementToCode(block, 'CATCH_BLOCK');
     return `try {\n ${try_block} \n} catch (e) {\nconst try_catch_error = e;\n${catch_block} \n}`;
+}
+
+Blockly.JavaScript.forBlock['script_throw'] = function (block) {
+    const type = Blockly.JavaScript.valueToCode(block, 'type', Blockly.JavaScript.ORDER_ATOMIC);
+    const content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
+    return `throw new Errors(${type}, ${content});\n`;
 }
