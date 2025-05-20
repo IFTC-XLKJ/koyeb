@@ -299,6 +299,7 @@ const types = {
 class Widget extends InvisibleWidget {
     constructor(props) {
         super(props);
+        this.widgetWarn("IFTC官网QQ群：870350184");
         this.scriptLoaded = () => {
             return false;
         }
