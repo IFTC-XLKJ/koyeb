@@ -402,23 +402,21 @@ function updatetime() {
     const time = document.getElementById('player-progress-time');
     const lrc = document.getElementById('music-lrc');
     audio.ontimeupdate = function () {
-        if (!isPlay) {
-            return;
+        if (!isPlay) return;
+
+        const currentTime = audio.currentTime * 1e6; // Convert to microseconds
+        const nextIndex = lrcstimes.findIndex((time, index) => currentTime <= lrcstimes[index + 1] * 1e6);
+
+        if (nextIndex !== -1 && current !== nextIndex) {
+            current = nextIndex;
+            console.log(lrclist[current]);
+            lrc.innerHTML = `<p class="poplrc">${lrclist[current]}</p>`;
         }
-        const currentTime = audio.currentTime * (10 ** 6);
-        for (var i = 0; i < lrcstimes.length; i++) {
-            if (currentTime <= lrcstimes[i + 1] * (10 ** 6)) {
-                if (current != i) {
-                    console.log(lrclist[i])
-                    lrc.innerHTML = `<p class="poplrc">${lrclist[i]}</p>`;
-                    current = i;
-                }
-                break;
-            }
-        }
-        time.innerHTML = formatSecondsToTime(Math.ceil((currentTime) / (10 ** 6)));
+
+        time.innerHTML = formatSecondsToTime(Math.ceil(currentTime / 1e6));
         progress.value = currentTime;
     };
+
     audio.onend = function () {
         isPlay = false;
         lrc.innerHTML = '';
