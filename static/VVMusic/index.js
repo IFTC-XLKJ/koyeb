@@ -558,52 +558,52 @@ function getMusicURL(id) {
 function renderHistory() {
     const History = document.getElementById('history');
     History.innerHTML = '';
+
     try {
-        const history = JSON.parse(localStorage.getItem('music-search-history'));
-        if (history) {
-            for (var i = 0; i < history.length; i++) {
-                console.log(history[i].keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword == '');
-                if (history[i].keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword == '') {
-                    const historyItem = history[i];
-                    const historyItemDom = document.createElement('div');
-                    historyItemDom.className = 'history-item';
-                    historyItemDom.setAttribute("iftc-date", historyItem.date)
-                    historyItemDom.innerHTML = `
-                    <div class="history-item-name">${historyItem.keyword.replaceAll("<", "&lt;")}</div>
-                    <div class="history-item-delete">×</div>`;
-                    console.log(historyItem);
-                    History.appendChild(historyItemDom);
-                    const historyItemsDelete = historyItemDom.querySelectorAll('.history-item-delete');
-                    historyItemsDelete.forEach(historyItemDelete => {
-                        historyItemDelete.addEventListener('mouseover', e => {
-                            historyItemDelete.style.color = 'red';
-                        })
-                        historyItemDelete.addEventListener('mouseout', e => {
-                            historyItemDelete.style.color = 'black';
-                        })
-                        historyItemDelete.addEventListener('click', e => {
-                            const history = JSON.parse(localStorage.getItem('music-search-history'));
-                            const index = history.filter(item => {
-                                console.log(item, historyItem);
-                                item.date == historyItem.date
-                            })
-                            history.splice(index, 1);
-                            localStorage.setItem('music-search-history', JSON.stringify(history));
-                            renderHistory();
-                        })
-                    });
-                    const historyItemsName = historyItemDom.querySelectorAll('.history-item-name');
-                    historyItemsName.forEach(historyItemName => {
-                        historyItemName.addEventListener('click', e => {
-                            keyword = historyItemName.innerText;
-                            searchInput.value = keyword;
-                            renderHistory();
-                        })
-                    });
-                }
-            }
-        }
-    } catch (e) { }
+        const history = JSON.parse(localStorage.getItem('music-search-history')) || [];
+        const filteredHistory = history.filter(item =>
+            item.keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword === ''
+        );
+
+        filteredHistory.forEach(historyItem => {
+            const historyItemDom = createHistoryItemDom(historyItem);
+            History.appendChild(historyItemDom);
+        });
+    } catch (e) {
+        console.error('Error rendering history:', e);
+    }
+}
+
+function createHistoryItemDom(historyItem) {
+    const historyItemDom = document.createElement('div');
+    historyItemDom.className = 'history-item';
+    historyItemDom.setAttribute('iftc-date', historyItem.date);
+    historyItemDom.innerHTML = `
+        <div class="history-item-name">${historyItem.keyword.replaceAll('<', '&lt;')}</div>
+        <div class="history-item-delete">×</div>
+    `;
+
+    const deleteButton = historyItemDom.querySelector('.history-item-delete');
+    deleteButton.addEventListener('mouseover', () => deleteButton.style.color = 'red');
+    deleteButton.addEventListener('mouseout', () => deleteButton.style.color = 'black');
+    deleteButton.addEventListener('click', () => deleteHistoryItem(historyItem));
+
+    const nameButton = historyItemDom.querySelector('.history-item-name');
+    nameButton.addEventListener('click', () => selectHistoryItem(historyItem.keyword));
+
+    return historyItemDom;
+}
+
+function deleteHistoryItem(historyItem) {
+    const history = JSON.parse(localStorage.getItem('music-search-history')) || [];
+    const updatedHistory = history.filter(item => item.date !== historyItem.date);
+    localStorage.setItem('music-search-history', JSON.stringify(updatedHistory));
+    renderHistory();
+}
+
+function selectHistoryItem(keyword) {
+    searchInput.value = keyword;
+    renderHistory();
 }
 
 let lastScrollTop = 0;
