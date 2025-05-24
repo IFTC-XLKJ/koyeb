@@ -300,7 +300,7 @@ class Widget extends InvisibleWidget {
     constructor(props) {
         super(props);
         this.widgetWarn("IFTC官网QQ群：870350184");
-        this.widgetWarn("官方文档：https://cocowidget.fandom.com/zh/wiki/Zip");
+        this.widgetWarn("官方文档：<a href=\"https://cocowidget.fandom.com/zh/wiki/Zip\">https://cocowidget.fandom.com/zh/wiki/Zip</a>");
         this.scriptLoaded = () => {
             return false;
         }
