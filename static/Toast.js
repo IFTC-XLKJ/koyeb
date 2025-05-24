@@ -128,7 +128,7 @@ class Toast {
             </style>
         `;
         let toastContainer = document.createElement('div');
-        toastContainer.attachShadow({ mode: 'open' });
+        // toastContainer.attachShadow({ mode: 'open' });
         toastContainer.className = 'qii_toast_container';
         toastContainer.id = "qii_toast-" + id;
         toastContainer.innerHTML = toastElement;
