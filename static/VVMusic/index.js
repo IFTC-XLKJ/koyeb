@@ -35,20 +35,14 @@ searchInput.addEventListener('keydown', async function (e) {
         }
         keyword = searchInput.value;
         const history = JSON.parse(localStorage.getItem('music-search-history'));
-        if (!checkInclude(history, keyword)) {
-            history.unshift({ date: Date.now(), keyword });
-        }
+        if (!checkInclude(history, keyword)) history.unshift({ date: Date.now(), keyword });
         localStorage.setItem('music-search-history', JSON.stringify(history));
         const musics = await getMusicList(keyword);
-        if (!musics) {
-            return;
-        }
+        if (!musics) return;
         renderMusicList(musics);
         function checkInclude(arr, str) {
             for (let i = 0; i < arr.length; i++) {
-                if (arr[i].keyword === str) {
-                    return true;
-                }
+                if (arr[i].keyword === str) return true;
             }
             return false;
         }
@@ -73,9 +67,7 @@ searchBtn.addEventListener('click', async function () {
     }
     keyword = searchInput.value;
     const musics = await getMusicList(keyword);
-    if (!musics) {
-        return;
-    }
+    if (!musics) return;
     renderMusicList(musics);
 });
 
@@ -95,9 +87,7 @@ addEventListener('keydown', function (e) {
     const key = e.key;
     const target = e.target;
     console.log(key, target)
-    if (target == searchInput) {
-        return;
-    }
+    if (target == searchInput) return;
     if (key == " ") {
         e.preventDefault();
         if (isPlay) {
@@ -146,9 +136,8 @@ addEventListener('load', function () {
         frameCount: 0,
         fps: 0,
         update: function (timestamp) {
-            if (this.startTime === 0) {
-                this.startTime = timestamp;
-            } else {
+            if (this.startTime === 0) this.startTime = timestamp;
+            else {
                 var elapsedTime = timestamp - this.startTime;
                 if (elapsedTime >= 1000) {
                     this.fps = this.frameCount;
@@ -194,25 +183,17 @@ function renderMusicList(musics) {
     pageInput.addEventListener('keyup', async (e) => {
         if (e.key == 'Enter') {
             pageNum = pageInput.value;
-            if (pageNum <= 0) {
-                pageNum = 1;
-            }
+            if (pageNum <= 0) pageNum = 1;
             const musics = await getMusicList(keyword);
-            if (!musics) {
-                return;
-            }
+            if (!musics) return;
             renderMusicList(musics);
         }
     })
     pageInput.addEventListener('change', async (e) => {
         pageNum = pageInput.value;
-        if (pageNum <= 0) {
-            pageNum = 1;
-        }
+        if (pageNum <= 0) pageNum = 1;
         const musics = await getMusicList(keyword);
-        if (!musics) {
-            return;
-        }
+        if (!musics) return;
         renderMusicList(musics);
     })
     const previous = document.getElementById('previous');
@@ -220,9 +201,7 @@ function renderMusicList(musics) {
         if (pageNum > 1) {
             pageNum--;
             const musics = await getMusicList(keyword);
-            if (!musics) {
-                return;
-            }
+            if (!musics) return;
             renderMusicList(musics);
         }
     })
@@ -230,9 +209,7 @@ function renderMusicList(musics) {
     next.addEventListener('click', async (e) => {
         pageNum++;
         const musics = await getMusicList(keyword);
-        if (!musics) {
-            return;
-        }
+        if (!musics) return;
         renderMusicList(musics);
     })
     const musiclist = document.querySelectorAll('.music-item');
@@ -307,9 +284,7 @@ addEventListener("contextmenu", async e => {
     e.preventDefault();
     const target = e.target;
     const oldMenuMain = document.querySelector('.menu-main');
-    if (oldMenuMain) {
-        oldMenuMain.remove();
-    }
+    if (oldMenuMain) oldMenuMain.remove();
     console.log(target)
     if (
         target.classList.contains('music-item') ||
@@ -353,9 +328,7 @@ addEventListener("contextmenu", async e => {
                 searchInput.value = text;
                 keyword = text;
                 const musics = await getMusicList(keyword);
-                if (!musics) {
-                    return;
-                }
+                if (!musics) return;
                 renderMusicList(musics);
             });
     }
@@ -364,15 +337,11 @@ addEventListener("contextmenu", async e => {
 const app = document.getElementById('app');
 app.addEventListener("scroll", () => {
     const oldMenuMain = document.querySelector('.menu-main');
-    if (oldMenuMain) {
-        oldMenuMain.remove();
-    }
+    if (oldMenuMain) oldMenuMain.remove();
 })
 app.addEventListener("click", () => {
     const oldMenuMain = document.querySelector('.menu-main');
-    if (oldMenuMain) {
-        oldMenuMain.remove();
-    }
+    if (oldMenuMain) oldMenuMain.remove();
 })
 
 function totaltime() {
@@ -423,11 +392,8 @@ function updatetime() {
 }
 
 playerPlay.addEventListener('click', () => {
-    if (isPlay) {
-        audio.pause();
-    } else {
-        audio.play();
-    }
+    if (isPlay) audio.pause();
+    else audio.play();
 });
 
 playerProgress.addEventListener('change', e => {
@@ -444,12 +410,8 @@ playerProgress.addEventListener('input', e => {
 function formatSecondsToTime(seconds) {
     var minutes = Math.floor(seconds / 60);
     var remainingSeconds = seconds % 60;
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    if (remainingSeconds < 10) {
-        remainingSeconds = "0" + remainingSeconds;
-    }
+    if (minutes < 10) minutes = "0" + minutes;
+    if (remainingSeconds < 10) remainingSeconds = "0" + remainingSeconds;
     return minutes + ":" + remainingSeconds;
 }
 
