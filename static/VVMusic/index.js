@@ -35,11 +35,7 @@ searchInput.addEventListener('keydown', async function (e) {
         }
         keyword = searchInput.value;
         const history = JSON.parse(localStorage.getItem('music-search-history'));
-        if (checkInclude(history, keyword)) {
-            const index = history.indexOf(keyword);
-            history.splice(index, 1);
-            history.unshift({ date: Date.now(), keyword });
-        } else {
+        if (!checkInclude(history, keyword)) {
             history.unshift({ date: Date.now(), keyword });
         }
         localStorage.setItem('music-search-history', JSON.stringify(history));
