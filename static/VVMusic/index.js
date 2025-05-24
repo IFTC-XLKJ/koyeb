@@ -403,20 +403,16 @@ function updatetime() {
     const lrc = document.getElementById('music-lrc');
     audio.ontimeupdate = function () {
         if (!isPlay) return;
-
         const currentTime = audio.currentTime * 1e6; // Convert to microseconds
         const nextIndex = lrcstimes.findIndex((time, index) => currentTime <= lrcstimes[index + 1] * 1e6);
-
         if (nextIndex !== -1 && current !== nextIndex) {
             current = nextIndex;
             console.log(lrclist[current]);
             lrc.innerHTML = `<p class="poplrc">${lrclist[current]}</p>`;
         }
-
         time.innerHTML = formatSecondsToTime(Math.ceil(currentTime / 1e6));
         progress.value = currentTime;
     };
-
     audio.onend = function () {
         isPlay = false;
         lrc.innerHTML = '';
