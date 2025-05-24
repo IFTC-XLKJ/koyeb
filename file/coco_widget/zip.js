@@ -382,7 +382,7 @@ class Widget extends InvisibleWidget {
         const zip = window.zip_task[taskId];
         if (!zip) return null;
         const file = zip.files[filename];
-        return file.isDir;
+        return file.dir;
     }
     async genZip(taskId) {
         const zip = window.zip_task[taskId];
