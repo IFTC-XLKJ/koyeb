@@ -558,13 +558,9 @@ function getMusicURL(id) {
 function renderHistory() {
     const History = document.getElementById('history');
     History.innerHTML = '';
-
     try {
         const history = JSON.parse(localStorage.getItem('music-search-history')) || [];
-        const filteredHistory = history.filter(item =>
-            item.keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword === ''
-        );
-
+        const filteredHistory = history.filter(item => item.keyword.toLowerCase().includes(keyword.toLowerCase()) || keyword === '');
         filteredHistory.forEach(historyItem => {
             const historyItemDom = createHistoryItemDom(historyItem);
             History.appendChild(historyItemDom);
@@ -582,15 +578,12 @@ function createHistoryItemDom(historyItem) {
         <div class="history-item-name">${historyItem.keyword.replaceAll('<', '&lt;')}</div>
         <div class="history-item-delete">×</div>
     `;
-
     const deleteButton = historyItemDom.querySelector('.history-item-delete');
     deleteButton.addEventListener('mouseover', () => deleteButton.style.color = 'red');
     deleteButton.addEventListener('mouseout', () => deleteButton.style.color = 'black');
     deleteButton.addEventListener('click', () => deleteHistoryItem(historyItem));
-
     const nameButton = historyItemDom.querySelector('.history-item-name');
     nameButton.addEventListener('click', () => selectHistoryItem(historyItem.keyword));
-
     return historyItemDom;
 }
 
