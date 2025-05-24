@@ -128,9 +128,10 @@ class Toast {
             </style>
         `;
         let toastContainer = document.createElement('div');
+        toastContainer.attachShadow({ mode: 'open' });
         toastContainer.className = 'qii_toast_container';
         toastContainer.id = "qii_toast-" + id;
-        toastContainer.innerHTML = toastElement;
+        toastContainer.shadowRoot.innerHTML = toastElement;
         document.body.appendChild(toastContainer);
         setTimeout(() => {
             toastContainer.style.transition = 'opacity 0.15s';
