@@ -66,7 +66,7 @@ Blockly.defineBlocksWithJsonArray([
                     ["×", "*"],
                     ["÷", "/"],
                     ["%", "%"],
-                    ["^", "**"]
+                    ["^", "**"],
                 ]
             },
             {
@@ -79,6 +79,23 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#F8AA87",
         tooltip: "数字运算",
         helpUrl: "",
+        inputsInline: true
+    },
+    {
+        type: "boolean",
+        message0: "%1",
+        arg0: [
+            {
+                type: "field_dropdown",
+                name: "Boolean",
+                options: [
+                    ["成立", "true"],
+                    ["不成立", "false"],
+                ],
+            }
+        ],
+        output: "Boolean",
+        colour: "#F8AA87",
         inputsInline: true
     }
 ]);
@@ -99,4 +116,9 @@ Blockly.JavaScript.forBlock['text_join'] = function (block) {
     var text0 = Blockly.JavaScript.valueToCode(block, 'ADD0', Blockly.JavaScript.ORDER_ATOMIC);
     var text1 = Blockly.JavaScript.valueToCode(block, 'ADD1', Blockly.JavaScript.ORDER_ATOMIC);
     return ["(" + text0 + ' + ' + text1 + ")", Blockly.JavaScript.ORDER_ATOMIC];
+}
+
+Blockly.JavaScript.forBlock["boolean"] = function (block) {
+    const boolean = block.getFieldValue("Boolean");
+    return `(${boolean})`;
 }
