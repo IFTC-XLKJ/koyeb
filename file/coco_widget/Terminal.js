@@ -26,7 +26,7 @@ const types = {
             key: '__width',
             label: '宽度',
             valueType: 'number',
-            defaultValue: 200,
+            defaultValue: 360,
             blockOptions: {
                 generateBlock: false,
             },
@@ -35,7 +35,7 @@ const types = {
             key: '__height',
             label: '高度',
             valueType: 'number',
-            defaultValue: 150,
+            defaultValue: 640,
             blockOptions: {
                 generateBlock: false,
             },
@@ -95,19 +95,20 @@ class Widget extends VisibleWidget {
         this.widgetId = randomId();
         this.id = this.widgetId + "_TERMINAL";
         this.terminal = null;
+        console.log(this.__widgetId)
+        // document.getElementById(this.__widgetId).innerHTML == `<div id=${this.widgetId + "_TERMINAL"}></div>`;
         importScript(
             "https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.js",
             () => {
                 if (this.terminal) return;
+                if (document.querySelector("#" + this.id + " .terminal")) return;
                 this.terminal = new Terminal({
-                    cursorBlink: true,
-                    fontSize: 14,
-                    theme: {
-                        background: '#000000',
-                        foreground: '#FFFFFF',
-                    },
+                    allowProposedApi: true,
                 });
-                this.terminal.open(document.getElementById(this.id));
+                setTimeout(() => {
+                    console.log(document.getElementById(this.__widgetId))
+                    this.terminal.open(document.getElementById(this.__widgetId));
+                }, 1000)
                 console.log(this.terminal);
             },
             () => {
@@ -126,11 +127,10 @@ class Widget extends VisibleWidget {
                 this.widgetError("加载 xterm-addon-fit.js 失败");
             }
         );
+        window[this.widgetId] = this;
     }
     render() {
-        return (
-            <div id={this.widgetId + "_TERMINAL"}></div>
-        );
+        return (<></>);
     }
     isLoad() {
         return !!this.terminal;
