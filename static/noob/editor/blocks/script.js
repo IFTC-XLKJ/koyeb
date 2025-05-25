@@ -23,6 +23,15 @@ Blockly.defineBlocksWithJsonArray([
         inputInline: true
     },
     {
+        type: "script_console_clear",
+        message0: "清空控制台",
+        args0: [],
+        previousStatement: null,
+        nextStatement: null,
+        colour: "#68CDFF",
+        inputInline: true,
+    },
+    {
         type: "script_throw",
         message0: "抛出异常 %1",
         args0: [
@@ -193,4 +202,8 @@ Blockly.JavaScript.forBlock['script_throw'] = function (block) {
     const type = Blockly.JavaScript.valueToCode(block, 'type', Blockly.JavaScript.ORDER_ATOMIC);
     const content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
     return `throw new Errors(${type}, ${content}, -1);\n`;
+}
+
+Blockly.JavaScript.forBlock["script_console_clear"] = function (block) {
+    return `console.clear();\n`;
 }
