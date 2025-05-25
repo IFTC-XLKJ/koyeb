@@ -109,6 +109,18 @@ class Widget extends VisibleWidget {
                 console.error("Failed to load xterm.js");
             }
         );
+        importScript(
+            "https://iftc.koyeb.app/static/xterm-addon-fit.js",
+            () => {
+                this.fitAddon = new FitAddon.FitAddon();
+                this.terminal.loadAddon(new FitAddon());
+                this.fitAddon.fit();
+            },
+            () => {
+                console.error("Failed to load xterm.js");
+                this.widgetError("加载 xterm-addon-fit.js 失败");
+            }
+        );
     }
     render() {
         // return (
