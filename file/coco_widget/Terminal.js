@@ -62,6 +62,22 @@ const types = {
                 callMethodLabel: false,
                 color: METHOD_COLOR,
             },
+        },
+        {
+            key: "write",
+            label: "写入",
+            params: [
+                {
+                    key: 'text',
+                    label: '文本',
+                    valueType: 'string',
+                    defaultValue: 'Hello World',
+                },
+            ],
+            blockOptions: {
+                callMethodLabel: false,
+                color: METHOD_COLOR,
+            },
         }
     ],
     events: [],
@@ -84,6 +100,7 @@ class Widget extends VisibleWidget {
                         foreground: '#FFFFFF',
                     },
                 });
+                this.terminal.open(document.getElementById(this.id));
                 console.log(this.terminal);
                 // this.terminal.open(document.getElementById(this.id));
                 // this.terminal.write('Welcome to the virtual terminal!\r\n');
@@ -100,6 +117,10 @@ class Widget extends VisibleWidget {
     }
     isLoad() {
         return !!this.terminal;
+    }
+    write(text) {
+        if (this.terminal) this.terminal.write(text);
+        else this.widgetWarn("终端未初始化完成");
     }
 }
 
