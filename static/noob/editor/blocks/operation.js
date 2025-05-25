@@ -84,7 +84,7 @@ Blockly.defineBlocksWithJsonArray([
     {
         type: "boolean",
         message0: "%1",
-        arg0: [
+        args0: [
             {
                 type: "field_dropdown",
                 name: "Boolean",
