@@ -694,7 +694,7 @@ function BlocksToJS() {
     }
     const match = code.match(/<!DOCTYPE.*?<\/html>/s);
     if (match && match[0]) return defineVars() + match[0];
-    else return defineVars() + `<script src=""><\/script>` + code;
+    else return defineVars() + `<script src=""><\/script>` + code + `<link rel="icon" href="https://iftc.koyeb.app/static/NOOB.svg">`;
 
 }
 
