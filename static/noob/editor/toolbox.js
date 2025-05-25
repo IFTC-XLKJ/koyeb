@@ -458,6 +458,10 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "script_console_clear",
+                },
+                {
+                    kind: "block",
                     type: "script_throw",
                     inputs: {
                         type: {
