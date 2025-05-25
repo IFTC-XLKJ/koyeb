@@ -120,5 +120,5 @@ Blockly.JavaScript.forBlock['text_join'] = function (block) {
 
 Blockly.JavaScript.forBlock["boolean"] = function (block) {
     const boolean = block.getFieldValue("Boolean");
-    return `(${boolean})`;
+    return [`(${boolean})`, Blockly.JavaScript.ORDER_ATOMIC];
 }
