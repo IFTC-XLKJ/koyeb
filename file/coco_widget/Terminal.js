@@ -10,6 +10,10 @@ function importScript(src, load, error) {
     script.onerror = error;
     document.head.appendChild(script);
 }
+
+globalThis.randomId = function () {
+    return Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+};
 const types = {
     isInvisibleWidget: false,
     type: "TERMINAL",
@@ -86,12 +90,15 @@ const types = {
 class Widget extends VisibleWidget {
     constructor(props) {
         super(props);
+        console.log(this)
         Object.assign(this, props);
+        this.widgetId = randomId();
         this.id = this.widgetId + "_TERMINAL";
         this.terminal = null;
         importScript(
             "https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.js",
             () => {
+                if (this.terminal) return;
                 this.terminal = new Terminal({
                     cursorBlink: true,
                     fontSize: 14,
@@ -102,8 +109,6 @@ class Widget extends VisibleWidget {
                 });
                 this.terminal.open(document.getElementById(this.id));
                 console.log(this.terminal);
-                // this.terminal.open(document.getElementById(this.id));
-                // this.terminal.write('Welcome to the virtual terminal!\r\n');
             },
             () => {
                 console.error("Failed to load xterm.js");
@@ -113,7 +118,7 @@ class Widget extends VisibleWidget {
             "https://iftc.koyeb.app/static/xterm-addon-fit.js",
             () => {
                 this.fitAddon = new FitAddon.FitAddon();
-                this.terminal.loadAddon(new FitAddon());
+                this.terminal.loadAddon(this.fitAddon);
                 this.fitAddon.fit();
             },
             () => {
@@ -123,9 +128,9 @@ class Widget extends VisibleWidget {
         );
     }
     render() {
-        // return (
-        //     <div id={this.widgetId + "_TERMINAL"}></div>
-        // );
+        return (
+            <div id={this.widgetId + "_TERMINAL"}></div>
+        );
     }
     isLoad() {
         return !!this.terminal;
