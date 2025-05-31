@@ -5,7 +5,8 @@
         const file = apkfile.files[0];
         const parser = new window.AppInfoParser(file);
         try {
-            parser.parse()
+            const result = await parser.parse();
+            console.log(result);
         } catch (e) {
             const errorMsg = document.createElement("p");
             errorMsg.innerText = e.message;
