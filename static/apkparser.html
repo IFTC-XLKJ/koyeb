@@ -7,6 +7,10 @@
         try {
             const result = await parser.parse();
             console.log(result);
+            const { icon } = result;
+            const iconImg = document.createElement("img");
+            iconImg.src = icon;
+            document.body.appendChild(iconImg);
         } catch (e) {
             const errorMsg = document.createElement("p");
             errorMsg.innerText = e.message;
