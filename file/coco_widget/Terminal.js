@@ -73,7 +73,7 @@ const types = {
             params: [
                 {
                     key: 'text',
-                    label: '文本',
+                    label: '',
                     valueType: 'string',
                     defaultValue: 'Hello World',
                 },
@@ -95,19 +95,29 @@ class Widget extends VisibleWidget {
         this.widgetId = randomId();
         this.id = this.widgetId + "_TERMINAL";
         this.terminal = null;
-        console.log(this.__widgetId)
+        console.log(this.__widgetId);
+        this.widget = document.getElementById(this.__widgetId);
+        console.log(this.widget);
+        if (this.widget) this.widget.attachShadow({ mode: 'open' });
         // document.getElementById(this.__widgetId).innerHTML == `<div id=${this.widgetId + "_TERMINAL"}></div>`;
         importScript(
             "https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.js",
             () => {
+                this.widget = document.getElementById(this.__widgetId);
+                console.log(this.widget);
+                if (this.widget) {
+                    if (!this.widget.shadowRoot)
+                        this.widget.attachShadow({ mode: 'open' })
+                };
+                console.log(this.widget.shadowRoot)
                 if (this.terminal) return;
-                if (document.querySelector("#" + this.id + " .terminal")) return;
+                if (document.querySelector("#" + this.__widgetId + " .terminal")) return;
                 this.terminal = new Terminal({
                     allowProposedApi: true,
                 });
                 setTimeout(() => {
-                    console.log(document.getElementById(this.__widgetId))
-                    this.terminal.open(document.getElementById(this.__widgetId));
+                    console.log(this.widget.shadowRoot)
+                    this.terminal.open(this.widget.shadowRoot);
                 }, 1000)
                 console.log(this.terminal);
             },
@@ -117,8 +127,9 @@ class Widget extends VisibleWidget {
         );
         importScript(
             "https://iftc.koyeb.app/static/xterm-addon-fit.js",
-            () => {
+            async () => {
                 this.fitAddon = new FitAddon.FitAddon();
+                await waitUntil(() => { return this.isLoad() });
                 this.terminal.loadAddon(this.fitAddon);
                 this.fitAddon.fit();
             },
@@ -128,6 +139,14 @@ class Widget extends VisibleWidget {
             }
         );
         window[this.widgetId] = this;
+        setInterval(() => {
+            const terminals = document.querySelectorAll("UNSAFE_EXTENSION_TERMINAL_M0RArlx3X .terminal");
+            if (terminals.length == 1) return;
+            terminals.forEach((terminal, index) => {
+                if (index == 0) return;
+                terminal.remove();
+            });
+        }, 100);
     }
     render() {
         return (<></>);
@@ -136,9 +155,25 @@ class Widget extends VisibleWidget {
         return !!this.terminal;
     }
     write(text) {
-        if (this.terminal) this.terminal.write(text);
+        if (this.terminal) this.terminal.write(text) || console.log(text);
         else this.widgetWarn("终端未初始化完成");
     }
+}
+
+function waitUntil(condition) {
+    return new Promise((resolve, reject) => {
+        const checkCondition = setInterval(() => {
+            try {
+                if (condition()) {
+                    resolve(true);
+                    clearInterval(checkCondition);
+                };
+            } catch (e) {
+                reject(e);
+                clearInterval(checkCondition);
+            }
+        })
+    });
 }
 
 exports.types = types;
