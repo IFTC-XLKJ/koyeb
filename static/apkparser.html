@@ -7,10 +7,13 @@
         try {
             const result = await parser.parse();
             console.log(result);
-            const { icon } = result;
+            const { icon ,package} = result;
             const iconImg = document.createElement("img");
             iconImg.src = icon;
             document.body.appendChild(iconImg);
+            const packageP = document.createElement("p");
+            packageP.innerText = package;
+            document.body.appendChild(packageP);
         } catch (e) {
             const errorMsg = document.createElement("p");
             errorMsg.innerText = e.message;
