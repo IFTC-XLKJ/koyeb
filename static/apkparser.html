@@ -1,5 +1,6 @@
 <script src="/file/app-info-parser.min.js"></script>
 <input type="file" id="apkfile" accept="*.apk">
+<div id="info"></div>
 <script>
     apkfile.addEventListener("change", async e => {
         const file = apkfile.files[0];
@@ -10,21 +11,21 @@
             const { icon, package, versionName, versionCode } = result;
             const iconImg = document.createElement("img");
             iconImg.src = icon;
-            document.body.appendChild(iconImg);
+            info.appendChild(iconImg);
             const packageP = document.createElement("p");
             packageP.innerText = package;
-            document.body.appendChild(packageP);
+            info.appendChild(packageP);
             const verNameP = document.createElement("p");
             verNameP.innerText = versionName;
-            document.body.appendChild(verNameP);
+            info.appendChild(verNameP);
             const verCodeP = document.createElement("p");
             verCodeP.innerText = versionCode;
-            document.body.appendChild(verCodeP);
+            info.appendChild(verCodeP);
         } catch (e) {
             const errorMsg = document.createElement("p");
             errorMsg.innerText = e.message;
             errorMsg.style.color = "red";
-            document.body.appendChild(errorMsg);
+            info.appendChild(errorMsg);
             setTimeout(() => {
                 errorMsg.remove();
             }, 5000)
