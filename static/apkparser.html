@@ -7,13 +7,19 @@
         try {
             const result = await parser.parse();
             console.log(result);
-            const { icon ,package} = result;
+            const { icon, package, versionName, versionCode } = result;
             const iconImg = document.createElement("img");
             iconImg.src = icon;
             document.body.appendChild(iconImg);
             const packageP = document.createElement("p");
             packageP.innerText = package;
             document.body.appendChild(packageP);
+            const verNameP = document.createElement("p");
+            verNameP.innerText = versionName;
+            document.body.appendChild(verNameP);
+            const verCodeP = document.createElement("p");
+            verCodeP.innerText = versionCode;
+            document.body.appendChild(verCodeP);
         } catch (e) {
             const errorMsg = document.createElement("p");
             errorMsg.innerText = e.message;
