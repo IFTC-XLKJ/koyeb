@@ -1,8 +1,19 @@
 <script src="/file/app-info-parser.min.js"></script>
 <input type="file" id="apkfile" accept="*.apk">
 <script>
-    apkfile.addEventListener("change", e => {
+    apkfile.addEventListener("change", async e => {
         const file = e.files[0];
-
+        const parser = new window.AppInfoParser(file);
+        try {
+            parser.parse()
+        } catch (e) {
+            const errorMsg = document.createElement("p");
+            errorMsg.innerText = e.message;
+            errorMsg.style.color = "red";
+            document.body.appendChild(errorMsg);
+            setTimeout(() => {
+                errorMsg.remove();
+            }, 5000)
+        }
     });
 </script>
