@@ -2,7 +2,7 @@
 <input type="file" id="apkfile" accept="*.apk">
 <script>
     apkfile.addEventListener("change", async e => {
-        const file = e.files[0];
+        const file = apkfile.files[0];
         const parser = new window.AppInfoParser(file);
         try {
             parser.parse()
