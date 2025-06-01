@@ -121,7 +121,10 @@ app.get("/user", async (req, res) => {
             console.log("Type of content:", typeof content);
             res.send(content);
         } else {
-            const content = await mixed("pages/user/index.html", {});
+            const params = {
+                id: null,
+            };
+            const content = await mixed("pages/user/index.html", params);
             if (typeof content !== "string") {
                 throw new Error("Invalid content type");
             }
