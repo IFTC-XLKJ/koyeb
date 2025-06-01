@@ -24,6 +24,19 @@ updateAvatar.addEventListener("click", e => {
             }; try {
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
                 const data = await response.json();
+                if (data.code != 200) {
+                    alert("上传头像失败，原因：" + data.message);
+                } else {
+                    const avatarUrl = data.url;
+                    const response = await fetch(`/api/user/update?type=avatar&id=${id}&password=${password}&data=${avatarUrl}`);
+                    const data = await response.json();
+                    if (data.code == 200) {
+                        alert("上传头像成功");
+                        location .reload();
+                    } else {
+                        alert("上传头像失败，原因：" + data.msg);
+                    }
+                }
             } catch (e) {
                 alert("上传头像失败，原因：" + e);
             }
