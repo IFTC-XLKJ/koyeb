@@ -128,7 +128,6 @@ class Toast {
             </style>
         `;
         let toastContainer = document.createElement('div');
-        // toastContainer.attachShadow({ mode: 'open' });
         toastContainer.className = 'qii_toast_container';
         toastContainer.id = "qii_toast-" + id;
         toastContainer.innerHTML = toastElement;
@@ -171,5 +170,8 @@ class Toast {
     }
     genId() {
         return btoa((Math.random() * (10 ** 17)).toString(36)).replaceAll("=", "");
+    }
+    loading(text) {
+        return this.showToast(text, 0, "center", "small", "loading", "", false);
     }
 }
