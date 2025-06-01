@@ -98,28 +98,40 @@ class Widget extends VisibleWidget {
         console.log(this.__widgetId);
         this.widget = document.getElementById(this.__widgetId);
         console.log(this.widget);
-        if (this.widget) this.widget.attachShadow({ mode: 'open' });
+        if (this.widget) {
+            if (!this.widget.shadowRoot) this.widget.attachShadow({ mode: 'open' })
+        };
         // document.getElementById(this.__widgetId).innerHTML == `<div id=${this.widgetId + "_TERMINAL"}></div>`;
         importScript(
             "https://cdnjs.cloudflare.com/ajax/libs/xterm/5.5.0/xterm.js",
             () => {
-                this.widget = document.getElementById(this.__widgetId);
-                console.log(this.widget);
-                if (this.widget) {
-                    if (!this.widget.shadowRoot)
-                        this.widget.attachShadow({ mode: 'open' })
-                };
-                console.log(this.widget.shadowRoot)
-                if (this.terminal) return;
-                if (document.querySelector("#" + this.__widgetId + " .terminal")) return;
-                this.terminal = new Terminal({
-                    allowProposedApi: true,
-                });
-                setTimeout(() => {
-                    console.log(this.widget.shadowRoot)
-                    this.terminal.open(this.widget.shadowRoot);
-                }, 1000)
-                console.log(this.terminal);
+                const that = this;
+                async function start() {
+                    that.widget = document.getElementById(that.__widgetId);
+                    console.log(that.widget);
+                    if (that.widget) {
+                        if (!that.widget.shadowRoot) that.widget.attachShadow({ mode: 'open' })
+                    } else {
+                        that.widget = document.getElementById(that.__widgetId);
+                        if (!that.widget) {
+                            await wait(1000);
+                            start();
+                            return;
+                        }
+                    };
+                    console.log(that.widget.shadowRoot)
+                    if (that.terminal) return;
+                    console.log(that.widget.shadowRoot.children);
+                    if (that.widget.shadowRoot.children > 0) return;
+                    that.terminal = new Terminal({
+                        allowProposedApi: true,
+                    });
+                    setTimeout(() => {
+                        console.log(that.widget.shadowRoot)
+                        this.terminal.open(that.widget.shadowRoot);
+                    }, 1000)
+                    console.log(that.terminal);
+                }
             },
             () => {
                 console.error("Failed to load xterm.js");
@@ -139,16 +151,23 @@ class Widget extends VisibleWidget {
             }
         );
         window[this.widgetId] = this;
-        setInterval(() => {
-            const terminals = document.querySelectorAll("UNSAFE_EXTENSION_TERMINAL_M0RArlx3X .terminal");
-            if (terminals.length == 1) return;
-            terminals.forEach((terminal, index) => {
-                if (index == 0) return;
-                terminal.remove();
-            });
-        }, 100);
+        // setInterval(() => {
+        //     const terminals = document.querySelectorAll("UNSAFE_EXTENSION_TERMINAL_M0RArlx3X .terminal");
+        //     if (terminals.length == 1) return;
+        //     terminals.forEach((terminal, index) => {
+        //         if (index == 0) return;
+        //         terminal.remove();
+        //     });
+        // }, 100);
     }
     render() {
+        if (this.widget && this.widget.shadowRoot) {
+            const xtermViewport = this.widget.shadowRoot.querySelector(".xterm-viewport")
+            if (xtermViewport) {
+                xtermViewport.style.height = `${this.__height}px`;
+                xtermViewport.style.width = `${this.__width}px`;
+            }
+        }
         return (<></>);
     }
     isLoad() {
@@ -158,6 +177,10 @@ class Widget extends VisibleWidget {
         if (this.terminal) this.terminal.write(text) || console.log(text);
         else this.widgetWarn("终端未初始化完成");
     }
+}
+
+function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 function waitUntil(condition) {
