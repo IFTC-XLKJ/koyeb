@@ -35,7 +35,9 @@ updateAvatar.addEventListener("click", e => {
                     if (data2.code == 200) {
                         toast.hideToast(loadid);
                         toast.showTaost("上传头像成功", 2000, "center", "large", "success", "", false);
-                        location.reload();
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2000);
                     } else {
                         toast.hideToast(loadid);
                         toast.showTaost("上传头像失败，原因：" + data2.msg, 2000, "center", "large", "error", "", false);
