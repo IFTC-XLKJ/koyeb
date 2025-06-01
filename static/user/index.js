@@ -26,7 +26,8 @@ updateAvatar.addEventListener("click", e => {
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
                 const data = await response.json();
                 if (data.code != 200) {
-                    alert("上传头像失败，原因：" + data.message);
+                    toast.loadend(loadid);
+                    toast.showTaost("上传头像失败，原因：" + e, 2000, "center", "large", "error", "", false);
                 } else {
                     const avatarUrl = data.url;
                     const response2 = await fetch(`/api/user/update?type=avatar&id=${userId}&password=${password}&data=${avatarUrl}`);
