@@ -103,6 +103,10 @@ app.get("/user", async (req, res) => {
             id
         };
         const userData = await user.getByID(id);
+        if (userData.code != 200) {
+            res.status(userData.code).send(null);
+            return;
+        }
         const content = await mixed("pages/user/index.html", params);
         if (typeof content !== "string") {
             throw new Error("Invalid content type");
