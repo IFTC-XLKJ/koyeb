@@ -160,6 +160,7 @@ class Toast {
                 toastContainer.style.opacity = 0;
                 setTimeout(() => {
                     console.log(toastContainer.parentNode);
+                    if (!toastContainer.parentNode) return;
                     toastContainer.parentNode.removeChild(toastContainer);
                     if (id) {
                         this.toasts = this.toasts.filter(item => item !== id);

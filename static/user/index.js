@@ -22,7 +22,8 @@ updateAvatar.addEventListener("click", e => {
                 method: 'POST',
                 body: formData,
                 redirect: 'follow'
-            }; try {
+            };
+            try {
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
                 const data = await response.json();
                 if (data.code != 200) {
