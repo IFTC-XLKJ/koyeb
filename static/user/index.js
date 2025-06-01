@@ -55,7 +55,12 @@ updateAvatar.addEventListener("click", e => {
 const changePassword = document.getElementById("change-password");
 changePassword.addEventListener("click", async () => {
     location.href = "/resetpw";
-})
+});
+const logout = document.getElementById("logout");
+logout.addEventListener("click", async () => {
+    localStorage.removeItem("ID");
+    localStorage.removeItem("password");
+});
 
 function parserUrlParams() {
     const params = new URLSearchParams(location.search);
