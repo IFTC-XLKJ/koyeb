@@ -99,21 +99,36 @@ app.get("/user", async (req, res) => {
         "Content-Type": "text/html;charset=utf-8",
     });
     try {
-        const params = {
-            id
-        };
-        const userData = await user.getByID(id);
-        if (userData.code != 200) {
-            res.status(userData.code).send(null);
-            return;
+        if (id) {
+            const params = {
+                id
+            };
+            const userData = await user.getByID(id);
+            if (userData.code != 200) {
+                res.status(userData.code).send(null);
+                return;
+            }
+            const json = userData.fields[0];
+            if (!json) {
+                res.status(404).send(null);
+                return;
+            }
+            const content = await mixed("pages/user/index.html", params);
+            if (typeof content !== "string") {
+                throw new Error("Invalid content type");
+            }
+            console.log("Content:", content);
+            console.log("Type of content:", typeof content);
+            res.send(content);
+        } else {
+            const content = await mixed("pages/user/index.html", {});
+            if (typeof content !== "string") {
+                throw new Error("Invalid content type");
+            }
+            console.log("Content:", content);
+            console.log("Type of content:", typeof content);
+            res.send(content);
         }
-        const content = await mixed("pages/user/index.html", params);
-        if (typeof content !== "string") {
-            throw new Error("Invalid content type");
-        }
-        console.log("Content:", content);
-        console.log("Type of content:", typeof content);
-        res.send(content);
     } catch (e) {
         console.error(e);
         res.status(500).json({

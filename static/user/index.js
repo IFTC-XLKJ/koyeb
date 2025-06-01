@@ -1,5 +1,6 @@
 const userId = localStorage.getItem("ID");
 if (!userId) location.href = "/login";
+if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 
 function parserUrlParams() {
