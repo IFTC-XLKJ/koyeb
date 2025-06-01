@@ -26,22 +26,24 @@ updateAvatar.addEventListener("click", e => {
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
                 const data = await response.json();
                 if (data.code != 200) {
-                    toast.loadend(loadid);
-                    toast.showTaost("上传头像失败，原因：" + e, 2000, "center", "large", "error", "", false);
+                    toast.hideToast(loadid);
+                    toast.showTaost("上传头像失败，原因：" + data.msg, 2000, "center", "large", "error", "", false);
                 } else {
                     const avatarUrl = data.url;
                     const response2 = await fetch(`/api/user/update?type=avatar&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(avatarUrl)}`);
                     const data2 = await response2.json();
                     if (data2.code == 200) {
-                        toast.loadend(loadid);
+                        toast.hideToast(loadid);
                         toast.showTaost("上传头像成功", 2000, "center", "large", "success", "", false);
                         location.reload();
                     } else {
-                        alert("上传头像失败，原因：" + data2.msg);
+                        toast.hideToast(loadid);
+                        toast.showTaost("上传头像失败，原因：" + data2.msg, 2000, "center", "large", "error", "", false);
                     }
                 }
             } catch (e) {
-                alert("上传头像失败，原因：" + e);
+                toast.hideToast(loadid);
+                toast.showTaost("上传头像失败，原因：" + e, 2000, "center", "large", "error", "", false);
             }
         }
     });
