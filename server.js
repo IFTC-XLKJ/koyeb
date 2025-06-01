@@ -114,6 +114,7 @@ app.get("/user", async (req, res) => {
                 return;
             }
             params.username = json.昵称;
+            params.email = json.邮箱;
             const content = await mixed("pages/user/index.html", params);
             if (typeof content !== "string") {
                 throw new Error("Invalid content type");
@@ -125,6 +126,7 @@ app.get("/user", async (req, res) => {
             const params = {
                 id: null,
                 username: null,
+                email: null,
             };
             const content = await mixed("pages/user/index.html", params);
             if (typeof content !== "string") {
