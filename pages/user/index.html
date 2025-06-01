@@ -10,10 +10,30 @@
 
 <body>
     <noscript>
-        <div style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background-color: white;"><center><h1>您的浏览器不支持JavaScript，请升级您的浏览器。</h1></center></div></noscript>
+        <div style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background-color: white;">
+            <center>
+                <h1>您的浏览器不支持JavaScript，请升级您的浏览器。</h1>
+            </center>
+        </div>
+    </noscript>
     <div id="app">
-        <h1>欢迎来到VV用户中心</h1>
-        <p>在这里，您可以管理您的账户信息和设置。</p>
+        <div class="header">
+            <h1>VV用户中心</h1>
+            <p>欢迎，{{username}}</p>
+        </div>
+        <div class="content">
+            <div class="user-info">
+                <h2>个人信息</h2>
+                <p>用户名: {{username}}</p>
+                <p>邮箱: {{email}}</p>
+                <p>注册时间: {{registrationDate}}</p>
+            </div>
+            <div class="user-actions">
+                <h2>操作</h2>
+                <button id="change-password">修改密码</button>
+                <button id="logout">退出登录</button>
+            </div>
+        </div>
     </div>
     <script src="/static/user/index.js"></script>
 </body>
