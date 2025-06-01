@@ -5,12 +5,19 @@ if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 
 const updateAvatar = document.getElementById("update-avatar");
 updateAvatar.addEventListener("click", e => {
-    const file = document.createElement("input");
-    file.type = "file";
-    file.accept = ".jpg,.jpeg,.png,.gif,.webp,.svg";
-    file.addEventListener("change", e => {
+    const fileSelector = document.createElement("input");
+    fileSelector.type = "file";
+    fileSelector.accept = ".jpg,.jpeg,.png,.gif,.webp,.svg";
+    fileSelector.addEventListener("change", e => {
+        const file = e.target.files[0];
+        if (file.size > 1024 * 1024 * 25) return alert("文件大小不能超过25MB");
+        if (file) {
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("id", userId);
+        }
     });
-    file.click();
+    fileSelector.click();
 });
 
 function parserUrlParams() {
