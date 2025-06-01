@@ -1,0 +1,1 @@
+if (!localStorage.getItem("ID")) location.href = "/login";
