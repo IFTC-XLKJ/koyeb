@@ -17,7 +17,7 @@ updateAvatar.addEventListener("click", e => {
             formData.append("path", "vv/avatar");
             const requestOptions = {
                 method: 'POST',
-                body: formdata,
+                body: formData,
                 redirect: 'follow'
             }; try {
                 const response = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
