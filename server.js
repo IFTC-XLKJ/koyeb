@@ -85,6 +85,8 @@ app.get("/", async (req, res) => {
 
 app.get("/user", async (req, res) => {
     requestLog(req);
+    const { id } = req.query;
+    const user = new User();
     if (req.headers["user-agent"] == "Koyeb Health Check") {
         res.json({
             code: 200,
@@ -93,11 +95,14 @@ app.get("/user", async (req, res) => {
         });
         return;
     }
-    const params = {};
     res.set({
         "Content-Type": "text/html;charset=utf-8",
     });
     try {
+        const params = {
+            id
+        };
+        const userData = await user.getByID(id);
         const content = await mixed("pages/user/index.html", params);
         if (typeof content !== "string") {
             throw new Error("Invalid content type");
@@ -321,7 +326,7 @@ app.all('/proxy/*', async (req, res) => {
     const url = requestedPath.replace("/proxy/", "");
     try {
         const response = await fetch(url, {
-            method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined: req.body, verbose: true
+            method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body, verbose: true
         });
         const contentType = response.headers.get("content-type");
         if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
@@ -402,7 +407,7 @@ app.all("/api", (req, res) => {
         apis: apis,
         count: apis.length,
         timestamp: time(),
-        Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true: void 0,
+        Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true : void 0,
     });
 });
 
@@ -443,7 +448,7 @@ app.get("/api/bookshelf/getall", async (req, res) => {
                 timestamp: time(),
             })
         }
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
@@ -483,7 +488,7 @@ app.get("/api/bookshelf/noadd", async (req, res) => {
                 timestamp: time(),
             })
         }
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
@@ -523,7 +528,7 @@ app.get("/api/bookshelf/add", async (req, res) => {
                 timestamp: time(),
             })
         }
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
@@ -610,7 +615,7 @@ app.get("/api/bookshelf/update", async (req, res) => {
                 timestamp: time(),
             })
         }
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
@@ -664,7 +669,7 @@ app.get("/api/books/get", async (req, res) => {
                 timestamp: time(),
             });
         }
-    } catch(e) {
+    } catch (e) {
         console.log(e)
         res.status(500).json({
             code: 500,
@@ -719,7 +724,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
                 timestamp: time(),
             })
         }
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
@@ -792,7 +797,7 @@ app.get("/api/bindqq", async (req, res) => {
             });
             return;
         }
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务内部错误",
@@ -991,14 +996,14 @@ app.post("/api/deepseek-v3", async (req, res) => {
     const messages = [{
         role: "system",
         content:
-        `请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
+            `请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
         你的设定的性格是幽默风趣，喜欢开玩笑，喜欢使用表情符号，喜欢使用网络用语，喜欢使用emoji表情。
         请记住你是一个AI助手，你的任务是帮助用户解决问题。
         请使用中文回答问题，除非用户要求使用英文。
         请使用简体中文回答问题，除非用户要求使用繁体中文。
         `
     },
-        ...req.body.messages || []
+    ...req.body.messages || []
     ];
     console.log(messages);
     try {
@@ -1071,7 +1076,7 @@ app.get('/api/bot/user/login', async (req, res) => {
             res.send(`查询出错：${json.msg}`);
             return;
         }
-    } catch(e) {
+    } catch (e) {
         res.send(`服务内部错误：${e.stack}`);
         return;
     }
@@ -1107,7 +1112,7 @@ app.get("/api/bot/user/details", async (req, res) => {
                 const email_domain = data.邮箱.split('@')[1] || '未知';
                 res.json({
                     code: 200,
-                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知': '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是': '否'}\n管理员：${data.管理员 == 1 ? '是': '否'}\n冻结：${data.封号 == 1 ? '是': '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
+                    msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知' : '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是' : '否'}\n管理员：${data.管理员 == 1 ? '是' : '否'}\n冻结：${data.封号 == 1 ? '是' : '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
                     avatar: data.头像,
                     timestamp: time(),
                 });
@@ -1597,7 +1602,7 @@ app.get("/api/user/search", async (req, res) => {
             res.json({
                 code: 200,
                 msg: "请求成功",
-                keyword: !!keyword ? decodeURIComponent(keyword): null,
+                keyword: !!keyword ? decodeURIComponent(keyword) : null,
                 data: data,
                 count: data.length,
                 timestamp: time(),
@@ -1880,7 +1885,7 @@ app.get("/api/book/search", async (req, res) => {
     } = req.query;
     const books = new Books();
     try {
-        const json = await books.search(decodeURIComponent(keyword ? keyword: ""));
+        const json = await books.search(decodeURIComponent(keyword ? keyword : ""));
         if (json.code == 200) {
             const data = []
             json.fields.forEach(field => {
@@ -2230,7 +2235,7 @@ app.get("/api/user/register", async (req, res) => {
     if (nickname && email && password) {
         const user = new User();
         try {
-            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar): "https://iftc.koyeb.app/static/avatar.png");
+            const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
             if (json.code == 200) {
                 res.json({
                     code: 200,
@@ -2401,7 +2406,7 @@ app.get('/api/qrcode', async (req, res) => {
     }
     try {
         if (type == "svg") {
-            const qrcode = new QRCodeSvg( {
+            const qrcode = new QRCodeSvg({
                 content: data,
                 color: {
                     dark: '#000000',
@@ -2422,7 +2427,7 @@ app.get('/api/qrcode', async (req, res) => {
                 },
                 errorCorrectionLevel: 'H',
             });
-            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml': 'image/png');
+            res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
             res.setHeader('Content-Length', qrBuffer.length);
             res.send(qrBuffer);
         }
@@ -2452,7 +2457,7 @@ function generateUUID() {
         function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
-            return (c === 'x' ? r: (r & 0x3 | 0x8)).toString(16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
     return uuid;
 }
@@ -2470,9 +2475,9 @@ function formatDuration(milliseconds) {
     let h = Math.floor(milliseconds / (1000 * 60 * 60));
     return `${String(h).padStart(2,
         '0')}时${String(m).padStart(2,
-        '0')}分${String(s).padStart(2,
-        '0')}秒${String(ms).padStart(3,
-        '0')}毫秒`;
+            '0')}分${String(s).padStart(2,
+                '0')}秒${String(ms).padStart(3,
+                    '0')}毫秒`;
 }
 
 async function mixed(filepath, params) {
@@ -2546,7 +2551,7 @@ async function getRequestCount() {
     const resp = await fetch(url);
     const json = await resp.json();
     const count = json['iftc.koyeb.app'];
-    return count == 'null' ? 0: Number(count);
+    return count == 'null' ? 0 : Number(count);
 }
 
 function timestampToDate(timestamp) {
