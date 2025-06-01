@@ -117,7 +117,9 @@ app.get("/user", async (req, res) => {
             params.email = json.邮箱;
             params.avatar = json.头像 || "https://iftc.koyeb.app/static/avatar.png";
             const date = new Date(json.createdAt * 1000);
-            params.registrationDate = date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
+            params.registrationDate = date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" });
+            const date2 = new Date(json.updatedAt * 1000);
+            params.updatedDate = date2.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" });
             const content = await mixed("pages/user/index.html", params);
             if (typeof content !== "string") {
                 throw new Error("Invalid content type");
