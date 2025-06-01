@@ -28,25 +28,25 @@ updateAvatar.addEventListener("click", e => {
                 const data = await response.json();
                 if (data.code != 200) {
                     toast.hideToast(loadid);
-                    toast.showTaost("上传头像失败，原因：" + data.msg, 2000, "center", "large", "error", "", false);
+                    toast.showToast("上传头像失败，原因：" + data.msg, 2000, "center", "large", "error", "", false);
                 } else {
                     const avatarUrl = data.url;
                     const response2 = await fetch(`/api/user/update?type=avatar&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(avatarUrl)}`);
                     const data2 = await response2.json();
                     if (data2.code == 200) {
                         toast.hideToast(loadid);
-                        toast.showTaost("上传头像成功", 2000, "center", "large", "success", "", false);
+                        toast.showToast("上传头像成功", 2000, "center", "large", "success", "", false);
                         setTimeout(() => {
                             location.reload();
                         }, 2000);
                     } else {
                         toast.hideToast(loadid);
-                        toast.showTaost("上传头像失败，原因：" + data2.msg, 2000, "center", "large", "error", "", false);
+                        toast.showToast("上传头像失败，原因：" + data2.msg, 2000, "center", "large", "error", "", false);
                     }
                 }
             } catch (e) {
                 toast.hideToast(loadid);
-                toast.showTaost("上传头像失败，原因：" + e, 2000, "center", "large", "error", "", false);
+                toast.showToast("上传头像失败，原因：" + e, 2000, "center", "large", "error", "", false);
             }
         }
     });
