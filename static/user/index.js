@@ -26,13 +26,13 @@ updateAvatar.addEventListener("click", e => {
                     alert("上传头像失败，原因：" + data.message);
                 } else {
                     const avatarUrl = data.url;
-                    const response = await fetch(`/api/user/update?type=avatar&id=${id}&password=${password}&data=${avatarUrl}`);
-                    const data = await response.json();
-                    if (data.code == 200) {
+                    const response2 = await fetch(`/api/user/update?type=avatar&id=${id}&password=${password}&data=${avatarUrl}`);
+                    const data2 = await response2.json();
+                    if (data2.code == 200) {
                         alert("上传头像成功");
                         location .reload();
                     } else {
-                        alert("上传头像失败，原因：" + data.msg);
+                        alert("上传头像失败，原因：" + data2.msg);
                     }
                 }
             } catch (e) {
