@@ -1,5 +1,3 @@
-const { isTypePredicateNode } = require("typescript");
-
 const userId = localStorage.getItem("ID");
 if (!userId) location.href = "/login";
 if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
