@@ -116,7 +116,7 @@ app.get("/user", async (req, res) => {
             params.username = json.昵称;
             params.email = json.邮箱;
             params.avatar = json.头像 || "https://iftc.koyeb.app/static/avatar.png";
-            const date = new Date(json.createdAt);
+            const date = new Date(json.createdAt * 1000);
             params.registrationDate = date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
             const content = await mixed("pages/user/index.html", params);
             if (typeof content !== "string") {
