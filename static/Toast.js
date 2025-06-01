@@ -174,7 +174,7 @@ class Toast {
     genId() {
         return btoa((Math.random() * (10 ** 17)).toString(36)).replaceAll("=", "");
     }
-    loading(text) {
-        return this.showToast(text, 0, "center", "small", "loading", "", false);
+    loading(text, small) {
+        return this.showToast(text, 0, "center", small ? "small" : "large", "loading", "", false);
     }
 }
