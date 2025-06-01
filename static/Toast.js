@@ -141,6 +141,7 @@ class Toast {
                 toastContainer.style.transition = 'opacity 0.3s';
                 toastContainer.style.opacity = 0;
                 setTimeout(() => {
+                    console.log(toastContainer.parentNode);
                     toastContainer.parentNode.removeChild(toastContainer);
                     this.toasts = this.toasts.filter(item => item !== id);
                 }, 300);
