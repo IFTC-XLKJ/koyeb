@@ -128,10 +128,14 @@ app.get("/user", async (req, res) => {
             console.log("Type of content:", typeof content);
             res.send(content);
         } else {
+            const date = new Date(0);
             const params = {
-                id: null,
-                username: null,
-                email: null,
+                id: "Unknown",
+                username: "Unknown",
+                email: "Unknown",
+                avatar: "https://iftc.koyeb.app/static/avatar.png",
+                registrationDate: date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" }),
+                updatedDate: date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" }),
             };
             const content = await mixed("pages/user/index.html", params);
             if (typeof content !== "string") {
