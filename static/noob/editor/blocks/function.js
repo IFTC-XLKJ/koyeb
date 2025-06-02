@@ -169,7 +169,7 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
     for (var i = 0; i < paramCodeArray.length; i++) {
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
-    var code = `await $globalThis.${name}(${paramCode})`;
+    var code = `await globalThis.${name}(${paramCode})`;
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.JavaScript.forBlock['return'] = function (block) {
