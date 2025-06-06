@@ -101,7 +101,7 @@ class UUID_db {
             t: t,
             sw: "a3d7eb36c26735f3f6250ff1283158b78753be06936a928d40a5c0d3c2401cc9"
         });
-        var requestOptions = {
+        const requestOptions = {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json"
