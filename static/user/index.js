@@ -10,24 +10,8 @@ else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
-    const newUsername = prompt("请输入新的用户名");
-    if (!newUsername) return;
-    if (newUsername.length < 2 || newUsername.length > 20) {
-        return toast.showToast("用户名长度必须在2-20个字符之间", 2000, "center", "large", "error", "", false);
-    }
-    const loadid = toast.loading("修改中...");
-    const response = await fetch(`/api/user/update?type=username&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(newUsername)}`);
-    const data = await response.json();
-    if (data.code == 200) {
-        toast.hideToast(loadid);
-        toast.showToast("修改用户名成功", 2000, "center", "large", "success", "", false);
-        setTimeout(() => {
-            location.reload();
-        }, 2000);
-    } else {
-        toast.hideToast(loadid);
-        toast.showToast("修改用户名失败，原因：" + data.msg, 2000, "center", "large", "error", "", false);
-    }
+    const username = document.querySelector(`[data="username"]`).innerText;
+    dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
 });
 const updateAvatar = document.getElementById("update-avatar");
 updateAvatar.addEventListener("click", e => {
