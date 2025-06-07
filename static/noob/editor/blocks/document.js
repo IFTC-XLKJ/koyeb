@@ -68,7 +68,7 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#9C004B",
         tooltip: "获取通过类元素",
         helpUrl: "",
-        output: "Dictionary",
+        output: "Array",
     },
     {
         type: "get_document_body",
@@ -112,27 +112,27 @@ Blockly.defineBlocksWithJsonArray([
     },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
-    var code = 'document';
+    var code = '(document)';
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_element'] = function (block) {
     var element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = `document.getElementById(${element})`;
+    var code = `(document.querySelector(${element}))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_elements'] = function (block) {
     var element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = `document.getElementsByClassName(${element})`;
+    var code = `(document.querySelectorAll(${element}))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_element_by_id'] = function (block) {
     var id = Blockly.JavaScript.valueToCode(block, 'ID', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = `document.getElementById(${id})`;
+    var code = `(document.getElementById(${id}))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_element_by_class'] = function (block) {
     var className = Blockly.JavaScript.valueToCode(block, 'CLASS', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = `document.getElementsByClassName(${className})[0]`;
+    var code = `(document.getElementsByClassName(${className}))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_body'] = function (block) {
