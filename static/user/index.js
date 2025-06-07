@@ -15,10 +15,11 @@ updateUsername.addEventListener("click", async () => {
 });
 dialog.on("onInputFinish", (value, dialogId) => {
     console.log("onInputFinish", value, dialogId);
-    if (!(dialogId == "update-username")) return;
-    if (value.trim() == "") {
-        toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", false);
-        return;
+    if (dialogId == "update-username") {
+        if (value.trim() == "") {
+            toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", false);
+            return;
+        }
     }
 });
 const updateAvatar = document.getElementById("update-avatar");
