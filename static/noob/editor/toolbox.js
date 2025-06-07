@@ -529,7 +529,7 @@ const toolbox = {
         {
             kind: "category",
             name: "文档",
-            colour: 160,
+            colour: "#9C004B",
             contents: [
                 {
                     kind: "block",
