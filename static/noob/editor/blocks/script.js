@@ -189,13 +189,13 @@ Blockly.JavaScript.forBlock['wait_for_seconds'] = function (block) {
 }
 
 Blockly.JavaScript.forBlock['script_try_catch_geterror'] = function (block) {
-    return ['try_catch_error', Blockly.JavaScript.ORDER_FUNCTION_CALL];
+    return ['(try_catch_error)', Blockly.JavaScript.ORDER_FUNCTION_CALL];
 }
 
 Blockly.JavaScript.forBlock['script_try_catch'] = function (block) {
     var try_block = Blockly.JavaScript.statementToCode(block, 'TRY');
     var catch_block = Blockly.JavaScript.statementToCode(block, 'CATCH_BLOCK');
-    return `try {\n ${try_block} \n} catch (e) {\nconst try_catch_error = e;\n${catch_block} \n}`;
+    return `try {\n ${try_block} \n} catch (e) {\nconst try_catch_error = e;\n${catch_block} \n}\n`;
 }
 
 Blockly.JavaScript.forBlock['script_throw'] = function (block) {
