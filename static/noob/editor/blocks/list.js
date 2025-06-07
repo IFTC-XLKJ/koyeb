@@ -155,3 +155,27 @@ Blockly.JavaScript.forBlock['array_create'] = (block) => {
 
     return [`[${elements.join(', ')}]`, Blockly.JavaScript.ORDER_ATOMIC];
 };
+
+Blockly.defineBlocksWithJsonArray([
+    {
+        type: 'get_array_item',
+        message0: '获取数组 %1 的第 %2 项',
+        args0: [
+            {
+                type: 'input_value',
+                name: 'ARRAY',
+                check: 'Array'
+            },
+            {
+                type: 'input_value',
+                name: 'INDEX',
+                check: 'Number'
+            }
+        ],
+        output: null,
+        colour: ARRAY_COLOR,
+        tooltip: '获取数组的某一项',
+        helpUrl: '',
+        inputsInline: true,
+    },
+]);
