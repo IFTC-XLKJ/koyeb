@@ -1,7 +1,9 @@
 const userId = localStorage.getItem("ID");
 const password = localStorage.getItem("password");
 const toast = new Toast();
-const dialog = new Dialog();
+const dialog = new Dialog({
+    id: "dialog"
+});
 console.log("userId:", userId);
 console.log("password:", password);
 if (!userId) location.href = "/login";
