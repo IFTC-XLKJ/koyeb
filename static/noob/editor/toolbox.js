@@ -341,14 +341,25 @@ const toolbox = {
                     kind: "block",
                     type: "array_create",
                 },
-                // {
-                //     kind: "block",
-                //     type: "array_get"
-                // },
-                // {
-                //     kind: "block",
-                //     type: "array_set"
-                // },
+                {
+                    kind: "block",
+                    type: "array_get",
+                    inputs: {
+                        ARRAY: {
+                            shadow: {
+                                type: "variables_get",
+                            }
+                        },
+                        INDEX: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 0
+                               }
+                            }
+                        }
+                    }
+                }
             ]
         },
         {
