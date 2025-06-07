@@ -376,6 +376,14 @@ const toolbox = {
                                     NUM: 0
                                 }
                             }
+                        },
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                }
+                            }
                         }
                     }
                 }
