@@ -140,7 +140,7 @@ class Dialog {
                 outline: none;
                 padding: 0 14px;
                 margin: 16px 20px 0 20px;
-                width: calc(100% - 40px);
+                width: calc(300px - 68px);
                 height: 42px;
                 border-radius: 8px;
                 background: rgba(0, 0, 20, 0.06);
