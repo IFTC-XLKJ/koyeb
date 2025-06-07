@@ -20,16 +20,22 @@ dialog.on("onInputFinish", async (value, dialogId) => {
             toast.showToast("用户名不能为空", 2, "center", "large", "error", "", true);
             return;
         }
+        const loadid = toast.loading("修改用户名中...");
         try {
             const response = await fetch(`/api/user/update?type=nickname&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(value)}`);
             const data = await response.json();
             if (data.code == 200) {
+                toast.hideToast(loadid);
                 toast.showToast("修改用户名成功", 2, "center", "large", "success", "", true);
                 setTimeout(() => {
                     location.reload();
                 }, 2000);
+            } else {
+                toast.hideToast(loadid);
+                toast.showToast("修改用户名失败，原因：" + data.msg, 2, "center", "large", "error", "", true);
             }
         } catch (e) {
+            toast.hideToast(loadid);
             toast.showToast("修改用户名失败，原因：" + e, 2, "center", "large", "error", "", true);
             return;
         }
