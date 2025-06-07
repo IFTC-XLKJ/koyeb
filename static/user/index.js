@@ -4,8 +4,6 @@ const toast = new Toast();
 const dialog = new Dialog({
     id: "dialog"
 });
-console.log("userId:", userId);
-console.log("password:", password);
 if (!userId) location.href = "/login";
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
