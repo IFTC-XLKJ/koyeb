@@ -14,6 +14,7 @@ updateUsername.addEventListener("click", async () => {
     dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
 });
 dialog.on("onInputFinish", (value, dialogId) => {
+    console.log("onInputFinish", value, dialogId);
     if (!(dialogId == "update-username")) return;
     if (value.trim() == "") {
         toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", false);
