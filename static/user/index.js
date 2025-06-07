@@ -3,12 +3,9 @@ const password = localStorage.getItem("password");
 const toast = new Toast();
 console.log("userId:", userId);
 console.log("password:", password);
-if (!userId) {
-    location.href = "/login";
-    return;
-}
-if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
-if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
+if (!userId) location.href = "/login";
+else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
+else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
