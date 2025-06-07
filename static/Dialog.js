@@ -1,4 +1,4 @@
-class QDialog {
+class Dialog {
     constructor(props) {
         Object.assign(this, props)
         this.events = {}
