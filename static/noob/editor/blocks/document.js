@@ -38,9 +38,35 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         output: "Array",
         inputsInline: true
+    },
+    {
+        type: "get_document_element_by_id",
+        message0: "获取通过ID元素 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "ID",
+                check: "String"
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "获取通过ID元素",
+        helpUrl: "",
+        output: "Dictionary",
+        inputsInline: true
     }
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
     var code = 'document';
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}
+Blockly.JavaScript.forBlock['get_document_element'] = function (block) {
+    var element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    var code = `document.getElementById(${element})`;
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}
+Blockly.JavaScript.forBlock['get_document_elements'] = function (block) {
+    var element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    var code = `document.getElementsByClassName(${element})`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
