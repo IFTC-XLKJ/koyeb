@@ -591,6 +591,32 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "get_document_body",
+                },
+                {
+                    kind: "block",
+                    type: "get_document_head",
+                },
+                {
+                    kind: "block",
+                    type: "get_document_title",
+                },
+                {
+                    kind: "block",
+                    type: "set_document_title",
+                    inputs: {
+                        TITLE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello,NOOB!"
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
