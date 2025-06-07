@@ -158,7 +158,7 @@ Blockly.JavaScript.forBlock['array_create'] = (block) => {
 
 Blockly.defineBlocksWithJsonArray([
     {
-        type: 'get_array_item',
+        type: 'array_get',
         message0: '获取数组 %1 的第 %2 项',
         args0: [
             {
