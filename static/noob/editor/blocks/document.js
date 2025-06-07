@@ -85,7 +85,31 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "获取文档头部",
         helpUrl: "",
         output: "Dictionary",
-    }
+    },
+    {
+        type: "set_document_title",
+        message0: "设置文档标题为 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "TITLE",
+                check: "String"
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "设置文档标题",
+        helpUrl: "",
+        previousStatement: null,
+        nextStatement: null,
+    },
+    {
+        type: "get_document_title",
+        message0: "获取文档标题",
+        colour: "#9C004B",
+        tooltip: "获取文档标题",
+        helpUrl: "",
+        output: "String",
+    },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
     var code = 'document';
@@ -117,5 +141,14 @@ Blockly.JavaScript.forBlock['get_document_body'] = function (block) {
 }
 Blockly.JavaScript.forBlock['get_document_head'] = function (block) {
     var code = 'document.head';
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}
+Blockly.JavaScript.forBlock['set_document_title'] = function (block) {
+    var title = Blockly.JavaScript.valueToCode(block, 'TITLE', Blockly.JavaScript.ORDER_ATOMIC);
+    var code = `document.title = ${title};\n`;
+    return code;
+}
+Blockly.JavaScript.forBlock['get_document_title'] = function (block) {
+    var code = 'document.title';
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
