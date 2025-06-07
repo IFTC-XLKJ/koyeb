@@ -104,7 +104,7 @@ Blockly.JavaScript.forBlock['num_operator'] = function (block) {
     var operator = block.getFieldValue('OP');
     var num0 = Blockly.JavaScript.valueToCode(block, 'NUM0', Blockly.JavaScript.ORDER_ATOMIC);
     var num1 = Blockly.JavaScript.valueToCode(block, 'NUM1', Blockly.JavaScript.ORDER_ATOMIC);
-    return ["(" + num0 + operator + num1 + ")", Blockly.JavaScript.ORDER_ATOMIC];
+    return [`(${num0} ${operator} ${num1})`, Blockly.JavaScript.ORDER_ATOMIC];
 }
 
 Blockly.JavaScript.forBlock['text'] = function (block) {
