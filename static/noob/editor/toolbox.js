@@ -535,6 +535,62 @@ const toolbox = {
                     kind: "block",
                     type: "get_document",
                 },
+                {
+                    kind: "block",
+                    type: "get_document_element",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "body"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "get_document_elements",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "body"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "get_document_element_by_id",
+                    inputs: {
+                        ID: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "element-id"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "get_document_element_by_class",
+                    inputs: {
+                        CLASSNAME: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "element-class"
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
