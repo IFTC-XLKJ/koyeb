@@ -14,6 +14,9 @@ const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
     dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
+    dialog.on("onClickItem", (item, index, dialogId) => {
+        console.log("item:", item);
+    });
 });
 const updateAvatar = document.getElementById("update-avatar");
 updateAvatar.addEventListener("click", e => {
