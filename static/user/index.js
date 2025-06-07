@@ -17,7 +17,7 @@ dialog.on("onInputFinish", (value, dialogId) => {
     console.log("onInputFinish", value, dialogId);
     if (dialogId == "update-username") {
         if (value.trim() == "") {
-            toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", false);
+            toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", true);
             return;
         }
     }
@@ -52,7 +52,7 @@ updateAvatar.addEventListener("click", e => {
                     const data2 = await response2.json();
                     if (data2.code == 200) {
                         toast.hideToast(loadid);
-                        toast.showToast("上传头像成功", 2000, "center", "large", "success", "", false);
+                        toast.showToast("上传头像成功", 2000, "center", "large", "success", "", true);
                         setTimeout(() => {
                             location.reload();
                         }, 2000);
