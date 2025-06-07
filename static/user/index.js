@@ -4,7 +4,7 @@ const toast = new Toast();
 const dialog = new Dialog({
     id: "dialog"
 });
-if (!userId) location.href = "/login";
+if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 
