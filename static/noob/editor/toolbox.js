@@ -581,7 +581,7 @@ const toolbox = {
                     kind: "block",
                     type: "get_document_element_by_class",
                     inputs: {
-                        CLASSNAME: {
+                        CLASS: {
                             shadow: {
                                 type: "text",
                                 fields: {
