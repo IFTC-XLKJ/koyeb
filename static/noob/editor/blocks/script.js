@@ -180,7 +180,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
     const type = block.getFieldValue("type");
     const content = Blockly.JavaScript.valueToCode(block, 'content', Blockly.JavaScript.ORDER_ATOMIC);
-    return `console.${type}(${content})`;
+    return `console.${type}(${content});\n`;
 }
 
 Blockly.JavaScript.forBlock['wait_for_seconds'] = function (block) {
