@@ -21,7 +21,7 @@ dialog.on("onInputFinish", async (value, dialogId) => {
             return;
         }
         try {
-            const response = await fetch(`/api/user/update?type=username&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(value)}`);
+            const response = await fetch(`/api/user/update?type=nickname&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(value)}`);
             const data = await response.json();
             if (data.code == 200) {
                 toast.showToast("修改用户名成功", 2, "center", "large", "success", "", true);
