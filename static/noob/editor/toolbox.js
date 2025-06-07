@@ -355,7 +355,26 @@ const toolbox = {
                                 type: "math_number",
                                 fields: {
                                     NUM: 0
-                               }
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "array_set",
+                    inputs: {
+                        ARRAY: {
+                            shadow: {
+                                type: "variables_get",
+                            }
+                        },
+                        INDEX: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 0
+                                }
                             }
                         }
                     }
