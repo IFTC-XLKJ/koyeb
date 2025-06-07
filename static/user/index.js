@@ -26,7 +26,7 @@ dialog.on("onInputFinish", async (value, dialogId) => {
             const data = await response.json();
             if (data.code == 200) {
                 toast.hideToast(loadid);
-                toast.showToast("修改用户名成功", 2, "center", "large", "success", "", true);
+                toast.showToast("修改用户名成功", 2, "center", "large", "success", "", false);
                 setTimeout(() => {
                     location.reload();
                 }, 2000);
@@ -71,7 +71,7 @@ updateAvatar.addEventListener("click", e => {
                     const data2 = await response2.json();
                     if (data2.code == 200) {
                         toast.hideToast(loadid);
-                        toast.showToast("上传头像成功", 2, "center", "large", "success", "", true);
+                        toast.showToast("上传头像成功", 2, "center", "large", "success", "", false);
                         setTimeout(() => {
                             location.reload();
                         }, 2000);
