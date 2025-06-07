@@ -13,11 +13,23 @@ updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
     dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
 });
-dialog.on("onInputFinish", (value, dialogId) => {
+dialog.on("onInputFinish", async (value, dialogId) => {
     console.log("onInputFinish", value, dialogId);
     if (dialogId == "update-username") {
         if (value.trim() == "") {
             toast.showToast("用户名不能为空", 2, "center", "large", "error", "", true);
+            return;
+        }
+        try {
+            const response = await fetch(`/api/user/update?type=username&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(value)}`);
+            const data = await response.json();
+            if (data.code == 200) {
+                toast.showToast("修改用户名成功", 2, "center", "large", "success", "", true);
+                setTimeout(() => {
+                })
+            }
+        } catch (e) {
+            toast.showToast("修改用户名失败，原因：" + e, 2, "center", "large", "error", "", false);
             return;
         }
     }
