@@ -536,11 +536,23 @@ setInterval(function () {
     if (lastCode !== code) {
         lastCode = code;
         previewFrame.srcdoc = code;
+        previewFrame.onload = function () {
+            let frameTitle = previewFrame.contentDocument.title;
+            Object.defineProperty(previewFrame.contentDocument, "title", {
+                get() {
+                    return frameTitle;
+                },
+                set(value) {
+                    frameTitle = value;
+                    docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
+                }
+            })
+        }
     }
-    if (previewFrame.contentDocument) {
-        if (previewFrame.contentDocument.title) docTitle.innerText = previewFrame.contentDocument.title;
-        else docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
-    }
+    // if (previewFrame.contentDocument) {
+    //     if (previewFrame.contentDocument.title) docTitle.innerText = previewFrame.contentDocument.title;
+    //     else docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
+    // }
 }, 300);
 const file = document.getElementById("file");
 const fileMenu = document.getElementById("fileMenu");
