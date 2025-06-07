@@ -1,6 +1,8 @@
 const userId = localStorage.getItem("ID");
 const password = localStorage.getItem("password");
 const toast = new Toast();
+console.log("userId:", userId);
+console.log("password:", password);
 if (!userId) location.href = "/login";
 if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
