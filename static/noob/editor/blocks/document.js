@@ -136,11 +136,11 @@ Blockly.JavaScript.forBlock['get_document_element_by_class'] = function (block) 
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_body'] = function (block) {
-    var code = 'document.body';
+    var code = '(document.body)';
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_document_head'] = function (block) {
-    var code = 'document.head';
+    var code = '(document.head)';
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['set_document_title'] = function (block) {
@@ -149,6 +149,6 @@ Blockly.JavaScript.forBlock['set_document_title'] = function (block) {
     return code;
 }
 Blockly.JavaScript.forBlock['get_document_title'] = function (block) {
-    var code = 'document.title';
+    var code = '(document.title)';
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
