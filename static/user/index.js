@@ -12,13 +12,13 @@ const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
     dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
-    dialog.on("onInputFinish", (value, dialogId) => {
-        if (!(dialogId == "update-username")) return;
-        if (value.trim() == "") {
-            toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", false);
-            return;
-        }
-    });
+});
+dialog.on("onInputFinish", (value, dialogId) => {
+    if (!(dialogId == "update-username")) return;
+    if (value.trim() == "") {
+        toast.showToast("用户名不能为空", 2000, "center", "large", "error", "", false);
+        return;
+    }
 });
 const updateAvatar = document.getElementById("update-avatar");
 updateAvatar.addEventListener("click", e => {
