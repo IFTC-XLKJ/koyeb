@@ -178,4 +178,30 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         inputsInline: true,
     },
+    {
+        type: 'array_set',
+        message0: '设置数组 %1 的第 %2 项为 %3',
+        args0: [
+            {
+                type: 'input_value',
+                name: 'ARRAY',
+                check: 'Array'
+            },
+            {
+                type: 'input_value',
+                name: 'INDEX',
+                check: 'Number'
+            },
+            {
+                type: 'input_value',
+                name: 'VALUE'
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: ARRAY_COLOR,
+        tooltip: '设置数组的某一项',
+        helpUrl: '',
+        inputsInline: true,
+    },
 ]);
