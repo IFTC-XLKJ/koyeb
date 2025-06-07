@@ -26,10 +26,11 @@ dialog.on("onInputFinish", async (value, dialogId) => {
             if (data.code == 200) {
                 toast.showToast("修改用户名成功", 2, "center", "large", "success", "", true);
                 setTimeout(() => {
-                })
+                    location.reload();
+                }, 2000);
             }
         } catch (e) {
-            toast.showToast("修改用户名失败，原因：" + e, 2, "center", "large", "error", "", false);
+            toast.showToast("修改用户名失败，原因：" + e, 2, "center", "large", "error", "", true);
             return;
         }
     }
@@ -57,7 +58,7 @@ updateAvatar.addEventListener("click", e => {
                 const data = await response.json();
                 if (data.code != 200) {
                     toast.hideToast(loadid);
-                    toast.showToast("上传头像失败，原因：" + data.msg, 2, "center", "large", "error", "", false);
+                    toast.showToast("上传头像失败，原因：" + data.msg, 2, "center", "large", "error", "", true);
                 } else {
                     const avatarUrl = data.url;
                     const response2 = await fetch(`/api/user/update?type=avatar&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(avatarUrl)}`);
@@ -70,12 +71,12 @@ updateAvatar.addEventListener("click", e => {
                         }, 2000);
                     } else {
                         toast.hideToast(loadid);
-                        toast.showToast("上传头像失败，原因：" + data2.msg, 2, "center", "large", "error", "", false);
+                        toast.showToast("上传头像失败，原因：" + data2.msg, 2, "center", "large", "error", "", true);
                     }
                 }
             } catch (e) {
                 toast.hideToast(loadid);
-                toast.showToast("上传头像失败，原因：" + e, 2, "center", "large", "error", "", false);
+                toast.showToast("上传头像失败，原因：" + e, 2, "center", "large", "error", "", true);
             }
         }
     });
