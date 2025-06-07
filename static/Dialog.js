@@ -91,6 +91,7 @@ class Dialog {
                 height: 100%;
                 z-index: 9999;
                 animation: Qii_DIALOG_BG_SHOW 0.4s cubic-bezier(.3,.4,.5,1) both;
+                user-select: none;
             }
             .Qii_${this.__widgetId}.hideDialog {
                 pointer-events: none;
