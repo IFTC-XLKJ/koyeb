@@ -2233,6 +2233,14 @@ app.get("/api/user/update", async (req, res) => {
         });
         return;
     }
+    if (id != 0 && type == "password" && data.includes("#")) {
+        res.status(400).json({
+            code: 400,
+            msg: "密码不能包含#字符",
+            timestamp: time(),
+        });
+        return;
+    }
     if (type && (id || id == 0) && password && data) {
         const user = new User();
         try {
