@@ -6,6 +6,7 @@ class 官方扩展 extends Ext {
         this.postMessage({
             type: "init",
         });
+        this.extLog(0, "官方扩展加载成功", name);
     }
     onmessage(data) {
         console.log("官方扩展 onmessage", data);
