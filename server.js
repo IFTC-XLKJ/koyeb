@@ -2225,7 +2225,7 @@ app.get("/api/user/update", async (req, res) => {
             timestamp: time(),
         });
     }
-    if (id != 0 && type == "nickname" && data.includes("#")) {
+    if (id != 0 && type == "nickname" && decodeURIComponent(data).includes("#")) {
         res.status(400).json({
             code: 400,
             msg: "昵称不能包含#字符",
@@ -2233,7 +2233,7 @@ app.get("/api/user/update", async (req, res) => {
         });
         return;
     }
-    if (id != 0 && type == "password" && data.includes("#")) {
+    if (id != 0 && type == "password" && decodeURIComponent(data).includes("#")) {
         res.status(400).json({
             code: 400,
             msg: "密码不能包含#字符",
