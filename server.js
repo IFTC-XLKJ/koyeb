@@ -2225,6 +2225,14 @@ app.get("/api/user/update", async (req, res) => {
             timestamp: time(),
         });
     }
+    if (id != 0 && type == "nickname" && data.includes("#")) {
+        res.status(400).json({
+            code: 400,
+            msg: "昵称不能包含#字符",
+            timestamp: time(),
+        });
+        return;
+    }
     if (type && (id || id == 0) && password && data) {
         const user = new User();
         try {
