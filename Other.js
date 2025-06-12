@@ -16,6 +16,35 @@ const cloudfunConsole = new CloudfunConsole();
 class Other {
     constructor(app, requestLog) {
         this.app = app;
+        this.app.get("/api/ipplace", async (req, res) => {
+            const {ip}=req.query;
+            if (!ip) {
+                res.json({
+                    code: 400,
+                    msg: "缺少参数",
+                    timestamp: time(),
+                });
+                return;
+            }
+            function checkIPType(ip) {
+  // 检查是否是IPv4
+  const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}$/;
+  if (ipv4Pattern.test(ip)) {
+    const segments = ip.split(".");
+    if (segments.every(segment => parseInt(segment, 10) >= 0 && parseInt(segment, 10) <= 255)) {
+      return "IPv4";
+    }
+  }
+
+  // 检查是否是IPv6
+  const ipv6Pattern = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
+  if (ipv6Pattern.test(ip)) {
+    return "IPv6";
+  }
+
+  return "Invalid IP";
+}
+        });
         this.app.get("/file/blockly/workspace-search", async (req, res) => {
             const content = await this.getFile("node_modules/@blockly/plugin-workspace-search/dist/index.js");
             if (content) {
