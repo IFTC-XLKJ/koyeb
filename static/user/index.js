@@ -2,7 +2,8 @@ const userId = localStorage.getItem("ID");
 const password = localStorage.getItem("password");
 const toast = new Toast();
 const dialog = new Dialog({
-    id: "dialog"
+    id: "dialog",
+    useMD3: true,
 });
 if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
