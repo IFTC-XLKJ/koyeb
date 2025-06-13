@@ -38,7 +38,23 @@ class Other {
                 })
                 return;
             }
-            
+            const response = await fetch(`https://ipapi.co/${ip}/json/`);
+            if (!response.ok) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: response.statusText,
+                    timestamp: time(),
+                });
+                return;
+            }
+            const data = await response.json();
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: data,
+                timestamp: time(),
+            });
             function checkIPType(ip) {
                 const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}$/;
                 if (ipv4Pattern.test(ip)) {
@@ -47,13 +63,10 @@ class Other {
                         return "IPv4";
                     }
                 }
-
-                // 检查是否是IPv6
                 const ipv6Pattern = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
                 if (ipv6Pattern.test(ip)) {
                     return "IPv6";
                 }
-
                 return "Invalid IP";
             }
         });
@@ -464,9 +477,9 @@ class Other {
                                             });
                                             console.log(log);
                                         },
-                                        warn: function (...args) {},
-                                        error: function (...args) {},
-                                        info: function (...args) {}
+                                        warn: function (...args) { },
+                                        error: function (...args) { },
+                                        info: function (...args) { }
                                     },
                                 },
                             };
@@ -537,7 +550,7 @@ function generateUUID() {
         function (c) {
             var r = (d + Math.random() * 16) % 16 | 0;
             d = Math.floor(d / 16);
-            return (c === 'x' ? r: (r & 0x3 | 0x8)).toString(16);
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
     return uuid;
 }
