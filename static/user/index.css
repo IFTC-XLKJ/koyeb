@@ -54,26 +54,26 @@ body {
 }
 
 .user-actions mdui-button {
-    display: inline-block;
+    /* display: inline-block;
     margin-right: 10px;
     padding: 10px 20px;
-    font-size: 16px;
+    font-size: 16px; */
     color: white;
     background-color: #87CEEB;
-    border: none;
+    /* border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s;
-    user-select: none;
+    user-select: none; */
 }
 
-.user-actions mdui-button:hover {
+/* .user-actions mdui-button:hover {
     background-color: #6BB7D6;
 }
 
 .user-actions mdui-button:active {
     background-color: #5AA6C4;
-}
+} */
 
 .user-avatar {
     width: 80px;
