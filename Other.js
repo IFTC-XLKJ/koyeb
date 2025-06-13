@@ -19,16 +19,14 @@ class Other {
     constructor(app, requestLog) {
         this.app = app;
         this.app.get("/api/ipplace", async (req, res) => {
-            const {
+            let {
                 ip
             } = req.query;
             if (!ip) {
-                res.json({
-                    code: 400,
-                    msg: "缺少参数",
-                    timestamp: time(),
-                });
-                return;
+                let ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress || req.ip;
+                if (ip.includes(",")) {
+                    ip = ip.split(",")[0].trim(); // 处理代理情况下的IP
+                }
             }
             if (checkIPType(ip) == "Invalid IP") {
                 res.json({
