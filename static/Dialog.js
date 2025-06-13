@@ -82,6 +82,7 @@ class Dialog {
             dialogCard.appendChild(dialogItems)
         }
         const style = document.createElement('style')
+        console.log(this.cardColor, this.themeColor)
         style.textContent = `
             .Qii_${this.__widgetId} {
                 position: fixed; left: 0; top: 0;
