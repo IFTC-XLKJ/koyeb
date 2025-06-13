@@ -28,6 +28,7 @@ class Other {
                     ip = ip.split(",")[0].trim(); // 处理代理情况下的IP
                 }
             }
+            console.log(ip);
             if (checkIPType(ip) == "Invalid IP") {
                 res.json({
                     code: 400,
