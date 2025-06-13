@@ -61,7 +61,7 @@ class Dialog {
                 dialogItems.classList.add('vertical')
             }
             for (let index = 0; index < items.length; index++) {
-                const item = document.createElement('div')
+                const item = document.createElement('button')
                 item.className = 'item'
                 item.textContent = items[index]
                 if (items[index] === lightItem) {
