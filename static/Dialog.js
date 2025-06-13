@@ -7,6 +7,7 @@ class Dialog {
         this.cardColor = this.cardColor || "white"
         this.cardRadius = this.cardRadius || 10
         this.themeColor = this.themeColor || "#42A5F5"
+        this.useMD3 = this.useMD3 || false;
     }
     showDialog(title, text, image, items, lightItem, align, dialogId) {
         this.renderDialog('select', title, text, image, items, lightItem, align, dialogId, null, null)
