@@ -25,7 +25,7 @@ class Other {
             if (!ip) {
                 ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress || req.ip;
                 if (ip.includes(",")) {
-                    ip = ip.split(",")[0].trim(); // 处理代理情况下的IP
+                    ip = ip.split(",")[0].trim();
                 }
             }
             console.log(ip);
