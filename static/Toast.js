@@ -7,6 +7,7 @@ class Toast {
         this.borderRadius = this.borderRadius || 12;
         this.offset = this.offset || 80;
         this.shadow = this.shadow || true;
+        this.useMD3 = this.useMD3 || false;
         this.toasts = [];
     }
     /**
@@ -127,7 +128,7 @@ class Toast {
                 }
             </style>
         `;
-        let toastContainer = document.createElement('div');
+        let toastContainer = document.createElement(this.useMD3 ? "mdui-button" : 'button');
         toastContainer.className = 'qii_toast_container';
         toastContainer.id = "qii_toast-" + id;
         toastContainer.innerHTML = toastElement;
