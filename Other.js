@@ -22,7 +22,7 @@ class Other {
         this.app.get("/api/geocoder", async (req, res) => {
             requestLog(req);
             const options = {
-                provider: 'openstreetmap',
+                provider: 'here',
                 formatter: null
             };
             const geocoder = NodeGeocoder(options);
