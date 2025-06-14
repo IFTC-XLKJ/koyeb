@@ -15,10 +15,12 @@ const user = new User();
 const uuid_db = new UUID_db();
 const cloudfunConsole = new CloudfunConsole();
 const NodeGeocoder = require('node-geocoder');
+const expressWs = require('express-ws');
 
 class Other {
     constructor(app, requestLog) {
         this.app = app;
+        expressWs(app);
         this.app.get("/api/geocoder", async (req, res) => {
             requestLog(req);
             try {
@@ -508,6 +510,12 @@ class Other {
                                         error: function (...args) { },
                                         info: function (...args) { }
                                     },
+                                    WebSocket: class {
+                                        constructor(url) {
+                                            if (!url) throw new Error("WebSocket URL is required");
+                                            this.url = url;
+                                        }
+                                    }
                                 },
                             };
                             if (fun[Symbol.toStringTag] == "AsyncFunction") {
