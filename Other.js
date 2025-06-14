@@ -14,10 +14,30 @@ const axios = require('axios');
 const user = new User();
 const uuid_db = new UUID_db();
 const cloudfunConsole = new CloudfunConsole();
+const NodeGeocoder = require('node-geocoder');
 
 class Other {
     constructor(app, requestLog) {
         this.app = app;
+        this.app.get("/api/geocoder", async (req, res) => {
+            requestLog(req);
+            const options = {
+                provider: 'google',
+                apiKey: 'AIzaSyC0_0KQhqzR1Z_4q-XQ-v9lQ_K0lXZ7JJk',
+                formatter: null
+            };
+            const geocoder = NodeGeocoder(options);
+            geocoder.reverse({
+                lat: req.query.lat,
+                lon: req.query.lon
+            });
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: geocoder,
+                timestamp: time(),
+            });
+        })
         this.app.get("/api/ipplace", async (req, res) => {
             let {
                 ip
