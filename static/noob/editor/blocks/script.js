@@ -33,20 +33,20 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "script_throw",
-        message0: "抛出异常 %1",
+        message0: "抛出异常 %1 %2",
         args0: [
             {
                 type: "input_value",
                 name: "type",
             },
-        ],
-        message1: "%1",
-        args1: [
             {
                 type: "input_value",
                 name: "content",
             },
         ],
+        // message1: "",
+        // args1: [
+        // ],
         previousStatement: null,
         nextStatement: null,
         colour: "#68CDFF",
