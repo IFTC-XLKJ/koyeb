@@ -22,8 +22,7 @@ class Other {
         this.app.get("/api/geocoder", async (req, res) => {
             requestLog(req);
             const options = {
-                provider: 'google',
-                apiKey: 'AIzaSyC0_0KQhqzR1Z_4q-XQ-v9lQ_K0lXZ7JJk',
+                provider: 'openstreetmap',
                 formatter: null
             };
             const geocoder = NodeGeocoder(options);
