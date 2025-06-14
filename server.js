@@ -440,6 +440,7 @@ app.all("/api", (req, res) => {
         copyright: "IFTC",
         origin: (req.headers["referer"] || req.headers["x-forwarded-for"]) || null,
         apis: apis,
+        doc: "https://iftc-api.apifox.com",
         count: apis.length,
         timestamp: time(),
         Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true : void 0,
