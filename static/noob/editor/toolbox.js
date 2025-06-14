@@ -886,5 +886,12 @@ const toolbox = {
                 },
             ]
         },
+        {
+            kind: "category",
+            name: "MDUI",
+            colour: "#FF6680",
+            contents: [
+            ],
+        },
     ]
 }
