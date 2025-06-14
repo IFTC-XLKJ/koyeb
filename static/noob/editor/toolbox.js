@@ -702,6 +702,22 @@ const toolbox = {
                                     }
                                 }
                             }
+                        },
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "attribute"
+                                }
+                            }
+                        },
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                }
+                            }
                         }
                     }
                 }
