@@ -5,7 +5,7 @@ async function handle(request) { // 主函数
     console.log(request, require, fetch);
     /* const table = new pgdbs(密钥); */ // 创建点鸭数据表对象，密钥如：LkduYVIN+ZUTpqJ20se4bcYnTx4M······qbVzwEZSUfOxQGfnmh8Yo15DuJZVFC0=
     console.log(tools, "pgdbs", pgdbs, "DOMParser", DOMParser);
-    if (request.headers.get("upgrade") === "websocket") { // 检查是否为WebSocket请求
+    if (request.headers["upgrade"] === "websocket") { // 检查是否为WebSocket请求
         const ws = new WebSocket("/"); // 创建WebSocket对象
     }
     const response = new request.response({
