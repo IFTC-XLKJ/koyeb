@@ -486,9 +486,9 @@ const toolbox = {
                     inputs: {
                         code: {
                             shadow: {
-                                type: "number",
+                                type: "math_number",
                                 fields: {
-                                    NUMBER: 0,
+                                    NUM: 0,
                                 }
                             }
                         }
