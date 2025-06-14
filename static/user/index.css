@@ -1,7 +1,7 @@
 :root {
     --mdui-color-primary: 135, 206, 235;
     --mdui-color-primary-container: 135, 206, 235;
-    --mdui-color-on-primary: 79, 204, 255;
+    --mdui-color-on-primary: 79, 204, 255, 0.5;
     --mdui-color-on-primary-container: 79, 204, 255;
     --mdui-color-inverse-primary: 79, 204, 255;
 }
@@ -9,7 +9,7 @@
 :host([variant=filled]) {
     color: #FFF;
     background-color: rgb(var(--mdui-color-primary));
-    --mdui-comp-ripple-state-layer-color: rgba(var(--mdui-color-on-primary), 0.2);
+    --mdui-comp-ripple-state-layer-color: var(--mdui-color-on-primary);
 }
 
 body {
