@@ -1,6 +1,11 @@
 :root {
-    --mdui-color-primary-light: 120, 206, 235; /* Light blue */
-    --mdui-color-primary: 0, 150, 136; /* Teal */
+    --mdui-color-primary: 120, 206, 235;
+    /* Light blue */
+    --mdui-color-primary-container: #87CEEB;
+    /* Light blue container */
+    --mdui-color-on-primary: #ffffff;
+    /* White */
+    
 }
 
 body {
