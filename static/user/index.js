@@ -1,18 +1,27 @@
 const userId = localStorage.getItem("ID");
 const password = localStorage.getItem("password");
 const toast = new Toast();
-const dialog = new Dialog({
-    id: "dialog",
-    useMD3: true,
-});
+// const dialog = new Dialog({
+//     id: "dialog",
+//     useMD3: true,
+// });
 if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
+const { prompt } = ModuleKind;
 
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
-    dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
+    // dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
+    prompt({
+        headline: "修改用户名",
+        description: "",
+        closeOnEsc: true,
+        closeOnOutsideClick: true,
+        confirmText: "确定",
+        cancelText: "取消",
+    })
 });
 dialog.on("onInputFinish", async (value, dialogId) => {
     console.log("onInputFinish", value, dialogId);
