@@ -754,7 +754,7 @@ const toolbox = {
                                 }
                             }
                         },
-                        STYLE: {
+                        STYLE_PROPERTY: {
                             shadow: {
                                 type: "text",
                                 fields: {
@@ -783,7 +783,7 @@ const toolbox = {
                                 }
                             }
                         },
-                        STYLE: {
+                        STYLE_PROPERTY: {
                             shadow: {
                                 type: "text",
                                 fields: {
