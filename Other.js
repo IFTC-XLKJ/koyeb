@@ -21,21 +21,30 @@ class Other {
         this.app = app;
         this.app.get("/api/geocoder", async (req, res) => {
             requestLog(req);
-            const options = {
-                provider: 'here',
-                formatter: null
-            };
-            const geocoder = NodeGeocoder(options);
-            geocoder.reverse({
-                lat: req.query.lat,
-                lon: req.query.lon
-            });
-            res.json({
-                code: 200,
-                msg: "请求成功",
-                data: geocoder,
-                timestamp: time(),
-            });
+            try {
+                const options = {
+                    provider: 'here',
+                    formatter: null
+                };
+                const geocoder = NodeGeocoder(options);
+                geocoder.reverse({
+                    lat: req.query.lat,
+                    lon: req.query.lon
+                });
+                res.json({
+                    code: 200,
+                    msg: "请求成功",
+                    data: geocoder,
+                    timestamp: time(),
+                });
+            } catch (error) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: error.message,
+                    timestamp: time(),
+                });
+            }
         })
         this.app.get("/api/ipplace", async (req, res) => {
             let {
