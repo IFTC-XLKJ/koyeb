@@ -6,6 +6,12 @@
     --mdui-color-inverse-primary: 79, 204, 255;
 }
 
+:host([variant=filled]) {
+    color: #FFF;
+    background-color: rgb(var(--mdui-color-primary));
+    --mdui-comp-ripple-state-layer-color: rgba(var(--mdui-color-on-primary), 0.2);
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
