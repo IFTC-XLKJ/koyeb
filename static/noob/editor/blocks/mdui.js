@@ -1,1 +1,3 @@
-Blockly.defineBlocksWithJsonArray([]);
+Blockly.defineBlocksWithJsonArray([
+    {},
+]);
