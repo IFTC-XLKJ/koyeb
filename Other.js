@@ -515,7 +515,7 @@ class Other {
                                         constructor(path) {
                                             if (!path) throw new Error("WebSocket URL is required");
                                             this.path = path;
-                                            if (path.startsWith("/")) throw new Error("WebSocket URL cannot start with '/'");
+                                            if (!path.startsWith("/")) throw new Error("WebSocket URL must start with /");
                                             that.app.ws("/ws/cloudfun/" + uuid + path, function (ws, req) {
                                                 ws.on('message', function (msg) {
                                                     ws.send(msg);
