@@ -21,6 +21,14 @@ updateUsername.addEventListener("click", async () => {
         closeOnOutsideClick: true,
         confirmText: "确定",
         cancelText: "取消",
+        textFieldOptions: {
+            label: "用户名",
+            value: username,
+            type: "text",
+            required: true,
+            helperText: "请输入新的用户名",
+            validationMessage: "用户名不能为空",
+        }
     })
 });
 dialog.on("onInputFinish", async (value, dialogId) => {
