@@ -655,6 +655,28 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "get_element_attribute",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "element"
+                                }
+                            }
+                        },
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "attribute"
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {

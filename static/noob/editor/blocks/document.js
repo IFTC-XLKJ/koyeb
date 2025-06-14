@@ -173,7 +173,8 @@ Blockly.JavaScript.forBlock['get_document_title'] = function (block) {
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
 Blockly.JavaScript.forBlock['get_element_attribute'] = function (block) {
-    var attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
-    var code = `(element.getAttribute(${attribute}))`;
+    const element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    const attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
+    const code = `(${element}.getAttribute(${attribute}))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
