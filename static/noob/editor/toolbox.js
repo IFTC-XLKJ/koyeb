@@ -889,7 +889,7 @@ const toolbox = {
         {
             kind: "category",
             name: "MDUI",
-            colour: "#FEF7FF",
+            colour: "#6750A4",
             contents: [
             ],
         },
