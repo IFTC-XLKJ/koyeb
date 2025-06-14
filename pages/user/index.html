@@ -22,7 +22,8 @@
     </noscript>
     <div id="app">
         <div class="header">
-            <img src="{{avatar}}" alt="用户头像" class="user-avatar" onerror="this.src='/static/avatar.png'" draggable="false">
+            <img src="{{avatar}}" alt="用户头像" class="user-avatar" onerror="this.src='/static/avatar.png'"
+                draggable="false">
             <h1>VV用户中心</h1>
             <p>欢迎，{{username}}</p>
         </div>
@@ -45,6 +46,13 @@
     </div>
     <slot data="username">{{username}}</slot>
     <script src="/static/user/index.js"></script>
+    <style>
+        :host([variant=filled]) {
+            color: #FFF;
+            background-color: rgb(var(--mdui-color-primary));
+            --mdui-comp-ripple-state-layer-color: var(--mdui-color-on-primary);
+        }
+    </style>
 </body>
 
 </html>
