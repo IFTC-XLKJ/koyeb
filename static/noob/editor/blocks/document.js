@@ -132,6 +132,32 @@ Blockly.defineBlocksWithJsonArray([
         output: "String",
         inputsInline: true
     },
+    {
+        type: "set_element_attribute",
+        message0: "设置 %1 的属性 %2 为 %3",
+        args0: [
+            {
+                type: "input_value",
+                name: "ELEMENT",
+                check: "Dictionary"
+            },
+            {
+                type: "input_value",
+                name: "ATTRIBUTE",
+                check: "String"
+            },
+            {
+                type: "input_value",
+                name: "VALUE",
+                check: "String"
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "设置元素属性",
+        helpUrl: "",
+        previousStatement: null,
+        nextStatement: null,
+    },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
     const code = '(document)';
@@ -179,4 +205,11 @@ Blockly.JavaScript.forBlock['get_element_attribute'] = function (block) {
     const attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
     const code = `(${element}.getAttribute(${attribute}))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
+}
+Blockly.JavaScript.forBlock['set_element_attribute'] = function (block) {
+    const element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    const attribute = Blockly.JavaScript.valueToCode(block, 'ATTRIBUTE', Blockly.JavaScript.ORDER_ATOMIC);
+    const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    const code = `${element}.setAttribute(${attribute}, ${value});\n`;
+    return code;
 }
