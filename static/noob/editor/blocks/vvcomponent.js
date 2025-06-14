@@ -21,5 +21,5 @@ Blockly.JavaScript.forBlock["vv_dragger"] = function (block) {
     if (!selector) {
         throw new Error("Selector is required for the dragger block.");
     }
-    return [`(new Dragger(document.querySelector("${selector}")))`, Blockly.JavaScript.ORDER_ATOMIC];
+    return [`(new Dragger(document.querySelector(${selector})))`, Blockly.JavaScript.ORDER_ATOMIC];
 }
