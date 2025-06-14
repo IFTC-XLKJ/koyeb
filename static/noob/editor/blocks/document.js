@@ -149,7 +149,6 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "VALUE",
-                check: "String"
             }
         ],
         colour: "#9C004B",
