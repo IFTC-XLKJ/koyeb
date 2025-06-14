@@ -734,6 +734,72 @@ const toolbox = {
                             }
                         }
                     }
+                },
+                {
+                    kind: "block",
+                    type: "get_element_style",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "get_document_element",
+                                inputs: {
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "body"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "style-property"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
+                    type: "set_element_style",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "get_document_element",
+                                inputs: {
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "body"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "style-property"
+                                }
+                            }
+                        },
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                }
+                            }
+                        }
+                    }
                 }
             ]
         },
