@@ -260,3 +260,16 @@ Blockly.JavaScript.forBlock['set_element_attribute'] = function (block) {
     const code = `${element}.setAttribute(${attribute}, ${value});\n`;
     return code;
 }
+Blockly.JavaScript.forBlock['get_element_style'] = function (block) {
+    const element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    const styleProperty = Blockly.JavaScript.valueToCode(block, 'STYLE_PROPERTY', Blockly.JavaScript.ORDER_ATOMIC);
+    const code = `(${element}.style.${styleProperty})`;
+    return [code, Blockly.JavaScript.ORDER_NONE];
+}
+Blockly.JavaScript.forBlock['set_element_style'] = function (block) { 
+    const element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
+    const styleProperty = Blockly.JavaScript.valueToCode(block, 'STYLE_PROPERTY', Blockly.JavaScript.ORDER_ATOMIC);
+    const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    const code = `${element}.style.${styleProperty} = ${value};\n`;
+    return code;
+}
