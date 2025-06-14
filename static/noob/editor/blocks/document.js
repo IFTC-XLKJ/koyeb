@@ -158,6 +158,53 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: null,
         inputsInline: true
     },
+    {
+        type: "get_element_style",
+        message0: "获取 %1 的样式 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "ELEMENT",
+                check: "Dictionary"
+            },
+            {
+                type: "input_value",
+                name: "STYLE_PROPERTY",
+                check: "String"
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "获取元素样式",
+        helpUrl: "",
+        output: "String",
+        inputsInline: true
+    },
+    {
+        type: "set_element_style",
+        message0: "设置 %1 的样式 %2 为 %3",
+        args0: [
+            {
+                type: "input_value",
+                name: "ELEMENT",
+                check: "Dictionary"
+            },
+            {
+                type: "input_value",
+                name: "STYLE_PROPERTY",
+                check: "String"
+            },
+            {
+                type: "input_value",
+                name: "VALUE",
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "设置元素样式",
+        helpUrl: "",
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true
+    },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
     const code = '(document)';
