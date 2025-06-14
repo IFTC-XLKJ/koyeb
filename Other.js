@@ -339,6 +339,7 @@ class Other {
                                 return eval(code);
                                 };\n${code}`);
                             console.log(fun, typeof fun);
+                            const that = this;
                             const request = {
                                 response: class {
                                     #status = 200;
@@ -511,9 +512,15 @@ class Other {
                                         info: function (...args) { }
                                     },
                                     WebSocket: class {
-                                        constructor(url) {
-                                            if (!url) throw new Error("WebSocket URL is required");
-                                            this.url = url;
+                                        constructor(path) {
+                                            if (!path) throw new Error("WebSocket URL is required");
+                                            this.path = path;
+                                            if (path.startsWith("/")) throw new Error("WebSocket URL cannot start with '/'");
+                                            that.app.ws("/ws/cloudfun/" + uuid + path, function (ws, req) {
+                                                ws.on('message', function (msg) {
+                                                    ws.send(msg);
+                                                });
+                                            });
                                         }
                                     }
                                 },
