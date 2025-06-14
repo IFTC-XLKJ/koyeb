@@ -69,6 +69,7 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "获取通过类元素",
         helpUrl: "",
         output: "Array",
+        inputsInline: true
     },
     {
         type: "get_document_body",
@@ -129,6 +130,7 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "获取元素属性",
         helpUrl: "",
         output: "String",
+        inputsInline: true
     },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
