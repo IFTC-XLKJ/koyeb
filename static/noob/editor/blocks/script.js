@@ -44,9 +44,6 @@ Blockly.defineBlocksWithJsonArray([
                 name: "content",
             },
         ],
-        // message1: "",
-        // args1: [
-        // ],
         previousStatement: null,
         nextStatement: null,
         colour: "#68CDFF",
@@ -175,6 +172,21 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#68CDFF",
         enableContextMenu: false,
     },
+    {
+        type: "script_void",
+        message0: "执行 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "code",
+            },
+        ],
+        nextStatement: null,
+        previousStatement: null,
+        colour: "#68CDFF",
+        tooltip: "执行一段代码",
+        inputInline: true,
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
@@ -206,4 +218,9 @@ Blockly.JavaScript.forBlock['script_throw'] = function (block) {
 
 Blockly.JavaScript.forBlock["script_console_clear"] = function (block) {
     return `console.clear();\n`;
+}
+
+Blockly.JavaScript.forBlock["script_console_log"] = function (block) {
+    const code = Blockly.JavaScript.valueToCode(block, 'code', Blockly.JavaScript.ORDER_ATOMIC);
+    return `void ${code}\n`;
 }
