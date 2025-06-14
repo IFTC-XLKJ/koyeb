@@ -684,6 +684,27 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "set_element_attribute",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "get_document_element",
+                                inputs: {
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "body"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             ]
         },
         {
