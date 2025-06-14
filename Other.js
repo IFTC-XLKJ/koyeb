@@ -340,6 +340,13 @@ class Other {
                                 };\n${code}`);
                             console.log(fun, typeof fun);
                             const that = this;
+                            let WebSocket = null;
+                            this.app.ws("/api/cloudfun/ws/" + uuid, function (ws, req) {
+                                WebSocket = ws;
+                                ws.onopen = () => {
+                                    console.log("WebSocket连接已打开", ws);
+                                }
+                            })
                             const request = {
                                 response: class {
                                     #status = 200;
@@ -511,18 +518,7 @@ class Other {
                                         error: function (...args) { },
                                         info: function (...args) { }
                                     },
-                                    WebSocket: class {
-                                        constructor(path) {
-                                            if (!path) throw new Error("WebSocket URL is required");
-                                            this.path = path;
-                                            if (!path.startsWith("/")) throw new Error("WebSocket URL must start with /");
-                                            that.app.ws("/ws/cloudfun/" + uuid + path, function (ws, req) {
-                                                ws.on('message', function (msg) {
-                                                    ws.send(msg);
-                                                });
-                                            });
-                                        }
-                                    }
+                                    WebSocket: WebSocket,
                                 },
                             };
                             if (fun[Symbol.toStringTag] == "AsyncFunction") {
