@@ -482,6 +482,20 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "script_void",
+                    inputs: {
+                        code: {
+                            shadow: {
+                                type: "number",
+                                fields: {
+                                    NUMBER: 0,
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
                     type: "script_console",
                     inputs: {
                         content: {
