@@ -542,7 +542,7 @@ class Other {
                     }
                 } catch (e) {
                     console.error(e);
-                    res.status(500).send(null);
+                    res.status(500).send(`出现了错误：${e}`);
                 }
             });
         this.app.get("/api/translate",
