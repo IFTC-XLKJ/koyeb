@@ -1,3 +1,8 @@
+:root {
+    --mdui-color-primary-light: 120, 206, 235; /* Light blue */
+    --mdui-color-primary: 0, 150, 136; /* Teal */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
