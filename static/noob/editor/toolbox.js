@@ -745,6 +745,16 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "vv_dragger",
+                    inputs: {
+                        selector: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "selector"
+                                }
+                            }
+                        },
+                    }
                 },
             ]
         },
