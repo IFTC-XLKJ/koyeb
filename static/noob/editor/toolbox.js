@@ -661,9 +661,16 @@ const toolbox = {
                     inputs: {
                         ELEMENT: {
                             shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "element"
+                                type: "get_document_element",
+                                inputs: {
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "body"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         },
