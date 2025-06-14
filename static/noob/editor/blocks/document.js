@@ -157,6 +157,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         previousStatement: null,
         nextStatement: null,
+        inputsInline: true
     },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
