@@ -130,6 +130,9 @@ update.addEventListener("click", async () => {
                                 } else if (data.type == "error") {
                                     consoleElement.innerHTML += `<li style="color: red;">${data.msg}</li>`;
                                     consoleElement.scrollTop = consoleElement.scrollHeight;
+                                } else if (data.type == "init") {
+                                    consoleElement.innerHTML += `<li style="color: lightgrey;">初始化完成</li>`
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
                                 }
                             };
                         }
