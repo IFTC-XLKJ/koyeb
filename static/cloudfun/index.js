@@ -135,7 +135,7 @@ update.addEventListener("click", async () => {
                     item.addEventListener("click", e => {
                         uuids.forEach(i => i.classList.remove("current-label"));
                         item.classList.add("current-label");
-                        const consoleElement = document.querySelector(`[iftc-uuid="${uuids[index]}"]`);
+                        const consoleElement = document.querySelector(`[iftc-uuid="${uuids[index]["innerText"]}"]`);
                         document.querySelectorAll(".console").forEach(item => item.classList.remove("current-console"));
                         consoleElement.classList.add("current-console");
                     });
