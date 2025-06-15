@@ -23,6 +23,10 @@ mdui-button {
     --mdui-comp-ripple-state-layer-color: 150, 150, 150, 0.2;
 }
 
+mdui-textfield {
+    --mdui-color-background: 202, 202, 202;
+}
+
 #app {
     max-width: 800px;
     margin: 50px auto;
