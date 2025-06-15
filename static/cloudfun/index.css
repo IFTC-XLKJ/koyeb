@@ -1,4 +1,5 @@
 body {
+    background-color: var(--md-filled-button-container-color, var(--md-sys-color-primary, #6750a4));
     color: white;
 }
 
