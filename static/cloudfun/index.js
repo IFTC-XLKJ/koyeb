@@ -112,6 +112,7 @@ update.addEventListener("click", async () => {
                         if (ws) {
                             ws.onmessage = e => {
                                 const data = JSON.parse(e.data);
+                                console.log(data);
                                 if (data.type == "console") {
                                     data.data.forEach(i => {
                                         if (i.type == "log") {
