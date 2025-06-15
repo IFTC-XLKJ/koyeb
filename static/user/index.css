@@ -25,6 +25,7 @@ mdui-button {
 
 mdui-textfield {
     --mdui-color-background: 202, 202, 202;
+    --mdui-elevation-level3: 3;
 }
 
 #app {
