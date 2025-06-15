@@ -12,17 +12,7 @@
             font-family: 'XiaoLaiMonoSC';
             src: url('https://static.codemao.cn/IFTC/font/Ska1F57lgg.ttf?小赖字体MonoSC') format('truetype');
         }
-
-        :host {
-            --_focus-label-text-color: #009dff;
-            --_hover-label-text-color: #009dff;
-            --_hover-state-layer-color: #009dff;
-            --_label-text-color: #009dff;
-            --_pressed-label-text-color: #009dff;
-            --_pressed-state-layer-color: #009dff;
-        }
     </style>
-    <link rel="stylesheet" href="/static/cloudfun/index.css">
     <script type="importmap">
     {
         "imports": {
@@ -41,6 +31,7 @@
 </head>
 
 <body>
+    <link rel="stylesheet" href="/static/cloudfun/index.css">
     <h1>欢迎使用VV云函数</h1>
     <div>VV云函数是在云端执行主函数，然后返回执行结果，结果为字符串，可以使用此云函数编写API，执行环境是NodeJS22。</div>
     <div id="main">

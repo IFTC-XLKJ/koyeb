@@ -58,3 +58,12 @@ button {
     padding: 5px 10px;
     cursor: pointer;
 }
+
+:host {
+    --_focus-label-text-color: #009dff;
+    --_hover-label-text-color: #009dff;
+    --_hover-state-layer-color: #009dff;
+    --_label-text-color: #009dff;
+    --_pressed-label-text-color: #009dff;
+    --_pressed-state-layer-color: #009dff;
+}
