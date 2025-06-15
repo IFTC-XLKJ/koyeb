@@ -101,8 +101,8 @@ update.addEventListener("click", async () => {
                     };
                     labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
                     Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console${index == 0 ? " current-console" : ""}"></ul>`;
-                    const consoleElement = Console.querySelectorAll("ul")[index];
                     ws.onmessage = e => {
+                    const consoleElement = Console.querySelector(`[iftc-uuid="${item.UUID}"]`);
                         const data = JSON.parse(e.data);
                         console.log(data, data.type);
                         if (data.type == "init") {
