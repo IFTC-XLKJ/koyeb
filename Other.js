@@ -542,12 +542,18 @@ class Other {
                 const filepath = "cloudfunlogs/" + uuid + ".json";
                 try {
                     const stats = await fs.stat(filepath);
+                    console.log("文件存在")
                 } catch (e) {
+                    console.log("文件不存在，初始化文件")
                     await fs.writeFile(filepath, JSON.stringify([]));
                 }
+                console.log("读取文件")
                 const content = await fs.readFile(filepath, "utf8");
+                console.log("解析JSON")
                 const oldCloudfunLogs = JSON.parse(content);
+                console.log("合并日志")
                 const newCloudfunLogs = [...oldCloudfunLogs, ...cloudfunLogs];
+                console.log("写入日志")
                 await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
             } catch (e) { }
         });
