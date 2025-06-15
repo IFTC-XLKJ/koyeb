@@ -12,32 +12,31 @@
             font-family: 'XiaoLaiMonoSC';
             src: url('https://static.codemao.cn/IFTC/font/Ska1F57lgg.ttf?小赖字体MonoSC') format('truetype');
         }
+
         :host {
             --md-sys-color-primary: #009dff;
         }
     </style>
     <link rel="stylesheet" href="/static/cloudfun/index.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.js"
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.js"
         integrity="sha512-52x9jxRlpg4HFObOpmnst5aeTZxf3nqEAk0E0MRwP5mOQwWgIr9BydMAQyeIWhHiMZN/nvEpoStVS97oLrCg7A=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/material-components-web/14.0.0/material-components-web.min.css"
         integrity="sha512-MQSeeHVtBZ+FnVbcJbGKYk4Clc5A2e0bqWg+yiSMROJsnzyIfe9nivRWhmlOBAoh+NOqVOPPL7AaLUq/rSXL5w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <script type="module" src="/static/md-typescale-styles.js"></script>
-    <script type="module" src="/static/md3-all.js"></script>
-    <!-- <script type="importmap">
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <script type="importmap">
     {
       "imports": {
         "@material/web/": "https://esm.run/@material/web/"
       }
     }
-  </script> -->
+  </script>
     <script type="module">
-        // import '@material/web/all.js';
-        // import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+        import '@material/web/all.js';
+        import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
 
-        // document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
+        document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
 </head>
 
