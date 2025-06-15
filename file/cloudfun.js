@@ -1,13 +1,10 @@
 async function handle(request) { // 主函数
     /* const fun = require(资源路径); */ // 引入资源
     const { tools } = request; // 工具
-    const { pgdbs, DOMParser, console, WebSocket } = tools; // 点鸭数据表
+    const { pgdbs, DOMParser, console } = tools; // 点鸭数据表
     console.log(request, require, fetch);
     /* const table = new pgdbs(密钥); */ // 创建点鸭数据表对象，密钥如：LkduYVIN+ZUTpqJ20se4bcYnTx4M······qbVzwEZSUfOxQGfnmh8Yo15DuJZVFC0=
     console.log(tools, "pgdbs", pgdbs, "DOMParser", DOMParser);
-    if (request.headers["upgrade"] === "websocket") { // 检查是否为WebSocket请求
-        const ws = WebSocket;
-    }
     const response = new request.response({
         code: 200,
         msg: "Hello World",

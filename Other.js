@@ -517,8 +517,7 @@ class Other {
                                         warn: function (...args) { },
                                         error: function (...args) { },
                                         info: function (...args) { }
-                                    },
-                                    WebSocket: WebSocket,
+                                    }
                                 },
                             };
                             if (fun[Symbol.toStringTag] == "AsyncFunction") {
@@ -564,6 +563,16 @@ class Other {
                     });
                 }
             });
+        this.app.get("/googleapis-fonts/css2", async (req, res) => {
+            const { family } = req.query;
+            try {
+                const response = await fetch("https://fonts.googleapis.com/css2?family=" + family);
+                res.set({
+                    "Content-Type": "text/css"
+                })
+                res.send(await response.text());
+            } catch (e) {}
+        })
         console.log("Other");
     }
     async getFile(path) {
