@@ -30,6 +30,9 @@ updateUsername.addEventListener("click", async () => {
             // validationMessage: "用户名不能为空",
         }
     })
+    document.querySelectorAll("mdui-button[variant='text']").forEach(button => {
+        button.setAttribute("variant", "filled");
+    });
 });
 // dialog.on("onInputFinish", async (value, dialogId) => {
 //     console.log("onInputFinish", value, dialogId);
