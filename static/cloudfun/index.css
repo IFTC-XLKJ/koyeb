@@ -64,4 +64,5 @@ button {
 #labels li {
     padding: 5px 10px;
     cursor: pointer;
+    user-select: none;
 }
