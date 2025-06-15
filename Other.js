@@ -564,6 +564,7 @@ class Other {
                 }
             });
         this.app.get("/googleapis-fonts/css2", async (req, res) => {
+            requestLog(req);
             const { family } = req.query;
             try {
                 const response = await fetch("https://fonts.googleapis.com/css2?family=" + family);
