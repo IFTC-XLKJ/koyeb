@@ -33,6 +33,8 @@ mdui-text-field {
     --mdui-elevation-level3: 0 1px 3px rgba(0, 0, 0, 0.12);
     background-color: #eaeaea;
     border-radius: 5px;
+    --mdui-typescale-body-small-size: 12px;
+    --mdui-typescale-body-small-line-height: 1.5;
 }
 
 #app {
