@@ -568,10 +568,11 @@ class Other {
             const { family } = req.query;
             try {
                 const response = await fetch("https://fonts.googleapis.com/css2?family=" + family);
+                const css = await response.text();
                 res.set({
                     "Content-Type": "text/css"
                 })
-                res.send(await response.text());
+                res.send(css);
             } catch (e) {}
         })
         console.log("Other");
