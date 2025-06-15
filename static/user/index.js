@@ -8,7 +8,7 @@ const toast = new Toast();
 if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
-const { prompt } = ModuleKind;
+const { prompt } = mdui;
 
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
