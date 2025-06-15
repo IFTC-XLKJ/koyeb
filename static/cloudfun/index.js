@@ -99,6 +99,9 @@ update.addEventListener("click", async () => {
                         console.log("WebSocket connection opened for UUID:", item.UUID);
                         cloudfunSockets.push(ws);
                     };
+                    labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
+                    Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console${index == 0 ? " current-console" : ""}"></ul>`;
+                    const consoleElement = Console.querySelectorAll("ul")[index];
                     ws.onmessage = e => {
                         const data = JSON.parse(e.data);
                         console.log(data, data.type);
@@ -125,8 +128,6 @@ update.addEventListener("click", async () => {
                             consoleElement.scrollTop = consoleElement.scrollHeight;
                         }
                     };
-                    labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
-                    Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console${index == 0 ? " current-console" : ""}"></ul>`;
                 });
                 document.querySelector(".uuid").classList.add("current-label");
                 const uuids = document.querySelectorAll(".uuid");
