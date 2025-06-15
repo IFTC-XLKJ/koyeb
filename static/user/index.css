@@ -25,7 +25,7 @@ mdui-button {
     --mdui-shape-corner-extra-large: 16px;
 }
 
-mdui-textfield {
+mdui-text-field {
     --mdui-color-background: 202, 202, 202;
     --mdui-shape-corner-extra-large: 16px;
     --mdui-elevation-level3: 0 1px 3px rgba(0, 0, 0, 0.12);
