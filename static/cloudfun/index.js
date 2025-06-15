@@ -99,6 +99,32 @@ update.addEventListener("click", async () => {
                         console.log("WebSocket connection opened for UUID:", item.UUID);
                         cloudfunSockets.push(ws);
                     };
+                    ws.onmessage = e => {
+                        const data = JSON.parse(e.data);
+                        console.log(data);
+                        if (data.type == "console") {
+                            data.data.forEach(i => {
+                                if (i.type == "log") {
+                                    item.innerHTML += `<li>${i.msg}</li>`;
+                                }
+                                if (i.type == "error") {
+                                    item.innerHTML += `<li style="color: red;">${i.msg}</li>`;
+                                }
+                                if (i.type == "warn") {
+                                    item.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
+                                }
+                                if (i.type == "info") {
+                                    item.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
+                                }
+                            })
+                        } else if (data.type == "error") {
+                            consoleElement.innerHTML += `<li style="color: red;">${data.msg}</li>`;
+                            consoleElement.scrollTop = consoleElement.scrollHeight;
+                        } else if (data.type == "init") {
+                            consoleElement.innerHTML += `<li style="color: lightgrey;">初始化完成</li>`
+                            consoleElement.scrollTop = consoleElement.scrollHeight;
+                        }
+                    };
                     labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
                     Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console${index == 0 ? " current-console" : ""}"></ul>`;
                 });
@@ -110,32 +136,6 @@ update.addEventListener("click", async () => {
                         item.classList.add("current-label");
                         const ws = cloudfunSockets.find(ws => ws.url.endsWith(item.getAttribute("iftc-uuid")));
                         if (ws) {
-                            ws.onmessage = e => {
-                                const data = JSON.parse(e.data);
-                                console.log(data);
-                                if (data.type == "console") {
-                                    data.data.forEach(i => {
-                                        if (i.type == "log") {
-                                            item.innerHTML += `<li>${i.msg}</li>`;
-                                        }
-                                        if (i.type == "error") {
-                                            item.innerHTML += `<li style="color: red;">${i.msg}</li>`;
-                                        }
-                                        if (i.type == "warn") {
-                                            item.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
-                                        }
-                                        if (i.type == "info") {
-                                            item.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
-                                        }
-                                    })
-                                } else if (data.type == "error") {
-                                    consoleElement.innerHTML += `<li style="color: red;">${data.msg}</li>`;
-                                    consoleElement.scrollTop = consoleElement.scrollHeight;
-                                } else if (data.type == "init") {
-                                    consoleElement.innerHTML += `<li style="color: lightgrey;">初始化完成</li>`
-                                    consoleElement.scrollTop = consoleElement.scrollHeight;
-                                }
-                            };
                         }
                     });
                 });
