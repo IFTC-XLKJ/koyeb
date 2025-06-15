@@ -4,6 +4,7 @@
     --mdui-color-on-primary: 150, 150, 150, 0.2;
     --mdui-color-on-primary-container: 79, 204, 255;
     --mdui-color-inverse-primary: 79, 204, 255;
+    --mdui-shape-corner-extra-large: 16px;
 }
 
 body {
