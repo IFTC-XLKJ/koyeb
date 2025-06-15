@@ -44,6 +44,11 @@ button {
     border-radius: 0 0 5px 5px;
     padding: 10px;
     margin: 0;
+    display: none;
+}
+
+.current-console {
+    display: flex;
 }
 
 #labels {
