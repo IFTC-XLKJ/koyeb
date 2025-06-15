@@ -519,11 +519,11 @@ class Other {
                                 }
                             },
                         };
-                        // if (fun[Symbol.toStringTag] == "AsyncFunction") {
-                        //     await fun(request);
-                        //     await cloudfunConsole.setLogs(uuid, logs);
-                        //     return;
-                        // }
+                        if (fun[Symbol.toStringTag] == "AsyncFunction") {
+                            await fun(request);
+                            //     await cloudfunConsole.setLogs(uuid, logs);
+                            return;
+                        }
                         fun(request);
                         // await cloudfunConsole.setLogs(uuid, logs);
                     }
