@@ -6,6 +6,7 @@
     --mdui-color-inverse-primary: 79, 204, 255;
     --mdui-shape-corner-extra-large: 16px;
     --mdui-color-surface-container-high: 255, 255, 255;
+    --mdui-color-scrim: 0, 0, 0;
 }
 
 body {
