@@ -27,7 +27,7 @@ updateUsername.addEventListener("click", async () => {
             type: "text",
             required: true,
             helperText: "请输入新的用户名",
-            validationMessage: "用户名不能为空",
+            // validationMessage: "用户名不能为空",
         }
     })
 });
