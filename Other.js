@@ -509,11 +509,11 @@ class Other {
                                         const log = args.join(" ");
                                         cloudfunLogs.push({
                                             type: "log",
-                                            msg: log,
+                                            msg: formatLog(log),
                                         });
                                         await writeLogs({
                                             type: "log",
-                                            msg: log,
+                                            msg: formatLog(log),
                                             timestamp: time(),
                                         });
                                         console.log(log);
@@ -563,6 +563,29 @@ class Other {
                     console.log("写入日志")
                     await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
                 } catch (e) { }
+            }
+            function formatLog(log) {
+                if (typeof log == "object") {
+                    return JSON.stringify(log);
+                }
+                if (typeof log == "string") {
+                    return log;
+                }
+                if (typeof log == "function") {
+                    return log.toLocaleString();
+                }
+                if (typeof log == "number") {
+                    return log.toLocaleString();
+                }
+                if (typeof log == "boolean") {
+                    return log.toLocaleString();
+                }
+                if (typeof log == "bigint") {
+                    return log.toLocaleString();
+                }
+                if (typeof log == "symbol") {
+                    return log.toString()
+                }
             }
         });
         this.app.get("/api/cloudfunlogs", async (req, res) => {
