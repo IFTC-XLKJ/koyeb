@@ -101,8 +101,11 @@ update.addEventListener("click", async () => {
                     };
                     ws.onmessage = e => {
                         const data = JSON.parse(e.data);
-                        console.log(data);
-                        if (data.type == "console") {
+                        console.log(data, data.type);
+                        if (data.type == "init") {
+                            consoleElement.innerHTML += `<li style="color: lightgrey;">初始化完成</li>`;
+                            consoleElement.scrollTop = consoleElement.scrollHeight;
+                        } else if (data.type == "console") {
                             data.data.forEach(i => {
                                 if (i.type == "log") {
                                     item.innerHTML += `<li>${i.msg}</li>`;
@@ -119,9 +122,6 @@ update.addEventListener("click", async () => {
                             })
                         } else if (data.type == "error") {
                             consoleElement.innerHTML += `<li style="color: red;">${data.msg}</li>`;
-                            consoleElement.scrollTop = consoleElement.scrollHeight;
-                        } else if (data.type == "init") {
-                            consoleElement.innerHTML += `<li style="color: lightgrey;">初始化完成</li>`
                             consoleElement.scrollTop = consoleElement.scrollHeight;
                         }
                     };
