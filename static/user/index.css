@@ -21,6 +21,8 @@ mdui-button {
     --mdui-color-primary: 135, 206, 235;
     color: #fff;
     --mdui-comp-ripple-state-layer-color: 150, 150, 150, 0.2;
+    --shape-corner: 25px;
+    --mdui-shape-corner-extra-large: 16px;
 }
 
 mdui-textfield {
