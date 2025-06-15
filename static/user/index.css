@@ -7,6 +7,8 @@
     --mdui-shape-corner-extra-large: 16px;
     --mdui-color-surface-container-high: 255, 255, 255;
     --mdui-color-scrim: 0, 0, 0;
+    --mdui-color-error: 255, 82, 82;
+    --mdui-color-on-error: 255, 255, 255;
 }
 
 body {
