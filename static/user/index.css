@@ -18,6 +18,7 @@ body {
 }
 
 mdui-button {
+    --mdui-color-primary: 135, 206, 235;
     color: #fff;
 }
 
