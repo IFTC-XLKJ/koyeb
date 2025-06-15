@@ -567,7 +567,7 @@ class Other {
                 res.json({
                     code: 500,
                     msg: "服务器错误",
-                    logs: null,
+                    logs: [],
                     timestamp: time(),
                 });
             }
