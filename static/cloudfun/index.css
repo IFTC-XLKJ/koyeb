@@ -26,7 +26,7 @@ button {
 
 .current-label {
     background-color: white;
-    color: black;
+    color: var(--md-filled-button-container-color, var(--md-sys-color-primary, #6750a4));
     border-radius: 5px 5px 0 0;
 }
 
