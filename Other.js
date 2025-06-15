@@ -511,6 +511,11 @@ class Other {
                                             type: "log",
                                             msg: log,
                                         });
+                                        await writeLogs({
+                                            type: "log",
+                                            msg: log,
+                                            timestamp: time(),
+                                        });
                                         console.log(log);
                                     },
                                     warn: function (...args) { },
@@ -526,6 +531,7 @@ class Other {
                         }
                         fun(request);
                         // await cloudfunConsole.setLogs(uuid, logs);
+                        console.log(cloudfunLogs)
                     }
                 } else {
                     res.status(json.code).json({
@@ -538,24 +544,26 @@ class Other {
                 console.error(e);
                 res.status(500).send(`出现了错误：${e}`);
             }
-            try {
-                const filepath = "cloudfunlogs/" + uuid + ".json";
+            async function writeLogs(log) {
                 try {
-                    const stats = await fs.stat(filepath);
-                    console.log("文件存在")
-                } catch (e) {
-                    console.log("文件不存在，初始化文件")
-                    await fs.writeFile(filepath, JSON.stringify([]));
-                }
-                console.log("读取文件")
-                const content = await fs.readFile(filepath, "utf8");
-                console.log("解析JSON")
-                const oldCloudfunLogs = JSON.parse(content);
-                console.log("合并日志")
-                const newCloudfunLogs = [...oldCloudfunLogs, ...cloudfunLogs];
-                console.log("写入日志")
-                await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
-            } catch (e) { }
+                    const filepath = "cloudfunlogs/" + uuid + ".json";
+                    try {
+                        const stats = await fs.stat(filepath);
+                        console.log("文件存在")
+                    } catch (e) {
+                        console.log("文件不存在，初始化文件")
+                        await fs.writeFile(filepath, JSON.stringify([]));
+                    }
+                    console.log("读取文件")
+                    const content = await fs.readFile(filepath, "utf8");
+                    console.log("解析JSON")
+                    const oldCloudfunLogs = JSON.parse(content);
+                    console.log("合并日志")
+                    const newCloudfunLogs = [...oldCloudfunLogs, log];
+                    console.log("写入日志")
+                    await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
+                } catch (e) { }
+            }
         });
         this.app.get("/api/cloudfunlogs", async (req, res) => {
             const { uuid } = req.query;
