@@ -314,6 +314,7 @@ class Other {
                 const {
                     uuid
                 } = req.params;
+                const cloudfunLogs = [];
                 try {
                     const json = await uuid_db.getData(uuid);
                     if (json.code == 200) {
@@ -331,7 +332,6 @@ class Other {
                             const src = data.数据;
                             const response = await fetch(src);
                             const code = await response.text();
-                            const logs = []
                             const fun = eval(`globalThis.require = null;
                                 var require = async function(src) {
                                 const response = await fetch(src);
@@ -508,7 +508,7 @@ class Other {
                                     console: {
                                         log: async function (...args) {
                                             const log = args.join(" ");
-                                            logs.push({
+                                            cloudfunLogs.push({
                                                 type: "log",
                                                 msg: log,
                                             });
@@ -539,7 +539,39 @@ class Other {
                     console.error(e);
                     res.status(500).send(`出现了错误：${e}`);
                 }
+                try {
+                    const filepath = "cloudfunlogs/" + uuid + ".json";
+                    try {
+                        const stats = await fs.stat(filepath);
+                    } catch (e) {
+                        await fs.writeFile(filepath, JSON.stringify([]));
+                    }
+                    const content = await fs.readFile(filepath, "utf8");
+                    const oldCloudfunLogs = JSON.parse(content);
+                    const newCloudfunLogs = [...oldCloudfunLogs, ...cloudfunLogs];
+                    await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
+                } catch (e) { }
             });
+        this.app.get("/api/cloudfunlogs", async (req, res) => {
+            const { uuid } = req.query;
+            const filepath = "cloudfunlogs/" + uuid + ".json";
+            try {
+                const content = await fs.readFile(filepath, "utf8");
+                res.json({
+                    code: 200,
+                    msg: "请求成功",
+                    logs: JSON.parse(content),
+                    timestamp: time(),
+                });
+            } catch (e) {
+                res.json({
+                    code: 500,
+                    msg: "服务器错误",
+                    logs: null,
+                    timestamp: time(),
+                });
+            }
+        })
         this.app.get("/api/translate", async (req, res) => {
             const {
                 text,
