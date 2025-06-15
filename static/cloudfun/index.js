@@ -93,14 +93,14 @@ update.addEventListener("click", async () => {
                 toast.hideToast(loadid);
                 toast.showToast("获取成功", 2, "center", "small", "success", false, true);
                 const data = json.data;
-                data.forEach(item => {
+                data.forEach((item, index) => {
                     const ws = new WebSocket(`${socketURL}${item.UUID}`);
                     ws.onopen = e => {
                         console.log("WebSocket connection opened for UUID:", item.UUID);
                         cloudfunSockets.push(ws);
                     };
                     labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
-                    Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console"></ul>`;
+                    Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console${index == 0 ? " current-console" : ""}"></ul>`;
                 });
                 document.querySelector(".uuid").classList.add("current-label");
                 const uuids = document.querySelectorAll(".uuid");
