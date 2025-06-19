@@ -36,7 +36,7 @@ class 官方AI extends Ext {
                 }
             }catch(e) {}
             const result0 = await responseClone.text();
-            const result = result0.split("\n");
+            const result = result0.split("\n\n");
             result.forEach((item, index) => {
                 if (item == "data: [DONE]") return;
                 result[index] = JSON.parse(item.replace("data: "));
