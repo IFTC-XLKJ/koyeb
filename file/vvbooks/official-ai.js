@@ -9,8 +9,11 @@ class 官方AI extends Ext {
         super(name);
         console.log("官方AI 扩展 准备就绪！");
     }
-    async post() {
-        const messages = [];
+    async post(msg) {
+        this.messages.push({
+            role: "user",
+            content: msg,
+        })
         try {
             const response = await fetch(this.api, {
                 method: "POST",
