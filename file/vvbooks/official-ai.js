@@ -35,7 +35,8 @@ class 官方AI extends Ext {
                     return;
                 }
             }catch(e) {}
-            const result = await responseClone.text()
+            const result0 = await responseClone.text()
+            const result = result0.split("\n")
             console.log(result)
         } catch(e) {
             console.error("官方AI：请求出错", e);
