@@ -6,4 +6,5 @@ class 官方AI extends Ext {
         super(name);
         console.log("官方AI 扩展 准备就绪！");
     }
+    post() {}
 }
