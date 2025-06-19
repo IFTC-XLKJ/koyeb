@@ -10,8 +10,14 @@ class 官方AI extends Ext {
         try {
             const response = await fetch(this.api, {
                 method: "POST",
-                headers: {},
-                body: JSON.stringify({}),
+                headers: {
+                    Authorization: `Bearer ${this.key}`,
+                },
+                body: JSON.stringify({
+                    model: this.model,
+                    messages: [],
+                    stream: true,
+                }),
             });
         } catch(e) {}
     }
