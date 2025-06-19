@@ -45,6 +45,9 @@ class 官方AI extends Ext {
             });
             console.log(result);
             let content = "";
+            for (var i = 0;i < result.length;i++) {
+                content += result[i]["choices"][0]["delta"]["content"];
+            }
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
