@@ -17,7 +17,10 @@ class 官方AI extends Ext {
                 },
                 body: JSON.stringify({
                     model: this.model,
-                    messages: [],
+                    messages: [{
+                        role: "system",
+                        content: this.systemPrompt,
+                    }],
                     stream: true,
                 }),
             });
