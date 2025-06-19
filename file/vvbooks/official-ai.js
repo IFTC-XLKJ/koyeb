@@ -47,6 +47,7 @@ class 官方AI extends Ext {
             let content = "";
             for (var i = 0;i < result.length;i++) {
                 if (!result[i]["choices"][0]) continue;
+                if (!result[i]["choices"][0]["delta"]["content"]) continue;
                 content += result[i]["choices"][0]["delta"]["content"];
             }
             console.log(content);
