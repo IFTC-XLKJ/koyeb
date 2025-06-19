@@ -21,7 +21,10 @@ class 官方AI extends Ext {
                 }),
             });
             const json = await response.json();
-            
+            if (json.error) {
+                console.error("官方AI：请求出错", json.error);
+                return;
+            }
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
