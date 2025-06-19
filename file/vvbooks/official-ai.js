@@ -67,6 +67,6 @@ class 官方AI extends Ext {
         this.saveFile("history/" + this.historyId + ".json", btoa(encodeURIComponent(JSON.stringify(this.messages))))
     }
     read() {
-        return decodeURIComponent(atob(this.readFile("history" + this.historyId + ".json")))
+        return decodeURIComponent(atob(this.readFile("history/o" + this.historyId + ".json")))
     }
 }
