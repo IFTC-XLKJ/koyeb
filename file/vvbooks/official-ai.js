@@ -25,12 +25,14 @@ class 官方AI extends Ext {
                     stream: true,
                 }),
             });
+            const responseClone = response.clone();
             const json = await response.json();
             if (json.error) {
                 console.error("官方AI：请求出错", json.error);
                 return;
             }
-            console.log(json)
+            const result = await responseClone.text()
+            console.log(result)
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
