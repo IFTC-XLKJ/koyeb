@@ -19,6 +19,8 @@ class 官方AI extends Ext {
                     stream: true,
                 }),
             });
-        } catch(e) {}
+        } catch(e) {
+            console.error("官方AI：请求出错", e);
+        }
     }
 }
