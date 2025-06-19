@@ -41,7 +41,7 @@ class 官方AI extends Ext {
             result1.forEach((item, index) => {
                 if (item == "") return;
                 if (item == "data: [DONE]") return;
-                result[result.length] = JSON.parse(item.replace("data: "));
+                result[result.length] = JSON.parse(item.replace("data: ", ""));
             });
             console.log(result)
         } catch(e) {
