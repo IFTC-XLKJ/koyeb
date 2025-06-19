@@ -13,7 +13,7 @@ class 官方AI extends Ext {
         this.messages.push({
             role: "user",
             content: msg,
-        }):
+        });
         try {
             const response = await fetch(this.api, {
                 method: "POST",
@@ -58,7 +58,7 @@ class 官方AI extends Ext {
             this.messages.push({
                 role: "assistant",
                 content: content,
-            })
+            });
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
