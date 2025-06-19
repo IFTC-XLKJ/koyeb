@@ -8,6 +8,7 @@ class 官方AI extends Ext {
         console.log("官方AI 扩展 准备就绪！");
     }
     async post() {
+        const messages = [];
         try {
             const response = await fetch(this.api, {
                 method: "POST",
@@ -20,7 +21,7 @@ class 官方AI extends Ext {
                     messages: [{
                         role: "system",
                         content: this.systemPrompt,
-                    }],
+                    }, ...messages],
                     stream: true,
                 }),
             });
