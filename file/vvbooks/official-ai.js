@@ -1,3 +1,5 @@
 class 官方AI extends Ext {
-    constructor(name) {}
+    constructor(name) {
+        super(name);
+    }
 }
