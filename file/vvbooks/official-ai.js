@@ -35,8 +35,12 @@ class 官方AI extends Ext {
                     return;
                 }
             }catch(e) {}
-            const result0 = await responseClone.text()
-            const result = result0.split("\n")
+            const result0 = await responseClone.text();
+            const result = result0.split("\n");
+            result.forEach((item, index) => {
+                if (item == "data: [DONE]") return;
+                result[index] = JSON.parse(item.replace("data: "));
+            });
             console.log(result)
         } catch(e) {
             console.error("官方AI：请求出错", e);
