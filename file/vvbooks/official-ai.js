@@ -3,6 +3,7 @@ class 官方AI extends Ext {
     key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
     model = "gpt-3.5-turbo";
     systemPrompt = `你是VV助手`;
+    messages = [];
     constructor(name) {
         super(name);
         console.log("官方AI 扩展 准备就绪！");
