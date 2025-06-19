@@ -13,7 +13,7 @@ class 官方AI extends Ext {
         this.messages.push({
             role: "user",
             content: msg,
-        })
+        }):
         try {
             const response = await fetch(this.api, {
                 method: "POST",
@@ -26,7 +26,7 @@ class 官方AI extends Ext {
                     messages: [{
                         role: "system",
                         content: this.systemPrompt,
-                    }, ...messages],
+                    }, ...this.messages],
                     stream: true,
                 }),
             });
