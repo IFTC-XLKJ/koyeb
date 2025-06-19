@@ -39,8 +39,9 @@ class 官方AI extends Ext {
             const result1 = result0.split("\n\n");
             const result = [];
             result1.forEach((item, index) => {
+                if (item == "") return;
                 if (item == "data: [DONE]") return;
-                result[index] = JSON.parse(item.replace("data: "));
+                result[result.length] = JSON.parse(item.replace("data: "));
             });
             console.log(result)
         } catch(e) {
