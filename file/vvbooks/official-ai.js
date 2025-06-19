@@ -54,6 +54,10 @@ class 官方AI extends Ext {
                 content += result[i]["choices"][0]["delta"]["content"];
             }
             console.log(content);
+            this.messages.push({
+                role: "assistant",
+                content: content,
+            })
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
