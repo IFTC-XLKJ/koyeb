@@ -43,7 +43,8 @@ class 官方AI extends Ext {
                 if (item == "data: [DONE]") return;
                 result[result.length] = JSON.parse(item.replace("data: ", ""));
             });
-            console.log(result)
+            console.log(result);
+            let content = "";
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
