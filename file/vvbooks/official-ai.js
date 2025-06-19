@@ -25,6 +25,7 @@ class 官方AI extends Ext {
                 console.error("官方AI：请求出错", json.error);
                 return;
             }
+            console.log(json)
         } catch(e) {
             console.error("官方AI：请求出错", e);
         }
