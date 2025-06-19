@@ -8,7 +8,11 @@ class 官方AI extends Ext {
     }
     async post() {
         try {
-            const response = await fetch();
+            const response = await fetch(this.api, {
+                method: "POST",
+                headers: {},
+                body: JSON.stringify({}),
+            });
         } catch(e) {}
     }
 }
