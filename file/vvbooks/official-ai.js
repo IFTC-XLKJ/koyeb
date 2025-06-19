@@ -12,6 +12,7 @@ class 官方AI extends Ext {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${this.key}`,
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     model: this.model,
