@@ -18,6 +18,7 @@ const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
+const { debug } = require("console");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -328,7 +329,9 @@ app.get("/bindqq", async (req, res) => {
 
 app.get("/cloudfun", async (req, res) => {
     requestLog(req);
-    const params = {};
+    const params = {
+        cloudfunLogServer: req.query.debug != void 0 ? "127.0.0.1:8000" : "cloudfun.deno.dev",
+    };
     res.set({
         "Content-Type": "text/html;charset=utf-8",
     });
