@@ -101,6 +101,11 @@ update.addEventListener("click", async () => {
                     };
                     labels.innerHTML += `<li class="uuid">${item.UUID}</li>`;
                     Console.innerHTML += `<ul iftc-uuid="${item.UUID}" class="console${index == 0 ? " current-console" : ""}"></ul>`;
+                    ws.onclose = () => {
+                        console.log("WebSocket connection closed for UUID:", item.UUID);
+                            consoleElement.innerHTML += `<li style="color: red;">连接已断开，请刷新重试。</li>`;
+                            consoleElement.scrollTop = consoleElement.scrollHeight;
+                    };
                     ws.onmessage = e => {
                     const consoleElement = Console.querySelector(`[iftc-uuid="${item.UUID}"]`);
                         const data = JSON.parse(e.data);
