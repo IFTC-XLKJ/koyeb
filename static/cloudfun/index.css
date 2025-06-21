@@ -47,6 +47,7 @@ button {
     display: none;
     list-style-type: none;
     max-height: 500px;
+    overflow-y: auto;
 }
 
 .current-console {
