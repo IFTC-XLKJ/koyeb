@@ -110,7 +110,7 @@ update.addEventListener("click", async () => {
                     ws.onerror = e => {
                         const consoleElement = Console.querySelector(`[iftc-uuid="${item.UUID}"]`);
                         console.log("WebSocket error for UUID:", item.UUID, e);
-                        consoleElement.innerHTML += `<li style="color: red;">系统：连接发生错误，请刷新重试。(${ws.readyState})</li>`;
+                        consoleElement.innerHTML += `<li style="color: red;">系统：连接发生错误，请刷新重试。(状态码：${ws.readyState})</li>`;
                         consoleElement.scrollTop = consoleElement.scrollHeight;
                     }
                     ws.onmessage = e => {
