@@ -311,316 +311,280 @@ class Other {
                 }
             });
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
-            const {
-                uuid
-            } = req.params;
+            const { uuid } = req.params;
             const cloudfunLogs = [];
             try {
                 const json = await uuid_db.getData(uuid);
-                if (json.code == 200) {
-                    const data = json.fields[0];
-                    if (!data) {
-                        res.status(404).json({
-                            code: 404,
-                            msg: "未知的云函数",
-                            timestamp: time(),
-                        });
-                        return;
-                    }
-                    if (data.类型 == "cloudfun") {
-                        const ID = data.ID;
-                        const src = data.数据;
-                        const response = await fetch(src);
-                        const code = await response.text();
-                        const filepath = "cloudfunlogs/" + uuid + ".json";
-                        try {
-                            const stats = await fs.stat(filepath);
-                            console.log("文件存在")
-                        } catch (e) {
-                            console.log("文件不存在，初始化文件")
-                            await fs.writeFile(filepath, JSON.stringify([]));
-                        }
-                        const fun = eval(`globalThis.require = null;
-                                var require = async function(src) {
-                                const response = await fetch(src);
-                                const code = await response.text();
-                                return eval(code);
-                                };\n${code}`);
-                        console.log(fun, typeof fun);
-                        const request = {
-                            response: class {
-                                #status = 200;
-                                #headers = {};
-                                #content = null;
-                                constructor(content, options) {
-                                    if (!options) options = {};
-                                    if (typeof options != "object") options = {};
-                                    this.#status = options.status || 200;
-                                    this.#headers = options.headers || {};
-                                    this.#content = content || null;
-                                }
-                                send() {
-                                    for (const key in this.#headers) {
-                                        res.set(key, this.#headers[key]);
-                                    }
-                                    res.set({
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                json() {
-                                    res.set({
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.json(this.#content);
-                                }
-                                html() {
-                                    res.set({
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                css() {
-                                    res.set({
-                                        "Content-Type": "text/css;charset=utf-8",
-                                        "X-COPYRIGHTS": "IFTC"
-                                    });
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                js() {
-                                    res.set({
-                                        "Content-Type": "text/javascript;charset=utf-8",
-                                        "X-COPYRIGHTS": "IFTC"
-                                    });
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                text() {
-                                    res.set({
-                                        "Content-Type": "text/plain;charset=utf-8",
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                image() {
-                                    res.set({
-                                        "Content-Type": "image/png",
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                audio() {
-                                    res.set({
-                                        "Content-Type": "audio/mpeg",
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.status(this.#status).send(this.#content);
-                                }
-                                video() {
-                                    res.set({
-                                        "Content-Type": "video/mp4",
-                                        "X-COPYRIGHTS": "IFTC"
-                                    })
-                                    res.status(this.#status).send(this.#content);
-                                }
-                            },
-                            method: req.method,
-                            query: req.query,
-                            body: req.body,
-                            headers: req.headers,
-                            UUID: uuid,
-                            tools: {
-                                pgdbs: class {
-                                    #key;
-                                    #contentType = "application/json";
-                                    #getDataURL = "https://api.pgaot.com/dbs/cloud/get_table_data";
-                                    #setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
-                                    constructor(key) {
-                                        if (!key) throw new Error("key is required");
-                                        this.#key = key;
-                                    }
-                                    #sign(text) {
-                                        const hash = crypto.createHash("sha256");
-                                        hash.update(text);
-                                        const sha256sum = hash.digest("hex");
-                                        return sha256sum
-                                    }
-                                    async #post(url, type, filter, fields, page, limit, sort, tableid) {
-                                        const timestamp = Date.now();
-                                        const signaturePromise = this.#sign(timestamp);
-                                        try {
-                                            const signature = await signaturePromise;
-                                            const response = await fetch(url, {
-                                                method: "POST",
-                                                headers: {
-                                                    "X-Pgaot-Key": this.#key,
-                                                    "X-Pgaot-Sign": signature,
-                                                    "X-Pgaot-Time": timestamp.toString(),
-                                                    "Content-Type": this.#contentType,
-                                                },
-                                                body: JSON.stringify({
-                                                    type: type,
-                                                    filter: filter,
-                                                    fields: fields,
-                                                    page: page,
-                                                    limit: limit,
-                                                }),
-                                            });
-                                            if (!response.ok) {
-                                                throw new Error("Network response was not ok " + response.statusText);
-                                            }
-                                            const json = await response.json();
-                                            console.log(json);
-                                            return json;
-                                        } catch (error) {
-                                            console.error("There was a problem with the fetch operation:", error);
-                                            throw error;
-                                        }
-                                    }
-                                    async get(options) {
-                                        if (!options) options = {};
-                                        return await this.#post(this.#getDataURL, void 0, options.filter || "", options.fields || "", options.page || 1, options.limit || 1, options.sort, void 0);
-                                    }
-                                    async insert(options) {
-                                        if (!options) options = {};
-                                        return await this.#post(this.#setDataURL, "INSERT", options.filter || "", options.fields || "", void 0, void 0, void 0, void 0);
-                                    }
-                                    async update(options) {
-                                        if (!options) options = {};
-                                        return await this.#post(this.#setDataURL, "UPDATE", options.filter || "", options.fields || "", void 0, void 0, void 0, void 0);
-                                    }
-                                    async delete(options) {
-                                        if (!options) options = {};
-                                        return await this.#post(this.#setDataURL, "DELETE", options.filter || "", void 0, void 0, void 0, void 0, void 0);
-                                    }
-                                    async getMulitiple(options) {
-                                        if (!options) options = {};
-                                        if (!options.tableid) throw new Error("tableid is required");
-                                        return await this.#post(this.#getDataURL, "GET", options.filter || "", void 0, void 0, void 0, void 0, options.tableid);
-                                    }
-                                },
-                                DOMParser: class {
-                                    parseFromString(str, contentType) {
-                                        return new JSDOM(str, {
-                                            contentType: contentType
-                                        }).window.document;
-                                    }
-                                },
-                                console: {
-                                    log: async function (...args) {
-                                        let log = "";
-                                        for (var i = 0; i < args.length; i++) {
-                                            log += `${i == 0 ? "" : " "}${formatLog(args[i], request)}`;
-                                        }
-                                        cloudfunLogs.push({
-                                            type: "log",
-                                            msg: log,
-                                        });
-                                        await writeLogs({
-                                            type: "log",
-                                            msg: log,
-                                            timestamp: time(),
-                                        });
-                                    },
-                                    warn: function (...args) { },
-                                    error: function (...args) { },
-                                    info: function (...args) { }
-                                }
-                            },
-                        };
-                        if (fun[Symbol.toStringTag] == "AsyncFunction") {
-                            await fun(request);
-                            return;
-                        }
-                        fun(request);
-                        console.log(cloudfunLogs)
-                    } else {
-                        res.status(400).json({
-                            code: 400,
-                            msg: "不是云函数",
-                            timestamp: time(),
-                        });
-                        return;
-                    }
-                } else {
+                if (json.code !== 200) {
                     res.status(json.code).json({
                         code: json.code,
                         msg: json.msg,
                         timestamp: time(),
                     });
+                    return;
+                }
+                const data = json.fields[0];
+                if (!data) {
+                    res.status(404).json({
+                        code: 404,
+                        msg: "未知的云函数",
+                        timestamp: time(),
+                    });
+                    return;
+                }
+                if (data.类型 !== "cloudfun") {
+                    res.status(400).json({
+                        code: 400,
+                        msg: "不是云函数",
+                        timestamp: time(),
+                    });
+                    return;
+                }
+                const src = data.数据;
+                const response = await fetch(src);
+                const code = await response.text();
+                const filepath = `cloudfunlogs/${uuid}.json`;
+                await ensureFile(filepath);
+                let fun;
+                try {
+                    fun = eval(`globalThis.require = null;
+                                var require = async function(src) {
+                                    const response = await fetch(src);
+                                    const code = await response.text();
+                                    return eval(code);
+                                };\n${code}`);
+                } catch (e) {
+                    res.status(500).json({
+                        code: 500,
+                        msg: "云函数代码解析错误",
+                        error: e.message,
+                        timestamp: time(),
+                    });
+                    return;
+                }
+
+                const request = {
+                    response: class {
+                        #status = 200;
+                        #headers = {};
+                        #content = null;
+                        constructor(content, options = {}) {
+                            if (typeof options !== "object") options = {};
+                            this.#status = options.status || 200;
+                            this.#headers = options.headers || {};
+                            this.#content = content || null;
+                        }
+                        send() {
+                            for (const key in this.#headers) {
+                                res.set(key, this.#headers[key]);
+                            }
+                            res.set({ "X-COPYRIGHTS": "IFTC" });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        json() {
+                            res.set({ "X-COPYRIGHTS": "IFTC" });
+                            res.json(this.#content);
+                        }
+                        html() {
+                            res.set({ "X-COPYRIGHTS": "IFTC" });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        css() {
+                            res.set({
+                                "Content-Type": "text/css;charset=utf-8",
+                                "X-COPYRIGHTS": "IFTC"
+                            });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        js() {
+                            res.set({
+                                "Content-Type": "text/javascript;charset=utf-8",
+                                "X-COPYRIGHTS": "IFTC"
+                            });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        text() {
+                            res.set({
+                                "Content-Type": "text/plain;charset=utf-8",
+                                "X-COPYRIGHTS": "IFTC"
+                            });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        image() {
+                            res.set({
+                                "Content-Type": "image/png",
+                                "X-COPYRIGHTS": "IFTC"
+                            });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        audio() {
+                            res.set({
+                                "Content-Type": "audio/mpeg",
+                                "X-COPYRIGHTS": "IFTC"
+                            });
+                            res.status(this.#status).send(this.#content);
+                        }
+                        video() {
+                            res.set({
+                                "Content-Type": "video/mp4",
+                                "X-COPYRIGHTS": "IFTC"
+                            });
+                            res.status(this.#status).send(this.#content);
+                        }
+                    },
+                    method: req.method,
+                    query: req.query,
+                    body: req.body,
+                    headers: req.headers,
+                    UUID: uuid,
+                    tools: {
+                        pgdbs: class {
+                            #key;
+                            #contentType = "application/json";
+                            #getDataURL = "https://api.pgaot.com/dbs/cloud/get_table_data";
+                            #setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
+                            constructor(key) {
+                                if (!key) throw new Error("key is required");
+                                this.#key = key;
+                            }
+                            #sign(text) {
+                                const hash = require("crypto").createHash("sha256");
+                                hash.update(String(text));
+                                return hash.digest("hex");
+                            }
+                            async #post(url, type, filter, fields, page, limit, sort, tableid) {
+                                const timestamp = Date.now();
+                                const signature = this.#sign(timestamp);
+                                try {
+                                    const response = await fetch(url, {
+                                        method: "POST",
+                                        headers: {
+                                            "X-Pgaot-Key": this.#key,
+                                            "X-Pgaot-Sign": signature,
+                                            "X-Pgaot-Time": timestamp.toString(),
+                                            "Content-Type": this.#contentType,
+                                        },
+                                        body: JSON.stringify({
+                                            type, filter, fields, page, limit,
+                                        }),
+                                    });
+                                    if (!response.ok) {
+                                        throw new Error("Network response was not ok " + response.statusText);
+                                    }
+                                    return await response.json();
+                                } catch (error) {
+                                    console.error("There was a problem with the fetch operation:", error);
+                                    throw error;
+                                }
+                            }
+                            async get(options = {}) {
+                                return await this.#post(this.#getDataURL, undefined, options.filter || "", options.fields || "", options.page || 1, options.limit || 1, options.sort, undefined);
+                            }
+                            async insert(options = {}) {
+                                return await this.#post(this.#setDataURL, "INSERT", options.filter || "", options.fields || "", undefined, undefined, undefined, undefined);
+                            }
+                            async update(options = {}) {
+                                return await this.#post(this.#setDataURL, "UPDATE", options.filter || "", options.fields || "", undefined, undefined, undefined, undefined);
+                            }
+                            async delete(options = {}) {
+                                return await this.#post(this.#setDataURL, "DELETE", options.filter || "", undefined, undefined, undefined, undefined, undefined);
+                            }
+                            async getMulitiple(options = {}) {
+                                if (!options.tableid) throw new Error("tableid is required");
+                                return await this.#post(this.#getDataURL, "GET", options.filter || "", undefined, undefined, undefined, undefined, options.tableid);
+                            }
+                        },
+                        DOMParser: class {
+                            parseFromString(str, contentType) {
+                                return new JSDOM(str, { contentType }).window.document;
+                            }
+                        },
+                        console: {
+                            log: async (...args) => {
+                                const log = args.map(arg => formatLog(arg, request)).join(" ");
+                                cloudfunLogs.push({ type: "log", msg: log });
+                                await writeLogs({
+                                    type: "log",
+                                    msg: log,
+                                    timestamp: time(),
+                                });
+                            },
+                            warn: () => { },
+                            error: () => { },
+                            info: () => { }
+                        }
+                    },
+                };
+
+                if (typeof fun === "function" && fun.constructor.name === "AsyncFunction") {
+                    await fun(request);
+                } else if (typeof fun === "function") {
+                    fun(request);
                 }
             } catch (e) {
                 console.error(e);
                 res.status(500).send(`出现了错误：${e}`);
             }
+            async function ensureFile(filepath) {
+                try {
+                    await fs.stat(filepath);
+                } catch {
+                    await fs.writeFile(filepath, JSON.stringify([]));
+                }
+            }
+
             async function writeLogs(log) {
                 try {
-                    const filepath = "cloudfunlogs/" + uuid + ".json";
-                    try {
-                        const stats = await fs.stat(filepath);
-                        console.log("文件存在")
-                    } catch (e) {
-                        console.log("文件不存在，初始化文件")
-                        await fs.writeFile(filepath, JSON.stringify([]));
-                    }
-                    console.log("读取文件")
+                    await ensureFile(filepath);
                     const content = await fs.readFile(filepath, "utf8");
-                    console.log("解析JSON")
                     const oldCloudfunLogs = JSON.parse(content);
-                    console.log("合并日志")
                     const newCloudfunLogs = [...oldCloudfunLogs, log];
-                    console.log("写入日志")
                     await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
-                } catch (e) { }
+                } catch (e) {
+                    console.error("日志写入失败", e);
+                }
             }
+
             function formatNativeCode(code, request) {
-                return (() => {
-                    if (code == request.response.toLocaleString()) return returnNativeCode("response");
-                    if (code == request.tools.pgdbs.toLocaleString()) return returnNativeCode("pgdbs");
-                    if (code == request.tools.DOMParser.toLocaleString()) return returnNativeCode("DomParser");
-                    if (code == request.tools.console.log.toLocaleString()) return returnNativeCode("console.log");
-                    if (code == request.tools.console.warn.toLocaleString()) return returnNativeCode("console.warn");
-                    if (code == request.tools.console.error.toLocaleString()) return returnNativeCode("console.error");
-                    if (code == request.tools.console.info.toLocaleString()) return returnNativeCode("console.info");
-                    return code;
-                })();
-                function returnNativeCode(key = "") {
-                    return `function ${key}() { [native code] }`;
+                const nativeMap = [
+                    [request.response, "response"],
+                    [request.tools.pgdbs, "pgdbs"],
+                    [request.tools.DOMParser, "DomParser"],
+                    [request.tools.console.log, "console.log"],
+                    [request.tools.console.warn, "console.warn"],
+                    [request.tools.console.error, "console.error"],
+                    [request.tools.console.info, "console.info"]
+                ];
+                for (const [fn, name] of nativeMap) {
+                    if (code === fn?.toLocaleString()) return `function ${name}() { [native code] }`;
                 }
+                return code;
             }
+
             function formatNativeObject(obj, request) {
-                return (() => {
-                    if (obj.log || obj.error || obj.warn || obj.info) return {
-                        object: returnNativeObject("console"),
-                    }
-                    return obj;
-                })()
-                function returnNativeObject(key = "") {
-                    return `${key} { [native code] }`;
+                if (obj && (obj.log || obj.error || obj.warn || obj.info)) {
+                    return { object: "console { [native code] }" };
                 }
+                return obj;
             }
+
             function formatLog(log, request) {
-                if (typeof log == "object") {
+                if (typeof log === "object") {
                     return JSON.stringify(formatNativeObject(log, request));
                 }
-                if (typeof log == "string") {
+                if (typeof log === "string") {
                     return log;
                 }
-                if (typeof log == "function") {
-                    console.log("格式化函数", formatNativeCode(log.toLocaleString(), request));
+                if (typeof log === "function") {
                     return formatNativeCode(log.toLocaleString(), request);
                 }
-                if (typeof log == "number") {
+                if (typeof log === "number" || typeof log === "boolean" || typeof log === "bigint") {
                     return log.toLocaleString();
                 }
-                if (typeof log == "boolean") {
-                    return log.toLocaleString();
+                if (typeof log === "symbol") {
+                    return log.toString();
                 }
-                if (typeof log == "bigint") {
-                    return log.toLocaleString();
-                }
-                if (typeof log == "symbol") {
-                    return log.toString()
-                }
+                return String(log);
             }
         });
         this.app.get("/api/cloudfunlogs", async (req, res) => {
