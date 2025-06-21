@@ -124,16 +124,20 @@ update.addEventListener("click", async () => {
                             console.log(data.data);
                             data.data.forEach(i => {
                                 if (i.type == "log") {
-                                    item.innerHTML += `<li>${i.msg}</li>`;
+                                    consoleElement.innerHTML += `<li>${i.msg}</li>`;
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
                                 }
                                 if (i.type == "error") {
-                                    item.innerHTML += `<li style="color: red;">${i.msg}</li>`;
+                                    consoleElement.innerHTML += `<li style="color: red;">${i.msg}</li>`;
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
                                 }
                                 if (i.type == "warn") {
-                                    item.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
+                                    consoleElement.innerHTML += `<li style="color: orange;">${i.msg}</li>`;
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
                                 }
                                 if (i.type == "info") {
-                                    item.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
+                                    consoleElement.innerHTML += `<li style="color: blue;">${i.msg}</li>`;
+                                    consoleElement.scrollTop = consoleElement.scrollHeight;
                                 }
                             })
                         } else if (data.type == "error") {
