@@ -578,18 +578,19 @@ class Other {
                 } catch (e) { }
             }
             function formatNativeCode(code, request) {
-                let end = false;
                 function check(obj) {
                     const keys = Object.keys(obj);
                     for (const key of keys) {
                         if (typeof obj[key] === "function") {
-                            const funcode = obj[key].toLocaleString();
-                            if (code == funcode) {
-                                end = true;
+                            const funcode = obj[key].toString();
+                            if (code === funcode) {
                                 return `function ${key}() { [native code] }`;
                             }
                         } else if (typeof obj[key] === "object" && obj[key] !== null) {
-                            return check(obj[key]);
+                            const result = check(obj[key]);
+                            if (result !== code) {
+                                return result;
+                            }
                         }
                     }
                     return code;
