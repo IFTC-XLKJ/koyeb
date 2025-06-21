@@ -589,7 +589,7 @@ class Other {
                                 return `function ${key}() { [native code] }`;
                             }
                         } else if (typeof obj[key] === "object" && obj[key] !== null) {
-                            check(obj[key]);
+                            return check(obj[key]);
                         }
                     }
                     return code;
