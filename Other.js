@@ -501,6 +501,7 @@ class Other {
                         },
                         console: {
                             log: async (...args) => {
+                                console.log.apply(console, args);
                                 const log = args.map(arg => formatLog(arg, request)).join(" ");
                                 cloudfunLogs.push({ type: "log", msg: log });
                                 await writeLogs({
