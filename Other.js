@@ -313,6 +313,7 @@ class Other {
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
             const { uuid } = req.params;
             const cloudfunLogs = [];
+            const filepath = `cloudfunlogs/${uuid}.json`;
             try {
                 const json = await uuid_db.getData(uuid);
                 if (json.code !== 200) {
@@ -343,7 +344,6 @@ class Other {
                 const src = data.数据;
                 const response = await fetch(src);
                 const code = await response.text();
-                const filepath = `cloudfunlogs/${uuid}.json`;
                 await ensureFile(filepath);
                 let fun;
                 try {
