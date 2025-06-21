@@ -124,7 +124,15 @@ update.addEventListener("click", async () => {
                             console.log(data.data);
                             data.data.forEach(i => {
                                 i.msg = i.msg.replace(/\n/g, "<br>");
-                                const datetime = (new Date(1750000000000)).toLocaleString(void 0, { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" })
+                                const datetime = (new Date(i.timestamp)).toLocaleString(void 0, {
+                                    year: "numeric",
+                                    month: "long",
+                                    day: "numeric",
+                                    weekday: "long",
+                                    hour: "numeric",
+                                    minute: "numeric",
+                                    second: "numeric"
+                                }) + '.' + String(new Date(i.timestamp).getMilliseconds()).padStart(3, '0');
                                 if (i.type == "log") {
                                     consoleElement.innerHTML += `<li style="color: black;">${i.type} [${datetime}] ${i.msg}</li>`;
                                     consoleElement.scrollTop = consoleElement.scrollHeight;
