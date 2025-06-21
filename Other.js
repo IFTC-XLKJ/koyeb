@@ -579,24 +579,13 @@ class Other {
                 } catch (e) { }
             }
             function formatNativeCode(code, request) {
-                function check(obj) {
-                    const keys = Object.keys(obj);
-                    for (const key of keys) {
-                        if (typeof obj[key] === "function") {
-                            const funcode = obj[key].toString();
-                            if (code === funcode) {
-                                return `function ${key}() { [native code] }`;
-                            }
-                        } else if (typeof obj[key] === "object" && obj[key] !== null) {
-                            const result = check(obj[key]);
-                            if (result !== code) {
-                                return result;
-                            }
-                        }
-                    }
+                return (() => {
+                    if (code == request.response.toLocaleString()) return returnNativeCode("response");
                     return code;
+                 })();
+                function returnNativeCode(key = "") {
+                    return `function ${key}() { [native code] }`;
                 }
-                return check(request);
             }
             function formatLog(log, request) {
                 if (typeof log == "object") {
