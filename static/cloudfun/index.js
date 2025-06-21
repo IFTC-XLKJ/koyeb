@@ -121,6 +121,7 @@ update.addEventListener("click", async () => {
                             consoleElement.innerHTML += `<li style="color: lightgrey;">初始化完成</li>`;
                             consoleElement.scrollTop = consoleElement.scrollHeight;
                         } else if (data.type == "console") {
+                            console.log(data);
                             data.data.forEach(i => {
                                 if (i.type == "log") {
                                     item.innerHTML += `<li>${i.msg}</li>`;
