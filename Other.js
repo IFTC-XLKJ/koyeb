@@ -532,6 +532,13 @@ class Other {
                         fun(request);
                         // await cloudfunConsole.setLogs(uuid, logs);
                         console.log(cloudfunLogs)
+                    } else {
+                        res.status(400).json({
+                            code: 400,
+                            msg: "不是云函数",
+                            timestamp: time(),
+                        });
+                        return;
                     }
                 } else {
                     res.status(json.code).json({
