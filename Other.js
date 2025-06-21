@@ -606,7 +606,7 @@ class Other {
                     return log;
                 }
                 if (typeof log == "function") {
-                    console.log(formatNativeCode(log.toLocaleString(), request));
+                    console.log("格式化函数", formatNativeCode(log.toLocaleString(), request));
                     return formatNativeCode(log.toLocaleString(), request);
                 }
                 if (typeof log == "number") {
