@@ -347,14 +347,6 @@ class Other {
                                 return eval(code);
                                 };\n${code}`);
                         console.log(fun, typeof fun);
-                        const that = this;
-                        let WebSocket = null;
-                        this.app.ws("/api/cloudfun/ws/" + uuid, function (ws, req) {
-                            WebSocket = ws;
-                            ws.onopen = () => {
-                                console.log("WebSocket连接已打开", ws);
-                            }
-                        })
                         const request = {
                             response: class {
                                 #status = 200;
@@ -528,7 +520,6 @@ class Other {
                                             msg: log,
                                             timestamp: time(),
                                         });
-                                        // console.log(log);
                                     },
                                     warn: function (...args) { },
                                     error: function (...args) { },
