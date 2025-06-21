@@ -331,6 +331,14 @@ class Other {
                         const src = data.数据;
                         const response = await fetch(src);
                         const code = await response.text();
+                        const filepath = "cloudfunlogs/" + uuid + ".json";
+                        try {
+                            const stats = await fs.stat(filepath);
+                            console.log("文件存在")
+                        } catch (e) {
+                            console.log("文件不存在，初始化文件")
+                            await fs.writeFile(filepath, JSON.stringify([]));
+                        }
                         const fun = eval(`globalThis.require = null;
                                 var require = async function(src) {
                                 const response = await fetch(src);
