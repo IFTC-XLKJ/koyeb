@@ -52,6 +52,11 @@ button {
     display: flex;
 }
 
+.console li {
+    width: 100%;
+    padding: 10px;
+}
+
 #labels {
     display: flex;
     list-style-type: none;
