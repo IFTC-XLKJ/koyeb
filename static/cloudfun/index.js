@@ -124,7 +124,7 @@ update.addEventListener("click", async () => {
                             console.log(data.data);
                             data.data.forEach(i => {
                                 if (i.type == "log") {
-                                    consoleElement.innerHTML += `<li>${i.msg}</li>`;
+                                    consoleElement.innerHTML += `<li style="color: black;">${i.msg}</li>`;
                                     consoleElement.scrollTop = consoleElement.scrollHeight;
                                 }
                                 if (i.type == "error") {
