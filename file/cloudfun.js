@@ -3,6 +3,7 @@ async function handle(request) { // 主函数
     const { tools } = request; // 工具
     const { pgdbs, DOMParser, console } = tools; // 点鸭数据表
     console.log(request, require, fetch);
+    console.log("Hello World"); // 打印日志
     /* const table = new pgdbs(密钥); */ // 创建点鸭数据表对象，密钥如：LkduYVIN+ZUTpqJ20se4bcYnTx4M······qbVzwEZSUfOxQGfnmh8Yo15DuJZVFC0=
     console.log(tools, "pgdbs", pgdbs, "DOMParser", DOMParser);
     const response = new request.response({
