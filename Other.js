@@ -585,6 +585,11 @@ class Other {
                 return (() => {
                     if (code == request.response.toLocaleString()) return returnNativeCode("response");
                     if (code == request.tools.pgdbs.toLocaleString()) return returnNativeCode("pgdbs");
+                    if (code == request.tools.DOMParser.toLocaleString()) return returnNativeCode("DomParser");
+                    if (code == request.tools.console.log.toLocaleString()) return returnNativeCode("console.log");
+                    if (code == request.tools.console.warn.toLocaleString()) return returnNativeCode("console.warn");
+                    if (code == request.tools.console.error.toLocaleString()) return returnNativeCode("console.error");
+                    if (code == request.tools.console.info.toLocaleString()) return returnNativeCode("console.info");
                     return code;
                  })();
                 function returnNativeCode(key = "") {
