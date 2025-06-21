@@ -49,7 +49,7 @@ button {
 }
 
 .current-console {
-    display: flex;
+    display: block;
 }
 
 .console li {
