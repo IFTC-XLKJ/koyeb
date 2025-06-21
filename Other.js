@@ -599,11 +599,14 @@ class Other {
             function formatNativeObject(obj, request) {
             return (() => {
                 if (obj == request.tools.console) return {
-                    log: formatNativeCode(request.tools.console.log, request),
-                    warn: formatNativeCode(request.tools.console.warn, request),
-                    error: formatNativeCode(request.tools.console.error, request),
-                    info: formatNativeCode(request.tools.console.info, request),
+                    functions: {
+                        log: "function log() { [native code] }",
+                        warn: "function warn() { [native code] }",
+                        error: "function error() { [native code] }",
+                        info: "function info() { [native code] }"
+                    },
                 };
+                return obj;
             })()
             }
             function formatLog(log, request) {
