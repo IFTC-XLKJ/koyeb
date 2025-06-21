@@ -596,9 +596,19 @@ class Other {
                     return `function ${key}() { [native code] }`;
                 }
             }
+            function formatNativeObject(obj, request) {
+            return (() => {
+                if (obj == request.tools.console) return {
+                    log: formatNativeCode(request.tools.console.log, request),
+                    warn: formatNativeCode(request.tools.console.warn, request),
+                    error: formatNativeCode(request.tools.console.error, request),
+                    info: formatNativeCode(request.tools.console.info, request),
+                };
+            })()
+            }
             function formatLog(log, request) {
                 if (typeof log == "object") {
-                    return JSON.stringify(log);
+                    return JSON.stringify(formatNativeObject(log, request));
                 }
                 if (typeof log == "string") {
                     return log;
