@@ -581,6 +581,7 @@ class Other {
             function formatNativeCode(code, request) {
                 return (() => {
                     if (code == request.response.toLocaleString()) return returnNativeCode("response");
+                    if (code == request.tools.pgdbs.toLocaleString()) return returnNativeCode("pgdbs");
                     return code;
                  })();
                 function returnNativeCode(key = "") {
