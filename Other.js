@@ -517,11 +517,11 @@ class Other {
                                         const log = args.join(" ");
                                         cloudfunLogs.push({
                                             type: "log",
-                                            msg: formatLog(log),
+                                            msg: formatLog(log, request),
                                         });
                                         await writeLogs({
                                             type: "log",
-                                            msg: formatLog(log),
+                                            msg: formatLog(log, request),
                                             timestamp: time(),
                                         });
                                         console.log(log);
@@ -577,7 +577,26 @@ class Other {
                     await fs.writeFile(filepath, JSON.stringify(newCloudfunLogs));
                 } catch (e) { }
             }
-            function formatLog(log) {
+            function formatNativeCode(code, request) {
+                let end = false;
+                function check(obj) {
+                    const keys = Object.keys(obj);
+                    for (const key of keys) {
+                        if (typeof obj[key] === "function") {
+                            const funcode = obj[key].toLocaleString();
+                            if (code == funcode) {
+                                end = true;
+                                return `function ${key}() { [native code] }`;
+                            }
+                        } else if (typeof obj[key] === "object" && obj[key] !== null) {
+                            check(obj[key]);
+                        }
+                    }
+                    return code;
+                }
+                return check(request);
+            }
+            function formatLog(log, request) {
                 if (typeof log == "object") {
                     return JSON.stringify(log);
                 }
@@ -585,7 +604,7 @@ class Other {
                     return log;
                 }
                 if (typeof log == "function") {
-                    return log.toLocaleString();
+                    return formatNativeCode(log.toLocaleString(), request);
                 }
                 if (typeof log == "number") {
                     return log.toLocaleString();
