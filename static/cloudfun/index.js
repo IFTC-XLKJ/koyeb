@@ -104,13 +104,13 @@ update.addEventListener("click", async () => {
                     ws.onclose = () => {
                         const consoleElement = Console.querySelector(`[iftc-uuid="${item.UUID}"]`);
                         console.log("WebSocket connection closed for UUID:", item.UUID);
-                        consoleElement.innerHTML += `<li style="color: red;">连接已断开，请刷新重试。</li>`;
+                        consoleElement.innerHTML += `<li style="color: red;">系统：连接已断开，请刷新重试。</li>`;
                         consoleElement.scrollTop = consoleElement.scrollHeight;
                     };
                     ws.onerror = e => {
                         const consoleElement = Console.querySelector(`[iftc-uuid="${item.UUID}"]`);
                         console.log("WebSocket error for UUID:", item.UUID, e);
-                        consoleElement.innerHTML += `<li style="color: red;">连接发生错误，请刷新重试。(${e})</li>`;
+                        consoleElement.innerHTML += `<li style="color: red;">系统：连接发生错误，请刷新重试。(${ws.readyState})</li>`;
                         consoleElement.scrollTop = consoleElement.scrollHeight;
                     }
                     ws.onmessage = e => {
