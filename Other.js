@@ -525,7 +525,7 @@ class Other {
                                             msg: formatLog(log, request),
                                             timestamp: time(),
                                         });
-                                        console.log(log);
+                                        // console.log(log);
                                     },
                                     warn: function (...args) { },
                                     error: function (...args) { },
