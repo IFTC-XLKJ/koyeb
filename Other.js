@@ -516,8 +516,8 @@ class Other {
                                 console: {
                                     log: async function (...args) {
                                         let log = "";
-                                        for(var i = 0; i < args.length; i++) {
-                                            log += formatLog(args[i], request);
+                                        for (var i = 0; i < args.length; i++) {
+                                            log += `${i == 0 ? "" : " "}${formatLog(args[i], request)}`;
                                         }
                                         cloudfunLogs.push({
                                             type: "log",
@@ -591,7 +591,7 @@ class Other {
                     if (code == request.tools.console.error.toLocaleString()) return returnNativeCode("console.error");
                     if (code == request.tools.console.info.toLocaleString()) return returnNativeCode("console.info");
                     return code;
-                 })();
+                })();
                 function returnNativeCode(key = "") {
                     return `function ${key}() { [native code] }`;
                 }
