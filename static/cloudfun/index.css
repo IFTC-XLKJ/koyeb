@@ -53,7 +53,7 @@ button {
 }
 
 .console li {
-    width: 100%;
+    width: calc(100vw - 20px - 100px);
     padding: 10px;
 }
 
