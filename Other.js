@@ -597,17 +597,15 @@ class Other {
                 }
             }
             function formatNativeObject(obj, request) {
-            return (() => {
-                if (obj == request.tools.console) return {
-                    functions: {
-                        log: "function log() { [native code] }",
-                        warn: "function warn() { [native code] }",
-                        error: "function error() { [native code] }",
-                        info: "function info() { [native code] }"
-                    },
-                };
-                return obj;
-            })()
+                return (() => {
+                    if (obj.log || obj.error || obj.warn || obj.info) return {
+                        object: returnNativeObject("console"),
+                    }
+                    return obj;
+                })()
+                function returnNativeObject(key = "") {
+                    return `${key} { [native code] }`;
+                }
             }
             function formatLog(log, request) {
                 if (typeof log == "object") {
