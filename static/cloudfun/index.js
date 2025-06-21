@@ -123,6 +123,7 @@ update.addEventListener("click", async () => {
                         } else if (data.type == "console") {
                             console.log(data.data);
                             data.data.forEach(i => {
+                                i.msg = i.msg.replace(/\n/g, "<br>");
                                 if (i.type == "log") {
                                     consoleElement.innerHTML += `<li style="color: black;">${i.msg}</li>`;
                                     consoleElement.scrollTop = consoleElement.scrollHeight;
