@@ -515,14 +515,17 @@ class Other {
                                 },
                                 console: {
                                     log: async function (...args) {
-                                        const log = args.join(" ");
+                                        let log = "";
+                                        for(var i = 0; i < args.length; i++) {
+                                            log += formatLog(args[i], request);
+                                        }
                                         cloudfunLogs.push({
                                             type: "log",
-                                            msg: formatLog(log, request),
+                                            msg: log,
                                         });
                                         await writeLogs({
                                             type: "log",
-                                            msg: formatLog(log, request),
+                                            msg: log,
                                             timestamp: time(),
                                         });
                                         // console.log(log);
