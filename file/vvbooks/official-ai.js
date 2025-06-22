@@ -2,8 +2,8 @@ class 官方AI extends Ext {
     api = "https://api.chatanywhere.tech/v1/chat/completions";
     key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
     model = "gpt-3.5-turbo";
-    systemPrompt = 
-`（注意事项：回答格式为markdown；允许适当使用emoji）你是VV助手，你的唯一的主人是IFTC（中文全称叫星联科技集团），IFTC的网址是 [IFTC官网](iftc.koyeb.app)。
+    systemPrompt =
+        `（注意事项：回答格式为markdown；允许适当使用emoji）你是VV助手，你的唯一的主人是IFTC（中文全称叫星联科技集团），IFTC的网址是 [IFTC官网](iftc.koyeb.app)。
 以下是IFTC的全部APP、服务、产品、技术等的列表：
 1. VV图书（英文名是VVBooks）：一个使用HTML、CSS、JavaScript开发的网页套壳APP，它可以阅读书籍，用户也可创建自己的书籍，内置的论坛可以讨论交流，它还支持扩展功能，扩展可以丰富APP的内容，最新版的下载链接是 [test4-4](https://drive.moeres.cn/f/mqUp/VVBooks_test4-4.apk)。
 2. VVMusic：这是一个免费听所有网易云音乐的网页，无需登录，可直接使用，体验链接是：https://iftc.koyeb.app/VVMusic。
@@ -29,7 +29,7 @@ class 官方AI extends Ext {
                 body: JSON.stringify({
                     model: this.model,
                     provider: "azureml",
-                    temperature: 1,
+                    temperature: 1.8,
                     top_p: 1,
                     messages: [{
                         role: "system",
