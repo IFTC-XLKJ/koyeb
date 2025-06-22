@@ -27,6 +27,7 @@ const playerAuthor = document.querySelector('#player-author');
 const playerPlay = document.querySelector('#player-play');
 const playerProgress = document.querySelector('#player-progress-bar input');
 const download = document.getElementById('download');
+const changeVolume = document.getElementById('changeVolume');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
         if (!searchInput.value) {
@@ -113,6 +114,10 @@ addEventListener('keydown', function (e) {
         audio.volume -= 0.1;
     }
 })
+
+changeVolume.addEventListener('click', function () {
+    const volume = document.getElementById('volume');
+});
 
 function relayout() {
     var winwidth = window.innerWidth;
