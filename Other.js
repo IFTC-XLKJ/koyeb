@@ -674,6 +674,23 @@ class Other {
                 timestamp: time(),
             });
         });
+        this.app.get("/src_proxy", async (req, res) => {
+            requestLog(req);
+            const { url } = req.query;
+            try {
+                const response = await fetch(url, { headers: { "User-Agent": "IFTC" }, verbose: true });
+                const contentType = response.headers.get("content-type");
+                if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
+                    const blob = await response.blob();
+                    res.send(blob);
+                } else {
+                    const text = await response.text();
+                    res.send(text);
+                }
+            } catch (e) {
+                res.status(500).send(e.message);
+            }
+        })
         console.log("Other");
     }
     async getFile(path) {
