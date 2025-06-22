@@ -310,8 +310,8 @@ dialog {
 
 #volume {
     position: absolute;
-    top: 30px;
-    left: -10px;
+    top: -25px;
+    left: -50px;
     width: 100px;
     height: 30px;
 }
