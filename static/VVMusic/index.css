@@ -308,6 +308,14 @@ dialog {
     margin-top: 5px;
 }
 
+#volume {
+    position: absolute;
+    top: 30px;
+    left: -10px;
+    width: 100px;
+    height: 30px;
+}
+
 #fps {
     width: 100px;
     height: 30px;
