@@ -1,7 +1,7 @@
 class 官方AI extends Ext {
-    api = "https://api.chatanywhere.tech/v1/chat/completions";
-    key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
-    model = "gpt-3.5-turbo";
+    api = "https://models.github.ai/inference/chat/completions";
+    key = "2JboLre4P4m2AWbk_rVSfLWxRtCMe9joOOkciisuVo3fVvLgkY4te28Gobb--HwK2AukpsjmL9lqWHgtv1V5MgdhC_0aXZ909CM6GQkoj9A=";
+    model = "openai/gpt-4.1";
     systemPrompt = `你是VV助手`;
     historyId = Date.now();
     messages = [];
@@ -18,16 +18,21 @@ class 官方AI extends Ext {
             const response = await fetch(this.api, {
                 method: "POST",
                 headers: {
-                    Authorization: `Bearer ${this.key}`,
+                    Authorization: `GitHub-Bearer ${this.key}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     model: this.model,
+                    provider: "azureml",
+                    temperature: 1,
+                    top_p: 1,
                     messages: [{
                         role: "system",
                         content: this.systemPrompt,
                     }, ...this.messages],
                     stream: true,
+                    frequency_penalty: 0,
+                    presence_penalty: 0,
                 }),
             });
             const responseClone = response.clone();
@@ -37,7 +42,7 @@ class 官方AI extends Ext {
                     console.error("官方AI：请求出错", json.error);
                     return;
                 }
-            }catch(e) {}
+            } catch (e) { }
             const result0 = await responseClone.text();
             const result1 = result0.split("\n\n");
             const result = [];
@@ -48,7 +53,7 @@ class 官方AI extends Ext {
             });
             console.log(result);
             let content = "";
-            for (var i = 0;i < result.length;i++) {
+            for (var i = 0; i < result.length; i++) {
                 if (!result[i]["choices"][0]) continue;
                 if (!result[i]["choices"][0]["delta"]["content"]) continue;
                 content += result[i]["choices"][0]["delta"]["content"];
@@ -59,7 +64,7 @@ class 官方AI extends Ext {
                 role: "assistant",
                 content: content,
             });
-        } catch(e) {
+        } catch (e) {
             console.error("官方AI：请求出错", e);
         }
     }
