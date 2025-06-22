@@ -679,10 +679,7 @@ class Other {
             const { url } = req.query;
             console.log("请求的url", url);
             try {
-                const response = await fetch(url, {
-                    headers: { "User-Agent": "IFTC" },
-                    verbose: true
-                });
+                const response = await fetch(url);
                 const contentType = response.headers.get("content-type");
                 const blob = await response.blob();
                 const contentLength = blob.size;
