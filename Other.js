@@ -677,6 +677,7 @@ class Other {
         this.app.get("/src_proxy", async (req, res) => {
             requestLog(req);
             const { url } = req.query;
+            console.log("请求的url", url);
             try {
                 const response = await fetch(url, {
                     headers: { "User-Agent": "IFTC" },
