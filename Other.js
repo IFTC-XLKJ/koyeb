@@ -642,7 +642,38 @@ class Other {
                 })
                 res.send(css);
             } catch (e) { }
-        })
+        });
+        this.app.get("/api/123pan/share/:shareid", async (req, res) => {
+            requestLog(req);
+            const { shareid } = req.params;
+            const { pwd } = req.query;
+            if (!shareid) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "缺少参数shareid",
+                    timestamp: time(),
+                });
+                return;
+            }
+            const api = `https://api.kxzjoker.cn/api/123pan?key=${shareid}&pwd=${pwd || ""}`;
+            const response = await fetch(api);
+            if (!response.ok) {
+                res.status(500).json({
+                    code: 500,
+                    msg: response.statusText,
+                    timestamp: time(),
+                });
+                return;
+            }
+            const data = await response.json();
+            console.log("API请求成功", data);
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: data,
+                timestamp: time(),
+            });
+        });
         console.log("Other");
     }
     async getFile(path) {
