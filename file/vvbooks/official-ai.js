@@ -29,7 +29,7 @@ class 官方AI extends Ext {
                 body: JSON.stringify({
                     model: this.model,
                     provider: "azureml",
-                    temperature: 1.2,
+                    temperature: 1.35,
                     top_p: 1,
                     messages: [{
                         role: "system",
