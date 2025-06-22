@@ -1,7 +1,7 @@
 class 官方AI extends Ext {
-    api = "https://models.github.ai/inference/chat/completions";
-    key = "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";
-    model = "openai/gpt-4.1-mini";
+    api = "https://api.chatanywhere.tech/v1/chat/completions";
+    key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
+    model = "gpt-3.5-turbo";
     systemPrompt = `你是VV助手，你的唯一的主人是IFTC，IFTC的网址是iftc.koyeb.app。`;
     historyId = Date.now();
     messages = [];
