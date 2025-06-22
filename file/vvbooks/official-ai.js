@@ -1,7 +1,7 @@
 class 官方AI extends Ext {
     api = "https://models.github.ai/inference/chat/completions";
     key = "2JboLre4P4m2AWbk_rVSfLWxRtCMe9joOOkciisuVo3fVvLgkY4te28Gobb--HwK2AukpsjmL9lqWHgtv1V5MgdhC_0aXZ909CM6GQkoj9A=";
-    model = "openai/gpt-4.1";
+    model = "openai/gpt-4.1-mini";
     systemPrompt = `你是VV助手`;
     historyId = Date.now();
     messages = [];
