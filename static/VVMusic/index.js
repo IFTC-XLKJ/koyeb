@@ -118,6 +118,8 @@ addEventListener('keydown', function (e) {
 changeVolume.addEventListener('click', function () {
     const volume = document.getElementById('volume');
     volume.style.display = volume.style.display == 'none' ? 'flex' : 'none';
+    const volumeSlider = volume.children[0];
+    volumeSlider.value = audio.volume * 100;
 });
 
 function relayout() {
