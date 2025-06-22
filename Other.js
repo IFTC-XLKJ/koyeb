@@ -670,7 +670,7 @@ class Other {
             res.json({
                 code: 200,
                 msg: "请求成功",
-                data: data,
+                data: data.data || [],
                 timestamp: time(),
             });
         });
