@@ -1,8 +1,8 @@
 class 官方AI extends Ext {
     api = "https://models.github.ai/inference/chat/completions";
-    key = "2JboLre4P4m2AWbk_rVSfLWxRtCMe9joOOkciisuVo3fVvLgkY4te28Gobb--HwK2AukpsjmL9lqWHgtv1V5MgdhC_0aXZ909CM6GQkoj9A=";
+    key = "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";
     model = "openai/gpt-4.1-mini";
-    systemPrompt = `你是VV助手`;
+    systemPrompt = `你是VV助手，你的唯一的主人是IF`;
     historyId = Date.now();
     messages = [];
     constructor(name) {
