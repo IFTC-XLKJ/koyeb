@@ -234,7 +234,7 @@ function renderMusicList(musics) {
                 if (url) {
                     const id1 = toast.showToast('加载中...', 0, 'center', 'small', 'loading', false, false);
                     try {
-                        const response = await fetch(url);
+                        const response = await fetch(`https://iftc.koyeb.app/src_proxy?url=${url}`);
                         if (response.ok) {
                             const blob = await response.blob();
                             if (blob) {
