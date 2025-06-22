@@ -396,6 +396,7 @@ dialog {
     display: grid;
     grid-template-columns: auto;
     text-align: left;
+    pointer-events: none;
 }
 
 .history-item {
@@ -408,6 +409,7 @@ dialog {
     background-color: white;
     display: grid;
     grid-template-columns: 1fr 20px;
+    pointer-events: all;
 }
 
 .history-item:hover {
