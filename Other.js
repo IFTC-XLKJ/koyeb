@@ -678,15 +678,16 @@ class Other {
             requestLog(req);
             const { url } = req.query;
             try {
-                const response = await fetch(url, { headers: { "User-Agent": "IFTC" }, verbose: true });
+                const response = await fetch(url, {
+                    headers: { "User-Agent": "IFTC" },
+                    verbose: true
+                });
                 const contentType = response.headers.get("content-type");
-                if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
-                    const blob = await response.blob();
-                    res.send(blob);
-                } else {
-                    const text = await response.text();
-                    res.send(text);
-                }
+                const blob = await response.blob();
+                const contentLength = blob.size;
+                res.setHeader("Content-Type", contentType);
+                res.setHeader("Content-Length", contentLength);
+                res.send(blob);
             } catch (e) {
                 res.status(500).send(e.message);
             }
