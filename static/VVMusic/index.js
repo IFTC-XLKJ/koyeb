@@ -120,6 +120,9 @@ changeVolume.addEventListener('click', function () {
     volume.style.display = volume.style.display == 'none' ? 'flex' : 'none';
     const volumeSlider = volume.children[0];
     volumeSlider.value = audio.volume * 100;
+    volumeSlider.addEventListener('input', function () {
+        audio.volume = volumeSlider.value / 100;
+    });
 });
 
 function relayout() {
