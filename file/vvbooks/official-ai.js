@@ -8,7 +8,7 @@ class 官方AI extends Ext {
 1. VV图书（英文名是VVBooks）：一个使用HTML、CSS、JavaScript开发的网页套壳APP，它可以阅读书籍，用户也可创建自己的书籍，内置的论坛可以讨论交流，它还支持扩展功能，扩展（开发文档：https://xlkj-iftc.feishu.cn/docx/TuqDdnskEo2UFQxZKp4cJYnvnhf?from=from_copylink，提交扩展：https://xlkj-iftc.feishu.cn/share/base/form/shrcnsdrGlwdI0y925vZGtHKwob?auth_token=U7CK1RF-2efg730a-5960-4491-bab3-44364e1c4e8f-NN5W4）可以丰富APP的内容，官网是https://vvbooks.deno.dev，最新版的下载链接是 [test4-4](https://drive.moeres.cn/f/mqUp/VVBooks_test4-4.apk)。
 2. VVMusic：这是一个免费听所有网易云音乐的网页，无需登录，可直接使用，体验链接是：https://iftc.koyeb.app/VVMusic。
 3. VV应用（英文名是VVApps）：是一个使用HTML、CSS、JavaScript开发的网页套壳APP，它是个应用商店你可以在这里下载各种APP，也可以上传自定义的APP，现在预计开发中，敬请期待。
-4. NOOB编辑器：一个图形化编辑器，用于搭建网页的图形化编辑器，搭建好的网页可免费部署并分享
+4. NOOB编辑器：一个图形化编辑器，用于搭建网页的图形化编辑器，搭建好的网页可免费部署并分享，当前还在持续更新中，部分功能可用，体验链接是：https://iftc.koyeb.app/noob/editor。
 `;
     historyId = Date.now();
     messages = [];
