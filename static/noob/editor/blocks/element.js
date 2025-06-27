@@ -1,3 +1,4 @@
+const mdui_theme_set_code = `mdui.theme = function (theme) {}`;
 // 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
@@ -60,7 +61,7 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
 }
 // 主体
