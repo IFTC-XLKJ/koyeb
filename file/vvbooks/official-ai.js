@@ -1,4 +1,5 @@
 class 官方AI extends Ext {
+    minTargetVersion = "test4-5";
     api = "https://api.chatanywhere.tech/v1/chat/completions";
     key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
     model = "gpt-3.5-turbo";
