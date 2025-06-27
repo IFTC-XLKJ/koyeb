@@ -24,5 +24,6 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
     const theme = Blockly.JavaScript.valueToCode(block, "THEME", Blockly.JavaScript.ORDER_ATOMIC);
+    console.log(theme);
     return `mdui.theme(${theme});\n`;
 }
