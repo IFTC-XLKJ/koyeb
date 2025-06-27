@@ -19,8 +19,7 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "设置 MDUI 设计令牌",
         helpUrl: "",
         inputsInline: true,
-        previousStatement: null,
-        nextStatement: null,
+        output: "String",
     },
     {
         type: "mdui_theme",
@@ -44,6 +43,11 @@ Blockly.defineBlocksWithJsonArray([
         type: "mdui_button",
     },
 ]);
+
+Blockly.JavaScript.forBlock["mdui_design_token"] = function (block) {
+    const token = block.getFieldValue("TOKEN");
+    return token;
+}
 
 Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
     const theme = Blockly.JavaScript.valueToCode(block, "THEME", Blockly.JavaScript.ORDER_ATOMIC);
