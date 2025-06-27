@@ -891,6 +891,17 @@ const toolbox = {
             name: "MDUI",
             colour: "#6750A4",
             contents: [
+                {
+                    kind: "block",
+                    type: "mdui_theme",
+                    inputs: {
+                        THEME: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        }
+                    }
+                },
             ],
         },
     ]
