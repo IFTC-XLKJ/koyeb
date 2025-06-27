@@ -16,7 +16,7 @@ class 官方AI extends Ext {
     constructor(name) {
         super(name);
         this.UI = new this.ExtUI.Init();
-        this.settings = new this.Settings();
+        this.settings = new this.Settings("官方AI 设置");
         this.render();
         console.log("官方AI 扩展 准备就绪！");
     }
