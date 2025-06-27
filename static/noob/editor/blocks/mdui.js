@@ -10,7 +10,7 @@ Blockly.defineBlocksWithJsonArray([
                 align: "RIGHT",
             }
         ],
-        colour: "#4CAF50",
+        colour: "#6750A4",
         tooltip: "设置 MDUI 主题",
         helpUrl: "",
         inputsInline: true,
