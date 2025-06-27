@@ -64,7 +64,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock["mdui_design_token"] = function (block) {
     const token = block.getFieldValue("TOKEN");
-    return token;
+    return [token, Blockly.JavaScript.ORDER_ATOMIC];
 }
 
 Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
