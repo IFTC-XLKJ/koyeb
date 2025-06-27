@@ -15,7 +15,7 @@ class 官方AI extends Ext {
     messages = [];
     constructor(name) {
         super(name);
-        this.UI = new this.ExitUI.Init();
+        this.UI = new this.ExtUI.Init();
         this.render();
         console.log("官方AI 扩展 准备就绪！");
     }
