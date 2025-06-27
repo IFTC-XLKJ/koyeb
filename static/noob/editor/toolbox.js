@@ -893,6 +893,10 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
+                    type: "mdui_design_token",
+                },
+                {
+                    kind: "block",
                     type: "mdui_theme",
                     inputs: {
                         THEME: {
