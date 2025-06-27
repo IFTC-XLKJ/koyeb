@@ -7,11 +7,14 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_dropdown",
                 name: "TOKEN",
                 options: [
-                    ["主题色", "theme-color"],
-                    ["主题色（深色模式）", "theme-color-dark"],
-                    ["主题色（浅色模式）", "theme-color-light"],
-                    ["主题色（暗色模式）", "theme-color-dark"],
-                    ["主题色（亮色模式）", "theme-color-light"],
+                    ["主色", "--mdui-color-primary"],
+                    ["副色", "--mdui-color-secondary"],
+                    ["背景色", "--mdui-color-background"],
+                    ["表面色", "--mdui-color-surface"],
+                    ["错误色", "--mdui-color-error"],
+                    ["成功色", "--mdui-color-success"],
+                    ["警告色", "--mdui-color-warning"],
+                    ["信息色", "--mdui-color-info"],
                 ],
             }
         ],
@@ -41,6 +44,21 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_button",
+        message0: "MDUI 按钮 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "LABEL",
+                check: "String",
+                align: "RIGHT",
+            }
+        ],
+        colour: "#6750A4",
+        tooltip: "添加一个 MDUI 按钮",
+        helpUrl: "",
+        inputsInline: true,
+        previousStatement: null,
+        nextStatement: null,
     },
 ]);
 
