@@ -2,7 +2,7 @@ Blockly.defineBlocksWithJsonArray([
     {
         type: "mdui_theme",
         message0: "MDUI 主题 %1",
-        arg0: [
+        args0: [
             {
                 type: "input_value",
                 name: "THEME",
