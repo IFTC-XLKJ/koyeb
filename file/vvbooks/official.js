@@ -5,6 +5,7 @@ class 官方扩展 extends Ext {
         console.log("访问", iftc);
         this.postMessage({
             type: "init",
+            msg: "官方扩展加载成功",
         });
         this.extLog(0, "官方扩展加载成功", name);
     }
