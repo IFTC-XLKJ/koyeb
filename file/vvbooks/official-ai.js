@@ -28,7 +28,7 @@ class 官方AI extends Ext {
             const response = await fetch(this.api, {
                 method: "POST",
                 headers: {
-                    Authorization: `GitHub-Bearer ${this.key}`,
+                    Authorization: `Bearer ${this.key}`,
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
