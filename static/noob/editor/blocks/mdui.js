@@ -8,13 +8,19 @@ Blockly.defineBlocksWithJsonArray([
                 name: "TOKEN",
                 options: [
                     ["主色", "\"--mdui-color-primary\""],
+                    ["主前景色", "--mdui-color-on-primary\""],
+                    ["逆色", "\"--mdui-color-inverse-primary\""],
                     ["副色", "\"--mdui-color-secondary\""],
+                    ["副前景色", "\"--mdui-color-on-secondary\""],
+                    ["辅助色", "\"--mdui-color-tertiary\""]
+                    ["强调色", "\"--mdui-color-accent\""],
                     ["背景色", "\"--mdui-color-background\""],
                     ["表面色", "\"--mdui-color-surface\""],
                     ["错误色", "\"--mdui-color-error\""],
                     ["成功色", "\"--mdui-color-success\""],
                     ["警告色", "\"--mdui-color-warning\""],
                     ["信息色", "\"--mdui-color-info\""],
+                    ["表面色调色", "\"--mdui-color-surface-tint-color\""],
                 ],
             }
         ],
