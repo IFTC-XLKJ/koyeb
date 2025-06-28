@@ -1,7 +1,7 @@
 Blockly.defineBlocksWithJsonArray([
     {
         type: "add_event_listener",
-        message0: "给 %1 添加 %2 事件 %3",
+        message0: "给 %1 添加 %2 事件 函数 %3",
         args0: [
             {
                 type: "input_value",
@@ -20,10 +20,15 @@ Blockly.defineBlocksWithJsonArray([
                 ]
             },
             {
-                type: "statement_input",
-                name: "code",
+                type: "input_value",
+                name: "func",
             }
-        ]
+        ],
+        colour: "#608FEE",
+        tooltip: "绑定事件",
+        helpUrl: "",
+        nextStatement: null,
+        previousStatement: null,
     },
 ])
 
