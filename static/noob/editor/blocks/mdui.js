@@ -92,7 +92,8 @@ Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
 Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
     const defaultTheme = {
         "--mdui-color-primary": "0, 192, 255",
-        "--mdui-color-on-primary": "255, 255, 255",
+        "--mdui-color-on-primary": "255, 255, 255, 0.3",
+        "--mdui-text-color": "255, 255, 255",
         "--mdui-shape-corner-full": "1000rem",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
@@ -100,5 +101,5 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
 
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
-    return `<mdui-button>${label}</mdui-button>`;
+    return `<mdui-button style="color: var(--mdui-text-color);">${label}</mdui-button>`;
 }
