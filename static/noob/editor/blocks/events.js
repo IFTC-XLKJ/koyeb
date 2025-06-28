@@ -38,6 +38,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         nextStatement: null,
         previousStatement: null,
+        inputsInline: true,
     },
 ])
 
