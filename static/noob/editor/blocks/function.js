@@ -196,3 +196,8 @@ Blockly.JavaScript.forBlock['return'] = function (block) {
 function funparamformatarray(paramCode) {
     return paramCode.slice(1, -1).split(",");
 }
+
+Blockly.JavaScript.forBlock['function_var'] = function (block) {
+    const name = block.getFieldValue('NAME');
+    return `(globalThis.${name})`;
+};
