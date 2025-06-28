@@ -54,8 +54,8 @@ Blockly.defineBlocksWithJsonArray([
         args0: [
             {
                 type: "field_input",
-                name: "text",
-                text: "按钮",
+                name: "LABEL",
+                text: "button",
             },
         ],
         colour: "#6750A4",
