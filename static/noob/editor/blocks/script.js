@@ -187,6 +187,15 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "执行一段代码",
         inputInline: true,
     },
+    {
+        type: "window",
+        message0: "全局变量",
+        args0: [],
+        colour: "#68CDFF",
+        tooltip: "全局变量",
+        inputInline: true,
+        output: "Dictionary"
+    }
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
@@ -223,4 +232,8 @@ Blockly.JavaScript.forBlock["script_console_clear"] = function (block) {
 Blockly.JavaScript.forBlock["script_void"] = function (block) {
     const code = Blockly.JavaScript.valueToCode(block, 'code', Blockly.JavaScript.ORDER_ATOMIC);
     return `void ${code}\n`;
+}
+
+Blockly.JavaScript.forBlock["window"] = function (block) {
+    return `(window)`;
 }

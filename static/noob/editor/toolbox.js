@@ -478,6 +478,10 @@ const toolbox = {
             contents: [
                 {
                     kind: "block",
+                    type: "window"
+                },
+                {
+                    kind: "block",
                     type: "controls_if",
                 },
                 {
@@ -577,6 +581,12 @@ const toolbox = {
                     }
                 },
             ]
+        },
+        {
+            kind: "category",
+            name: "事件",
+            colour: "#608FEE",
+            contents: [],
         },
         {
             kind: "category",
