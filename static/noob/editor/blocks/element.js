@@ -1,5 +1,5 @@
-const mdui_theme_set_code = `mduiThemes = {};
-mduiTheme = function (theme) {
+const mdui_theme_set_code = `globalThis.mduiThemes = {};
+globalThis.mduiTheme = function (theme) {
     const themeKeys = Object.keys(theme);
     for (let i = 0; i < themeKeys.length; i++) {
         const key = themeKeys[i];
