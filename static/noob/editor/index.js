@@ -596,7 +596,16 @@ function saveFileAs() {
 
 function exportFile() {
     const filename = getWorkName() + ".html";
-    const file = new Blob([BlocksToJS()], { type: "text/html" });
+    const html = BlocksToJS();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+    doc.querySelectorAll("script").forEach(script => {
+        const code = script.textContent;
+        const newCode = obfuscate(code);
+        script.textContent = newCode;
+    });
+    const newHtml = doc.documentElement.outerHTML;
+    const file = new Blob([newHtml], { type: "text/html" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(file);
     a.download = filename;
@@ -734,4 +743,19 @@ function defineVars() {
     vars.forEach(v => html += `let ${v[1]};`);
     html += `<\/script>`;
     return html;
+}
+
+function obfuscate(code) {
+    return JavaScriptObfuscator.obfuscate(code,
+        {
+            compact: false,
+            controlFlowFlattening: true,
+            controlFlowFlatteningThreshold: 1,
+            numbersToExpressions: true,
+            simplify: true,
+            stringArrayShuffle: true,
+            splitStrings: true,
+            stringArrayThreshold: 1
+        }
+    ).getObfuscatedCode();
 }
