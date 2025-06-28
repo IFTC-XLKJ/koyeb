@@ -172,7 +172,7 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
     );
     var paramCode = '';
     for (var i = 0; i < paramCodeArray.length; i++) {
-        paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length- 1 ? ', ' : ''}`;
+        paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
     return `await globalThis.${name}(${paramCode});\n`;
 }
@@ -199,5 +199,5 @@ function funparamformatarray(paramCode) {
 
 Blockly.JavaScript.forBlock['function_var'] = function (block) {
     const name = block.getFieldValue('NAME');
-    return `(globalThis.${name})`;
+    return [`(globalThis.${name})`, Blockly.JavaScript.ORDER_NONE];
 };
