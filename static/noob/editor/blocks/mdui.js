@@ -78,3 +78,8 @@ Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
     console.log(theme);
     return `mduiTheme(${theme});\n`;
 }
+
+Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
+    const button = Blockly.JavaScript.valueToCode(block, "BUTTON", Blockly.JavaScript.ORDER_ATOMIC);
+    return `<mdui-button>${button}</mdui-button>`;
+}
