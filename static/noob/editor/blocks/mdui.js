@@ -8,7 +8,7 @@ Blockly.defineBlocksWithJsonArray([
                 name: "TOKEN",
                 options: [
                     ["主色", "\"--mdui-color-primary\""],
-                    ["主前景色", "--mdui-color-on-primary\""],
+                    ["主前景色", "\"--mdui-color-on-primary\""],
                     ["逆色", "\"--mdui-color-inverse-primary\""],
                     ["副色", "\"--mdui-color-secondary\""],
                     ["副前景色", "\"--mdui-color-on-secondary\""],
