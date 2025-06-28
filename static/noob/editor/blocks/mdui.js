@@ -12,7 +12,7 @@ Blockly.defineBlocksWithJsonArray([
                     ["逆色", "\"--mdui-color-inverse-primary\""],
                     ["副色", "\"--mdui-color-secondary\""],
                     ["副前景色", "\"--mdui-color-on-secondary\""],
-                    ["辅助色", "\"--mdui-color-tertiary\""]
+                    ["辅助色", "\"--mdui-color-tertiary\""],
                     ["强调色", "\"--mdui-color-accent\""],
                     ["背景色", "\"--mdui-color-background\""],
                     ["表面色", "\"--mdui-color-surface\""],
