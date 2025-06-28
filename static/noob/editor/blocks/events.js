@@ -31,6 +31,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "func",
+                check: "Function"
             }
         ],
         colour: "#608FEE",

@@ -95,6 +95,22 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         inputsInline: true,
         output: null,
+    },
+    {
+        type: 'function_var',
+        message0: '%1',
+        args0: [
+            {
+                type: 'field_input',
+                name: 'NAME',
+                text: '函数'
+            }
+        ],
+        colour: "#F88767",
+        tooltip: '调用函数并返回',
+        helpUrl: '',
+        inputsInline: true,
+        output: "Function",
     }
 ])
 Blockly.JavaScript.forBlock['function'] = function (block) {
