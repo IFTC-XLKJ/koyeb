@@ -908,6 +908,10 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "mdui_theme_default",
+                },
+                {
+                    kind: "block",
                     type: "mdui_button",
                 }
             ],
