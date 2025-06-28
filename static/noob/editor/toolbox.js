@@ -586,7 +586,19 @@ const toolbox = {
             kind: "category",
             name: "事件",
             colour: "#608FEE",
-            contents: [],
+            contents: [
+                {
+                    kind: "block",
+                    type: "add_event_listener",
+                    inputs: {
+                        element: {
+                            shadow: {
+                                type: "window"
+                            }
+                        }
+                    }
+                }
+            ],
         },
         {
             kind: "category",
