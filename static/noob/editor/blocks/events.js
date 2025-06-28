@@ -44,7 +44,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock["add_event_listener"] = function (block) { 
     const element = Blockly.JavaScript.valueToCode(block, "element", Blockly.JavaScript.ORDER_ATOMIC);
-    const eventName = Blockly.JavaScript.valueToCode(block, "eventName", Blockly.JavaScript.ORDER_ATOMIC);
+    const eventName = block.getFieldValue("eventName");
     const func = Blockly.JavaScript.valueToCode(block, "func", Blockly.JavaScript.ORDER_ATOMIC);
     return `${element}.addEventListener("${eventName}", ${func});\n`;
 };
