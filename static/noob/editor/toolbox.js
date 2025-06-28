@@ -912,7 +912,10 @@ const toolbox = {
                     inputs: {
                         LABEL: {
                             shadow: {
-                                type: "button",
+                                type: "text",
+                                fields: {
+                                    TEXT: "Button"
+                                }
                             }
                         }
                     }
