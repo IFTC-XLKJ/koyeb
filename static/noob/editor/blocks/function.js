@@ -107,7 +107,7 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
         if (paramCodeArray[i] == null || paramCodeArray[i] == undefined) {
             paramCodeArray[i] = '';
         }
-        paramCodeArray[i] = String(paramCodeArray[i]);
+        paramCodeArray[i] = String(paramCodeArray[i]).slice(1, -1);
         paramCode += `funparam_${paramCodeArray[i]
             .replaceAll(",", "_")
             .replaceAll("-", "_")
