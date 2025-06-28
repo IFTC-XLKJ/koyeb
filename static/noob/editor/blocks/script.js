@@ -235,5 +235,5 @@ Blockly.JavaScript.forBlock["script_void"] = function (block) {
 }
 
 Blockly.JavaScript.forBlock["window"] = function (block) {
-    return `(window)`;
+    return [`(window)`, Blockly.JavaScript.ORDER_NONE];
 }
