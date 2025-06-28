@@ -906,6 +906,17 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "mdui_button",
+                    inputs: {
+                        BUTTON: {
+                            shadow: {
+                                type: "button",
+                            }
+                        }
+                    }
+                }
             ],
         },
     ]
