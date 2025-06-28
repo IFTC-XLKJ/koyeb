@@ -53,11 +53,10 @@ Blockly.defineBlocksWithJsonArray([
         message0: "MDUI 按钮 %1",
         args0: [
             {
-                type: "input_value",
-                name: "LABEL",
-                check: "String",
-                align: "RIGHT",
-            }
+                type: "field_input",
+                name: "text",
+                text: "按钮",
+            },
         ],
         colour: "#6750A4",
         tooltip: "添加一个 MDUI 按钮",
@@ -80,6 +79,6 @@ Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
 }
 
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
-    const label = Blockly.JavaScript.valueToCode(block, "LABEL", Blockly.JavaScript.ORDER_ATOMIC);
+    const label = block.getFieldValue("LABEL");
     return `<mdui-button>${label}</mdui-button>`;
 }
