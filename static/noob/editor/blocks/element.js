@@ -10,7 +10,7 @@ mdui.theme = function (theme) {
     for (let i = 0; i < themesKeys.length; i++) {
         const key = themesKeys[i];
         const value = mdui.themes[key];
-        styleText += \`    --mdui-${key}: ${value};\n\`;
+        styleText += \`    --mdui-\${key}: \${value};\n\`;
     }
     styleText += "}\n";
     const style = document.querySelector('style[iftc-mdui="theme"]');
