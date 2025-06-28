@@ -25,7 +25,8 @@ Blockly.defineBlocksWithJsonArray([
                     ["键盘按下", "keydown"],
                     ["键盘抬起", "keyup"],
                     ["键盘输入", "keypress"],
-                    ["加载", "load"]
+                    ["加载", "load"],
+                    ["DOM加载完毕", "DOMContentLoaded"]
                 ]
             },
             {
@@ -45,6 +46,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock["add_event_listener"] = function (block) { 
     const element = Blockly.JavaScript.valueToCode(block, "element", Blockly.JavaScript.ORDER_ATOMIC);
+    console.log(element[Symbol.toStringTag])
     const eventName = block.getFieldValue("eventName");
     const func = Blockly.JavaScript.valueToCode(block, "func", Blockly.JavaScript.ORDER_ATOMIC);
     return `${element
