@@ -910,7 +910,7 @@ const toolbox = {
                     kind: "block",
                     type: "mdui_button",
                     inputs: {
-                        BUTTON: {
+                        LABEL: {
                             shadow: {
                                 type: "button",
                             }
