@@ -6,13 +6,13 @@ globalThis.mduiTheme = function (theme) {
         mduiThemes[key] = theme[key];
     }
     const themesKeys = Object.keys(mduiThemes);
-    let styleText = ":root {\n";
+    let styleText = ":root {\\n";
     for (let i = 0; i < themesKeys.length; i++) {
         const key = themesKeys[i];
         const value = mduiThemes[key];
-        styleText += \`    --mdui-\${key}: \${value};\n\`;
+        styleText += \`    --mdui-\${key}: \${value};\\n\`;
     }
-    styleText += "}\n";
+    styleText += "}\\n";
     const style = document.querySelector('style[iftc-mdui="theme"]');
     if (style) {
         style.textContent = styleText;
