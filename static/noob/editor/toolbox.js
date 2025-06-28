@@ -874,6 +874,10 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "function_var",
+                },
             ]
         },
         {
