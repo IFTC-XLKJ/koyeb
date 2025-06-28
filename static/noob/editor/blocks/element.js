@@ -17,7 +17,8 @@ mdui.theme = function (theme) {
     if (style) {
         style.textContent = styleText;
     }
-}`;
+}
+mdui.theme({}); // 初始化主题`;
 // 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
