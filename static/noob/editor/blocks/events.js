@@ -13,11 +13,19 @@ Blockly.defineBlocksWithJsonArray([
                 name: "eventName",
                 options: [
                     ["点击", "click"],
-                    ["mouseover", "mouseover"],
-                    ["mouseout", "mouseout"],
-                    ["mousemove", "mousemove"],
-                    ["mousedown", "mousedown"],
-                    ["load", "load"]
+                    ["鼠标移入", "mouseover"],
+                    ["鼠标移出", "mouseout"],
+                    ["鼠标移动", "mousemove"],
+                    ["鼠标按下", "mousedown"],
+                    ["鼠标抬起", "mouseup"],
+                    ["鼠标滚轮", "wheel"],
+                    ["触摸屏按下", "touchstart"],
+                    ["触摸屏抬起", "touchend"],
+                    ["触摸屏移动", "touchmove"],
+                    ["键盘按下", "keydown"],
+                    ["键盘抬起", "keyup"],
+                    ["键盘输入", "keypress"],
+                    ["加载", "load"]
                 ]
             },
             {
