@@ -101,5 +101,5 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
 
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
-    return `<mdui-button style="color: var(--mdui-text-color);">${label}</mdui-button>`;
+    return `<mdui-button style="color: rgba(var(--mdui-text-color));">${label}</mdui-button>`;
 }
