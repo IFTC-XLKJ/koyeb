@@ -1,4 +1,23 @@
-const mdui_theme_set_code = `mdui.theme = function (theme) {}`;
+const mdui_theme_set_code = `mdui.themes = {};
+mdui.theme = function (theme) {
+    const themeKeys = Object.keys(theme);
+    for (let i = 0; i < themeKeys.length; i++) {
+        const key = themeKeys[i];
+        mdui.themes[key] = theme[key];
+    }
+    const themesKeys = Object.keys(mdui.themes);
+    let styleText = ":root {\n";
+    for (let i = 0; i < themesKeys.length; i++) {
+        const key = themesKeys[i];
+        const value = mdui.themes[key];
+        styleText += \`    --mdui-${key}: ${value};\n\`;
+    }
+    styleText += "}\n";
+    const style = document.querySelector('style[iftc-mdui="theme"]');
+    if (style) {
+        style.textContent = styleText;
+    }
+}`;
 // 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
@@ -61,7 +80,7 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<style iftc-mdui="theme"></style>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
 }
 // 主体
