@@ -1,15 +1,15 @@
-const mdui_theme_set_code = `mdui.themes = {};
-mdui.theme = function (theme) {
+const mdui_theme_set_code = `mduiThemes = {};
+mduiTheme = function (theme) {
     const themeKeys = Object.keys(theme);
     for (let i = 0; i < themeKeys.length; i++) {
         const key = themeKeys[i];
-        mdui.themes[key] = theme[key];
+        mduiThemes[key] = theme[key];
     }
-    const themesKeys = Object.keys(mdui.themes);
+    const themesKeys = Object.keys(mduiThemes);
     let styleText = ":root {\n";
     for (let i = 0; i < themesKeys.length; i++) {
         const key = themesKeys[i];
-        const value = mdui.themes[key];
+        const value = mduiThemes[key];
         styleText += \`    --mdui-\${key}: \${value};\n\`;
     }
     styleText += "}\n";
@@ -18,7 +18,7 @@ mdui.theme = function (theme) {
         style.textContent = styleText;
     }
 }
-mdui.theme({}); // 初始化主题`;
+mduiTheme({}); // 初始化主题`;
 // 文档类型
 Blockly.Blocks['doc_type'] = {
     init: function () {
