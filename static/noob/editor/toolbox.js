@@ -595,6 +595,11 @@ const toolbox = {
                             shadow: {
                                 type: "window"
                             }
+                        },
+                        func: {
+                            shadow: {
+                                type: "function_var"
+                            }
                         }
                     }
                 }
