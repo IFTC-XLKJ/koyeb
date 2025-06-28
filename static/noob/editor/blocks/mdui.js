@@ -49,6 +49,17 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: null,
     },
     {
+        type: "mdui_theme_default",
+        message0: "MDUI 默认主题",
+        args0: [],
+        colour: "#6750A4",
+        tooltip: "设置 MDUI 默认主题",
+        helpUrl: "",
+        inputsInline: true,
+        previousStatement: null,
+        nextStatement: null,
+    },
+    {
         type: "mdui_button",
         message0: "MDUI 按钮 %1",
         args0: [
