@@ -884,13 +884,11 @@ const toolbox = {
                             shadow: {
                                 type: "create_element",
                                 inputs: {
-                                    fields: {
-                                        ELEMENT: {
-                                            shadow: {
-                                                type: "text",
-                                                fields: {
-                                                    TEXT: "div"
-                                                }
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "div"
                                             }
                                         }
                                     }
