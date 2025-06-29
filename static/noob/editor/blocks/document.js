@@ -222,6 +222,23 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: null,
         inputsInline: true
     },
+    {
+        type: "append_child",
+        message0: "添加子元素 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "ELEMENT",
+                check: "Dictionary",
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "添加子元素",
+        helpUrl: "",
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true
+    },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
     const code = '(document)';
