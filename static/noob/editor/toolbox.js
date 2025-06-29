@@ -619,6 +619,10 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "prevent_default",
+                },
             ],
         },
         {
