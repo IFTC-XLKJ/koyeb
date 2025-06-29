@@ -84,6 +84,12 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             },
         ],
+        colour: "#608FEE",
+        tooltip: "",
+        helpUrl: "",
+        inputsInline: true,
+        nextStatement: null,
+        previousStatement: null,
     },
 ])
 
