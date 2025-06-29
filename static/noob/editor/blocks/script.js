@@ -231,7 +231,7 @@ Blockly.JavaScript.forBlock["script_console_clear"] = function (block) {
 
 Blockly.JavaScript.forBlock["script_void"] = function (block) {
     const code = Blockly.JavaScript.valueToCode(block, 'code', Blockly.JavaScript.ORDER_ATOMIC);
-    return `void ${code}\n`;
+    return `void ${code};\n`;
 }
 
 Blockly.JavaScript.forBlock["window"] = function (block) {
