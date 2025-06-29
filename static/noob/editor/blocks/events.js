@@ -13,7 +13,9 @@ const eventNames = [
     ["键盘抬起", "keyup"],
     ["键盘输入", "keypress"],
     ["加载", "load"],
-    ["DOM加载完毕", "DOMContentLoaded"]
+    ["DOM加载完毕", "DOMContentLoaded"],
+    ["发生错误", "error"],
+    ["窗口改变", "resize"],
 ];
 
 Blockly.defineBlocksWithJsonArray([
