@@ -899,6 +899,17 @@ const toolbox = {
                     kind: "block",
                     type: "function_var",
                 },
+                {
+                    kind: "block",
+                    type: "temp_function",
+                    inputs: {
+                        PARAM: {
+                            shadow: {
+                                type: "array_create",
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
