@@ -205,6 +205,23 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: null,
         inputsInline: true
     },
+    {
+        type: "create_element",
+        message0: "创建元素 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "ELEMENT",
+                check: "String"
+            }
+        ],
+        colour: "#9C004B",
+        tooltip: "创建元素",
+        helpUrl: "",
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true
+    },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
     const code = '(document)';
@@ -266,10 +283,15 @@ Blockly.JavaScript.forBlock['get_element_style'] = function (block) {
     const code = `(${element}.style[${styleProperty}])`;
     return [code, Blockly.JavaScript.ORDER_NONE];
 }
-Blockly.JavaScript.forBlock['set_element_style'] = function (block) { 
+Blockly.JavaScript.forBlock['set_element_style'] = function (block) {
     const element = Blockly.JavaScript.valueToCode(block, 'ELEMENT', Blockly.JavaScript.ORDER_ATOMIC);
     const styleProperty = Blockly.JavaScript.valueToCode(block, 'STYLE_PROPERTY', Blockly.JavaScript.ORDER_ATOMIC);
     const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     const code = `${element}.style[${styleProperty}] = ${value};\n`;
     return code;
+}
+Blockly.JavaScript.forBlock["create_element"] = function (block) {
+    const element = block.getFieldValue("element");
+    const code = `(document.createElement("${element}"))`;
+    return [code, Blockly.JavaScript.ORDER_NONE];
 }
