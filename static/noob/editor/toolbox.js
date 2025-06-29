@@ -874,18 +874,22 @@ const toolbox = {
                     type: "append_child",
                     inputs: {
                         PARENT: {
-                            block: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "div"
-                                }
+                            shadow: {
+                                type: "get_document_body"
                             }
                         },
                         CHILD: {
-                            block: {
-                                type: "text",
+                            shadow: {
+                                type: "create_element",
                                 fields: {
-                                    TEXT: "div"
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "div"
+                                            }
+                                        }
+                                    }
                                 }
                             }
                         }
