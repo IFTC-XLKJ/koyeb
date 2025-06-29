@@ -622,6 +622,13 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "prevent_default",
+                    inputs: {
+                        event: {
+                            shadow: {
+                                type: "event_var"
+                            }
+                        }
+                    }
                 },
             ],
         },
