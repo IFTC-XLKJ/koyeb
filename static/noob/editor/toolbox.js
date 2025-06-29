@@ -875,10 +875,7 @@ const toolbox = {
                     inputs: {
                         child: {
                             block: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "Hello World"
-                                }
+                                type: "ELEMENT",
                             }
                         }
                     }
