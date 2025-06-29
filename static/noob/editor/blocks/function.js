@@ -37,7 +37,7 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#F88767",
         tooltip: '参数',
         helpUrl: '',
-        output: true,
+        output: null,
     },
     {
         type: 'return',
