@@ -558,10 +558,6 @@ setInterval(function () {
             })
         }
     }
-    // if (previewFrame.contentDocument) {
-    //     if (previewFrame.contentDocument.title) docTitle.innerText = previewFrame.contentDocument.title;
-    //     else docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
-    // }
 }, 300);
 const file = document.getElementById("file");
 const fileMenu = document.getElementById("fileMenu");
