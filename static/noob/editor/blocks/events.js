@@ -81,18 +81,23 @@ Blockly.JavaScript.forBlock["add_event_listener"] = function (block) {
     console.log(element[Symbol.toStringTag])
     const eventName = block.getFieldValue("eventName");
     const func = Blockly.JavaScript.valueToCode(block, "func", Blockly.JavaScript.ORDER_ATOMIC);
-    return `${element
-        .replaceAll("(", "")
-        .replaceAll(")", "")
-        }.addEventListener("${eventName}", ${func});\n`;
+    return `${removeExtraParentheses(element)}.addEventListener("${eventName}", ${func});\n`;
 };
 
 Blockly.JavaScript.forBlock["remove_event_listener"] = function (block) {
     const element = Blockly.JavaScript.valueToCode(block, "element", Blockly.JavaScript.ORDER_ATOMIC);
     const eventName = block.getFieldValue("eventName");
     const func = Blockly.JavaScript.valueToCode(block, "func", Blockly.JavaScript.ORDER_ATOMIC);
-    return `${element
-        .replaceAll("(", "")
-        .replaceAll(")", "")
-        }.removeEventListener("${eventName}", ${func});\n`;
+    return `${removeExtraParentheses(element)}.removeEventListener("${eventName}", ${func});\n`;
 };
+
+function removeExtraParentheses(code) {
+    let newCode = code;
+    if (code.startsWith("(") && code.endsWith(")")) {
+        newCode = code.slice(1, -1);
+    }
+    if (newCode.startsWith("(") && newCode.endsWith(")")) {
+        removeExtraParentheses(newCode);
+    }
+    return newCode;
+}
