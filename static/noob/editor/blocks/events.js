@@ -124,7 +124,7 @@ Blockly.JavaScript.forBlock["prevent_default"] = function (block) {
 };
 
 Blockly.JavaScript.forBlock["event_var"] = function (block) {
-    return `(new Event("event", { details: {}}))`;
+    return [`(new Event("event", { details: {}}))`, Blockly.JavaScript.ORDER_NONE];
 };
 function removeExtraParentheses(code) {
     let newCode = code;
