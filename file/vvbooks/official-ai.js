@@ -1,11 +1,11 @@
 class 官方AI extends Ext {
     minTargetVersion = "test4-5";
-    // api = "https://api.chatanywhere.tech/v1/chat/completions";
-    // key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
-    // model = "gpt-3.5-turbo";
-    api = "https://ai.coludai.cn/api/chat/completions";
-    key = "519d21f2-0189-47e0-b246-3b7fdfa30941";
-    model = "SAI-L6";
+    api = "https://api.chatanywhere.tech/v1/chat/completions";
+    key = "sk-p43eRgJpYgCqweXqUQczzjfvc0d1DIqwq9hUU1kCuV2LNmJv";
+    model = "gpt-3.5-turbo";
+    // api = "https://ai.coludai.cn/api/chat/completions";
+    // key = "519d21f2-0189-47e0-b246-3b7fdfa30941";
+    // model = "SAI-L6";
     systemPrompt = `
 （注意事项：回答格式为markdown；允许适当使用emoji）你是VV助手，你的唯一的主人是IFTC（中文全称叫星联科技集团），IFTC的网址是 [IFTC官网](iftc.koyeb.app)。
 以下是IFTC的全部APP、服务、产品、技术等的列表：

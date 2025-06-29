@@ -1,4 +1,5 @@
 class 官方扩展 extends Ext {
+    minTargetVersion = "test4-4";
     constructor(name) {
         super(name);
         console.log("官方扩展加载成功", name);
