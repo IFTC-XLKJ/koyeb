@@ -223,11 +223,16 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "append_child",
-        message0: "添加子元素 %1",
+        message0: "向 %1 添加子元素 %2",
         args0: [
             {
                 type: "input_value",
-                name: "ELEMENT",
+                name: "PARENT",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "CHILD",
                 check: "Dictionary",
             }
         ],
@@ -237,6 +242,17 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
         nextStatement: null,
         inputsInline: true
+    },
+    {
+        type: "remove_element",
+        message0: "删除元素 %1",
+        args0: [
+            {
+                type: "input_value",
+                name: "ELEMENT",
+                check: "Dictionary",
+            }
+        ],
     },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
@@ -310,4 +326,10 @@ Blockly.JavaScript.forBlock["create_element"] = function (block) {
     const element = block.getFieldValue("element");
     const code = `(document.createElement("${element}"))`;
     return [code, Blockly.JavaScript.ORDER_NONE];
+}
+Blockly.JavaScript.forBlock["append_child"] = function (block) {
+    const parent = Blockly.JavaScript.valueToCode(block, "PARENT", Blockly.JavaScript.ORDER_ATOMIC);
+    const child = Blockly.JavaScript.valueToCode(block, "CHILD", Blockly.JavaScript.ORDER_ATOMIC);
+    const code = `${parent}.appendChild(${child});\n`;
+    return code;
 }
