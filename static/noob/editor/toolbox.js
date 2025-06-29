@@ -894,7 +894,28 @@ const toolbox = {
                             }
                         }
                     }
-                }
+                },
+                {
+                    kind: "block",
+                    type: "remove_element",
+                    inputs: {
+                        ELEMENT: {
+                            shadow: {
+                                type: "get_document_element",
+                                inputs: {
+                                    ELEMENT: {
+                                        shadow: {
+                                            type: "text",
+                                            fields: {
+                                                TEXT: "body"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
