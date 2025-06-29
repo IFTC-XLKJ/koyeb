@@ -253,6 +253,12 @@ Blockly.defineBlocksWithJsonArray([
                 check: "Dictionary",
             }
         ],
+        colour: "#9C004B",
+        tooltip: "添加子元素",
+        helpUrl: "",
+        previousStatement: null,
+        nextStatement: null,
+        inputsInline: true
     },
 ])
 Blockly.JavaScript.forBlock['get_document'] = function (block) {
@@ -330,6 +336,11 @@ Blockly.JavaScript.forBlock["create_element"] = function (block) {
 Blockly.JavaScript.forBlock["append_child"] = function (block) {
     const parent = Blockly.JavaScript.valueToCode(block, "PARENT", Blockly.JavaScript.ORDER_ATOMIC);
     const child = Blockly.JavaScript.valueToCode(block, "CHILD", Blockly.JavaScript.ORDER_ATOMIC);
-    const code = `${parent}.appendChild(${child});\n`;
+    const code = `${removeExtraParentheses(parent)}.appendChild(${removeExtraParentheses(child)});\n`;
     return code;
+}
+Blockly.JavaScript.forBlock["remove_element"] = function (block) {
+    const element = Blockly.JavaScript.valueToCode(block, "ELEMENT", Blockly.JavaScript.ORDER_ATOMIC);
+    const code = `${removeExtraParentheses(element)}.remove();\n`;
+    return code; 
 }
