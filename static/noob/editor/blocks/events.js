@@ -54,7 +54,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "input_value",
                 name: "element",
-                check: "String",
+                check: "Dictionary",
             },
             {
                 type: "field_dropdown",
