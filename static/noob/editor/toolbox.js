@@ -869,6 +869,20 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "append_child",
+                    inputs: {
+                        child: {
+                            block: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello World"
+                                }
+                            }
+                        }
+                    }
+                }
             ]
         },
         {
