@@ -218,8 +218,7 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#9C004B",
         tooltip: "创建元素",
         helpUrl: "",
-        previousStatement: null,
-        nextStatement: null,
+        output: "Dictionary",
         inputsInline: true
     },
     {
