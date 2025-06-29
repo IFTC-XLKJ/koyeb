@@ -117,11 +117,6 @@ Blockly.defineBlocksWithJsonArray([
         message0: "临时函数 参数列表 %2 %3",
         args0: [
             {
-                type: 'field_input',
-                name: 'NAME',
-                text: '函数'
-            },
-            {
                 type: 'input_value',
                 name: 'PARAM',
                 check: 'Array'
