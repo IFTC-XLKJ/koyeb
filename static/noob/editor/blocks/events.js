@@ -1,5 +1,6 @@
 const eventNames = [
     ["点击", "click"],
+    ["鼠标右键/触摸屏长按", "contextmenu"],
     ["鼠标移入", "mouseover"],
     ["鼠标移出", "mouseout"],
     ["鼠标移动", "mousemove"],
