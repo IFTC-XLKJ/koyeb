@@ -114,7 +114,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "temp_function",
-        message0: "临时函数 参数列表 %2 %3",
+        message0: "临时函数 参数列表 %1 %2",
         args0: [
             {
                 type: 'input_value',
