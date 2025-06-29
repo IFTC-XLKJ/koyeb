@@ -602,7 +602,23 @@ const toolbox = {
                             }
                         }
                     }
-                }
+                },
+                {
+                    kind: "block",
+                    type: "remove_event_listener",
+                    inputs: {
+                        element: {
+                            shadow: {
+                                type: "window"
+                            }
+                        },
+                        func: {
+                            shadow: {
+                                type: "function_var"
+                            }
+                        }
+                    }
+                },
             ],
         },
         {
