@@ -599,17 +599,21 @@ function exportFile() {
     const html = BlocksToJS();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-    doc.querySelectorAll("script").forEach(script => {
+    const scripts = doc.querySelectorAll("script");
+    for (var i = 0; i < scripts.length; i++) {
+        const script = scripts[i];
         const code = script.textContent;
         const newCode = obfuscate(code);
         script.textContent = newCode;
-    });
+    }
     const newHtml = doc.documentElement.outerHTML;
     const file = new Blob([newHtml], { type: "text/html" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(file);
     a.download = filename;
     a.click();
+    URL.revokeObjectURL(a.href);
+    a.remove();
 }
 
 function importFile() {
