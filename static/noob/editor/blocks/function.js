@@ -227,6 +227,6 @@ Blockly.JavaScript.forBlock['function_var'] = function (block) {
 
 Blockly.JavaScript.forBlock["temp_function"] = function (block) {
     const paramCode = functionParamHandler(Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]");
-    const code = Blockly.JavaScript.statementToCode(block, "DO");
+    const code = Blockly.JavaScript.statementToCode(block, "STACK");
     return `(async function (${paramCode}) {\n${code}\n})`;
 };
