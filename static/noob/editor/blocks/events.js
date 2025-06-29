@@ -108,6 +108,10 @@ Blockly.JavaScript.forBlock["remove_event_listener"] = function (block) {
     return `${removeExtraParentheses(element)}.removeEventListener("${eventName}", ${func});\n`;
 };
 
+Blockly.JavaScript.forBlock["prevent_default"] = function (block) {
+    const event = Blockly.JavaScript.valueToCode(block, "event", Blockly.JavaScript.ORDER_ATOMIC);
+    return `${event}.preventDefault();\n`;
+};
 function removeExtraParentheses(code) {
     let newCode = code;
     if (code.startsWith("(") && code.endsWith(")")) {
