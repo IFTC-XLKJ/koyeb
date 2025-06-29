@@ -91,6 +91,16 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: null,
         previousStatement: null,
     },
+    {
+        type: "event_var",
+        message0: "事件变量",
+        args0: [],
+        colour: "#608FEE",
+        tooltip: "",
+        helpUrl: "",
+        inputsInline: true,
+        output: "Dictionary",
+    },
 ])
 
 Blockly.JavaScript.forBlock["add_event_listener"] = function (block) {
@@ -111,6 +121,10 @@ Blockly.JavaScript.forBlock["remove_event_listener"] = function (block) {
 Blockly.JavaScript.forBlock["prevent_default"] = function (block) {
     const event = Blockly.JavaScript.valueToCode(block, "event", Blockly.JavaScript.ORDER_ATOMIC);
     return `${event}.preventDefault();\n`;
+};
+
+Blockly.JavaScript.forBlock["event_var"] = function (block) {
+    return `(new Event("event", { details: {}}))`;
 };
 function removeExtraParentheses(code) {
     let newCode = code;
