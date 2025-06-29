@@ -74,6 +74,17 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
         inputsInline: true,
     },
+    {
+        type: "prevent_default",
+        message0: "%1 阻止默认行为",
+        args0: [
+            {
+                type: "input_value",
+                name: "event",
+                check: "Dictionary",
+            },
+        ],
+    },
 ])
 
 Blockly.JavaScript.forBlock["add_event_listener"] = function (block) {
