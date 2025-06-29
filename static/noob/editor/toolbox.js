@@ -858,12 +858,14 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "create_element",
-                    fields: {
-                        ELEMENT: {
-                            shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "div"
+                    inputs: {
+                        fields: {
+                            ELEMENT: {
+                                shadow: {
+                                    type: "text",
+                                    fields: {
+                                        TEXT: "div"
+                                    }
                                 }
                             }
                         }
@@ -881,12 +883,14 @@ const toolbox = {
                         CHILD: {
                             shadow: {
                                 type: "create_element",
-                                fields: {
-                                    ELEMENT: {
-                                        shadow: {
-                                            type: "text",
-                                            fields: {
-                                                TEXT: "div"
+                                inputs: {
+                                    fields: {
+                                        ELEMENT: {
+                                            shadow: {
+                                                type: "text",
+                                                fields: {
+                                                    TEXT: "div"
+                                                }
                                             }
                                         }
                                     }
