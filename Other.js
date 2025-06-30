@@ -806,7 +806,7 @@ class Other {
         });
         this.app.get("/api/authorization", async (req, res) => {
             requestLog(req);
-            const token = req.headers["Authorization"];
+            const token = req.headers.get("Authorization");
             console.log(token);
         });
         console.log("Other");
