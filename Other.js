@@ -692,21 +692,22 @@ class Other {
         });
         this.app.get("/safejump", async (req, res) => {
             const { page } = req.query;
-            const url = new URL(page);
-            const domain = url.hostname;
-            const icpcheckapi = "https://www.weiserver.top/api/icp";
-            const r = await fetch(`${icpcheckapi}?domain=${domain}`);
-            const j = await r.json();
-            if (j.code == 200) {
-                res.redirect(page);
-            } else {
-                if (await checkWhitelist()) {
+            try {
+                const url = new URL(formatUrl(page));
+                const domain = url.hostname;
+                const icpcheckapi = "https://www.weiserver.top/api/icp";
+                const r = await fetch(`${icpcheckapi}?domain=${domain}`);
+                const j = await r.json();
+                if (j.code == 200) {
                     res.redirect(page);
                 } else {
-                    res.set({
-                        "Content-Type": "text/html"
-                    })
-                    res.send(`<!DOCTYPE html>
+                    if (await checkWhitelist()) {
+                        res.redirect(page);
+                    } else {
+                        res.set({
+                            "Content-Type": "text/html"
+                        })
+                        res.send(`<!DOCTYPE html>
 <html>
 
 <head>
@@ -721,33 +722,41 @@ class Other {
 </body>
 
 </html>`)
+                    }
                 }
-            }
-            let retryCount = 0;
-            async function checkWhitelist() {
-                const whitelistFilename = "whitelist.json";
-                try {
-                    const whitelist = await fs.readFile(whitelistFilename, { encoding: "utf-8" });
-                    const whitelistJson = JSON.parse(whitelist);
-                    let has = false;
-                    for (var i = 0; i < whitelistJson.length; i++) {
-                        const item = whitelistJson[i];
-                        if (domain == item) {
-                            has = true;
-                            break;
+                let retryCount = 0;
+                async function checkWhitelist() {
+                    const whitelistFilename = "whitelist.json";
+                    try {
+                        const whitelist = await fs.readFile(whitelistFilename, { encoding: "utf-8" });
+                        const whitelistJson = JSON.parse(whitelist);
+                        let has = false;
+                        for (var i = 0; i < whitelistJson.length; i++) {
+                            const item = whitelistJson[i];
+                            if (domain == item) {
+                                has = true;
+                                break;
+                            }
+                        }
+                        return has;
+                    } catch (e) {
+                        if (retryCount < 5) {
+                            retryCount++;
+                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            return await checkWhitelist();
+                        } else {
+                            console.error("Failed to read whitelist.json after 5 retries.");
+                            return false;
                         }
                     }
-                    return has;
-                } catch (e) {
-                    if (retryCount < 5) {
-                        retryCount++;
-                        await new Promise(resolve => setTimeout(resolve, 1000));
-                        return await checkWhitelist();
-                    } else {
-                        console.error("Failed to read whitelist.json after 5 retries.");
-                        return false;
-                    }
                 }
+                function formatUrl(url) {
+                    if (url.startsWith("https://") || url.startsWith("http://")) return url;
+                    return `http://${url}`;
+                }
+            } catch (e) {
+                console.error(e);
+                res.send(`服务端发生错误`);
             }
         });
         console.log("Other");
