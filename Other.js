@@ -700,12 +700,54 @@ class Other {
             if (j.code == 200) {
                 res.redirect(page);
             } else {
-                if (checkWhitelist()) {
+                if (await checkWhitelist()) {
                     res.redirect(page);
-                } else {}
+                } else {
+                    res.set({
+                        "Content-Type": "text/html"
+                    })
+                    res.send(`<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>禁止访问</title>
+</head>
+<body>
+    <center>
+        <h1>禁止访问</h1>
+        <p><b>${domain}</b> 为备案或不在官方白名单中，如需加入白名单，请联系 <a href="https://qm.qq.com/q/tpZthU6N5m">QQ 3164417130</a> 或向 <a href="mailto:iftcceo@139.com">iftcceo@139.com</a> 发送邮件</p>
+    </center>
+</body>
+
+</html>`)
+                }
             }
-            function checkWhitelist() {
+            let retryCount = 0;
+            async function checkWhitelist() {
                 const whitelistFilename = "whitelist.json";
+                try {
+                    const whitelist = await fs.readFile(whitelistFilename, { encoding: "utf-8" });
+                    const whitelistJson = JSON.parse(whitelist);
+                    let has = false;
+                    for (var i = 0; i < whitelistJson.length; i++) {
+                        const item = whitelistJson[i];
+                        if (domain == item) {
+                            has = true;
+                            break;
+                        }
+                    }
+                    return has;
+                } catch (e) {
+                    if (retryCount < 5) {
+                        retryCount++;
+                        await new Promise(resolve => setTimeout(resolve, 1000));
+                        return await checkWhitelist();
+                    } else {
+                        console.error("Failed to read whitelist.json after 5 retries.");
+                        return false;
+                    }
+                }
             }
         });
         console.log("Other");
