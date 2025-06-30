@@ -689,7 +689,25 @@ class Other {
             } catch (e) {
                 res.status(500).send(e.message);
             }
-        })
+        });
+        this.app.get("/safejump", async (req, res) => {
+            const { page } = req.query;
+            const url = new URL(page);
+            const domain = url.hostname;
+            const icpcheckapi = "https://www.weiserver.top/api/icp";
+            const r = await fetch(`${icpcheckapi}?domain=${domain}`);
+            const j = await r.json();
+            if (j.code == 200) {
+                res.redirect(page);
+            } else {
+                if (checkWhitelist()) {
+                    res.redirect(page);
+                } else {}
+            }
+            function checkWhitelist() {
+                const whitelistFilename = "whitelist.json";
+            }
+        });
         console.log("Other");
     }
     async getFile(path) {
