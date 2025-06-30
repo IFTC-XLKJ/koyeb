@@ -787,7 +787,6 @@ class Other {
                     return `http://${url}`;
                 }
                 function checkIntranetIP() {
-                    // 检查域名是否为本地回环地址或内网IP
                     const intranetDomains = [
                         "localhost",
                         "127.0.0.1",
@@ -795,10 +794,8 @@ class Other {
                         "::1"
                     ];
                     if (intranetDomains.includes(domain)) return true;
-                    // 检查是否为内网IP
                     const ipv4Pattern = /^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/;
                     if (ipv4Pattern.test(domain)) return true;
-                    // 检查是否为IPv6本地地址
                     if (domain.startsWith("fe80:") || domain.startsWith("fc00:") || domain.startsWith("fd00:")) return true;
                     return false;
                 }
