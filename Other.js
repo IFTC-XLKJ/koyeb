@@ -714,6 +714,15 @@ class Other {
 <head>
     <meta charset="UTF-8">
     <title>禁止访问</title>
+    <style>
+        a {
+            text-decoration: none;
+            color: lightskyblue;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
     <center>
