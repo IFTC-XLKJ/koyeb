@@ -695,10 +695,29 @@ class Other {
             const { page } = req.query;
             if (!page) {
                 res.send(null);
+                return;
             }
             try {
                 const url = new URL(formatUrl(page));
                 const domain = url.hostname;
+                if (checkIntranetIP()) {
+                    res.send(`<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>内网IP</title>
+</head>
+<body>
+    <center>
+        <h1>内网IP</h1>
+        <p><b>${domain}</b> 是内网IP，无法确定此URL的安全性</p>
+    </center>
+</body>
+
+</html>>`);
+                    return;
+                }
                 const icpcheckapi = "https://www.weiserver.top/api/icp";
                 const r = await fetch(`${icpcheckapi}?domain=${domain}`);
                 const j = await r.json();
@@ -710,13 +729,13 @@ class Other {
                     } else {
                         res.set({
                             "Content-Type": "text/html"
-                        })
+                        });
                         res.send(`<!DOCTYPE html>
 <html>
 
 <head>
     <meta charset="UTF-8">
-    <title>禁止访问</title>
+    <title>阻止访问</title>
     <style>
         a {
             text-decoration: none;
@@ -729,12 +748,12 @@ class Other {
 </head>
 <body>
     <center>
-        <h1>禁止访问</h1>
+        <h1>阻止访问</h1>
         <p><b>${domain}</b> 为备案或不在官方白名单中，如需加入白名单，请联系 <a href="https://qm.qq.com/q/tpZthU6N5m">QQ 3164417130</a> 或向 <a href="mailto:iftcceo@139.com">iftcceo@139.com</a> 发送邮件</p>
     </center>
 </body>
 
-</html>`)
+</html>`);
                     }
                 }
                 let retryCount = 0;
@@ -766,6 +785,22 @@ class Other {
                 function formatUrl(url) {
                     if (url.startsWith("https://") || url.startsWith("http://")) return url;
                     return `http://${url}`;
+                }
+                function checkIntranetIP() {
+                    // 检查域名是否为本地回环地址或内网IP
+                    const intranetDomains = [
+                        "localhost",
+                        "127.0.0.1",
+                        "0.0.0.0",
+                        "::1"
+                    ];
+                    if (intranetDomains.includes(domain)) return true;
+                    // 检查是否为内网IP
+                    const ipv4Pattern = /^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/;
+                    if (ipv4Pattern.test(domain)) return true;
+                    // 检查是否为IPv6本地地址
+                    if (domain.startsWith("fe80:") || domain.startsWith("fc00:") || domain.startsWith("fd00:")) return true;
+                    return false;
                 }
             } catch (e) {
                 console.error(e);
