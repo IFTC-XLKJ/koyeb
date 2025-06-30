@@ -691,6 +691,7 @@ class Other {
             }
         });
         this.app.get("/safejump", async (req, res) => {
+            requestLog(req);
             const { page } = req.query;
             try {
                 const url = new URL(formatUrl(page));
