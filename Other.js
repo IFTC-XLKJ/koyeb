@@ -703,10 +703,10 @@ class Other {
                 const r = await fetch(`${icpcheckapi}?domain=${domain}`);
                 const j = await r.json();
                 if (j.code == 200) {
-                    res.redirect(page);
+                    res.redirect(formatUrl(page));
                 } else {
                     if (await checkWhitelist()) {
-                        res.redirect(page);
+                        res.redirect(formatUrl(page));
                     } else {
                         res.set({
                             "Content-Type": "text/html"
