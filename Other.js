@@ -804,6 +804,9 @@ class Other {
                 res.send(`服务端发生错误`);
             }
         });
+        this.app.get("/api/authorization", async (req, res) => {
+            requestLog(req);
+        });
         console.log("Other");
     }
     async getFile(path) {
