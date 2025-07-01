@@ -783,6 +783,8 @@ class Other {
                     }
                 }
                 function formatUrl(url) {
+                    url = url.trim();
+                    url = decodeURIComponent(url);
                     if (url.startsWith("https://") || url.startsWith("http://")) return url;
                     return `http://${url}`;
                 }
