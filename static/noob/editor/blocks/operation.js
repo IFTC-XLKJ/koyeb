@@ -97,7 +97,23 @@ Blockly.defineBlocksWithJsonArray([
         output: "Boolean",
         colour: "#F8AA87",
         inputsInline: true
-    }
+    },
+    {
+        type: 'negate',
+        message0: '对 %1 取反',
+        args0: [
+            {
+                type: 'input_value',
+                name: 'BOOL',
+                check: 'Boolean',
+            },
+        ],
+        colour: '#68CDFF',
+        inputInline: true,
+        output: 'Boolean',
+        tooltip: '对布尔值取反',
+        helpUrl: '',
+    },
 ]);
 
 Blockly.JavaScript.forBlock['num_operator'] = function (block) {
@@ -121,4 +137,9 @@ Blockly.JavaScript.forBlock['text_join'] = function (block) {
 Blockly.JavaScript.forBlock["boolean"] = function (block) {
     const boolean = block.getFieldValue("Boolean");
     return [`(${boolean})`, Blockly.JavaScript.ORDER_ATOMIC];
+}
+
+Blockly.JavaScript.forBlock['negate'] = function (block) {
+    const bool = Blockly.JavaScript.valueToCode(block, 'BOOL', Blockly.JavaScript.ORDER_ATOMIC);
+    return [`(!${bool})`, Blockly.JavaScript.ORDER_LOGICAL_NOT];
 }

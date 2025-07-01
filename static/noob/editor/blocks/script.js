@@ -196,22 +196,6 @@ Blockly.defineBlocksWithJsonArray([
         inputInline: true,
         output: "Dictionary"
     },
-    {
-        type: 'script_negate',
-        message0: '对 %1 取反',
-        args0: [
-            {
-                type: 'input_value',
-                name: 'BOOL',
-                check: 'Boolean',
-            },
-        ],
-        colour: '#68CDFF',
-        inputInline: true,
-        output: 'Boolean',
-        tooltip: '对布尔值取反',
-        helpUrl: '',
-    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
@@ -252,9 +236,4 @@ Blockly.JavaScript.forBlock["script_void"] = function (block) {
 
 Blockly.JavaScript.forBlock["window"] = function (block) {
     return [`(window)`, Blockly.JavaScript.ORDER_NONE];
-}
-
-Blockly.JavaScript.forBlock['script_negate'] = function (block) {
-    const bool = Blockly.JavaScript.valueToCode(block, 'BOOL', Blockly.JavaScript.ORDER_ATOMIC);
-    return [`(!${bool})`, Blockly.JavaScript.ORDER_LOGICAL_NOT];
 }
