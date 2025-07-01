@@ -715,7 +715,7 @@ class Other {
     </center>
 </body>
 
-</html>>`);
+</html>`);
                     return;
                 }
                 const icpcheckapi = "https://www.weiserver.top/api/icp";
