@@ -245,6 +245,20 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "negate",
+                    inputs: {
+                        BOOL: {
+                            shadow: {
+                                type: "boolean",
+                                fields: {
+                                    Boolean: "true"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
                     type: "text_join",
                     inputs: {
                         ADD0: {
