@@ -173,6 +173,41 @@ Blockly.JavaScript.forBlock['return'] = function (block) {
     return `return ${value};\n`;
 };
 
+function formatFunctionName(name) {
+    return name
+        .replaceAll(" ", "_")
+        .replaceAll(",", "_")
+        .replaceAll("-", "_")
+        .replaceAll(".", "_")
+        .replaceAll("(", "_")
+        .replaceAll(")", "_")
+        .replaceAll("[", "_")
+        .replaceAll("]", "_")
+        .replaceAll("{", "_")
+        .replaceAll("}", "_")
+        .replaceAll("*", "_")
+        .replaceAll("!", "_")
+        .replaceAll("@", "_")
+        .replaceAll("~", "_")
+        .replaceAll("`", "_")
+        .replaceAll("'", "_")
+        .replaceAll("\"", "_")
+        .replaceAll("#", "_")
+        .replaceAll("$", "_")
+        .replaceAll("%", "_")
+        .replaceAll("^", "_")
+        .replaceAll("&", "_")
+        .replaceAll(";", "_")
+        .replaceAll("/", "_")
+        .replaceAll("\\", "_")
+        .replaceAll("<", "_")
+        .replaceAll(">", "_")
+        .replaceAll("?", "_")
+        .replaceAll("=", "_")
+        .replaceAll("+", "_")
+        .replaceAll("|", "_");
+}
+
 function functionParamHandler(param) {
     const paramCodeArray = funparamformatarray(param);
     var paramCode = '';
@@ -182,6 +217,7 @@ function functionParamHandler(param) {
         }
         paramCodeArray[i] = String(paramCodeArray[i]).slice(1, -1);
         paramCode += `funparam_${paramCodeArray[i]
+            .replaceAll(" ", "_")
             .replaceAll(",", "_")
             .replaceAll("-", "_")
             .replaceAll(".", "_")
