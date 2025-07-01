@@ -108,7 +108,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: 'Boolean',
             },
         ],
-        colour: '#68CDFF',
+        colour: '#F8AA87',
         inputInline: true,
         output: 'Boolean',
         tooltip: '对布尔值取反',
