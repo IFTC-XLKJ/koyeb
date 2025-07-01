@@ -137,7 +137,7 @@ Blockly.JavaScript.forBlock['function'] = function (block) {
     var name = block.getFieldValue('NAME');
     const paramCode = functionParamHandler(Blockly.JavaScript.valueToCode(block, 'PARAM', Blockly.JavaScript.ORDER_NONE) || "[]");
     var stack = Blockly.JavaScript.statementToCode(block, 'STACK');
-    return `globalThis.FUNCTION_${name} = async function (${paramCode}) {\n${stack}\n}\n`;
+    return `globalThis.FUNCTION_${formatFunctionName(name)} = async function (${paramCode}) {\n${stack}\n}\n`;
 }
 Blockly.JavaScript.forBlock['function_param'] = function (block) {
     return [
@@ -154,7 +154,7 @@ Blockly.JavaScript.forBlock['function_call'] = function (block) {
     for (var i = 0; i < paramCodeArray.length; i++) {
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
-    return `await globalThis.FUNCTION_${name}(${paramCode});\n`;
+    return `await globalThis.FUNCTION_${formatFunctionName(name)}(${paramCode});\n`;
 }
 Blockly.JavaScript.forBlock['function_return'] = function (block) {
     var name = block.getFieldValue('NAME');
@@ -165,7 +165,7 @@ Blockly.JavaScript.forBlock['function_return'] = function (block) {
     for (var i = 0; i < paramCodeArray.length; i++) {
         paramCode += `${paramCodeArray[i]}${i < paramCodeArray.length - 1 ? ', ' : ''}`;
     }
-    var code = `await globalThis.FUNCTION_${name}(${paramCode})`;
+    var code = `await globalThis.FUNCTION_${formatFunctionName(name)}(${paramCode})`;
     return [code, Blockly.JavaScript.ORDER_FUNCTION_CALL];
 };
 Blockly.JavaScript.forBlock['return'] = function (block) {
@@ -258,7 +258,7 @@ function funparamformatarray(paramCode) {
 
 Blockly.JavaScript.forBlock['function_var'] = function (block) {
     const name = block.getFieldValue('NAME');
-    return [`(globalThis.FUNCTION_${name})`, Blockly.JavaScript.ORDER_NONE];
+    return [`(globalThis.FUNCTION_${formatFunctionName(name)})`, Blockly.JavaScript.ORDER_NONE];
 };
 
 Blockly.JavaScript.forBlock["temp_function"] = function (block) {
