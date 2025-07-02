@@ -1573,6 +1573,13 @@ app.get("/api/book/random", async (req, res) => {
 })
 
 app.get("/api/ykl/chat", async (req, res) => {
+    res.json({
+        code: 200,
+        msg: "服务已关闭",
+        timestamp: time(),
+    });
+    return;
+    // 由于API已关闭，暂时不提供此接口
     requestLog(req);
     try {
         const {
