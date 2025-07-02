@@ -762,7 +762,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
                 code: json.code,
                 msg: json.msg,
                 timestamp: time(),
-            })
+            });
         }
     } catch (e) {
         res.status(500).json({
