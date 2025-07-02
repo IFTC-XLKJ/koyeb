@@ -2507,7 +2507,8 @@ app.get('/api/qrcode', async (req, res) => {
 app.get("/api/book/getbyid", async (req, res) => {
     requestLog(req);
     const {
-        id
+        id,
+        page = 1,
     } = req.query;
     if (!id) {
         res.status(400).json({
@@ -2528,7 +2529,7 @@ app.get("/api/book/getbyid", async (req, res) => {
     }
     const books = new Books();
     try {
-        const json = await books.getById(id);
+        const json = await books.getById(id, page);
         res.json({
             code: 200,
             msg: '获取成功',

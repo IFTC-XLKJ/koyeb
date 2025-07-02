@@ -452,7 +452,7 @@ class Books {
             throw error;
         }
     }
-    async getById(id) {
+    async getById(id, page = 1) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -467,8 +467,8 @@ class Books {
                 },
                 body: JSON.stringify({
                     filter: `ID=${id}`,
-                    page: 1,
-                    limit: 100000,
+                    page: page,
+                    limit: 10,
                 })
             });
             if (!response.ok) {
