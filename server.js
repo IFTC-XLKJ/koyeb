@@ -2539,7 +2539,7 @@ app.get("/api/book/getbyid", async (req, res) => {
                 name: String(item.书名),
                 cover: String(item.封面),
                 author: String(item.作者),
-                description: String(item.简介),
+                description: String(item.介绍),
                 signed: item.签约 == 1,
                 VIP: item.VIP == 1,
                 createdAt: item.createdAt,
