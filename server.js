@@ -19,6 +19,7 @@ const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
 const { debug } = require("console");
+const { create } = require("domain");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -2530,10 +2531,26 @@ app.get("/api/book/getbyid", async (req, res) => {
     const books = new Books();
     try {
         const json = await books.getById(id, page);
+        const fields = json.fields;
+        const data = [];
+        fields.forEach((item) => {
+            data.push({
+                bookID: item.书ID,
+                name: String(item.书名),
+                cover: String(item.封面),
+                author: String(item.作者),
+                description: String(item.简介),
+                signed: item.签约 == 1,
+                VIP: item.VIP == 1,
+                createdAt: item.createdAt,
+                updatedAt: item.updatedAt,
+            })
+        });
         res.json({
             code: 200,
             msg: '获取成功',
-            data: json,
+            data: data,
+            ID: Number(id),
             timestamp: time()
         });
         console.log(json);
