@@ -263,7 +263,7 @@ class Books {
         const signaturePromise = sign.get(timestamp.toString(16));
         try {
             const signature = await signaturePromise;
-            console.log("令牌", signature)
+            console.log("令牌", signature);
             const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
