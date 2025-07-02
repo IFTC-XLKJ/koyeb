@@ -2528,7 +2528,7 @@ app.get("/api/book/getbyid", async (req, res) => {
     }
     const books = new Books();
     try {
-        const json = await books.getByID(id);
+        const json = await books.getById(id);
         res.json({
             code: 200,
             msg: '获取成功',
