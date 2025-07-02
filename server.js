@@ -2504,6 +2504,48 @@ app.get('/api/qrcode', async (req, res) => {
     }
 });
 
+app.get("/api/book/getbyid", async (req, res) => {
+    requestLog(req);
+    const {
+        id
+    } = req.query;
+    if (!id) {
+        res.status(400).json({
+            code: 400,
+            msg: '缺少参数',
+            timestamp: time()
+        });
+        return;
+    }
+    console.log(typeof Number(id));
+    if (Number.isNaN(Number(id))) {
+        res.status(400).json({
+            code: 400,
+            msg: '参数错误',
+            timestamp: time()
+        });
+        return;
+    }
+    const books = new Books();
+    try {
+        const json = await books.getByID(id);
+        res.json({
+            code: 200,
+            msg: '获取成功',
+            data: json,
+            timestamp: time()
+        });
+        console.log(json);
+    } catch (e) {
+        res.status(500).json({
+            code: 500,
+            msg: '服务器错误',
+            error: e.message,
+            timestamp: time()
+        });
+    }
+});
+
 app.listen(port, () => {
     startTime = Date.now();
     console.log(`服务器已在端口 ${port} 开启`);

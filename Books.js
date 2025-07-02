@@ -10,7 +10,7 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Books {
-    constructor() {}
+    constructor() { }
     /**
     * @param {String}
     */
@@ -297,7 +297,7 @@ class Books {
         let filter = "";
         IDs.forEach((ID, i) => {
             if (isNaN(Number(ID)) || ID.trim() == "") return;
-            filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "": " OR "}`;
+            filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "" : " OR "}`;
         })
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
@@ -441,6 +441,36 @@ class Books {
                         limit: 1000000000000,
                     })
                 })
+            if (!response.ok) {
+                throw new Error('Network response was not ok ' + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (error) {
+            console.error('There was a problem with the fetch operation:', error);
+            throw error;
+        }
+    }
+    async getById(id) {
+        const timestamp = Date.now();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": VVBooksKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: `ID=${id}`,
+                    page: 1,
+                    limit: 100000,
+                })
+            });
             if (!response.ok) {
                 throw new Error('Network response was not ok ' + response.statusText);
             }
