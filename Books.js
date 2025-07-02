@@ -260,7 +260,7 @@ class Books {
     }
     async getBookshelf(ID, page, num) {
         const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
+        const signaturePromise = sign.get(timestamp.toString(16));
         try {
             const signature = await signaturePromise;
             const response = await fetch(getDataURL, {
