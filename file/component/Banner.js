@@ -93,8 +93,6 @@ img {
             const bannerDiv = this.shadowRoot.querySelectorAll(".banner-image")[index];
             bannerDiv.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-                inline: "center"
             });
             index = (index + 1) % banners.length;
         }, 5000)
