@@ -82,6 +82,7 @@ class aBanner extends HTMLElement {
 slot[name="banner-content"] {
     display: inline-flex;
     overflow: hidden;
+    z-index: -1;
 }
 img {
     transition: transform 0.3s ease-in-out;
@@ -90,9 +91,8 @@ img {
         const banners = this.shadowRoot.querySelectorAll(".banner-image");
         let index = 0;
         setInterval(() => {
-            const bannerDiv = this.shadowRoot.querySelectorAll(".banner-image")[index];
-            bannerDiv.scrollIntoView({
-                behavior: "smooth",
+            banners.forEach((img, i) => {
+                img.style.transform = `translateX(${(i - index) * 100}%)`;
             });
             index = (index + 1) % banners.length;
         }, 5000)
