@@ -78,6 +78,7 @@ class aBanner extends HTMLElement {
     border-radius: 7px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
     cursor: pointer;
+    position: relative;
 }
 slot[name="banner-content"] {
     display: inline-flex;
@@ -85,14 +86,14 @@ slot[name="banner-content"] {
     z-index: -1;
 }
 img {
-    transition: transform 0.3s ease-in-out;
+    transition: left 1s cubic-bezier(0, -0.36, 0, 1);
 }`;
         this.shadowRoot.append(style, container);
         const banners = this.shadowRoot.querySelectorAll(".banner-image");
         let index = 0;
         setInterval(() => {
             banners.forEach((img, i) => {
-                img.style.transform = `translateX(${(i - index) * 100}%)`;
+                img.style.left = `${index * -100}%`;
             });
             index = (index + 1) % banners.length;
         }, 5000)
