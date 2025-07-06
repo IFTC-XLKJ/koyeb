@@ -55,6 +55,8 @@ class aBanner extends HTMLElement {
         container.appendChild(slot);
         bannerImgs.forEach((imgSrc, imgIndex) => {
             const img = document.createElement('img');
+            img.style.userSelect = 'none';
+            img.style.webkitUserSelect = 'none';
             img.setAttribute('src', imgSrc);
             img.setAttribute('class', 'banner-image');
             img.setAttribute("draggable", "false");
