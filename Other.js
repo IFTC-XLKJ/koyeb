@@ -213,57 +213,56 @@ class Other {
                 res.status(500).send(null);
             }
         });
-        this.app.get("/api/cloudfun/get",
-            async (req, res) => {
-                requestLog(req);
-                const {
-                    ID
-                } = req.query;
-                if (!(ID && ID == 0)) {
-                    res.status(400).json({
-                        code: 400,
-                        msg: "缺少参数",
+        this.app.get("/api/cloudfun/get", async (req, res) => {
+            requestLog(req);
+            const {
+                ID
+            } = req.query;
+            if (!(ID && ID == 0)) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "缺少参数",
+                    timestamp: time(),
+                });
+                return;
+            }
+            try {
+                const json = await uuid_db.getByID(ID);
+                if (json.code == 200) {
+                    const data = [];
+                    json.fields.forEach(field => {
+                        if (field.类型 != "cloudfun") return;
+                        data.push({
+                            ID: field.ID,
+                            UUID: String(field.UUID),
+                            file: String(field.数据),
+                            createdAt: field.createdAt,
+                            updatedAt: field.updatedAt
+                        });
+                    });
+                    res.json({
+                        code: 200,
+                        msg: "获取成功",
+                        data: data,
                         timestamp: time(),
                     });
-                    return;
-                }
-                try {
-                    const json = await uuid_db.getByID(ID);
-                    if (json.code == 200) {
-                        const data = [];
-                        json.fields.forEach(field => {
-                            if (field.类型 != "cloudfun") return;
-                            data.push({
-                                ID: field.ID,
-                                UUID: String(field.UUID),
-                                file: String(field.数据),
-                                createdAt: field.createdAt,
-                                updatedAt: field.updatedAt
-                            });
-                        });
-                        res.json({
-                            code: 200,
-                            msg: "获取成功",
-                            data: data,
-                            timestamp: time(),
-                        });
-                    } else {
-                        res.status(json.code).json({
-                            code: json.code,
-                            msg: json.msg,
-                            timestamp: time(),
-                        });
-                    }
-                } catch (e) {
-                    console.error(e);
-                    res.status(500).json({
-                        code: 500,
-                        msg: "服务器内部错误",
-                        error: e.message,
+                } else {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
                         timestamp: time(),
                     });
                 }
-            });
+            } catch (e) {
+                console.error(e);
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: e.message,
+                    timestamp: time(),
+                });
+            }
+        });
         this.app.get("/api/cloudfun/update",
             async (req, res) => {
                 requestLog(req);
