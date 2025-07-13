@@ -828,6 +828,16 @@ class Other {
                         });
                         return;
                     }
+                    const UUID = generateUUID();
+                    const json2 = await uuid_db.addData(UUID, "oauth", data.ID, token);
+                    if (json2.code == 200) {
+                    } else {
+                        res.status(json2.code).json({
+                            code: json2.code,
+                            msg: json2.msg,
+                            timestamp: time(),
+                        });
+                    }
                 } else {
                     res.status(json.code).json({
                         code: json.code,
