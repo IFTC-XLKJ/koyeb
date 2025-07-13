@@ -831,6 +831,12 @@ class Other {
                     const UUID = generateUUID();
                     const json2 = await uuid_db.addData(UUID, "oauth", data.ID, token);
                     if (json2.code == 200) {
+                        res.json({
+                            code: 200,
+                            msg: "等待用户授权",
+                            url: `https://iftc.koyeb.app/authorization/${UUID}`,
+                            uuid: UUID,
+                        })
                     } else {
                         res.status(json2.code).json({
                             code: json2.code,
