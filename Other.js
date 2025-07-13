@@ -811,7 +811,7 @@ class Other {
             console.log(token);
             try {
                 const json = await user.loginByToken(token);
-                if (json.code == 200) { 
+                if (json.code == 200) {
                 } else {
                     res.status(json.code).json({
                         code: json.code,
