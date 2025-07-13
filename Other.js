@@ -809,7 +809,17 @@ class Other {
             requestLog(req);
             const token = req.headers.get("Authorization");
             console.log(token);
-            try { } catch (e) {
+            try {
+                const json = await user.loginByToken(token);
+                if (json.code == 200) { 
+                } else {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                }
+            } catch (e) {
                 res.status(500).json({
                     code: 500,
                     msg: "服务器发生错误",
