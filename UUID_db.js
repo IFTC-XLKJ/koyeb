@@ -196,7 +196,7 @@ class UUID_db {
                 },
                 body: JSON.stringify({
                     type: "UPDATE",
-                    filter: `ID=${id} AND UUID="${UUID}"`,
+                    filter: `ID=${ID} AND UUID="${UUID}"`,
                     fields: `数据="${data}"`,
                 })
             })
