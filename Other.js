@@ -807,7 +807,14 @@ class Other {
         });
         this.app.get("/api/authorization", async (req, res) => {
             requestLog(req);
-            const token = req.headers.authorization; // 推荐使用小写字段名
+            if (req.headers.authorization.split(" ")[0] != "Bearer") {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Authorization格式错误",
+                    timestamp: time(),
+                });
+            }
+            const token = req.headers.authorization.split(" ")[1];
             console.log("toekn:", token);
             try {
                 const json = await user.loginByToken(token);
