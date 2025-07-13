@@ -812,6 +812,15 @@ class Other {
             try {
                 const json = await user.loginByToken(token);
                 if (json.code == 200) {
+                    const data = json.fields[0];
+                    if (!data) {
+                        res.status(401).json({
+                            code: 401,
+                            msg: "token错误",
+                            timestamp: time(),
+                        });
+                        return;
+                    }
                 } else {
                     res.status(json.code).json({
                         code: json.code,
