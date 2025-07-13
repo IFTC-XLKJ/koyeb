@@ -808,7 +808,7 @@ class Other {
         this.app.get("/api/authorization", async (req, res) => {
             requestLog(req);
             const token = req.headers["Authorization"];
-            console.log(token);
+            console.log("toekn:", token);
             try {
                 const json = await user.loginByToken(token);
                 if (json.code == 200) {
