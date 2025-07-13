@@ -807,7 +807,7 @@ class Other {
         });
         this.app.get("/api/authorization", async (req, res) => {
             requestLog(req);
-            const token = req.headers["Authorization"];
+            const token = req.headers.authorization; // 推荐使用小写字段名
             console.log("toekn:", token);
             try {
                 const json = await user.loginByToken(token);
