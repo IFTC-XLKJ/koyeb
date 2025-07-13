@@ -829,7 +829,7 @@ class Other {
                         return;
                     }
                     const UUID = generateUUID();
-                    const json2 = await uuid_db.addData(UUID, "oauth", data.ID, token);
+                    const json2 = await uuid_db.addData(UUID, "oauth", data.ID, "");
                     if (json2.code == 200) {
                         res.json({
                             code: 200,
@@ -860,6 +860,52 @@ class Other {
                 })
             }
         });
+        // this.app.get("/api/authorization/:uuid", async (req, res) => {
+        //     requestLog(req);
+        //     const { uuid } = req.params;
+        //     try {
+        //         const json = await uuid_db.getData(uuid);
+        //         if (json.code == 200) {
+        //             const data = json.fields[0];
+        //             if (!data) {
+        //                 res.status(404).json({
+        //                     code: 404,
+        //                     msg: "uuid不存在",
+        //                     timestamp: time(),
+        //                 });
+        //                 return;
+        //             }
+        //             if (data.类型 != "oauth") {
+        //                 res.status(404).json({
+        //                     code: 404,
+        //                     msg: "类型错误",
+        //                     timestamp: time(),
+        //                 });
+        //                 return;
+        //             }
+        //             const json2 = await uuid_db.update(data.ID, data.UUID, )
+        //             // res.status(200).json({
+        //             //     code: 200,
+        //             //     msg: "成功",
+        //             //     data: data,
+        //             //     timestamp: time(),
+        //             // });
+        //         } else {
+        //             res.status(json.code).json({
+        //                 code: json.code,
+        //                 msg: json.msg,
+        //                 timestamp: time(),
+        //             });
+        //         }
+        //     } catch (e) {
+        //         res.status(500).json({
+        //             code: 500,
+        //             msg: "服务器发生错误",
+        //             error: e.message,
+        //             timestamp: time()
+        //         })
+        //     }
+        // });
         console.log("Other");
     }
     async getFile(path) {
