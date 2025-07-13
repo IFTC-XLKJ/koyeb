@@ -809,6 +809,14 @@ class Other {
             requestLog(req);
             const token = req.headers.get("Authorization");
             console.log(token);
+            try { } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务器发生错误",
+                    error: e.message,
+                    timestamp: time()
+                })
+            }
         });
         console.log("Other");
     }
