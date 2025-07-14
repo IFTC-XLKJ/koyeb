@@ -937,12 +937,21 @@ class Other {
                     })
                 })
                 const j = await r.json();
-                const result = j.choices[0].message.content.split(",");
-                res.json({
-                    code: 200,
-                    msg: "翻译成功",
-                    data: result,
-                })
+                if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
+                    const result = j.choices[0].message.content.split(",");
+                    res.json({
+                        code: 200,
+                        msg: "翻译成功",
+                        data: result,
+                    });
+                } else {
+                    res.status(500).json({
+                        code: 500,
+                        msg: "API响应格式错误",
+                        error: j,
+                        timestamp: time()
+                    });
+                }
             } catch (e) {
                 res.json({
                     code: 500,
