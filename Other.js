@@ -960,7 +960,7 @@ class Other {
                     res.json({
                         code: 200,
                         msg: "翻译成功",
-                        data: result,
+                        data: data,
                     });
                 } else {
                     res.status(500).json({
