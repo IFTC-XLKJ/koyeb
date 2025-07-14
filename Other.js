@@ -944,9 +944,7 @@ class Other {
                 "捷克语",
                 "匈牙利语",
                 "斯洛文尼亚语",
-                "斯洛文尼亚语",
                 "爱沙尼亚语",
-                "丹麦语",
                 "挪威语"
             ];
             if (!languages.includes(from) || !languages.includes(to)) {
