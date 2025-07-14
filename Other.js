@@ -950,7 +950,7 @@ class Other {
                 "挪威语"
             ];
             if (!languages.includes(from) || !languages.includes(to)) {
-                return res.status(400).json({ error: "Invalid language" });
+                return res.status(400).json({ error: "Invalid language", languages: languages });
             }
             try {
                 const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
@@ -986,7 +986,7 @@ class Other {
                         result = result.slice(0, -1);
                     }
                     const data = [];
-                    result.forEach(item => { 
+                    result.forEach(item => {
                         data.push(item.trim());
                     });
                     res.json({
