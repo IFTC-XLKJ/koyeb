@@ -920,6 +920,38 @@ class Other {
                     timestamp: time()
                 });
             }
+            const languages = [
+                "中文",
+                "英文",
+                "日语",
+                "韩语",
+                "法语",
+                "西班牙语",
+                "泰语",
+                "阿拉伯语",
+                "俄语",
+                "葡萄牙语",
+                "德语",
+                "意大利语",
+                "希腊语",
+                "荷兰语",
+                "波兰语",
+                "保加利亚语",
+                "罗马尼亚语",
+                "丹麦语",
+                "瑞典语",
+                "芬兰语",
+                "捷克语",
+                "匈牙利语",
+                "斯洛文尼亚语",
+                "斯洛文尼亚语",
+                "爱沙尼亚语",
+                "丹麦语",
+                "挪威语"
+            ];
+            if (!languages.includes(from) || !languages.includes(to)) {
+                return res.status(400).json({ error: "Invalid language" });
+            }
             try {
                 const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
                     method: "POST",
