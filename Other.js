@@ -926,6 +926,7 @@ class Other {
                     headers: {
                         Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
                         "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
                         model: "gemini-2.0-flash-lite-preview",
@@ -947,11 +948,15 @@ class Other {
                 console.log(j);
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
                     console.log(j.choices[0].message);
-                    const result = j.choices[0].message.content.split(",");
-                    /*const data = [];
+                    let result = j.choices[0].message.content.split(",");
+                    // Remove the last empty element if the string ends with a newline
+                    if (result.length && result[result.length - 1].trim() === "") {
+                        result = result.slice(0, -1);
+                    }
+                    const data = [];
                     result.forEach(item => { 
                         data.push(item.trim());
-                    });*/
+                    });
                     res.json({
                         code: 200,
                         msg: "翻译成功",
