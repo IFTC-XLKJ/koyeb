@@ -906,6 +906,52 @@ class Other {
         //         })
         //     }
         // });
+        this.app.post("/api/aitranslate", async (req, res) => {
+            requestLog(req);
+            const {
+                text,
+                from,
+                to
+            } = req.body;
+            try {
+                const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        model: "aqa",
+                        provider: "azureml",
+                        temperature: 1,
+                        top_p: 1,
+                        messages: [{
+                            role: "system",
+                            content: `你的任务是将${from}翻译成${to}，直接说出翻译结果，多个用英文逗号隔开`,
+                        }, {
+                            role: "user",
+                            content: text,
+                        }],
+                        frequency_penalty: 0,
+                        presence_penalty: 0,
+                    })
+                })
+                const j = await r.json();
+                const result = j.choices[0].message.content.split(",");
+                res.json({
+                    code: 200,
+                    msg: "翻译成功",
+                    data: result,
+                })
+            } catch (e) {
+                res.json({
+                    code: 500,
+                    msg: "服务器发生错误",
+                    error: e.message,
+                    timestamp: time()
+                })
+            }
+        })
         console.log("Other");
     }
     async getFile(path) {
