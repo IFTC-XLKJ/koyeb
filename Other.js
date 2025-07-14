@@ -913,6 +913,13 @@ class Other {
                 from,
                 to
             } = req.body;
+            if (!text || !from || !to) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time()
+                });
+            }
             try {
                 const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
                     method: "POST",
