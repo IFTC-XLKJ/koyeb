@@ -946,6 +946,7 @@ class Other {
                 const j = await r.json();
                 console.log(j);
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
+                    console.log(j.choices[0].message);
                     const result = j.choices[0].message.content.split(",");
                     /*const data = [];
                     result.forEach(item => { 
