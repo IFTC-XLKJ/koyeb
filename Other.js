@@ -947,10 +947,10 @@ class Other {
                 console.log(j);
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
                     const result = j.choices[0].message.content.split(",");
-                    const data = [];
+                    /*const data = [];
                     result.forEach(item => { 
                         data.push(item.trim());
-                    });
+                    });*/
                     res.json({
                         code: 200,
                         msg: "翻译成功",
