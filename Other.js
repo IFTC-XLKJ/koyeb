@@ -928,7 +928,7 @@ class Other {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        model: "aqa",
+                        model: "gemini-2.0-flash-lite-preview",
                         provider: "azureml",
                         temperature: 1,
                         top_p: 1,
