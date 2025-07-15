@@ -1089,7 +1089,7 @@ class Other {
                     body: JSON.stringify({
                         model: "gemini-2.0-flash-lite-preview",
                         provider: "azureml",
-                        temperature: 1,
+                        temperature: 0.5,
                         top_p: 1,
                         messages: [{
                             role: "system",
