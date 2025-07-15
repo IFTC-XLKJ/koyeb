@@ -87,10 +87,35 @@ update.addEventListener("click", async () => {
                         method: "POST",
                         body: formData,
                         redirect: 'follow'
-                    }); 
+                    });
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.code == 200) {
+                            const url = data.url;
+                            try {
+                                const response = await fetch(`/api/cloudfun/update?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
+                                const json = await response.json();
+                                if (json.code == 200) {
+                                    toast.hideToast(loadid);
+                                    toast.showToast("更新成功", 2, "center", "small", "success", false, true);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 2000);
+                                }
+                            } catch (e) {
+                                toast.hideToast(loadid);
+                                toast.showToast(e.message, 2, "center", "small", "error", false, true);
+                                console.error(e);
+                            }
+                        } else {
+                            toast.hideToast(loadid);
+                            toast.showToast("上传失败", 2, "center", "small", "error", false, true);
+                            return;
+                        }
+                    }
                 } catch (e) {
                     toast.hideToast(loadid);
-                    toast.showToast(e.message, 2, "center", "small", "error", false, true); 
+                    toast.showToast(e.message, 2, "center", "small", "error", false, true);
                 }
             }
         });
