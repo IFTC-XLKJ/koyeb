@@ -1,6 +1,6 @@
 async function handle(request) { // 主函数
-    /* const fun = require(资源路径); */ // 引入资源
-    const { tools } = request; // 工具
+    const { tools, require } = request; // 工具
+    // const src = await require("https://example.com/script.js"); // 引入云端脚本
     const { pgdbs, DOMParser, console } = tools; // 点鸭数据表
     console.log(request, require, fetch);
     console.log("Hello World"); // 打印日志
