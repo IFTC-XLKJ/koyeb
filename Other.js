@@ -1015,7 +1015,7 @@ class Other {
                         top_p: 1,
                         messages: [{
                             role: "system",
-                            content: `你的任务是将${from}翻译成${to}，直接说出翻译结果，多个用英文逗号隔开`,
+                            content: `你的任务是将${from}翻译成${to}，直接说出翻译结果，输出格式为JSON的数组，格式为["翻译结果1", "翻译结果2", ...]`,
                         }, {
                             role: "user",
                             content: text,
@@ -1028,15 +1028,15 @@ class Other {
                 console.log(j);
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
                     console.log(j.choices[0].message);
-                    let result = j.choices[0].message.content.split(",");
-                    // Remove the last empty element if the string ends with a newline
-                    if (result.length && result[result.length - 1].trim() === "") {
-                        result = result.slice(0, -1);
-                    }
+                    // let result = j.choices[0].message.content.split(",");
+                    // // Remove the last empty element if the string ends with a newline
+                    // if (result.length && result[result.length - 1].trim() === "") {
+                    //     result = result.slice(0, -1);
+                    // }
                     const data = [];
-                    result.forEach(item => {
-                        data.push(item.trim());
-                    });
+                    // result.forEach(item => {
+                    //     data.push(item.trim());
+                    // });
                     res.json({
                         code: 200,
                         msg: "翻译成功",
