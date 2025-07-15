@@ -75,6 +75,26 @@ update.addEventListener("click", async () => {
         const input = document.createElement("input");
         input.type = "file";
         input.accept = ".js";
+        input.addEventListener("change", async e => {
+            const file = e.target.files[0];
+            if (file) {
+                const loadid = toast.showToast("正在更新云函数", 0, "center", "small", "loading", false, false);
+                const formData = new FormData();
+                formData.append("path", "vv/cloudfun");
+                formData.append("file", file, file.name);
+                try {
+                    const response = await fetch("https://api.pgaot.com/user/up_cat_file", {
+                        method: "POST",
+                        body: formData,
+                        redirect: 'follow'
+                    }); 
+                } catch (e) {
+                    toast.hideToast(loadid);
+                    toast.showToast(e.message, 2, "center", "small", "error", false, true); 
+                }
+            }
+        });
+        input.click();
     }
 });
 
