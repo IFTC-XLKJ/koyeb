@@ -94,7 +94,7 @@ update.addEventListener("click", async () => {
                             const url = data.url;
                             try {
                                 const current = document.querySelector(".current-label").innerText;
-                                const response = await fetch(`/api/cloudfun/update?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}&UID=${current}`);
+                                const response = await fetch(`/api/cloudfun/update?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}&UUID=${current}`);
                                 const json = await response.json();
                                 if (json.code == 200) {
                                     toast.hideToast(loadid);
