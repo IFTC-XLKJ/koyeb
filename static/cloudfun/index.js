@@ -136,6 +136,7 @@ document.getElementById("delete").addEventListener("click", async () => {
     if (localStorage.getItem("ID") && localStorage.getItem("password")) {
         const loadid = toast.showToast("正在删除云函数", 0, "center", "small", "loading", false, false);
         try {
+            const current = document.querySelector(".current-label").innerText;
             const response = await fetch(`/api/cloudfun/delete?ID=${localStorage.getItem('ID')}&password=${encodeURIComponent(localStorage.getItem('password'))}&UUID=${current}`);
             const json = await response.json();
             if (json.code == 200) {
