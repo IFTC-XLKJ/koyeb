@@ -93,7 +93,8 @@ update.addEventListener("click", async () => {
                         if (data.code == 200) {
                             const url = data.url;
                             try {
-                                const response = await fetch(`/api/cloudfun/update?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}}`);
+                                const current = document.querySelector(".current-label").innerText;
+                                const response = await fetch(`/api/cloudfun/update?ID=${localStorage.getItem("ID")}&password=${encodeURIComponent(localStorage.getItem("password"))}&file=${encodeURIComponent(url)}&UID=${current}`);
                                 const json = await response.json();
                                 if (json.code == 200) {
                                     toast.hideToast(loadid);
@@ -101,6 +102,14 @@ update.addEventListener("click", async () => {
                                     setTimeout(() => {
                                         window.location.reload();
                                     }, 2000);
+                                } else if (json.code == 401) {
+                                    toast.hideToast(loadid);
+                                    toast.showToast("鉴权失败，请重新登录", 2, "center", "small", "error", false, true);
+                                    await wait(2000);
+                                    location.href = "/login";
+                                } else {
+                                    toast.hideToast(loadid);
+                                    toast.showToast(json.msg, 2, "center", "small", "error", false, true);
                                 }
                             } catch (e) {
                                 toast.hideToast(loadid);
