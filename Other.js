@@ -283,7 +283,7 @@ class Other {
                 try {
                     const userData = await user.login(ID, password);
                     if (userData.code == 200) {
-                        const data = json.fields[0];
+                        const data = userData.fields[0];
                         if (!data) {
                             res.status(404).json({
                                 code: 401,
