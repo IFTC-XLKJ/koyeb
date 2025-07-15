@@ -132,6 +132,34 @@ update.addEventListener("click", async () => {
     }
 });
 
+document.getElementById("delete").addEventListener("click", async () => {
+    if (localStorage.getItem("ID") && localStorage.getItem("password")) {
+        const loadid = toast.showToast("正在删除云函数", 0, "center", "small", "loading", false, false);
+        try {
+            const response = await fetch(`/api/cloudfun/delete?ID=${localStorage.getItem('ID')}&password=${encodeURIComponent(localStorage.getItem('password'))}&UUID=${current}`);
+            const json = await response.json();
+            if (json.code == 200) {
+                toast.hideToast(loadid);
+                toast.showToast("删除成功", 2, "center", "small", "success", false, true);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            } else if (json.code == 401) {
+                toast.hideToast(loadid);
+                toast.showToast("鉴权失败，请重新登录", 2, "center", "small", "error", false, true);
+                await wait(2000);
+                location.href = "/login";
+            } else {
+                toast.hideToast(loadid);
+                toast.showToast(json.msg, 2, "center", "small", "error", false, true);
+            }
+        } catch (e) {
+            toast.hideToast(loadid);
+            toast.showToast(e.message, 2, "center", "small", "error", false, true);
+        }
+    }
+});
+
 (async function () {
     const loadid = toast.showToast("正在加载...", 0, "center", "small", "loading", false, false);
     if (!localStorage.getItem("ID")) {
