@@ -9,11 +9,11 @@ async function handle(request) { // 主函数
     const response = new request.response({
         code: 200,
         msg: "Hello World",
-        method: request.method,
-        headers: request.headers,
-        body: request.body,
-        query: request.query,
-        UUID: request.UUID,
+        method: request.method, // 请求方法
+        headers: request.headers, // 请求头
+        body: request.body, // 请求体
+        query: request.query, // 请求参数
+        UUID: request.UUID, // 此云函数的UUID
         timestamp: time(),
     }, {
         status: 200,
