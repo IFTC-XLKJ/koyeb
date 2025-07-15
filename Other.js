@@ -1118,6 +1118,7 @@ class Other {
                 console.log(data);
                 if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
                     const result = data.choices[0].message.content.replace("json", "");
+                    console.log(result)
                     res.status(200).json({
                         code: 200,
                         msg: "请求成功",
