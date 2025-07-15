@@ -17,6 +17,7 @@ const cloudfunConsole = new CloudfunConsole();
 const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const { console } = require("inspector");
+const { error } = require("console");
 
 class Other {
     constructor(app, requestLog) {
@@ -1058,6 +1059,75 @@ class Other {
                 })
             }
         })
+        this.app.get("/api/aiworddefinition", async (req, res) => {
+            requestLog(req);
+            const {
+                word
+            } = req.query;
+            if (!word) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time()
+                });
+            }
+            if (decodeURIComponent(word).includes(" ")) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time()
+                });
+            }
+            try {
+                const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app",
+                    },
+                    body: JSON.stringify({
+                        model: "gemini-2.0-flash-lite-preview",
+                        provider: "azureml",
+                        temperature: 1,
+                        top_p: 1,
+                        messages: [{
+                            role: "system",
+                            content: `你的任务是解释单词释义`,
+                        }, {
+                            role: "user",
+                            content: word,
+                        }],
+                        frequency_penalty: 0,
+                        presence_penalty: 0,
+                    })
+                })
+                const data = await response.json();
+                console.log(data);
+                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                    res.status(200).json({
+                        code: 200,
+                        msg: "请求成功",
+                        data: data.choices[0].message.content,
+                        timestamp: time(),
+                    });
+                } else {
+                    res.status(500).json({
+                        code: 500,
+                        msg: "请求失败",
+                        error: data,
+                        timestamp: time(),
+                    });
+                }
+            } catch {
+                res.status(500).json({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e.message,
+                    timestamp: time()
+                });
+            }
+        })
         console.log("Other");
     }
     async getFile(path) {
@@ -1087,20 +1157,20 @@ function generateUUID() {
     return uuid;
 }
 
-async function translateWithLibre(text, sourceLang = 'auto', targetLang = 'zh') {
-    try {
-        const response = await axios.post('https://libretranslate.de/translate',
-            {
-                q: text,
-                source: sourceLang,
-                target: targetLang,
-                format: 'text'
-            });
-        return response.data.translatedText;
-    } catch (error) {
-        console.error('Translation error:',
-            error.response?.data || error.message);
-    }
-}
+// async function translateWithLibre(text, sourceLang = 'auto', targetLang = 'zh') {
+//     try {
+//         const response = await axios.post('https://libretranslate.de/translate',
+//             {
+//                 q: text,
+//                 source: sourceLang,
+//                 target: targetLang,
+//                 format: 'text'
+//             });
+//         return response.data.translatedText;
+//     } catch (error) {
+//         console.error('Translation error:',
+//             error.response?.data || error.message);
+//     }
+// }
 
 module.exports = Other;
