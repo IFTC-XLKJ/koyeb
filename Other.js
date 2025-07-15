@@ -608,28 +608,6 @@ class Other {
                 });
             }
         })
-        this.app.get("/api/translate", async (req, res) => {
-            const {
-                text,
-                from,
-                to
-            } = req.query;
-            try {
-                const response = await translateWithLibre(text, from, to);
-                res.json({
-                    code: 200,
-                    msg: "翻译成功",
-                    data: response,
-                    timestamp: time(),
-                });
-            } catch (e) {
-                res.status(500).json({
-                    code: 500,
-                    msg: "服务内部错误",
-                    timestamp: time(),
-                });
-            }
-        });
         this.app.get("/googleapis-fonts/css2", async (req, res) => {
             requestLog(req);
             const { family } = req.query;
