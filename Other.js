@@ -293,6 +293,19 @@ class Other {
                             return;
                         }
                         const json = await uuid_db.update(ID, UUID, file);
+                        if (json.code == 200) {
+                            res.status(200).json({
+                                code: 200,
+                                msg: "更新成功",
+                                timestamp: time(),
+                            });
+                        } else {
+                            res.status(json.code).json({
+                                code: json.code,
+                                msg: json.msg,
+                                timestamp: time(),
+                            })
+                        }
                     } else {
                         res.status(userData.code).json({
                             code: userData.code,
