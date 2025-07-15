@@ -415,12 +415,7 @@ class Other {
                 await ensureFile(filepath);
                 let fun;
                 try {
-                    fun = eval(`globalThis.require = null;
-                                var require = async function(src) {
-                                    const response = await fetch(src);
-                                    const code = await response.text();
-                                    return eval(code);
-                                };\n${code}`);
+                    fun = eval(`globalThis.require = null;\nvar require = null;\n${code}`);
                 } catch (e) {
                     res.status(500).json({
                         code: 500,
@@ -430,7 +425,6 @@ class Other {
                     });
                     return;
                 }
-
                 const request = {
                     response: class {
                         #status = 200;
@@ -505,6 +499,10 @@ class Other {
                     body: req.body,
                     headers: req.headers,
                     UUID: uuid,
+                    require: async (file) => {
+                        const content = await fetch(file);
+                        return eval(`${content}`);
+                    },
                     tools: {
                         pgdbs: class {
                             #key;
