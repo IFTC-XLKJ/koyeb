@@ -1098,7 +1098,7 @@ class Other {
 提供多语言翻译；
 给出例句、用法、词性等详细信息；
 结合 AI 生成更丰富的解释，比如结合上下文、使用场景等；
-输出格式为 JSON，包含以下字段：
+输出格式为标准的JSON，包含以下字段：
 "definition": "单词基本定义",
 "translation": "单词翻译",
 "examples": [多个例句，每个例子包含 "sentence" 和 "translation" 字段],
