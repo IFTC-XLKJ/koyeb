@@ -1101,7 +1101,7 @@ class Other {
 输出格式为标准的JSON，包含以下字段：
 "definition": "单词基本定义（用中文回答）",
 "translation": "单词中文翻译",
-"examples": [多个例句，每个例子包含 "sentence" 和 "translation" 字段],
+"examples": [多个例句，每个例子包含 "sentence"（英文原文） 和 "translation"（中文翻译） 字段],
 "usage": "单词用法（用中文回答）",
 "partOfSpeech": "单词词性",
 "additionalInfo": "其他信息（用中文回答）"
