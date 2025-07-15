@@ -1102,7 +1102,7 @@ class Other {
                         presence_penalty: 0,
                     })
                 })
-                const data = await response.json();
+                const data = await r.json();
                 console.log(data);
                 if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
                     res.status(200).json({
