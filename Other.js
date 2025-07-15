@@ -263,65 +263,121 @@ class Other {
                 });
             }
         });
-        this.app.get("/api/cloudfun/update",
-            async (req, res) => {
-                requestLog(req);
-                const {
-                    ID,
-                    password,
-                    UUID,
-                    file
-                } = req.query;
-                if (!(ID && ID == 0) || !password || !UUID || !file) {
-                    res.status(400).json({
-                        code: 400,
-                        msg: "缺少参数",
-                        timestamp: time(),
-                    });
-                    return;
-                }
-                try {
-                    const userData = await user.login(ID, password);
-                    if (userData.code == 200) {
-                        const data = userData.fields[0];
-                        if (!data) {
-                            res.status(404).json({
-                                code: 401,
-                                msg: "账号或密码错误",
-                                timestamp: time(),
-                            });
-                            return;
-                        }
-                        const json = await uuid_db.update(ID, UUID, file);
-                        if (json.code == 200) {
-                            res.status(200).json({
-                                code: 200,
-                                msg: "更新成功",
-                                timestamp: time(),
-                            });
-                        } else {
-                            res.status(json.code).json({
-                                code: json.code,
-                                msg: json.msg,
-                                timestamp: time(),
-                            })
-                        }
+        this.app.get("/api/cloudfun/update", async (req, res) => {
+            requestLog(req);
+            const {
+                ID,
+                password,
+                UUID,
+                file
+            } = req.query;
+            if (!(ID && ID == 0) || !password || !UUID || !file) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "缺少参数",
+                    timestamp: time(),
+                });
+                return;
+            }
+            try {
+                const userData = await user.login(ID, password);
+                if (userData.code == 200) {
+                    const data = userData.fields[0];
+                    if (!data) {
+                        res.status(404).json({
+                            code: 401,
+                            msg: "账号或密码错误",
+                            timestamp: time(),
+                        });
+                        return;
+                    }
+                    const json = await uuid_db.update(ID, UUID, file);
+                    if (json.code == 200) {
+                        res.status(200).json({
+                            code: 200,
+                            msg: "更新成功",
+                            timestamp: time(),
+                        });
                     } else {
-                        res.status(userData.code).json({
-                            code: userData.code,
-                            msg: userData.msg,
+                        res.status(json.code).json({
+                            code: json.code,
+                            msg: json.msg,
                             timestamp: time(),
                         })
                     }
-                } catch (e) {
-                    res.status(500).json({
-                        code: 500,
-                        msg: "服务内部错误",
-                        error: e.message,
+                } else {
+                    res.status(userData.code).json({
+                        code: userData.code,
+                        msg: userData.msg,
                         timestamp: time(),
-                    });
+                    })
                 }
-            });
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务内部错误",
+                    error: e.message,
+                    timestamp: time(),
+                });
+            }
+        });
+        this.app.get("/api/cloudfun/delete", async (req, res) => {
+            requestLog(req);
+            const {
+                ID,
+                password,
+                UUID
+            } = req.query;
+            if (!(ID && ID == 0) || !password || !UUID) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "缺少参数",
+                    timestamp: time(),
+                });
+                return;
+            }
+            try {
+                const userData = await user.login(ID, password);
+                if (userData.code == 200) {
+                    const data = userData.fields[0];
+                    if (!data) {
+                        res.status(404).json({
+                            code: 401,
+                            msg: "账号或密码错误",
+                            timestamp: time(),
+                        });
+                        return;
+                    }
+                    const json = await uuid_db.deleteData(UUID);
+                    if (json.code == 200) {
+                        res.status(200).json({
+                            code: 200,
+                            msg: "删除成功",
+                            timestamp: time(),
+                        });
+                    } else {
+                        res.status(json.code).json({
+                            code: json.code,
+                            msg: json.msg,
+                            timestamp: time(),
+                        })
+                    }
+                } else {
+                    res.status(userData.code).json({
+                        code: userData.code,
+                        msg: userData.msg,
+                        timestamp: time(),
+                    })
+                }
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "服务内部错误",
+                    error: e.message,
+                    timestamp: time(),
+                });
+            }
+        });
         this.app.all("/api/cloudfun/:uuid", async (req, res) => {
             const { uuid } = req.params;
             const cloudfunLogs = [];
