@@ -1028,7 +1028,7 @@ class Other {
                 console.log(j);
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
                     console.log(j.choices[0].message);
-                    let result = JSON.parse(j.choices[0].message.content);
+                    let result = JSON.parse(j.choices[0].message.content.replace("```json").replace("```", ""));
                     // // Remove the last empty element if the string ends with a newline
                     // if (result.length && result[result.length - 1].trim() === "") {
                     //     result = result.slice(0, -1);
@@ -1117,7 +1117,7 @@ class Other {
                 const data = await r.json();
                 console.log(data);
                 if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-                    const result = data.choices[0].message.content.replace("json", "").replaceAll("```", '');
+                    const result = data.choices[0].message.content.replace("```json").replace("```", "");
                     console.log(result)
                     res.status(200).json({
                         code: 200,
