@@ -1132,7 +1132,7 @@ class Other {
                         timestamp: time(),
                     });
                 }
-            } catch {
+            } catch(e) {
                 res.status(500).json({
                     code: 500,
                     msg: "Internal Server Error",
