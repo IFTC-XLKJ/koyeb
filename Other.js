@@ -1117,10 +1117,11 @@ class Other {
                 const data = await r.json();
                 console.log(data);
                 if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                    const result = data.choices[0].message.content.replace("json", "");
                     res.status(200).json({
                         code: 200,
                         msg: "请求成功",
-                        data: data.choices[0].message.content,
+                        data: JSON.parse(result),
                         timestamp: time(),
                     });
                 } else {
