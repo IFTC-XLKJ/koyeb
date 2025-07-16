@@ -1029,10 +1029,6 @@ class Other {
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
                     console.log(j.choices[0].message);
                     let result = JSON.parse(j.choices[0].message.content.replace("```json", "").replace("```", ""));
-                    // // Remove the last empty element if the string ends with a newline
-                    // if (result.length && result[result.length - 1].trim() === "") {
-                    //     result = result.slice(0, -1);
-                    // }
                     const data = [];
                     result.forEach(item => {
                         data.push(item.trim());
