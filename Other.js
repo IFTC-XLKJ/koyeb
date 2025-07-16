@@ -1104,7 +1104,7 @@ class Other {
 `,
                         }, {
                             role: "user",
-                            content: word,
+                            content: decodeURIComponent(word),
                         }],
                         frequency_penalty: 0,
                         presence_penalty: 0,
