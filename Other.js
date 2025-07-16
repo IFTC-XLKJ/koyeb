@@ -763,7 +763,7 @@ class Other {
 </html>`);
                     return;
                 }
-                const icpcheckapi = "https://www.weiserver.top/api/icp";
+                const icpcheckapi = "https://api.yyy001.com/api/icp";
                 const r = await fetch(`${icpcheckapi}?domain=${domain}`);
                 const j = await r.json();
                 if (j.code == 200) {
