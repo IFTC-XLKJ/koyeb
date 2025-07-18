@@ -53,6 +53,33 @@ class NOOB {
             return { code: 500, msg: "服务内部错误", error: error.message, timestamp: time() }
         }
     }
+    async getAll() {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": NOOBWorkKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: ``,
+                    page: 1,
+                    limit: 1000000
+                })
+            })
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+    async newWork(id, file) {
+
+    }
 }
 
 module.exports = NOOB;
