@@ -860,7 +860,7 @@ function obfuscate(code) {
                 location.href = '/noob/editor';
                 return;
             }
-        } catch (error) {
+        } catch(error) {
             console.error(error);
             toast.hideToast(loadid);
             alert("打开作品失败");
