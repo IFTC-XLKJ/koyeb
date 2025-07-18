@@ -843,6 +843,10 @@ function obfuscate(code) {
             const data = await response.json();
             if (data.code == 200) {
                 const url = data.url;
+                const workres = await fetch(url);
+                const work = await workres.json();
+                const blocks = work.blocks;
+                loadBlocks(blocks);
             } else if(data.code == 403) {
                 alert("你没有权限打开此作品");
                 location.href = '/noob/editor';
