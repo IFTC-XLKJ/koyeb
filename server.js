@@ -1758,6 +1758,9 @@ app.get("/api/noob/save", async (req, res) => {
                 });
                 return;
             }
+            if (nid == "new") {
+                const json = await noob.newWork(id, file);
+            }
         } else {
             res.status(j.code).json({
                 code: j.code,
