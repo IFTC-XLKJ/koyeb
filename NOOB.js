@@ -140,6 +140,36 @@ class NOOB {
             throw e;
         }
     }
+    async update(id, nid, file) { 
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(updateDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": NOOBWorkKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    type: "UPDATE",
+                    filter: `ID=${id} AND 作品ID=${nid}`,
+                    fields: `作品数据="${file}"`
+                })
+            })
+            if (response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
 }
 
 module.exports = NOOB;
