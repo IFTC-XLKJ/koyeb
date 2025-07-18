@@ -98,7 +98,7 @@ class NOOB {
                 body: JSON.stringify({
                     type: "INSERT",
                     filter: `ID,作品ID,作品数据`,
-                    fields: `(${id}, ${workId}, "${file}")`
+                    fields: `(${id}, ${nid}, "${file}")`
                 }),
             });
             if (!response.ok) {
@@ -106,7 +106,7 @@ class NOOB {
             }
             const json = await response.json();
             console.log(json);
-            return json;
+            return { json: json, nid: nid };
         } catch (e) {
             console.error(e);
             throw e;
