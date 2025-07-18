@@ -864,7 +864,7 @@ function obfuscate(code) {
         } catch (error) {
             console.error(error);
             toast.hideToast(lid);
-            alert("打开作品失败");
+            alert("打开作品失败\n" + error.stack);
             location.href = '/noob/editor';
             return;
         }
