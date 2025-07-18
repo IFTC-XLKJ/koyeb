@@ -832,12 +832,12 @@ function obfuscate(code) {
     const ID = localStorage.getItem('ID');
     const password = localStorage.getItem('password');
     const nid = new URLSearchParams(location.search).get('nid');
-    if (nid && !ID || !password) {
+    if (nid && (!ID || !password)) {
         alert("请先登录");
         location.href = '/login?page=/noob/editor?nid' + nid;
         return;
     }
-    if (!ID || !password) {
+    if (nid) {
         const toast = new Toast();
         const lid = toast.loading("正在打开作品...");
         try {
