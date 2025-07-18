@@ -1779,6 +1779,11 @@ app.get("/api/noob/save", async (req, res) => {
     }
 })
 
+app.get("/api/noob/get", async (req, res) => {
+    requestLog(req);
+    const { ID, password, nid } = req.query;
+})
+
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
     const {
