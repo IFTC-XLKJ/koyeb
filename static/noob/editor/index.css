@@ -13,7 +13,7 @@ body {
     -webkit-user-select: none;
     background-color: #00C0FF;
     display: grid;
-    grid-template-columns: auto auto auto 280px 1fr;
+    grid-template-columns: auto auto auto 280px 1fr 50px;
 }
 
 .nav-item {
