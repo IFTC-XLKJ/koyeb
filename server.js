@@ -1788,6 +1788,7 @@ app.get("/api/noob/save", async (req, res) => {
                         });
                         return;
                     }
+                    const json2 = await noob.update(ID, nid, file);
                 } else {
                     res.status(json.code).json({
                         code: json.code,
