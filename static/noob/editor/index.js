@@ -616,7 +616,12 @@ save.addEventListener("click", async function () {
                     toast.hideToast(lid);
                     toast.showToast("保存成功", 2, "center", "small", "success", false, false);
                     if (NID == "new") {
-                        location.search = "?nid=" + json.nid;
+                        updateURLParameter('nid', json.nid);
+                    }
+                    function updateURLParameter(param, value) {
+                        let url = new URL(window.location.href);
+                        url.searchParams.set(param, value);
+                        window.history.replaceState(null, "", url.toString());
                     }
                 } else if (json.code == 401) {
                     alert("鉴权失败，需重新登录");
