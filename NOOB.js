@@ -159,7 +159,7 @@ class NOOB {
                     fields: `作品数据="${file}"`
                 })
             })
-            if (response.ok) {
+            if (!response.ok) {
                 throw new Error("Network response was not ok " + response.statusText);
             }
             const json = await response.json();
