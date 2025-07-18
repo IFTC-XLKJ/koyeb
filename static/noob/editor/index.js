@@ -610,7 +610,7 @@ save.addEventListener("click", async function () {
             const j = await r.json();
             if (j.code == 200) {
                 const url = j.url;
-                const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&NID=${NID}`);
+                const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&nid=${NID}`);
                 const json = await res.json();
                 if (json.code == 200) {
                     toast.hideToast(lid);
