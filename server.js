@@ -1730,7 +1730,7 @@ app.get("/api/noob/save", async (req, res) => {
         file,
         nid
     } = req.query;
-    if ((id || id == 0) && password && file) {
+    if ((id || id == 0) && password && file && nid) {
         res.status(400).json({
             code: 400,
             msg: "请求参数错误",

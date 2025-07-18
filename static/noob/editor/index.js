@@ -597,8 +597,8 @@ save.addEventListener("click", async function () {
         });
         const j = await r.json();
         if (j.code == 200) {
-            const url = j.data.url;
-            const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}`);
+            const url = j.url;
+            const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&NID=${NID}`);
             const json = await res.json();
         } else {
             toast.showToast(r.message, 2, "center", "small", "error", false, true);
