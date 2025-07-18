@@ -95,11 +95,8 @@ img {
         let index = 0;
         container.addEventListener("click", e => {
             const imgs = this.shadowRoot.querySelectorAll('.banner-image');
-            // if (e.target.tagName === 'IMG') {
             console.log(imgs[index].getAttribute('target-href'))
             open(imgs[index].getAttribute('target-href'), '_blank');
-            // index = (index + 1) % imgs.length;
-            // }
         })
         const banners = this.shadowRoot.querySelectorAll(".banner-image");
         setInterval(() => {

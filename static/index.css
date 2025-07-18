@@ -60,3 +60,8 @@ footer ul li a:hover {
 #contentMain {
     width: 100vw;
 }
+
+.partTile {
+    width: 100%;
+    margin: auto;
+}
