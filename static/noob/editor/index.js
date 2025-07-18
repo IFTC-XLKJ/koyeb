@@ -599,7 +599,7 @@ save.addEventListener("click", async function () {
                 vars: vars
             }
             const formData = new FormData();
-            formData.append("path", "noob/work");
+            formData.append("path", "noob/work/" + Date.now());
             formData.append("file", new File([JSON.stringify(work)], "work.nb"), "work.nb");
             const r = await fetch("https://api.pgaot.com/user/up_cat_file", {
                 method: "POST",
