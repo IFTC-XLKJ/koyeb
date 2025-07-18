@@ -832,12 +832,12 @@ function obfuscate(code) {
     const ID = localStorage.getItem('ID');
     const password = localStorage.getItem('password');
     const nid = new URLSearchParams(location.search).get('nid');
+    if (nid && !ID || !password) {
+        alert("请先登录");
+        location.href = '/login?page=/noob/editor?nid' + nid;
+        return;
+    }
     if (!ID || !password) {
-        if (nid) {
-            alert("请先登录");
-            location.href = '/login?page=/noob/editor?nid' + nid;
-            return;
-        }
         const toast = new Toast();
         const lid = toast.loading("正在打开作品...");
         try {
@@ -849,7 +849,7 @@ function obfuscate(code) {
                 const work = await workres.json();
                 const blocks = work.blocks;
                 loadBlocks(blocks);
-            } else if(data.code == 403) {
+            } else if (data.code == 403) {
                 toast.hideToast(loadid);
                 alert("你没有权限打开此作品");
                 location.href = '/noob/editor';
@@ -860,7 +860,7 @@ function obfuscate(code) {
                 location.href = '/noob/editor';
                 return;
             }
-        } catch(error) {
+        } catch (error) {
             console.error(error);
             toast.hideToast(loadid);
             alert("打开作品失败");
