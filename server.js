@@ -1742,7 +1742,7 @@ app.get("/api/noob/save", async (req, res) => {
         const noob = new NOOB();
         const j = await user.login(id, decodeURIComponent(password));
         if (j.code == 200) {
-            const d = j.fields;
+            const d = j.fields[0];
             if (!d) {
                 res.status(404).json({
                     code: 401,
@@ -1793,6 +1793,15 @@ app.get("/api/noob/get", async (req, res) => {
         }
         const user = new User();
         const j = await user.login(ID, decodeURIComponent(password));
+        if (j.code != 200) {
+            res.status(j.code).json({
+                code: j.code,
+                msg: j.msg,
+                timestamp: time(),
+            });
+            return;
+        }
+        const d = j.fields[0];
     }
 })
 
