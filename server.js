@@ -1810,6 +1810,16 @@ app.get("/api/noob/get", async (req, res) => {
             });
             return;
         }
+        const noob = new NOOB();
+        const json = await noob.getByNID(nid);
+        if (json.code != 200) {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+            return;
+        }
     } catch (e) {
         res.status(500).json({
             code: 500,
