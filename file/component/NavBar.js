@@ -35,7 +35,8 @@ class NavBar extends HTMLElement {
         });
         links.forEach(link => {
             const a = document.createElement('a');
-            a.href = `javascript:location.href='${link.href}';`;
+            a.href = `${link.href}`;
+            a.target = '_self';
             a.textContent = link.label;
             a.addEventListener('click', e => {
                 this.dispatchEvent(new CustomEvent('nav-click', {
