@@ -1725,7 +1725,7 @@ app.get("/api/noob/works", async (req, res) => {
 app.get("/api/noob/save", async (req, res) => {
     requestLog(req);
     const {
-        id,
+        ID,
         password,
         file,
         nid
@@ -1740,7 +1740,7 @@ app.get("/api/noob/save", async (req, res) => {
     try {
         const user = new User();
         const noob = new NOOB();
-        const j = await user.login(id, decodeURIComponent(password));
+        const j = await user.login(ID, decodeURIComponent(password));
         if (j.code == 200) {
             const d = j.fields[0];
             if (!d) {
