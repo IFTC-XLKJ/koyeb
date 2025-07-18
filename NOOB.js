@@ -86,6 +86,25 @@ class NOOB {
     async newWork(id, file) {
         const all = await noob.getAll();
         const nid = all.fields[all.fields.length - 1].作品ID + 1;
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try { 
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    type: "INSERT",
+                    filter: `ID,作品ID,作品数据`,
+                    fields: `()`
+                }),
+            });
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
     }
 }
 
