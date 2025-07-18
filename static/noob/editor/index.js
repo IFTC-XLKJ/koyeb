@@ -578,6 +578,8 @@ save.addEventListener("click", async function () {
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("NID") || "new";
     if (ID && password) {
+        const toast = new Toast();
+        const lid = toast.loading("保存中");
         const work_code = BlocksToJS();
         const work = {
             name: getWorkName(),
@@ -592,9 +594,16 @@ save.addEventListener("click", async function () {
             method: "POST",
             body: formData,
             redirect: 'follow'
-        })
-        // const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}`);
-        // const json = await res.json();
+        });
+        const j = await r.json();
+        if (j.code == 200) {
+            const url = j.data.url;
+            const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}`);
+            const json = await res.json();
+        } else {
+            toast.showToast(r.message, 2, "center", "small", "error", false, true);
+            toast.hideToast(lid);
+        }
     } else {
         alert("请先登录");
         location.href = "/login";
