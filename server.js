@@ -1789,6 +1789,19 @@ app.get("/api/noob/save", async (req, res) => {
                         return;
                     }
                     const json2 = await noob.update(ID, nid, file);
+                    if (json2.code != 200) {
+                        res.status(json2.code).json({
+                            code: json2.code,
+                            msg: json2.msg,
+                            timestamp: time(),
+                        });
+                        return;
+                    }
+                    res.json({
+                        code: 200,
+                        msg: "保存成功",
+                        timestamp: time(),
+                    });
                 } else {
                     res.status(json.code).json({
                         code: json.code,
