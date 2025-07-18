@@ -1820,6 +1820,7 @@ app.get("/api/noob/save", async (req, res) => {
             return;
         }
     } catch (e) {
+        console.error(e);
         res.status(500).json({
             code: 500,
             msg: "服务内部错误，请联系官方(QQ:3164417130)",
