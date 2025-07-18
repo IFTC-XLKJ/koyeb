@@ -578,8 +578,23 @@ save.addEventListener("click", async function () {
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("NID") || "new";
     if (ID && password) {
-        const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}`);
-        const json = await res.json();
+        const work_code = BlocksToJS();
+        const work = {
+            name: getWorkName(),
+            blocks: saveBlocks().blocks,
+            code: work_code,
+            vars: vars
+        }
+        const formData = new FormData();
+        formData.append("path", "noob/work");
+        formData.append("file", new File([JSON.stringify(work)], "work.nb"), "work.nb");
+        const r = await fetch("https://api.pgaot.com/user/up_cat_file", {
+            method: "POST",
+            body: formData,
+            redirect: 'follow'
+        })
+        // const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}`);
+        // const json = await res.json();
     } else {
         alert("请先登录");
         location.href = "/login";
