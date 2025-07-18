@@ -1810,6 +1810,13 @@ app.get("/api/noob/get", async (req, res) => {
             });
             return;
         }
+    } catch (e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务器错误",
+            error: e.message,
+            timestamp: time(),
+        });
     }
 })
 
