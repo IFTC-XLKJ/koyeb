@@ -1782,6 +1782,18 @@ app.get("/api/noob/save", async (req, res) => {
 app.get("/api/noob/get", async (req, res) => {
     requestLog(req);
     const { ID, password, nid } = req.query;
+    try {
+        if (!ID || !password || !nid) {
+            res.status(400).json({
+                code: 400,
+                msg: "参数错误",
+                timestamp: time(),
+            });
+            return;
+        }
+        const user = new User();
+        const j = await user.login(ID, decodeURIComponent(password));
+    }
 })
 
 app.get("/api/book/updatebook", async (req, res) => {
