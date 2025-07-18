@@ -842,7 +842,7 @@ function obfuscate(code) {
             const response = await fetch(`/api/noob/get?ID=${ID}&password=${encodeURIComponent(password)}&nid=${nid}`);
             const data = await response.json();
             if (data.code == 200) {
-
+                const url = data.url;
             } else if(data.code == 403) {
                 alert("你没有权限打开此作品");
                 location.href = '/noob/editor';
