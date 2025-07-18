@@ -576,13 +576,8 @@ file.addEventListener("click", e => {
 save.addEventListener("click", async function () {
     const ID = localStorage.getItem("ID");
     const password = localStorage.getItem("password");
+    const NID = new URLSearchParams(location.search).get("NID") || "new";
     if (ID && password) {
-        const name = getWorkName();
-        const data = {
-            name,
-            code: JSON.stringify(saveBlocks()),
-            password
-        };
         const res = await fetch(`/api/save?ID=${ID}&password=${encodeURIComponent(password)}`);
         const json = await res.json();
     } else {
