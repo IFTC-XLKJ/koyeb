@@ -611,7 +611,7 @@ save.addEventListener("click", async function () {
                 const url = j.url;
                 const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&NID=${NID}`);
                 const json = await res.json();
-                if(json.code == 200) {}else if(json.code == 401) {
+                if (json.code == 200) { } else if (json.code == 401) {
                     alert("鉴权失败，需重新登录");
                     localStorage.removeItem("ID");
                     localStorage.removeItem("password");
@@ -743,6 +743,15 @@ function initBlocks() {
                 }
             ]
         }
+    }
+}
+
+async function open() {
+    const ID = localStorage.getItem("ID")
+    const password = localStorage.getItem("password")
+    if (!ID || !password) {
+        toast.showToast("请先登录", 3000, "center", "small", "error", false, false);
+        window.location.href = "/login"
     }
 }
 
