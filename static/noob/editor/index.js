@@ -574,6 +574,27 @@ file.addEventListener("click", e => {
 })
 
 save.addEventListener("click", async function () {
+    const ID = localStorage.getItem("ID");
+    const password = localStorage.getItem("password");
+    if (ID && password) {
+        const name = getWorkName();
+        const data = {
+            name,
+            code: JSON.stringify(saveBlocks()),
+            password
+        };
+        const res = await fetch("/api/save", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        });
+        const json = await res.json();
+    } else {
+        alert("请先登录");
+        location.href = "/login";
+    }
 });
 
 function openHelp() {
