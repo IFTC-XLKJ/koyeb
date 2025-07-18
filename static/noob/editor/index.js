@@ -573,6 +573,9 @@ file.addEventListener("click", e => {
     }
 })
 
+save.addEventListener("click", async function () {
+});
+
 function openHelp() {
     window.open("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
 }
