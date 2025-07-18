@@ -595,7 +595,7 @@ save.addEventListener("click", async function () {
             const newHtml = doc.documentElement.outerHTML;
             const work = {
                 name: getWorkName(),
-                blocks: saveBlocks(),
+                blocks: saveBlocks().blocks,
                 code: newHtml,
                 vars: vars
             }
