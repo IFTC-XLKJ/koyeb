@@ -1802,6 +1802,13 @@ app.get("/api/noob/get", async (req, res) => {
             return;
         }
         const d = j.fields[0];
+        if (!d) {
+            res.status(404).json({
+                code: 401,
+                msg: "鉴权失败",
+                timestamp: time(),
+            });
+        }
     }
 })
 
