@@ -160,4 +160,5 @@ body {
     background-color: white;
     border-radius: 7px;
     margin: 10px;
+    cursor: pointer;
 }
