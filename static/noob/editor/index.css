@@ -13,7 +13,7 @@ body {
     -webkit-user-select: none;
     background-color: #00C0FF;
     display: grid;
-    grid-template-columns: auto auto auto 280px 1fr 50px;
+    grid-template-columns: auto auto auto 280px 1fr 70px;
 }
 
 .nav-item {
@@ -159,4 +159,5 @@ body {
     border: none;
     background-color: white;
     border-radius: 7px;
+    margin: 10px;
 }
