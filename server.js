@@ -1771,8 +1771,7 @@ app.get("/api/noob/save", async (req, res) => {
                 }
                 res.status(200).json({
                     code: 200,
-                    msg: "成功",
-                    data: json.data,
+                    msg: "保存成功",
                     timestamp: time(),
                 });
             } else {
