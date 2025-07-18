@@ -152,3 +152,7 @@ body {
 #docTitleInput {
     margin-left: 100px;
 }
+
+#save {
+    width: 50px;
+}
