@@ -62,7 +62,8 @@ class aBanner extends HTMLElement {
             img.setAttribute("draggable", "false");
             img.setAttribute("loading", "lazy");
             img.setAttribute('alt', bannerAlts[imgIndex]);
-            img.onclick = e => window.open(bannerLinks[imgIndex], '_blank');
+            img.setAttribute('target-href', bannerLinks[imgIndex]);
+            // img.onclick = e => window.open(bannerLinks[imgIndex], '_blank');
             slot.appendChild(img);
         });
         const style = document.createElement('style');
@@ -91,8 +92,16 @@ img {
     transition: left 1s cubic-bezier(0, -0.36, 0, 1);
 }`;
         this.shadowRoot.append(style, container);
-        const banners = this.shadowRoot.querySelectorAll(".banner-image");
         let index = 0;
+        container.addEventListener("click", e => {
+            const imgs = this.shadowRoot.querySelectorAll('.banner-image');
+            // if (e.target.tagName === 'IMG') {
+            console.log(imgs[index].getAttribute('target-href'))
+            open(imgs[index].getAttribute('target-href'), '_blank');
+            // index = (index + 1) % imgs.length;
+            // }
+        })
+        const banners = this.shadowRoot.querySelectorAll(".banner-image");
         setInterval(() => {
             banners.forEach((img, i) => {
                 img.style.left = `${index * -100}%`;
