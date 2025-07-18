@@ -577,6 +577,7 @@ save.addEventListener("click", async function () {
     const ID = localStorage.getItem("ID");
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("NID") || "new";
+    console.log(ID, password, NID);
     if (ID && password) {
         try {
             const toast = new Toast();
