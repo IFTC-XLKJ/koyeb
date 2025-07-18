@@ -1749,6 +1749,7 @@ app.get("/api/noob/save", async (req, res) => {
                     msg: "鉴权失败",
                     timestamp: time(),
                 });
+                return;
             }
             if (d.封号 == 1) {
                 res.status(403).json({
