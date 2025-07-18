@@ -407,7 +407,7 @@ app.get("/102134969.json", (req, res) => {
 })
 
 app.get("/")
-
+// 所有API
 app.all("/api", (req, res) => {
     requestLog(req);
     const apis = [
@@ -450,7 +450,7 @@ app.all("/api", (req, res) => {
         Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true : void 0,
     });
 });
-
+// 获取所有书架
 app.get("/api/bookshelf/getall", async (req, res) => {
     requestLog(req);
     const {
@@ -497,7 +497,7 @@ app.get("/api/bookshelf/getall", async (req, res) => {
         })
     }
 })
-
+// 取消加入书架
 app.get("/api/bookshelf/noadd", async (req, res) => {
     requestLog(req);
     const {
@@ -1720,6 +1720,10 @@ app.get("/api/noob/works", async (req, res) => {
             timestamp: time(),
         });
     }
+})
+
+app.get("/api/noob/save", async (req, res) => {
+    requestLog(req);
 })
 
 app.get("/api/book/updatebook", async (req, res) => {
