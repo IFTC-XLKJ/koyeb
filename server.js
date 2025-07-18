@@ -1829,10 +1829,23 @@ app.get("/api/noob/get", async (req, res) => {
             });
             return;
         }
+        if (data.ID != ID) {
+            res.status(403).json({
+                code: 403,
+                msg: "无权限访问",
+                timestamp: time(),
+            });
+            return;
+        }
         res.status(200).json({
             code: 200,
             msg: "获取成功",
-            data: data,
+            data: {
+                createdAt: data.createdAt,
+                updatedAt: data.updatedAt,
+                url: data.作品数据,
+                nid: data.作品ID,
+            },
             timestamp: time(),
         });
     } catch (e) {
