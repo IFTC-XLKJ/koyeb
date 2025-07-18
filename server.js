@@ -1829,6 +1829,12 @@ app.get("/api/noob/get", async (req, res) => {
             });
             return;
         }
+        res.status(200).json({
+            code: 200,
+            msg: "获取成功",
+            data: data,
+            timestamp: time(),
+        });
     } catch (e) {
         res.status(500).json({
             code: 500,
