@@ -746,7 +746,7 @@ function initBlocks() {
     }
 }
 
-async function open() {
+function open() {
     const ID = localStorage.getItem("ID")
     const password = localStorage.getItem("password")
     if (!ID || !password) {
@@ -827,3 +827,16 @@ function obfuscate(code) {
         }
     ).getObfuscatedCode();
 }
+
+(async function() {
+    const ID = localStorage.getItem('ID');
+    const password = localStorage.getItem('password');
+    const nid = new URLSearchParams(location.search).get('nid');
+    if (!ID || !password) {
+        if (nid) {
+            alert("请先登录");
+            location.href = '/login?page=/noob/editor?nid'+nid;
+            return;
+        }
+    }
+})();
