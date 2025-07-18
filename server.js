@@ -1760,7 +1760,21 @@ app.get("/api/noob/save", async (req, res) => {
                 return;
             }
             if (nid == "new") {
-                const json = await noob.newWork(id, file);
+                const json = await noob.newWork(ID, file);
+                if (json.code != 200) {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                    return;
+                }
+                res.status(200).json({
+                    code: 200,
+                    msg: "成功",
+                    data: json.data,
+                    timestamp: time(),
+                });
             } else {
                 const json = await noob.getByNID(nid);
                 if (json.code == 200) {
