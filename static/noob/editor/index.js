@@ -578,30 +578,35 @@ save.addEventListener("click", async function () {
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("NID") || "new";
     if (ID && password) {
-        const toast = new Toast();
-        const lid = toast.loading("保存中");
-        const work_code = BlocksToJS();
-        const work = {
-            name: getWorkName(),
-            blocks: saveBlocks().blocks,
-            code: work_code,
-            vars: vars
-        }
-        const formData = new FormData();
-        formData.append("path", "noob/work");
-        formData.append("file", new File([JSON.stringify(work)], "work.nb"), "work.nb");
-        const r = await fetch("https://api.pgaot.com/user/up_cat_file", {
-            method: "POST",
-            body: formData,
-            redirect: 'follow'
-        });
-        const j = await r.json();
-        if (j.code == 200) {
-            const url = j.url;
-            const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&NID=${NID}`);
-            const json = await res.json();
-        } else {
-            toast.showToast(r.message, 2, "center", "small", "error", false, true);
+        try {
+            const toast = new Toast();
+            const lid = toast.loading("保存中");
+            const work_code = BlocksToJS();
+            const work = {
+                name: getWorkName(),
+                blocks: saveBlocks().blocks,
+                code: work_code,
+                vars: vars
+            }
+            const formData = new FormData();
+            formData.append("path", "noob/work");
+            formData.append("file", new File([JSON.stringify(work)], "work.nb"), "work.nb");
+            const r = await fetch("https://api.pgaot.com/user/up_cat_file", {
+                method: "POST",
+                body: formData,
+                redirect: 'follow'
+            });
+            const j = await r.json();
+            if (j.code == 200) {
+                const url = j.url;
+                const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&NID=${NID}`);
+                const json = await res.json();
+            } else {
+                toast.showToast(r.message, 2, "center", "small", "error", false, true);
+                toast.hideToast(lid);
+            }
+        } catch(e) {
+            toast.showToast(e.message, 2, "center", "small", "error", false, true);
             toast.hideToast(lid);
         }
     } else {
