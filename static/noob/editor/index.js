@@ -844,7 +844,7 @@ function obfuscate(code) {
             const response = await fetch(`/api/noob/get?ID=${ID}&password=${encodeURIComponent(password)}&nid=${nid}`);
             const data = await response.json();
             if (data.code == 200) {
-                const url = data.url;
+                const url = data.data.url;
                 const workres = await fetch(url);
                 const work = await workres.json();
                 const blocks = work.blocks;
