@@ -1737,6 +1737,43 @@ app.get("/api/noob/save", async (req, res) => {
             timestamp: time(),
         });
     }
+    try {
+        const user = new User();
+        const noob = new NOOB();
+        const j = await user.login(id, decodeURIComponent(password));
+        if (j.code == 200) {
+            const d = j.fields;
+            if (!d) {
+                res.status(404).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time(),
+                });
+            }
+            if (d.封号 == 1) {
+                res.status(403).json({
+                    code: 403,
+                    msg: "用户被封禁",
+                    timestamp: time(),
+                });
+                return;
+            }
+        } else {
+            res.status(j.code).json({
+                code: j.code,
+                msg: j.msg,
+                timestamp: time(),
+            });
+            return;
+        }
+    } catch (e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务内部错误，请联系官方(QQ:3164417130)",
+            error: String(e),
+            timestamp: time(),
+        });
+    }
 })
 
 app.get("/api/book/updatebook", async (req, res) => {
