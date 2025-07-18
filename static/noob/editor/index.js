@@ -828,15 +828,27 @@ function obfuscate(code) {
     ).getObfuscatedCode();
 }
 
-(async function() {
+(async function () {
     const ID = localStorage.getItem('ID');
     const password = localStorage.getItem('password');
     const nid = new URLSearchParams(location.search).get('nid');
     if (!ID || !password) {
         if (nid) {
             alert("请先登录");
-            location.href = '/login?page=/noob/editor?nid'+nid;
+            location.href = '/login?page=/noob/editor?nid' + nid;
             return;
+        }
+        try {
+            const response = await fetch(`/api/noob/get?nid=${nid}`);
+            const data = await response.json();
+            if (data.code == 200) {
+
+            } else if(data.code == 403) {
+                alert("你没有权限打开此作品");
+                location.href = '/noob/editor';
+                return;
+            }
+        } catch (error) {
         }
     }
 })();
