@@ -88,7 +88,7 @@ class NOOB {
         const nid = all.fields[all.fields.length - 1].作品ID + 1;
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
-        try { 
+        try {
             const signature = await signaturePromise;
             const response = await fetch(setDataURL, {
                 method: "POST",
@@ -103,6 +103,34 @@ class NOOB {
             });
             if (!response.ok) {
                 throw new Error("Failed to insert data.");
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
+        } catch (e) {
+            console.error(e);
+            throw e;
+        }
+    }
+    async getByNID(nid) {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(getDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": NOOBWorkKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: `作品ID=${nid}`,
+                })
+            })
+            if (!response.ok) {
+                throw new Error("Network response was not ok " + response.statusText);
             }
             const json = await response.json();
             console.log(json);
