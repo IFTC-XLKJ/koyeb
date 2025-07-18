@@ -583,13 +583,7 @@ save.addEventListener("click", async function () {
             code: JSON.stringify(saveBlocks()),
             password
         };
-        const res = await fetch("/api/save", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
+        const res = await fetch(`/api/save?ID=${ID}&password=${encodeURIComponent(password)}`);
         const json = await res.json();
     } else {
         alert("请先登录");
