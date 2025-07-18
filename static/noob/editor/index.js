@@ -850,19 +850,19 @@ function obfuscate(code) {
                 const blocks = work.blocks;
                 loadBlocks(blocks);
             } else if (data.code == 403) {
-                toast.hideToast(loadid);
+                toast.hideToast(lid);
                 alert("你没有权限打开此作品");
                 location.href = '/noob/editor';
                 return;
             } else {
-                toast.hideToast(loadid);
+                toast.hideToast(lid);
                 alert("打开作品失败");
                 location.href = '/noob/editor';
                 return;
             }
         } catch (error) {
             console.error(error);
-            toast.hideToast(loadid);
+            toast.hideToast(lid);
             alert("打开作品失败");
             location.href = '/noob/editor';
             return;
