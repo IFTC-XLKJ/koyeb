@@ -64,4 +64,5 @@ footer ul li a:hover {
 .partTile {
     width: 100%;
     margin: auto;
+    border-left: lightskyblue 5px solid;
 }
