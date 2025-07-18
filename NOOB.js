@@ -84,7 +84,7 @@ class NOOB {
         }
     }
     async newWork(id, file) {
-        const all = await noob.getAll();
+        const all = await this.getAll();
         const nid = all.fields[all.fields.length - 1].作品ID + 1;
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
