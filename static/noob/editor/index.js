@@ -611,6 +611,13 @@ save.addEventListener("click", async function () {
                 const url = j.url;
                 const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}&file=${url}&NID=${NID}`);
                 const json = await res.json();
+                if(json.code == 200) {}else if(json.code == 401) {
+                    alert("鉴权失败，需重新登录");
+                    localStorage.removeItem("ID");
+                    localStorage.removeItem("password");
+                    window.location.href = "/login";
+                    return;
+                }
             } else {
                 toast.showToast(r.message, 2, "center", "small", "error", false, true);
                 toast.hideToast(lid);
