@@ -576,7 +576,7 @@ file.addEventListener("click", e => {
 save.addEventListener("click", async function () {
     const ID = localStorage.getItem("ID");
     const password = localStorage.getItem("password");
-    const NID = new URLSearchParams(location.search).get("NID") || "new";
+    const NID = new URLSearchParams(location.search).get("nid") || "new";
     console.log(ID, password, NID);
     if (ID && password) {
         try {
