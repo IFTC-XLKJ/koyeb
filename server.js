@@ -1761,6 +1761,26 @@ app.get("/api/noob/save", async (req, res) => {
             }
             if (nid == "new") {
                 const json = await noob.newWork(id, file);
+            } else {
+                const json = await noob.getByNID(nid);
+                if (json.code == 200) {
+                    const data = json.fields[0];
+                    if (!data) {
+                        res.status(404).json({
+                            code: 404,
+                            msg: "未找到该作品",
+                            timestamp: time(),
+                        });
+                        return;
+                    }
+                } else {
+                    res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                    return;
+                }
             }
         } else {
             res.status(j.code).json({
