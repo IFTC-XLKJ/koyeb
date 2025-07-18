@@ -615,6 +615,9 @@ save.addEventListener("click", async function () {
                 if (json.code == 200) {
                     toast.hideToast(lid);
                     toast.showToast("保存成功", 2, "center", "small", "success", false, false);
+                    if (NID == "new") {
+                        location.search = "?nid=" + json.nid;
+                    } 
                 } else if (json.code == 401) {
                     alert("鉴权失败，需重新登录");
                     localStorage.removeItem("ID");
