@@ -594,7 +594,7 @@ save.addEventListener("click", async function () {
             const newHtml = doc.documentElement.outerHTML;
             const work = {
                 name: getWorkName(),
-                blocks: saveBlocks().blocks,
+                blocks: saveBlocks(),
                 code: newHtml,
                 vars: vars
             }
@@ -848,7 +848,7 @@ function obfuscate(code) {
                 const workres = await fetch(url);
                 const work = await workres.json();
                 const blocks = work.blocks;
-                loadBlocks({ blocks: blocks });
+                loadBlocks(blocks);
             } else if (data.code == 403) {
                 toast.hideToast(lid);
                 alert("你没有权限打开此作品");
