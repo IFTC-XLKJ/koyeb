@@ -838,6 +838,8 @@ function obfuscate(code) {
             location.href = '/login?page=/noob/editor?nid' + nid;
             return;
         }
+        const toast = new Toast();
+        const lid = toast.loading("正在打开作品...");
         try {
             const response = await fetch(`/api/noob/get?ID=${ID}&password=${encodeURIComponent(password)}&nid=${nid}`);
             const data = await response.json();
@@ -848,11 +850,21 @@ function obfuscate(code) {
                 const blocks = work.blocks;
                 loadBlocks(blocks);
             } else if(data.code == 403) {
+                toast.hideToast(loadid);
                 alert("你没有权限打开此作品");
+                location.href = '/noob/editor';
+                return;
+            } else {
+                toast.hideToast(loadid);
+                alert("打开作品失败");
                 location.href = '/noob/editor';
                 return;
             }
         } catch (error) {
+            toast.hideToast(loadid);
+            alert("打开作品失败");
+            location.href = '/noob/editor';
+            return;
         }
     }
 })();
