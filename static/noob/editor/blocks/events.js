@@ -132,7 +132,7 @@ function removeExtraParentheses(code) {
         newCode = code.slice(1, -1);
     }
     if (newCode.startsWith("(") && newCode.endsWith(")")) {
-        removeExtraParentheses(newCode);
+        return removeExtraParentheses(newCode);
     }
     return newCode;
 }
