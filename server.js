@@ -1724,6 +1724,19 @@ app.get("/api/noob/works", async (req, res) => {
 
 app.get("/api/noob/save", async (req, res) => {
     requestLog(req);
+    const {
+        id,
+        password,
+        file,
+        nid
+    } = req.query;
+    if ((id || id == 0) && password && file && nid) {
+        res.status(400).json({
+            code: 400,
+            msg: "请求参数错误",
+            timestamp: time(),
+        });
+    }
 })
 
 app.get("/api/book/updatebook", async (req, res) => {
