@@ -1808,6 +1808,7 @@ app.get("/api/noob/get", async (req, res) => {
                 msg: "鉴权失败",
                 timestamp: time(),
             });
+            return;
         }
     }
 })
