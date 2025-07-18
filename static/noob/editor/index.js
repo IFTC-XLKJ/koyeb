@@ -581,11 +581,21 @@ save.addEventListener("click", async function () {
         try {
             const toast = new Toast();
             const lid = toast.loading("保存中");
-            const work_code = BlocksToJS();
+            const html = BlocksToJS();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, "text/html");
+            const scripts = doc.querySelectorAll("script");
+            for (var i = 0; i < scripts.length; i++) {
+                const script = scripts[i];
+                const code = script.textContent;
+                const newCode = obfuscate(code);
+                script.textContent = newCode;
+            }
+            const newHtml = doc.documentElement.outerHTML;
             const work = {
                 name: getWorkName(),
                 blocks: saveBlocks().blocks,
-                code: work_code,
+                code: newHtml,
                 vars: vars
             }
             const formData = new FormData();
@@ -605,7 +615,7 @@ save.addEventListener("click", async function () {
                 toast.showToast(r.message, 2, "center", "small", "error", false, true);
                 toast.hideToast(lid);
             }
-        } catch(e) {
+        } catch (e) {
             toast.showToast(e.message, 2, "center", "small", "error", false, true);
             toast.hideToast(lid);
         }
