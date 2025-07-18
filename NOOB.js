@@ -94,6 +94,9 @@ class NOOB {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "X-Pgaot-Key": NOOBWorkKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
                 },
                 body: JSON.stringify({
                     type: "INSERT",
