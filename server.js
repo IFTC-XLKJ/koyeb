@@ -1761,10 +1761,10 @@ app.get("/api/noob/save", async (req, res) => {
             }
             if (nid == "new") {
                 const json = await noob.newWork(ID, file);
-                if (json.code != 200) {
-                    res.status(json.code).json({
-                        code: json.code,
-                        msg: json.msg,
+                if (json.json.code != 200) {
+                    res.status(json.json.code).json({
+                        code: json.json.code,
+                        msg: json.json.msg,
                         timestamp: time(),
                     });
                     return;
@@ -1772,8 +1772,10 @@ app.get("/api/noob/save", async (req, res) => {
                 res.status(200).json({
                     code: 200,
                     msg: "保存成功",
+                    nid: json.nid,
                     timestamp: time(),
                 });
+                return;
             } else {
                 const json = await noob.getByNID(nid);
                 if (json.code == 200) {
