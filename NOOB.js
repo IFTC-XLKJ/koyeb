@@ -98,9 +98,15 @@ class NOOB {
                 body: JSON.stringify({
                     type: "INSERT",
                     filter: `ID,作品ID,作品数据`,
-                    fields: `()`
+                    fields: `(${id}, ${workId}, "${file}")`
                 }),
             });
+            if (!response.ok) {
+                throw new Error("Failed to insert data.");
+            }
+            const json = await response.json();
+            console.log(json);
+            return json;
         } catch (e) {
             console.error(e);
             throw e;
