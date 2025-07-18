@@ -1820,6 +1820,15 @@ app.get("/api/noob/get", async (req, res) => {
             });
             return;
         }
+        const data = json.fields[0];
+        if (!data) {
+            res.status(404).json({
+                code: 404,
+                msg: "未找到该作品",
+                timestamp: time(),
+            });
+            return;
+        }
     } catch (e) {
         res.status(500).json({
             code: 500,
