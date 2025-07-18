@@ -848,7 +848,7 @@ function obfuscate(code) {
                 const workres = await fetch(url);
                 const work = await workres.json();
                 const blocks = work.blocks;
-                loadBlocks(blocks);
+                loadBlocks({ blocks: blocks });
             } else if (data.code == 403) {
                 toast.hideToast(lid);
                 alert("你没有权限打开此作品");
