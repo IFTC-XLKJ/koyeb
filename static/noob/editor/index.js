@@ -578,7 +578,7 @@ save.addEventListener("click", async function () {
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("NID") || "new";
     if (ID && password) {
-        const res = await fetch(`/api/save?ID=${ID}&password=${encodeURIComponent(password)}`);
+        const res = await fetch(`/api/noob/save?ID=${ID}&password=${encodeURIComponent(password)}`);
         const json = await res.json();
     } else {
         alert("请先登录");
