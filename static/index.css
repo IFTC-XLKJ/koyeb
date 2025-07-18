@@ -58,7 +58,8 @@ footer ul li a:hover {
 }
 
 #contentMain {
-    width: 100vw;
+    width: 80vw;
+    margin: auto;
 }
 
 .partTile {
