@@ -229,7 +229,7 @@ Blockly.defineBlocksWithJsonArray([
                 check: "String"
             },
         ],
-        outputs: "Dictionary",
+        output: "Dictionary",
         colour: "#68CDFF",
         tooltip: "发送一个HTTP请求，请求方式为GET、HEAD时没有请求体",
         inputInline: true,
