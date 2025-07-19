@@ -286,7 +286,7 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
             throw "GET和HEAD方法不能有请求体";
         }
     }
-    return [`(await fetch("${url}", {
+    return [`(await fetch(${url}, {
     method: "${method}",
     headers: ${headers},
     body: ${body} || void 0
