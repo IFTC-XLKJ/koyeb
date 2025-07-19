@@ -624,6 +624,7 @@ save.addEventListener("click", async function () {
                         url.searchParams.set(param, value);
                         window.history.replaceState(null, "", url.toString());
                     }
+                    globalThis.isSaved = true;
                 } else if (json.code == 401) {
                     alert("鉴权失败，需重新登录");
                     localStorage.removeItem("ID");
