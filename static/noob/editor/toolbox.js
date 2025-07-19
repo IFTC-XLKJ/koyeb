@@ -615,6 +615,14 @@ const toolbox = {
                                 }
                             }
                         },
+                        body: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: ""
+                                }
+                            }
+                        }
                     }
                 },
             ]
