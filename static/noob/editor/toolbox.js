@@ -594,6 +594,20 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "fetch",
+                    inputs: {
+                        URL: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "https://iftc.koyeb.app"
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
