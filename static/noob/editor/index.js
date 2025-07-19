@@ -818,6 +818,7 @@ function BlocksToJS() {
     try {
         code = Blockly.JavaScript.workspaceToCode(workspace);
     } catch (e) {
+        console.error(e);
         code = `<div style="color: red;background-color: #eee;border-radius: 5px;"><pre><code>${e.stack
             .replaceAll("\n", "<br>")
             .replaceAll(" ", "&nbsp;")}<\/code><\/pre></div>`;
