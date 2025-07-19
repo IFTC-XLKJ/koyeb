@@ -868,6 +868,8 @@ function obfuscate(code) {
                 const url = data.data.url;
                 const workres = await fetch(url);
                 const work = await workres.json();
+                const title = work.name;
+                document.getElementById("title").querySelector("input").value = title;
                 loadBlocks(work);
                 toast.hideToast(lid);
             } else if (data.code == 403) {
