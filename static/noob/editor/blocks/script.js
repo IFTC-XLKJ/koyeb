@@ -278,7 +278,7 @@ Blockly.JavaScript.forBlock["window"] = function (block) {
 
 Blockly.JavaScript.forBlock["fetch"] = function (block) { 
     const url = Blockly.JavaScript.valueToCode(block, 'url', Blockly.JavaScript.ORDER_ATOMIC);
-    const method = Blockly.JavaScript.valueToCode(block, 'method', Blockly.JavaScript.ORDER_ATOMIC);
+    const method = block.getFieldValue('method');
     const headers = Blockly.JavaScript.valueToCode(block, 'headers', Blockly.JavaScript.ORDER_ATOMIC);
     const body = Blockly.JavaScript.valueToCode(block, 'body', Blockly.JavaScript.ORDER_ATOMIC);
     return [`(await fetch("${url}", {
