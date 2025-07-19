@@ -1,5 +1,3 @@
-const e = require("cors");
-
 globalThis.isSaved = true;
 const pathToMedia = "/static/blockly/package/media/";
 Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "";
