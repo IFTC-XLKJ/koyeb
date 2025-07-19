@@ -281,6 +281,11 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
     const method = block.getFieldValue('method');
     const headers = Blockly.JavaScript.valueToCode(block, 'headers', Blockly.JavaScript.ORDER_ATOMIC);
     const body = Blockly.JavaScript.valueToCode(block, 'body', Blockly.JavaScript.ORDER_ATOMIC);
+    if (method == "GET" || method == "HEAD") {
+        if (body) {
+            throw "GET和HEAD方法不能有请求体";
+        }
+    }
     return [`(await fetch("${url}", {
     method: "${method}",
     headers: ${headers},
