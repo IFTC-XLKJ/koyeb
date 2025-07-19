@@ -1,3 +1,5 @@
+const e = require("cors");
+
 globalThis.isSaved = true;
 const pathToMedia = "/static/blockly/package/media/";
 Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "";
@@ -572,6 +574,16 @@ file.addEventListener("click", e => {
             fileMenu.dataset.navMenu = "hidden";
         });
     }
+})
+globalThis.cacheTitle = "新的NOOB作品";
+document.getElementById("title").querySelector("input").addEventListener("change", async function (e) {
+    if (e.target.value.trim() == "") {
+        e.target.value = globalThis.cacheTitle;
+        const toast = new Toast();
+        toast.showToast("标题不能为空", 2, "center", "small", "error", false, true);
+        return;
+    }
+    globalThis.cacheTitle = e.target.value.trim();
 })
 
 save.addEventListener("click", async function () {
