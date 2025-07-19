@@ -605,7 +605,16 @@ const toolbox = {
                                     TEXT: "https://iftc.koyeb.app"
                                 }
                             }
-                        }
+                        },
+                        headers: {
+                            shadow: {
+                                type: "object_dict",
+                                fields: {
+                                    ADD0_KEY: "Content-Type",
+                                    ADD0_VALUE: "application/json"
+                                }
+                            }
+                        },
                     }
                 },
             ]
