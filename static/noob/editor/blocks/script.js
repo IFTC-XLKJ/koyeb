@@ -196,6 +196,44 @@ Blockly.defineBlocksWithJsonArray([
         inputInline: true,
         output: "Dictionary"
     },
+    {
+        type: "fetch",
+        message0: "发送请求 方式%1 URL%2 请求头%3 请求体%4",
+        args0: [
+            {
+                type: "field_dropdown",
+                name: "method",
+                options: [
+                    ["GET", "GET"],
+                    ["POST", "POST"],
+                    ["PUT", "PUT"],
+                    ["DELETE", "DELETE"],
+                    ["PATCH", "PATCH"],
+                    ["HEAD", "HEAD"],
+                    ["OPTIONS", "OPTIONS"]
+                ]
+            },
+            {
+                type: "input_value",
+                name: "url",
+                check: "String"
+            },
+            {
+                type: "input_value",
+                name: "headers",
+                check: "Dictionary",
+            },
+            {
+                type: "input_value",
+                name: "body",
+                check: "String"
+            },
+        ],
+        outputs: "Dictionary",
+        colour: "#68CDFF",
+        tooltip: "发送一个HTTP请求，请求方式为GET、HEAD时没有请求体",
+        inputInline: true,
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
