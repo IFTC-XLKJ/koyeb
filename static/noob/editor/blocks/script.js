@@ -275,3 +275,16 @@ Blockly.JavaScript.forBlock["script_void"] = function (block) {
 Blockly.JavaScript.forBlock["window"] = function (block) {
     return [`(window)`, Blockly.JavaScript.ORDER_NONE];
 }
+
+Blockly.JavaScript.forBlock["fetch"] = function (block) { 
+    const url = Blockly.JavaScript.valueToCode(block, 'URL', Blockly.JavaScript.ORDER_ATOMIC);
+    const method = Blockly.JavaScript.valueToCode(block, 'method', Blockly.JavaScript.ORDER_ATOMIC);
+    const headers = Blockly.JavaScript.valueToCode(block, 'headers', Blockly.JavaScript.ORDER_ATOMIC);
+    const body = Blockly.JavaScript.valueToCode(block, 'body', Blockly.JavaScript.ORDER_ATOMIC);
+    return [`(await fetch("${url}", {
+    method: "${method}",
+    headers: ${headers},
+    body: JSON.stringify(${data})
+
+        }))`, Blockly.JavaScript.ORDER_NONE];
+}
