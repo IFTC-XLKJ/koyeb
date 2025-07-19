@@ -1,3 +1,4 @@
+globalThis.isSaved = true;
 const pathToMedia = "/static/blockly/package/media/";
 Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "";
 console.log("加载完成");
@@ -644,6 +645,13 @@ save.addEventListener("click", async function () {
     }
 });
 
+workspace.addChangeListener(function (e) {
+    console.log(e);
+    (e.type == "create" || e.type == "change" || e.type == "delete" || e.type == "move" || e.type == "comment_change" || e.type == "comment_create" || e.type == "comment_delete" || e.type == "viewport_change") {
+        globalThis.isSaved = false;
+    }
+})
+
 function openHelp() {
     window.open("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
 }
@@ -881,3 +889,10 @@ function obfuscate(code) {
         }
     }
 })();
+
+const beforeunloadHandler = (event) => {
+    if (isSaved) return;
+    event.preventDefault();
+    event.returnValue = true;
+};
+addEventListener("beforeunload", beforeunloadHandler);
