@@ -598,7 +598,7 @@ const toolbox = {
                     kind: "block",
                     type: "fetch",
                     inputs: {
-                        URL: {
+                        url: {
                             shadow: {
                                 type: "text",
                                 fields: {
