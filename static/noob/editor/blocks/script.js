@@ -283,6 +283,7 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
     const body = Blockly.JavaScript.valueToCode(block, 'body', Blockly.JavaScript.ORDER_ATOMIC);
     if (method == "GET" || method == "HEAD") {
         if (body) {
+            console.log(!!body);
             throw "GET和HEAD方法不能有请求体";
         }
     }
