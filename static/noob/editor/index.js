@@ -30,6 +30,7 @@ globalThis.workspace = Blockly.inject('editor', {
 });
 const workspaceSearch = new WorkspaceSearch(workspace);
 workspaceSearch.init();
+document.querySelector(".blockly-ws-search input").style.outline = "none";
 addEventListener("keydown", e => {
     const { key, ctrlKey, shiftKey } = e;
     if (ctrlKey && shiftKey && key == "F") workspaceSearch.open();
