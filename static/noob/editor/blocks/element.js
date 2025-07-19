@@ -81,7 +81,19 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<style iftc-mdui="theme"></style>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<style iftc-mdui="theme"></style>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script>async function fetch_text(url, method, head, body) {
+    try {
+        const r = await fetch(url, {
+            method: method,
+            headers: headers,
+            body: body || void 0
+        })
+        const t = await r.text();
+        return { code: r.status, msg: r.statusText, data: t, ok: r.ok };
+    } catch(e) {
+        return { code: 0, msg: e.message, data: null, ok: false };
+    }
+}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
 }
 // 主体
