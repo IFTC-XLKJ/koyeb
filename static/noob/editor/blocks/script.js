@@ -284,7 +284,6 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
     return [`(await fetch("${url}", {
     method: "${method}",
     headers: ${headers},
-    body: JSON.stringify(${data})
-
-        }))`, Blockly.JavaScript.ORDER_NONE];
+    body: JSON.stringify(${body} || void 0)
+}))`, Blockly.JavaScript.ORDER_NONE];
 }
