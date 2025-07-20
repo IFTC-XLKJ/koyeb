@@ -1187,7 +1187,7 @@ class Other {
                     res.status(200).json({
                         code: 200,
                         msg: "请求成功",
-                        data: result,
+                        data: Number(result),
                         timestamp: time(),
                     })
                 }
