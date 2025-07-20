@@ -1136,12 +1136,12 @@ class Other {
                 });
             }
         })
-        this.app.get("/api/aisimilarity", async (req, res) => {
+        this.app.post("/api/aisimilarity", async (req, res) => {
             requestLog(req);
             const {
                 text1,
                 text2
-            } = req.query;
+            } = req.body;
             if (!text1 || !text2) {
                 res.status(400).json({
                     code: 400,
