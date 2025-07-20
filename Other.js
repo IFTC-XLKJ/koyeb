@@ -1159,7 +1159,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.0-flash-lite-preview",
+                        model: "gpt-3.5-turbo",
                         provider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1167,12 +1167,15 @@ class Other {
                             role: "system",
                             content: `你的任务是判断两段文本的相似度。
 相似度要求：
-计算两个文本的相似度，范围在 0 到 1 之间。
-输出的数值为小数，保留小数点后 2 位。`
+计算给出的两段文本意思的相似度。
+给出文本的格式：
+第一段文本：{text1}
+第二段文本：{text2}
+输出格式为数值，取值范围为0到1，保留2为小数`
                         }, {
                             role: "user",
-                            content: `第一段文本：${text1}
-第二段文本：${text2}`
+                            content: `第一段文本：文本1
+第二段文本：文本2`
                         }]
                     })
                 })
