@@ -16,8 +16,6 @@ const uuid_db = new UUID_db();
 const cloudfunConsole = new CloudfunConsole();
 const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
-const { console } = require("inspector");
-const { error } = require("console");
 
 class Other {
     constructor(app, requestLog) {
@@ -1129,7 +1127,61 @@ class Other {
                         timestamp: time(),
                     });
                 }
-            } catch(e) {
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e.message,
+                    timestamp: time()
+                });
+            }
+        })
+        this.app.get("/api/aisimilarity", async (req, res) => {
+            requestLog(req);
+            const {
+                text1,
+                text2
+            } = req.query;
+            if (!text1 || !text2) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time()
+                });
+                return;
+            }
+            try {
+                const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app"
+                    },
+                    body: JSON.stringify({
+                        model: "gemini-2.0-flash-lite-preview",
+                        provider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [{
+                            role: "system",
+                            content: `你的任务是判断两段文本的相似度。
+相似度要求：
+计算两个文本的相似度，范围在 0 到 1 之间。
+输出的数值为小数，保留小数点后 2 位。`
+                        }]
+                    })
+                })
+                const data = await r.json();
+                console.log(data)
+                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                    // const result = data.choices[0].message.content.replace("```json", "").replace("```", "");
+                    res.status(200).json({
+                        code: 200,
+                        msg: "请求成功",
+                    })
+                }
+            } catch (e) {
                 res.status(500).json({
                     code: 500,
                     msg: "Internal Server Error",
