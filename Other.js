@@ -1214,6 +1214,39 @@ class Other {
                 return;
             }
             try {
+                const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app"
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-3.5-turbo",
+                        provider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [{
+                            role: "system",
+                            content: `你的任务是敏感词过滤，请返回敏感词列表，返回格式为JSON，例如：["色情","政治"]`,
+                        }, {
+                            role: "user",
+                            content: `${text}`
+                        }]
+                    })
+                })
+                const data = await r.json();
+                console.log(data)
+                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                    const result = data.choices[0].message.content;
+                    console.log(result)
+                    res.status(200).json({
+                        code: 200,
+                        msg: "请求成功",
+                        data: JSON.parse(result),
+                        timestamp: time(),
+                    })
+                }
             } catch (e) {
                 res.status(500).json({
                     code: 500,
