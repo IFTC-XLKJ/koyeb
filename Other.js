@@ -1200,6 +1200,9 @@ class Other {
                 });
             }
         })
+        this.app.post("/api/aimgc", async (req, res) => {
+            requestLog(req);
+        })
         console.log("Other");
     }
     async getFile(path) {
