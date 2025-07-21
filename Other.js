@@ -1202,6 +1202,26 @@ class Other {
         })
         this.app.post("/api/aimgc", async (req, res) => {
             requestLog(req);
+            const {
+                text
+            } = req.body;
+            if (!text) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time()
+                });
+                return;
+            }
+            try {
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e.message,
+                    timestamp: time()
+                });
+            }
         })
         console.log("Other");
     }
