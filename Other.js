@@ -1285,20 +1285,4 @@ function generateUUID() {
     return uuid;
 }
 
-// async function translateWithLibre(text, sourceLang = 'auto', targetLang = 'zh') {
-//     try {
-//         const response = await axios.post('https://libretranslate.de/translate',
-//             {
-//                 q: text,
-//                 source: sourceLang,
-//                 target: targetLang,
-//                 format: 'text'
-//             });
-//         return response.data.translatedText;
-//     } catch (error) {
-//         console.error('Translation error:',
-//             error.response?.data || error.message);
-//     }
-// }
-
 module.exports = Other;
