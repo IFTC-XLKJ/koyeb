@@ -158,3 +158,8 @@ Blockly.JavaScript.forBlock['negate'] = function (block) {
     const bool = Blockly.JavaScript.valueToCode(block, 'BOOL', Blockly.JavaScript.ORDER_ATOMIC);
     return [`(!${bool})`, Blockly.JavaScript.ORDER_LOGICAL_NOT];
 }
+
+Blockly.JavaScript.forBlock['type_of'] = function (block) {
+    const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
+    return [`(typeof ${value})`, Blockly.JavaScript.ORDER_ATOMIC];
+}
