@@ -256,6 +256,11 @@ Blockly.defineBlocksWithJsonArray([
         message0: "脚本 %1",
         args0: [
             {
+                type: "field_input",
+                name: "SRC",
+                text: ""
+            },
+            {
                 type: "input_statement",
                 name: "SCRIPT",
             }
@@ -269,8 +274,9 @@ Blockly.defineBlocksWithJsonArray([
     }
 ])
 Blockly.JavaScript.forBlock['element_script'] = function (block) {
+    const src = block.getFieldValue('SRC');
     const script = Blockly.JavaScript.statementToCode(block, 'SCRIPT');
-    const code = `<script>(async function() {\n${script}\n})();</script>\n`;
+    const code = `<script src="${src}">(async function() {\n${script}\n})();</script>\n`;
     return code;
 };
 // h1-h6 标签
