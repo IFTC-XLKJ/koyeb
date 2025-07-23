@@ -114,6 +114,21 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: '对布尔值取反',
         helpUrl: '',
     },
+    {
+        type: "type_of",
+        message0: "%1 的数据类型",
+        args0: [
+            {
+                type: "input_value",
+                name: "VALUE",
+            },
+        ],
+        output: "String",
+        colour: "#F8AA87",
+        tooltip: "数据类型",
+        helpUrl: "",
+        inputsInline: true
+    },
 ]);
 
 Blockly.JavaScript.forBlock['num_operator'] = function (block) {
