@@ -301,6 +301,20 @@ const toolbox = {
                         }
                     }
                 },
+                {
+                    kind: "block",
+                    type: "type_of",
+                    inputs: {
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "Hello"
+                                }
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
