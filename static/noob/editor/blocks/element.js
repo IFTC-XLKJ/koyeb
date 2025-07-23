@@ -253,7 +253,7 @@ Blockly.JavaScript.forBlock['element_style'] = function (block) {
 Blockly.defineBlocksWithJsonArray([
     {
         type: "element_script",
-        message0: "脚本 %1",
+        message0: "脚本 %1 %2",
         args0: [
             {
                 type: "field_input",
