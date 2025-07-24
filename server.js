@@ -383,10 +383,10 @@ app.get("/noob/share/:nid", async (req, res) => {
                 timestamp: time(),
             });
         }
-        if (data.公布 != 1) {
+        if (data.发布 != 1) {
             res.status(403).json({
                 code: 403,
-                msg: "此作品未公开",
+                msg: "此作品未发布",
                 timestamp: time(),
             });
         }
