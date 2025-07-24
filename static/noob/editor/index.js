@@ -672,10 +672,20 @@ publish.addEventListener("click", async function () {
             const r = await fetch("/api/noob/publish?ID=" + ID + "&password=" + encodeURIComponent(password) + "&nid=" + NID);
             const j = await r.json();
             if (j.code != 200) {
+                if (j.code == 401) {
+                    toast.hideToast(lid);
+                    toast.showToast("鉴权失败，请重新登录", 2, "center", "small", "error", false, true);
+                    setTimeout(() => {
+                        window.location.href = "/login";
+                    }, 2000);
+                    return;
+                }
                 toast.hideToast(lid);
                 toast.showToast(j.message, 2, "center", "small", "error", false, true);
                 return;
             }
+            toast.hideToast(loadid);
+            toast.showToast("发布成功", 2, "center", "small", "success", false, true);
         } catch (e) {
             toast.hideToast(lid);
             toast.showToast("发布失败，原因：" + e.message, 2, "center", "small", "error", false, true);
