@@ -18,8 +18,7 @@ const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
-const { debug } = require("console");
-const { create } = require("domain");
+const { error } = require("console");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -365,6 +364,15 @@ app.get("/noob/share/:nid", async (req, res) => {
             timestamp: time(),
         });
         return;
+    }
+    const noob = new NOOB();
+    try{}catch(e){
+        res.status(500).json({
+            code: 500,
+            msg: "服务发生错误",
+            error: String(e),
+            timestamp: time(),
+        });
     }
 })
 
