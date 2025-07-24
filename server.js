@@ -354,10 +354,18 @@ app.get("/cloudfun", async (req, res) => {
     }
 });
 
-app.get("/noob/share/:workId", async (req, res) => {
+app.get("/noob/share/:nid", async (req, res) => {
     const {
-        workId
+        nid
     } = req.params;
+    if (!nid) {
+        res.status(404).json({
+            code: 404,
+            msg: "Not Found",
+            timestamp: time(),
+        });
+        return;
+    }
 })
 
 app.all('/proxy/*', async (req, res) => {
