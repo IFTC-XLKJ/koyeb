@@ -666,7 +666,13 @@ publish.addEventListener("click", async function () {
             alert("请先确保作品已保存到云端");
             return;
         }
+        const toast = new Toast();
         const lid = toast.showToast("正在发布", 0, "center", "small", "info", false, true);
+        try {
+        } catch (e) {
+            toast.hideToast(lid);
+            toast.showToast("发布失败，原因：" + e.message, 2, "center", "small", "error", false, true);
+        }
     } else {
         alert("请先登录")
         location.href = "/login";
