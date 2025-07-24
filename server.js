@@ -366,7 +366,16 @@ app.get("/noob/share/:nid", async (req, res) => {
         return;
     }
     const noob = new NOOB();
-    try{}catch(e){
+    try {
+        const work = await noob.getByNID(nid);
+        if (work.code != 200) {
+            res.status(work.code).json({
+                code: work.code,
+                msg: work.msg,
+                timestamp: time(),
+            });
+        }
+    } catch (e) {
         res.status(500).json({
             code: 500,
             msg: "服务发生错误",
