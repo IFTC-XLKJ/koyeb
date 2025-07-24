@@ -393,12 +393,12 @@ app.get("/noob/share/:nid", async (req, res) => {
         const work_data_src = data.作品数据;
         const r = await fetch(work_data_src);
         const j = await r.json();
-        res.status(200).json({
-            code: 200,
-            msg: "获取成功",
-            data: j,
-            timestamp: time(),
-        });
+        const work_code = j.code;
+        res.set({
+            "Content-Type": "text/html; charset=utf-8",
+            "X-Powered-By": "IFTC"
+        })
+        res.send(work_code);
     } catch (e) {
         res.status(500).json({
             code: 500,
