@@ -375,6 +375,21 @@ app.get("/noob/share/:nid", async (req, res) => {
                 timestamp: time(),
             });
         }
+        const data = work.fields[0];
+        if (!data) { 
+            res.status(404).json({
+                code: 404,
+                msg: "作品不存在",
+                timestamp: time(),
+            });
+        }
+        if (data.公布 != 1) {
+            res.status(403).json({
+                code: 403,
+                msg: "此作品未公开",
+                timestamp: time(),
+            });
+        }
     } catch (e) {
         res.status(500).json({
             code: 500,
