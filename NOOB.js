@@ -143,7 +143,7 @@ class NOOB {
             throw e;
         }
     }
-    async update(id, nid, file) { 
+    async update(id, nid, file) {
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -170,6 +170,27 @@ class NOOB {
             return json;
         } catch (e) {
             console.error(e);
+            throw e;
+        }
+    }
+    async publish(id, nid) {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+            const response = await fetch(setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": NOOBWorkKey,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                    filter: `ID=${id}`
+                })
+            })
+        } catch (e) {
             throw e;
         }
     }
