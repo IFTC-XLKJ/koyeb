@@ -376,7 +376,7 @@ app.get("/noob/share/:nid", async (req, res) => {
             });
         }
         const data = work.fields[0];
-        if (!data) { 
+        if (!data) {
             res.status(404).json({
                 code: 404,
                 msg: "作品不存在",
@@ -390,6 +390,15 @@ app.get("/noob/share/:nid", async (req, res) => {
                 timestamp: time(),
             });
         }
+        const work_data_src = data.作品数据;
+        const r = await fetch(work_data_src);
+        const j = await r.json();
+        res.status(200).json({
+            code: 200,
+            msg: "获取成功",
+            data: j,
+            timestamp: time(),
+        });
     } catch (e) {
         res.status(500).json({
             code: 500,
