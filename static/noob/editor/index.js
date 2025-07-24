@@ -657,6 +657,22 @@ save.addEventListener("click", async function () {
     }
 });
 
+publish.addEventListener("click", async function () {
+    const ID = localStorage.getItem("ID");
+    const password = localStorage.getItem("password");
+    const NID = new URLSearchParams(location.search).get("nid");
+    if (ID && password) {
+        if (!NID) {
+            alert("请先确保作品已保存到云端");
+            return;
+        }
+        const lid = toast.showToast("正在发布", 0, "center", "small", "info", false, true);
+    } else {
+        alert("请先登录")
+        location.href = "/login";
+    }
+});
+
 workspace.addChangeListener(function (e) {
     console.log(e);
     if (e.type == "create" && e.ids[0] == "doc_type") return;
