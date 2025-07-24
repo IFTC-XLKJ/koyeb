@@ -1987,6 +1987,7 @@ app.get("/api/noob/publish", async (req, res) => {
                 msg: "账号或密码错误",
                 timestamp: time(),
             });
+            return;
         }
     } catch (e) {
         res.status(500).json({
