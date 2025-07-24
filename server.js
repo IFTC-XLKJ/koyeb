@@ -1969,7 +1969,18 @@ app.get("/api/noob/publish", async (req, res) => {
         });
         return;
     }
+    const user = new User();
+    const noob = new NOOB();
     try {
+        const j = await user.login(ID, decodeURIComponent(password));
+        if (j.code != 200) {
+            res.status(j.code).json({
+                code: j.code,
+                msg: j.msg,
+                timestamp: time(),
+            })
+            return;
+        }
     } catch (e) {
         res.status(500).json({
             code: 500,
