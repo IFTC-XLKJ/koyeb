@@ -1958,6 +1958,28 @@ app.get("/api/noob/get", async (req, res) => {
     }
 })
 
+app.get("/api/noob/publish", async (req, res) => {
+    requestLog(req);
+    const { nid, ID, password } = req.query;
+    if (!nid || !ID || !password) {
+        res.status(400).json({
+            code: 400,
+            msg: "缺少参数",
+            timestamp: time(),
+        });
+        return;
+    }
+    try {
+    } catch (e) {
+        res.status(500).json({
+            code: 500,
+            msg: "服务器错误",
+            error: e.message,
+            timestamp: time(),
+        });
+    }
+})
+
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
     const {
