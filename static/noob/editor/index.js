@@ -667,7 +667,7 @@ publish.addEventListener("click", async function () {
             return;
         }
         const toast = new Toast();
-        const lid = toast.showToast("正在发布", 0, "center", "small", "info", false, true);
+        const lid = toast.loading("正在发布");
         try {
             const r = await fetch("/api/noob/publish?ID=" + ID + "&password=" + encodeURIComponent(password) + "&nid=" + NID);
             const j = await r.json();
