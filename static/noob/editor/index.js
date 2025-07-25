@@ -684,7 +684,7 @@ publish.addEventListener("click", async function () {
                 toast.showToast(j.message, 2, "center", "small", "error", false, true);
                 return;
             }
-            toast.hideToast(loadid);
+            toast.hideToast(lid);
             toast.showToast("发布成功", 2, "center", "small", "success", false, true);
         } catch (e) {
             toast.hideToast(lid);
