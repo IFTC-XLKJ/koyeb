@@ -187,9 +187,14 @@ class NOOB {
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
-                    filter: `ID=${id}`
+                    type: "UPDATE",
+                    filter: `ID=${id} AND 作品ID=${nid}`,
+                    fields: `发布=1`,
                 })
             })
+            const json = await response.json();
+            console.log(json);
+            return json;
         } catch (e) {
             throw e;
         }
