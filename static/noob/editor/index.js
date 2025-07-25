@@ -686,6 +686,7 @@ publish.addEventListener("click", async function () {
             }
             toast.hideToast(lid);
             toast.showToast("发布成功", 2, "center", "small", "success", false, true);
+            open(`share/${NID}`, "_blank");
         } catch (e) {
             toast.hideToast(lid);
             toast.showToast("发布失败，原因：" + e.message, 2, "center", "small", "error", false, true);
