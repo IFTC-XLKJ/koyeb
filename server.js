@@ -1981,7 +1981,7 @@ app.get("/api/noob/publish", async (req, res) => {
             })
             return;
         }
-        if (!j.fields[0]) { 
+        if (!j.fields[0]) {
             res.status(401).json({
                 code: 401,
                 msg: "账号或密码错误",
@@ -1989,6 +1989,19 @@ app.get("/api/noob/publish", async (req, res) => {
             });
             return;
         }
+        const json = await noob.publish(ID, nid);
+        if (json.code != 200) {
+            res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+        }
+        res.json({
+            code: 200,
+            msg: "发布成功",
+            timestamp: time(),
+        })
     } catch (e) {
         res.status(500).json({
             code: 500,
