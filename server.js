@@ -374,6 +374,7 @@ app.get("/noob/share/:nid", async (req, res) => {
                 msg: work.msg,
                 timestamp: time(),
             });
+            return;
         }
         const data = work.fields[0];
         if (!data) {
@@ -382,6 +383,7 @@ app.get("/noob/share/:nid", async (req, res) => {
                 msg: "作品不存在",
                 timestamp: time(),
             });
+            return;
         }
         if (data.发布 != 1) {
             res.status(403).json({
@@ -389,6 +391,7 @@ app.get("/noob/share/:nid", async (req, res) => {
                 msg: "此作品未发布",
                 timestamp: time(),
             });
+            return;
         }
         const work_data_src = data.作品数据;
         const r = await fetch(work_data_src);
