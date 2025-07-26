@@ -470,6 +470,7 @@ class Books {
                     filter: `ID=${id}`,
                     page: page,
                     limit: 10,
+                    sort: "updatedAt DESC"
                 })
             });
             if (!response.ok) {
