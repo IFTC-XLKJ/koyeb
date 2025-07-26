@@ -399,7 +399,9 @@ app.get("/noob/share/:nid", async (req, res) => {
         const work_code = j.code;
         res.set({
             "Content-Type": "text/html; charset=utf-8",
-            "X-Powered-By": "IFTC"
+            "X-Powered-By": "IFTC",
+            "Cache-Control": "no-cache",
+            "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; object-src 'none'; frame-ancestors 'none';",
         })
         res.send(work_code);
     } catch (e) {
