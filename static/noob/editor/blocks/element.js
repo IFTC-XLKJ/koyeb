@@ -494,7 +494,7 @@ Blockly.defineBlocksWithJsonArray([
 Blockly.JavaScript.forBlock['element_a'] = function (block) {
     var url = block.getFieldValue('URL');
     var content = block.getFieldValue('CONTENT');
-    var code = `<a href="${url}"${handleAttrAndStyle(block)}>${content}</a>\n`;
+    var code = `<a href="https://iftc.koyeb.app/safejump?page=${new URL(url, location.href).href}"${handleAttrAndStyle(block)}>${content}</a>\n`;
     return code;
 };
 Blockly.defineBlocksWithJsonArray([
