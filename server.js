@@ -2869,6 +2869,7 @@ app.get("/proxy-file", async (req, res) => {
         const data = await response.blob();
         res.send(data);
     } catch (error) {
+        console.error(error);
         res.status(500).send('Error fetching file');
     }
 })
