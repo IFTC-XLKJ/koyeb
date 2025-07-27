@@ -707,11 +707,11 @@ workspace.addChangeListener(function (e) {
 
 workspace.registerButtonCallback("goToNOOBcss", function (e) {
     console.log("goToNOOBcss", e);
-    window.open("https://noobcss.deno.dev", "_blank")
+    nativeOpen("https://noobcss.deno.dev", "_blank")
 })
 
 function openHelp() {
-    window.open("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
+    nativeOpen("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
 }
 
 function newFile() {
