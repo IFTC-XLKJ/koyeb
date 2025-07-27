@@ -203,8 +203,9 @@ const toolbox = {
                     type: "style_padding",
                 },
                 {
-                    "kind": "label",
-                    "text": "<h2>Style</h2>"
+                    kind: "button",
+                    text: "使用NOOB.CSS创作样式",
+                    callbackKe: "goToNOOBcss"
                 },
             ]
         },
