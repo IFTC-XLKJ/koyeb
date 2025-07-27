@@ -2873,7 +2873,7 @@ app.get("/proxy-file", async (req, res) => {
         const buffer = await response.buffer();
         res.send(buffer);
         function getFilename() {
-            const path = req.query.path;
+            const path = new URL(url).pathname;
             const parts = path.split('/');
             if (parts.length === 0) return parts[parts.length - 1];
         }
