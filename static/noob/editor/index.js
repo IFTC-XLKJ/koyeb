@@ -706,7 +706,7 @@ workspace.addChangeListener(function (e) {
 })
 
 workspace.registerButtonCallback("goToNOOBcss", function (e) {
-    console.log("goToNOOBcss");
+    console.log("goToNOOBcss", e);
     open("https://noobcss.deno.dev", "_blank")
 })
 
