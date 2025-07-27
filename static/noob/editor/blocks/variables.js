@@ -102,7 +102,7 @@ Blockly.JavaScript.forBlock["variables_define"] = function (block) {
     return code;
 }
 
-Blockly.JavaScript.forBlock["variables_change"] = function (block) { 
+Blockly.JavaScript.forBlock["variables_change"] = function (block) {
     const variable = block.getFieldValue("VARIABLE");
     const operator = block.getFieldValue("OPERATOR");
     const value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "void 0";
