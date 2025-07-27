@@ -465,7 +465,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_input",
                 name: "URL",
-                text: "https://iftc.koyeb.app/"
+                text: "https://iftc.koyeb.app"
             },
             {
                 type: "field_input",
