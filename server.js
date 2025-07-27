@@ -2858,8 +2858,8 @@ app.get("/api/book/getbyid", async (req, res) => {
     }
 });
 
-app.get("/proxy-file/:url", async (req, res) => {
-    const { url } = req.params;
+app.get("/proxy-file", async (req, res) => {
+    const { url } = req.query;
     try {
         const response = await axios.get(url, { responseType: 'arraybuffer' });
         res.set('Content-Type', response.headers['content-type']);
