@@ -2862,8 +2862,8 @@ app.get("/proxy-file", async (req, res) => {
     const { url } = req.query;
     try {
         const response = await fetch(url);
-        console.log("Content-Type:", response.headers['content-type'])
-        res.set('Content-Type', response.headers['content-type']);
+        console.log("Content-Type:", response.headers['content-type'] || "application/octet-stream")
+        res.set('Content-Type', response.headers['content-type'] || "application/octet-stream");
         res.set("Content-Length", response.headers['content-length']);
         res.set("Access-Control-Allow-Origin", "*");
         const data = await response.blob();
