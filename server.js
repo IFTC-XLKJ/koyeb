@@ -2858,6 +2858,20 @@ app.get("/api/book/getbyid", async (req, res) => {
     }
 });
 
+app.get("/proxy-file/:url", async (req, res) => {
+    const { url } = req.params;
+    try {
+        const response = await axios.get(url, { responseType: 'arraybuffer' });
+        res.set('Content-Type', response.headers['content-type']);
+        res.set("Content-Length", response.headers['content-length']);
+        res.set("Access-Control-Allow-Origin", "*");
+        res.set("Range", "bytes=0-");
+        res.send(response.data);
+    } catch (error) {
+        res.status(500).send('Error fetching file');
+    }
+})
+
 app.listen(port, () => {
     startTime = Date.now();
     console.log(`服务器已在端口 ${port} 开启`);
