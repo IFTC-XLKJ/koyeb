@@ -102,6 +102,13 @@ Blockly.JavaScript.forBlock["variables_define"] = function (block) {
     return code;
 }
 
+Blockly.JavaScript.forBlock["variables_change"] = function (block) { 
+    const variable = block.getFieldValue("VARIABLE");
+    const operator = block.getFieldValue("OPERATOR");
+    const value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "0";
+    return `${word(variable)} ${operator} ${value}`;
+}
+
 function word(word) {
     return encodeURIComponent(word).replaceAll("%", "_");
 }
