@@ -705,6 +705,11 @@ workspace.addChangeListener(function (e) {
     }
 })
 
+workspace.registerButtonCallback("goToNOOBcss", function (e) {
+    console.log("goToNOOBcss");
+    open("https://noobcss.deno.dev", "_blank")
+})
+
 function openHelp() {
     window.open("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
 }
