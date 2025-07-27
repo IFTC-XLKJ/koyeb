@@ -164,6 +164,11 @@ const toolbox = {
             colour: 230,
             contents: [
                 {
+                    kind: "button",
+                    text: "使用NOOB.CSS创作样式",
+                    callbackKey: "goToNOOBcss"
+                },
+                {
                     kind: "block",
                     type: "style_group",
                     inputs: {
@@ -201,11 +206,6 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "style_padding",
-                },
-                {
-                    kind: "button",
-                    text: "使用NOOB.CSS创作样式",
-                    callbackKey: "goToNOOBcss"
                 },
             ]
         },
