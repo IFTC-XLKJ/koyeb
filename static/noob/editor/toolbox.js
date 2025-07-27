@@ -202,6 +202,10 @@ const toolbox = {
                     kind: "block",
                     type: "style_padding",
                 },
+                {
+                    "kind": "label",
+                    "text": "<h2>Style</h2>"
+                },
             ]
         },
         {
