@@ -205,7 +205,7 @@ const toolbox = {
                 {
                     kind: "button",
                     text: "使用NOOB.CSS创作样式",
-                    callbackKe: "goToNOOBcss"
+                    callbackKey: "goToNOOBcss"
                 },
             ]
         },
