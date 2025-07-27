@@ -2861,12 +2861,13 @@ app.get("/api/book/getbyid", async (req, res) => {
 app.get("/proxy-file", async (req, res) => {
     const { url } = req.query;
     try {
-        const response = await axios.get(url, { responseType: 'arraybuffer' });
+        const response = await fetch(url);
         res.set('Content-Type', response.headers['content-type']);
         res.set("Content-Length", response.headers['content-length']);
         res.set("Access-Control-Allow-Origin", "*");
         res.set("Range", "bytes=0-");
-        res.send(response.data);
+        const data = await response.blob();
+        res.send(data);
     } catch (error) {
         res.status(500).send('Error fetching file');
     }
