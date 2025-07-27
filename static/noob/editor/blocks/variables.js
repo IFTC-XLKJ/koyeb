@@ -84,7 +84,7 @@ Blockly.defineBlocksWithJsonArray([
 
 Blockly.JavaScript.forBlock["variables_set"] = function (block) {
     var variable = block.getFieldValue("VARIABLE");
-    var value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "0";
+    var value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "void 0";
     var code = word(variable) + " = " + value + ";\n";
     return code;
 }
@@ -105,7 +105,7 @@ Blockly.JavaScript.forBlock["variables_define"] = function (block) {
 Blockly.JavaScript.forBlock["variables_change"] = function (block) { 
     const variable = block.getFieldValue("VARIABLE");
     const operator = block.getFieldValue("OPERATOR");
-    const value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "0";
+    const value = Blockly.JavaScript.valueToCode(block, "VALUE", Blockly.JavaScript.ORDER_ATOMIC) || "void 0";
     return `${word(variable)} ${operator} ${value}`;
 }
 
