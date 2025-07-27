@@ -2862,18 +2862,19 @@ app.get("/proxy-file", async (req, res) => {
     const { url } = req.query;
     try {
         const response = await fetch(url);
-        console.log("Content-Type:", response.headers['content-type'] || "application/octet-stream")
-        res.set('Content-Type', response.headers['content-type'] || "application/octet-stream");
-        res.set("Content-Length", response.headers['content-length']);
+        console.log("Content-Type:", response.headers.get('content-type') || "application/octet-stream");
+        
+        res.set('Content-Type', response.headers.get('content-type') || "application/octet-stream");
+        res.set("Content-Length", response.headers.get('content-length'));
         res.set("Access-Control-Allow-Origin", "*");
-        const data = await response.blob();
-        console.log("结果", data)
-        res.send(data);
+        
+        const buffer = await response.buffer();
+        res.send(buffer);
     } catch (error) {
         console.error(error);
         res.status(500).send('Error fetching file');
     }
-})
+});
 
 app.listen(port, () => {
     startTime = Date.now();
