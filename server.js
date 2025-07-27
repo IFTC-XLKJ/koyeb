@@ -2865,7 +2865,6 @@ app.get("/proxy-file", async (req, res) => {
         res.set('Content-Type', response.headers['content-type']);
         res.set("Content-Length", response.headers['content-length']);
         res.set("Access-Control-Allow-Origin", "*");
-        res.set("Range", "bytes=0-");
         const data = await response.blob();
         console.log("结果", data)
         res.send(data);
