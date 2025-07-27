@@ -2867,16 +2867,10 @@ app.get("/proxy-file", async (req, res) => {
         res.set('Content-Type', response.headers.get('content-type') || "application/octet-stream");
         res.set("Content-Length", response.headers.get('content-length'));
         res.set("Accept-Ranges", "bytes");
-        res.set("Content-Disposition", `attachment; filename="${filename || getFilename()}"`);
         res.set("Access-Control-Allow-Origin", "*");
 
         const buffer = await response.buffer();
         res.send(buffer);
-        function getFilename() {
-            const path = new URL(url).pathname;
-            const parts = path.split('/');
-            if (parts.length === 0) return parts[parts.length - 1];
-        }
     } catch (error) {
         console.error(error);
         res.status(500).send('Error fetching file');
