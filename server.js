@@ -2935,6 +2935,10 @@ function requestLog(req) {
     if (req.headers["user-agent"] == "Koyeb Health Check") {
         return;
     }
+    if (req.headers["user-agent"] == "IFTC Bot") {
+        console.log("状态检测请求");
+        return;
+    }
     addRequestCount();
     if (!(
         req.url.startsWith("/api/user/login") ||
