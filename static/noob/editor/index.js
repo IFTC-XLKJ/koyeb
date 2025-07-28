@@ -30,7 +30,22 @@ globalThis.workspace = Blockly.inject('editor', {
         maxScale: 5,
         minScale: 0.1,
         scaleSpeed: 1.5
-    }
+    },
+    useDoubleClick: false,
+    bumpNeighbours: false,
+    multiFieldUpdate: true,
+    workspaceAutoFocus: true,
+    multiselectIcon: {
+        hideIcon: false,
+        weight: 3,
+        enabledIcon: 'https://github.com/mit-cml/workspace-multiselect/raw/main/test/media/select.svg',
+        disabledIcon: 'https://github.com/mit-cml/workspace-multiselect/raw/main/test/media/unselect.svg',
+    },
+    multiSelectKeys: ['Ctrl'],
+    multiselectCopyPaste: {
+        crossTab: true,
+        menu: true,
+    },
 });
 const workspaceSearch = new WorkspaceSearch(workspace);
 workspaceSearch.init();
