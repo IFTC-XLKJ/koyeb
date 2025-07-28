@@ -38,8 +38,8 @@ const options = {
     multiselectIcon: {
         hideIcon: false,
         weight: 3,
-        enabledIcon: 'https://github.com/mit-cml/workspace-multiselect/raw/main/test/media/select.svg',
-        disabledIcon: 'https://github.com/mit-cml/workspace-multiselect/raw/main/test/media/unselect.svg',
+        enabledIcon: '/static/select.svg',
+        disabledIcon: '/static/unselect.svg',
     },
     multiSelectKeys: ['ControlLeft'],
     multiselectCopyPaste: {
