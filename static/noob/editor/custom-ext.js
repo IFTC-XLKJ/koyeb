@@ -3,6 +3,16 @@ globalThis.loadCustomExt = async function (obj) {
         const { types } = obj;
         if (types instanceof Object) {
             const { name, version, author, blocks } = types;
+            let exit = false;
+            for(const content of toolbox.contents) {
+                if (content.kind == "category" && content.name == name) {
+                    if(!confirm("是否覆盖 " + name + " ?")) {
+                        exit = true;
+                        break;
+                    }
+                }
+            }
+            if (exit) return;
             toolbox.contents.push({
                 kind: "category",
                 name: name,
