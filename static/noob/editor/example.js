@@ -9,4 +9,14 @@ const types = {
     ],
 };
 
+class Ext {
+    constructor() {
+        this.name = "example";
+    }
+    exampleblock() {
+        console.log("exampleblock");
+    }
+}
+
 exports.types = types;
+exports.Ext = Ext;

@@ -1,3 +1,4 @@
+globalThis.Exts = {};
 globalThis.loadCustomExt = async function (obj) {
     if (obj instanceof Object) {
         const { types, Ext } = obj;
@@ -20,7 +21,7 @@ globalThis.loadCustomExt = async function (obj) {
                     colour: color,
                     contents: parseBlocks(blocks)
                 });
-                Blockly.defineBlocksWithJsonArray();
+                Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks));
                 const ext = new Ext();
                 blocks.forEach(block => {
                     const { key } = block;
@@ -31,6 +32,10 @@ globalThis.loadCustomExt = async function (obj) {
                     }
                 });
                 workspace.updateToolbox(toolbox);
+                Exts[name] = {
+                    ext: ext,
+                    toolbox: toolbox
+                };
             } else {
                 alert("无法加载扩展，请检查扩展导出的格式是否正确");
             }
@@ -40,7 +45,7 @@ globalThis.loadCustomExt = async function (obj) {
     } else {
         alert("无法加载扩展，请检查扩展导出的格式是否正确");
     }
-    function parseBlocks(blocks, type) {
+    function parseBlocks(blocks) {
         const newBlocks = [];
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
@@ -55,6 +60,15 @@ globalThis.loadCustomExt = async function (obj) {
                     text: block.label,
                 })
             }
+        }
+        return newBlocks;
+    }
+    function parseBlocksWithDefine(blocks) {
+        const newBlocks = [];
+        for (let i = 0; i < blocks.length; i++) { 
+            const block = blocks[i];
+            const newBlock = {};
+            newBlock.type = block.key;
         }
         return newBlocks;
     }
