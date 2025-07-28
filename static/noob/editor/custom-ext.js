@@ -48,6 +48,13 @@ globalThis.loadCustomExt = async function (obj) {
             const key = block.key;
             newBlock.kind = "block";
             newBlock.type = key;
+            newBlocks.push(newBlock);
+            if (block.label) {
+                newBlocks.push({
+                    kind: "label",
+                    text: block.label,
+                })
+            }
         }
         return newBlocks;
     }
