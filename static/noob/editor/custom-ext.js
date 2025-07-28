@@ -1,6 +1,6 @@
 globalThis.loadCustomExt = async function (obj) {
     if (obj instanceof Object) {
-        const { types } = obj;
+        const { types, Ext } = obj;
         if (types instanceof Object) {
             const { name, color, version, author, blocks } = types;
             let exit = false;
@@ -13,17 +13,42 @@ globalThis.loadCustomExt = async function (obj) {
                 }
             }
             if (exit) return;
-            toolbox.contents.push({
-                kind: "category",
-                name: name,
-                colour: color,
-                contents: blocks
-            });
-            workspace.updateToolbox(toolbox);
+            if (Ext instanceof Function) {
+                toolbox.contents.push({
+                    kind: "category",
+                    name: name,
+                    colour: color,
+                    contents: parseBlocks(blocks)
+                });
+                Blockly.defineBlocksWithJsonArray();
+                const ext = new Ext();
+                blocks.forEach(block => {
+                    const { key } = block;
+                    Blockly.Blocks.Javascript[type] = async function (block) {
+                        if (ext[key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
+                            return `await ext[${key}]()`;
+                        }
+                    }
+                });
+                workspace.updateToolbox(toolbox);
+            } else {
+                alert("无法加载扩展，请检查扩展导出的格式是否正确");
+            }
         } else {
             alert("无法加载扩展，请检查扩展导出的格式是否正确");
         }
     } else {
         alert("无法加载扩展，请检查扩展导出的格式是否正确");
+    }
+    function parseBlocks(blocks, type) {
+        const newBlocks = [];
+        for (let i = 0; i < blocks.length; i++) {
+            const block = blocks[i];
+            const newBlock = {};
+            const key = block.key;
+            newBlock.kind = "block";
+            newBlock.type = key;
+        }
+        return newBlocks;
     }
 }
