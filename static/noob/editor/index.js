@@ -1,5 +1,9 @@
 globalThis.isSaved = true;
 const pathToMedia = "/static/blockly/package/media/";
+setTimeout(function () {
+    const loadingSrc = document.getElementById('waitLoad');
+    loadingSrc.style.display = "none";
+}, 200);
 Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "";
 console.log("加载完成");
 globalThis.workspace = Blockly.inject('editor', {
