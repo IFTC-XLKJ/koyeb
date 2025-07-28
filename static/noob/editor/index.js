@@ -733,10 +733,10 @@ workspace.registerButtonCallback("goToNOOBcss", function (e) {
 })
 
 function importExt() {
-    const file = document.createElement("input");
-    file.type = "file";
-    file.accept = ".js";
-    file.addEventListener("change", async e => {
+    const fileInput = document.createElement("input");
+    fileInput.type = "file";
+    fileInput.accept = ".js";
+    fileInput.addEventListener("change", async e => {
         const file = e.target.files[0];
         if (file) {
             const reader = new FileReader();
@@ -747,10 +747,12 @@ function importExt() {
                 } catch (e) {
                     alert("扩展加载错误" + e.stack);
                 }
+                fileInput.remove();
             }
             reader.readAsText(file);
         }
     })
+    fileInput.click();
 }
 
 function openHelp() {
