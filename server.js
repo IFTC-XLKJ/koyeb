@@ -62,6 +62,14 @@ app.get("/", async (req, res) => {
         });
         return;
     }
+    if (req.headers["user-agent"] == "IFTC Bot") {
+        res.json({
+            code: 200,
+            msg: "请求成功",
+            timestamp: time(),
+        });
+        return;
+    }
     const params = {};
     res.set({
         "Content-Type": "text/html;charset=utf-8",
