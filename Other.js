@@ -123,6 +123,18 @@ class Other {
                     res.status(500).send(null);
                 }
             });
+        this.app.get("/file/blockly/blockly-plugin-workspace-multiselect",
+            async (req, res) => {
+                const content = await this.getFile("node_modules/@mit-app-inventor/blockly-plugin-workspace-multiselect/dist/index.js");
+                if (content) {
+                    res.set({
+                        "Content-Type": "text/javascript",
+                    });
+                    res.send(content);
+                } else {
+                    res.status(500).send(null);
+                }
+            });
         this.app.get("/api/weather",
             async (req, res) => {
                 requestLog(req);
