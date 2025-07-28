@@ -6,7 +6,7 @@ setTimeout(function () {
 }, 200);
 Blockly.Msg["CONTROLS_IF_MSG_THEN"] = "";
 console.log("加载完成");
-globalThis.workspace = Blockly.inject('editor', {
+const options = {
     toolbox: toolbox,
     renderer: "Zelos",
     media: pathToMedia,
@@ -46,7 +46,8 @@ globalThis.workspace = Blockly.inject('editor', {
         crossTab: true,
         menu: true,
     },
-});
+}
+globalThis.workspace = Blockly.inject('editor', options);
 const workspaceSearch = new WorkspaceSearch(workspace);
 workspaceSearch.init();
 document.querySelector(".blockly-ws-search input").style.outline = "none";
