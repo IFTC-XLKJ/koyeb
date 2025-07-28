@@ -4,7 +4,13 @@ const types = {
     author: "IFTC",
     blocks: [
         {
-            key: "exampleblock"
+            key: "exampleblock",
+            params: [
+                {
+                    label: "Text",
+                    inputValue: {},
+                },
+            ],
         },
     ],
 };
