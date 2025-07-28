@@ -19,6 +19,7 @@ const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
 const { error } = require("console");
+const { freemem } = require("os");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -3038,5 +3039,9 @@ async function randomUsername() {
     return adj + noun + id;
 }
 
+setInterval(async () => { 
+    const r = await fetch("https://iftc.deno.dev");
+    console.log(await r.text())
+}, 30000);
 
 new Other(app, requestLog);
