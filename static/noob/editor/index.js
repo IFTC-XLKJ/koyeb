@@ -732,6 +732,27 @@ workspace.registerButtonCallback("goToNOOBcss", function (e) {
     nativeOpen("https://noobcss.deno.dev", "_blank")
 })
 
+function importExt() {
+    const file = document.createElement("input");
+    file.type = "file";
+    file.accept = ".js";
+    file.addEventListener("change", async e => {
+        const file = e.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = async function () {
+                const code = reader.result;
+                try {
+                    loadCustomExt(eval(code));
+                } catch (e) {
+                    alert("扩展加载错误" + e.stack);
+                }
+            }
+            reader.readAsText(file);
+        }
+    })
+}
+
 function openHelp() {
     nativeOpen("https://noob.fandom.com/zh/wiki/Noob_Wiki", "__blank");
 }
