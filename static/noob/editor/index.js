@@ -40,6 +40,8 @@ addEventListener("keydown", e => {
     if (ctrlKey && shiftKey && key == "F") workspaceSearch.open();
     if (key == "Escape") workspaceSearch.close();
 });
+const multiselectPlugin = new Multiselect(workspace);
+multiselectPlugin.init(options);
 workspace.addChangeListener(shadowBlockConversionChangeListener);
 console.log('Workspace initialized:', workspace);
 loadBlocks(initBlocks())
