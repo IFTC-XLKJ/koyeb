@@ -1,3 +1,3 @@
 const types = {
     name: "example",
-}
+};
