@@ -743,7 +743,7 @@ function importExt() {
             reader.onload = async function () {
                 const code = reader.result;
                 try {
-                    loadCustomExt(eval(code));
+                    loadCustomExt(await eval(`const exports = {};(async function() {${code}return exports})()`));
                 } catch (e) {
                     alert("扩展加载错误" + e.stack);
                 }

@@ -1,2 +1,2 @@
-globalThis.loadCustomExt = async function (app) {
+globalThis.loadCustomExt = async function (func) {
 }
