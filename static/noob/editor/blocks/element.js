@@ -93,7 +93,7 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
     } catch(e) {
         return { code: 0, msg: e.message, data: null, ok: false };
     }
-}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+}</script>\n<script>const Exts</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
 }
 // 主体
