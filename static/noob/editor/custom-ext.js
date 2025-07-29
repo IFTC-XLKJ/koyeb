@@ -77,7 +77,9 @@ globalThis.loadCustomExt = async function (obj) {
             const block = blocks[i];
             const newBlock = {};
             newBlock.type = "custom_" + name + "_" + block.key;
-            newBlock.output = block.valueType;
+            if (block.valueType) {
+                newBlock.output = block.valueType;
+            }
             newBlock.colour = block.color;
             newBlock.tooltip = block.tooltip;
             newBlock.helpUrl = block.helpUrl;
