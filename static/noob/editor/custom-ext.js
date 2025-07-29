@@ -35,9 +35,9 @@ globalThis.loadCustomExt = async function (obj) {
                     const { key } = block;
                     Blockly.JavaScript.forBlock["custom_" + name + "_" + key] = function (block) {
                         if (Exts[name][key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
-                            return `await Exts["${name}"]["${key}"]()`;
+                            return [`await Exts["${name}"]["${key}"]()`, Blockly.JavaScript.ORDER_NONE];
                         } else {
-                            return `Exts["${name}"]["${key}"]()`;
+                            return [`Exts["${name}"]["${key}"]()`, Blockly.JavaScript.ORDER_NONE];
                         }
                     }
                 });
