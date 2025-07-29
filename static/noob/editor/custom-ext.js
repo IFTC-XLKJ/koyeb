@@ -92,7 +92,7 @@ globalThis.loadCustomExt = async function (obj) {
                 message += label + " ";
             });
             newBlock.message0 = message;
-            newBlock.args0 = params;
+            newBlock.args0 = args;
             newBlocks.push(newBlock);
         }
         console.log(newBlocks)
