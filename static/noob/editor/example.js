@@ -11,15 +11,15 @@ const types = {
                     label: "Text",
                     labelText: "example",
                     inputValue: {},
-                    color: "#008cff",
-                    tooltip: "Example Block",
                 },
             ],
+            color: "#008cff",
+            tooltip: "Example Block",
         },
     ],
 };
 
-class Ext { 
+class Ext {
     constructor() {
     }
     static exampleblock() {
