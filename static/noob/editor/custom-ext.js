@@ -91,9 +91,24 @@ globalThis.loadCustomExt = async function (obj) {
             const params = block.params;
             let message = "";
             const args = [];
+            let n = 0;
             params.forEach(param => {
                 const label = param.label;
                 message += label + " ";
+                if (param.inputValue) {
+                    const inputValue = param.inputValue;
+                    if (inputValue instanceof Object) {
+                        const checkType = inputValue.checkType;
+                        n++;
+                        message += `${inputValue.label} %${n} `
+                        args.push({
+                            type: "input_value",
+                            name: inputValue.key,
+                            check: checkType == "Number" ? "Number" : (checkType == "String" ? "String"  : (checkType == "Object" ? "Dictionary" : checkType == "Array" ? "Array" : void 0))
+                        })
+                        return;
+                    }
+                }
             });
             newBlock.message0 = message;
             newBlock.args0 = args;

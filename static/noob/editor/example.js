@@ -9,6 +9,9 @@ const types = {
             params: [
                 {
                     label: "Text",
+                },
+                {
+                    label: "InputValue",
                     inputValue: {},
                 },
             ],
