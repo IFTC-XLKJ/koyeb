@@ -27,7 +27,10 @@ const types = {
             params: [
                 {
                     label: "Text",
-                    inputValue: {},
+                    inputValue: {
+                        key: "inputValue",
+                        checkType: "String",
+                    },
                 },
             ],
             valueType: ["String"],
