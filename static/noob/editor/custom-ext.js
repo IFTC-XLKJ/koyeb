@@ -33,6 +33,7 @@ globalThis.loadCustomExt = async function (obj) {
                 Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks, name));
                 blocks.forEach(block => {
                     const { key } = block;
+                    // 在 custom-ext.js 中找到这部分代码并修改
                     Blockly.JavaScript.forBlock["custom_" + name + "_" + key] = function (b) {
                         const paramsvalues = {};
                         const params = block.params;
@@ -42,10 +43,22 @@ globalThis.loadCustomExt = async function (obj) {
                                 paramsvalues[key] = Blockly.JavaScript.valueToCode(b, key, Blockly.JavaScript.ORDER_NONE);
                             }
                         });
-                        if (Exts[name][key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
-                            return [`await Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_AWAIT];
+
+                        // 判断是语句块还是值块
+                        if (block.valueType) {
+                            // 值块处理
+                            if (Exts[name][key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
+                                return [`await Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_AWAIT];
+                            } else {
+                                return [`Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_NONE];
+                            }
                         } else {
-                            return [`Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_NONE];
+                            // 语句块处理 - 需要返回字符串代码
+                            if (Exts[name][key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
+                                return `await Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)});\n`;
+                            } else {
+                                return `Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)});\n`;
+                            }
                         }
                     }
                 });
