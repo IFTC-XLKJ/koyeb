@@ -22,7 +22,6 @@ globalThis.loadCustomExt = async function (obj) {
                     contents: parseBlocks(blocks, name)
                 });
                 Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks, name));
-                const ext = new Ext();
                 blocks.forEach(block => {
                     const { key } = block;
                     Blockly.JavaScript.forBlock["custom_" + name + "_" + key] = function (block) {
@@ -35,8 +34,7 @@ globalThis.loadCustomExt = async function (obj) {
                 });
                 workspace.updateToolbox(toolbox);
                 Exts[name] = {
-                    ext: ext,
-                    toolbox: toolbox
+                    ext: Ext
                 };
             } else {
                 alert("无法加载扩展，请检查扩展导出的格式是否正确");

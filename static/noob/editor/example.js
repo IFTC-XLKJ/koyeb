@@ -16,12 +16,11 @@ const types = {
     ],
 };
 
-class Ext {
+class Ext { 
     constructor() {
-        this.name = "example";
     }
-    exampleblock() {
-        console.log("exampleblock");
+    static exampleblock() {
+        console.log("example");
     }
 }
 
