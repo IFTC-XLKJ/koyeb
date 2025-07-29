@@ -95,7 +95,6 @@ globalThis.loadCustomExt = async function (obj) {
             if (newBlock.output == void 0 && typeof newBlock.output == "undefined") {
                 newBlock.nextStatement = true;
                 newBlock.previousStatement = true;
-                newBlock.output = null;
             }
             const params = block.params;
             let message = "";
