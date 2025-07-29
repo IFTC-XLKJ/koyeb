@@ -2965,7 +2965,7 @@ function requestLog(req) {
             method: req.method,
             headers: req.headers,
             body: req.body,
-            time: new Date(time() + 2880000).toLocaleString(),
+            time: new Date(time() + 2880000).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" }),
         })
     }
 
