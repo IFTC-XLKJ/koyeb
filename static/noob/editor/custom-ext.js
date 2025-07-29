@@ -86,7 +86,7 @@ globalThis.loadCustomExt = async function (obj) {
                 newBlock.nextStatement = null;
                 newBlock.previousStatement = null;
             }
-            if (block.output != null){}
+            if (block.output != null){
                 newBlock.nextStatement = null;
                 newBlock.previousStatement = null;
             }
