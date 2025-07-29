@@ -86,6 +86,7 @@ globalThis.loadCustomExt = async function (obj) {
                     }
                 }
             });
+            newBlock.inputs = inputs;
             newBlocks.push(newBlock);
         }
         console.log(newBlocks);
