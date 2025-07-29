@@ -2978,7 +2978,7 @@ function requestLog(req) {
 }
 
 setInterval(() => {
-    const time = new Date().toLocaleString();
+    const time = new Date().toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" });
     console.log("服务器正在运行中...", time);
 }, 30000);
 
