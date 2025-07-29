@@ -10,6 +10,8 @@ const types = {
                     label: "Text",
                     labelText: "example",
                     inputValue: {},
+                    color: "#008cff",
+                    tooltip: "Example Block",
                 },
             ],
         },
