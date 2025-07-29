@@ -107,7 +107,7 @@ globalThis.loadCustomExt = async function (obj) {
                     if (inputValue) {
                         const checkType = inputValue.checkType;
                         n++;
-                        message += `${inputValue.label} %${n} `
+                        message += `${param.label} %${n} `
                         args.push({
                             type: "input_value",
                             name: inputValue.key,
