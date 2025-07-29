@@ -95,6 +95,12 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
     }
 }</script>\n<script>const Exts</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
+    function getExts() {
+        const keys = Object.keys(Exts);
+        keys.forEach(key => {
+            console.log(Exts[key].toLocaleString());
+        })
+    }
 }
 // 主体
 Blockly.Blocks['element_body'] = {
