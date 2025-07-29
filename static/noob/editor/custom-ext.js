@@ -39,13 +39,13 @@ globalThis.loadCustomExt = async function (obj) {
                         params.forEach(param => {
                             if (param.inputValue) {
                                 const { key } = param.inputValue;
-                                paramsvalues[key] = Blockly.JavaScript.valueToCode(b, key, Blockly.JavaScript.ORDER_ATOMIC);
+                                paramsvalues[key] = Blockly.JavaScript.valueToCode(b, key, Blockly.JavaScript.ORDER_NONE);
                             }
                         });
                         if (Exts[name][key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
                             return [`await Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_AWAIT];
                         } else {
-                            return [`Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_ATOMIC];
+                            return [`Exts["${name}"]["${key}"](${JSON.stringify(paramsvalues)})`, Blockly.JavaScript.ORDER_NONE];
                         }
                     }
                 });
