@@ -81,7 +81,11 @@ globalThis.loadCustomExt = async function (obj) {
                     const checkType = param.inputValue.checkType;
                     switch (checkType) {
                         case "String":
-                            inputs[param.inputValue.key]["shadow"]["type"] = "text";
+                            inputs[param.inputValue.key] = {
+                                shadow: {
+                                    type: "text",
+                                }
+                            };
                             break;
                     }
                 }
