@@ -82,7 +82,7 @@ globalThis.loadCustomExt = async function (obj) {
             newBlock.tooltip = block.tooltip;
             newBlock.helpUrl = block.helpUrl;
             newBlock.inputsInline = true;
-            if (block.output == void 0) {
+            if (block.valueType == void 0) {
                 newBlock.nextStatement = null;
                 newBlock.previousStatement = null;
             }
