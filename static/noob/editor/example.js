@@ -16,6 +16,19 @@ const types = {
             tooltip: "Example Block",
             labelText: "example",
         },
+        {
+            key: "exampleblock",
+            params: [
+                {
+                    label: "Text",
+                    inputValue: {},
+                },
+            ],
+            output: null,
+            color: "#008cff",
+            tooltip: "Example Block",
+            labelText: "example",
+        },
     ],
 };
 
