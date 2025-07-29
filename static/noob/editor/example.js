@@ -2,6 +2,7 @@ const types = {
     name: "example",
     version: "1.0.0",
     author: "IFTC",
+    color: "#008cff",
     blocks: [
         {
             key: "exampleblock",
