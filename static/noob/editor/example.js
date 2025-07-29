@@ -8,6 +8,7 @@ const types = {
             params: [
                 {
                     label: "Text",
+                    labelText: "example",
                     inputValue: {},
                 },
             ],

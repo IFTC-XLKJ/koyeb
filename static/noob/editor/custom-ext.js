@@ -54,7 +54,7 @@ globalThis.loadCustomExt = async function (obj) {
             newBlock.kind = "block";
             newBlock.type = key;
             newBlocks.push(newBlock);
-            if (block.label) {
+            if (block.labelText) {
                 newBlocks.push({
                     kind: "label",
                     text: block.label,
