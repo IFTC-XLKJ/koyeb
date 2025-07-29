@@ -19,9 +19,9 @@ globalThis.loadCustomExt = async function (obj) {
                     kind: "category",
                     name: name,
                     colour: color,
-                    contents: parseBlocks(blocks)
+                    contents: parseBlocks(blocks, name)
                 });
-                Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks));
+                Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks, name));
                 const ext = new Ext();
                 blocks.forEach(block => {
                     const { key } = block;
@@ -47,7 +47,7 @@ globalThis.loadCustomExt = async function (obj) {
     } else {
         alert("无法加载扩展，请检查扩展导出的格式是否正确");
     }
-    function parseBlocks(blocks) {
+    function parseBlocks(blocks, name) {
         const newBlocks = [];
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
@@ -66,7 +66,7 @@ globalThis.loadCustomExt = async function (obj) {
         console.log(newBlocks);
         return newBlocks;
     }
-    function parseBlocksWithDefine(blocks) {
+    function parseBlocksWithDefine(blocks, name) {
         const newBlocks = [];
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
