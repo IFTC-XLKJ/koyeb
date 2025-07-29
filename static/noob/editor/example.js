@@ -12,7 +12,10 @@ const types = {
                 },
                 {
                     label: "InputValue",
-                    inputValue: {},
+                    inputValue: {
+                        key: "inputValue",
+                        checkType: "String",
+                    },
                 },
             ],
             color: "#008cff",

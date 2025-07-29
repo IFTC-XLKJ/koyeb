@@ -94,7 +94,6 @@ globalThis.loadCustomExt = async function (obj) {
             let n = 0;
             params.forEach(param => {
                 const label = param.label;
-                message += label + " ";
                 if (param.inputValue) {
                     const inputValue = param.inputValue;
                     if (inputValue instanceof Object) {
@@ -104,10 +103,11 @@ globalThis.loadCustomExt = async function (obj) {
                         args.push({
                             type: "input_value",
                             name: inputValue.key,
-                            check: checkType == "Number" ? "Number" : (checkType == "String" ? "String"  : (checkType == "Object" ? "Dictionary" : checkType == "Array" ? "Array" : void 0))
+                            check: checkType == "Number" ? "Number" : (checkType == "String" ? "String" : (checkType == "Object" ? "Dictionary" : checkType == "Array" ? "Array" : void 0))
                         })
                         return;
                     }
+                    message += label + " ";
                 }
             });
             newBlock.message0 = message;
