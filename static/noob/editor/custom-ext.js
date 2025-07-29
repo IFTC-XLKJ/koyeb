@@ -37,7 +37,7 @@ globalThis.loadCustomExt = async function (obj) {
                         if (Exts[name][key].__proto__[Symbol.toStringTag] == "AsyncFunction") {
                             return [`await Exts["${name}"]["${key}"]()`, Blockly.JavaScript.ORDER_AWAIT];
                         } else {
-                            return [`Exts["${name}"]["${key}"]()`, Blockly.JavaScript.ORDER_FUNCTION_CALL];
+                            return [`Exts["${name}"]["${key}"]()`, Blockly.JavaScript.ORDER_ATOMIC];
                         }
                     }
                 });
