@@ -52,7 +52,7 @@ globalThis.loadCustomExt = async function (obj) {
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
             const newBlock = {};
-            const key = block.key;
+            const key = "custom_" + name + "_" + block.key;
             newBlock.kind = "block";
             newBlock.type = key;
             newBlocks.push(newBlock);
@@ -71,7 +71,7 @@ globalThis.loadCustomExt = async function (obj) {
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
             const newBlock = {};
-            newBlock.type = block.key;
+            newBlock.type = "custom_" + name + "_" + block.key;
             const params = block.params;
         }
         console.log(newBlocks)
