@@ -5,9 +5,11 @@ globalThis.loadCustomExt = async function (obj) {
         if (types instanceof Object) {
             const { name, color, version, author, blocks } = types;
             let exit = false;
+            let cover = false;
             for (const content of toolbox.contents) {
                 if (content.kind == "category" && content.name == name) {
-                    if (!confirm("是否覆盖 " + name + " ?")) {
+                    cover = confirm("是否覆盖 " + name + " ?")
+                    if (!cover) {
                         exit = true;
                         break;
                     }
@@ -15,12 +17,14 @@ globalThis.loadCustomExt = async function (obj) {
             }
             if (exit) return;
             if (Ext instanceof Function) {
-                toolbox.contents.push({
-                    kind: "category",
-                    name: name,
-                    colour: color,
-                    contents: parseBlocks(blocks, name)
-                });
+                if (!cover) {
+                    toolbox.contents.push({
+                        kind: "category",
+                        name: name,
+                        colour: color,
+                        contents: parseBlocks(blocks, name)
+                    });
+                }
                 Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks, name));
                 blocks.forEach(block => {
                     const { key } = block;
