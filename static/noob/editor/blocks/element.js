@@ -94,13 +94,16 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
     } catch(e) {
         return { code: 0, msg: e.message, data: null, ok: false };
     }
-}</script>\n<script>const Exts</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+}</script>\n<script>const Exts = {};${getExts()}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
     function getExts() {
+        let code = "";
         const keys = Object.keys(Exts);
         keys.forEach(key => {
             console.log(Exts[key].toLocaleString());
+            code += `Exts["${key}"] = ${Exts[key].toLocaleString()};`
         })
+        return code;
     }
 }
 // 主体
