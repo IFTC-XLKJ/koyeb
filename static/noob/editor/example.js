@@ -24,7 +24,7 @@ const types = {
                     inputValue: {},
                 },
             ],
-            valueType: null,
+            valueType: ["String"],
             color: "#008cff",
             tooltip: "Example Block",
             labelText: "example",

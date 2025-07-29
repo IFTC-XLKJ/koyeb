@@ -77,7 +77,7 @@ globalThis.loadCustomExt = async function (obj) {
             const block = blocks[i];
             const newBlock = {};
             newBlock.type = "custom_" + name + "_" + block.key;
-            if (!block.valueType) {
+            if (block.valueType) {
                 newBlock.output = block.valueType;
             }
             newBlock.colour = block.color;
@@ -88,10 +88,6 @@ globalThis.loadCustomExt = async function (obj) {
                 newBlock.nextStatement = null;
                 newBlock.previousStatement = null;
             }
-            //  else if (newBlock.output != null) {
-            //     newBlock.nextStatement = null;
-            //     newBlock.previousStatement = null;
-            // }
             const params = block.params;
             let message = "";
             const args = [];
