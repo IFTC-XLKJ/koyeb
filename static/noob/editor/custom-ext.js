@@ -93,8 +93,8 @@ globalThis.loadCustomExt = async function (obj) {
             newBlock.helpUrl = block.helpUrl;
             newBlock.inputsInline = true;
             if (newBlock.output == void 0 && typeof newBlock.output == "undefined") {
-                newBlock.nextStatement = null;
-                newBlock.previousStatement = null;
+                newBlock.nextStatement = true;
+                newBlock.previousStatement = true;
             }
             const params = block.params;
             let message = "";
