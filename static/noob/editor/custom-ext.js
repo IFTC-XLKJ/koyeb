@@ -82,10 +82,14 @@ globalThis.loadCustomExt = async function (obj) {
             newBlock.tooltip = block.tooltip;
             newBlock.helpUrl = block.helpUrl;
             newBlock.inputsInline = true;
-            // if (block.valueType == void 0) {
+            if (!newBlock.output) {
                 newBlock.nextStatement = null;
                 newBlock.previousStatement = null;
-            // }
+            }
+            if (newBlock.output == null){
+                newBlock.nextStatement = null;
+                newBlock.previousStatement = null;
+            }
             const params = block.params;
             let message = "";
             const args = [];
