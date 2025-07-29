@@ -72,6 +72,12 @@ globalThis.loadCustomExt = async function (obj) {
             newBlock.colour = block.color;
             newBlock.tooltip = block.tooltip;
             const params = block.params;
+            let message = "";
+            const args = [];
+            params.forEach(param => {
+                const label = param.label;
+                message += label + " ";
+            });
             newBlocks.push(newBlock);
         }
         console.log(newBlocks)
