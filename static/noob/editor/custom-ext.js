@@ -74,6 +74,18 @@ globalThis.loadCustomExt = async function (obj) {
                     text: block.labelText,
                 })
             }
+            const params = block.params;
+            const inputs = {};
+            params.forEach(function (param) {
+                if (param.inputValue) {
+                    const checkType = param.inputValue.checkType;
+                    switch (checkType) {
+                        case "String":
+                            inputs[param.inputValue.key]["shadow"]["type"] = "text";
+                            break;
+                    }
+                }
+            });
             newBlocks.push(newBlock);
         }
         console.log(newBlocks);
