@@ -77,7 +77,6 @@ globalThis.loadCustomExt = async function (obj) {
                 const lebel = param.label;
                 if (lebel) {
                     message += lebel;
-                    args.push({})
                 }
                 const inputValue = param.inputValue;
                 if (inputValue) {
@@ -86,6 +85,7 @@ globalThis.loadCustomExt = async function (obj) {
                 }
             }
         }
+        console.log(newBlocks)
         return newBlocks;
     }
 }
