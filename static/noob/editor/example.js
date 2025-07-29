@@ -44,11 +44,11 @@ const types = {
 class Ext {
     constructor() {
     }
-    static exampleblock() {
-        console.log("example");
+    static exampleblock(paramsValue) {
+        console.log("example", paramsValue.inputValue);
     }
-    static exampleblock_return() {
-        return "example";
+    static exampleblock_return(paramsValue) {
+        return "example" + paramsValue.inputValue;
     }
 }
 
