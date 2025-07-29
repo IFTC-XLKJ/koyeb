@@ -61,6 +61,7 @@ globalThis.loadCustomExt = async function (obj) {
                 })
             }
         }
+        console.log(newBlocks);
         return newBlocks;
     }
     function parseBlocksWithDefine(blocks) {
@@ -70,20 +71,6 @@ globalThis.loadCustomExt = async function (obj) {
             const newBlock = {};
             newBlock.type = block.key;
             const params = block.params;
-            let message = "";
-            const args = [];
-            for (let j = 0; j < params.length; j++) {
-                const param = params[j];
-                const lebel = param.label;
-                if (lebel) {
-                    message += lebel;
-                }
-                const inputValue = param.inputValue;
-                if (inputValue) {
-                    const checkType = inputValue.checkType;
-                    param
-                }
-            }
         }
         console.log(newBlocks)
         return newBlocks;
