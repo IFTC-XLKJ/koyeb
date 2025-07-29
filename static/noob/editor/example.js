@@ -17,7 +17,7 @@ const types = {
             labelText: "example",
         },
         {
-            key: "exampleblock",
+            key: "exampleblock_return",
             params: [
                 {
                     label: "Text",
@@ -37,6 +37,9 @@ class Ext {
     }
     static exampleblock() {
         console.log("example");
+    }
+    static exampleblock_return() {
+        return "example";
     }
 }
 
