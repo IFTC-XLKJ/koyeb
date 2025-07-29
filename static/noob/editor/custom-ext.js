@@ -33,9 +33,7 @@ globalThis.loadCustomExt = async function (obj) {
                     }
                 });
                 workspace.updateToolbox(toolbox);
-                Exts[name] = {
-                    ext: Ext
-                };
+                Exts[name] = Ext;
             } else {
                 alert("无法加载扩展，请检查扩展导出的格式是否正确");
             }
