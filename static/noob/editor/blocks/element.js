@@ -81,7 +81,6 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    getExts();
     var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<style iftc-mdui="theme"></style>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script>async function _fetch_(url, method, headers, body) {
     try {
         const r = await fetch(url, {
@@ -100,7 +99,7 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
         let code = "";
         const keys = Object.keys(Exts);
         keys.forEach(key => {
-            console.log(Exts[key].toLocaleString());
+            // console.log(Exts[key].toLocaleString());
             code += `Exts["${key}"] = ${Exts[key].toLocaleString()};`
         })
         return code;
