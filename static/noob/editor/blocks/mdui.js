@@ -207,6 +207,10 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-typescale-body-large-line-height": "1.6rem",
         "--mdui-color-on-surface": "0, 0, 0, 0.87",
         "--mdui-color-error": "244, 67, 54",
+        "--mdui-typescale-label-large-size": "0.75rem",
+        "--mdui-typescale-label-large-weight": "400",
+        "--mdui-typescale-label-large-tracking": "0.01rem",
+        "--mdui-typescale-label-large-line-height": "1.6rem",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
