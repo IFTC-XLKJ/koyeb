@@ -61,7 +61,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_button",
-        message0: "MDUI 按钮 %1",
+        message0: "MDUI 按钮 %1 %2 %3",
         args0: [
             {
                 type: "field_input",
@@ -88,7 +88,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2 %3",
+        message0: "MDUI 文本框 %1 %2 %3 %4",
         args0: [
             {
                 type: "field_input",
