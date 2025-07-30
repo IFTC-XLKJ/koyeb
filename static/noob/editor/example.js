@@ -69,7 +69,7 @@ class Ext {
     static exampleblock(paramsValue) {
         console.log("example", paramsValue.inputValue);
     }
-    static exampleblock_return(paramsValue) {
+    static async exampleblock_return(paramsValue) {
         return "example" + paramsValue.inputValue;
     }
 }
