@@ -1121,6 +1121,18 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "mdui_button",
+                    inputs: {
+                        ATTRIBUTE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                        STYLE: {
+                            shadow: {
+                                type: "object_dict",
+                            }
+                        },
+                    },
                 },
                 {
                     kind: "block",
