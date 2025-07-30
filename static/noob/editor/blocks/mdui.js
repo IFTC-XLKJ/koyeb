@@ -209,7 +209,7 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const placeholder = block.getFieldValue("PLACEHOLDER");
     const helper = block.getFieldValue("HELPER");
     const value = block.getFieldValue("VALUE");
-    const maxlength = Blockly.JavaScript.valueToCode(block, "MAXLENGTH", Blockly.JavaScript.ORDER_ATOMIC);
+    const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
     const type = block.getFieldValue("TYPE");
     return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${maxlength ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
 }
