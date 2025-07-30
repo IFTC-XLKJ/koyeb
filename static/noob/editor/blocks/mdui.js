@@ -1,5 +1,3 @@
-const { Block } = require("@junzh666/blockly-c");
-
 Blockly.defineBlocksWithJsonArray([
     {
         type: "mdui_design_token",
