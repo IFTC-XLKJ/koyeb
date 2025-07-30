@@ -671,6 +671,7 @@ save.addEventListener("click", async function () {
                 toast.hideToast(lid);
             }
         } catch (e) {
+            console.log(e);
             toast.showToast(e.message, 2, "center", "small", "error", false, true);
             toast.hideToast(lid);
         }
