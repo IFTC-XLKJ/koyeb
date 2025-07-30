@@ -1138,7 +1138,7 @@ const toolbox = {
                     kind: "block",
                     type: "mdui_text_field",
                     inputs: {
-                        MIM_LENGTH: {
+                        MIN_LENGTH: {
                             shadow: {
                                 type: "math_number",
                             }
