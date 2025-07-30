@@ -612,9 +612,9 @@ save.addEventListener("click", async function () {
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("nid") || "new";
     console.log(ID, password, NID);
+    const toast = new Toast();
     if (ID && password) {
         try {
-            const toast = new Toast();
             const lid = toast.loading("保存中");
             const html = BlocksToJS();
             const parser = new DOMParser();
