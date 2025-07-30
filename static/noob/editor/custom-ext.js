@@ -41,6 +41,9 @@ globalThis.loadCustomExt = async function (obj) {
                             if (param.inputValue) {
                                 const { key } = param.inputValue;
                                 paramsvalues[key] = Blockly.JavaScript.valueToCode(b, key, Blockly.JavaScript.ORDER_NONE);
+                            } else if (param.dropdown) {
+                                const { key } = param.dropdown;
+                                paramsvalues[key] = b.getFieldValue(key);
                             }
                         });
 
