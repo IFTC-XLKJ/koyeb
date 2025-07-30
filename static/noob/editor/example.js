@@ -17,6 +17,17 @@ const types = {
                         checkType: "String",
                     },
                 },
+                {
+                    label: "Dropdown",
+                    dropdown: {
+                        key: "dropdown",
+                        options: [
+                            ["Option 1", "option1"],
+                            ["Option 2", "option2"],
+                            ["Option 3", "option3"],
+                        ],
+                    }
+                },
             ],
             color: "#008cff",
             tooltip: "Example Block",
@@ -31,6 +42,17 @@ const types = {
                         key: "inputValue",
                         checkType: "String",
                     },
+                },
+                {
+                    label: "Dropdown",
+                    dropdown: {
+                        key: "dropdown",
+                        options: [
+                            ["Option 1", "option1"],
+                            ["Option 2", "option2"],
+                            ["Option 3", "option3"],
+                        ],
+                    }
                 },
             ],
             valueType: ["String"],
