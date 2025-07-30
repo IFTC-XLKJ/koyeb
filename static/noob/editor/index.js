@@ -743,7 +743,7 @@ function importExt() {
             reader.onload = async function () {
                 const code = reader.result;
                 try {
-                    loadCustomExt(await eval(`const exports = {};(async function() {\n${code}\nreturn exports})()`));
+                    loadCustomExt(await eval(`const exports = {};(async function() {\n${code}\nreturn exports})()`), code);
                 } catch (e) {
                     alert("扩展加载错误" + e.stack);
                 }
@@ -765,7 +765,9 @@ function newFile() {
 
 function saveFileAs() {
     const filename = getWorkName() + ".nb";
-    const file = new Blob([JSON.stringify(saveBlocks(), null, 4)], { type: "application/json" });
+    const blocks = saveBlocks();
+    blocks.exts = ExtsCode;
+    const file = new Blob([JSON.stringify(blocks, null, 4)], { type: "application/json" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(file);
     a.download = filename;

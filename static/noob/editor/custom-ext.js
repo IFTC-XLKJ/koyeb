@@ -1,5 +1,6 @@
 globalThis.Exts = {};
-globalThis.loadCustomExt = async function (obj) {
+globalThis.ExtsCode = {};
+globalThis.loadCustomExt = async function (obj, code) {
     if (obj instanceof Object) {
         const { types, Ext } = obj;
         if (types instanceof Object) {
@@ -67,6 +68,7 @@ globalThis.loadCustomExt = async function (obj) {
                 });
                 workspace.updateToolbox(toolbox);
                 Exts[name] = Ext;
+                ExtsCode[name] = code;
             } else {
                 alert("无法加载扩展，请检查扩展导出的格式是否正确");
             }
