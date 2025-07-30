@@ -164,7 +164,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
     const fit = block.getFieldValue("FIT") == "TRUE" ? true : false;
-    console.log(fit);
+    // console.log(fit);
     return `<mdui-button${fit ? ` full-width` : ""} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
