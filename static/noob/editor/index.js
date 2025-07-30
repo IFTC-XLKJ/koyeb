@@ -632,7 +632,7 @@ save.addEventListener("click", async function () {
                 blocks: saveBlocks().blocks,
                 code: newHtml,
                 vars: vars,
-                exts: exts,
+                exts: ExtsCode,
             }
             const formData = new FormData();
             formData.append("path", "noob/work/" + Date.now());
