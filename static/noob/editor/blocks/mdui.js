@@ -129,11 +129,13 @@ Blockly.defineBlocksWithJsonArray([
                 type: "input_value",
                 name: "MIN_LENGTH",
                 check: "Number",
+                optional: true
             },
             {
                 type: "input_value",
                 name: "MAX_LENGTH",
                 check: "Number",
+                optional: true
             },
             {
                 type: "field_dropdown",
