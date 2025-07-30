@@ -127,6 +127,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-motion-duration-short4": "0.2s",
         "--mdui-motion-easing-standard": "cubic-bezier(0.4, 0, 0.2, 1)",
         "--mdui-shape-corner-extra-small": "0.3rem",
+        "--mdui-motion-easing-linear": "cubic-bezier(0, 0, 1, 1)"
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
