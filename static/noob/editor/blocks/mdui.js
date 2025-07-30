@@ -95,6 +95,11 @@ Blockly.defineBlocksWithJsonArray([
                 name: "HELPER",
                 text: "Helper Text",
             },
+            {
+                type: "field_input",
+                name: "VALUE",
+                text: "Value",
+            },
         ],
         colour: "#6750A4",
         tooltip: "添加一个 MDUI 按钮",
