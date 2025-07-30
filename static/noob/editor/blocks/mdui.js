@@ -232,10 +232,26 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const placeholder = block.getFieldValue("PLACEHOLDER");
     const helper = block.getFieldValue("HELPER");
     const value = block.getFieldValue("VALUE");
-    const minlength = Blockly.JavaScript.valueToCode(block, "MIN_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
-    const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
+    
+    // 处理可能为空的输入值
+    const minlength = Blockly.JavaScript.valueToCode(block, "MIN_LENGTH", Blockly.JavaScript.ORDER_ATOMIC) || "";
+    const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC) || "";
+    
     const type = block.getFieldValue("TYPE");
     const readonly = block.getFieldValue("READONLY") == "TRUE" ? true : false;
     const disabled = block.getFieldValue("DISABLED") == "TRUE" ? true : false;
-    return `<mdui-text-field${disabled ? ` disabled` : ""}${readonly ? ` readonly` : ""}${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${minlength != 0 ? ` minlength="${minlength}"` : ""}${maxlength != 0 ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
+    
+    // 构建属性字符串时检查值是否为空
+    let attrs = "";
+    if (disabled) attrs += " disabled";
+    if (readonly) attrs += " readonly";
+    if (label) attrs += ` label="${label}"`;
+    if (placeholder) attrs += ` placeholder="${placeholder}"`;
+    if (helper) attrs += ` helper="${helper}" helper-on-focus`;
+    if (value) attrs += ` value="${value}"`;
+    if (minlength) attrs += ` minlength="${minlength}"`;
+    if (maxlength) attrs += ` maxlength="${maxlength}"`;
+    attrs += ` type="${type}"`;
+    
+    return `<mdui-text-field${attrs}></mdui-text-field>`;
 }
