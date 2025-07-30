@@ -175,17 +175,17 @@ globalThis.loadCustomExt = async function (obj) {
                             check: checkType == "Number" ? "Number" : (checkType == "String" ? "String" : (checkType == "Object" ? "Dictionary" : checkType == "Array" ? "Array" : void 0))
                         })
                         return;
-                    } else if (param.dropdown) {
-                        const dropdown = param.dropdown;
-                        n++;
-                        message += `${label} %${n} `
-                        args.push({
-                            type: "field_dropdown",
-                            options: dropdown.options,
-                            name: dropdown.key
-                        })
-                        return;
                     }
+                } else if (param.dropdown) {
+                    const dropdown = param.dropdown;
+                    n++;
+                    message += `${label} %${n} `
+                    args.push({
+                        type: "field_dropdown",
+                        options: dropdown.options,
+                        name: dropdown.key
+                    })
+                    return;
                 }
                 message += label + " ";
             });
