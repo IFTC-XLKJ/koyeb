@@ -1019,7 +1019,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.0-flash-lite-preview",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 1,
                         top_p: 1,
