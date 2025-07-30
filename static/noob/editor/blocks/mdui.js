@@ -103,7 +103,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2 %3 %4 最大字数%5",
+        message0: "MDUI 文本框 %1 %2 %3 %4 最大字数%5 %6",
         args0: [
             {
                 type: "field_input",
