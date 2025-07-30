@@ -1014,7 +1014,7 @@ class Other {
                 const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
+                        Authorization: `Bearer sk-AmethystFree`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app",
                     },
