@@ -61,7 +61,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_button",
-        message0: "MDUI 按钮 %1 适应宽度%2 %3 %4",
+        message0: "MDUI 按钮 %1 适应宽度%2 禁用%3 %4 %5",
         args0: [
             {
                 type: "field_input",
@@ -71,6 +71,11 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_checkbox",
                 name: "FIT",
+                checked: false,
+            },
+            {
+                type: "field_checkbox",
+                name: "DISABLED",
                 checked: false,
             },
             {
@@ -165,7 +170,8 @@ Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
     const fit = block.getFieldValue("FIT") == "TRUE" ? true : false;
     // console.log(fit);
-    return `<mdui-button${fit ? ` full-width` : ""} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
+    const disabled = block.getFieldValue("DISABLED") == "TRUE" ? true : false;
+    return `<mdui-button${fit ? ` full-width` : ""}${disabled ? ` disabled` : ""} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
 Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
