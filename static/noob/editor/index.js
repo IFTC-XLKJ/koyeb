@@ -981,11 +981,11 @@ function obfuscate(code) {
                 Object.keys(exts).forEach(async (key, i) => {
                     loadCustomExt(await eval(`const exports = {};(async function() {\n${exts[key]}\nreturn exports})()`), exts[key]);
                     if (i == Object.keys(exts).length - 1) {
-                        loadWork(work);
+                        loadBlocks(work);
                     }
                 })
                 if (Object.keys(exts).length == 0) {
-                    loadWork(work);
+                    loadBlocks(work);
                 }
                 toast.hideToast(lid);
             } else if (data.code == 403) {
