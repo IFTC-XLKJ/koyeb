@@ -613,9 +613,9 @@ save.addEventListener("click", async function () {
     const NID = new URLSearchParams(location.search).get("nid") || "new";
     console.log(ID, password, NID);
     const toast = new Toast();
+    const lid = toast.loading("保存中");
     if (ID && password) {
         try {
-            const lid = toast.loading("保存中");
             const html = BlocksToJS();
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, "text/html");
@@ -672,8 +672,8 @@ save.addEventListener("click", async function () {
             }
         } catch (e) {
             console.log(e);
-            toast.showToast(e.message, 2, "center", "small", "error", false, true);
             toast.hideToast(lid);
+            toast.showToast(e.message, 2, "center", "small", "error", false, true);
         }
     } else {
         alert("请先登录");
