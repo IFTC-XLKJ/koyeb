@@ -228,7 +228,7 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const minlength = Blockly.JavaScript.valueToCode(block, "MIN_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
     const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
     const type = block.getFieldValue("TYPE");
-    const readonly = block.getFieldValue("READONLY");
-    const disabled = block.getFieldValue("DISABLED");
+    const readonly = block.getFieldValue("READONLY") == "TRUE" ? true : false;
+    const disabled = block.getFieldValue("DISABLED") == "TRUE" ? true : false;
     return `<mdui-text-field${disabled ? ` disabled` : ""}${readonly ? ` readonly` : ""}${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${minlength != 0 ? ` minlength="${minlength}"` : ""}${maxlength != 0 ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
 }
