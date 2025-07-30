@@ -103,7 +103,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2 %3 %4 最大字数%5 %6 只读%7",
+        message0: "MDUI 文本框 %1 %2 %3 %4 最小字数%5 最大字数%6 %7 只读%8 禁用%9",
         args0: [
             {
                 type: "field_input",
@@ -124,6 +124,11 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_input",
                 name: "VALUE",
                 text: "Value",
+            },
+            {
+                type: "input_value",
+                name: "MIN_LENGTH",
+                check: "Number",
             },
             {
                 type: "input_value",
@@ -152,6 +157,11 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_checkbox",
                 name: "READONLY",
+                checked: false,
+            },
+            {
+                type: "field_checkbox",
+                name: "DISABLED",
                 checked: false,
             },
         ],
@@ -215,8 +225,10 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const placeholder = block.getFieldValue("PLACEHOLDER");
     const helper = block.getFieldValue("HELPER");
     const value = block.getFieldValue("VALUE");
+    const minlength = Blockly.JavaScript.valueToCode(block, "MIN_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
     const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
     const type = block.getFieldValue("TYPE");
     const readonly = block.getFieldValue("READONLY");
-    return `<mdui-text-field${readonly ? ` readonly` : ""}${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${maxlength != 0 ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
+    const disabled = block.getFieldValue("DISABLED");
+    return `<mdui-text-field${disabled ? ` disabled` : ""}${readonly ? ` readonly` : ""}${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${minlength != 0 ? ` minlength="${minlength}"` : ""}${maxlength != 0 ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
 }
