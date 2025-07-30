@@ -100,6 +100,34 @@ globalThis.loadCustomExt = async function (obj) {
                                 }
                             };
                             break;
+                        case "Number":
+                            inputs[param.inputValue.key] = {
+                                shadow: {
+                                    type: "math_number",
+                                }
+                            };
+                            break;
+                        case "Boolean":
+                            inputs[param.inputValue.key] = {
+                                shadow: {
+                                    type: "logic_boolean",
+                                }
+                            };
+                            break;
+                        case "Object":
+                            inputs[param.inputValue.key] = {
+                                shadow: {
+                                    type: "object_dict",
+                                }
+                            };
+                            break;
+                        case "Array":
+                            inputs[param.inputValue.key] = {
+                                shadow: {
+                                    type: "array_create",
+                                }
+                            };
+                            break;
                     }
                 }
             });
@@ -142,6 +170,16 @@ globalThis.loadCustomExt = async function (obj) {
                             type: "input_value",
                             name: inputValue.key,
                             check: checkType == "Number" ? "Number" : (checkType == "String" ? "String" : (checkType == "Object" ? "Dictionary" : checkType == "Array" ? "Array" : void 0))
+                        })
+                        return;
+                    } else if (param.dropdown) {
+                        const dropdown = param.dropdown;
+                        n++;
+                        message += `${label} %${n} `
+                        args.push({
+                            type: "field_dropdown",
+                            options: dropdown.options,
+                            name: dropdown.key
                         })
                         return;
                     }
