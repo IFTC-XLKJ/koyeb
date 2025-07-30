@@ -122,7 +122,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-color-on-primary": "255, 255, 255, 0.3",
         "--mdui-text-color": "255, 255, 255",
         "--mdui-shape-corner-full": "1000rem",
-        "--mdui-color-on-surface-variant": "200, 200, 200",
+        "--mdui-color-on-surface-variant": "180, 180, 180",
         "--mdui-color-surface-container-highest": "240, 240, 240",
         "--mdui-motion-duration-short4": "0.2s",
         "--mdui-motion-easing-standard": "cubic-bezier(0.4, 0, 0.2, 1)",
