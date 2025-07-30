@@ -61,12 +61,17 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_button",
-        message0: "MDUI 按钮 %1 %2 %3",
+        message0: "MDUI 按钮 %1 适应宽度%2 %3 %4",
         args0: [
             {
                 type: "field_input",
                 name: "LABEL",
                 text: "button",
+            },
+            {
+                type: "field_checkbox",
+                name: "FIT",
+                checked: false,
             },
             {
                 type: "input_value",
@@ -158,9 +163,8 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
 
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
-    const attribute = Blockly.JavaScript.statementToCode(block, "ATTRIBUTE");
-    const style = Blockly.JavaScript.statementToCode(block, "STYLE");
-    return `<mdui-button style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
+    const fit = block.getFieldValue("FIT");
+    return `<mdui-button${fit ? ` full-width` : ""} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
 Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
