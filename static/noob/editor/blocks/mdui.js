@@ -103,7 +103,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2 %3 %4 最大字数%5 %6",
+        message0: "MDUI 文本框 %1 %2 %3 %4 最大字数%5 %6 只读%7",
         args0: [
             {
                 type: "field_input",
@@ -148,6 +148,11 @@ Blockly.defineBlocksWithJsonArray([
                     ["时间", "time"],
                     ["周", "week"],
                 ]
+            },
+            {
+                type: "field_checkbox",
+                name: "READONLY",
+                checked: false,
             },
         ],
         colour: "#6750A4",
@@ -212,5 +217,6 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const value = block.getFieldValue("VALUE");
     const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC);
     const type = block.getFieldValue("TYPE");
-    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${maxlength != 0 ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
+    const readonly = block.getFieldValue("READONLY");
+    return `<mdui-text-field${readonly ? ` readonly` : ""}${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${maxlength != 0 ? ` maxlength="${maxlength}"` : ""} type="${type}"></mdui-text-field>`;
 }
