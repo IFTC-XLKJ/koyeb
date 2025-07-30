@@ -1011,7 +1011,7 @@ class Other {
                 return res.status(400).json({ error: "Invalid language", languages: languages });
             }
             try {
-                const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
+                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
