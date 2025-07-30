@@ -130,6 +130,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-motion-easing-linear": "cubic-bezier(0, 0, 1, 1)",
         "--mdui-typescale-body-small-size": "0.75rem",
         "--mdui-typescale-body-small-weight": "400",
+        "--mdui-typescale-body-small-tracking": "0.025rem",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
