@@ -120,6 +120,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-color-on-surface-variant": "200, 200, 200",
         "--mdui-color-surface-container-highest": "240, 240, 240",
         "--mdui-motion-duration-short4": "0.2s",
+        "--mdui-motion-easing-standard": "cubic-bezier(0.4, 0, 0.2, 1)",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
