@@ -631,7 +631,8 @@ save.addEventListener("click", async function () {
                 name: getWorkName(),
                 blocks: saveBlocks().blocks,
                 code: newHtml,
-                vars: vars
+                vars: vars,
+                exts: exts,
             }
             const formData = new FormData();
             formData.append("path", "noob/work/" + Date.now());
@@ -976,6 +977,10 @@ function obfuscate(code) {
                 const title = work.name;
                 document.getElementById("title").querySelector("input").value = title;
                 loadBlocks(work);
+                const exts = work.exts;
+                Object.keys(exts).forEach(async key => {
+                    loadCustomExt(await eval(`const exports = {};(async function() {\n${exts[key]}\nreturn exports})()`), exts[key]);
+                })
                 toast.hideToast(lid);
             } else if (data.code == 403) {
                 toast.hideToast(lid);
