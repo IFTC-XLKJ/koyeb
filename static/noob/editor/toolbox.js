@@ -1121,6 +1121,10 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "mdui_button",
+                },
+                {
+                    kind: "block",
+                    type: "mdui_text_field"
                 }
             ],
         },
