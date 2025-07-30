@@ -1136,7 +1136,14 @@ const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "mdui_text_field"
+                    type: "mdui_text_field",
+                    inputs: {
+                        MAX_LENGTH: {
+                            shadow: {
+                                type: "math_number",
+                            }
+                        },
+                    }
                 }
             ],
         },
