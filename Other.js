@@ -1163,15 +1163,15 @@ class Other {
                 return;
             }
             try {
-                const r = await fetch("https://api.moeres.cn/v1/chat/completions", {
+                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-be5HJXzKKnoIXyz3aLXaSyPLmdZPkkDwkye1akDxAuUUOhHk`,
+                        Authorization: `Bearer sk-AmethystFree`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
