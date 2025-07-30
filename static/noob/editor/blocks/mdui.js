@@ -1,3 +1,5 @@
+const { Block } = require("@junzh666/blockly-c");
+
 Blockly.defineBlocksWithJsonArray([
     {
         type: "mdui_design_token",
@@ -76,6 +78,23 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
         nextStatement: null,
     },
+    {
+        type: "mdui_text_field",
+        message0: "MDUI 文本框 %1",
+        args0: [
+            {
+                type: "field_input",
+                name: "LABEL",
+                text: "Text Field",
+            },
+        ],
+        colour: "#6750A4",
+        tooltip: "添加一个 MDUI 按钮",
+        helpUrl: "",
+        inputsInline: true,
+        previousStatement: null,
+        nextStatement: null,
+    },
 ]);
 
 Blockly.JavaScript.forBlock["mdui_design_token"] = function (block) {
@@ -102,4 +121,9 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
     return `<mdui-button style="color: rgba(var(--mdui-text-color));">${label}</mdui-button>`;
+}
+
+Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) { 
+    const label = block.getFieldValue("LABEL");
+    return `<mdui-text-field label="${label}"></mdui-text-field>`;
 }
