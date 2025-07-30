@@ -136,6 +136,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-typescale-body-large-weight": "400",
         "--mdui-typescale-body-large-tracking": "0.01rem",
         "--mdui-typescale-body-large-line-height": "1.6rem",
+        "--mdui-color-on-surface": "0, 0, 0, 0.87"
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
