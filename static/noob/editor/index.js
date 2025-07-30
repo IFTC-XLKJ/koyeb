@@ -984,6 +984,9 @@ function obfuscate(code) {
                         loadWork(work);
                     }
                 })
+                if (Object.keys(exts).length == 0) {
+                    loadWork(work);
+                }
                 toast.hideToast(lid);
             } else if (data.code == 403) {
                 toast.hideToast(lid);
