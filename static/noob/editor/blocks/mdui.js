@@ -103,7 +103,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2 %3 %4",
+        message0: "MDUI 文本框 %1 %2 %3 %4 最大字数%5",
         args0: [
             {
                 type: "field_input",
@@ -124,6 +124,11 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_input",
                 name: "VALUE",
                 text: "Value",
+            },
+            {
+                type: "input_value",
+                name: "MAX_LENGTH",
+                check: "Number",
             },
         ],
         colour: "#6750A4",
@@ -185,5 +190,6 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const placeholder = block.getFieldValue("PLACEHOLDER");
     const helper = block.getFieldValue("HELPER");
     const value = block.getFieldValue("VALUE");
-    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}></mdui-text-field>`;
+    const maxlength = Blockly.JavaScript.valueToCode(block, "MAXLENGTH", Blockly.JavaScript.ORDER_ATOMIC);
+    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}${maxlength ? ` maxlength="${maxlength}"` : ""}></mdui-text-field>`;
 }
