@@ -155,5 +155,6 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const label = block.getFieldValue("LABEL");
     const placeholder = block.getFieldValue("PLACEHOLDER");
     const helper = block.getFieldValue("HELPER");
-    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}></mdui-text-field>`;
+    const value = block.getFieldValue("VALUE");
+    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}${value ? ` value="${value}"` : ""}></mdui-text-field>`;
 }
