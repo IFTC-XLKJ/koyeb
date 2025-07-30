@@ -78,7 +78,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2",
+        message0: "MDUI 文本框 %1 %2 %3",
         args0: [
             {
                 type: "field_input",
@@ -89,6 +89,11 @@ Blockly.defineBlocksWithJsonArray([
                 type: "field_input",
                 name: "PLACEHOLDER",
                 text: "Placeholder",
+            },
+            {
+                type: "field_input",
+                name: "HELPER",
+                text: "Helper Text",
             },
         ],
         colour: "#6750A4",
@@ -133,5 +138,6 @@ Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
 Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const label = block.getFieldValue("LABEL");
     const placeholder = block.getFieldValue("PLACEHOLDER");
-    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}></mdui-text-field>`;
+    const helper = block.getFieldValue("HELPER");
+    return `<mdui-text-field${label ? ` label="${label}"` : ""}${placeholder ? ` placeholder="${placeholder}"` : ""}${helper ? ` helper="${helper}" helper-on-focus` : ""}></mdui-text-field>`;
 }
