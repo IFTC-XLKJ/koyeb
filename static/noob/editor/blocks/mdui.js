@@ -225,6 +225,9 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-color-inverse-surface": "49, 48, 51",
         "--mdui-color-inverse-on-surface": "244, 239, 244",
         "--mdui-typescale-body-medium-size": "0.875rem",
+        "--mdui-typescale-body-medium-weight": "400",
+        "--mdui-typescale-body-medium-tracking": "0.0155625em",
+        "--mdui-typescale-body-medium-line-height": "1.25rem",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
