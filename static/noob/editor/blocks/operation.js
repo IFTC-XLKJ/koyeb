@@ -129,6 +129,17 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: "",
         inputsInline: true
     },
+    {
+        type: "undefined",
+        message0: "未定义",
+        args0: [],
+        inputsInline: true,
+        output: null,
+        colour: "#F8AA87",
+        tooltip: "未定义",
+        helpUrl: "",
+        inputsInline: true
+    },
 ]);
 
 Blockly.JavaScript.forBlock['num_operator'] = function (block) {
@@ -162,4 +173,8 @@ Blockly.JavaScript.forBlock['negate'] = function (block) {
 Blockly.JavaScript.forBlock['type_of'] = function (block) {
     const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_ATOMIC);
     return [`(typeof ${value})`, Blockly.JavaScript.ORDER_ATOMIC];
+}
+
+Blockly.JavaScript.forBlock['undefined'] = function (block) {
+    return ['undefined', Blockly.JavaScript.ORDER_ATOMIC];
 }
