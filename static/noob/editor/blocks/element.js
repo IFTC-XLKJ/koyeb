@@ -93,7 +93,8 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
     } catch(e) {
         return { code: 0, msg: e.message, data: null, ok: false };
     }
-}</script>\n<script>const Exts = {};${getExts()}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+}
+const undefined = void 0;</script>\n<script>const Exts = {};${getExts()}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
     function getExts() {
         let code = "";
