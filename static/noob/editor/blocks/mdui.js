@@ -181,7 +181,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_snackbar",
-        message0: "弹出 MDUI 提示 %1 %2 操作按钮%3 自动该笔延时%4",
+        message0: "弹出 MDUI 提示 %1 %2 操作按钮%3 自动关闭延时%4",
         args0: [
             {
                 type: "input_value",
