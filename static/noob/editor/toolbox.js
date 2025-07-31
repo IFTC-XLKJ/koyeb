@@ -1165,6 +1165,12 @@ const toolbox = {
                                 type: "text",
                                 text: "Action"
                             }
+                        },
+                        AUTOCLOSEDELAY: {
+                            shadow: {
+                                type: "math_number",
+                                value: 2000
+                            }
                         }
                     }
                 },
