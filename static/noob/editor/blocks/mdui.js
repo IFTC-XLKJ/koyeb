@@ -276,7 +276,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-color-shadow": "0, 0, 0",
         "--mdui-color-outline": "121, 116, 126",
         "--mdui-color-on-surface-variant-light": "73, 69, 78",
-        "--mdui-color-primary-container": "0 162 255",
+        "--mdui-color-primary-container": "0 200 255",
         "--mdui-color-background": "200 240 255",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
