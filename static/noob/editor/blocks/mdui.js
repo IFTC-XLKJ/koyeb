@@ -353,7 +353,7 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
         placement: "${placement}",
         action: ${action},
         autoCloseDelay: ${autoCloseDelay},
-        closable: ${closable},
+        closeable: ${closable},
         closeOnOutsideClick: ${closeOnOutsideClick},
         onActionClick: ${onActionClick},
     });
