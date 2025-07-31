@@ -285,3 +285,10 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     attrs += ` type="${type}"`;
     return `<mdui-text-field${attrs}></mdui-text-field>`;
 }
+
+Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
+    const message = Blockly.JavaScript.valueToCode(block, "message", Blockly.JavaScript.ORDER_ATOMIC);
+    return `mdui.snackbar({
+    message: ${message},
+});`;
+};
