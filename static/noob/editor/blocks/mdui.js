@@ -220,8 +220,8 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-typescale-label-large-line-height": "1.6rem",
         "--mdui-elevation-level0": "none",
         "--mdui-motion-duration-medium4": "400ms",
-        "--mdui-motion-easing-emphasized-decele": "cubic-bezier(0.4, 0.0, 0.2, 1)",
-        "--mdui-elevation-level3": "0.3rem",
+        "--mdui-motion-easing-emphasized-decelerate": "cubic-bezier(0.05, 0.7, 0.1, 1)",
+        "--mdui-elevation-level3": "0 1.25px 5px 0 rgba(var(--mdui-color-shadow), 19%), 0 0.3333px 1.5px 0 rgba(var(--mdui-color-shadow), 3.9%)",
         "--mdui-color-inverse-surface": "49, 48, 51",
         "--mdui-color-inverse-on-surface": "244, 239, 244	",
     };
