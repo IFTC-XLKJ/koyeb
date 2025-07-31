@@ -213,6 +213,17 @@ Blockly.defineBlocksWithJsonArray([
         previousStatement: null,
         nextStatement: null,
     },
+    {
+        type: "mdui_switch",
+        message0: "MDUI 开关 ",
+        args0: [],
+        colour: "#6750A4",
+        tooltip: "添加一个 MDUI 开关",
+        helpUrl: "",
+        inputsInline: true,
+        previousStatement: null,
+        nextStatement: null,
+    },
 ]);
 
 Blockly.JavaScript.forBlock["mdui_design_token"] = function (block) {
