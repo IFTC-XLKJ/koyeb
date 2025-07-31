@@ -25,7 +25,7 @@ class Widget extends InvisibleWidget {
         Object.assign(this, props);
         this.file = null;
         console.log(this);
-        this.widgetLog(`版本 ${this.version}`);
+        this.widgetLog(`版本 ${types.version}`);
         this.widgetWarn(`路径请在选择好文件前设置`)
         window.BCM_FILE_UPLOADER = this;
     }
