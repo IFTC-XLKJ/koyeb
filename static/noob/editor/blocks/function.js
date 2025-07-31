@@ -114,7 +114,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "temp_function",
-        message0: "临时函数 参数列表 %1 %2",
+        message0: "匿名函数 参数列表 %1 %2",
         args0: [
             {
                 type: 'input_value',
@@ -127,7 +127,7 @@ Blockly.defineBlocksWithJsonArray([
             }
         ],
         colour: "#F88767",
-        tooltip: '定义一个临时函数',
+        tooltip: '定义一个匿名函数',
         helpUrl: '',
         output: null,
         inputsInline: true
