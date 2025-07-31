@@ -305,7 +305,7 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
 }
 
 Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
-    const message = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC) | "''";
+    const message = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC) || "''";
     const placement = block.getFieldValue("PLACEMENT");
     const action = Blockly.JavaScript.valueToCode(block, "ACTION", Blockly.JavaScript.ORDER_ATOMIC);
     return `if (globalThis.mdui) {
