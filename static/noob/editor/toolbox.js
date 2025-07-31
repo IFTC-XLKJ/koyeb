@@ -1,3 +1,5 @@
+const { inputs } = require("@junzh666/blockly-c");
+
 const toolbox = {
     kind: "categoryToolbox",
     contents: [
@@ -1153,6 +1155,14 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "mdui_snackbar",
+                    inputs: {
+                        MESSAGE: {
+                            shadow: {
+                                type: "text",
+                                text: "Message"
+                            }
+                        },
+                    }
                 },
             ],
         },
