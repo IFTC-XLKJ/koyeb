@@ -188,6 +188,18 @@ Blockly.defineBlocksWithJsonArray([
                 name: "MESSAGE",
                 check: "String",
             },
+            {
+                type: "field_dropdown",
+                name: "PLACEMENT",
+                options: [
+                    ["顶部", "top"],
+                    ["底部", "bottom"],
+                    ["顶部左侧", "top-start"],
+                    ["顶部右侧", "top-end"],
+                    ["底部左侧", "bottom-start"],
+                    ["底部右侧", "bottom-end"]
+                ]
+            },
         ],
         colour: "#6750A4",
         tooltip: "弹出一个 MDUI 提示",
@@ -288,9 +300,11 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
 
 Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
     const message = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
+    const placement = block.getFieldValue("PLACEMENT");
     return `if (globalThis.mdui) {
     mdui.snackbar({
         message: ${message},
+        placement: "${placement}",
     });
 } else {
     console.warn("MDUI Snackbar: MDUI not loaded.");
