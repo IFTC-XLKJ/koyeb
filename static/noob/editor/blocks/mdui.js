@@ -224,6 +224,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-elevation-level3": "0 1.25px 5px 0 rgba(var(--mdui-color-shadow), 19%), 0 0.3333px 1.5px 0 rgba(var(--mdui-color-shadow), 3.9%)",
         "--mdui-color-inverse-surface": "49, 48, 51",
         "--mdui-color-inverse-on-surface": "244, 239, 244",
+        "--mdui-typescale-body-medium-size": "0.875rem",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
