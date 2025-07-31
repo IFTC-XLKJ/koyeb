@@ -276,7 +276,7 @@ Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     if (disabled) attrs += " disabled";
     if (loading) attrs += " loading";
     console.log(handleAttrAndStyle(block));
-    return `<mdui-button${attrs} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
+    return `<mdui-button${attrs} style="color: rgba(var(--mdui-text-color));"${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
 Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
