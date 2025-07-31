@@ -239,7 +239,7 @@ Blockly.JavaScript.forBlock["mdui_theme"] = function (block) {
 
 Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
     const defaultTheme = {
-        "--mdui-color-primary": "0, 192, 255",
+        "--mdui-color-primary": "0, 159, 255",
         "--mdui-color-on-primary": "255, 255, 255",
         "--mdui-shape-corner-full": "1000rem",
         "--mdui-color-on-surface-variant": "180, 180, 180",
