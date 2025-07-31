@@ -1169,7 +1169,9 @@ const toolbox = {
                         AUTOCLOSEDELAY: {
                             shadow: {
                                 type: "math_number",
-                                value: 2000
+                                fields: {
+                                    NUM: 2000
+                                }
                             }
                         }
                     }
