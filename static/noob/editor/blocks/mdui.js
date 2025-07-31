@@ -221,6 +221,9 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-elevation-level0": "none",
         "--mdui-motion-duration-medium4": "400ms",
         "--mdui-motion-easing-emphasized-decele": "cubic-bezier(0.4, 0.0, 0.2, 1)",
+        "--mdui-elevation-level3": "0.3rem",
+        "--mdui-color-inverse-surface": "49, 48, 51",
+        "--mdui-color-inverse-on-surface": "244, 239, 244	",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
