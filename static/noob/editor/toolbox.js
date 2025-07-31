@@ -1,5 +1,3 @@
-const { inputs } = require("@junzh666/blockly-c");
-
 const toolbox = {
     kind: "categoryToolbox",
     contents: [
