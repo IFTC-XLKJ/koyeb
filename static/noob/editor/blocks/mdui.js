@@ -275,6 +275,7 @@ Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     if (fit) attrs += " full-width";
     if (disabled) attrs += " disabled";
     if (loading) attrs += " loading";
+    console.log(handleAttrAndStyle(block));
     return `<mdui-button${attrs} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
@@ -304,7 +305,7 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
 }
 
 Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
-    const message = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
+    const message = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC) | "''";
     const placement = block.getFieldValue("PLACEMENT");
     const action = Blockly.JavaScript.valueToCode(block, "ACTION", Blockly.JavaScript.ORDER_ATOMIC);
     return `if (globalThis.mdui) {
