@@ -272,7 +272,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-typescale-body-medium-weight": "400",
         "--mdui-typescale-body-medium-tracking": "0.0155625em",
         "--mdui-typescale-body-medium-line-height": "1.25rem",
-        "--mdui-color-inverse-primary": "240, 240, 240, 0.4",
+        "--mdui-color-inverse-primary": "5, 200, 255",
         "--mdui-color-shadow": "0, 0, 0",
         "--mdui-color-outline": "121, 116, 126",
         "--mdui-color-on-surface-variant-light": "73, 69, 78",
