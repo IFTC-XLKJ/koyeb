@@ -206,13 +206,15 @@ types['methods'].push({
                 { label: '文件类型', value: 'type' },
                 { label: '最后修改时间戳', value: 'lastModified' },
                 { label: '最后修改日期', value: 'lastModifiedDate' },
+                { label: '文件内容(UTF-8)', value: 'content_utf8' },
+                { label: '文件内容(ArrayBuffer)', value: 'array_buffer' },
             ],
         }
     ],
     valueType: ['string', 'number', 'boolean', 'object', 'array'],
     tooltip: '解析文件信息，传入文件对象，不是文件对象会默认使用选择的文件对象',
 })
-Widget.prototype.parserFile = function (file, type) {
+Widget.prototype.parserFile = async function (file, type) {
     if (typeof file == 'string') {
         file = this.File();
     }
@@ -229,6 +231,12 @@ Widget.prototype.parserFile = function (file, type) {
         return file.lastModified;
     } else if (type == 'lastModifiedDate') {
         return file.lastModifiedDate;
+    } else if (type == 'content_utf8') {
+        return await file.text();
+    } else if (type == "array_buffer") {
+        return await file.arrayBuffer();
+    } else {
+        return null;
     }
 }
 types['methods'].push({
@@ -313,9 +321,9 @@ types['methods'].push({
     ],
     tooltip: '通过Blob上传文件，传入Blob对象，文件名，文件类型',
 })
-Widget.prototype.blobToUpload = async function (blob, name, type) { 
+Widget.prototype.blobToUpload = async function (blob, name, type) {
     try {
-        this.file = new File([blob], name, {type: type});
+        this.file = new File([blob], name, { type: type });
         return await this.upload();
     } catch (e) {
         this.widgetError(e);
@@ -354,7 +362,7 @@ Widget.prototype.textToUpload = async function (text, name, type) {
         return await this.upload();
     } catch (e) {
         console.error(e);
-    } 
+    }
 };
 
 exports.types = types;
