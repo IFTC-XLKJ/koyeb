@@ -308,6 +308,10 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "undefined"
+                },
+                {
+                    kind: "block",
                     type: "type_of",
                     inputs: {
                         VALUE: {
