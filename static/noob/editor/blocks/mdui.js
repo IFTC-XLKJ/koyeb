@@ -347,6 +347,7 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
     const closable = block.getFieldValue("CLOSABLE") === "TRUE";
     const closeOnOutsideClick = block.getFieldValue("CLOSEONOUTSIDECLICK") === "TRUE";
     const onActionClick = Blockly.JavaScript.valueToCode(block, "ONACTIONCLICK", Blockly.JavaScript.ORDER_ATOMIC);
+    console.log(onActionClick);
     return `if (globalThis.mdui) {
     mdui.snackbar({
         message: ${message},
