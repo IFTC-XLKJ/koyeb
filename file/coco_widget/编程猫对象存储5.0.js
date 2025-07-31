@@ -318,7 +318,7 @@ types['methods'].push({
                 { label: ".mp4(视频)", value: "video/mp4" },
                 { label: ".mp3(音频)", value: "audio/mp3" },
                 { label: ".wav(音频)", value: "audio/wav" },
-                { label: ".flac(音频)", value: "audio/flac"},
+                { label: ".flac(音频)", value: "audio/flac" },
                 { label: ".txt(文本)", value: "text/plain" },
                 { label: ".json(JSON)", value: "application/json" },
                 { label: ".xml(XML)", value: "application/xml" },
@@ -335,6 +335,9 @@ types['methods'].push({
         },
     ]
 })
+Widget.prototype.MIME = function (type) {
+    return type;
+}
 
 types['methods'].push({
     key: "blobToUpload",
