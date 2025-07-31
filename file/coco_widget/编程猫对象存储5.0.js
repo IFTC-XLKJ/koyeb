@@ -323,6 +323,8 @@ types['methods'].push({
                 { label: ".mp4(视频)", value: "video/mp4" },
                 { label: ".mp3(音频)", value: "audio/mp3" },
                 { label: ".wav(音频)", value: "audio/wav" },
+                { label: ".aac(音频)", value: "audio/aac"},
+                { label: ".ogg(音频)", value: "audio/ogg" },
                 { label: ".flac(音频)", value: "audio/flac" },
                 { label: ".txt(文本)", value: "text/plain" },
                 { label: ".html(HTML)", value: "text/html"},
