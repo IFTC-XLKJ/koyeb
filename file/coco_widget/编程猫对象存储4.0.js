@@ -313,14 +313,49 @@ types['methods'].push({
     ],
     tooltip: '通过Blob上传文件，传入Blob对象，文件名，文件类型',
 })
-Widget.prototype.blobToUpload = function (blob, name, type) { 
+Widget.prototype.blobToUpload = async function (blob, name, type) { 
     try {
         this.file = new File([blob], name, {type: type});
-        return this.upload();
+        return await this.upload();
     } catch (e) {
         this.widgetError(e);
     }
 }
+
+types['methods'].push({
+    key: "textToUpload",
+    label: "将文本上传为文件",
+    params: [
+        {
+            key: "text",
+            label: "文本",
+            valueType: 'string',
+            defaultValue: "",
+        },
+        {
+            key: "name",
+            label: "文件名",
+            valueType: 'string',
+            defaultValue: "text.txt",
+        },
+        {
+            key: "type",
+            label: "文件类型",
+            valueType: 'string',
+            defaultValue: "text/plain",
+        }
+    ],
+    tooltip: "创建一个文件并上传到对象存储",
+})
+Widget.prototype.textToUpload = async function (text, name, type) {
+    try {
+        const blob = new Blob([text], { type });
+        this.file = new File([blob], name);
+        return await this.upload();
+    } catch (e) {
+        console.error(e);
+    } 
+};
 
 exports.types = types;
 exports.widget = Widget;
