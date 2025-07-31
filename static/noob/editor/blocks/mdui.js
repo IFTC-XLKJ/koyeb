@@ -181,7 +181,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_snackbar",
-        message0: "弹出 MDUI 提示 %1 %2 操作按钮%3 自动关闭延时%4",
+        message0: "弹出 MDUI 提示 %1 %2 操作按钮%3 自动关闭延时%4 可关闭%5",
         args0: [
             {
                 type: "input_value",
@@ -209,6 +209,11 @@ Blockly.defineBlocksWithJsonArray([
                 type: "input_value",
                 name: "AUTOCLOSEDELAY",
                 check: "Number"
+            },
+            {
+                type: "field_checkbox",
+                name: "CLOSABLE",
+                checked: true
             },
         ],
         colour: "#6750A4",
@@ -329,12 +334,14 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
     const placement = block.getFieldValue("PLACEMENT");
     const action = Blockly.JavaScript.valueToCode(block, "ACTION", Blockly.JavaScript.ORDER_ATOMIC);
     const autoCloseDelay = Blockly.JavaScript.valueToCode(block, "AUTOCLOSEDELAY", Blockly.JavaScript.ORDER_ATOMIC);
+    const closable = block.getFieldValue("CLOSABLE") === "TRUE";
     return `if (globalThis.mdui) {
     mdui.snackbar({
         message: ${message},
         placement: "${placement}",
         action: ${action},
         autoCloseDelay: ${autoCloseDelay},
+        closable: ${closable},
     });
 } else {
     console.warn("MDUI Snackbar: MDUI not loaded.");
