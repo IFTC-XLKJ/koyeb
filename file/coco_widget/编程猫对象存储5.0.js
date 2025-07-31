@@ -303,6 +303,40 @@ Widget.prototype.getDataUrl = async function (file) {
 }
 
 types['methods'].push({
+    key: "MIME",
+    label: "MIME类型预设",
+    params: [
+        {
+            key: "type",
+            label: "",
+            valueType: "string",
+            dropdown: [
+                { label: ".png(图片)", value: "image/png" },
+                { label: ".jpg(图片)", value: "image/jpeg" },
+                { label: ".gif(图片)", value: "image/gif" },
+                { label: ".webp(图片)", value: "image/webp" },
+                { label: ".mp4(视频)", value: "video/mp4" },
+                { label: ".mp3(音频)", value: "audio/mp3" },
+                { label: ".wav(音频)", value: "audio/wav" },
+                { label: ".flac(音频)", value: "audio/flac"},
+                { label: ".txt(文本)", value: "text/plain" },
+                { label: ".json(JSON)", value: "application/json" },
+                { label: ".xml(XML)", value: "application/xml" },
+                { label: ".zip(压缩)", value: "application/zip" },
+                { label: ".rar(压缩)", value: "application/x-rar-compressed" },
+                { label: ".pdf(文档)", value: "application/pdf" },
+                { label: ".doc(文档)", value: "application/msword" },
+                { label: ".docx(文档)", value: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
+                { label: ".xls(文档)", value: "application/vnd.ms-excel" },
+                { label: ".xlsx(文档)", value: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                { label: ".ppt(文档)", value: "application/vnd.ms-powerpoint" },
+                { label: ".pptx(文档)", value: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+            ]
+        },
+    ]
+})
+
+types['methods'].push({
     key: "blobToUpload",
     label: "通过Blob上传文件",
     params: [
