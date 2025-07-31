@@ -219,6 +219,8 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-typescale-label-large-tracking": "0.01rem",
         "--mdui-typescale-label-large-line-height": "1.6rem",
         "--mdui-elevation-level0": "none",
+        "--mdui-motion-duration-medium4": "400ms",
+        "--mdui-motion-easing-emphasized-decele": "cubic-bezier(0.4, 0.0, 0.2, 1)",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
