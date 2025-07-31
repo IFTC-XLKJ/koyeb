@@ -1149,7 +1149,11 @@ const toolbox = {
                             }
                         },
                     }
-                }
+                },
+                {
+                    kind: "block",
+                    type: "mdui_snackbar",
+                },
             ],
         },
     ]
