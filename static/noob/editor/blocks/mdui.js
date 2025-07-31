@@ -249,8 +249,8 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     if (placeholder) attrs += ` placeholder="${placeholder}"`;
     if (helper) attrs += ` helper="${helper}" helper-on-focus`;
     if (value) attrs += ` value="${value}"`;
-    if (minlength) attrs += ` minlength="${minlength}"`;
-    if (maxlength) attrs += ` maxlength="${maxlength}"`;
+    if (minlength != 0) attrs += ` minlength="${minlength}"`;
+    if (maxlength != 0) attrs += ` maxlength="${maxlength}"`;
     attrs += ` type="${type}"`;
     
     return `<mdui-text-field${attrs}></mdui-text-field>`;
