@@ -277,7 +277,6 @@ Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     if (fit) attrs += " full-width";
     if (disabled) attrs += " disabled";
     if (loading) attrs += " loading";
-    console.log(handleAttrAndStyle(block));
     return `<mdui-button${attrs} style="color: rgba(var(--mdui-text-color));"${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
