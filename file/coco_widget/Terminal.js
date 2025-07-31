@@ -21,6 +21,7 @@ const types = {
     title: "虚拟终端",
     version: "1.0.0",
     isGlobalWidget: false,
+    author: "IFTC",
     properties: [
         {
             key: '__width',
