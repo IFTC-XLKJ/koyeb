@@ -221,10 +221,13 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     const label = block.getFieldValue("LABEL");
     const fit = block.getFieldValue("FIT") == "TRUE" ? true : false;
-    // console.log(fit);
     const disabled = block.getFieldValue("DISABLED") == "TRUE" ? true : false;
     const loading = block.getFieldValue("LOADING") == "TRUE" ? true : false;
-    return `<mdui-button${fit ? ` full-width` : ""}${disabled ? ` disabled` : ""}${loading ? ` loading` : ""} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
+    let attrs = "";
+    if (fit) attrs += " full-width";
+    if (disabled) attrs += " disabled";
+    if (loading) attrs += " loading";
+    return `<mdui-button${attrs} style="color: rgba(var(--mdui-text-color));${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
 Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
@@ -232,16 +235,11 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const placeholder = block.getFieldValue("PLACEHOLDER");
     const helper = block.getFieldValue("HELPER");
     const value = block.getFieldValue("VALUE");
-    
-    // 处理可能为空的输入值
     const minlength = Blockly.JavaScript.valueToCode(block, "MIN_LENGTH", Blockly.JavaScript.ORDER_ATOMIC) || "";
     const maxlength = Blockly.JavaScript.valueToCode(block, "MAX_LENGTH", Blockly.JavaScript.ORDER_ATOMIC) || "";
-    
     const type = block.getFieldValue("TYPE");
     const readonly = block.getFieldValue("READONLY") == "TRUE" ? true : false;
     const disabled = block.getFieldValue("DISABLED") == "TRUE" ? true : false;
-    
-    // 构建属性字符串时检查值是否为空
     let attrs = "";
     if (disabled) attrs += " disabled";
     if (readonly) attrs += " readonly";
@@ -252,6 +250,5 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     if (minlength != 0) attrs += ` minlength="${minlength}"`;
     if (maxlength != 0) attrs += ` maxlength="${maxlength}"`;
     attrs += ` type="${type}"`;
-    
     return `<mdui-text-field${attrs}></mdui-text-field>`;
 }
