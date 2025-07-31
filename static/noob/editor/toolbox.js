@@ -1173,6 +1173,11 @@ const toolbox = {
                                     NUM: 2000
                                 }
                             }
+                        },
+                        ONACTIONCLICK: {
+                            shadow: {
+                                type: "function_var"
+                            }
                         }
                     }
                 },
