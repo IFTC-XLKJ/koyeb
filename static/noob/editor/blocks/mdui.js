@@ -330,3 +330,7 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
     console.warn("MDUI Snackbar: MDUI not loaded.");
 }`;
 };
+
+Blockly.JavaScript.forBlock["mdui_switch"] = function (block) { 
+    return `<mdui-switch></mdui-switch>`;
+};
