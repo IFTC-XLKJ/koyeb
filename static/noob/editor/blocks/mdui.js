@@ -262,6 +262,8 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-typescale-body-medium-weight": "400",
         "--mdui-typescale-body-medium-tracking": "0.0155625em",
         "--mdui-typescale-body-medium-line-height": "1.25rem",
+        "--mdui-color-inverse-primary": "50, 100, 200, 0.4",
+        "--mdui-color-shadow": "0, 0, 0",
     };
     return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
 }
