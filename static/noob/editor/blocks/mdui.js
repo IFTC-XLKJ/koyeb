@@ -241,7 +241,6 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
     const defaultTheme = {
         "--mdui-color-primary": "0, 192, 255",
         "--mdui-color-on-primary": "255, 255, 255",
-        "--mdui-text-color": "255, 255, 255",
         "--mdui-shape-corner-full": "1000rem",
         "--mdui-color-on-surface-variant": "180, 180, 180",
         "--mdui-color-surface-container-highest": "240, 240, 240",
@@ -292,7 +291,7 @@ Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
     if (fit) attrs += " full-width";
     if (disabled) attrs += " disabled";
     if (loading) attrs += " loading";
-    return `<mdui-button${attrs} style="color: rgba(var(--mdui-text-color));"${handleAttrAndStyle(block)}">${label}</mdui-button>`;
+    return `<mdui-button${attrs}${handleAttrAndStyle(block)}">${label}</mdui-button>`;
 }
 
 Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
