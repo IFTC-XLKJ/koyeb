@@ -333,7 +333,9 @@ types['methods'].push({
                 { label: ".pptx(演示文稿)", value: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
             ]
         },
-    ]
+    ],
+    valueType: ["string"],
+    tooltip: "获取文件MIME类型"
 })
 Widget.prototype.MIME = function (type) {
     return type;
