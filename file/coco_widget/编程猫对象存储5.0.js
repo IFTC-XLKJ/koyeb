@@ -327,10 +327,10 @@ types['methods'].push({
                 { label: ".pdf(文档)", value: "application/pdf" },
                 { label: ".doc(文档)", value: "application/msword" },
                 { label: ".docx(文档)", value: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
-                { label: ".xls(文档)", value: "application/vnd.ms-excel" },
-                { label: ".xlsx(文档)", value: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
-                { label: ".ppt(文档)", value: "application/vnd.ms-powerpoint" },
-                { label: ".pptx(文档)", value: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
+                { label: ".xls(表格)", value: "application/vnd.ms-excel" },
+                { label: ".xlsx(表格)", value: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" },
+                { label: ".ppt(演示文稿)", value: "application/vnd.ms-powerpoint" },
+                { label: ".pptx(演示文稿)", value: "application/vnd.openxmlformats-officedocument.presentationml.presentation" },
             ]
         },
     ]
