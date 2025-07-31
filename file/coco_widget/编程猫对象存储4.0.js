@@ -316,7 +316,7 @@ types['methods'].push({
 Widget.prototype.blobToUpload = function (blob, name, type) { 
     try {
         this.file = new File([blob], name, {type: type});
-        return this.upload(file);
+        return this.upload();
     } catch (e) {
         this.widgetError(e);
     }
