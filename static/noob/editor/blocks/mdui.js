@@ -103,7 +103,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "mdui_text_field",
-        message0: "MDUI 文本框 %1 %2 %3 %4 最小字数%5 最大字数%6 %7 只读%8 禁用%9",
+        message0: "MDUI 文本框 %1 %2 %3 %4 最小字数%5 最大字数%6 %7 只读%8 禁用%9 计数%10",
         args0: [
             {
                 type: "field_input",
@@ -164,6 +164,11 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_checkbox",
                 name: "DISABLED",
+                checked: false,
+            },
+            {
+                type: "field_checkbox",
+                name: "COUNTER",
                 checked: false,
             },
         ],
@@ -240,6 +245,7 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     const type = block.getFieldValue("TYPE");
     const readonly = block.getFieldValue("READONLY") == "TRUE" ? true : false;
     const disabled = block.getFieldValue("DISABLED") == "TRUE" ? true : false;
+    const counter = block.getFieldValue("COUNTER") == "TRUE" ? true : false;
     let attrs = "";
     if (disabled) attrs += " disabled";
     if (readonly) attrs += " readonly";
@@ -249,6 +255,7 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
     if (value) attrs += ` value="${value}"`;
     if (minlength != 0) attrs += ` minlength="${minlength}"`;
     if (maxlength != 0) attrs += ` maxlength="${maxlength}"`;
+    if (counter) attrs += ` counter`;
     attrs += ` type="${type}"`;
     return `<mdui-text-field${attrs}></mdui-text-field>`;
 }
