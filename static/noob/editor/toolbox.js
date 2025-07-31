@@ -1176,7 +1176,7 @@ const toolbox = {
                         },
                         ONACTIONCLICK: {
                             shadow: {
-                                type: "function_var"
+                                type: "undefined"
                             }
                         }
                     }
