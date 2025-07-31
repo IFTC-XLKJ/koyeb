@@ -176,5 +176,5 @@ Blockly.JavaScript.forBlock['type_of'] = function (block) {
 }
 
 Blockly.JavaScript.forBlock['undefined'] = function (block) {
-    return ['void 0', Blockly.JavaScript.ORDER_ATOMIC];
+    return ['undefined', Blockly.JavaScript.ORDER_ATOMIC];
 }
