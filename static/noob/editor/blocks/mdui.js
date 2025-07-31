@@ -288,7 +288,11 @@ Blockly.JavaScript.forBlock["mdui_text_field"] = function (block) {
 
 Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
     const message = Blockly.JavaScript.valueToCode(block, "MESSAGE", Blockly.JavaScript.ORDER_ATOMIC);
-    return `mdui.snackbar({
-    message: ${message},
-});`;
+    return `if (globalThis.mdui) {
+    mdui.snackbar({
+        message: ${message},
+    });
+} else {
+    console.warn("MDUI Snackbar: MDUI not loaded.");
+}`;
 };
