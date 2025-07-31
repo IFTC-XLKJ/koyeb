@@ -1160,6 +1160,12 @@ const toolbox = {
                                 text: "Message"
                             }
                         },
+                        ACTION: {
+                            shadow: {
+                                type: "text",
+                                text: "Action"
+                            }
+                        }
                     }
                 },
             ],
