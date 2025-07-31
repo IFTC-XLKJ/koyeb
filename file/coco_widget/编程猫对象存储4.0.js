@@ -295,17 +295,20 @@ types['methods'].push({
         {
             key: 'blob',
             label: 'Blob',
-            valueType: 'object',
+            valueType: ['object', 'string'],
+            defaultValue: "",
         },
         {
             key: 'name',
             label: '文件名',
             valueType: 'string',
+            defaultValue: "file",
         },
         {
             key: 'type',
             label: '文件类型',
             valueType: 'string',
+            defaultValue: "text/plain",
         },
     ],
     tooltip: '通过Blob上传文件，传入Blob对象，文件名，文件类型',
