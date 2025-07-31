@@ -58,7 +58,7 @@ Blockly.defineBlocksWithJsonArray([
             },
             {
                 type: "field_dropdown",
-                name: "event",
+                name: "eventName",
                 options: eventNames,
             },
             {
