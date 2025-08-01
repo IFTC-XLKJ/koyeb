@@ -234,6 +234,28 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: "发送一个HTTP请求，请求方式为GET、HEAD时没有请求体",
         inputInline: true,
     },
+    {
+        type: 'controls_repeat',
+        message0: '%{BKY_CONTROLS_REPEAT_TITLE}',
+        args0: [
+            {
+                type: 'input_value',
+                name: 'TIMES',
+            },
+        ],
+        message1: '%{BKY_CONTROLS_REPEAT_INPUT_DO} %1',
+        args1: [
+            {
+                type: 'input_statement',
+                name: 'DO',
+            },
+        ],
+        colour: "#68CDFF",
+        previousStatement: null,
+        nextStatement: null,
+        tooltip: '%{BKY_CONTROLS_REPEAT_TOOLTIP}',
+        helpUrl: '%{BKY_CONTROLS_REPEAT_HELPURL}',
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
@@ -276,7 +298,7 @@ Blockly.JavaScript.forBlock["window"] = function (block) {
     return [`(window)`, Blockly.JavaScript.ORDER_NONE];
 }
 
-Blockly.JavaScript.forBlock["fetch"] = function (block) { 
+Blockly.JavaScript.forBlock["fetch"] = function (block) {
     const url = Blockly.JavaScript.valueToCode(block, 'url', Blockly.JavaScript.ORDER_ATOMIC);
     const method = block.getFieldValue('method');
     const headers = Blockly.JavaScript.valueToCode(block, 'headers', Blockly.JavaScript.ORDER_ATOMIC);
