@@ -187,9 +187,9 @@ Blockly.JavaScript.forBlock['type_of'] = function (block) {
 }
 
 Blockly.JavaScript.forBlock['null'] = function (block) {
-    return ["null", Blockly.JavaScript.ORDER_NONE];
+    return ["null", Blockly.JavaScript.ORDER_VOID];
 }
 
 Blockly.JavaScript.forBlock['undefined'] = function (block) {
-    return [, Blockly.JavaScript.ORDER_NONE];
+    return [, Blockly.JavaScript.ORDER_VOID];
 }
