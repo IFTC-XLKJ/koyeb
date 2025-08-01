@@ -130,13 +130,13 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true
     },
     {
-        type: "undefined",
-        message0: "未定义",
+        type: "null",
+        message0: "空值",
         args0: [],
         inputsInline: true,
         output: null,
         colour: "#F8AA87",
-        tooltip: "未定义",
+        tooltip: "空值",
         helpUrl: "",
         inputsInline: true
     },
@@ -175,6 +175,6 @@ Blockly.JavaScript.forBlock['type_of'] = function (block) {
     return [`(typeof ${value})`, Blockly.JavaScript.ORDER_ATOMIC];
 }
 
-Blockly.JavaScript.forBlock['undefined'] = function (block) {
-    return ["globalThis.undefined", Blockly.JavaScript.ORDER_ATOMIC];
+Blockly.JavaScript.forBlock['null'] = function (block) {
+    return ["null", Blockly.JavaScript.ORDER_ATOMIC];
 }
