@@ -308,7 +308,7 @@ const toolbox = {
                 },
                 {
                     kind: "block",
-                    type: "undefined"
+                    type: "null"
                 },
                 {
                     kind: "block",
@@ -1180,7 +1180,7 @@ const toolbox = {
                         },
                         ONACTIONCLICK: {
                             shadow: {
-                                type: "undefined"
+                                type: "null"
                             }
                         }
                     }
