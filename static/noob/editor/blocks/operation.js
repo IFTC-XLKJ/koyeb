@@ -176,5 +176,5 @@ Blockly.JavaScript.forBlock['type_of'] = function (block) {
 }
 
 Blockly.JavaScript.forBlock['null'] = function (block) {
-    return ["null", Blockly.JavaScript.ORDER_ATOMIC];
+    return ["null", Blockly.JavaScript.ORDER_NONE];
 }
