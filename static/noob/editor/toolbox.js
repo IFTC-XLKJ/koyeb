@@ -537,6 +537,20 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "controls_repeat",
+                    inputs: {
+                        TIMES: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 10,
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    kind: "block",
                     type: "script_void",
                     inputs: {
                         code: {
