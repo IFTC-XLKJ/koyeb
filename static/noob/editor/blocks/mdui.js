@@ -362,7 +362,7 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
         autoCloseDelay: ${autoCloseDelay},
         closeable: ${closable},
         closeOnOutsideClick: ${closeOnOutsideClick},
-        ${onActionClick ? `onActionClick: ${onActionClick},` : ""}
+        ${onActionClick != "null" ? `onActionClick: ${onActionClick},` : ""}
         ${MESSAGELINE == 0 ? "" : `messageLine: ${MESSAGELINE},`}
     });
 } else {
