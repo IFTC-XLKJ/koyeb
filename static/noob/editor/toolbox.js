@@ -1182,6 +1182,14 @@ const toolbox = {
                             shadow: {
                                 type: "null"
                             }
+                        },
+                        MESSAGELINE: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 0
+                                }
+                            }
                         }
                     }
                 },
