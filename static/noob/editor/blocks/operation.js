@@ -130,6 +130,17 @@ Blockly.defineBlocksWithJsonArray([
         inputsInline: true
     },
     {
+        type: "undefined",
+        message0: "未定义",
+        args0: [],
+        inputsInline: true,
+        output: null,
+        colour: "#F8AA87",
+        tooltip: "未定义",
+        helpUrl: "",
+        inputsInline: true
+    },
+    {
         type: "null",
         message0: "空值",
         args0: [],
