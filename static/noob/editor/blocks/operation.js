@@ -191,5 +191,5 @@ Blockly.JavaScript.forBlock['null'] = function (block) {
 }
 
 Blockly.JavaScript.forBlock['undefined'] = function (block) {
-    return ["undefined", Blockly.JavaScript.ORDER_NONE];
+    return [, Blockly.JavaScript.ORDER_NONE];
 }
