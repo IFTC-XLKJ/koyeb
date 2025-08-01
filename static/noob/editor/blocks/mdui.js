@@ -351,6 +351,7 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
     const autoCloseDelay = Blockly.JavaScript.valueToCode(block, "AUTOCLOSEDELAY", Blockly.JavaScript.ORDER_ATOMIC);
     const closable = block.getFieldValue("CLOSABLE") === "TRUE";
     const closeOnOutsideClick = block.getFieldValue("CLOSEONOUTSIDECLICK") === "TRUE";
+    const MESSAGELINE = Blockly.JavaScript.valueToCode(block, "MESSAGELINE", Blockly.JavaScript.ORDER_ATOMIC) || 1;
     const onActionClick = Blockly.JavaScript.valueToCode(block, "ONACTIONCLICK", Blockly.JavaScript.ORDER_ATOMIC);
     console.log(onActionClick);
     return `if (globalThis.mdui) {
@@ -362,6 +363,7 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
         closeable: ${closable},
         closeOnOutsideClick: ${closeOnOutsideClick},
         ${onActionClick ? `onActionClick: ${onActionClick},` : ""}
+        ${MESSAGELINE == 0 ? "" : `messageLine: ${MESSAGELINE},`}
     });
 } else {
     console.warn("MDUI Snackbar: MDUI not loaded.");
