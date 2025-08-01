@@ -222,6 +222,11 @@ Blockly.defineBlocksWithJsonArray([
             },
             {
                 type: "input_value",
+                name: "MESSAGELINE",
+                check: "Number",
+            },
+            {
+                type: "input_value",
                 name: "ONACTIONCLICK",
                 check: "Function"
             },
@@ -363,6 +368,6 @@ Blockly.JavaScript.forBlock["mdui_snackbar"] = function (block) {
 }`;
 };
 
-Blockly.JavaScript.forBlock["mdui_switch"] = function (block) { 
+Blockly.JavaScript.forBlock["mdui_switch"] = function (block) {
     return `<mdui-switch></mdui-switch>`;
 };
