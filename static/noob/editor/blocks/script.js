@@ -311,17 +311,12 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
     return [`(await _fetch_(${url}, "${method}", ${headers}, ${body}))`, Blockly.JavaScript.ORDER_NONE];
 }
 
-globalThis.repeatVarIndex = 0;
+
 Blockly.JavaScript.forBlock["controls_repeat"] = function (block) {
     const times = Blockly.JavaScript.valueToCode(block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
     const branch = Blockly.JavaScript.statementToCode(block, 'DO') || '  ';
-    const repeatVar = getRepeatVar();
+    const repeatVar = Blockly.JavaScript.nameDB_.getDistinctName('a', Blockly.VARIABLE_CATEGORY_NAME);
     const code = `for (let ${repeatVar} = 0; ${repeatVar} < ${times}; ${repeatVar}++) {\n${branch}}\n`;
-    repeatVarIndex++;
     console.log(code);
     return code;
-}
-
-function getRepeatVar() {
-    return "repeat_" + globalThis.repeatVarIndex++;
 }
