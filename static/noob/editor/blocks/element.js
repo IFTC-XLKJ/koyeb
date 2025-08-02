@@ -545,10 +545,33 @@ Blockly.defineBlocksWithJsonArray([
         nextStatement: true,
         previousStatement: true,
         inputsInline: true,
-    }
+    },
+    {
+        type: "viewport_default",
+        message0: "视图 自适应设备 缩放%1",
+        args0: [
+            {
+                type: "field_checkbox",
+                name: "SCALE",
+                checked: true,
+            },
+        ],
+        colour: "#449CD6",
+        tooltip: "视图",
+        helpUrl: "",
+        nextStatement: true,
+        previousStatement: true,
+        inputsInline: true,
+    },
 ])
 Blockly.JavaScript.forBlock['element_hr'] = function (block) {
     var code = `<hr${handleAttrAndStyle(block)}>\n`;
+    return code;
+};
+
+Blockly.JavaScript.forBlock['viewport_default'] = function (block) {
+    const scale = block.getFieldValue('SCALE') == "TRUE";
+    var code = `<meta name="viewport" content="width=device-width, initial-scale=1.0${scale?`, user-scalable=no`:""}">\n`;
     return code;
 };
 
