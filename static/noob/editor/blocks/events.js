@@ -17,6 +17,7 @@ const eventNames = [
     ["DOM加载完毕", "DOMContentLoaded"],
     ["发生错误", "error"],
     ["窗口改变", "resize"],
+    ["窗口卸载", "beforeunload"],
 ];
 
 Blockly.defineBlocksWithJsonArray([
