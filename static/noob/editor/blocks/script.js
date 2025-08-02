@@ -318,6 +318,7 @@ Blockly.JavaScript.forBlock["controls_repeat"] = function (block) {
     const repeatVar = getRepeatVar();
     const code = `for (let ${repeatVar} = 0; ${repeatVar} < ${times}; ${repeatVar}++) {\n${branch}}\n`;
     repeatVarIndex++;
+    console.log(code);
     return code;
 }
 
