@@ -314,7 +314,7 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
 globalThis.repeatVarIndex = 0;
 Blockly.JavaScript.forBlock["controls_repeat"] = function (block) {
     const times = Blockly.JavaScript.valueToCode(block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
-    const branch = Blockly.JavaScript.statementToCode(block, 'DO');
+    const branch = Blockly.JavaScript.statementToCode(block, 'DO') || '  ';
     const repeatVar = getRepeatVar();
     const code = `for (let ${repeatVar} = 0; ${repeatVar} < ${times}; ${repeatVar}++) {\n${branch}}\n`;
     repeatVarIndex++;
