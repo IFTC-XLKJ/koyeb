@@ -81,7 +81,7 @@ Blockly.Blocks['element_head'] = {
 };
 Blockly.JavaScript.forBlock['element_head'] = function (block) {
     var html = Blockly.JavaScript.statementToCode(block, 'html')
-    var code = `<head iftc-annotation="NOOB编辑器">\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<link rel="stylesheet" href="https://iftc.koyeb.app/static/md3.css">\n<style iftc-mdui="theme"></style>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script>async function _fetch_(url, method, headers, body) {
+    var code = `<head iftc-annotation="NOOB编辑器">\n<style>:root { user-select: none; }</style>\n<script>class Errors extends Error { constructor(type, message, errorCode) {super(message);this.name = type;this.errorCode = errorCode || 0}}</script>\n<link rel="stylesheet" href="https://iftc.koyeb.app/static/md3.css">\n<style iftc-mdui="theme"></style>\n<script src="https://iftc.koyeb.app/static/md3.js"></script>\n<script>${mdui_theme_set_code}</script>\n<script>async function _fetch_(url, method, headers, body) {
     try {
         const r = await fetch(url, {
             method: method,
