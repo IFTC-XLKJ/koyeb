@@ -988,6 +988,7 @@ function obfuscate(code) {
                     loadBlocks(work);
                 }
                 toast.hideToast(lid);
+                isSaved = true;
             } else if (data.code == 403) {
                 toast.hideToast(lid);
                 alert("你没有权限打开此作品");
