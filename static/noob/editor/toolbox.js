@@ -25,6 +25,10 @@ const toolbox = {
                 },
                 {
                     kind: "block",
+                    type: "viewport_default",
+                },
+                {
+                    kind: "block",
                     type: "element_link",
                 },
                 {
