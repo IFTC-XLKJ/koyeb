@@ -557,7 +557,7 @@ Blockly.defineBlocksWithJsonArray([
             },
         ],
         colour: "#449CD6",
-        tooltip: "视图",
+        tooltip: "视图，禁用缩放仅对移动设备有效",
         helpUrl: "",
         nextStatement: true,
         previousStatement: true,
