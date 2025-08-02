@@ -18,6 +18,7 @@ const eventNames = [
     ["发生错误", "error"],
     ["窗口改变", "resize"],
     ["窗口卸载", "beforeunload"],
+    ["窗口关闭", "unload"],
 ];
 
 Blockly.defineBlocksWithJsonArray([
