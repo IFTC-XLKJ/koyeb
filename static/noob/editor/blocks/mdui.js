@@ -304,7 +304,7 @@ Blockly.JavaScript.forBlock["mdui_theme_default"] = function (block) {
         "--mdui-color-primary-container": "120 180 255",
         "--mdui-color-background": "200 240 255",
     };
-    return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)})`;
+    return `mduiTheme(${JSON.stringify(defaultTheme, null, 4)});\n`;
 }
 
 Blockly.JavaScript.forBlock["mdui_button"] = function (block) {
