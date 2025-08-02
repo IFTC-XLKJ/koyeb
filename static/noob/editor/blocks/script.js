@@ -253,7 +253,7 @@ Blockly.defineBlocksWithJsonArray([
         colour: "#68CDFF",
         previousStatement: null,
         nextStatement: null,
-        tooltip: '%{BKY_CONTROLS_REPEAT_TOOLTIP}',
+        tooltip: '重复执行代码，谨慎使用，重复执行次数过多会导致主线程阻塞',
         helpUrl: '%{BKY_CONTROLS_REPEAT_HELPURL}',
     },
 ])
