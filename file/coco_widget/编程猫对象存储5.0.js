@@ -8,7 +8,7 @@ window.BCM_FILE_UPLOADER = null;
 const url = 'https://api.pgaot.com/user/up_cat_file';
 const types = {
     isInvisibleWidget: true,
-    type: "BCM_FILE_UPLOADER",
+    type: "BCM_FILE_UPLOADER_5.0",
     icon: "https://static.codemao.cn/whitef/favicon.ico",
     title: "编程猫对象存储5.0",
     version: "5.0.0",
