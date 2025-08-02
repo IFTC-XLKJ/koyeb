@@ -110,7 +110,7 @@ Blockly.JavaScript.forBlock["variables_change"] = function (block) {
 }
 
 function word(word) {
-    return encodeURIComponent(word).replaceAll("%", "_");
+    return "var_" + encodeURIComponent(word).replaceAll("%", "_");
 }
 
 Blockly.FieldVars = class extends Blockly.FieldDropdown {
