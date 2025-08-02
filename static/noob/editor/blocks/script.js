@@ -310,3 +310,17 @@ Blockly.JavaScript.forBlock["fetch"] = function (block) {
     }
     return [`(await _fetch_(${url}, "${method}", ${headers}, ${body}))`, Blockly.JavaScript.ORDER_NONE];
 }
+
+globalThis.repeatVarIndex = 0;
+Blockly.JavaScript.forBlock["controls_repeat"] = function (block) {
+    const times = Blockly.JavaScript.valueToCode(block, 'TIMES', Blockly.JavaScript.ORDER_ASSIGNMENT) || '0';
+    const branch = Blockly.JavaScript.statementToCode(block, 'DO');
+    const repeatVar = getRepeatVar();
+    const code = `for (let ${repeatVar} = 0; ${repeatVar} < ${times}; ${repeatVar}++) {\n${branch}}\n`;
+    repeatVarIndex++;
+    return code;
+}
+
+function getRepeatVar() {
+    return "repeat_" + globalThis.repeatVarIndex++;
+}
