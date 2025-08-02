@@ -571,7 +571,7 @@ Blockly.JavaScript.forBlock['element_hr'] = function (block) {
 
 Blockly.JavaScript.forBlock['viewport_default'] = function (block) {
     const scale = block.getFieldValue('SCALE') == "TRUE";
-    const code = `<meta name="viewport" content="width=device-width, initial-scale=1.0${scale?`, user-scalable=no`:""}">\n`;
+    const code = `<meta name="viewport" content="width=device-width, initial-scale=1.0${!scale ? `, user-scalable=no` : ""}">\n`;
     return code;
 };
 
