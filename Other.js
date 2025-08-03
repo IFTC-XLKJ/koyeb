@@ -1264,7 +1264,7 @@ class Other {
                         code: 500,
                         msg: "Internal Server Error",
                         error: data.error,
-                        timestamp: time() 
+                        timestamp: time()
                     })
                 }
             } catch (e) {
@@ -1276,6 +1276,75 @@ class Other {
                 });
             }
         })
+        this.app.get("/api/aiocr", async (req, res) => {
+            requestLog(req);
+            const { img } = req.query;
+            if (!img) {
+                res.status(400).json({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time()
+                });
+                return;
+            }
+            try {
+                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-AmethystFree`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app"
+                    },
+                    body: JSON.stringify({
+                        model: "gemini-2.5-pro",
+                        provider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [
+                            {
+                                role: "user",
+                                content: [
+                                    {
+                                        type: "text",
+                                        text: "仅识别图中文字"
+                                    },
+                                    {
+                                        type: "image_url",
+                                        image_url: {
+                                            url: img
+                                        }
+                                    }
+                                ]
+                            }]
+                    })
+                })
+                const data = await r.json();
+                console.log(data)
+                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                    const result = data.choices[0].message.content;
+                    console.log(result)
+                    res.status(200).json({
+                        code: 200,
+                        msg: "识别成功",
+                        data: result,
+                    })
+                } else {
+                    res.status(500).json({
+                        code: 500,
+                        msg: "API响应格式错误",
+                        error: data,
+                        timestamp: time()
+                    });
+                }
+            } catch (e) {
+                res.status(500).json({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e.message,
+                    timestamp: time()
+                });
+            }
+        });
         console.log("Other");
     }
     async getFile(path) {
