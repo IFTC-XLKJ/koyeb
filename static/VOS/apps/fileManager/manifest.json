@@ -3,7 +3,7 @@
     "id": "cn.iftc.filemanager",
     "icon": "fileManager.svg",
     "main": "main.js",
-    "description": "文件管理器",
+    "description": "官方文件管理器",
     "author": "IFTC",
     "versionName": "1.0.0",
     "versionCode": 1
