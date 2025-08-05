@@ -40,14 +40,14 @@ const appPath = "/data/apps/";
 </div>`;
             apps.innerHTML += html;
         }
-        if (icon.endsWith(".svg")) iconBlob.type = "image/svg+xml";
-        if (icon.endsWith(".png")) iconBlob.type = "image/png";
-        if (icon.endsWith(".jpg")) iconBlob.type = "image/jpeg";
-        if (icon.endsWith(".jpeg")) iconBlob.type = "image/jpeg";
-        if (icon.endsWith(".gif")) iconBlob.type = "image/gif";
-        if (icon.endsWith(".webp")) iconBlob.type = "image/webp";
-        if (icon.endsWith(".ico")) iconBlob.type = "image/x-icon";
-        if (icon.endsWith(".bmp")) iconBlob.type = "image/bmp";
+        if (iconPath.endsWith(".svg")) iconBlob.type = "image/svg+xml";
+        if (iconPath.endsWith(".png")) iconBlob.type = "image/png";
+        if (iconPath.endsWith(".jpg")) iconBlob.type = "image/jpeg";
+        if (iconPath.endsWith(".jpeg")) iconBlob.type = "image/jpeg";
+        if (iconPath.endsWith(".gif")) iconBlob.type = "image/gif";
+        if (iconPath.endsWith(".webp")) iconBlob.type = "image/webp";
+        if (iconPath.endsWith(".ico")) iconBlob.type = "image/x-icon";
+        if (iconPath.endsWith(".bmp")) iconBlob.type = "image/bmp";
         reader.readAsDataURL(iconBlob);
     }
     globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
