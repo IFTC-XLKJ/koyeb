@@ -31,14 +31,20 @@ db.version(1).stores({
             }, 200);
             return;
         }
+        await loadSystemApps();
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
             loadingSrc.style.display = "none";
         }, 200);
-        function loadSystemApps() {
-            systemApps.forEach(async app => {
-                const app = await db.app.get(app);
+        async function loadSystemApps() {
+            systemApps.forEach(async systemApp => {
+                const app = await db.app.get(systemApp.id);
+                console.log(app);
+                if (app) return;
+                const url = `https://iftc.koyeb.app/static/VOS/apps/${systemApp.name}.zip`;
+                const r = await fetch(url);
+                const blob = await r.blob();
             });
         }
     }
