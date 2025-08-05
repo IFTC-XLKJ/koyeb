@@ -18,6 +18,14 @@ db.version(1).stores({
 
     async function init() {
         console.log("Dexie:", db);
+        const initialized = await db.user.get("initialized");
+        if (initialized) {
+            setTimeout(function () {
+                const loadingSrc = document.getElementById('waitLoad');
+                loadingSrc.style.display = "none";
+            }, 200);
+            return;
+        }
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
