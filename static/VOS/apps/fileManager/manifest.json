@@ -5,5 +5,6 @@
     "main": "index.html",
     "description": "文件管理器",
     "author": "iftc",
-    "version": "1.0.0"
+    "versionName": "1.0.0",
+    "versionCode": 1
 }
