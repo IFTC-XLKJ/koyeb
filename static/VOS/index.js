@@ -10,3 +10,7 @@ async function init() {
 }
 
 init();
+
+function tableExists(db, tableName) {
+    return db.tables.some(table => table.name === tableName);
+}
