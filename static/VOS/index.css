@@ -23,7 +23,7 @@ body {
 
 #taskbar {
     width: 100vw;
-    height: 70px;
+    height: 50px;
     background-color: white;
     border-radius: 5px 5px 0 0;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -31,7 +31,7 @@ body {
 
 #apps {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 50px);
+    grid-template-columns: repeat(auto-fill, 70px);
     grid-gap: 5px;
 }
 
