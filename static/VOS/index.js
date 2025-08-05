@@ -46,6 +46,7 @@ db.version(1).stores({
                 const r = await fetch(url);
                 const blob = await r.blob();
                 const zip = await JSZip.loadAsync(blob);
+                console.log(zip);
             });
         }
     }
