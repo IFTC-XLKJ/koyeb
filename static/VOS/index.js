@@ -1,4 +1,5 @@
 const db = new Dexie("VOS");
+await db.open();
 
 async function init() {
     console.log("Dexie:", db);
@@ -10,7 +11,6 @@ async function init() {
             user: '++id, name, email, password, token'
         });
     });
-    await db.open();
     setTimeout(function () {
         const loadingSrc = document.getElementById('waitLoad');
         loadingSrc.style.display = "none";
