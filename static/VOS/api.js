@@ -8,13 +8,9 @@ globalThis.API = {};
             throw new Error("Invalid file");
         }
         const paths = path.split("/");
-        for (let i = 1; i < paths.length; i++) {
-            const subPath = paths.slice(0, i).join("/") || "/";
-            const dir = await db.files.get({ name: subPath, type: "directory" });
-            if (!dir) {
-                await db.files.add({ name: subPath, type: "directory" });
-            }
-        }
+        const folderPath = paths.slice(0, paths.length - 1).join("/");
+        console.log(folderPath);
+        await API.createDirectory(folderPath);
         const existingFile = await db.files.get({ name: path, type: "file" });
         if (!existingFile) {
             await db.files.add({
