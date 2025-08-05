@@ -9,7 +9,7 @@ globalThis.API = {};
         }
         const paths = path.split("/");
         for (let i = 1; i < paths.length; i++) {
-            const subPath = paths.slice(0, i).join("/");
+            const subPath = paths.slice(0, i).join("/") || "/";
             const dir = await db.files.get({ name: subPath, type: "directory" });
             if (!dir) {
                 await db.files.add({ name: subPath, type: "directory" });
@@ -49,5 +49,12 @@ globalThis.API = {};
         }
         const file = await db.files.get({ name: path });
         return file && file.type === "directory";
+    }
+    API.exist = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        const file = await db.files.get({ name: path });
+        return file !== undefined;
     }
 })();
