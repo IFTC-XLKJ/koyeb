@@ -44,6 +44,7 @@ const appPath = "/data/apps/";
             const appElement = document.querySelector(`.app[data-app-id="${id}"]`);
             appElement.addEventListener("dblclick", () => {
                 console.log("app", id);
+                runApp(id);
             });
         }
         reader.readAsDataURL(iconBlob);
@@ -65,6 +66,9 @@ const appPath = "/data/apps/";
             mode,
             self_start
         });
+    }
+    globalThis.runApp = async function (id) {
+        const app = await db.apps.get(id);
     }
     const systemApps = [
         { name: "fileManager", id: "cn.iftc.fileManager" }
