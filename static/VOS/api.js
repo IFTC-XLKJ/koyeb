@@ -48,6 +48,7 @@ globalThis.API = {};
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
+        if (path.endsWith("/")) path = path.slice(0, -1);
         const file = await db.files.get({ name: path });
         return file && file.type === "directory";
     }
@@ -74,6 +75,10 @@ globalThis.API = {};
         }
         if (!file || !(file instanceof File)) {
             throw new Error("Invalid file");
+        }
+        const isDir = API.isDirectory(path);
+        if (isDir) {
+            throw new Error("Cannot write to directory");
         }
         const f = await db.files.get({ name: path, type: "file" });
         if (!f) {
