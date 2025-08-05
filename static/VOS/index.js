@@ -23,7 +23,7 @@ const appPath = "/data/apps/";
         const app = await db.apps.get(id);
         if (app) { }
     }
-    globalThis.installApp = async function (id, name, mode = "normal", self_start = false) {
+    globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
         const app = await db.apps.get(id);
         if (app) {
             console.warn("应用已存在:", id);
@@ -32,6 +32,7 @@ const appPath = "/data/apps/";
         await db.apps.add({
             id,
             name,
+            path,
             mode,
             self_start
         });
@@ -67,14 +68,14 @@ const appPath = "/data/apps/";
                 console.log(zip);
                 const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
                 console.log(manifest);
-                const { name, id, icon, main, description, author, versionName, versionCode } = manifest;
+                const { name, id, main } = manifest;
                 const files = Object.keys(zip.files);
                 for await (const fileName of files) {
                     const file = new File([await zip.file(fileName).async("blob")], fileName);
                     await API.createFile(appPath + id + "/" + fileName, file);
                     await wait(10); // 防止 Dexie 的事务冲突
-                    await installApp(id, name, "normal");
                 }
+                await installApp(id, name, `${appPath}${id}/${main}`, "normal");
             });
         }
     }
