@@ -68,7 +68,7 @@ globalThis.API = {};
         if (!file) {
             throw new Error("File not found");
         }
-        return file.file;
+        return setFileType(file.file);
     }
     API.writeFile = async function (path, file) {
         if (!path || typeof path !== "string") {
@@ -103,5 +103,70 @@ globalThis.API = {};
             newPaths.push(path);
         });
         return newPaths;
+    }
+    function changeFileTypeToBlob(file, newType) {
+        const blob = new Blob([file], { type: newType });
+        return new File([blob], file.name, {
+            type: newType,
+            lastModified: file.lastModified
+        });
+    }
+    function setFileType(file) {
+        const fileName = file.name.toLowerCase();
+        let mimeType = 'application/octet-stream';
+        if (fileName.endsWith('.txt')) {
+            mimeType = 'text/plain';
+        } else if (fileName.endsWith('.html') || fileName.endsWith('.htm')) {
+            mimeType = 'text/html';
+        } else if (fileName.endsWith('.css')) {
+            mimeType = 'text/css';
+        } else if (fileName.endsWith('.js')) {
+            mimeType = 'application/javascript';
+        } else if (fileName.endsWith('.json')) {
+            mimeType = 'application/json';
+        } else if (fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
+            mimeType = 'image/jpeg';
+        } else if (fileName.endsWith('.png')) {
+            mimeType = 'image/png';
+        } else if (fileName.endsWith('.gif')) {
+            mimeType = 'image/gif';
+        } else if (fileName.endsWith('.svg')) {
+            mimeType = 'image/svg+xml';
+        } else if (fileName.endsWith('.webp')) {
+            mimeType = 'image/webp';
+        } else if (fileName.endsWith('.mp3')) {
+            mimeType = 'audio/mpeg';
+        } else if (fileName.endsWith('.wav')) {
+            mimeType = 'audio/wav';
+        } else if (fileName.endsWith('.mp4')) {
+            mimeType = 'video/mp4';
+        } else if (fileName.endsWith('.webm')) {
+            mimeType = 'video/webm';
+        } else if (fileName.endsWith('.pdf')) {
+            mimeType = 'application/pdf';
+        } else if (fileName.endsWith('.zip')) {
+            mimeType = 'application/zip';
+        } else if (fileName.endsWith('.rar')) {
+            mimeType = 'application/vnd.rar';
+        } else if (fileName.endsWith('.7z')) {
+            mimeType = 'application/x-7z-compressed';
+        } else if (fileName.endsWith('.doc')) {
+            mimeType = 'application/msword';
+        } else if (fileName.endsWith('.docx')) {
+            mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        } else if (fileName.endsWith('.xls')) {
+            mimeType = 'application/vnd.ms-excel';
+        } else if (fileName.endsWith('.xlsx')) {
+            mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        } else if (fileName.endsWith('.ppt')) {
+            mimeType = 'application/vnd.ms-powerpoint';
+        } else if (fileName.endsWith('.pptx')) {
+            mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        } else if (fileName.endsWith('.xml')) {
+            mimeType = 'application/xml';
+        } else if (fileName.endsWith('.csv')) {
+            mimeType = 'text/csv';
+        }
+        changeFileTypeToBlob(file, mimeType);
     }
 })();
