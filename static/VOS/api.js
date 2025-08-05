@@ -8,7 +8,7 @@ globalThis.API = {};
             throw new Error("Invalid file");
         }
         const paths = path.split("/");
-        const folderPath = paths.slice(0, paths.length - 1).join("/");
+        const folderPath = formatPath(paths.slice(0, paths.length - 1)).join("/") + "/";
         console.log(folderPath);
         await API.createDirectory(folderPath);
         const existingFile = await db.files.get({ name: path, type: "file" });
@@ -55,7 +55,7 @@ globalThis.API = {};
         const file = await db.files.get({ name: path });
         return file !== undefined;
     }
-    function formatPth(paths) {
+    function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
         const newPaths = [""];
         paths.forEach(path => {
@@ -65,5 +65,6 @@ globalThis.API = {};
             }
             newPaths.push(newPaths[newPaths.length - 1] + "/" + path);
         });
+        return newPaths;
     }
 })();
