@@ -53,10 +53,10 @@ const appPath = "/data/apps/";
                 console.log(manifest);
                 const { name, id, icon, main, description, author, versionName, versionCode } = manifest;
                 const files = Object.keys(zip.files);
-                files.forEach(async fileName => {
+                for await (const fileName of files) {
                     const file = new File([await zip.file(fileName).async("blob")], fileName);
                     await API.createFile(appPath + id + "/" + fileName, file);
-                })
+                }
             });
         }
     }
