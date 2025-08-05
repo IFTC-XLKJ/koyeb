@@ -16,8 +16,15 @@ db.version(1).stores({
         console.error("数据库打开失败:", error);
     }
 
-    globalThis.loadApp = async function () {}
-
+    globalThis.loadApp = async function () { }
+    const systemApps = [
+        {
+            id: "cn.iftc.fileManager",
+            name: "文件管理器",
+            icon: "static/VOS/apps/fileManager/icon.png",
+            entry: "static/VOS/apps/fileManager/index.html",
+        },
+    ];
     async function init() {
         console.log("Dexie:", db);
         const initialized = await db.user.get("initialized");
@@ -33,6 +40,7 @@ db.version(1).stores({
             const loadingSrc = document.getElementById('waitLoad');
             loadingSrc.style.display = "none";
         }, 200);
+        function loadSystemApps() {}
     }
 })();
 
