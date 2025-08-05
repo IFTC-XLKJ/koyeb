@@ -22,7 +22,7 @@ const appPath = "/data/apps/";
     globalThis.loadApp = async function (id) {
         const app = await db.apps.get(id);
         if (!app) return;
-        const html = ``;
+        const html = `<div class="app"></div>`;
     }
     globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
         if (!name || !id || !path) {
