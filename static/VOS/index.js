@@ -37,7 +37,7 @@ const appPath = "/data/apps/";
     <img class="app-icon" src="${iconURL}" draggable="false">
     <div class="app-title">${app.name}</div>
 </div>`;
-        apps += html;
+        apps.innerHTML += html;
     }
     globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
         if (!name || !id || !path) {
