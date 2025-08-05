@@ -31,6 +31,7 @@ globalThis.API = {};
         const paths = formatPath(path.split("/"));
         for (let i = 1; i < paths.length; i++) {
             const subPath = paths.slice(0, i).join("/");
+            console.log(subPath);
             const dir = await db.files.get({ name: subPath, type: "directory" });
             if (!dir) {
                 await db.files.add({
