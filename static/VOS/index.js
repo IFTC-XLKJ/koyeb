@@ -32,6 +32,8 @@ const appPath = "/data/apps/";
         const { name, icon, main } = manifestData;
         const iconPath = `${appPath}${id}/${icon}`;
         const iconBlob = await API.readFile(iconPath);
+        console.log("iconPath:", iconPath);
+        console.log("iconBlob:", iconBlob);
         const reader = new FileReader();
         reader.onload = function () {
             const html = `<div class="app">
