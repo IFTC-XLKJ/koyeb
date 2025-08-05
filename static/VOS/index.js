@@ -17,14 +17,7 @@ db.version(1).stores({
     }
 
     globalThis.loadApp = async function () { }
-    const systemApps = [
-        {
-            id: "cn.iftc.fileManager",
-            name: "文件管理器",
-            icon: "static/VOS/apps/fileManager/icon.png",
-            entry: "static/VOS/apps/fileManager/index.html",
-        },
-    ];
+    const systemApps = ["fileManager"];
     async function init() {
         console.log("Dexie:", db);
         const initialized = await db.user.get("initialized");
