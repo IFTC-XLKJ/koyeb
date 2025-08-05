@@ -43,4 +43,11 @@ globalThis.API = {};
             }
         }
     }
+    API.isDirectory = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        const file = await db.files.get({ name: path });
+        return file && file.type === "directory";
+    }
 })();
