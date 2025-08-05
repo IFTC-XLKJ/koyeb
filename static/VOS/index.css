@@ -17,9 +17,11 @@ body {
 #desktop {
     width: 100vw;
     height: calc(100vh - 50px);
+    background-color: lightskyblue;
 }
 
 #taskbar {
     width: 100vw;
     height: 50px;
+    background-color: white;
 }
