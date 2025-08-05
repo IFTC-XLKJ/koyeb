@@ -68,22 +68,22 @@ globalThis.API = {};
         }
         return file.file;
     }
-    API.writeFile = async function (path, content) {
+    API.writeFile = async function (path, file) {
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
-        if (!content || typeof content !== "string") {
-            throw new Error("Invalid content");
+        if (!file || !(file instanceof File)) {
+            throw new Error("Invalid file");
         }
-        const file = await db.files.get({ name: path, type: "file" });
-        if (!file) {
-            await API.createFile(path, new Blob([content], { type: "text/plain" }));
+        const f = await db.files.get({ name: path, type: "file" });
+        if (!f) {
+            await API.createFile(path, file);
             return true;
         }
-        file.file = new Blob([content], { type: "text/plain" });
-        file.size = file.file.size;
-        file.lastModified = Date.now();
-        await db.files.put(file);
+        f.file = file;
+        f.size = file.size;
+        f.lastModified = Date.now();
+        await db.files.put(f);
         return true;
     }
     function formatPath(paths) {
