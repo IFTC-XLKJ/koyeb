@@ -41,6 +41,10 @@ const appPath = "/data/apps/";
     <div class="app-title">${name}</div>
 </div>`;
             document.getElementById("apps").innerHTML += html;
+            const appElement = document.querySelector(`.app[data-app-id="${id}"]`);
+            appElement.addEventListener("dblclick", () => {
+                console.log("app", id);
+            });
         }
         reader.readAsDataURL(iconBlob);
     }
@@ -78,7 +82,6 @@ const appPath = "/data/apps/";
         }
         await loadSystemApps();
         await wait(1000);
-        // await initApps();
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
