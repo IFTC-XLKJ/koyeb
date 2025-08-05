@@ -3,7 +3,7 @@ const db = new Dexie("VOS");
 db.version(1).stores({
     files: '++id, name, type, size, lastModified, base64',
     user: 'key, value',
-    apps: 'id, name, path, mode, self-start',
+    apps: 'id, name, path, mode, self_start',
 });
 
 (async function () {
