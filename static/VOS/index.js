@@ -29,7 +29,7 @@ const appPath = "/data/apps/";
             return;
         }
         const manifestData = JSON.parse(await manifest.text());
-        const { name, icon, main, description } = manifestData;
+        const { name, icon, description } = manifestData;
         const iconPath = `${appPath}${id}/${icon}`;
         const iconBlob = await API.readFile(iconPath);
         console.log("iconPath:", iconPath);
@@ -44,8 +44,13 @@ const appPath = "/data/apps/";
             const appElement = document.querySelector(`.app[data-app-id="${id}"]`);
             appElement.addEventListener("dblclick", () => {
                 console.log("app", id);
-                runApp(id);
+                startApp(id);
             });
+            const self_start = app.self_start || false;
+            if (self_start) {
+                console.log("自动启动应用:", id);
+                startApp(id);
+            }
         }
         reader.readAsDataURL(iconBlob);
     }
@@ -67,8 +72,15 @@ const appPath = "/data/apps/";
             self_start
         });
     }
-    globalThis.runApp = async function (id) {
+    globalThis.startApp = async function (id) {
         const app = await db.apps.get(id);
+        const appManifestPath = `${appPath}${id}/manifest.json`;
+        const manifest = await API.readFile(appManifestPath);
+        if (!manifest) {
+            console.error("应用不存在或无法读取:", id);
+            return;
+        }
+
     }
     const systemApps = [
         { name: "fileManager", id: "cn.iftc.fileManager" }
