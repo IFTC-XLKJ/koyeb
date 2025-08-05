@@ -1,5 +1,3 @@
-const { addSyntheticLeadingComment } = require("typescript");
-
 const db = new Dexie("VOS");
 
 db.version(1).stores({
