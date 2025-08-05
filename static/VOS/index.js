@@ -77,8 +77,8 @@ const appPath = "/data/apps/";
             return;
         }
         await loadSystemApps();
-        await wait(10);
-        // await initApps();
+        await wait(1000);
+        await initApps();
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
@@ -105,7 +105,7 @@ const appPath = "/data/apps/";
                 }
                 await installApp(id, name, `${appPath}${id}/${main}`, "normal");
                 await wait(10);
-                if (index < systemApps.length - 1) await initApps();
+                // if (index < systemApps.length - 1) await initApps();
             });
         }
         async function initApps() {
