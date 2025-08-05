@@ -28,7 +28,7 @@ const appPath = "/data/apps/";
             console.error("应用不存在或无法读取:", id);
             return;
         }
-        const manifestData = JSON.parse(manifest);
+        const manifestData = JSON.parse(await manifest.text());
         const { name, icon, main } = manifestData;
         const iconPath = `${appPath}${id}/${icon}`;
         const iconBlob = await API.readFile(iconPath);
