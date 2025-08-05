@@ -30,7 +30,7 @@ globalThis.API = {};
         if (!path.endsWith("/")) path += "/";
         const paths = formatPath(path.split("/"));
         console.log(paths);
-        for (let i = 1; i < paths.length; i++) {
+        for (let i = 1; i <= paths.length; i++) {
             const subPath = paths.slice(0, i).join("/");
             console.log(subPath);
             const dir = await db.files.get({ name: subPath, type: "directory" });
