@@ -16,6 +16,8 @@ db.version(1).stores({
         console.error("数据库打开失败:", error);
     }
 
+    globalThis.loadApp = async function () {}
+
     async function init() {
         console.log("Dexie:", db);
         const initialized = await db.user.get("initialized");
