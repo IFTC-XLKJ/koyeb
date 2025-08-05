@@ -21,6 +21,7 @@ globalThis.API = {};
                 file: file,
             });
         }
+        return true;
     }
     API.createDirectory = async function (path) {
         if (!path || typeof path !== "string") {
