@@ -38,6 +38,7 @@ globalThis.API = {};
                 });
             }
         }
+        return true;
     }
     API.isDirectory = async function (path) {
         if (!path || typeof path !== "string") {
