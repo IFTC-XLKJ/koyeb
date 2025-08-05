@@ -11,6 +11,7 @@ body {
     width: 100vw;
     height: 100vh;
     display: grid;
+    background-color: lightskyblue;
     grid-template-rows: 1fr 50px;
 }
 
