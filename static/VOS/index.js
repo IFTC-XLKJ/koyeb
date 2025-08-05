@@ -3,6 +3,14 @@
 async function init() {
     const db = new Dexie("VOS");
     console.log("Dexie:", db);
+    db.on('ready', () => {
+        if (!tableExists(db, 'files')) db.version(1).stores({
+            files: '++id, name, type, size, lastModified, content'
+        });
+        if (!tableExists(db, "user")) db.version(1).stores({
+            user: '++id, name, email, password, token'
+        });
+    });
     setTimeout(function () {
         const loadingSrc = document.getElementById('waitLoad');
         loadingSrc.style.display = "none";
