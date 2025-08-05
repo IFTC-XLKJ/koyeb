@@ -5,4 +5,7 @@ setTimeout(function () {
 
 async function init() {
     const db = new Dexie("VOS");
+    console.log("Dexie:", db);
 }
+
+init();
