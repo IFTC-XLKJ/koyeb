@@ -10,6 +10,7 @@ async function init() {
             user: '++id, name, email, password, token'
         });
     });
+    await db.open();
     setTimeout(function () {
         const loadingSrc = document.getElementById('waitLoad');
         loadingSrc.style.display = "none";
