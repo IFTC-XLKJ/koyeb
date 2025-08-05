@@ -167,6 +167,6 @@ globalThis.API = {};
         } else if (fileName.endsWith('.csv')) {
             mimeType = 'text/csv';
         }
-        changeFileTypeToBlob(file, mimeType);
+        return changeFileTypeToBlob(file, mimeType);
     }
 })();
