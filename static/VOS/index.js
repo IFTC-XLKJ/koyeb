@@ -78,14 +78,14 @@ const appPath = "/data/apps/";
         }
         await loadSystemApps();
         await wait(10);
-        await initApps();
+        // await initApps();
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
             loadingSrc.style.display = "none";
         }, 200);
         async function loadSystemApps() {
-            systemApps.forEach(async systemApp => {
+            systemApps.forEach(async (systemApp, index) => {
                 const app = await db.apps.get(systemApp.id);
                 console.log(app);
                 if (app) return;
@@ -104,6 +104,8 @@ const appPath = "/data/apps/";
                     await wait(10); // 防止 Dexie 的事务冲突
                 }
                 await installApp(id, name, `${appPath}${id}/${main}`, "normal");
+                await wait(10);
+                if (index < systemApps.length - 1) await initApps();
             });
         }
         async function initApps() {
