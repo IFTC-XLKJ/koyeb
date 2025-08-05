@@ -71,8 +71,8 @@ const appPath = "/data/apps/";
             }, 200);
             return;
         }
-        await initApps();
         await loadSystemApps();
+        await initApps();
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
