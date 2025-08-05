@@ -49,3 +49,12 @@ body {
 .app:hover {
     background-color: rgba(211, 211, 211, 0.5);
 }
+
+.app-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
