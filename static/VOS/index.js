@@ -85,27 +85,32 @@ const appPath = "/data/apps/";
             loadingSrc.style.display = "none";
         }, 200);
         async function loadSystemApps() {
-            systemApps.forEach(async (systemApp, index) => {
-                const app = await db.apps.get(systemApp.id);
-                console.log(app);
-                if (app) return;
-                const url = `https://iftc.koyeb.app/static/VOS/apps/${systemApp.name}.zip`;
-                const r = await fetch(url);
-                const blob = await r.blob();
-                const zip = await JSZip.loadAsync(blob);
-                console.log(zip);
-                const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
-                console.log(manifest);
-                const { name, id, main } = manifest;
-                const files = Object.keys(zip.files);
-                for await (const fileName of files) {
-                    const file = new File([await zip.file(fileName).async("blob")], fileName);
-                    await API.createFile(appPath + id + "/" + fileName, file);
-                    await wait(10); // 防止 Dexie 的事务冲突
-                }
-                await installApp(id, name, `${appPath}${id}/${main}`, "normal");
-                await wait(10);
-                if (index == systemApps.length - 1) await initApps();
+            return new Promise(async (resolve, reject) => {
+                systemApps.forEach(async (systemApp, index) => {
+                    const app = await db.apps.get(systemApp.id);
+                    console.log(app);
+                    if (app) return;
+                    const url = `https://iftc.koyeb.app/static/VOS/apps/${systemApp.name}.zip`;
+                    const r = await fetch(url);
+                    const blob = await r.blob();
+                    const zip = await JSZip.loadAsync(blob);
+                    console.log(zip);
+                    const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
+                    console.log(manifest);
+                    const { name, id, main } = manifest;
+                    const files = Object.keys(zip.files);
+                    for await (const fileName of files) {
+                        const file = new File([await zip.file(fileName).async("blob")], fileName);
+                        await API.createFile(appPath + id + "/" + fileName, file);
+                        await wait(10); // 防止 Dexie 的事务冲突
+                    }
+                    await installApp(id, name, `${appPath}${id}/${main}`, "normal");
+                    await wait(10);
+                    if (index == systemApps.length - 1) {
+                        await initApps();
+                        resolve();
+                    };
+                });
             });
         }
         async function initApps() {
