@@ -13,3 +13,13 @@ body {
     display: grid;
     grid-template-rows: 1fr 50px;
 }
+
+#desktop {
+    width: 100vw;
+    height: calc(100vh - 50px);
+}
+
+#taskbar {
+    width: 100vw;
+    height: 50px;
+}
