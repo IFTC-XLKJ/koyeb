@@ -32,4 +32,8 @@ db.version(1).stores({
             loadingSrc.style.display = "none";
         }, 200);
     }
-})()
+})();
+
+async function wait(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
