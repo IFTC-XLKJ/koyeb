@@ -1,7 +1,7 @@
 const db = new Dexie("VOS");
 
 db.version(1).stores({
-    files: '++id, name, type, size, lastModified, base64',
+    files: '++id, name, type, size, lastModified, file',
     user: 'key, value',
     apps: 'id, name, path, mode, self_start',
 });
@@ -54,7 +54,7 @@ const appPath = "/data/apps/";
                 const { name, id, icon, main, description, author, versionName, versionCode } = manifest;
                 const files = Object.keys(zip.files);
                 files.forEach(file => {
-                    
+
                 })
             });
         }
