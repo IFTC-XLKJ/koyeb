@@ -40,6 +40,10 @@ body {
     height: 70px;
     border-radius: 5px;
     cursor: pointer;
+    display: grid;
+    grid-template-rows: 50px 20px;
+    align-items: center;
+    justify-items: center;
 }
 
 .app:hover {
