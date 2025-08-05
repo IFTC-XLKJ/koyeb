@@ -36,7 +36,7 @@ const appPath = "/data/apps/";
         console.log("iconBlob:", iconBlob);
         const reader = new FileReader();
         reader.onload = function () {
-            const html = `<div class="app">
+            const html = `<div class="app" title="${app.name}">
     <img class="app-icon" src="${reader.result}" draggable="false">
     <div class="app-title">${app.name}</div>
 </div>`;
