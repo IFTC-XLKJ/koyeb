@@ -5,7 +5,6 @@ globalThis.API = {};
             throw new Error("Invalid file object");
         }
         const paths = path.split("/");
-        const fileName = paths.pop();
         for (let i = 1; i < paths.length; i++) {
             const subPath = paths.slice(0, i).join("/");
             const dir = await db.files.get({ name: subPath, type: "directory" });
