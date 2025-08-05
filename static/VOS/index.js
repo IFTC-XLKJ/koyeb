@@ -103,6 +103,7 @@ const appPath = "/data/apps/";
         async function initApps() {
             const apps = await db.apps.filter(app => !!app.id).toArray();
             for (const app of apps) {
+                console.log("正在初始化应用", app.id);
                 await loadApp(app.id);
             }
         }
