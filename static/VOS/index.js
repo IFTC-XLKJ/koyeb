@@ -51,6 +51,11 @@ const appPath = "/data/apps/";
                 console.log(zip);
                 const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
                 console.log(manifest);
+                const { name, id, icon, main, description, author, versionName, versionCode } = manifest;
+                const files = Object.keys(zip.files);
+                files.forEach(file => {
+                    
+                })
             });
         }
     }
