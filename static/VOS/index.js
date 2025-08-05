@@ -1,6 +1,7 @@
 const db = new Dexie("VOS");
 (async function () {
     await db.open();
+    init();
 
     async function init() {
         console.log("Dexie:", db);
@@ -17,8 +18,6 @@ const db = new Dexie("VOS");
             loadingSrc.style.display = "none";
         }, 200);
     }
-
-    init();
 })()
 
 function tableExists(db, tableName) {
