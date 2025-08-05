@@ -1,8 +1,11 @@
 globalThis.API = {};
 (async function () {
     API.createFile = async function (path, file) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
         if (!file || !(file instanceof File)) {
-            throw new Error("Invalid file object");
+            throw new Error("Invalid file");
         }
         const paths = path.split("/");
         for (let i = 1; i < paths.length; i++) {
@@ -24,6 +27,9 @@ globalThis.API = {};
         }
     }
     API.createDirectory = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
         const paths = path.split("/");
         for (let i = 1; i < paths.length; i++) {
             const subPath = paths.slice(0, i).join("/");
