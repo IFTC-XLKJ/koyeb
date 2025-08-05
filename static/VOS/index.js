@@ -18,7 +18,9 @@ db.version(1).stores({
     }
 
     globalThis.loadApp = async function () { }
-    const systemApps = ["fileManager"];
+    const systemApps = [
+        { name: "fileManager", id: "cn.iftc.fileManager" }
+    ];
     async function init() {
         console.log("Dexie:", db);
         const initialized = await db.user.get("initialized");
@@ -34,7 +36,11 @@ db.version(1).stores({
             const loadingSrc = document.getElementById('waitLoad');
             loadingSrc.style.display = "none";
         }, 200);
-        function loadSystemApps() {}
+        function loadSystemApps() {
+            systemApps.forEach(async app => {
+                const app = await db.app.get(app);
+            });
+        }
     }
 })();
 
