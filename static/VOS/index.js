@@ -40,7 +40,7 @@ const appPath = "/data/apps/";
     <img class="app-icon" src="${reader.result}" draggable="false">
     <div class="app-title">${name}</div>
 </div>`;
-            apps.innerHTML += html;
+            document.getElementById("apps").innerHTML += html;
         }
         reader.readAsDataURL(iconBlob);
     }
