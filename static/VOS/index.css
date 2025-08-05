@@ -32,5 +32,6 @@ body {
 #apps {
     display: grid;
     grid-template-columns: repeat(auto-fill, 50px);
+    grid-template-rows: repeat(auto-fill, 50px);
     grid-gap: 5px;
 }
