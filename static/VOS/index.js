@@ -80,7 +80,13 @@ const appPath = "/data/apps/";
             console.error("应用不存在或无法读取:", id);
             return;
         }
-
+        const manifestData = JSON.parse(await manifest.text());
+        const { main } = manifestData;
+        const appPathWithMain = `${appPath}${id}/${main}`;
+        const appBackstage = document.createElement("iframe");
+        appBackstage.sandbox = "allow-same-origin allow-scripts";
+        appBackstage.srcdoc = ``;
+        runningApps.push(window);
     }
     const systemApps = [
         { name: "fileManager", id: "cn.iftc.fileManager" }
