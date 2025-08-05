@@ -3,4 +3,6 @@ setTimeout(function () {
     loadingSrc.style.display = "none";
 }, 200);
 
-function init() {}
+async function init() {
+    const db = new Dexie("VOS");
+}
