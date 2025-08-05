@@ -22,23 +22,23 @@ const appPath = "/data/apps/";
     globalThis.loadApp = async function (id) {
         const app = await db.apps.get(id);
         if (!app) return;
-        const AppPath = `${appPath}${id}/manifest.json`;
-        const manifest = await API.readFile(AppPath);
+        const appManifestPath = `${appPath}${id}/manifest.json`;
+        const manifest = await API.readFile(appManifestPath);
         if (!manifest) {
             console.error("应用不存在或无法读取:", id);
             return;
         }
         const manifestData = JSON.parse(await manifest.text());
-        const { name, icon, main } = manifestData;
+        const { name, icon, main, description } = manifestData;
         const iconPath = `${appPath}${id}/${icon}`;
         const iconBlob = await API.readFile(iconPath);
         console.log("iconPath:", iconPath);
         console.log("iconBlob:", iconBlob);
         const reader = new FileReader();
         reader.onload = function () {
-            const html = `<div class="app" title="${app.name}">
+            const html = `<div class="app" title="${name}\n${description}" data-app-id="${id}">
     <img class="app-icon" src="${reader.result}" draggable="false">
-    <div class="app-title">${app.name}</div>
+    <div class="app-title">${name}</div>
 </div>`;
             apps.innerHTML += html;
         }
