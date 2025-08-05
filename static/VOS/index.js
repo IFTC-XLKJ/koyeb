@@ -47,6 +47,8 @@ db.version(1).stores({
                 const blob = await r.blob();
                 const zip = await JSZip.loadAsync(blob);
                 console.log(zip);
+                const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
+                console.log(manifest);
             });
         }
     }
