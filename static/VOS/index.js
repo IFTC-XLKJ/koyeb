@@ -105,7 +105,7 @@ const appPath = "/data/apps/";
                 }
                 await installApp(id, name, `${appPath}${id}/${main}`, "normal");
                 await wait(10);
-                // if (index < systemApps.length - 1) await initApps();
+                if (index < systemApps.length - 1) await initApps();
             });
         }
         async function initApps() {
