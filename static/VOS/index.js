@@ -1,9 +1,8 @@
 const db = new Dexie("VOS");
 
-// 在打开数据库之前定义数据库结构
 db.version(1).stores({
-    files: '++id, name, type, size, lastModified, content',
-    user: '++id, name, email, password, token'
+    files: '++id, name, type, size, lastModified, base64',
+    user: 'key, value'
 });
 
 (async function () {
