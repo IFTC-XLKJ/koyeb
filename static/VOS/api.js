@@ -1,7 +1,9 @@
 globalThis.API = {};
 (async function () {
     const system = true;
+    const appid = "cn.iftc.system";
     API.createFile = async function (path, file) {
+        checkSystem(system, appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -25,6 +27,7 @@ globalThis.API = {};
         return true;
     }
     API.createDirectory = async function (path) {
+        checkSystem(system, appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -61,6 +64,7 @@ globalThis.API = {};
         return file !== undefined;
     }
     API.readFile = async function (path) {
+        checkSystem(system, appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -71,6 +75,7 @@ globalThis.API = {};
         return setFileType(file.file);
     }
     API.writeFile = async function (path, file) {
+        checkSystem(system, appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -103,6 +108,13 @@ globalThis.API = {};
             newPaths.push(path);
         });
         return newPaths;
+    }
+    function checkSystem(system, appid, path) {
+        if (!system) {
+            if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/`)) {
+                throw new Error("Cannot access path: " + path);
+            }
+        }
     }
     function changeFileTypeToBlob(file, newType) {
         const blob = new Blob([file], { type: newType });
