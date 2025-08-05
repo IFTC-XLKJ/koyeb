@@ -97,6 +97,9 @@ globalThis.API = {};
         await db.files.put(f);
         return true;
     }
+    API.AppWindow = class {
+        constructor(options) {}
+    }
     function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
         const newPaths = [""];
