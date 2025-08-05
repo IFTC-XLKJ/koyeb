@@ -6,6 +6,8 @@ db.version(1).stores({
     apps: 'id, name, path, mode, self_start',
 });
 
+const appPath = "/data/apps/";
+
 (async function () {
     addEventListener("contextmenu", function (e) {
         e.preventDefault();
