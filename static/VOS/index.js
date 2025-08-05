@@ -39,7 +39,7 @@ db.version(1).stores({
         }, 200);
         async function loadSystemApps() {
             systemApps.forEach(async systemApp => {
-                const app = await db.app.get(systemApp.id);
+                const app = await db.apps.get(systemApp.id);
                 console.log(app);
                 if (app) return;
                 const url = `https://iftc.koyeb.app/static/VOS/apps/${systemApp.name}.zip`;
