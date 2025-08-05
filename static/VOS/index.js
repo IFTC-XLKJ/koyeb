@@ -22,6 +22,7 @@ const appPath = "/data/apps/";
     globalThis.loadApp = async function (id) {
         const app = await db.apps.get(id);
         if (!app) return;
+        const AppPath = `${appPath}${id}/manifest.json`
         const html = `<div class="app">
     <img class="app-icon" src="${app.icon}" draggable="false">
     <div class="app-title">${app.name}</div>
@@ -53,12 +54,14 @@ const appPath = "/data/apps/";
         console.log("Dexie:", db);
         const initialized = await db.user.get("initialized");
         if (initialized) {
+            await initApps();
             setTimeout(function () {
                 const loadingSrc = document.getElementById('waitLoad');
                 loadingSrc.style.display = "none";
             }, 200);
             return;
         }
+        await initApps();
         await loadSystemApps();
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
@@ -86,6 +89,12 @@ const appPath = "/data/apps/";
                 }
                 await installApp(id, name, `${appPath}${id}/${main}`, "normal");
             });
+        }
+        async function initApps() {
+            const apps = await db.apps.filter(app => !!app.id).toArray();
+            for (const app of apps) {
+                await loadApp(app.id);
+            }
         }
     }
 })();
