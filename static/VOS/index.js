@@ -32,12 +32,15 @@ const appPath = "/data/apps/";
         const { name, icon, main } = manifestData;
         const iconPath = `${appPath}${id}/${icon}`;
         const iconBlob = await API.readFile(iconPath);
-        const iconURL = URL.createObjectURL(iconBlob);
-        const html = `<div class="app">
-    <img class="app-icon" src="${iconURL}" draggable="false">
+        const reader = new FileReader();
+        reader.onload = function () {
+            const html = `<div class="app">
+    <img class="app-icon" src="${reader.result}" draggable="false">
     <div class="app-title">${app.name}</div>
 </div>`;
-        apps.innerHTML += html;
+            apps.innerHTML += html;
+        }
+        reader.readAsDataURL(iconBlob);
     }
     globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
         if (!name || !id || !path) {
