@@ -45,6 +45,7 @@ db.version(1).stores({
                 const url = `https://iftc.koyeb.app/static/VOS/apps/${systemApp.name}.zip`;
                 const r = await fetch(url);
                 const blob = await r.blob();
+                const zip = await JSZip.loadAsync(blob);
             });
         }
     }
