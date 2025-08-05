@@ -24,6 +24,10 @@ const appPath = "/data/apps/";
         if (app) { }
     }
     globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
+        if (!name || !id || !path) {
+            alert("请检查文件格式");
+            return;
+        }
         const app = await db.apps.get(id);
         if (app) {
             console.warn("应用已存在:", id);
@@ -69,10 +73,6 @@ const appPath = "/data/apps/";
                 const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
                 console.log(manifest);
                 const { name, id, main } = manifest;
-                if (!name || !id || !main) {
-                    alert("请检查文件格式");
-                    return;
-                }
                 const files = Object.keys(zip.files);
                 for await (const fileName of files) {
                     const file = new File([await zip.file(fileName).async("blob")], fileName);

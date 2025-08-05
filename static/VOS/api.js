@@ -58,6 +58,16 @@ globalThis.API = {};
         const file = await db.files.get({ name: path });
         return file !== undefined;
     }
+    API.readFile = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        const file = await db.files.get({ name: path, type: "file" });
+        if (!file) {
+            throw new Error("File not found");
+        }
+        return file.file;
+    }
     function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
         const newPaths = [""];
