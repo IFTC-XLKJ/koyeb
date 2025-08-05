@@ -68,6 +68,24 @@ globalThis.API = {};
         }
         return file.file;
     }
+    API.writeFile = async function (path, content) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!content || typeof content !== "string") {
+            throw new Error("Invalid content");
+        }
+        const file = await db.files.get({ name: path, type: "file" });
+        if (!file) {
+            await API.createFile(path, new Blob([content], { type: "text/plain" }));
+            return true;
+        }
+        file.file = new Blob([content], { type: "text/plain" });
+        file.size = file.file.size;
+        file.lastModified = Date.now();
+        await db.files.put(file);
+        return true;
+    }
     function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
         const newPaths = [""];
