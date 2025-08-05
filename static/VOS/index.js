@@ -1,3 +1,5 @@
+const { addSyntheticLeadingComment } = require("typescript");
+
 const db = new Dexie("VOS");
 
 db.version(1).stores({
@@ -6,6 +8,9 @@ db.version(1).stores({
 });
 
 (async function () {
+    addEventListener("contextmenu", function (e) {
+        e.preventDefault();
+    })
     try {
         await db.open();
         init();
