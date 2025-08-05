@@ -1,7 +1,6 @@
-
+const db = new Dexie("VOS");
 
 async function init() {
-    const db = new Dexie("VOS");
     console.log("Dexie:", db);
     db.on('ready', () => {
         if (!tableExists(db, 'files')) db.version(1).stores({
