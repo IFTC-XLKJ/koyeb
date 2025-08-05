@@ -55,4 +55,15 @@ globalThis.API = {};
         const file = await db.files.get({ name: path });
         return file !== undefined;
     }
+    function formatPth(paths) {
+        const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
+        const newPaths = [""];
+        paths.forEach(path => {
+            if (path == "") return;
+            if (notallowed.some(char => path.includes(char))) {
+                throw new Error("Invalid path. Not Allowed: " + JSON.stringify(notallowed));
+            }
+            newPaths.push(newPaths[newPaths.length - 1] + "/" + path);
+        });
+    }
 })();
