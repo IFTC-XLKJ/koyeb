@@ -40,6 +40,14 @@ const appPath = "/data/apps/";
 </div>`;
             apps.innerHTML += html;
         }
+        if (icon.endsWith(".svg")) iconBlob.type = "image/svg+xml";
+        if (icon.endsWith(".png")) iconBlob.type = "image/png";
+        if (icon.endsWith(".jpg")) iconBlob.type = "image/jpeg";
+        if (icon.endsWith(".jpeg")) iconBlob.type = "image/jpeg";
+        if (icon.endsWith(".gif")) iconBlob.type = "image/gif";
+        if (icon.endsWith(".webp")) iconBlob.type = "image/webp";
+        if (icon.endsWith(".ico")) iconBlob.type = "image/x-icon";
+        if (icon.endsWith(".bmp")) iconBlob.type = "image/bmp";
         reader.readAsDataURL(iconBlob);
     }
     globalThis.installApp = async function (id, name, path, mode = "normal", self_start = false) {
