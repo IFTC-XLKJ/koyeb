@@ -22,9 +22,19 @@ const appPath = "/data/apps/";
     globalThis.loadApp = async function (id) {
         const app = await db.apps.get(id);
         if (!app) return;
-        const AppPath = `${appPath}${id}/manifest.json`
+        const AppPath = `${appPath}${id}/manifest.json`;
+        const manifest = await API.readFile(AppPath);
+        if (!manifest) {
+            console.error("应用不存在或无法读取:", id);
+            return;
+        }
+        const manifestData = JSON.parse(manifest);
+        const { name, icon, main } = manifestData;
+        const iconPath = `${appPath}${id}/${icon}`;
+        const iconBlob = await API.readFile(iconPath);
+        const iconURL = URL.createObjectURL(iconBlob);
         const html = `<div class="app">
-    <img class="app-icon" src="${app.icon}" draggable="false">
+    <img class="app-icon" src="${iconURL}" draggable="false">
     <div class="app-title">${app.name}</div>
 </div>`;
         apps.insertAdjacentHTML("beforeend", html);

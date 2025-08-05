@@ -1,5 +1,6 @@
 globalThis.API = {};
 (async function () {
+    const system = true;
     API.createFile = async function (path, file) {
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
