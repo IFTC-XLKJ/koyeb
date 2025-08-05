@@ -27,7 +27,8 @@ globalThis.API = {};
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
-        const paths = path.split("/");
+        if (!path.endsWith("/")) path += "/";
+        const paths = formatPath(path.split("/"));
         for (let i = 1; i < paths.length; i++) {
             const subPath = paths.slice(0, i).join("/");
             const dir = await db.files.get({ name: subPath, type: "directory" });
@@ -63,7 +64,7 @@ globalThis.API = {};
             if (notallowed.some(char => path.includes(char))) {
                 throw new Error("Invalid path. Not Allowed: " + JSON.stringify(notallowed));
             }
-            newPaths.push(newPaths[newPaths.length - 1] + "/" + path);
+            newPaths.push(path);
         });
         return newPaths;
     }
