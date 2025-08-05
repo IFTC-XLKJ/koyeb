@@ -18,8 +18,24 @@ const appPath = "/data/apps/";
     } catch (error) {
         console.error("数据库打开失败:", error);
     }
-
-    globalThis.loadApp = async function () { }
+    globalThis.runningApps = [];
+    globalThis.loadApp = async function (id) {
+        const app = await db.apps.get(id);
+        if (app) { }
+    }
+    globalThis.installApp = async function (id, name, mode = "normal", self_start = false) {
+        const app = await db.apps.get(id);
+        if (app) {
+            console.warn("应用已存在:", id);
+            return;
+        }
+        await db.apps.add({
+            id,
+            name,
+            mode,
+            self_start
+        });
+    }
     const systemApps = [
         { name: "fileManager", id: "cn.iftc.fileManager" }
     ];
@@ -56,6 +72,8 @@ const appPath = "/data/apps/";
                 for await (const fileName of files) {
                     const file = new File([await zip.file(fileName).async("blob")], fileName);
                     await API.createFile(appPath + id + "/" + fileName, file);
+                    await wait(10); // 防止 Dexie 的事务冲突
+                    await installApp(id, name, "normal");
                 }
             });
         }
