@@ -173,7 +173,7 @@ class Errors extends Error {
                         if (url.startsWith("http://") || url.startsWith("https://")) {
                             this.appWindow.src = url;
                         } else {
-                            const appPath = new URL(path, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
+                            const appPath = new URL(url, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
                             const blob = API.readFile(appPath);
                             const html = await blob.text();
                             const parser = new DOMParser();
