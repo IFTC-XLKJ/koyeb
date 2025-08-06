@@ -8,7 +8,7 @@ db.version(1).stores({
 
 const appPath = "/data/apps/";
 
-class Errors extends Error { 
+class Errors extends Error {
     constructor(name, message) {
         super(message);
         this.name = name;
@@ -102,13 +102,18 @@ class Errors extends Error {
             appBackstage.contentWindow.API = {
                 File: class {
                     constructor(path, base) {
-                        this.path = new URL(path, base ? `inner-src://${base}` : `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
+                        if (!path) throw new Errors("FileError(init)", "File path cannot be empty");
+                        try {
+                            this.path = new URL(path, base ? `inner-src://${base}` : `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
+                        } catch (e) {
+                            throw new Errors("FileError(init)", e.message);
+                        }
                     }
                     create(isDirectory) {
                         checkSystem(API.system, API.appid, path);
                     }
                     toFile(data, type) {
-                        const name = path.split("/").pop();
+                        const name = this.path.split("/").pop();
                         if (data instanceof Blob || data instanceof ArrayBuffer || data instanceof Uint8Array || data instanceof String) {
                             return new nativeFile([data], name, type);
                         }
