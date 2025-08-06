@@ -242,7 +242,7 @@ class Errors extends Error {
         function checkSystem(system, appid, path) {
             if (!system) {
                 if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`))) {
-                    throw new Error("Cannot access path: " + path);
+                    throw new Errors("AccessDeniedError", "Cannot access path: " + path);
                 }
             }
         }
