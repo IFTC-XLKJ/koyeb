@@ -1,9 +1,9 @@
 globalThis.API = {};
 (async function () {
-    const system = true;
-    const appid = "cn.iftc.system";
+    API.system = true;
+    API.appid = "cn.iftc.vos";
     API.createFile = async function (path, file) {
-        checkSystem(system, appid, path);
+        checkSystem(API.system, API.appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -27,7 +27,7 @@ globalThis.API = {};
         return true;
     }
     API.createDirectory = async function (path) {
-        checkSystem(system, appid, path);
+        checkSystem(API.system, API.appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -64,7 +64,7 @@ globalThis.API = {};
         return file !== undefined;
     }
     API.readFile = async function (path) {
-        checkSystem(system, appid, path);
+        checkSystem(API.system, API.appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -75,7 +75,7 @@ globalThis.API = {};
         return setFileType(file.file);
     }
     API.writeFile = async function (path, file) {
-        checkSystem(system, appid, path);
+        checkSystem(API.system, API.appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
@@ -98,7 +98,9 @@ globalThis.API = {};
         return true;
     }
     API.AppWindow = class {
-        constructor(options) {}
+        constructor(options) {
+            
+        }
     }
     function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
