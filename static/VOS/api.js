@@ -103,19 +103,33 @@ globalThis.API = {};
         #icon;
         #width;
         #height;
+        #x;
+        #y;
         get id() {
             return this.#id;
         }
         constructor(options) {
-            const { name, icon, width = 800, height = 600 } = options || {};
+            const { name, icon, width = 800, height = 600, x = 100, y = 100 } = options || {};
             this.#id = `app-${Date.now()}`;
             this.#name = name || "New App";
             this.#icon = icon || "default-icon.png";
             this.#width = width;
             this.#height = height;
+            this.#x = x;
+            this.#y = y;
             this.createWindow();
         }
-        createWindow() {}
+        createWindow() {
+            const appWindow = document.createElement("iframe");
+            appWindow.className = "app-window";
+            appWindow.sandbox = "allow-same-origin allow-scripts";
+            appWindow.style.width = `${this.#width}px`;
+            appWindow.style.height = `${this.#height}px`;
+            appWindow.style.position = "absolute";
+            appWindow.style.left = `${this.#x}px`;
+            appWindow.style.top = `${this.#y}px`;
+            document.getElementById("windows").appendChild(appWindow);
+        }
     
     }
     function formatPath(paths) {
