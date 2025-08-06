@@ -130,6 +130,13 @@ globalThis.API = {};
             appWindow.style.top = `${this.#y}px`;
             document.getElementById("windows").appendChild(appWindow);
         }
+        load(url) {
+            if (url.startsWith("http://") || url.startsWith("https://")) {
+                appWindow.src = url;
+            } else {
+                const appPath = `/data/apps/${API.appid}/${url}`;
+            }
+        }
     }
     API.Notification = class {
     }
