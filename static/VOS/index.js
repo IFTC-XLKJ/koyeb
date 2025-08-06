@@ -99,6 +99,8 @@ const appPath = "/data/apps/";
             configurable: false,
             enumerable: true
         });
+        appBackstage.style.display = "none";
+        document.getElementById("windows").appendChild(appBackstage);
         runningApps.push(window);
     }
     const systemApps = [
