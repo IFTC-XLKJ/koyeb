@@ -118,6 +118,7 @@ globalThis.API = {};
             this.#x = x;
             this.#y = y;
             this.createWindow();
+            console.log(API);
         }
         createWindow() {
             const appWindow = document.createElement("iframe");
