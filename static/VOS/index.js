@@ -179,7 +179,7 @@ class Errors extends Error {
                             const html = await blob.text();
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(html, "text/html");
-                            console.log(doc);
+                            console.dir(doc);
                             this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
                             this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
                         }
