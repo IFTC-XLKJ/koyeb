@@ -117,7 +117,7 @@ const appPath = "/data/apps/";
                 enumerable: true
             });
             appBackstage.contentWindow.parent = null;
-            appBackstage.contentDocument.head.appendChild(InnerSrc);
+            appBackstage.contentDocument.head.appendChild(InnerSrcScript);
             const script = document.createElement("script");
             script.innerText = `var parent = null;`;
             appBackstage.contentDocument.head.appendChild(script);
@@ -193,7 +193,7 @@ const appPath = "/data/apps/";
             const innerSrcElementText = await innerSrcElementR.text();
             const script = document.createElement("script");
             script.textContent = innerSrcElementText;
-            globalThis.InnerSrc = script;
+            globalThis.InnerSrcScript = script;
             const apps = await db.apps.filter(app => !!app.id).toArray();
             console.log(apps)
             for (const app of apps) {
