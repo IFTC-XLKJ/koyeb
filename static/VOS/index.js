@@ -73,6 +73,10 @@ const appPath = "/data/apps/";
         });
     }
     globalThis.startApp = async function (id) {
+        if (runningApps.some(app => app.id === id)) {
+            console.warn("应用已在运行:", id);
+            return;
+        }
         const app = await db.apps.get(id);
         const appManifestPath = `${appPath}${id}/manifest.json`;
         const manifest = await API.readFile(appManifestPath);
