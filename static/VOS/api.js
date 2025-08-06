@@ -135,7 +135,8 @@ globalThis.API = {};
                 appWindow.src = url;
             } else {
                 const appPath = `/data/apps/${API.appid}/${url}`;
-                appWindow.src = appPath;
+                const blob = API.readFile(appPath);
+                appWindow.src = URL.createObjectURL(blob);
             }
         }
     }
@@ -155,7 +156,7 @@ globalThis.API = {};
     }
     function checkSystem(system, appid, path) {
         if (!system) {
-            if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/`)) {
+            if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`)) {
                 throw new Error("Cannot access path: " + path);
             }
         }
