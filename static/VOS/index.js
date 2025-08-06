@@ -128,7 +128,7 @@ const appPath = "/data/apps/";
         });
         appBackstage.style.display = "none";
         document.getElementById("windows").appendChild(appBackstage);
-        runningApps.push(window);
+        runningApps.push(appBackstage);
     }
     const systemApps = [
         { name: "fileManager", id: "cn.iftc.fileManager" }
