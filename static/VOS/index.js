@@ -8,6 +8,13 @@ db.version(1).stores({
 
 const appPath = "/data/apps/";
 
+class Errors extends Error { 
+    constructor(name, message) {
+        super(message);
+        this.name = name;
+        this.message = message;
+    }
+}
 (async function () {
     addEventListener("contextmenu", function (e) {
         e.preventDefault();
@@ -91,7 +98,7 @@ const appPath = "/data/apps/";
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
-            // const nativeFile = File;
+            const nativeFile = File;
             appBackstage.contentWindow.API = {
                 File: class {
                     constructor(path, base) {
@@ -99,6 +106,12 @@ const appPath = "/data/apps/";
                     }
                     create(isDirectory) {
                         checkSystem(API.system, API.appid, path);
+                    }
+                    toFile(data) {
+                        if (data instanceof Blob || data instanceof ArrayBuffer || data instanceof Uint8Array || data instanceof String) {
+                            return new nativeFile([data]);
+                        }
+                        throw new Errors("FileError(toFile)", "Invalid argument")
                     }
                 },
                 AppWindow: class { },
