@@ -99,6 +99,12 @@ const appPath = "/data/apps/";
             configurable: false,
             enumerable: true
         });
+        Object.defineProperty(appBackstage.contentWindow, "parent", {
+            value: null,
+            writable: false,
+            configurable: false,
+            enumerable: true
+        });
         appBackstage.style.display = "none";
         document.getElementById("windows").appendChild(appBackstage);
         runningApps.push(window);
