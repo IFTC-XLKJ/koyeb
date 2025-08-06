@@ -145,6 +145,16 @@ globalThis.API = {};
                 appWindow.src = URL.createObjectURL(blob);
             }
         }
+        close() {
+            anime.animate(appWindow, {
+                scale: [1, 0],
+                duration: 300,
+                easing: "easeInOutQuad",
+                complete: () => {
+                    appWindow.remove();
+                }
+            })
+        }
     }
     API.Notification = class {
     }
