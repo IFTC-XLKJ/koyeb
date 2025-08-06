@@ -109,7 +109,8 @@ globalThis.API = {};
             return this.#id;
         }
         constructor(options) {
-            const { name, icon, width = 800, height = 600, x = 100, y = 100 } = options || {};
+            const { name, icon, appid, width = 800, height = 600, x = 100, y = 100 } = options || {};
+            if (!appid) throw new Error("AppWindowError: appid is not set.");
             this.#id = `app-${Date.now()}`;
             this.#name = name || "New App";
             this.#icon = icon || "default-icon.png";
