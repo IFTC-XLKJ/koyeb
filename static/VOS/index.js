@@ -91,7 +91,15 @@ const appPath = "/data/apps/";
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
-            appBackstage.contentWindow.API = deepClone(API);
+            // const nativeFile = File;
+            appBackstage.contentWindow.API = {
+                File: class {
+                    constructor(path, base) {
+                        this.path = new URL(path, base ? `inner-src://${base}` : `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
+                    }
+                },
+                AppWindow: class {},
+            };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
                 value: false,
                 writable: false,

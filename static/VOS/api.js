@@ -97,73 +97,74 @@ globalThis.API = {};
         await db.files.put(f);
         return true;
     }
-    API.AppWindow = class {
-        #id;
-        #name;
-        #icon;
-        #width;
-        #height;
-        #x;
-        #y;
-        get id() {
-            return this.#id;
-        }
-        constructor(options) {
-            console.log(options);
-            const { name, icon, appid, width = 800, height = 600, x = 100, y = 100 } = options || {};
-            if (!appid) throw new Error("AppWindowError: appid is not set.");
-            this.#id = `app-${Date.now()}`;
-            this.#name = name || "New App";
-            this.#icon = icon || "default-icon.png";
-            this.#width = width;
-            this.#height = height;
-            this.#x = x;
-            this.#y = y;
-            this.createWindow();
-            console.log(API);
-        }
-        createWindow() {
-            const appWindow = document.createElement("iframe");
-            appWindow.className = "app-window";
-            appWindow.sandbox = "allow-scripts";
-            appWindow.style.width = `${this.#width}px`;
-            appWindow.style.height = `${this.#height}px`;
-            appWindow.style.position = "absolute";
-            appWindow.style.left = `${this.#x}px`;
-            appWindow.style.top = `${this.#y}px`;
-            appWindow.style.transform = "scale(0)";
-            this.appWindow = appWindow;
-            document.getElementById("windows").appendChild(appWindow);
-            anime.animate(appWindow, {
-                scale: [0, 1],
-                duration: 300,
-                easing: "easeInOutQuad",
-            })
-        }
-        async load(url) {
-            if (url.startsWith("http://") || url.startsWith("https://")) {
-                this.appWindow.src = url;
-            } else {
-                const appPath = url;
-                const blob = API.readFile(appPath);
-                const html = await blob.text();
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-                this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
-                this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
-            }
-        }
-        close() {
-            anime.animate(appWindow, {
-                scale: [1, 0],
-                duration: 300,
-                easing: "easeInOutQuad",
-                complete: () => {
-                    appWindow.remove();
-                }
-            })
-        }
-    }
+    // API.AppWindow = class {
+    //     #id;
+    //     #name;
+    //     #icon;
+    //     #width;
+    //     #height;
+    //     #x;
+    //     #y;
+    //     get id() {
+    //         return this.#id;
+    //     }
+    //     constructor(options) {
+    //         console.log(options);
+    //         const { name, icon, appid, width = 800, height = 600, x = 100, y = 100 } = options || {};
+    //         if (!appid) throw new Error("AppWindowError: appid is not set.");
+    //         this.#id = `app-${Date.now()}`;
+    //         this.#name = name || "New App";
+    //         this.#icon = icon || "default-icon.png";
+    //         this.#width = width;
+    //         this.#height = height;
+    //         this.#x = x;
+    //         this.#y = y;
+    //         this.createWindow();
+    //         console.log(API);
+    //     }
+    //     createWindow() {
+    //         const appWindow = document.createElement("iframe");
+    //         appWindow.className = "app-window";
+    //         appWindow.sandbox = "allow-scripts";
+    //         appWindow.style.width = `${this.#width}px`;
+    //         appWindow.style.height = `${this.#height}px`;
+    //         appWindow.style.position = "absolute";
+    //         appWindow.style.left = `${this.#x}px`;
+    //         appWindow.style.top = `${this.#y}px`;
+    //         appWindow.style.transform = "scale(0)";
+    //         this.appWindow = appWindow;
+    //         document.getElementById("windows").appendChild(appWindow);
+    //         anime.animate(appWindow, {
+    //             scale: [0, 1],
+    //             duration: 300,
+    //             easing: "easeInOutQuad",
+    //         })
+    //     }
+    //     async load(url) {
+    //         if (url.startsWith("http://") || url.startsWith("https://")) {
+    //             this.appWindow.src = url;
+    //         } else {
+    //             const appPath = url;
+    //             const blob = API.readFile(appPath);
+    //             const html = await blob.text();
+    //             const parser = new DOMParser();
+    //             const doc = parser.parseFromString(html, "text/html");
+    //             this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
+    //             this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
+    //         }
+    //     }
+    //     close() {
+    //         anime.animate(appWindow, {
+    //             scale: [1, 0],
+    //             duration: 300,
+    //             easing: "easeInOutQuad",
+    //             complete: () => {
+    //                 appWindow.remove();
+    //             }
+    //         })
+    //     }
+    // }
+    // API.AppWindow = function
     API.Notification = class {
     }
     function formatPath(paths) {
