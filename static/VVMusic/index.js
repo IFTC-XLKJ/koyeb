@@ -15,6 +15,14 @@ if (!localStorage.getItem('music-search-history')) {
     localStorage.setItem('music-search-history', JSON.stringify([]));
 }
 
+globalThis.APIHost = 'https://vvapi.deno.dev';
+(async function(){
+    try{
+        const r = await fetch(APIHost);
+    } catch(e) {
+        APIHost = "https://www.lihouse.xyz/coco_widget";
+    }
+})();
 const tips = document.getElementById('tips');
 tips.style.width = '300px';
 tips.style.display = 'flex';
@@ -518,11 +526,11 @@ async function getMusic(id) {
 
 
 function searchURL(keyword) {
-    return 'https://vvapi.deno.dev/music_resource/info?key=' + keyword + '&page=' + pageNum + '&limit=' + pageSize;
+    return `${APIHost}/music_resource/info?key=` + keyword + '&page=' + pageNum + '&limit=' + pageSize;
 }
 
 function getMusicURL(id) {
-    return 'https://vvapi.deno.dev/music_resource/id/' + id;
+    return `${APIHost}/music_resource/id/` + id;
 }
 
 function renderHistory() {
