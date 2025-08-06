@@ -140,7 +140,7 @@ globalThis.API = {};
             if (url.startsWith("http://") || url.startsWith("https://")) {
                 appWindow.src = url;
             } else {
-                const appPath = `/data/apps/${API.appid}/${url}`;
+                const appPath = new URL(url, `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
                 const blob = API.readFile(appPath);
                 appWindow.src = URL.createObjectURL(blob);
             }
