@@ -107,9 +107,10 @@ class Errors extends Error {
                     create(isDirectory) {
                         checkSystem(API.system, API.appid, path);
                     }
-                    toFile(data) {
+                    toFile(data, type) {
+                        const name = path.split("/").pop();
                         if (data instanceof Blob || data instanceof ArrayBuffer || data instanceof Uint8Array || data instanceof String) {
-                            return new nativeFile([data]);
+                            return new nativeFile([data], name, type);
                         }
                         throw new Errors("FileError(toFile)", "Invalid argument")
                     }
