@@ -100,12 +100,21 @@ const appPath = "/data/apps/";
                 configurable: false,
                 enumerable: true
             });
+            Object.defineProperty(appBackstage.contentWindow, "localStorage", {
+                value: null,
+                writable: false,
+                configurable: false,
+                enumerable: true
+            });
             Object.defineProperty(appBackstage.contentWindow, "parent", {
                 value: null,
                 writable: false,
                 configurable: false,
                 enumerable: true
             });
+            appBackstage.contentWindow.parent = null;
+            const script = document.createElement("script");
+            script.innerText = `const parent = null;var parent = null;`;
         });
         appBackstage.style.display = "none";
         document.getElementById("windows").appendChild(appBackstage);
