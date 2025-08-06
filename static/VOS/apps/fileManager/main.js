@@ -4,4 +4,5 @@ const appWindow = new AppWindow({
     appid: "cn.iftc.filemanager",
 });
 appWindow.load(new URL("index.html", `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", ""));
-API.createFile("/data/data/abc")
+const file = new API.File("/data/data/abc.txt");
+file.craete();

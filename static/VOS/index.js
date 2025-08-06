@@ -111,7 +111,13 @@ class Errors extends Error {
                         }
                     }
                     create(isDirectory) {
-                        checkSystem(API.system, API.appid, path);
+                        const name = this.path.split("/").pop();
+                        checkSystem(app.appWindow.API.system, app.appWindow.API.appid, this.path);
+                        if (isDirectory) {
+                            API.createDirectory(this.path);
+                        } else {
+                            API.createFile(this.path, new nativeFile([""], name, { type: "text/plain" }));
+                        }
                     }
                     toFile(data, type) {
                         const name = this.path.split("/").pop();
