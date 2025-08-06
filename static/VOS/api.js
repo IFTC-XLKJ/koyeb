@@ -130,7 +130,8 @@ globalThis.API = {};
             appWindow.style.top = `${this.#y}px`;
             document.getElementById("windows").appendChild(appWindow);
         }
-    
+    }
+    API.Notification = class {
     }
     function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
