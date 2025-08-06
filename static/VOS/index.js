@@ -177,7 +177,12 @@ class Errors extends Error {
                             const blob = await API.readFile(appPath);
                             console.log(blob);
                             const html = await blob.text();
-                            this.appWindow.contentDocument.body.innerHTML += html;
+                            const setter = setInterval(() => {
+                                if (this.appWindow.contentDocument) {
+                                    this.appWindow.contentDocument.body.innerHTML += html;
+                                    clearInterval(setter);
+                                }
+                            }, 100);
                         }
                     }
                     close() {
