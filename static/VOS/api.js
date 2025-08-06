@@ -130,6 +130,7 @@ globalThis.API = {};
             appWindow.style.left = `${this.#x}px`;
             appWindow.style.top = `${this.#y}px`;
             appWindow.style.transform = "scale(0)";
+            this.appWindow = appWindow;
             document.getElementById("windows").appendChild(appWindow);
             anime.animate(appWindow, {
                 scale: [0, 1],
@@ -137,13 +138,14 @@ globalThis.API = {};
                 easing: "easeInOutQuad",
             })
         }
-        load(url) {
+        async load(url) {
             if (url.startsWith("http://") || url.startsWith("https://")) {
-                appWindow.src = url;
+                this.appWindow.src = url;
             } else {
                 const appPath = new URL(url, `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
                 const blob = API.readFile(appPath);
-                appWindow.src = URL.createObjectURL(blob);
+                const html = await blob.text();
+                this.appWindow.contentDocument.body.innerHTML += html;
             }
         }
         close() {
