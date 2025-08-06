@@ -156,7 +156,7 @@ globalThis.API = {};
     }
     function checkSystem(system, appid, path) {
         if (!system) {
-            if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`)) {
+            if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`))) {
                 throw new Error("Cannot access path: " + path);
             }
         }
