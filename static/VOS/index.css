@@ -69,3 +69,8 @@ body {
     text-overflow: ellipsis;
     width: 100%;
 }
+
+iframe {
+    border: none;
+    border-radius: 5px;
+}
