@@ -1,4 +1,7 @@
 class InnerSrc extends HTMLElement {
+    static get observedAttributes() {
+        return ["src"];
+    }
     constructor() {
         super();
     }
