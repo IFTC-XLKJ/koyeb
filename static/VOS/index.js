@@ -154,7 +154,7 @@ class Errors extends Error {
                     createWindow() {
                         const appWindow = document.createElement("iframe");
                         appWindow.className = "app-window";
-                        appWindow.sandbox = "allow-scripts";
+                        appWindow.sandbox = "allow-same-origin allow-scripts";
                         appWindow.style.width = `${this.#width}px`;
                         appWindow.style.height = `${this.#height}px`;
                         appWindow.style.position = "absolute";
