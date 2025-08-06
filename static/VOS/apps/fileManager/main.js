@@ -1,1 +1,1 @@
-console.log("start", parent);
+console.log("start", parent, globalThis.parent, API);
