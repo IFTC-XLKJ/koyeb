@@ -99,6 +99,7 @@ class Errors extends Error {
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
             const nativeFile = File;
+            const appWindow = appBackstage.contentWindow;
             appBackstage.contentWindow.API = {
                 File: class {
                     constructor(path, base) {
@@ -133,8 +134,7 @@ class Errors extends Error {
                     }
                     constructor(options) {
                         console.log(options);
-                        const { name, icon, appid, width = 800, height = 600, x = 100, y = 100 } = options || {};
-                        if (!appid) throw new Error("AppWindowError: appid is not set.");
+                        const { name, icon, width = 800, height = 600, x = 100, y = 100 } = options || {};
                         this.#id = `app-${Date.now()}`;
                         this.#name = name || "New App";
                         this.#icon = icon || "default-icon.png";
@@ -167,7 +167,7 @@ class Errors extends Error {
                         if (url.startsWith("http://") || url.startsWith("https://")) {
                             this.appWindow.src = url;
                         } else {
-                            const appPath = url;
+                            const appPath = new URL(path, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
                             const blob = API.readFile(appPath);
                             const html = await blob.text();
                             const parser = new DOMParser();
