@@ -70,7 +70,7 @@ globalThis.API = {};
         }
         const file = await db.files.get({ name: path, type: "file" });
         if (!file) {
-            throw new Error("File not found");
+            throw new Error(`File(${path}) not found`);
         }
         return setFileType(file.file);
     }
