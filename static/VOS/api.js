@@ -128,7 +128,13 @@ globalThis.API = {};
             appWindow.style.position = "absolute";
             appWindow.style.left = `${this.#x}px`;
             appWindow.style.top = `${this.#y}px`;
+            appWindow.style.transform = "scale(0)";
             document.getElementById("windows").appendChild(appWindow);
+            anime.animate(appWindow, {
+                scale: [0, 1],
+                duration: 300,
+                easing: "easeInOutQuad",
+            })
         }
         load(url) {
             if (url.startsWith("http://") || url.startsWith("https://")) {
