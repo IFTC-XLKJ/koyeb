@@ -117,7 +117,13 @@ const appPath = "/data/apps/";
             script.innerText = `var parent = null;`;
             appBackstage.contentDocument.head.appendChild(script);
             const mainScript = document.createElement("script");
-            mainScript.src = appPathWithMain;
+            const mainScriptBlob = await API.readFile(appPathWithMain);
+            const reader = new FileReader();
+            reader.onload = function () {
+                mainScript.src = reader.result;
+                appBackstage.contentDocument.body.appendChild(mainScript);
+            }
+            reader.readAsDataURL(mainScriptBlob);
             appBackstage.contentDocument.body.appendChild(mainScript);
         });
         appBackstage.style.display = "none";
