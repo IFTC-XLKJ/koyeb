@@ -3,7 +3,6 @@ globalThis.API = {};
     API.system = true;
     API.appid = "cn.iftc.vos";
     API.createFile = async function (path, file) {
-        checkSystem(API.system, API.appid, path);
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }

@@ -97,8 +97,11 @@ const appPath = "/data/apps/";
                     constructor(path, base) {
                         this.path = new URL(path, base ? `inner-src://${base}` : `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
                     }
+                    create(isDirectory) {
+                        checkSystem(API.system, API.appid, path);
+                    }
                 },
-                AppWindow: class {},
+                AppWindow: class { },
             };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
                 value: false,
@@ -145,6 +148,13 @@ const appPath = "/data/apps/";
             id,
             app: appBackstage,
         });
+        function checkSystem(system, appid, path) {
+            if (!system) {
+                if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`))) {
+                    throw new Error("Cannot access path: " + path);
+                }
+            }
+        }
     }
     const systemApps = [
         { name: "fileManager", id: "cn.iftc.fileManager" }
