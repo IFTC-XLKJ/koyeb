@@ -161,6 +161,9 @@ class Errors extends Error {
                         appWindow.style.left = `${this.#x}px`;
                         appWindow.style.top = `${this.#y}px`;
                         appWindow.style.transform = "scale(0)";
+                        appWindow.addEventListener("load", () => {
+                            
+                        });
                         this.appWindow = appWindow;
                         document.getElementById("windows").appendChild(appWindow);
                         anime.animate(appWindow, {
