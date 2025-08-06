@@ -114,7 +114,7 @@ const appPath = "/data/apps/";
             });
             appBackstage.contentWindow.parent = null;
             const script = document.createElement("script");
-            script.innerText = `const parent = null;var parent = null;`;
+            script.innerText = `var parent = null;`;
             appBackstage.contentDocument.head.appendChild(script);
         });
         appBackstage.style.display = "none";
