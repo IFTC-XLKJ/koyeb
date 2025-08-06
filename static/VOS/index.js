@@ -87,7 +87,7 @@ const appPath = "/data/apps/";
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
-            appBackstage.contentWindow.API = cloneWithoutFunctions(API);
+            appBackstage.contentWindow.API = deepClone(API);
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
                 value: false,
                 writable: false,
@@ -195,22 +195,30 @@ async function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function cloneWithoutFunctions(obj) {
-    const cleaned = {};
-    for (const [key, value] of Object.entries(obj)) {
-        if (typeof value !== 'function') {
-            try {
-                // 尝试用 structuredClone
-                cleaned[key] = structuredClone(value);
-            } catch (e) {
-                console.warn(`无法克隆属性 ${key}:`, e);
-                cleaned[key] = 'CLONE_ERROR';
-            }
-        } else {
-            console.log(`跳过函数属性: ${key}`);
-            // 可以选择忽略，或用 null/undefined 占位
-            cleaned[key] = null;
-        }
+function deepClone(obj) {
+    if (obj === null || typeof obj !== 'object') {
+        return obj;
     }
-    return cleaned;
+
+    if (obj instanceof Date) {
+        return new Date(obj.getTime());
+    }
+
+    if (obj instanceof Array) {
+        var copy = [];
+        for (var i = 0, len = obj.length; i < len; i++) {
+            copy[i] = deepClone(obj[i]);
+        }
+        return copy;
+    }
+
+    if (obj instanceof Object) {
+        var copy = {};
+        for (var attr in obj) {
+            if (obj.hasOwnProperty(attr)) copy[attr] = deepClone(obj[attr]);
+        }
+        return copy;
+    }
+
+    throw new Error("Unable to copy obj! Its type isn't supported.");
 }
