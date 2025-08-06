@@ -86,24 +86,26 @@ const appPath = "/data/apps/";
         const appBackstage = document.createElement("iframe");
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
-        appBackstage.contentWindow.API = API;
-        Object.defineProperty(appBackstage.contentWindow.API, "system", {
-            value: false,
-            writable: false,
-            configurable: false,
-            enumerable: true
-        });
-        Object.defineProperty(appBackstage.contentWindow.API, "appid", {
-            value: id,
-            writable: false,
-            configurable: false,
-            enumerable: true
-        });
-        Object.defineProperty(appBackstage.contentWindow, "parent", {
-            value: null,
-            writable: false,
-            configurable: false,
-            enumerable: true
+        appBackstage.addEventListener("load", async () => {
+            appBackstage.contentWindow.API = API;
+            Object.defineProperty(appBackstage.contentWindow.API, "system", {
+                value: false,
+                writable: false,
+                configurable: false,
+                enumerable: true
+            });
+            Object.defineProperty(appBackstage.contentWindow.API, "appid", {
+                value: id,
+                writable: false,
+                configurable: false,
+                enumerable: true
+            });
+            Object.defineProperty(appBackstage.contentWindow, "parent", {
+                value: null,
+                writable: false,
+                configurable: false,
+                enumerable: true
+            });
         });
         appBackstage.style.display = "none";
         document.getElementById("windows").appendChild(appBackstage);
