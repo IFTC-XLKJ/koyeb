@@ -175,6 +175,7 @@ class Errors extends Error {
                         } else {
                             const appPath = new URL(url, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
                             const blob = API.readFile(appPath);
+                            console.log(blob);
                             const html = await blob.text();
                             const parser = new DOMParser();
                             const doc = parser.parseFromString(html, "text/html");
