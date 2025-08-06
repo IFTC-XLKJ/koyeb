@@ -25,14 +25,19 @@ class InnerSrc extends HTMLElement {
         }
     }
     load() {
-        const 
-        if (this.src) {
+        const srcBlob = API.readFile(new URL(this.src, `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", ""));
+        const srcUrl = URL.createObjectURL(srcBlob);
+        if (this.type === "js") {
             const script = document.createElement("script");
-            script.src = this.src;
-            script.type = this.type;
+            script.src = srcUrl;
             this.appendChild(script);
+        } else if (this.type === "css") {
+            const style = document.createElement("style");
+            style.textContent = srcBlob.text;
+            this.appendChild(style);
         } else {
-            console.warn("InnerSrc: src attribute is not set.");
+            console.error(`InnerSrc: Unsupported type "${this.type}".`);
+            return;
         }
     }
 }
