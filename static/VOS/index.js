@@ -177,11 +177,7 @@ class Errors extends Error {
                             const blob = await API.readFile(appPath);
                             console.log(blob);
                             const html = await blob.text();
-                            const parser = new DOMParser();
-                            const doc = parser.parseFromString(html, "text/html");
-                            console.dir(doc);
-                            this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
-                            this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
+                            this.appWindow.contentDocument.body.innerHTML += html;
                         }
                     }
                     close() {
