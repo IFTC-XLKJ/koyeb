@@ -174,13 +174,13 @@ class Errors extends Error {
                             this.appWindow.src = url;
                         } else {
                             const appPath = new URL(url, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
-                            const blob = API.readFile(appPath);
+                            const blob = await API.readFile(appPath);
                             console.log(blob);
-                            // const html = await blob.text();
-                            // const parser = new DOMParser();
-                            // const doc = parser.parseFromString(html, "text/html");
-                            // this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
-                            // this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
+                            const html = await blob.text();
+                            const parser = new DOMParser();
+                            const doc = parser.parseFromString(html, "text/html");
+                            this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
+                            this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
                         }
                     }
                     close() {
