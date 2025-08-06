@@ -98,9 +98,25 @@ globalThis.API = {};
         return true;
     }
     API.AppWindow = class {
-        constructor(options) {
-            
+        #id;
+        #name;
+        #icon;
+        #width;
+        #height;
+        get id() {
+            return this.#id;
         }
+        constructor(options) {
+            const { name, icon, width = 800, height = 600 } = options || {};
+            this.#id = `app-${Date.now()}`;
+            this.#name = name || "New App";
+            this.#icon = icon || "default-icon.png";
+            this.#width = width;
+            this.#height = height;
+            this.createWindow();
+        }
+        createWindow() {}
+    
     }
     function formatPath(paths) {
         const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
