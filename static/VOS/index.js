@@ -87,7 +87,7 @@ const appPath = "/data/apps/";
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
-            appBackstage.contentWindow.API = API;
+            appBackstage.contentWindow.API = structuredClone(API);
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
                 value: false,
                 writable: false,
