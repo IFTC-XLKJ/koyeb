@@ -145,7 +145,10 @@ globalThis.API = {};
                 const appPath = new URL(url, `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
                 const blob = API.readFile(appPath);
                 const html = await blob.text();
-                this.appWindow.contentDocument.body.innerHTML += html;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+                this.appWindow.contentDocument.head.innerHTML += doc.head.innerHTML;
+                this.appWindow.contentDocument.body.innerHTML += doc.body.innerHTML;
             }
         }
         close() {
