@@ -112,7 +112,7 @@ class Errors extends Error {
                     }
                     create(isDirectory) {
                         const name = this.path.split("/").pop();
-                        checkSystem(app.appWindow.API.system, app.appWindow.API.appid, this.path);
+                        checkSystem(appWindow.API.system, appWindow.API.appid, this.path);
                         if (isDirectory) {
                             API.createDirectory(this.path);
                         } else {
