@@ -135,6 +135,7 @@ globalThis.API = {};
                 appWindow.src = url;
             } else {
                 const appPath = `/data/apps/${API.appid}/${url}`;
+                appWindow.src = appPath;
             }
         }
     }
