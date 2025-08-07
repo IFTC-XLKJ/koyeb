@@ -162,6 +162,10 @@ class Errors extends Error {
                         appWindow.style.top = `${this.#y}px`;
                         appWindow.style.transform = "scale(0)";
                         appWindow.addEventListener("load", () => {
+                            appWindow.contentWindow.API = AppWindow.API;
+                            appWindow.contentWindow.addEventListener("contextmenu", (e) => {
+                                e.preventDefault();
+                            })
                             appWindow.contentDocument.head.appendChild(InnerSrcScript);
                             const script = document.createElement("script");
                             script.innerText = `var parent = null;`;
