@@ -15,3 +15,8 @@ body {
     display: grid;
     grid-template-columns: 1fr 150px;
 }
+
+#main {
+    width: 100%;
+    height: calc(100% - 50px);
+}
