@@ -6,3 +6,8 @@ body {
     display: grid;
     grid-template-rows: 50px 1fr;
 }
+
+#nav {
+    display: grid;
+    grid-template-columns: 1fr 150px;
+}
