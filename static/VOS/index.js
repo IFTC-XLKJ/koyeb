@@ -299,6 +299,7 @@ globalThis.deleteAll = async () => {
                             dragElement.removeEventListener("mouseup", handleMouseUp);
                         };
 
+                        dragElement.addEventListener("mouseleave", handleMouseUp);
                         dragElement.addEventListener("mousemove", handleMouseMove);
                         dragElement.addEventListener("mouseup", handleMouseUp);
                     }
