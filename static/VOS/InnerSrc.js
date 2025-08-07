@@ -14,6 +14,7 @@ class InnerSrc extends HTMLElement {
         super();
     }
     attributeChangedCallback(name, oldValue, newValue) {
+        console.log(`InnerSrc: ${name} changed from "${oldValue}" to "${newValue}".`);
         if (oldValue === newValue) return;
         if (newValue.trim() === "") {
             console.warn(`InnerSrc: ${name} attribute is empty.`);
