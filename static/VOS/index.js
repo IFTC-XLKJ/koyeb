@@ -226,6 +226,7 @@ globalThis.deleteAll = async () => {
                                         appWindow.contentDocument.head.appendChild(scriptElement);
                                     }
                                     appWindow.contentDocument.body.innerHTML += html;
+                                    appWindow.contentWindow.onload && appWindow.contentWindow.onload();
                                     clearInterval(setter);
                                 }
                             }, 100);
