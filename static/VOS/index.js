@@ -183,7 +183,7 @@ globalThis.deleteAll = async () => {
                             appWindow.contentDocument.head.appendChild(InnerSrcScript);
                             const script = document.createElement("script");
                             script.innerText = `var parent = null;`;
-                            appWindow.contentWindow.API.postMessage = function(data) {
+                            appWindow.contentWindow.postMessage = function(data) {
                                 AppWindow.API.onmessage(data);
                             }
                             appWindow.contentDocument.head.appendChild(script);
@@ -282,7 +282,6 @@ globalThis.deleteAll = async () => {
                         });
                     }
                     postMessage(data) {
-                        this.appWindow.API.onmessage(data);
                     }
                 },
                 onmessage: null,
