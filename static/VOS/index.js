@@ -183,7 +183,7 @@ globalThis.deleteAll = async () => {
                             appWindow.contentDocument.head.appendChild(InnerSrcScript);
                             const script = document.createElement("script");
                             script.innerText = `var parent = null;`;
-                            appWindow.contentWindow.postMessage = function(data) {
+                            appWindow.contentWindow.API.postMessage = function(data) {
                                 AppWindow.API.onmessage(data);
                             }
                             appWindow.contentDocument.head.appendChild(script);
