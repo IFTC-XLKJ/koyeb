@@ -95,7 +95,7 @@ class Errors extends Error {
         const { main } = manifestData;
         const appPathWithMain = `${appPath}${id}/${main}`;
         const appBackstage = document.createElement("iframe");
-        appBackstage.data.appid = id;
+        appBackstage.dataset.appid = id;
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
@@ -154,7 +154,7 @@ class Errors extends Error {
                     }
                     createWindow() {
                         const appWindow = document.createElement("iframe");
-                        appWindow.data.appid = AppWindow.API.appid;
+                        appWindow.dataset.appid = AppWindow.API.appid;
                         appWindow.className = "app-window";
                         appWindow.sandbox = "allow-same-origin allow-scripts";
                         appWindow.style.width = `${this.#width}px`;
