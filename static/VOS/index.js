@@ -185,11 +185,11 @@ class Errors extends Error {
                             const blob = await API.readFile(appPath);
                             console.log(blob);
                             const html = await blob.text();
-                            const setter = setInterval(() => {
+                            const setter = setInterval(async () => {
                                 if (appWindow.contentDocument) {
                                     for (const style of styles || []) {
                                         const stylePath = new URL(style, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
-                                        const styleBlob = API.readFile(stylePath);
+                                        const styleBlob = await API.readFile(stylePath);
                                         const styleUrl = URL.createObjectURL(styleBlob);
                                         const styleElement = document.createElement("link");
                                         styleElement.rel = "stylesheet";
@@ -198,7 +198,7 @@ class Errors extends Error {
                                     }
                                     for (const script of scripts || []) {
                                         const scriptPath = new URL(script, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
-                                        const scriptBlob = API.readFile(scriptPath);
+                                        const scriptBlob = await API.readFile(scriptPath);
                                         const scriptUrl = URL.createObjectURL(scriptBlob);
                                         const scriptElement = document.createElement("script");
                                         scriptElement.src = scriptUrl;
