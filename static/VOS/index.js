@@ -243,6 +243,7 @@ class Errors extends Error {
                             }
                         });
                     }
+                    runningApps = runningApps.filter(item => item[id] !== id);
                 }
             };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
