@@ -246,6 +246,12 @@ globalThis.deleteAll = async () => {
                     getDragElements() {
                         return this.dragElements;
                     }
+                    removeDragElement(element) {
+                        if (!(element instanceof HTMLElement)) {
+                            throw new Errors("AppWindowError(removeDragElement)", "Element must be an instance of HTMLElement");
+                        }
+                        this.dragElements = this.dragElements.filter(e => e !== element);
+                    }
                     setDragElement(element) {
                         if (!(element instanceof HTMLElement)) {
                             throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
