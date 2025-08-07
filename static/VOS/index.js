@@ -257,17 +257,17 @@ globalThis.deleteAll = async () => {
                         element.removeEventListener("mousedown", this.#setDrag);
                     }
                     setDragElement(element) {
-                        console.log(element, !(element instanceof HTMLElement));
                         if (!element || typeof element.nodeType !== 'number' || element.nodeType !== 1) {
                             throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
                         }
                         this.dragElements.push(element);
                         element.addEventListener("mousedown", this.#setDrag);
                     }
-                    #setDrag(e) {
+                    #setDrag = (e) => {  // 使用箭头函数保持 this 绑定
                         let isDragging = true;
                         const dragElement = e.target;
-                        dragElement.addEventListener("mousemove", (e) => {
+
+                        const handleMouseMove = (e) => {
                             if (isDragging) {
                                 const appWindow = this.appWindow;
                                 if (appWindow) {
@@ -276,11 +276,16 @@ globalThis.deleteAll = async () => {
                                     appWindow.style.top = `${e.clientY - rect.height / 2}px`;
                                 }
                             }
-                        });
-                        dragElement.addEventListener("mouseup", () => {
+                        };
+
+                        const handleMouseUp = () => {
                             isDragging = false;
-                            dragElement.removeEventListener("mousemove", this.#setDrag);
-                        });
+                            dragElement.removeEventListener("mousemove", handleMouseMove);
+                            dragElement.removeEventListener("mouseup", handleMouseUp);
+                        };
+
+                        dragElement.addEventListener("mousemove", handleMouseMove);
+                        dragElement.addEventListener("mouseup", handleMouseUp);
                     }
                     postMessage(data) {
                     }
