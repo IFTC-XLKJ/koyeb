@@ -112,14 +112,21 @@ class Errors extends Error {
                             throw new Errors("FileError(init)", e.message);
                         }
                     }
-                    create(isDirectory) {
+                    async create(isDirectory) {
                         const name = this.path.split("/").pop();
                         checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
                         if (isDirectory) {
-                            API.createDirectory(this.path);
+                            return await API.createDirectory(this.path);
                         } else {
-                            API.createFile(this.path, new nativeFile([""], name, { type: "text/plain" }));
+                            return await API.createFile(this.path, new nativeFile([""], name, { type: "text/plain" }));
                         }
+                    }
+                    async write(data) {
+                        checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
+                        if (await API.isDirectory(this.path)) {
+                            throw new Errors("FileError(write)", "Cannot write to directory");
+                        }
+                        return await API.writeFile(this.path, data);
                     }
                     toFile(data, type) {
                         const name = this.path.split("/").pop();
