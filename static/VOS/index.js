@@ -280,10 +280,11 @@ globalThis.deleteAll = async () => {
                                     moving = true;
                                     console.log("移动");
                                     const { movementX, movementY } = event;
-                                    const { left, top, width } = appWindow.getBoundingClientRect();
+                                    const { left, top, width, height } = appWindow.getBoundingClientRect();
                                     const x = left + movementX;
+                                    const y = top + movementY;
                                     appWindow.style.left = x <= 0 ? 0 : (x >= innerWidth - width ? innerWidth - width : x) + "px";
-                                    appWindow.style.top = top + movementY + "px";
+                                    appWindow.style.top = y < 0 ? 0 : (y < height + 50 ? height + 50 : y) + "px";
                                     moving = false;
                                 }
                             }
