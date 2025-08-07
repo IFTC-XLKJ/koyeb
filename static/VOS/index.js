@@ -251,11 +251,32 @@ globalThis.deleteAll = async () => {
                             throw new Errors("AppWindowError(removeDragElement)", "Element must be an instance of HTMLElement");
                         }
                         this.dragElements = this.dragElements.filter(e => e !== element);
+                        element.removeEventListener("mousedown", this.#setDrag);
                     }
                     setDragElement(element) {
                         if (!(element instanceof HTMLElement)) {
                             throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
                         }
+                        this.dragElements.push(element);
+                        element.addEventListener("mousedown", this.#setDrag);
+                    }
+                    #setDrag(e) {
+                        let isDragging = true;
+                        const dragElement = e.target;
+                        dragElement.addEventListener("mousemove", (e) => {
+                            if (isDragging) {
+                                const appWindow = dragElement.closest(".app-window");
+                                if (appWindow) {
+                                    const rect = appWindow.getBoundingClientRect();
+                                    appWindow.style.left = `${e.clientX - rect.width / 2}px`;
+                                    appWindow.style.top = `${e.clientY - rect.height / 2}px`;
+                                }
+                            }
+                        });
+                        dragElement.addEventListener("mouseup", () => {
+                            isDragging = false;
+                            dragElement.removeEventListener("mousemove", this.#setDrag);
+                        });
                     }
                 },
                 exit: function () {
