@@ -15,6 +15,10 @@ class Errors extends Error {
         this.message = message;
     }
 }
+
+globalThis.deleteAll = async () => {
+    return await Dexie.delete("VOS");
+}
 (async function () {
     addEventListener("contextmenu", function (e) {
         e.preventDefault();
