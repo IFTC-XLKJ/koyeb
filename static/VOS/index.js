@@ -187,6 +187,14 @@ class Errors extends Error {
                             const html = await blob.text();
                             const setter = setInterval(() => {
                                 if (this.appWindow.contentDocument) {
+                                    for (const style of styles || []) {
+                                        const stylePath = new URL(style, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
+                                        const styleBlob = API.readFile(stylePath);
+                                        const styleUrl = URL.createObjectURL(styleBlob);
+                                        const styleElement = document.createElement("link");
+                                        styleElement.rel = "stylesheet";
+                                        styleElement.href = styleUrl;
+                                    }
                                     this.appWindow.contentDocument.body.innerHTML += html;
                                     clearInterval(setter);
                                 }
