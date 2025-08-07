@@ -95,6 +95,7 @@ class Errors extends Error {
         const { main } = manifestData;
         const appPathWithMain = `${appPath}${id}/${main}`;
         const appBackstage = document.createElement("iframe");
+        appBackstage.className = "app-backstage";
         appBackstage.dataset.appid = id;
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
