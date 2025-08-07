@@ -266,14 +266,24 @@ globalThis.deleteAll = async () => {
                     #setDrag = (e) => {  // 使用箭头函数保持 this 绑定
                         let isDragging = true;
                         const dragElement = e.target;
-
+                        const position = { x: e.clientX, y: e.clientY };
                         const handleMouseMove = (e) => {
                             if (isDragging) {
                                 const appWindow = this.appWindow;
                                 if (appWindow) {
-                                    const rect = appWindow.getBoundingClientRect();
-                                    appWindow.style.left = `${e.clientX - rect.width / 2}px`;
-                                    appWindow.style.top = `${e.clientY - rect.height / 2}px`;
+                                    const { x, y } = appWindow.getBoundingClientRect();
+                                    const dx = e.clientX - position.x;
+                                    const dy = e.clientY - position.y;
+                                    appWindow.style.left = `${x + dx}px`;
+                                    appWindow.style.top = `${y + dy}px`;
+                                    position.x = e.clientX;
+                                    position.y = e.clientY;
+                                    anime.animate(appWindow, {
+                                        left: [x, e.clientX - rect.width / 2],
+                                        top: [y, e.clientY - rect.height / 2],
+                                        duration: 100,
+                                        easing: "easeInOutQuad"
+                                    });
                                 }
                             }
                         };
