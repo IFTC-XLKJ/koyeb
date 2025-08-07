@@ -175,7 +175,9 @@ class Errors extends Error {
                             easing: "easeInOutQuad",
                         })
                     }
-                    async load(url) {
+                    async load(url, src) {
+                        const appWindow = this.appWindow;
+                        const { styles, scripts } = src || {};
                         if (url.startsWith("http://") || url.startsWith("https://")) {
                             this.appWindow.src = url;
                         } else {
