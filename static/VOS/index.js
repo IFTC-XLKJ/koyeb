@@ -183,7 +183,7 @@ globalThis.deleteAll = async () => {
                             appWindow.contentDocument.head.appendChild(InnerSrcScript);
                             const script = document.createElement("script");
                             script.innerText = `var parent = null;`;
-                            appWindow.contentWindow.API.postMessage = function(data) {
+                            appWindow.contentWindow.API.postMessage = function (data) {
                                 AppWindow.API.onmessage(data);
                             }
                             appWindow.contentDocument.head.appendChild(script);
@@ -257,7 +257,7 @@ globalThis.deleteAll = async () => {
                         element.removeEventListener("mousedown", this.#setDrag);
                     }
                     setDragElement(element) {
-                        console.log(!(element instanceof HTMLElement));
+                        console.log(element, !(element instanceof HTMLElement));
                         if (!(element instanceof HTMLElement)) {
                             throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
                         }
