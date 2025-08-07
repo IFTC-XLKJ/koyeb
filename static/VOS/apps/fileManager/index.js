@@ -1,5 +1,5 @@
 const tabs = [];
-onload = e => {
+addEventListener("load", e => {
     console.log("fileManager loaded");
-    API.postMessage({ type: "load" })
-};
+    API.postMessage({ type: "load" });
+});
