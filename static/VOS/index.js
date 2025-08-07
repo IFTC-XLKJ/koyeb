@@ -272,7 +272,6 @@ globalThis.deleteAll = async () => {
                         const position = { x: e.clientX, y: e.clientY };
                         console.log(position);
                         let moving = false;
-                        // let can = true;
                         const handleMouseMove = (event) => {
                             if (isDragging) {
                                 const appWindow = this.appWindow;
@@ -284,7 +283,7 @@ globalThis.deleteAll = async () => {
                                     const x = left + movementX;
                                     const y = top + movementY;
                                     appWindow.style.left = x <= 0 ? 0 : (x >= innerWidth - width ? innerWidth - width : x) + "px";
-                                    appWindow.style.top = y < 0 ? 0 : (y < height + 50 ? height + 50 : y) + "px";
+                                    appWindow.style.top = y >= 0 ? 0 : (y <= height + 50 ? height + 50 : y) + "px";
                                     moving = false;
                                 }
                             }
@@ -293,13 +292,9 @@ globalThis.deleteAll = async () => {
                         const handleMouseUp = () => {
                             console.log("结束")
                             isDragging = false;
-                            // can = false;
                             dragElement.removeEventListener("mousemove", handleMouseMove);
                             dragElement.removeEventListener("mouseup", handleMouseUp);
                         };
-                        // dragElement.addEventListener("mouseover", (e) => {
-                        //     can = true;
-                        // })
                         dragElement.addEventListener("mouseleave", handleMouseUp);
                         dragElement.addEventListener("mousemove", handleMouseMove);
                         dragElement.addEventListener("mouseup", handleMouseUp);
