@@ -242,6 +242,15 @@ globalThis.deleteAll = async () => {
                             }
                         })
                     }
+                    dragElements = [];
+                    getDragElements() {
+                        return this.dragElements;
+                    }
+                    setDragElement(element) {
+                        if (!(element instanceof HTMLElement)) {
+                            throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
+                        }
+                    }
                 },
                 exit: function () {
                     appBackstage.remove();
