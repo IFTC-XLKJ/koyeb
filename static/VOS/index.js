@@ -212,10 +212,9 @@ globalThis.deleteAll = async () => {
                                     for (const style of styles || []) {
                                         const stylePath = new URL(style, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const styleBlob = await API.readFile(stylePath);
-                                        const styleUrl = URL.createObjectURL(styleBlob);
-                                        const styleElement = document.createElement("link");
-                                        styleElement.rel = "stylesheet";
-                                        styleElement.href = styleUrl;
+                                        const styleText = await styleBlob.text();
+                                        const styleElement = document.createElement("style");
+                                        styleElement.innerText = styleText;
                                         appWindow.contentDocument.head.appendChild(styleElement);
                                     }
                                     for (const script of scripts || []) {
