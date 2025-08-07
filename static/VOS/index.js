@@ -95,6 +95,7 @@ class Errors extends Error {
         const { main } = manifestData;
         const appPathWithMain = `${appPath}${id}/${main}`;
         const appBackstage = document.createElement("iframe");
+        appBackstage.data.appid = id;
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
@@ -153,6 +154,7 @@ class Errors extends Error {
                     }
                     createWindow() {
                         const appWindow = document.createElement("iframe");
+                        appWindow.data.appid = AppWindow.API.appid;
                         appWindow.className = "app-window";
                         appWindow.sandbox = "allow-same-origin allow-scripts";
                         appWindow.style.width = `${this.#width}px`;
@@ -175,6 +177,7 @@ class Errors extends Error {
                         document.getElementById("windows").appendChild(appWindow);
                         anime.animate(appWindow, {
                             scale: [0, 1],
+                            opacity: [0, 1],
                             duration: 300,
                             easing: "easeInOutQuad",
                         })
@@ -217,6 +220,7 @@ class Errors extends Error {
                     close() {
                         anime.animate(this.appWindow, {
                             scale: [1, 0],
+                            opacity: [1, 0],
                             duration: 300,
                             easing: "easeInOutQuad",
                             complete: () => {
@@ -225,6 +229,8 @@ class Errors extends Error {
                         })
                     }
                 },
+                exit: function () {
+                }
             };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
                 value: false,
