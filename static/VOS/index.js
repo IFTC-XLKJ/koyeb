@@ -224,7 +224,7 @@ class Errors extends Error {
                             duration: 300,
                             easing: "easeInOutQuad",
                             complete: () => {
-                                this.appWindow.remove();
+                                // this.appWindow.remove();
                             }
                         })
                     }
@@ -239,11 +239,11 @@ class Errors extends Error {
                             duration: 300,
                             easing: "easeInOutQuad",
                             complete: () => {
-                                iframe.remove();
+                                // iframe.remove();
                             }
                         });
                     }
-                    runningApps = runningApps.filter(item => item[id] !== id);
+                    runningApps = runningApps.filter(item => item.id !== id);
                 }
             };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
