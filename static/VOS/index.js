@@ -230,6 +230,19 @@ class Errors extends Error {
                     }
                 },
                 exit: function () {
+                    appBackstage.remove();
+                    const iframes = document.querySelectorAll(`iframe[data-appid="${id}"]`);
+                    for (const iframe of iframes) {
+                        anime.animate(iframe, {
+                            scale: [1, 0],
+                            opacity: [1, 0],
+                            duration: 300,
+                            easing: "easeInOutQuad",
+                            complete: () => {
+                                iframe.remove();
+                            }
+                        });
+                    }
                 }
             };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
