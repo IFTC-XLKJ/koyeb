@@ -263,7 +263,8 @@ globalThis.deleteAll = async () => {
                         this.dragElements.push(element);
                         element.addEventListener("mousedown", this.#setDrag);
                     }
-                    #setDrag = (e) => {  // 使用箭头函数保持 this 绑定
+                    #setDrag = (e) => {
+                        console.log("按下")
                         let isDragging = true;
                         const dragElement = e.target;
                         const position = { x: e.clientX, y: e.clientY };
@@ -272,6 +273,7 @@ globalThis.deleteAll = async () => {
                             if (isDragging) {
                                 const appWindow = this.appWindow;
                                 if (appWindow) {
+                                    console.log("移动");
                                     const { x, y } = appWindow.getBoundingClientRect();
                                     console.log(x, y);
                                     const dx = event.clientX - position.x;
@@ -286,6 +288,7 @@ globalThis.deleteAll = async () => {
                         };
 
                         const handleMouseUp = () => {
+                            console.log("结束")
                             isDragging = false;
                             dragElement.removeEventListener("mousemove", handleMouseMove);
                             dragElement.removeEventListener("mouseup", handleMouseUp);
