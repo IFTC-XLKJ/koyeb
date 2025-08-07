@@ -280,8 +280,9 @@ globalThis.deleteAll = async () => {
                                     moving = true;
                                     console.log("移动");
                                     const { movementX, movementY } = event;
-                                    const { left, top } = appWindow.getBoundingClientRect();
-                                    appWindow.style.left = left + movementX + "px";
+                                    const { left, top, width } = appWindow.getBoundingClientRect();
+                                    const x = left + movementX;
+                                    appWindow.style.left = x <= 0 ? 0 : (x >= innerWidth - width ? innerWidth - width : x) + "px";
                                     appWindow.style.top = top + movementY + "px";
                                     moving = false;
                                 }
@@ -298,7 +299,7 @@ globalThis.deleteAll = async () => {
                         // dragElement.addEventListener("mouseover", (e) => {
                         //     can = true;
                         // })
-                        // dragElement.addEventListener("mouseleave", handleMouseUp);
+                        dragElement.addEventListener("mouseleave", handleMouseUp);
                         dragElement.addEventListener("mousemove", handleMouseMove);
                         dragElement.addEventListener("mouseup", handleMouseUp);
                     }
