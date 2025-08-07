@@ -99,20 +99,20 @@ class Errors extends Error {
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
             const nativeFile = File;
-            const appWindow = appBackstage.contentWindow;
+            const AppWindow = appBackstage.contentWindow;
             appBackstage.contentWindow.API = {
                 File: class {
                     constructor(path, base) {
                         if (!path) throw new Errors("FileError(init)", "File path cannot be empty");
                         try {
-                            this.path = new URL(path, base ? `inner-src://${base}` : `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "");
+                            this.path = new URL(path, base ? `inner-src://${base}` : `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                         } catch (e) {
                             throw new Errors("FileError(init)", e.message);
                         }
                     }
                     create(isDirectory) {
                         const name = this.path.split("/").pop();
-                        checkSystem(appWindow.API.system, appWindow.API.appid, this.path);
+                        checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
                         if (isDirectory) {
                             API.createDirectory(this.path);
                         } else {
@@ -149,7 +149,7 @@ class Errors extends Error {
                         this.#x = x;
                         this.#y = y;
                         this.createWindow();
-                        console.log(API);
+                        console.log(AppWindow.API);
                     }
                     createWindow() {
                         const appWindow = document.createElement("iframe");
@@ -181,14 +181,14 @@ class Errors extends Error {
                         if (url.startsWith("http://") || url.startsWith("https://")) {
                             appWindow.src = url;
                         } else {
-                            const appPath = new URL(url, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
+                            const appPath = new URL(url, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
                             const blob = await API.readFile(appPath);
                             console.log(blob);
                             const html = await blob.text();
                             const setter = setInterval(() => {
                                 if (appWindow.contentDocument) {
                                     for (const style of styles || []) {
-                                        const stylePath = new URL(style, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
+                                        const stylePath = new URL(style, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const styleBlob = API.readFile(stylePath);
                                         const styleUrl = URL.createObjectURL(styleBlob);
                                         const styleElement = document.createElement("link");
@@ -197,7 +197,7 @@ class Errors extends Error {
                                         appWindow.contentDocument.head.appendChild(styleElement);
                                     }
                                     for (const script of scripts || []) {
-                                        const scriptPath = new URL(script, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
+                                        const scriptPath = new URL(script, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const scriptBlob = API.readFile(scriptPath);
                                         const scriptUrl = URL.createObjectURL(scriptBlob);
                                         const scriptElement = document.createElement("script");
@@ -211,12 +211,12 @@ class Errors extends Error {
                         }
                     }
                     close() {
-                        anime.animate(appWindow, {
+                        anime.animate(this.appWindow, {
                             scale: [1, 0],
                             duration: 300,
                             easing: "easeInOutQuad",
                             complete: () => {
-                                appWindow.remove();
+                                this.appWindow.remove();
                             }
                         })
                     }
