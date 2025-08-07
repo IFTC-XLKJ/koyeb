@@ -250,7 +250,7 @@ globalThis.deleteAll = async () => {
                         return this.dragElements;
                     }
                     removeDragElement(element) {
-                        if (!(element instanceof HTMLElement)) {
+                        if (!element || typeof element.nodeType !== 'number' || element.nodeType !== 1) {
                             throw new Errors("AppWindowError(removeDragElement)", "Element must be an instance of HTMLElement");
                         }
                         this.dragElements = this.dragElements.filter(e => e !== element);
@@ -258,7 +258,7 @@ globalThis.deleteAll = async () => {
                     }
                     setDragElement(element) {
                         console.log(element, !(element instanceof HTMLElement));
-                        if (!(element instanceof HTMLElement)) {
+                        if (!element || typeof element.nodeType !== 'number' || element.nodeType !== 1) {
                             throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
                         }
                         this.dragElements.push(element);
