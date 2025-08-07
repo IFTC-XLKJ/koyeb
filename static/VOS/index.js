@@ -265,7 +265,7 @@ globalThis.deleteAll = async () => {
                         const dragElement = e.target;
                         dragElement.addEventListener("mousemove", (e) => {
                             if (isDragging) {
-                                const appWindow = dragElement.closest(".app-window");
+                                const appWindow = this.appWindow;
                                 if (appWindow) {
                                     const rect = appWindow.getBoundingClientRect();
                                     appWindow.style.left = `${e.clientX - rect.width / 2}px`;
@@ -278,7 +278,11 @@ globalThis.deleteAll = async () => {
                             dragElement.removeEventListener("mousemove", this.#setDrag);
                         });
                     }
+                    postMessage(data) {
+                        this.appWindow.API.onmessage(data);
+                    }
                 },
+                onmessage: function (data) { },
                 exit: function () {
                     appBackstage.remove();
                     const iframes = document.querySelectorAll(`iframe[data-appid="${id}"]`);
