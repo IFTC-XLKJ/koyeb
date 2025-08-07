@@ -224,7 +224,9 @@ class Errors extends Error {
                             duration: 300,
                             easing: "easeInOutQuad",
                             complete: () => {
-                                // this.appWindow.remove();
+                                setTimeout(() => {
+                                    this.appWindow.remove();
+                                }, 300);
                             }
                         })
                     }
@@ -239,7 +241,9 @@ class Errors extends Error {
                             duration: 300,
                             easing: "easeInOutQuad",
                             complete: () => {
-                                // iframe.remove();
+                                setTimeout(() => {
+                                    iframe.remove();
+                                }, 300);
                             }
                         });
                     }
