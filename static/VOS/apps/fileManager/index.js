@@ -1,5 +1,5 @@
 const tabs = [];
-globalThis.onload = e => {
+addEventListener("load", e => {
     console.log("fileManager DOMContentLoaded");
     API.postMessage({ type: "DOMContentLoaded" });
-}
+})
