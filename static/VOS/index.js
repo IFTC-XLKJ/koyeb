@@ -220,9 +220,9 @@ globalThis.deleteAll = async () => {
                                     for (const script of scripts || []) {
                                         const scriptPath = new URL(script, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const scriptBlob = await API.readFile(scriptPath);
-                                        const scriptUrl = URL.createObjectURL(scriptBlob);
+                                        const scriptText = await scriptBlob.text();
                                         const scriptElement = document.createElement("script");
-                                        scriptElement.src = scriptUrl;
+                                        scriptElement.innerText = scriptText;
                                         appWindow.contentDocument.head.appendChild(scriptElement);
                                     }
                                     appWindow.contentDocument.body.innerHTML += html;
