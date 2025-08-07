@@ -257,6 +257,7 @@ globalThis.deleteAll = async () => {
                         element.removeEventListener("mousedown", this.#setDrag);
                     }
                     setDragElement(element) {
+                        console.log(element)
                         if (!(element instanceof HTMLElement)) {
                             throw new Errors("AppWindowError(setDragElement)", "Element must be an instance of HTMLElement");
                         }
