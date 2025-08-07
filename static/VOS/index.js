@@ -264,7 +264,7 @@ globalThis.deleteAll = async () => {
                         element.addEventListener("mousedown", this.#setDrag);
                     }
                     #setDrag = (e) => {
-                        console.log("按下")
+                        console.log("按下");
                         let isDragging = true;
                         const dragElement = e.target;
                         const position = { x: e.clientX, y: e.clientY };
@@ -278,7 +278,7 @@ globalThis.deleteAll = async () => {
                                     console.log(x, y);
                                     const dx = event.clientX - position.x;
                                     const dy = event.clientY - position.y;
-                                    console.log(dx, dy);
+                                    console.log("移动", dx, dy);
                                     appWindow.style.left = `${x + dx}px`;
                                     appWindow.style.top = `${y + dy}px`;
                                     position.x = event.clientX;
