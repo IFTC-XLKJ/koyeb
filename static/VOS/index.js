@@ -271,10 +271,12 @@ globalThis.deleteAll = async () => {
                         const dragElement = e.target;
                         const position = { x: e.clientX, y: e.clientY };
                         console.log(position);
+                        let moving = false;
                         const handleMouseMove = (event) => {
                             if (isDragging) {
                                 const appWindow = this.appWindow;
-                                if (appWindow) {
+                                if (appWindow && !moving) {
+                                    moving = true;
                                     console.log("移动");
                                     const { x, y } = appWindow.getBoundingClientRect();
                                     console.log(x, y);
@@ -285,6 +287,7 @@ globalThis.deleteAll = async () => {
                                     appWindow.style.top = `${y + dy}px`;
                                     position.x = event.clientX;
                                     position.y = event.clientY;
+                                    moving = false;
                                 }
                             }
                         };
