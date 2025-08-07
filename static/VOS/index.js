@@ -281,12 +281,6 @@ globalThis.deleteAll = async () => {
                                     appWindow.style.top = `${y + dy}px`;
                                     position.x = e.clientX;
                                     position.y = e.clientY;
-                                    anime.animate(appWindow, {
-                                        left: [x, x + dx],
-                                        top: [y, y + dy],
-                                        duration: 100,
-                                        easing: "easeInOutQuad"
-                                    });
                                 }
                             }
                         };
