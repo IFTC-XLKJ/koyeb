@@ -255,6 +255,7 @@ globalThis.deleteAll = async () => {
                         }
                         this.dragElements = this.dragElements.filter(e => e !== element);
                         element.removeEventListener("mousedown", this.#setDrag);
+                        element.style.cursor = "default";
                     }
                     setDragElement(element) {
                         if (!element || typeof element.nodeType !== 'number' || element.nodeType !== 1) {
@@ -262,6 +263,7 @@ globalThis.deleteAll = async () => {
                         }
                         this.dragElements.push(element);
                         element.addEventListener("mousedown", this.#setDrag);
+                        element.style.cursor = "move";
                     }
                     #setDrag = (e) => {
                         console.log("按下");
