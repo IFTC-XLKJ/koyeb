@@ -281,8 +281,8 @@ globalThis.deleteAll = async () => {
                                     console.log("移动");
                                     const { x, y } = appWindow.getBoundingClientRect();
                                     console.log(x, y);
-                                    const dx = (event.clientX - position.x) / 2;
-                                    const dy = (event.clientY - position.y) / 2;
+                                    const dx = (event.clientX - position.x) * 2;
+                                    const dy = (event.clientY - position.y) * 2;
                                     console.log("移动", dx, dy);
                                     appWindow.style.left = `${x + dx}px`;
                                     appWindow.style.top = `${y + dy}px`;
