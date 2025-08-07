@@ -285,7 +285,7 @@ globalThis.deleteAll = async () => {
                         this.appWindow.API.onmessage(data);
                     }
                 },
-                onmessage: function (data) { },
+                onmessage: null,
                 exit: function () {
                     appBackstage.remove();
                     const iframes = document.querySelectorAll(`iframe[data-appid="${id}"]`);
