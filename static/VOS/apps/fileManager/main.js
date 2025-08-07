@@ -9,5 +9,5 @@ appWindow.load(new URL("index.html", `inner-src:///data/apps/${API.appid}/`).toS
         new URL("index.js", `inner-src:///data/apps/${API.appid}/`).toString().replaceAll("inner-src://", "")
     ]
 });
-const file = new API.File("/data/data/abc.txt");
+const file = new API.File("/data/data/" + API.appid + "/abc.txt");
 file.create();
