@@ -179,14 +179,14 @@ class Errors extends Error {
                         const appWindow = this.appWindow;
                         const { styles, scripts } = src || {};
                         if (url.startsWith("http://") || url.startsWith("https://")) {
-                            this.appWindow.src = url;
+                            appWindow.src = url;
                         } else {
                             const appPath = new URL(url, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");;
                             const blob = await API.readFile(appPath);
                             console.log(blob);
                             const html = await blob.text();
                             const setter = setInterval(() => {
-                                if (this.appWindow.contentDocument) {
+                                if (appWindow.contentDocument) {
                                     for (const style of styles || []) {
                                         const stylePath = new URL(style, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const styleBlob = API.readFile(stylePath);
@@ -194,8 +194,17 @@ class Errors extends Error {
                                         const styleElement = document.createElement("link");
                                         styleElement.rel = "stylesheet";
                                         styleElement.href = styleUrl;
+                                        appWindow.contentDocument.head.appendChild(styleElement);
                                     }
-                                    this.appWindow.contentDocument.body.innerHTML += html;
+                                    for (const script of scripts || []) {
+                                        const scriptPath = new URL(script, `inner-src:///data/apps/${appWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
+                                        const scriptBlob = API.readFile(scriptPath);
+                                        const scriptUrl = URL.createObjectURL(scriptBlob);
+                                        const scriptElement = document.createElement("script");
+                                        scriptElement.src = scriptUrl;
+                                        appWindow.contentDocument.head.appendChild(scriptElement);
+                                    }
+                                    appWindow.contentDocument.body.innerHTML += html;
                                     clearInterval(setter);
                                 }
                             }, 100);
