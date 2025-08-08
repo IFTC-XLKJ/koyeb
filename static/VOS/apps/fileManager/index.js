@@ -19,9 +19,23 @@ function newTab(name, path) {
             console.error("Tabs container not found");
             return;
         }
+        
+        // 添加调试信息
+        console.log("Tab element type:", typeof tab);
+        console.log("Tab element:", tab);
+        console.log("Tabs container type:", typeof tabsContainer);
+        console.log("Tabs container:", tabsContainer);
+        
+        // 验证 tab 是否为有效的 Element
+        if (!(tab instanceof Element)) {
+            console.error("Tab is not a valid Element:", tab);
+            return;
+        }
+        
         tabsContainer.appendChild(tab);
         console.log("newTab", name, path);
     } catch (error) {
         console.error("Error creating tab:", error);
+        console.error("Error stack:", error.stack);
     }
 }
