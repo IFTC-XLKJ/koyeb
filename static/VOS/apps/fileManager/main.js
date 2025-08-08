@@ -17,6 +17,9 @@ API.onmessage = (data) => {
         console.log("setDrag");
         appWindow.setDragElement(appWindow.appWindow.contentDocument.querySelector("#nav"));
         console.log(appWindow.appWindow.contentDocument.querySelector("#nav"));
+    } else if (data.type == "close") {
+        console.log("close");
+        appWindow.close();
     }
 }
 const file = new API.File("/data/data/" + API.appid + "/abc.txt");

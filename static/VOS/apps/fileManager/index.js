@@ -6,6 +6,10 @@ addEventListener("load", e => {
     } catch (error) {
         console.error("Error in load event:", error);
     }
+    const close = document.getElementById("close");
+    close.addEventListener("click", function () {
+        API.postMessage({ type: "close" });
+    });
 });
 
 function newTab(name, path) {
