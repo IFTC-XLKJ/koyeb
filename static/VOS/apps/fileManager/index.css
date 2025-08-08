@@ -99,6 +99,15 @@ body {
     overflow-x: auto;
 }
 
+#path input {
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    font-size: 12px;
+    display: none;
+}
+
 #tabs .active {
     background-color: white;
 }
