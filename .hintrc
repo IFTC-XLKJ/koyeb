@@ -6,6 +6,7 @@
     "no-inline-styles": "off",
     "axe/structure": "off",
     "meta-viewport": "off",
-    "axe/forms": "off"
+    "axe/forms": "off",
+    "css-prefix-order": "off"
   }
 }
