@@ -371,7 +371,7 @@ globalThis.deleteAll = async () => {
             path = new URL(path, `inner-src:///data/apps/${appid}/`).toString().replaceAll("inner-src://", "");
             console.log(path, path.startsWith("/storage/share/"), path.startsWith(`/data/data/${appid}/`), path.startsWith(`/data/apps/${appid}/`));
             if (!system) {
-                if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/`) || (!path.startsWith(`/data/apps/${appid}/`))) {
+                if (!(path.startsWith("/storage/share/") || path.startsWith(`/data/data/${appid}/`) || path.startsWith(`/data/apps/${appid}/`))) {
                     throw new Errors("AccessDeniedError", "Cannot access path: " + path);
                 }
             }
