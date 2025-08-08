@@ -45,7 +45,7 @@ body {
     overflow: hidden;
     margin-left: 5px;
     margin-right: 5px;
-    background-color: white;
+    background-color: snow;
 }
 
 #close {
@@ -99,5 +99,5 @@ body {
 }
 
 #tabs .active {
-    background-color: snow;
+    background-color: white;
 }
