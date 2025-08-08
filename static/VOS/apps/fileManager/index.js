@@ -10,4 +10,5 @@ function newTab(name, path) {
     const tab = document.createElement("div");
     tab.className = "tab";
     tab.innerHTML = `<span>${name}</span><button class="close">x</button>`;
+    document.getElementById("tabs").appendChild(tab);
 }
