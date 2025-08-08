@@ -77,4 +77,6 @@ body {
     border: none;
     font-size: 20px;
     cursor: pointer;
+    position: relative;
+    bottom: 20px;
 }
