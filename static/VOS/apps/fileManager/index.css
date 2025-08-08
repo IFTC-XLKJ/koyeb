@@ -24,12 +24,12 @@ body {
 }
 
 #tabs {
-    width: (100% - 50px);
+    width: calc(100% - 50px);
     height: 40px;
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    position: absolute;
+    position: relative;
     top: 10px;
 }
 
