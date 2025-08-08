@@ -20,6 +20,7 @@ API.onmessage = (data) => {
     } else if (data.type == "close") {
         console.log("close");
         appWindow.close();
+        API.exit();
     }
 }
 const file = new API.File("/data/data/" + API.appid + "/abc.txt");
