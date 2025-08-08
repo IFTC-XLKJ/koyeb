@@ -9,6 +9,6 @@ addEventListener("load", e => {
 function newTab(name, path) {
     const tab = document.createElement("div");
     tab.className = "tab";
-    tab.innerHTML = `<span>${name}</span><button class="close">x</button>`;
+    tab.innerHTML = `<span class="tab-name">${name}</span><br><span>${path}</span><button class="close">x</button>`;
     document.getElementById("tabs").appendChild(tab);
 }
