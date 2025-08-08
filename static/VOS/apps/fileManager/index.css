@@ -68,6 +68,9 @@ body {
     width: 100%;
     font-size: 8px;
     color: darkgrey;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .close {
