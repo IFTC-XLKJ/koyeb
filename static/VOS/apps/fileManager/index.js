@@ -10,6 +10,7 @@ addEventListener("load", e => {
         pathInput.value = pathSpan.textContent;
         pathSpan.addEventListener("click", function () {
             pathInput.style.display = "flex";
+            pathSpan.style.display = "none";
             pathInput.focus();
             pathInput.selecte();
         });
@@ -17,10 +18,15 @@ addEventListener("load", e => {
             if (e.key === "Enter") {
                 pathInput.style.display = "none";
                 pathSpan.textContent = pathInput.value;
+                pathSpan.style.display = "flex";
             }
         });
         pathInput.addEventListener("blur", function () {
             pathInput.style.display = "none";
+            pathSpan.style.display = "flex";
+            if (pathInput.value.trim() === "") {
+                pathInput.value = pathSpan.textContent;
+            }
             pathSpan.textContent = pathInput.value;
         });
     } catch (error) {
