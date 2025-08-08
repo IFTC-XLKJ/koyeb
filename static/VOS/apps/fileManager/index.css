@@ -45,6 +45,7 @@ body {
     overflow: hidden;
     padding-left: 5px;
     padding-right: 5px;
+    background-color: white;
 }
 
 #close {
