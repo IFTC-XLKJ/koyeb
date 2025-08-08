@@ -88,10 +88,8 @@ body {
 #path {
     width: 100%;
     height: 30px;
-    background-color: lightgrey;
     display: flex;
     align-items: center;
-    padding-left: 10px;
 }
 
 #path span {
