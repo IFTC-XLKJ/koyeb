@@ -1,9 +1,11 @@
 addEventListener("load", e => {
     console.log("fileManager DOMContentLoaded");
+    const pathSpan = document.querySelector("#path span");
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
         document.querySelector(".tab").classList.add("active");
+        pathSpan.textContent = "/storage/share/";
     } catch (error) {
         console.error("Error in load event:", error);
     }
