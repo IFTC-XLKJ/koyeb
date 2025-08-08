@@ -283,7 +283,7 @@ globalThis.deleteAll = async () => {
                                     const x = left + movementX;
                                     const y = top + movementY;
                                     appWindow.style.left = x <= 0 ? 0 : (x >= innerWidth - width ? innerWidth - width : x) + "px";
-                                    appWindow.style.top = y >= 0 ? 0 : (y <= height + 50 ? height + 50 : y) + "px";
+                                    appWindow.style.top = y <= 0 ? 0 : (y >= height + 50 ? height + 50 : y) + "px";
                                     moving = false;
                                 }
                             }
