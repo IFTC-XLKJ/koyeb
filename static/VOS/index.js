@@ -368,8 +368,9 @@ globalThis.deleteAll = async () => {
             app: appBackstage,
         });
         function checkSystem(system, appid, path) {
+            path = new URL(path, `inner-src:///data/apps/${appid}/`).toString().replaceAll("inner-src://", "");
             if (!system) {
-                if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${AppWindow.API.appid}/` || !path.startsWith(`/data/apps/${AppWindow.API.appid}/`))) {
+                if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`))) {
                     throw new Errors("AccessDeniedError", "Cannot access path: " + path);
                 }
             }
