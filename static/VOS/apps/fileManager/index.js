@@ -10,6 +10,8 @@ addEventListener("load", e => {
         pathInput.value = pathSpan.textContent;
         pathSpan.addEventListener("click", function () {
             pathInput.style.display = "flex";
+            pathInput.focus();
+            pathInput.selecte();
         });
     } catch (error) {
         console.error("Error in load event:", error);
