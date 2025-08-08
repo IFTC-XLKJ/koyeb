@@ -24,7 +24,7 @@ body {
 }
 
 #tabs {
-    width: 100%;
+    width: (100% - 50px);
     height: 40px;
     display: flex;
     overflow-x: auto;
