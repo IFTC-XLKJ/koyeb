@@ -15,6 +15,7 @@ body {
     height: 50px;
     display: grid;
     grid-template-columns: 1fr 150px;
+    background-color: azure;
 }
 
 #main {
