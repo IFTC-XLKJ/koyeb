@@ -29,7 +29,8 @@ body {
     display: flex;
     overflow-x: auto;
     white-space: nowrap;
-    align-items: flex-end;
+    position: absolute;
+    top: 10px;
 }
 
 .tab {
