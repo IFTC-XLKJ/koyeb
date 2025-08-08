@@ -1,11 +1,16 @@
 addEventListener("load", e => {
     console.log("fileManager DOMContentLoaded");
     const pathSpan = document.querySelector("#path span");
+    const pathInput = document.querySelector("#path input");
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
         document.querySelector(".tab").classList.add("active");
         pathSpan.textContent = "/storage/share/";
+        pathInput.value = pathSpan.textContent;
+        pathSpan.addEventListener("click", function () {
+            pathInput.style.display = "flex";
+        });
     } catch (error) {
         console.error("Error in load event:", error);
     }
