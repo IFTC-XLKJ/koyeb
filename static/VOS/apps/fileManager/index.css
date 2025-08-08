@@ -41,6 +41,7 @@ body {
     cursor: pointer;
     display: grid;
     grid-template-columns: 1fr 20px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 #close {
