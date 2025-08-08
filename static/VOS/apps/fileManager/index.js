@@ -3,6 +3,7 @@ addEventListener("load", e => {
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
+        document.querySelector(".tab").classList.add("active");
     } catch (error) {
         console.error("Error in load event:", error);
     }
@@ -18,7 +19,17 @@ function newTab(name, path) {
         tab.className = "tab";
         tab.innerHTML = `<span class="tab-name">${name}</span><br><span class="tab-path">${path}</span><button class="close">x</button>`;
         tab.addEventListener("click", function (e) { });
-        tab.querySelector(".close").addEventListener("click", function (e) { });
+        tab.querySelector(".close").addEventListener("click", function (e) {
+            tab.remove();
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            if (document.querySelectorAll(".tab").length > 0) {
+                document.querySelectorAll(".tab")[document.querySelectorAll(".tab").length - 1].classList.add("active");
+            }
+            if (document.querySelectorAll(".tab").length == 0) {
+                document.querySelector("#close").click();
+            }
+            e.stopPropagation();
+        });
         console.log(tab);
         const tabsContainer = document.getElementById("tabs");
         if (!tabsContainer) {
