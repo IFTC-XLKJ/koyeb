@@ -12,7 +12,7 @@ function newTab(name, path) {
     try {
         const tab = document.createElement("div");
         tab.className = "tab";
-        tab.innerHTML = `<span class="tab-name">${name}</span><br><span>${path}</span><button class="close">x</button>`;
+        tab.innerHTML = `<span class="tab-name">${name}</span><br><span class="tab-path">${path}</span><button class="close">x</button>`;
         console.log(tab);
         const tabsContainer = document.getElementById("tabs");
         if (!tabsContainer) {
