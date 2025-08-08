@@ -13,6 +13,16 @@ addEventListener("load", e => {
             pathInput.focus();
             pathInput.selecte();
         });
+        pathInput.addEventListener("keydown", function (e) {
+            if (e.key === "Enter") {
+                pathInput.style.display = "none";
+                pathSpan.textContent = pathInput.value;
+            }
+        });
+        pathInput.addEventListener("blur", function () {
+            pathInput.style.display = "none";
+            pathSpan.textContent = pathInput.value;
+        });
     } catch (error) {
         console.error("Error in load event:", error);
     }
