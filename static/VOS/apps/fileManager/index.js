@@ -13,6 +13,8 @@ function newTab(name, path) {
         const tab = document.createElement("div");
         tab.className = "tab";
         tab.innerHTML = `<span class="tab-name">${name}</span><br><span class="tab-path">${path}</span><button class="close">x</button>`;
+        tab.addEventListener("click", function (e) { });
+        tab.querySelector(".close").addEventListener("click", function (e) { });
         console.log(tab);
         const tabsContainer = document.getElementById("tabs");
         if (!tabsContainer) {
