@@ -3,6 +3,7 @@ addEventListener("load", e => {
     console.log("fileManager DOMContentLoaded");
     API.postMessage({ type: "setDrag" });
     // tabs.push({})
+    newTab("Home", "/storage/share/");
 })
 
 function newTab(name, path) {
