@@ -369,6 +369,7 @@ globalThis.deleteAll = async () => {
         });
         function checkSystem(system, appid, path) {
             path = new URL(path, `inner-src:///data/apps/${appid}/`).toString().replaceAll("inner-src://", "");
+            console.log(path);
             if (!system) {
                 if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`))) {
                     throw new Errors("AccessDeniedError", "Cannot access path: " + path);
