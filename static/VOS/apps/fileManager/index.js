@@ -6,7 +6,7 @@ addEventListener("load", e => {
     } catch (error) {
         console.error("Error in load event:", error);
     }
-})
+});
 
 function newTab(name, path) {
     try {
