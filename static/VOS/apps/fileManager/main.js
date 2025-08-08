@@ -14,7 +14,9 @@ appWindow.load(new URL("index.html", `inner-src:///data/apps/${API.appid}/`).toS
 API.onmessage = (data) => {
     if (!data) return;
     if (data.type == "setDrag") {
+        console.log("setDrag");
         appWindow.setDragElement(appWindow.appWindow.contentDocument.querySelector("#nav"));
+        console.log(appWindow.appWindow.contentDocument.querySelector("#nav"));
     }
 }
 const file = new API.File("/data/data/" + API.appid + "/abc.txt");
