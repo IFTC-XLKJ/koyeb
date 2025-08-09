@@ -113,7 +113,7 @@ globalThis.API = {};
             if (paths.length == 1) return fileList.push(start);
             if (!folderList.includes(start)) return folderList.push(start)
         }).toArray()
-        return { files: fileList, folders: folderList }
+        return { files: fileList, folders: folderList };
     }
     API.deleteFile = async function (path) {
         if (!path || typeof path !== "string") {
