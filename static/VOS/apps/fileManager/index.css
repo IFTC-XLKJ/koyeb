@@ -130,5 +130,5 @@ tr.file:hover {
 }
 
 tr.selected {
-    background-color: #0c96ec;
+    background-color: #0c96ec80;
 }
