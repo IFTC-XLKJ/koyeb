@@ -108,7 +108,6 @@ function getFileType(file) {
         if (filename.endsWith(".mp4") || file.name.endsWith(".avi")) return "视频文件";
         if (filename.endsWith(".mp3") || file.name.endsWith(".wav")) return "音频文件";
         if (filename.endsWith(".zip") || file.name.endsWith(".rar")) return "压缩文件";
-        if (filename.endsWith(".json")) return "JSON文件";
         if (filename.endsWith(".md")) return "Markdown文件";
         if (filename.endsWith(".xml")) return "可扩展标记语言文件";
         if (filename.endsWith(".exe")) return "可执行文件";
