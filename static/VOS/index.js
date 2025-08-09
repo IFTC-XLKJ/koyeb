@@ -121,6 +121,9 @@ globalThis.deleteAll = async () => {
                         checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
                         const isDir = await API.isDirectory(this.path);
                         if (isDirectory) {
+                            if (!isDir) {
+                                throw new Errors("FileError(create)", "File does not exist");
+                            }
                             return await API.createDirectory(this.path);
                         } else {
                             if (isDir) {
