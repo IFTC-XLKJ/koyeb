@@ -39,6 +39,10 @@ addEventListener("load", e => {
     });
 });
 
+function renderFileList(files) {
+    const fileList = document.getElementById("file-list");
+}
+
 function newTab(name, path) {
     try {
         const tab = document.createElement("div");

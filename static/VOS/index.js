@@ -132,6 +132,9 @@ globalThis.deleteAll = async () => {
                         }
                         return await API.writeFile(this.path, data);
                     }
+                    async isDirectory() {
+                        return await API.isDirectory(this.path);
+                    }
                     toFile(data, type) {
                         const name = this.path.split("/").pop();
                         if (data instanceof Blob || data instanceof ArrayBuffer || data instanceof Uint8Array || data instanceof String) {
