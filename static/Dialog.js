@@ -1,12 +1,12 @@
 class Dialog {
     constructor(props) {
         Object.assign(this, props)
-        this.events = {}
-        this.__widgetId = this.id
-        this.inputValue = ''
-        this.cardColor = this.cardColor || "white"
-        this.cardRadius = this.cardRadius || 10
-        this.themeColor = this.themeColor || "#42A5F5"
+        this.events = {};
+        this.__widgetId = this.id;
+        this.inputValue = '';
+        this.cardColor = this.cardColor || "white";
+        this.cardRadius = this.cardRadius || 10;
+        this.themeColor = this.themeColor || "#42A5F5";
         this.useMD3 = this.useMD3 || false;
     }
     showDialog(title, text, image, items, lightItem, align, dialogId) {
