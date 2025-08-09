@@ -94,6 +94,13 @@ function getFileType(file) {
     if (!file) return "未知";
     console.log("getFileType", file);
     if (file.type === "directory") return "文件夹";
+    if (file.type === "file") {
+        if (file.name.endsWith(".txt")) return "文本文件";
+        if (file.name.endsWith(".jpg") || file.name.endsWith(".png") || file.name.endsWith(".gif")) return "图片文件";
+        if (file.name.endsWith(".mp4") || file.name.endsWith(".avi")) return "视频文件";
+        if (file.name.endsWith(".mp3") || file.name.endsWith(".wav")) return "音频文件";
+        return file.name.split(".").pop().toUpperCase() + "文件";
+    }
 }
 
 function newTab(name, path) {
