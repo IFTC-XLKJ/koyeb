@@ -57,8 +57,10 @@ addEventListener("load", async e => {
 
 async function renderFileList(list) {
     const { files, folders } = list;
+    const pathSpan = document.querySelector("#path span");
     const fileList = document.getElementById("fileList");
     const noFile = document.getElementById("noFile");
+    const base = pathSpan.textContent;
     fileList.innerHTML = `<thead>
     <tr>
         <th>名称</th>
@@ -74,7 +76,7 @@ async function renderFileList(list) {
     folders.forEach(async folder => {
         const row = document.createElement("tr");
         row.className = "folder";
-        const f = await new API.File(folder).get();
+        const f = await new API.File(folder, base).get();
         row.innerHTML = `<td class="name">${folder}</td><td class="type">${getFileType(f)}</td>`;
         row.addEventListener("dblclick", async function () {
             renderFileList(await new API.File(path + folder + "/").getFileList());
@@ -84,7 +86,7 @@ async function renderFileList(list) {
     files.forEach(async file => {
         const row = document.createElement("tr");
         row.className = "file";
-        const f = await new API.File(file).get();
+        const f = await new API.File(file, base).get();
         row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td>`;
         fileList.appendChild(row);
     });
