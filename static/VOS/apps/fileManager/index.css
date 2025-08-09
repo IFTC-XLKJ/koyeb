@@ -121,11 +121,13 @@ body {
     height: auto;
 }
 
-tr.file {
+tr.file,
+tr.folder {
     cursor: pointer;
 }
 
-tr.file:hover {
+tr.file:hover,
+tr.folder:hover {
     background-color: #f0f0f0;
 }
 
