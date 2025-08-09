@@ -460,6 +460,7 @@ globalThis.deleteAll = async () => {
                         await wait(10); // 防止 Dexie 的事务冲突
                     }
                     await installApp(id, name, `${appPath}${id}/${main}`, "normal");
+                    await writeSystemLog(`安装应用 ${name}`);
                     await wait(10);
                     if (index == systemApps.length - 1) {
                         await initApps();
