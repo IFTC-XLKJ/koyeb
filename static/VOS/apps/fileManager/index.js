@@ -67,6 +67,8 @@ async function renderFileList(list) {
     <tr>
         <th>名称</th>
         <th>类型</th>
+        <th>最后修改时间</th>
+        <th>大小</th>
     </tr>
 </thead>`;
     console.log(fileList);
@@ -79,7 +81,7 @@ async function renderFileList(list) {
         const row = document.createElement("tr");
         row.className = "folder";
         const f = await new API.File(folder, base).get();
-        row.innerHTML = `<td class="name">${folder}</td><td class="type">${getFileType(f)}</td>`;
+        row.innerHTML = `<td class="name">${folder}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size"></td>`;
         row.addEventListener("dblclick", async function () {
             renderFileList(await new API.File(path + folder + "/").getFileList());
         });
@@ -89,7 +91,7 @@ async function renderFileList(list) {
         const row = document.createElement("tr");
         row.className = "file";
         const f = await new API.File(file, base).get();
-        row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td>`;
+        row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size">${f.size}</td>`;
         fileList.appendChild(row);
     });
 }
@@ -108,10 +110,10 @@ function getFileType(file) {
         if (file.name.endsWith(".md")) return "Markdown文件";
         if (file.name.endsWith(".xml")) return "可扩展标记语言文件";
         if (file.name.endsWith(".exe")) return "可执行文件";
+        if (file.name.endsWith(".json")) return "JavaScript对象表示法文件";
         if (file.name.endsWith(".html") || file.name.endsWith(".htm")) return "网页文件";
         if (file.name.endsWith(".css")) return "层叠样式表文件";
         if (file.name.endsWith(".js")) return "JavaScript文件";
-        if (file.name.endsWith(".json")) return "JavaScript对象表示法文件";
         if (file.name.endsWith(".svg")) return "矢量图形文件";
         return file.name.split(".").pop().toUpperCase() + "文件";
     }
