@@ -119,9 +119,13 @@ globalThis.deleteAll = async () => {
                     async create(isDirectory) {
                         const name = this.path.split("/").pop();
                         checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
+                        const isDir = await API.isDirectory(this.path);
                         if (isDirectory) {
                             return await API.createDirectory(this.path);
                         } else {
+                            if (isDir) {
+                                throw new Errors("FileError(create)", "Directory already exists");
+                            }
                             return await API.createFile(this.path, new nativeFile([""], name, { type: "text/plain" }));
                         }
                     }
