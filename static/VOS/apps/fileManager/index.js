@@ -2,6 +2,7 @@ addEventListener("load", e => {
     console.log("fileManager DOMContentLoaded");
     const pathSpan = document.querySelector("#path span");
     const pathInput = document.querySelector("#path input");
+    const dialog = new API.Dialog();
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
@@ -28,6 +29,7 @@ addEventListener("load", e => {
                 const file = new API.File(pathInput.value);
                 if (!await file.exist(pathInput.value)) {
                     console.error("File does not exist:", pathInput.value);
+                    dialog.showDialog("文件或文件夹不能存在", "", "", "确定", "确定", "center", "");
                     return;
                 }
                 pathInput.style.display = "none";
