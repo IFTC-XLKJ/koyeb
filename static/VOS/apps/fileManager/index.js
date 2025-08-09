@@ -1,4 +1,4 @@
-addEventListener("load", e => {
+addEventListener("load", async e => {
     console.log("fileManager DOMContentLoaded");
     const pathSpan = document.querySelector("#path span");
     const pathInput = document.querySelector("#path input");
@@ -8,6 +8,7 @@ addEventListener("load", e => {
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
+        renderFileList(await file.getFileList());
         document.querySelector(".tab").classList.add("active");
         pathSpan.textContent = "/storage/share/";
         pathInput.value = pathSpan.textContent;
