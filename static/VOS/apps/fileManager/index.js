@@ -84,7 +84,8 @@ async function renderFileList(list) {
         const f = await new API.File(folder, base).get();
         row.innerHTML = `<td class="name">${folder}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size"></td>`;
         row.addEventListener("dblclick", async function () {
-            renderFileList(await new API.File(path + folder + "/").getFileList());
+            pathSpan.textContent += folder + "/";
+            renderFileList(await new API.File(folder, base).getFileList());
         });
         fileList.appendChild(row);
     });
