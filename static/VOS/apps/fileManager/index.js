@@ -53,8 +53,10 @@ addEventListener("load", e => {
     });
 });
 
-function renderFileList(files) {
-    const fileList = document.getElementById("file-list");
+function renderFileList(list) {
+    const { files, folders } = list;
+    const fileList = document.getElementById("fileList");
+    fileList.innerHTML = "";
 }
 
 function newTab(name, path) {
