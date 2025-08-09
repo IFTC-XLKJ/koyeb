@@ -509,3 +509,8 @@ function deepClone(obj) {
 
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
+
+function writeSystemLog(message) {
+    const logPath = "/storage/share/VOS/log/" + Date.now() + ".log";
+    const logFile = new API.File(logPath);
+}

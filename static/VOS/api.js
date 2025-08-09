@@ -96,6 +96,24 @@ globalThis.API = {};
         await db.files.put(f);
         return true;
     }
+    API.addWriteFile = async function (path, file) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!file || !(file instanceof File)) {
+            throw new Error("Invalid file");
+        }
+        const isDir = await API.isDirectory(path);
+        if (isDir) {
+            throw new Error("Cannot write file to directory");
+        }
+        const f = await API.readFile(path);
+        const blob = new Blob([f, file], { type: file.type });
+        const newFile = new File([blob], f.name, {
+            type: file.type,
+        });
+        return await API.writeFile(path, newFile);
+    };
     API.getFileList = async function (path) {
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
