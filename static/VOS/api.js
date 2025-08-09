@@ -110,10 +110,10 @@ globalThis.API = {};
         await db.files.where("name").startsWith(path).filter(item => {
             const paths = item.name.replace(path, "").split("/");
             const start = paths[0];
-            const isDir = item.type == "directory"
+            const isDir = item.type == "directory";
             if (paths.length == 1 && !isDir) return fileList.push(start);
-            if (!folderList.includes(start) && isDir) return folderList.push(start)
-        }).toArray()
+            if (!folderList.includes(start) && isDir) return folderList.push(start);
+        }).toArray();
         return { files: fileList, folders: folderList };
     }
     API.deleteFile = async function (path) {
