@@ -418,15 +418,19 @@ globalThis.deleteAll = async () => {
         const initialized = await db.user.get("initialized");
         if (initialized) {
             await initApps();
+            await writeSystemLog("初始化应用");
             setTimeout(function () {
                 const loadingSrc = document.getElementById('waitLoad');
                 loadingSrc.style.display = "none";
             }, 200);
             return;
         }
+        await writeSystemLog("初始化系统");
         await loadSystemApps();
+        await writeSystemLog("加载系统应用");
         await wait(1000);
         await API.createDirectory("/storage/share");
+        await writeSystemLog("创建共享目录");
         await API.createDirectory("/storage/share/VOS");
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
@@ -442,7 +446,9 @@ globalThis.deleteAll = async () => {
                     const url = `https://iftc.koyeb.app/static/VOS/apps/${systemApp.name}.zip`;
                     const r = await fetch(url);
                     const blob = await r.blob();
+                    await writeSystemLog(`下载系统应用 ${systemApp.name}`);
                     const zip = await JSZip.loadAsync(blob);
+                    await writeSystemLog(`解压系统应用 ${systemApp.name}`);
                     console.log(zip);
                     const manifest = JSON.parse(await zip.file("manifest.json").async("text"));
                     console.log(manifest);
