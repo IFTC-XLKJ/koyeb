@@ -58,6 +58,7 @@ addEventListener("load", async e => {
 function renderFileList(list) {
     const { files, folders } = list;
     const fileList = document.getElementById("fileList");
+    const noFile = document.getElementById("noFile");
     fileList.innerHTML = `<thead>
     <tr>
         <th>名称</th>
@@ -65,6 +66,10 @@ function renderFileList(list) {
     </tr>
 </thead>`;
     console.log(fileList);
+    if (files.length == 0 && folders.length == 0) {
+        noFile.style.display = "block";
+        return;
+    }
     folders.forEach(folder => {
         const row = document.createElement("tr");
         row.className = "folder";
