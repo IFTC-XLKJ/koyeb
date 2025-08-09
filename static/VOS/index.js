@@ -153,7 +153,11 @@ globalThis.deleteAll = async () => {
                         return await API.isDirectory(this.path);
                     }
                     async getFileList() {
-                        checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
+                        try {
+                            checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
+                        } catch (e) {
+                            return { files: [], folders: [] };
+                        }
                         return await API.getFileList(this.path);
                     }
                     async get() {
