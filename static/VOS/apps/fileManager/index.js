@@ -60,6 +60,7 @@ addEventListener("load", async e => {
 async function renderFileList(list) {
     const { files, folders } = list;
     const pathSpan = document.querySelector("#path span");
+    const pathInput = document.querySelector("#path input");
     const fileList = document.getElementById("fileList");
     const noFile = document.getElementById("noFile");
     const base = pathSpan.textContent;
@@ -85,6 +86,7 @@ async function renderFileList(list) {
         row.innerHTML = `<td class="name">${folder}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size"></td>`;
         row.addEventListener("dblclick", async function () {
             pathSpan.textContent += folder + "/";
+            pathInput.value = pathSpan.textContent;
             renderFileList(await new API.File(folder, base).getFileList());
         });
         fileList.appendChild(row);
