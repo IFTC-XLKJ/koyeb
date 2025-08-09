@@ -35,6 +35,10 @@ body {
     top: 10px;
 }
 
+#tabs::-webkit-scrollbar {
+    display: none;
+}
+
 .tab {
     width: 150px;
     height: 40px;
