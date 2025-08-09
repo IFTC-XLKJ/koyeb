@@ -16,6 +16,10 @@ addEventListener("load", e => {
         });
         pathInput.addEventListener("keydown", function (e) {
             if (e.key === "Enter") {
+                if (pathInput.value.trim() === "") {
+                    console.warn("Path input is empty, not changing path.");
+                    return;
+                }
                 pathInput.style.display = "none";
                 pathSpan.textContent = pathInput.value;
                 pathSpan.style.display = "flex";
@@ -24,6 +28,7 @@ addEventListener("load", e => {
         pathInput.addEventListener("blur", function () {
             pathInput.style.display = "none";
             pathSpan.style.display = "flex";
+            pathInput.value = pathSpan.textContent;
         });
     } catch (error) {
         console.error("Error in load event:", error);
