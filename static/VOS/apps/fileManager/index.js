@@ -99,6 +99,15 @@ function getFileType(file) {
         if (file.name.endsWith(".jpg") || file.name.endsWith(".png") || file.name.endsWith(".gif")) return "图片文件";
         if (file.name.endsWith(".mp4") || file.name.endsWith(".avi")) return "视频文件";
         if (file.name.endsWith(".mp3") || file.name.endsWith(".wav")) return "音频文件";
+        if (file.name.endsWith(".zip") || file.name.endsWith(".rar")) return "压缩文件";
+        if (file.name.endsWith(".json")) return "JSON文件";
+        if (file.name.endsWith(".md")) return "Markdown文件";
+        if (file.name.endsWith(".xml")) return "可扩展标记语言文件";
+        if (file.name.endsWith(".exe")) return "可执行文件";
+        if (file.name.endsWith(".html") || file.name.endsWith(".htm")) return "网页文件";
+        if (file.name.endsWith(".css")) return "层叠样式表文件";
+        if (file.name.endsWith(".js")) return "JavaScript文件";
+        if (file.name.endsWith(".json")) return "JavaScript对象表示法文件"
         return file.name.split(".").pop().toUpperCase() + "文件";
     }
 }
