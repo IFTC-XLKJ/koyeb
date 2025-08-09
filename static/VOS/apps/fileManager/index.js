@@ -85,7 +85,7 @@ async function renderFileList(list) {
         const row = document.createElement("tr");
         row.className = "file";
         const f = await new API.File(file).get();
-        row.innerHTML = `<td class="name">${file}</td><td class="type">${(f)}</td>`;
+        row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td>`;
         fileList.appendChild(row);
     });
 }
