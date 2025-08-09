@@ -118,6 +118,5 @@ body {
 
 #fileList {
     width: 100%;
-    height: calc(100% - 30px);
-    overflow-y: auto;
+    height: 100%;
 }
