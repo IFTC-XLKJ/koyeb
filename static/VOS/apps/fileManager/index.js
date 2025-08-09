@@ -55,7 +55,7 @@ addEventListener("load", async e => {
     });
 });
 
-function renderFileList(list) {
+async function renderFileList(list) {
     const { files, folders } = list;
     const fileList = document.getElementById("fileList");
     const noFile = document.getElementById("noFile");
@@ -71,21 +71,29 @@ function renderFileList(list) {
         return;
     }
     noFile.style.display = "none";
-    folders.forEach(folder => {
+    folders.forEach(async folder => {
         const row = document.createElement("tr");
         row.className = "folder";
-        row.innerHTML = `<td class="name">${folder}</td><td class="type">文件夹</td>`;
+        const f = await new API.File(folder).get();
+        row.innerHTML = `<td class="name">${folder}</td><td class="type">${getFileType(f)}</td>`;
         row.addEventListener("dblclick", async function () {
             renderFileList(await new API.File(path + folder + "/").getFileList());
         });
         fileList.appendChild(row);
     });
-    files.forEach(file => {
+    files.forEach(async file => {
         const row = document.createElement("tr");
         row.className = "file";
-        row.innerHTML = `<td class="name">${file}</td><td class="type">文件</td>`;
+        const f = await new API.File(file).get();
+        row.innerHTML = `<td class="name">${file}</td><td class="type">${(f)}</td>`;
         fileList.appendChild(row);
     });
+}
+
+function getFileType(file) {
+    if (!file) return "未知";
+    console.log("getFileType", file);
+    if (file.type === "directory") return "文件夹";
 }
 
 function newTab(name, path) {
