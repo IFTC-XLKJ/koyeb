@@ -132,6 +132,9 @@ globalThis.deleteAll = async () => {
                         }
                         return await API.writeFile(this.path, data);
                     }
+                    async exist() {
+                        return await API.exist(this.path);
+                    }
                     async isDirectory() {
                         return await API.isDirectory(this.path);
                     }

@@ -20,6 +20,16 @@ addEventListener("load", e => {
                     console.warn("Path input is empty, not changing path.");
                     return;
                 }
+                if (pathInput.value === pathSpan.textContent) {
+                    pathInput.style.display = "none";
+                    pathSpan.style.display = "flex";
+                    return;
+                }
+                const file = new API.File(pathInput.value);
+                if (!file.exist(pathInput.value)) {
+                    console.error("File does not exist:", pathInput.value);
+                    return;
+                }
                 pathInput.style.display = "none";
                 pathSpan.textContent = pathInput.value;
                 pathSpan.style.display = "flex";

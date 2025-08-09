@@ -59,6 +59,7 @@ globalThis.API = {};
         if (!path || typeof path !== "string") {
             throw new Error("Invalid path");
         }
+        if (path.endsWith("/")) path = path.slice(0, -1);
         const file = await db.files.get({ name: path });
         return file !== undefined;
     }
