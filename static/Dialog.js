@@ -3,6 +3,8 @@ class Dialog {
         Object.assign(this, props)
         this.events = {};
         this.__widgetId = this.id;
+        this.textColor = this.textColor || "black";
+        this.titleSize = this.titleSize || 16;
         this.inputValue = '';
         this.cardColor = this.cardColor || "white";
         this.cardRadius = this.cardRadius || 10;
