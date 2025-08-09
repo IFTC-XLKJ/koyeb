@@ -423,6 +423,7 @@ globalThis.deleteAll = async () => {
         await loadSystemApps();
         await wait(1000);
         await API.createDirectory("/storage/share");
+        await API.createDirectory("/storage/share/VOS");
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
