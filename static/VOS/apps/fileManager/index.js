@@ -75,7 +75,7 @@ function renderFileList(list) {
         const row = document.createElement("tr");
         row.className = "folder";
         row.innerHTML = `<td class="name">${folder}</td><td class="type">文件夹</td>`;
-        row.addEventListener("click", async function () {
+        row.addEventListener("dblclick", async function () {
             renderFileList(await new API.File(path + folder + "/").getFileList());
         });
         fileList.appendChild(row);
