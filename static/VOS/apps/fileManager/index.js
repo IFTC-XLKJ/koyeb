@@ -2,7 +2,9 @@ addEventListener("load", e => {
     console.log("fileManager DOMContentLoaded");
     const pathSpan = document.querySelector("#path span");
     const pathInput = document.querySelector("#path input");
-    const dialog = new API.Dialog();
+    const dialog = new API.Dialog({
+        id: "fileManager"
+    });
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
