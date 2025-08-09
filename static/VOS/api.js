@@ -105,6 +105,15 @@ globalThis.API = {};
             throw new Error("Path is not a directory");
         }
     }
+    API.deleteFile = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!(await API.exist(path))) {
+            throw new Error("File does not exist: " + path);
+        }
+        return await db.files.delete({ name: path });
+    }
     API.Notification = class {
     }
     function formatPath(paths) {
