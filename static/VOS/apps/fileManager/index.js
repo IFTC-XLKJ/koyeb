@@ -14,7 +14,7 @@ addEventListener("load", e => {
             pathInput.focus();
             pathInput.select();
         });
-        pathInput.addEventListener("keydown", function (e) {
+        pathInput.addEventListener("keydown", async function (e) {
             if (e.key === "Enter") {
                 if (pathInput.value.trim() === "") {
                     console.warn("Path input is empty, not changing path.");
@@ -26,7 +26,7 @@ addEventListener("load", e => {
                     return;
                 }
                 const file = new API.File(pathInput.value);
-                if (!file.exist(pathInput.value)) {
+                if (!await file.exist(pathInput.value)) {
                     console.error("File does not exist:", pathInput.value);
                     return;
                 }
