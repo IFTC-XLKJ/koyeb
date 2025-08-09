@@ -31,12 +31,13 @@ addEventListener("load", e => {
                 const file = new API.File(pathInput.value);
                 if (!await file.exist(pathInput.value)) {
                     console.error("File does not exist:", pathInput.value);
-                    dialog.showDialog("文件或文件夹不能存在", "", "", "确定", "确定", "center", "");
+                    dialog.showDialog("文件或文件夹不存在", "", "", "确定", "确定", "center", "");
                     return;
                 }
                 pathInput.style.display = "none";
                 pathSpan.textContent = pathInput.value;
                 pathSpan.style.display = "flex";
+                renderFileList(await file.getFileList());
             }
         });
         pathInput.addEventListener("blur", function () {
@@ -70,13 +71,16 @@ function newTab(name, path) {
             const pathSpan = document.querySelector("#path span");
             const pathInput = document.querySelector("#path input");
             pathSpan.textContent = path;
+            renderFileList(await (new API.File(path)).getFileList());
             e.stopPropagation();
         });
         tab.querySelector(".close").addEventListener("click", function (e) {
             tab.remove();
             document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
             if (document.querySelectorAll(".tab").length > 0) {
-                document.querySelectorAll(".tab")[document.querySelectorAll(".tab").length - 1].classList.add("active");
+                const otherTab = document.querySelectorAll(".tab")[document.querySelectorAll(".tab").length - 1];
+                otherTab.classList.add("active");
+                renderFileList(await (new API.File(otherTab.querySelector(".tab-path").innerText)).getFileList());
             }
             if (document.querySelectorAll(".tab").length == 0) {
                 document.querySelector("#close").click();
