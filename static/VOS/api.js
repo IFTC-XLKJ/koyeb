@@ -104,6 +104,7 @@ globalThis.API = {};
         if (!isDir) {
             throw new Error("Path is not a directory");
         }
+        return await db.files.where({ name: path + "%" }).toArray();
     }
     API.deleteFile = async function (path) {
         if (!path || typeof path !== "string") {

@@ -152,6 +152,10 @@ globalThis.deleteAll = async () => {
                     async isDirectory() {
                         return await API.isDirectory(this.path);
                     }
+                    async getFileList() {
+                        checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
+                        return await API.getFileList(this.path);
+                    }
                     toFile(data, type) {
                         const name = this.path.split("/").pop();
                         if (data instanceof Blob || data instanceof ArrayBuffer || data instanceof Uint8Array || data instanceof String) {
