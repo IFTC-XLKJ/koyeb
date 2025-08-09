@@ -107,7 +107,8 @@ function getFileType(file) {
         if (file.name.endsWith(".html") || file.name.endsWith(".htm")) return "网页文件";
         if (file.name.endsWith(".css")) return "层叠样式表文件";
         if (file.name.endsWith(".js")) return "JavaScript文件";
-        if (file.name.endsWith(".json")) return "JavaScript对象表示法文件"
+        if (file.name.endsWith(".json")) return "JavaScript对象表示法文件";
+        if (file.name.endsWith(".svg")) return "矢量图形文件";
         return file.name.split(".").pop().toUpperCase() + "文件";
     }
 }
