@@ -38,6 +38,7 @@ addEventListener("load", async e => {
                 pathInput.style.display = "none";
                 pathSpan.textContent = pathInput.value;
                 pathSpan.style.display = "flex";
+                document.querySelector(".tab.active .tab-path").innerText = pathInput.value;
                 renderFileList(await file.getFileList());
             }
         });
