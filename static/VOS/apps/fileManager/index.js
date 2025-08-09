@@ -70,7 +70,7 @@ function renderFileList(list) {
         noFile.style.display = "block";
         return;
     }
-    noFile.style.display = "node";
+    noFile.style.display = "none";
     folders.forEach(folder => {
         const row = document.createElement("tr");
         row.className = "folder";
