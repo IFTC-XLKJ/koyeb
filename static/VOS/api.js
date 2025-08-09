@@ -104,7 +104,16 @@ globalThis.API = {};
         if (!isDir) {
             throw new Error("Path is not a directory");
         }
-        return await db.files.where({ name: path + "%" }).toArray();
+        const fileList = [];
+        const folderList = [];
+        if (!path.endsWith("/")) path = path + "/";
+        await db.files.where("name").startsWith(path).filter(item => {
+            const paths = item.name.replace(path, "").split("/");
+            const start = paths[0];
+            if (paths.length == 1) return fileList.push(start);
+            if (!folderList.includes(start)) return folderList.push(start)
+        }).toArray()
+        return { files: fileList, folders: folderList }
     }
     API.deleteFile = async function (path) {
         if (!path || typeof path !== "string") {
