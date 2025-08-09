@@ -86,13 +86,13 @@ function newTab(name, path) {
             renderFileList(await new API.File(path).getFileList());
             e.stopPropagation();
         });
-        tab.querySelector(".close").addEventListener("click", function (e) {
+        tab.querySelector(".close").addEventListener("click", async function (e) {
             tab.remove();
             document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
             if (document.querySelectorAll(".tab").length > 0) {
                 const otherTab = document.querySelectorAll(".tab")[document.querySelectorAll(".tab").length - 1];
                 otherTab.classList.add("active");
-                renderFileList(await(new API.File(otherTab.querySelector(".tab-path").innerText)).getFileList());
+                renderFileList(await new API.File(otherTab.querySelector(".tab-path").innerText).getFileList());
             }
             if (document.querySelectorAll(".tab").length == 0) {
                 document.querySelector("#close").click();
