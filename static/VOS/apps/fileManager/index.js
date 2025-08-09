@@ -8,10 +8,10 @@ addEventListener("load", async e => {
     try {
         API.postMessage({ type: "setDrag" });
         newTab("Home", "/storage/share/");
-        renderFileList(await new API.File("/storage/share/").getFileList());
         document.querySelector(".tab").classList.add("active");
         pathSpan.textContent = "/storage/share/";
         pathInput.value = pathSpan.textContent;
+        renderFileList(await new API.File("/storage/share/").getFileList());
         pathSpan.addEventListener("click", function () {
             pathInput.style.display = "flex";
             pathSpan.style.display = "none";
