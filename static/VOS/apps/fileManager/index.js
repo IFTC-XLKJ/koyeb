@@ -12,7 +12,7 @@ addEventListener("load", e => {
             pathInput.style.display = "flex";
             pathSpan.style.display = "none";
             pathInput.focus();
-            pathInput.selecte();
+            pathInput.select();
         });
         pathInput.addEventListener("keydown", function (e) {
             if (e.key === "Enter") {
