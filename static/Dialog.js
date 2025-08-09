@@ -175,6 +175,8 @@ class Dialog {
                 user-select: none;
                 cursor: pointer;
                 outline: none;
+                border: none;
+                background-color: white;
             }
             .Qii_${this.__widgetId} .itemList .item:active {
                 background: rgba(0, 0, 20, 0.06);
