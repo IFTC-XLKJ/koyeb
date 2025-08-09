@@ -102,21 +102,22 @@ function getFileType(file) {
     console.log("getFileType", file);
     if (file.type == "directory") return "文件夹";
     if (file.type == "file") {
-        if (file.name.endsWith(".txt")) return "文本文件";
-        if (file.name.endsWith(".jpg") || file.name.endsWith(".png") || file.name.endsWith(".gif")) return "图片文件";
-        if (file.name.endsWith(".mp4") || file.name.endsWith(".avi")) return "视频文件";
-        if (file.name.endsWith(".mp3") || file.name.endsWith(".wav")) return "音频文件";
-        if (file.name.endsWith(".zip") || file.name.endsWith(".rar")) return "压缩文件";
-        if (file.name.endsWith(".json")) return "JSON文件";
-        if (file.name.endsWith(".md")) return "Markdown文件";
-        if (file.name.endsWith(".xml")) return "可扩展标记语言文件";
-        if (file.name.endsWith(".exe")) return "可执行文件";
-        if (file.name.endsWith(".json")) return "JavaScript对象表示法文件";
-        if (file.name.endsWith(".html") || file.name.endsWith(".htm")) return "网页文件";
-        if (file.name.endsWith(".css")) return "层叠样式表文件";
-        if (file.name.endsWith(".js")) return "JavaScript文件";
-        if (file.name.endsWith(".svg")) return "矢量图形文件";
-        return file.name.split(".").pop().toUpperCase() + "文件";
+        const filename = file.name.toLowerCase();
+        if (filename.endsWith(".txt")) return "文本文件";
+        if (filename.toLowerCase().endsWith(".jpg") || file.name.endsWith(".png") || file.name.endsWith(".gif")) return "图片文件";
+        if (filename.endsWith(".mp4") || file.name.endsWith(".avi")) return "视频文件";
+        if (filename.endsWith(".mp3") || file.name.endsWith(".wav")) return "音频文件";
+        if (filename.endsWith(".zip") || file.name.endsWith(".rar")) return "压缩文件";
+        if (filename.endsWith(".json")) return "JSON文件";
+        if (filename.endsWith(".md")) return "Markdown文件";
+        if (filename.endsWith(".xml")) return "可扩展标记语言文件";
+        if (filename.endsWith(".exe")) return "可执行文件";
+        if (filename.endsWith(".json")) return "JavaScript对象表示法文件";
+        if (filename.endsWith(".html") || file.name.endsWith(".htm")) return "网页文件";
+        if (filename.endsWith(".css")) return "层叠样式表文件";
+        if (filename.endsWith(".js")) return "JavaScript文件";
+        if (filename.endsWith(".svg")) return "矢量图形文件";
+        return filename.split(".").pop().toUpperCase() + "文件";
     }
 }
 
