@@ -63,6 +63,7 @@ async function renderFileList(list) {
     const fileList = document.getElementById("fileList");
     const noFile = document.getElementById("noFile");
     const base = pathSpan.textContent;
+    console.log(base);
     fileList.innerHTML = `<thead>
     <tr>
         <th>名称</th>
