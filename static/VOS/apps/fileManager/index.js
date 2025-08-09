@@ -29,6 +29,7 @@ addEventListener("load", async e => {
                     pathSpan.style.display = "flex";
                     return;
                 }
+                if (!pathInput.value.endsWith("/")) pathInput.value += "/";
                 const file = new API.File(pathInput.value);
                 if (!await file.exist(pathInput.value)) {
                     console.error("File does not exist:", pathInput.value);
