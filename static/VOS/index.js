@@ -510,7 +510,7 @@ function deepClone(obj) {
     throw new Error("Unable to copy obj! Its type isn't supported.");
 }
 
-function writeSystemLog(message) {
-    const logPath = "/storage/share/VOS/log/" + Date.now() + ".log";
-    const logFile = new API.File(logPath);
+async function writeSystemLog(message) {
+    const logPath = "/storage/share/VOS/log/" + new Date().toLocaleDateString() + ".log";
+    return await API.addWriteFile(logPath, `[${new Date().toLocaleTimeString()}] ${message}\n`, "text/plain")
 }
