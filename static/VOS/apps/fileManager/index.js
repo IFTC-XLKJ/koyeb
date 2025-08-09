@@ -57,7 +57,17 @@ addEventListener("load", e => {
 function renderFileList(list) {
     const { files, folders } = list;
     const fileList = document.getElementById("fileList");
-    fileList.innerHTML = "";
+    fileList.innerHTML = `<thead>
+    <tr>
+        <th>名称</th>
+        <th>类型</th>
+    </tr>
+</thead>`;
+    folders.forEach(folder => {
+        const row = document.createElement("tr");
+        row.className = "folder";
+        row.innerHTML = `<td class="name">${folder}</td><td class="type">文件夹</td>`;
+    });
 }
 
 function newTab(name, path) {
@@ -71,7 +81,7 @@ function newTab(name, path) {
             const pathSpan = document.querySelector("#path span");
             const pathInput = document.querySelector("#path input");
             pathSpan.textContent = path;
-            renderFileList(await (new API.File(path)).getFileList());
+            renderFileList(await(new API.File(path)).getFileList());
             e.stopPropagation();
         });
         tab.querySelector(".close").addEventListener("click", function (e) {
@@ -80,7 +90,7 @@ function newTab(name, path) {
             if (document.querySelectorAll(".tab").length > 0) {
                 const otherTab = document.querySelectorAll(".tab")[document.querySelectorAll(".tab").length - 1];
                 otherTab.classList.add("active");
-                renderFileList(await (new API.File(otherTab.querySelector(".tab-path").innerText)).getFileList());
+                renderFileList(await(new API.File(otherTab.querySelector(".tab-path").innerText)).getFileList());
             }
             if (document.querySelectorAll(".tab").length == 0) {
                 document.querySelector("#close").click();
