@@ -63,6 +63,7 @@ function renderFileList(list) {
         <th>类型</th>
     </tr>
 </thead>`;
+    console.log(fileList)
     folders.forEach(folder => {
         const row = document.createElement("tr");
         row.className = "folder";
