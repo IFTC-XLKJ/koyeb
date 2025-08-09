@@ -24,10 +24,6 @@ addEventListener("load", e => {
         pathInput.addEventListener("blur", function () {
             pathInput.style.display = "none";
             pathSpan.style.display = "flex";
-            if (pathInput.value.trim() === "") {
-                pathInput.value = pathSpan.textContent;
-            }
-            pathSpan.textContent = pathInput.value;
         });
     } catch (error) {
         console.error("Error in load event:", error);
