@@ -512,5 +512,8 @@ function deepClone(obj) {
 
 async function writeSystemLog(message) {
     const logPath = "/storage/share/VOS/log/" + new Date().toLocaleDateString() + ".log";
+    if (!await API.exist(logPath)) {
+        await API.createFile(logPath, new File([], new Date().toLocaleDateString() + ".log", { type: "text/plain" }));
+    }
     return await API.addWriteFile(logPath, new File([`[${new Date().toLocaleTimeString()}] ${message}\n`], new Date().toLocaleDateString() + ".log", { type: "text/plain" }));
 }
