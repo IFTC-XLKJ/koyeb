@@ -132,6 +132,13 @@ globalThis.deleteAll = async () => {
                         }
                         return await API.writeFile(this.path, data);
                     }
+                    async read() {
+                        checkSystem(AppWindow.API.system, AppWindow.API.appid, this.path);
+                        if (await API.isDirectory(this.path)) {
+                            throw new Errors("FileError(read)", "Cannot read directory as file");
+                        }
+                        return await API.readFile(this.path);
+                    }
                     async exist() {
                         return await API.exist(this.path);
                     }
