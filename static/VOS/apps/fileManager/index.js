@@ -58,7 +58,14 @@ function newTab(name, path) {
         const tab = document.createElement("div");
         tab.className = "tab";
         tab.innerHTML = `<span class="tab-name">${name}</span><br><span class="tab-path">${path}</span><button class="close">x</button>`;
-        tab.addEventListener("click", function (e) { });
+        tab.addEventListener("click", function (e) {
+            document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
+            tab.classList.add("active");
+            const pathSpan = document.querySelector("#path span");
+            const pathInput = document.querySelector("#path input");
+            pathSpan.textContent = path;
+            e.stopPropagation();
+        });
         tab.querySelector(".close").addEventListener("click", function (e) {
             tab.remove();
             document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
