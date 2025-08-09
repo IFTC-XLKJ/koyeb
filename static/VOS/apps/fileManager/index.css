@@ -120,3 +120,11 @@ body {
     width: auto;
     height: auto;
 }
+
+tr.file {
+    cursor: pointer;
+}
+
+tr.file:hover {
+    background-color: #f0f0f0;
+}
