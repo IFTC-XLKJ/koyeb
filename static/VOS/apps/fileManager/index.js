@@ -119,6 +119,7 @@ function getFileType(file) {
         if (filename.endsWith(".css")) return "层叠样式表文件";
         if (filename.endsWith(".js")) return "JavaScript文件";
         if (filename.endsWith(".svg")) return "矢量图形文件";
+        if (filename.endsWith(".log")) return "日志文件";
         return filename.split(".").pop().toUpperCase() + "文件";
     }
 }
