@@ -127,8 +127,8 @@ function newTab(name, path) {
             tab.classList.add("active");
             const pathSpan = document.querySelector("#path span");
             const pathInput = document.querySelector("#path input");
-            pathSpan.textContent = path;
-            renderFileList(await new API.File(path).getFileList());
+            pathSpan.textContent = document.querySelector(".tab.active .tab-path").innerText;
+            renderFileList(await new API.File(document.querySelector(".tab.active .tab-path").innerText).getFileList());
             e.stopPropagation();
         });
         tab.querySelector(".close").addEventListener("click", async function (e) {
