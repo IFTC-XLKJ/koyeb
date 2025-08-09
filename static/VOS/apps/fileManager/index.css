@@ -128,3 +128,7 @@ tr.file {
 tr.file:hover {
     background-color: #f0f0f0;
 }
+
+tr.selected {
+    background-color: #0c96ec;
+}
