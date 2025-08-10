@@ -110,7 +110,7 @@ async function renderFileList(list) {
             } else {
                 document.querySelector(".tab.active").classList.add("selected");
             }
-        })
+        });
         fileList.appendChild(row);
     });
 }

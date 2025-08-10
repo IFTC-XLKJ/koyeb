@@ -248,17 +248,18 @@ globalThis.deleteAll = async () => {
                                     for (const style of styles || []) {
                                         const stylePath = new URL(style, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const styleBlob = await API.readFile(stylePath);
-                                        const styleText = await styleBlob.text();
-                                        const styleElement = document.createElement("style");
-                                        styleElement.innerText = styleText;
+                                        const styleDataURL = await BlobToDataURL(styleBlob);
+                                        const styleElement = document.createElement("link");
+                                        styleElement.href = styleDataURL;
+                                        styleElement.rel = "stylesheet";
                                         appWindow.contentDocument.head.appendChild(styleElement);
                                     }
                                     for (const script of scripts || []) {
                                         const scriptPath = new URL(script, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const scriptBlob = await API.readFile(scriptPath);
-                                        const scriptText = await scriptBlob.text();
+                                        const scriptDataURL = await BlobToDataURL(scriptBlob);
                                         const scriptElement = document.createElement("script");
-                                        scriptElement.innerText = scriptText;
+                                        scriptElement.src = scriptDataURL;
                                         appWindow.contentDocument.head.appendChild(scriptElement);
                                     }
                                     appWindow.contentDocument.body.innerHTML += html;
