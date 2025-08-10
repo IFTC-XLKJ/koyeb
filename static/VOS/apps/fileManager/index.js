@@ -57,7 +57,8 @@ addEventListener("load", async e => {
     });
     document.getElementById("fileListMain").addEventListener("click", function () {
         console.log(document.querySelectorAll(".file.selected"));
-        document.querySelectorAll(".file.selected").forEach(f => f.classList.remove("selected"));
+        document.querySelectorAll(".folder.selected").forEach(f => f.tagName != "TR" && f.classList.remove("selected"));
+        document.querySelectorAll(".file.selected").forEach(f => f.tagName != "TR" && f.classList.remove("selected"));
     });
 });
 
