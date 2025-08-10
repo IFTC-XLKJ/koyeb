@@ -55,7 +55,8 @@ addEventListener("load", async e => {
     close.addEventListener("click", function () {
         API.postMessage({ type: "close" });
     });
-    document.getElementById("fileListMain").addEventListener("click", function(){
+    document.getElementById("fileListMain").addEventListener("click", function () {
+        console.log(document.querySelectorAll(".file.selected"));
         document.querySelectorAll(".file.selected").forEach(f => f.classList.remove("selected"));
     });
 });
