@@ -248,7 +248,7 @@ globalThis.deleteAll = async () => {
                                     for (const style of styles || []) {
                                         const stylePath = new URL(style, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const styleBlob = await API.readFile(stylePath);
-                                        const styleDataURL = await BlobToDataURL(styleBlob);
+                                        const styleDataURL = URL.createObjectURL(styleBlob);
                                         const styleElement = document.createElement("link");
                                         styleElement.href = styleDataURL;
                                         styleElement.rel = "stylesheet";
@@ -257,7 +257,7 @@ globalThis.deleteAll = async () => {
                                     for (const script of scripts || []) {
                                         const scriptPath = new URL(script, `inner-src:///data/apps/${AppWindow.API.appid}/`).toString().replaceAll("inner-src://", "");
                                         const scriptBlob = await API.readFile(scriptPath);
-                                        const scriptDataURL = await BlobToDataURL(scriptBlob);
+                                        const scriptDataURL = URL.createObjectURL(scriptBlob);
                                         const scriptElement = document.createElement("script");
                                         scriptElement.src = scriptDataURL;
                                         appWindow.contentDocument.head.appendChild(scriptElement);
