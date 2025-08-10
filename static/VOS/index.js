@@ -51,8 +51,14 @@ globalThis.deleteAll = async () => {
     <img class="app-icon" src="${reader.result}" draggable="false">
     <div class="app-title">${name}</div>
 </div>`;
-            document.getElementById("apps").innerHTML += html;
-            const appElement = document.querySelector(`.app[data-app-id="${id}"]`);
+            // document.getElementById("apps").innerHTML += html;
+            // 替代 innerHTML += 的方式
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = html;
+            const appElement = tempDiv.firstElementChild;
+            document.getElementById("apps").appendChild(appElement);
+
+            // 然后绑定事件
             appElement.addEventListener("dblclick", () => {
                 console.log("app", id);
                 startApp(id);
