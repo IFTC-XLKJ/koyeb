@@ -55,13 +55,13 @@ addEventListener("load", async e => {
     close.addEventListener("click", function () {
         API.postMessage({ type: "close" });
     });
-    document.getElementById("fileListMain").addEventListener("click", function () {
+    document.getElementById("fileListMain").addEventListener("click", function (e) {
         console.log(document.querySelectorAll(".file.selected"));
         document.querySelectorAll(".folder.selected").forEach(f => {
-            if (f.tagName != "TR") f.classList.remove("selected");
+            if (e.target.tagName != "TR") f.classList.remove("selected");
         });
         document.querySelectorAll(".file.selected").forEach(f => {
-            if (f.tagName != "TR") f.classList.remove("selected");
+            if (e.target.tagName != "TR") f.classList.remove("selected");
         });
     });
 });
