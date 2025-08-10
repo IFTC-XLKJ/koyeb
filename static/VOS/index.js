@@ -84,6 +84,7 @@ globalThis.deleteAll = async () => {
         });
     }
     globalThis.startApp = async function (id) {
+        await writeSystemLog(`启动应用 ${id}`);
         if (runningApps.some(app => app.id === id)) {
             console.warn("应用已在运行:", id);
             return;
@@ -104,6 +105,7 @@ globalThis.deleteAll = async () => {
         appBackstage.sandbox = "allow-same-origin allow-scripts";
         appBackstage.srcdoc = ``;
         appBackstage.addEventListener("load", async () => {
+            await writeSystemLog(`应用 ${id} 加载完成`);
             const nativeFile = File;
             const AppWindow = appBackstage.contentWindow;
             appBackstage.contentWindow.API = {
@@ -411,6 +413,7 @@ globalThis.deleteAll = async () => {
         }
     }
     const systemApps = [
+        { name: "settings", id: "cn.iftc.settings" },
         { name: "fileManager", id: "cn.iftc.fileManager" }
     ];
     async function init() {
