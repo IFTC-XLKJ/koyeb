@@ -415,8 +415,8 @@ globalThis.deleteAll = async () => {
         }
     }
     const systemApps = [
+        { name: "fileManager", id: "cn.iftc.fileManager" },
         { name: "settings", id: "cn.iftc.settings" },
-        { name: "fileManager", id: "cn.iftc.fileManager" }
     ];
     async function init() {
         console.log("Dexie:", db);
