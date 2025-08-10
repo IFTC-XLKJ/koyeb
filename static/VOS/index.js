@@ -438,6 +438,7 @@ globalThis.deleteAll = async () => {
         await API.createDirectory("/storage/share");
         await writeSystemLog("创建共享目录");
         await API.createDirectory("/storage/share/VOS");
+        await API.createDirectory("/storage/share/Download");
         await db.user.add({ key: "initialized", value: true });
         setTimeout(function () {
             const loadingSrc = document.getElementById('waitLoad');
