@@ -122,6 +122,7 @@ async function renderFileList(list) {
             renderFileList(await new API.File(folder, base).getFileList());
         });
         row.addEventListener("click", function () {
+            console.log(isCtrl);
             if (document.querySelector(".folder.selected") && !globalThis.isCtrl) {
                 document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
@@ -135,6 +136,7 @@ async function renderFileList(list) {
         const f = await new API.File(file, base).get();
         row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size">${f.size}</td>`;
         row.addEventListener("click", function () {
+            console.log(isCtrl);
             if (document.querySelector(".file.selected") && !globalThis.isCtrl) {
                 document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
