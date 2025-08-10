@@ -1,3 +1,25 @@
+globalThis.isCtrl = false;
+globalThis.isShift = false;
+addEventListener("keydown", e => {
+    if (e.key === "Escape") {
+        API.postMessage({ type: "close" });
+    }
+    if (e.key === "Control") {
+        globalThis.isCtrl = true;
+    }
+    if (e.key === "Shift") {
+        globalThis.isShift = true;
+    }
+});
+addEventListener("keyup", e => {
+    if (e.key === "Control") {
+        globalThis.isCtrl = false;
+    }
+    if (e.key === "Shift") {
+        globalThis.isShift = false;
+    }
+});
+
 addEventListener("load", async e => {
     console.log("fileManager DOMContentLoaded");
     const pathSpan = document.querySelector("#path span");
