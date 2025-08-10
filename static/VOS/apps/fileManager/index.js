@@ -87,6 +87,7 @@ async function renderFileList(list) {
         row.addEventListener("dblclick", async function () {
             pathSpan.textContent += folder + "/";
             pathInput.value = pathSpan.textContent;
+            document.querySelector(".tab.active .tab-path").innerText = pathInput.value;
             renderFileList(await new API.File(folder, base).getFileList());
         });
         fileList.appendChild(row);
