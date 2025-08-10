@@ -218,7 +218,7 @@ globalThis.deleteAll = async () => {
                             })
                             appWindow.contentDocument.head.appendChild(InnerSrcScript);
                             const script = document.createElement("script");
-                            script.innerText = `var parent = null;`;
+                            script.innerText = `var parent = null;var localStorage = null;`;
                             appWindow.contentWindow.API.postMessage = function (data) {
                                 AppWindow.API.onmessage(data);
                             }
@@ -386,7 +386,7 @@ globalThis.deleteAll = async () => {
             appBackstage.contentWindow.parent = null;
             appBackstage.contentDocument.head.appendChild(InnerSrcScript);
             const script = document.createElement("script");
-            script.innerText = `var parent = null;`;
+            script.innerText = `var parent = null;var localStorage = null;`;
             appBackstage.contentDocument.head.appendChild(script);
             const mainScript = document.createElement("script");
             const mainScriptBlob = await API.readFile(appPathWithMain);
