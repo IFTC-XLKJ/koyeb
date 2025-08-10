@@ -132,5 +132,5 @@ tr.folder:hover {
 }
 
 tr.selected {
-    background-color: #0c96ec80;
+    background-color: #0c96ec80 !important;
 }
