@@ -91,11 +91,10 @@ async function renderFileList(list) {
             renderFileList(await new API.File(folder, base).getFileList());
         });
         row.addEventListener("click", function () {
-            if (document.querySelector(".tab.active").classList.contains("selected")) {
-                document.querySelector(".tab.active").classList.remove("selected");
-            } else {
-                document.querySelector(".tab.active").classList.add("selected");
+            if (document.querySelector(".folder.selected")) {
+                document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
+            row.classList.add("selected");
         });
         fileList.appendChild(row);
     });
@@ -105,11 +104,10 @@ async function renderFileList(list) {
         const f = await new API.File(file, base).get();
         row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size">${f.size}</td>`;
         row.addEventListener("click", function () {
-            if (document.querySelector(".tab.active").classList.contains("selected")) {
-                document.querySelector(".tab.active").classList.remove("selected");
-            } else {
-                document.querySelector(".tab.active").classList.add("selected");
+            if (document.querySelector(".file.selected")) {
+                document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
+            row.classList.add("selected");
         });
         fileList.appendChild(row);
     });
