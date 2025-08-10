@@ -56,7 +56,7 @@ addEventListener("load", async e => {
         API.postMessage({ type: "close" });
     });
     document.getElementById("fileListMain").addEventListener("click", function (e) {
-        console.log(document.querySelectorAll(".file.selected"));
+        console.log(e.target.tagName);
         document.querySelectorAll(".folder.selected").forEach(f => {
             if (e.target.tagName != "TR") f.classList.remove("selected");
         });
