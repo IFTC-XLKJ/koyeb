@@ -58,10 +58,10 @@ addEventListener("load", async e => {
     document.getElementById("fileListMain").addEventListener("click", function (e) {
         console.log(e.target.tagName);
         document.querySelectorAll(".folder.selected").forEach(f => {
-            if (e.target.tagName != "TR") f.classList.remove("selected");
+            if (e.target.tagName != "TD") f.classList.remove("selected");
         });
         document.querySelectorAll(".file.selected").forEach(f => {
-            if (e.target.tagName != "TR") f.classList.remove("selected");
+            if (e.target.tagName != "TD") f.classList.remove("selected");
         });
     });
 });
