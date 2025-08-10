@@ -533,3 +533,14 @@ async function writeSystemLog(message) {
     }
     return await API.addWriteFile(logPath, new File([`[${new Date().toLocaleTimeString()}] ${message}\n`], new Date().toLocaleDateString() + ".log", { type: "text/plain" }));
 }
+
+function BlobToDataURL(blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = function () {
+            resolve(reader.result);
+        };
+        reader.onerror = reject;
+        reader.readAsDataURL(blob);
+    });
+}
