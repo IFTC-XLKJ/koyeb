@@ -488,6 +488,10 @@ globalThis.deleteAll = async () => {
     }
 })();
 
+onerror = async function (e) {
+    await writeSystemLog(`错误: ${e.message}`);
+}
+
 async function wait(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
