@@ -123,7 +123,7 @@ async function renderFileList(list) {
         });
         row.addEventListener("click", function () {
             console.log(isCtrl);
-            if (document.querySelector(".folder.selected") && !globalThis.isCtrl) {
+            if (document.querySelector(".folder.selected") && !isCtrl) {
                 document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
             row.classList.add("selected");
@@ -137,7 +137,7 @@ async function renderFileList(list) {
         row.innerHTML = `<td class="name">${file}</td><td class="type">${getFileType(f)}</td><td class="time">${new Date(f.lastModified).toLocaleString()}</td><td class="size">${f.size}</td>`;
         row.addEventListener("click", function () {
             console.log(isCtrl);
-            if (document.querySelector(".file.selected") && !globalThis.isCtrl) {
+            if (document.querySelector(".file.selected") && !isCtrl) {
                 document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
             row.classList.add("selected");
