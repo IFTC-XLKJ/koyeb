@@ -90,6 +90,7 @@ addEventListener("load", async e => {
         e.preventDefault();
         const { target } = e;
         console.dir(target);
+        const menuItems = [];
         if (target.id == "fileListMain") { }
     });
 });
