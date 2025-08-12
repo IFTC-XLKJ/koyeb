@@ -359,6 +359,8 @@ globalThis.deleteAll = async () => {
                     runningApps = runningApps.filter(item => item.id !== id);
                 },
                 Dialog: Dialog,
+                ContextMenu: class { 
+                },
             };
             Object.defineProperty(appBackstage.contentWindow.API, "system", {
                 value: false,
