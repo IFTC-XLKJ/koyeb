@@ -88,8 +88,8 @@ addEventListener("load", async e => {
     });
     document.getElementById("fileListMain").addEventListener("contextmenu", function (e) {
         e.preventDefault();
-        if (e.target.tagName === "TD") return;
-        const menu = new API.ContextMenu();
+        const { target } = e;
+        console.dir(target);
     });
 });
 
