@@ -90,6 +90,7 @@ addEventListener("load", async e => {
         e.preventDefault();
         const { target } = e;
         console.dir(target);
+        if (target.id == "fileListMain") { }
     });
 });
 
@@ -135,6 +136,13 @@ async function renderFileList(list) {
             }
             row.classList.add("selected");
         });
+        row.addEventListener("rightclick", function (e) {
+            e.preventDefault();
+            if (document.querySelector(".folder.selected")) {
+                document.querySelectorAll(".folder").forEach(f => f.classList.remove("selected"));
+            }
+            row.classList.add("selected");
+        });
         fileList.appendChild(row);
     });
     files.forEach(async file => {
@@ -148,6 +156,13 @@ async function renderFileList(list) {
                 if (document.querySelector(".file.selected")) {
                     document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
                 }
+            }
+            row.classList.add("selected");
+        });
+        row.addEventListener("rightclick", function (e) {
+            e.preventDefault();
+            if (document.querySelector(".file.selected")) {
+                document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
             }
             row.classList.add("selected");
         });
