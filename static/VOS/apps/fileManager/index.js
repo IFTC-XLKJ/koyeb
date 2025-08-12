@@ -124,9 +124,8 @@ async function renderFileList(list) {
         row.addEventListener("click", function () {
             console.log(isCtrl);
             if (!isCtrl) {
-                console.log(document.querySelector(".folder.selected"))
                 if (document.querySelector(".folder.selected")) {
-                    document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
+                    document.querySelectorAll(".folder").forEach(f => f.classList.remove("selected"));
                 }
             }
             row.classList.add("selected");
