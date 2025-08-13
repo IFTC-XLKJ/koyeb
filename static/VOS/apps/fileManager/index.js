@@ -94,6 +94,8 @@ addEventListener("load", async e => {
         const oldMenuMain = document.querySelector(".context-menu");
         if (oldMenuMain) oldMenuMain.remove();
         const menuMain = document.createElement("div");
+        menuMain.style.left = e.clientX + "px";
+        menuMain.style.top = e.clientY + "px";
         menuMain.className = "context-menu";
         const menuItems = [{
             label: "新建文件",
