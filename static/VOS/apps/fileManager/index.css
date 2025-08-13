@@ -139,12 +139,12 @@ tr.selected {
     position: fixed;
     background-color: white;
     border: 1px solid #ccc;
-    padding: 3px;
     border-radius: 5px;
 }
 
 .context-menu-item {
     cursor: pointer;
+    padding: 3px;
 }
 
 .context-menu-item:hover {
