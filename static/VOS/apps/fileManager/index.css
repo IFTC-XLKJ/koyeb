@@ -141,3 +141,7 @@ tr.selected {
     border: 1px solid #ccc;
     padding: 3px;
 }
+
+.context-menu-item {
+    cursor: pointer;
+}
