@@ -91,6 +91,8 @@ addEventListener("load", async e => {
         const { target } = e;
         console.dir(target);
         console.log(target);
+        const menuMain = document.createElement("div");
+        menuMain.className = "context-menu";
         const menuItems = [{
             label: "新建文件",
             action: async () => {
@@ -116,6 +118,20 @@ addEventListener("load", async e => {
             }
             row.classList.add("selected");
         }
+        for (const item of menuItems) {
+            const menuItem = document.createElement("div");
+            menuItem.className = "context-menu-item";
+            menuItem.textContent = item.label;
+            menuItem.addEventListener("click", async () => {
+                try {
+                    await item.action();
+                } catch (error) {
+                    console.error("Error executing action:", error);
+                }
+            });
+            menuMain.appendChild(menuItem);
+        }
+        document.body.appendChild(menuMain);
     });
 });
 
