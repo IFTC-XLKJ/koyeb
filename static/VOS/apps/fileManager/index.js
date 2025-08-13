@@ -86,6 +86,10 @@ addEventListener("load", async e => {
             if (e.target.tagName != "TD") f.classList.remove("selected");
         });
     });
+    document.addEventListener("click", function (e) {
+        const oldMenuMain = document.querySelector(".context-menu");
+        if (oldMenuMain) oldMenuMain.remove();
+    });
     document.getElementById("fileListMain").addEventListener("contextmenu", function (e) {
         e.preventDefault();
         const { target } = e;
