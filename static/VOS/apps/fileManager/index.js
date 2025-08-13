@@ -98,7 +98,6 @@ addEventListener("load", async e => {
         const oldMenuMain = document.querySelector(".context-menu");
         if (oldMenuMain) oldMenuMain.remove();
         const menuMain = document.createElement("div");
-        console.log(menuMain.offsetWidth, menuMain.offsetHeight);
         menuMain.style.left = e.clientX + "px";
         menuMain.style.top = e.clientY + "px";
         menuMain.className = "context-menu";
@@ -140,6 +139,7 @@ addEventListener("load", async e => {
             });
             menuMain.appendChild(menuItem);
         }
+        console.log(menuMain.offsetWidth, menuMain.offsetHeight);
         document.body.appendChild(menuMain);
     });
 });
