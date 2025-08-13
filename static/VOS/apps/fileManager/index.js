@@ -91,7 +91,20 @@ addEventListener("load", async e => {
         const { target } = e;
         console.dir(target);
         console.log(target);
-        const menuItems = [];
+        const menuItems = [{
+            label: "新建文件",
+            action: async () => {
+                const fileName = prompt("请输入新文件名称:");
+                if (!fileName) return;
+                const filePath = document.querySelector("#path span").textContent + fileName;
+                const file = new API.File(filePath);
+            },
+        }, {
+            label: "新建文件夹",
+            action: async () => {
+                const folderName = prompt("请输入新文件夹名称:");
+            },
+        }];
         if (target.id == "fileListMain") { }
         if (target.tagName === "TD") {
             const row = target.parentElement;
