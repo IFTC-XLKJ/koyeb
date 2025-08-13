@@ -146,3 +146,7 @@ tr.selected {
 .context-menu-item {
     cursor: pointer;
 }
+
+.context-menu-item:hover {
+    background-color: #ddd;
+}
