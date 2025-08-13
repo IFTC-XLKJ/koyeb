@@ -91,6 +91,8 @@ addEventListener("load", async e => {
         const { target } = e;
         console.dir(target);
         console.log(target);
+        const oldMenuMain = document.querySelector(".context-menu");
+        if (oldMenuMain) oldMenuMain.remove();
         const menuMain = document.createElement("div");
         menuMain.className = "context-menu";
         const menuItems = [{
