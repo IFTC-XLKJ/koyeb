@@ -140,6 +140,7 @@ tr.selected {
     background-color: white;
     border: 1px solid #ccc;
     border-radius: 5px;
+    max-height: 500px;
 }
 
 .context-menu-item {
