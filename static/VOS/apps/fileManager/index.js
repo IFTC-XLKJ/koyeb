@@ -139,7 +139,15 @@ addEventListener("load", async e => {
             });
             menuMain.appendChild(menuItem);
         }
+        menuMain.style.display = "none";
         document.body.appendChild(menuMain);
+        if (e.clientX + menuMain.offsetWidth > innerWidth) {
+            menuMain.style.left = (window.innerWidth - menuMain.offsetWidth) + "px";
+        }
+        if (e.clientY + menuMain.offsetHeight > innerHeight) {
+            menuMain.style.top = (window.innerHeight - menuMain.offsetHeight) + "px";
+        }
+        delete menuMain.style.display;
         console.log(menuMain.offsetWidth, menuMain.offsetHeight);
     });
 });
