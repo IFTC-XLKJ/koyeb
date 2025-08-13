@@ -98,8 +98,8 @@ addEventListener("load", async e => {
         const oldMenuMain = document.querySelector(".context-menu");
         if (oldMenuMain) oldMenuMain.remove();
         const menuMain = document.createElement("div");
-        menuMain.style.left = e.clientX + "px";
-        menuMain.style.top = e.clientY + "px";
+        menuMain.style.left = 1000 + "px";
+        menuMain.style.top = 1000 + "px";
         menuMain.className = "context-menu";
         const menuItems = [{
             label: "新建文件",
@@ -139,7 +139,6 @@ addEventListener("load", async e => {
             });
             menuMain.appendChild(menuItem);
         }
-        menuMain.style.display = "none";
         document.body.appendChild(menuMain);
         if (e.clientX + menuMain.offsetWidth > innerWidth) {
             menuMain.style.left = (window.innerWidth - menuMain.offsetWidth) + "px";
@@ -147,7 +146,8 @@ addEventListener("load", async e => {
         if (e.clientY + menuMain.offsetHeight > innerHeight) {
             menuMain.style.top = (window.innerHeight - menuMain.offsetHeight) + "px";
         }
-        delete menuMain.style.display;
+        menuMain.style.left = e.clientX + "px";
+        menuMain.style.top = e.clientY + "px";
         console.log(menuMain.offsetWidth, menuMain.offsetHeight);
     });
 });
