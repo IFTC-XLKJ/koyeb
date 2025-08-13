@@ -139,8 +139,8 @@ addEventListener("load", async e => {
             });
             menuMain.appendChild(menuItem);
         }
-        console.log(menuMain.offsetWidth, menuMain.offsetHeight);
         document.body.appendChild(menuMain);
+        console.log(menuMain.offsetWidth, menuMain.offsetHeight);
     });
 });
 
