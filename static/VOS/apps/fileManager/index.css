@@ -140,6 +140,7 @@ tr.selected {
     background-color: white;
     border: 1px solid #ccc;
     padding: 3px;
+    border-radius: 5px;
 }
 
 .context-menu-item {
