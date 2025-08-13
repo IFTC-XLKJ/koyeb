@@ -93,6 +93,16 @@ addEventListener("load", async e => {
         console.log(target);
         const menuItems = [];
         if (target.id == "fileListMain") { }
+        if (target.tagName === "TD") {
+            const row = target.parentElement;
+            if (document.querySelector(".folder.selected")) {
+                document.querySelectorAll(".folder").forEach(f => f.classList.remove("selected"));
+            }
+            if (document.querySelector(".file.selected")) {
+                document.querySelectorAll(".file").forEach(f => f.classList.remove("selected"));
+            }
+            row.classList.add("selected");
+        }
     });
 });
 
@@ -135,13 +145,6 @@ async function renderFileList(list) {
                 if (document.querySelector(".folder.selected")) {
                     document.querySelectorAll(".folder").forEach(f => f.classList.remove("selected"));
                 }
-            }
-            row.classList.add("selected");
-        });
-        row.addEventListener("rightclick", function (e) {
-            e.preventDefault();
-            if (document.querySelector(".folder.selected")) {
-                document.querySelectorAll(".folder").forEach(f => f.classList.remove("selected"));
             }
             row.classList.add("selected");
         });
