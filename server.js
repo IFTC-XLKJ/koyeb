@@ -54,7 +54,27 @@ try {
 }
 app.use(async (req, res, next) => {
     const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
-    const r = await fetch(`https://api.pgaot.com/dbs/cloud/get_table_data`);
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    const signature = await signaturePromise;
+    const ip = req.headers["x-forwarded-for"] || null;
+    const r = await fetch(`https://api.pgaot.com/dbs/cloud/get_table_data`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-Pgaot-Key": key,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+        },
+        body: JSON.stringify({
+            type: "INSERT",
+            filter: `IP,站点,UA`,
+            fields: `("${ip}", "${req.headers["host"] || "Unknown"}", "${req.headers["user-agent"] || "Unknown"}")`,
+        }),
+    });
+    const json = await r.json();
+    console.log("IP记录结果:", json);
+    next();
 });
 app.get("/", async (req, res) => {
     requestLog(req);
