@@ -18,8 +18,7 @@ const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
-const { error } = require("console");
-const { freemem } = require("os");
+const sign = require("./Sign.js");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -53,6 +52,10 @@ try {
 } catch (e) {
     console.error(e);
 }
+app.use(async (req, res, next) => {
+    const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
+    const r = await fetch(`https://api.pgaot.com/dbs/cloud/get_table_data`);
+});
 app.get("/", async (req, res) => {
     requestLog(req);
     if (req.headers["user-agent"] == "Koyeb Health Check") {
@@ -3063,7 +3066,7 @@ async function randomUsername() {
     return adj + noun + id;
 }
 
-setInterval(async () => { 
+setInterval(async () => {
     const r = await fetch("https://iftc.deno.dev");
     console.log(await r.text())
 }, 30000);
