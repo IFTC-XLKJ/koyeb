@@ -65,6 +65,7 @@ app.use(async (req, res, next) => {
     next();
 });
 async function requestRecord(req) {
+    const url = new URL(req.url, `https://${req.headers.host}`);
     const sign = new Sign();
     const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
     const timestamp = Date.now();
@@ -82,7 +83,7 @@ async function requestRecord(req) {
         body: JSON.stringify({
             type: "INSERT",
             filter: `IP,站点,UA`,
-            fields: `("${ip}", "${req.headers["host"] || "Unknown"}", "${req.headers["user-agent"] || "Unknown"}")`,
+            fields: `("${ip}", "${new URL(url.pathname, "iftc://main/") || "Unknown"}", "${req.headers["user-agent"] || "Unknown"}")`,
         }),
     });
     const json = await r.json();
