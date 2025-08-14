@@ -53,6 +53,14 @@ try {
     console.error(e);
 }
 app.use(async (req, res, next) => {
+    if (req.headers["user-agent"] == "Koyeb Health Check") {
+        next();
+        return;
+    }
+    if (req.headers["user-agent"] == "IFTC Bot") {
+        next();
+        return;
+    }
     const sign = new Sign();
     const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
     const timestamp = Date.now();
