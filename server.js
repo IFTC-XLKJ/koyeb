@@ -18,7 +18,7 @@ const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
-const sign = new require("./Sign.js");
+const Sign = require("./Sign.js");
 
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -53,6 +53,7 @@ try {
     console.error(e);
 }
 app.use(async (req, res, next) => {
+    const sign = new Sign();
     const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
     const timestamp = Date.now();
     const signaturePromise = sign.get(timestamp);
