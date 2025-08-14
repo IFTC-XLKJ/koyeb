@@ -61,6 +61,10 @@ app.use(async (req, res, next) => {
         next();
         return;
     }
+    requestRecord(req);
+    next();
+});
+async function requestRecord(req) {
     const sign = new Sign();
     const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
     const timestamp = Date.now();
@@ -83,8 +87,7 @@ app.use(async (req, res, next) => {
     });
     const json = await r.json();
     console.log("IP记录结果:", json);
-    next();
-});
+}
 app.get("/", async (req, res) => {
     requestLog(req);
     if (req.headers["user-agent"] == "Koyeb Health Check") {
