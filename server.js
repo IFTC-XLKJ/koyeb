@@ -67,7 +67,7 @@ app.use(async (req, res, next) => {
     const signaturePromise = sign.get(timestamp);
     const signature = await signaturePromise;
     const ip = req.headers["x-forwarded-for"] || null;
-    const r = await fetch(`https://api.pgaot.com/dbs/cloud/get_table_data`, {
+    const r = await fetch(`https://api.pgaot.com/dbs/cloud/set_table_data`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
