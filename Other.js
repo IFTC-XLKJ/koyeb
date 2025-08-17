@@ -1011,7 +1011,7 @@ class Other {
                 return res.status(400).json({ error: "Invalid language", languages: languages });
             }
             try {
-                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
+                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer sk-AmethystFree`,
@@ -1085,7 +1085,7 @@ class Other {
                 });
             }
             try {
-                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
+                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer sk-AmethystFree`,
@@ -1163,7 +1163,7 @@ class Other {
                 return;
             }
             try {
-                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
+                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer sk-AmethystFree`,
@@ -1226,7 +1226,7 @@ class Other {
                 return;
             }
             try {
-                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
+                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer sk-AmethystFree`,
@@ -1288,7 +1288,7 @@ class Other {
                 return;
             }
             try {
-                const r = await fetch("https://free.amethyst.ltd/v1/chat/completions", {
+                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
                         Authorization: `Bearer sk-AmethystFree`,
