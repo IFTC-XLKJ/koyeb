@@ -1196,6 +1196,22 @@ class Other {
         })
         this.app.post("/api/aisimilarity", async (req, res) => {
             requestLog(req);
+            const token = req.headers.authorization.split(" ")[1];
+            if (!req.headers.authorization.startsWith("Bearer ")) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
+                return;
+            }
+            if (!token) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
+            }
             const {
                 text1,
                 text2
@@ -1209,6 +1225,13 @@ class Other {
                 return;
             }
             try {
+                if (!await checkToken(token)) {
+                    res.status(401).json({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: time()
+                    });
+                }
                 const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1260,6 +1283,22 @@ class Other {
         })
         this.app.post("/api/aimgc", async (req, res) => {
             requestLog(req);
+            const token = req.headers.authorization.split(" ")[1];
+            if (!req.headers.authorization.startsWith("Bearer ")) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
+                return;
+            }
+            if (!token) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
+            }
             const {
                 text
             } = req.body;
@@ -1272,6 +1311,13 @@ class Other {
                 return;
             }
             try {
+                if (!await checkToken(token)) {
+                    res.status(401).json({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: time()
+                    });
+                }
                 const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
