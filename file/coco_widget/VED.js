@@ -72,6 +72,10 @@ const types = {
 }
 exports.types = types;
 exports.widget = class extends InvisibleWidget {
+    constructor() {
+        super();
+        this.widgetLog("VED(VV Encryption and Decryption)")
+    }
     init() {
         return loadend;
     }
