@@ -72,6 +72,9 @@ const types = {
 }
 exports.types = types;
 exports.widget = class extends InvisibleWidget {
+    init() {
+        return loadend;
+    }
     encode(text, key) {
         if (!loadend) return this.widgetError('未初始化');
         return VED.encode(text, key);
