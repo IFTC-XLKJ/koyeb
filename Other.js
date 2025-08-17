@@ -969,6 +969,22 @@ class Other {
                 from,
                 to
             } = req.body;
+            const token = req.headers.authorization.split(" ")[1];
+            if (!req.headers.authorization.startsWith("Bearer ")) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "授权失败",
+                    timestamp: time()
+                });
+                return;
+            }
+            if (!token) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "授权失败",
+                    timestamp: time()
+                });
+            }
             if (!text || !from || !to) {
                 res.status(400).json({
                     code: 400,
@@ -1011,6 +1027,13 @@ class Other {
                 return res.status(400).json({ error: "Invalid language", languages: languages });
             }
             try {
+                if (!await checkToken(token)) {
+                    res.status(401).json({
+                        code: 401,
+                        msg: "授权失败",
+                        timestamp: time()
+                    });
+                }
                 const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1372,6 +1395,16 @@ function generateUUID() {
             return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
         });
     return uuid;
+}
+
+async function checkToken(token) {
+    const json = await user.loginByToken(token);
+    if (json.code == 200) {
+        if (!json.fields[0]) {
+            return false;
+        }
+        return true;
+    }
 }
 
 module.exports = Other;
