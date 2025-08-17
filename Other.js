@@ -973,7 +973,7 @@ class Other {
             if (!req.headers.authorization.startsWith("Bearer ")) {
                 res.status(401).json({
                     code: 401,
-                    msg: "授权失败",
+                    msg: "鉴权失败",
                     timestamp: time()
                 });
                 return;
@@ -981,7 +981,7 @@ class Other {
             if (!token) {
                 res.status(401).json({
                     code: 401,
-                    msg: "授权失败",
+                    msg: "鉴权失败",
                     timestamp: time()
                 });
             }
@@ -1030,7 +1030,7 @@ class Other {
                 if (!await checkToken(token)) {
                     res.status(401).json({
                         code: 401,
-                        msg: "授权失败",
+                        msg: "鉴权失败",
                         timestamp: time()
                     });
                 }
