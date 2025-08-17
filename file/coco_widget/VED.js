@@ -1,7 +1,5 @@
-const { validateLocaleAndSetLanguage } = require("typescript");
-
 let loadend = false;
-const script = document.createElement("script");
+const script = this.document.createElement("script");
 script.src = "https://iftc.koyeb.app/static/VED.js";
 script.onload = () => {
     loadend = true;
