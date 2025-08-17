@@ -710,7 +710,7 @@ class Other {
                 });
                 return;
             }
-            const api = `https://api.kxzjoker.cn/api/123pan?key=${shareid}&pwd=${pwd || ""}`;
+            const api = `https://api.dragonlongzhu.cn/api/123pan_jiexi.php?url=https://www.123pan.com/s/${shareid}&pwd=${pwd || ""}`;
             const response = await fetch(api);
             if (!response.ok) {
                 res.status(500).json({
