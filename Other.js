@@ -1090,6 +1090,22 @@ class Other {
         })
         this.app.get("/api/aiworddefinition", async (req, res) => {
             requestLog(req);
+            const token = req.headers.authorization.split(" ")[1];
+            if (!req.headers.authorization.startsWith("Bearer ")) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
+                return;
+            }
+            if (!token) {
+                res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
+            }
             const {
                 word
             } = req.query;
@@ -1108,6 +1124,13 @@ class Other {
                 });
             }
             try {
+                if (!await checkToken(token)) {
+                    res.status(401).json({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: time()
+                    });
+                }
                 const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
                     method: "POST",
                     headers: {
