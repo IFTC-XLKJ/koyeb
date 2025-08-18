@@ -3015,7 +3015,7 @@ app.get("/token", async (req, res) => {
         if (token.value == "你还没有Token，请点击“更新”按钮设置Token") {
             alert(token.value);
             return;
-        };
+        }
         try {
             await navigator.clipboard.writeText(text)
             alert("复制成功");
