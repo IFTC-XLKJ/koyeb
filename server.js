@@ -2959,6 +2959,7 @@ app.get("/token", async (req, res) => {
 </style>
 <div id="card">
     <h2>VV用户Token</h2>
+    <input type="text" id="token" readonly>
 </div>
 <script>
 (async function() {
@@ -2969,7 +2970,12 @@ app.get("/token", async (req, res) => {
     }
     async function getToken() {
         const ID = localStorage.getItem("ID");
+        const password = localStorage.getItem("password");
+        const res = await fetch(\`/api/user/gettoken?ID=${ID}&password=${encodeURIComponent(password)}\`);
+        const json = await res.json();
+        console.log(json);
     }
+    getToken();
 })();
 </script>`);
 })
