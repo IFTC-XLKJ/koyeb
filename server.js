@@ -3020,7 +3020,7 @@ app.get("/token", async (req, res) => {
             await navigator.clipboard.writeText(text);
             alert("复制成功");
         } catch(e) {
-            alert("复制失败" + e)
+            alert("复制失败" + e);
         }
     });
     getToken();
