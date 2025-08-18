@@ -2970,6 +2970,8 @@ app.get("/token", async (req, res) => {
 <div id="card">
     <h2>VV用户Token</h2>
     <input type="text" id="token" readonly>
+    <button id="copy">复制</button>
+    <button id="update">更新</button>
 </div>
 <script>
 (async function() {
