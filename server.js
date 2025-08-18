@@ -2998,7 +2998,7 @@ app.get("/token", async (req, res) => {
         const res = await fetch(\`/api/user/gettoken?id=\${ID}&password=\${encodeURIComponent(password)}\`);
         const json = await res.json();
         console.log(json);
-        if (!json.token){
+        if (!json.token) {
             token.value = "你还没有Token，请点击“更新”按钮设置Token";
             return;
         }
@@ -3017,7 +3017,7 @@ app.get("/token", async (req, res) => {
             return;
         }
         try {
-            await navigator.clipboard.writeText(text)
+            await navigator.clipboard.writeText(text);
             alert("复制成功");
         } catch(e) {
             alert("复制失败" + e)
