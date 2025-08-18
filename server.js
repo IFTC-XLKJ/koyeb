@@ -2994,6 +2994,10 @@ app.get("/token", async (req, res) => {
         const res = await fetch(\`/api/user/gettoken?id=\${ID}&password=\${encodeURIComponent(password)}\`);
         const json = await res.json();
         console.log(json);
+        if (!json.token){
+            token.value = "你还没有Token，请点击“更新”按钮设置Token";
+            return;
+        }
         token.value = json.token;
     }
     async function updateToken() { 
