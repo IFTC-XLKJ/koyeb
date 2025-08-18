@@ -3014,8 +3014,12 @@ app.get("/token", async (req, res) => {
             alert(token.value);
             return;
         };
-        copy(token.value);
-        alert("已复制");
+        try {
+            await navigator.clipboard.writeText(text)
+            alert("复制成功");
+        } catch(e) {
+            alert("复制失败" + e)
+        }
     });
     getToken();
 })();
