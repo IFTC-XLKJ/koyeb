@@ -2996,6 +2996,12 @@ app.get("/token", async (req, res) => {
         const res = await fetch(\`/api/user/gettoken?id=\${ID}&password=\${encodeURIComponent(password)}\`);
         const json = await res.json();
         console.log(json);
+        if (json.code != 200) {
+            setTimeout(() => {
+                getToken();
+            }, 1000);
+            return;
+        }
         if (!json.token) {
             token.value = "你还没有Token，请点击“更新”按钮设置Token";
             return;
@@ -3008,6 +3014,9 @@ app.get("/token", async (req, res) => {
         const res = await fetch(\`/api/user/updatetoken?id=\${ID}&password=\${encodeURIComponent(password)}\`);
         const json = await res.json();
         console.log(json);
+        if (json.code != 200) {
+            throw json.msg;
+        }
     }
     copy_token.addEventListener("click", async e => {
         if (token.value == "你还没有Token，请点击“更新”按钮设置Token") {
@@ -3022,7 +3031,14 @@ app.get("/token", async (req, res) => {
         }
     });
     update_token.addEventListener("click", async e => {
-        if (confirm("是否确认要更新Token")) {}
+        if (confirm("是否确认要更新Token")) {
+            try {
+                await updateToken();
+                alert("更新成功");
+            } catch(e) {
+                alert("更新失败" + e);
+            }
+        }
     });
     getToken();
 })();
