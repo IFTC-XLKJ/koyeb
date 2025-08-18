@@ -2978,7 +2978,7 @@ app.get("/token", async (req, res) => {
 <div id="card">
     <h2>VV用户Token</h2>
     <input type="text" id="token" readonly>
-    <button id="copy">复制</button>
+    <button id="copy_token">复制</button>
     <button id="update">更新</button>
 </div>
 <script>
@@ -3007,6 +3007,10 @@ app.get("/token", async (req, res) => {
         const json = await res.json();
         console.log(json);
     }
+    copy_token.addEventListener("click", e => {
+        if (token.value == "你还没有Token，请点击“更新”按钮设置Token") return;
+        copy(token.value);
+    });
     getToken();
 })();
 </script>`);
