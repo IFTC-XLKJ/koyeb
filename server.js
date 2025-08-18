@@ -2972,8 +2972,7 @@ app.get("/token", async (req, res) => {
         color: white;
         border: none;
         border-radius: 5px;
-        padding-left: 5px;
-        padding-right: 5px;
+        padding: 5px;
     }
 </style>
 <div id="card">
