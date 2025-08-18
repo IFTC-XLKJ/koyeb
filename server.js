@@ -2948,7 +2948,8 @@ app.get("/proxy-file", async (req, res) => {
 
 app.get("/token", async (req, res) => {
     res.set("Content-Type", "text/html");
-    res.send(`<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    res.send(`<title>VV用户Token</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <style>
     #card {
         width: 300px;
