@@ -2966,6 +2966,7 @@ app.get("/token", async (req, res) => {
         outline: none;
         border-radius: 5px;
         border: none;
+        margin-bottom: 3px;
     }
     button {
         background-color: #333;
