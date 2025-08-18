@@ -2948,7 +2948,8 @@ app.get("/proxy-file", async (req, res) => {
 
 app.get("/token", async (req, res) => {
     res.set("Content-Type", "text/html");
-    res.send(`<style>
+    res.send(`<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
     #card {
         width: 300px;
         background-color: #f2f2f2;
