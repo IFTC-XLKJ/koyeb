@@ -2973,6 +2973,8 @@ app.get("/token", async (req, res) => {
         border: none;
         border-radius: 5px;
         padding: 5px;
+        min-width: 120px;
+        min-height: 30px;
     }
 </style>
 <div id="card">
