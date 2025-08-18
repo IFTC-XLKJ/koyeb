@@ -3021,6 +3021,9 @@ app.get("/token", async (req, res) => {
             alert("复制失败" + e);
         }
     });
+    update_token.addEventListener("click", async e => {
+        if (confirm("是否确认要更新Token")) {}
+    });
     getToken();
 })();
 </script>`);
