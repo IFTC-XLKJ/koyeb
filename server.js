@@ -2958,9 +2958,6 @@ app.get("/token", async (req, res) => {
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         margin: 0 auto;
         padding: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
     #token {
         font-size: 16px;
