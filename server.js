@@ -2973,7 +2973,7 @@ app.get("/token", async (req, res) => {
         border: none;
         border-radius: 5px;
         padding: 5px;
-        width: (100% / 3);
+        width: calc(100% / 3);
         height: 30px;
     }
 </style>
@@ -2982,6 +2982,7 @@ app.get("/token", async (req, res) => {
     <input type="text" id="token" readonly>
     <button id="copy_token">复制</button>
     <button id="update_token">更新</button>
+    <button id="refresh_token">刷新</button>
 </div>
 <script>
 (async function() {
@@ -3039,6 +3040,9 @@ app.get("/token", async (req, res) => {
                 alert("更新失败" + e);
             }
         }
+    });
+    refresh_token.addEventListener("click", e => {
+        getToken();
     });
     getToken();
 })();
