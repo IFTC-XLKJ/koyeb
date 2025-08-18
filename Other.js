@@ -1332,7 +1332,7 @@ class Other {
                         top_p: 1,
                         messages: [{
                             role: "system",
-                            content: `你的任务是根据给出的内容的上下文过滤出敏感词，请返回敏感词列表，返回格式为JSON，例如：["xxx","xxx"]`,
+                            content: `你的任务是根据给出的内容的上下文过滤出敏感词，将敏感词的等级划为10个等级，你需要检测3级以上的敏感词，请返回敏感词列表，返回格式为JSON，例如：["xxx","xxx"]`,
                         }, {
                             role: "user",
                             content: `${text}`
