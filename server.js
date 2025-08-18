@@ -2946,6 +2946,12 @@ app.get("/proxy-file", async (req, res) => {
     }
 });
 
+app.get("/token", async (req, res) => {
+    res.set("Content-Type", "text/html");
+    res.send(`<style></style><div id="card">
+</div>`);
+})
+
 app.listen(port, () => {
     startTime = Date.now();
     console.log(`服务器已在端口 ${port} 开启`);
