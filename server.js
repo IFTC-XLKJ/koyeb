@@ -3008,8 +3008,12 @@ app.get("/token", async (req, res) => {
         console.log(json);
     }
     copy_token.addEventListener("click", e => {
-        if (token.value == "你还没有Token，请点击“更新”按钮设置Token") return;
+        if (token.value == "你还没有Token，请点击“更新”按钮设置Token") {
+            alert(token.value);
+            return;
+        };
         copy(token.value);
+        alert("已复制");
     });
     getToken();
 })();
