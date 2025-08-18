@@ -2950,6 +2950,7 @@ app.get("/token", async (req, res) => {
     res.set("Content-Type", "text/html");
     res.send(`<style>
     #card {
+        width: 300px;
         background-color: #f2f2f2;
         padding: 20px;
         border-radius: 5px;
