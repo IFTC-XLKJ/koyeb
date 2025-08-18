@@ -3015,7 +3015,7 @@ app.get("/token", async (req, res) => {
             return;
         }
         try {
-            await navigator.clipboard.writeText(text);
+            await navigator.clipboard.writeText(token.value);
             alert("复制成功");
         } catch(e) {
             alert("复制失败" + e);
