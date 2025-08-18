@@ -2960,6 +2960,7 @@ app.get("/token", async (req, res) => {
         padding: 5px;
         display: flex;
         align-items: center;
+        justify-content: center;
     }
     #token {
         font-size: 16px;
