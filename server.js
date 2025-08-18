@@ -2966,6 +2966,12 @@ app.get("/token", async (req, res) => {
         border-radius: 5px;
         border: none;
     }
+    button {
+        background-color: #333;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
 </style>
 <div id="card">
     <h2>VV用户Token</h2>
