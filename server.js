@@ -2948,8 +2948,19 @@ app.get("/proxy-file", async (req, res) => {
 
 app.get("/token", async (req, res) => {
     res.set("Content-Type", "text/html");
-    res.send(`<style></style><div id="card">
-</div>`);
+    res.send(`<style>
+    #card {
+        background-color: #f2f2f2;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<div id="card">
+</div>
+<script>
+(async function() {})();
+</script>`);
 })
 
 app.listen(port, () => {
