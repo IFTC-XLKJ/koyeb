@@ -2959,7 +2959,16 @@ app.get("/token", async (req, res) => {
 <div id="card">
 </div>
 <script>
-(async function() {})();
+(async function() {
+    if (!localStorage.getItem("ID")) {
+        alert("请先登录");
+        location.href = "/login";
+        return;
+    }
+    async function getToken() {
+        const ID = localStorage.getItem("ID");
+    }
+})();
 </script>`);
 })
 
