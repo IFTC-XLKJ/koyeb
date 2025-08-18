@@ -2958,7 +2958,7 @@ app.get("/token", async (req, res) => {
     }
 </style>
 <div id="card">
-    <h2>用户Token</h2>
+    <h2>VV用户Token</h2>
 </div>
 <script>
 (async function() {
