@@ -2971,6 +2971,8 @@ app.get("/token", async (req, res) => {
         color: white;
         border: none;
         border-radius: 5px;
+        padding-left: 5px;
+        padding-right: 5px;
     }
 </style>
 <div id="card">
@@ -2992,7 +2994,7 @@ app.get("/token", async (req, res) => {
         const res = await fetch(\`/api/user/gettoken?id=\${ID}&password=\${encodeURIComponent(password)}\`);
         const json = await res.json();
         console.log(json);
-        token.value = JSON.stringify(json);
+        token.value = json.token;
     }
     async function updateToken() { 
         const ID = localStorage.getItem("ID");
