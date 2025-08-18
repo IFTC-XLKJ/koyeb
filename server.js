@@ -2964,6 +2964,7 @@ app.get("/token", async (req, res) => {
         width: 100%;
         outline: none;
         border-radius: 5px;
+        border: none;
     }
 </style>
 <div id="card">
