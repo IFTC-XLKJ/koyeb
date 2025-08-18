@@ -2990,6 +2990,8 @@ app.get("/token", async (req, res) => {
         const ID = localStorage.getItem("ID");
         const password = localStorage.getItem("password");
         const res = await fetch(\`/api/user/updatetoken?ID=\${ID}&password=\${encodeURIComponent(password)}\`);
+        const json = await res.json();
+        console.log(json);
     }
     getToken();
 })();
