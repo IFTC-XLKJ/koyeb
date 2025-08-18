@@ -2975,6 +2975,10 @@ app.get("/token", async (req, res) => {
         const json = await res.json();
         console.log(json);
     }
+    async function updateToken() { 
+        const ID = localStorage.getItem("ID");
+        const password = localStorage.getItem("password");
+    }
     getToken();
 })();
 </script>`);
