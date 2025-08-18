@@ -2973,7 +2973,7 @@ app.get("/token", async (req, res) => {
         border: none;
         border-radius: 5px;
         padding: 5px;
-        width: calc(100% / 3);
+        width: calc((100% - 10px) / 3);
         height: 30px;
     }
 </style>
