@@ -3009,7 +3009,7 @@ app.get("/token", async (req, res) => {
         const json = await res.json();
         console.log(json);
     }
-    copy_token.addEventListener("click", e => {
+    copy_token.addEventListener("click", async e => {
         if (token.value == "你还没有Token，请点击“更新”按钮设置Token") {
             alert(token.value);
             return;
