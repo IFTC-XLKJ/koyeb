@@ -89,10 +89,6 @@ input:focus {
     user-select: none;
     -webkit-user-select: none;
     background-color: white;
+    color: black;
     border: none;
-}
-
-.action button:hover {
-    box-shadow: 0 0 10px #43b7ff;
-    transition: box-shadow 0.3s ease;
 }
