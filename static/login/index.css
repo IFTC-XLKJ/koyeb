@@ -85,12 +85,14 @@ input:focus {
 }
 
 .action button {
-    outline: none;
-    box-shadow: 0 0 5px #43b7ff;
-    transition: box-shadow 0.3s ease;
     cursor: pointer;
     user-select: none;
     -webkit-user-select: none;
     background-color: white;
     border: none;
+}
+
+.action button:hover {
+    box-shadow: 0 0 10px #43b7ff;
+    transition: box-shadow 0.3s ease;
 }
