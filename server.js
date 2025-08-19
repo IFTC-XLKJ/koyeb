@@ -2992,7 +2992,7 @@ app.get("/token", async (req, res) => {
 (async function() {
     if (!localStorage.getItem("ID")) {
         alert("请先登录");
-        location.href = "/login";
+        location.href = "/login?page=%2Ftoken";
         return;
     }
     async function getToken() {
