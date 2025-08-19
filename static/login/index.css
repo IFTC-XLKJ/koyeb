@@ -84,7 +84,7 @@ input:focus {
     box-shadow: 0 0 5px #43b7ff;
 }
 
-button {
+.action button {
     outline: none;
     box-shadow: 0 0 5px #43b7ff;
     transition: box-shadow 0.3s ease;
