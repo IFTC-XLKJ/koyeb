@@ -2977,6 +2977,7 @@ app.get("/token", async (req, res) => {
         padding: 5px;
         width: calc((100% - 10px) / 3);
         height: 30px;
+        cursor: pointer;
     }
 </style>
 <div id="card">
