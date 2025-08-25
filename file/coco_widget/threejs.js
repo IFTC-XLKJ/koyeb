@@ -156,18 +156,17 @@ class Widget extends VisibleWidget {
             const loader = new THREE.GLTFLoader();
             loader.setDRACOLoader(dracoLoader);
             loader.load(url,
-<<<<<<< HEAD
                 (gltf) => {
                     window.Three[this.__widget].scene.add(gltf.scene);
-=======
+                },
                 gltf => {
+                    console.log(gltf);
                     const model = gltf.scene;
                     model.scale.set(scale, scale, scale);
                     window.Three[this.__widgetId].scene.add(model);
                     window.Three[this.__widgetId].renderer.setSize(this.__width, this.__height);
                     window.Three[this.__widgetId].renderer.render(window.Three[this.__widgetId].scene, window.Three[this.__widgetId].camera);
                     resolve(model);
->>>>>>> 5562c7831b842fc8a2401bf0ce11e7c2c71050f5
                 },
                 xhr => {
                     console.log((xhr.loaded / xhr.total * 100) + '% loaded');
