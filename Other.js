@@ -8,12 +8,9 @@ const {
 const User = require("./User.js");
 const CloudfunConsole = require("./CloudfunConsole.js");
 const weather = require("weather-js");
-const axios = require('axios');
-
 
 const user = new User();
 const uuid_db = new UUID_db();
-const cloudfunConsole = new CloudfunConsole();
 const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 
