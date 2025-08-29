@@ -1031,15 +1031,15 @@ class Other {
                         timestamp: time()
                     });
                 }
-                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
+                const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-AmethystFree`,
+                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 1,
                         top_p: 1,
@@ -1128,15 +1128,15 @@ class Other {
                         timestamp: time()
                     });
                 }
-                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
+                const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-AmethystFree`,
+                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1229,15 +1229,15 @@ class Other {
                         timestamp: time()
                     });
                 }
-                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
+                const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-AmethystFree`,
+                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1315,15 +1315,15 @@ class Other {
                         timestamp: time()
                     });
                 }
-                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
+                const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-AmethystFree`,
+                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1400,15 +1400,15 @@ class Other {
                         timestamp: time()
                     });
                 }
-                const r = await fetch("https://open2.amethyst.ltd/ai/v1/chat/completions", {
+                const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-AmethystFree`,
+                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "gemini-2.5-pro",
                         provider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
