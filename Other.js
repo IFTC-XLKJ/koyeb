@@ -1461,7 +1461,15 @@ class Other {
         this.app.get("/api/ip2location", async (req, res) => {
             requestLog(req);
             const { ip } = req.query;
-            lookupIP(ip);
+            if (!ip) {
+                return res.status(400).json({
+                    code: 400,
+                    msg: "Bad Request",
+                    error: "Missing ip",
+                    timestamp: time()
+                });
+            }
+            lookupIP(ip, res);
         });
         console.log("Other");
     }
@@ -1477,7 +1485,7 @@ class Other {
     }
 }
 
-async function lookupIP(ip) {
+async function lookupIP(ip, res) {
     try {
         const lookup = await maxmind.open('./GeoLite2-City.mmdb');
         const location = lookup.get(ip);
