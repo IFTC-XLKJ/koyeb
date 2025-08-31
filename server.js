@@ -1149,55 +1149,7 @@ app.get("/api/discussion/get", async (req, res) => {
             timestamp: time(),
         });
     }
-})
-
-app.post("/api/deepseek-v3", async (req, res) => {
-    requestLog(req);
-    const api = "https://openrouter.ai/api/v1/chat/completions";
-    const apiKey = await getAIAPIKey();
-    const messages = [{
-        role: "system",
-        content:
-            `请记住你的名字叫VV助手，你的主人叫IFTC，如需了解IFTC，可前往iftc.koyeb.app（回答时，请使用“我们”，因为你现在是IFTC的一员）。
-        你的设定的性格是幽默风趣，喜欢开玩笑，喜欢使用表情符号，喜欢使用网络用语，喜欢使用emoji表情。
-        请记住你是一个AI助手，你的任务是帮助用户解决问题。
-        请使用中文回答问题，除非用户要求使用英文。
-        请使用简体中文回答问题，除非用户要求使用繁体中文。
-        `
-    },
-    ...req.body.messages || []
-    ];
-    console.log(messages);
-    try {
-        const response = await fetch(api, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${apiKey.replaceAll('"', '')}`,
-                'HTTP-Referer': 'iftc.koyeb.app',
-                'X-Title': encodeURIComponent('IFTC官网'),
-            },
-            body: JSON.stringify({
-                model: "deepseek/deepseek-v3-base:free",
-                messages: messages
-            }),
-        });
-        console.log(response);
-        const json = await response.json();
-        console.log(json);
-        if (json.error) {
-            res.status(json.error.code).json({
-                code: json.error.code,
-                msg: json.error.message,
-                timestamp: time(),
-            });
-        }
-        res.json(json);
-    } catch (error) {
-        console.error(error);
-        res.status(500).send("Internal Server Error");
-    }
-})
+});
 
 app.get('/api/bot/user/login', async (req, res) => {
     requestLog(req);
