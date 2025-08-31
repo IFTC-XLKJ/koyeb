@@ -1495,7 +1495,7 @@ async function lookupIP(ip, res) {
             console.log('城市:', location.city?.names?.zh_CN || location.city?.names?.en);
             console.log('经纬度:', location.location?.latitude, location.location?.longitude);
             console.log('时区:', location.location?.time_zone);
-            lookup.close();
+            // lookup.close();
             return res.json({
                 code: 200,
                 msg: "请求成功",
@@ -1504,7 +1504,7 @@ async function lookupIP(ip, res) {
             });
         } else {
             console.log(`IP ${ip} 在数据库中未找到信息。`);
-            lookup.close();
+            // lookup.close();
             return res.status(404).json({
                 code: 404,
                 msg: "未找到该IP地址",
