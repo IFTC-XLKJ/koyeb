@@ -1457,6 +1457,37 @@ class Other {
                 });
             }
         });
+        this.app.get("/api/ip2location", async (req, res) => {
+            requestLog(req);
+            async function lookupIP(ip) {
+                try {
+                    // 1. 打开 MMDB 文件
+                    // 注意：open() 返回一个 Promise，所以需要 await
+                    const lookup = await maxmind.open("./GeoLite2-City.mmdb"); // 替换为你的实际路径
+
+                    // 2. 查询 IP 地址
+                    const location = lookup.get(ip);
+
+                    // 3. 处理结果
+                    if (location) {
+                        console.log('查询结果:', location);
+
+                        // 你可以访问具体的字段，例如：
+                        console.log('国家:', location.country?.names?.zh_CN || location.country?.names?.en);
+                        console.log('城市:', location.city?.names?.zh_CN || location.city?.names?.en);
+                        console.log('经纬度:', location.location?.latitude, location.location?.longitude);
+                        console.log('时区:', location.location?.time_zone);
+                    } else {
+                        console.log(`IP ${ip} 在数据库中未找到信息。`);
+                    }
+
+                    // 4. (可选) 关闭数据库连接 (通常在应用结束时调用)
+                    // lookup.close(); 
+                } catch (error) {
+                    console.error('读取数据库或查询时出错:', error);
+                }
+            }
+        });
         console.log("Other");
     }
     async getFile(path) {
