@@ -1460,41 +1460,8 @@ class Other {
         });
         this.app.get("/api/ip2location", async (req, res) => {
             requestLog(req);
-            async function lookupIP(ip) {
-                try {
-                    const lookup = await maxmind.open('./GeoLite2-City.mmdb');
-                    const location = lookup.get(ip);
-                    if (location) {
-                        res.json({
-                            code: 200,
-                            msg: "请求成功",
-                            data: location,
-                            timestamp: time(),
-                        });
-                        console.log('查询结果:', location);
-                        console.log('国家:', location.country?.names?.zh_CN || location.country?.names?.en);
-                        console.log('城市:', location.city?.names?.zh_CN || location.city?.names?.en);
-                        console.log('经纬度:', location.location?.latitude, location.location?.longitude);
-                        console.log('时区:', location.location?.time_zone);
-                    } else {
-                        res.status(404).json({
-                            code: 404,
-                            msg: "未找到该IP地址",
-                            timestamp: time(),
-                        });
-                        console.log(`IP ${ip} 在数据库中未找到信息。`);
-                    }
-                    lookup.close();
-                } catch (error) {
-                    res.status(500).json({
-                        code: 500,
-                        msg: "Internal Server Error",
-                        error: error.message,
-                        timestamp: time(),
-                    });
-                    console.error('读取数据库或查询时出错:', error);
-                }
-            }
+            const { ip } = req.query;
+            lookupIP(ip);
         });
         console.log("Other");
     }
@@ -1510,6 +1477,41 @@ class Other {
     }
 }
 
+async function lookupIP(ip) {
+    try {
+        const lookup = await maxmind.open('./GeoLite2-City.mmdb');
+        const location = lookup.get(ip);
+        if (location) {
+            res.json({
+                code: 200,
+                msg: "请求成功",
+                data: location,
+                timestamp: time(),
+            });
+            console.log('查询结果:', location);
+            console.log('国家:', location.country?.names?.zh_CN || location.country?.names?.en);
+            console.log('城市:', location.city?.names?.zh_CN || location.city?.names?.en);
+            console.log('经纬度:', location.location?.latitude, location.location?.longitude);
+            console.log('时区:', location.location?.time_zone);
+        } else {
+            res.status(404).json({
+                code: 404,
+                msg: "未找到该IP地址",
+                timestamp: time(),
+            });
+            console.log(`IP ${ip} 在数据库中未找到信息。`);
+        }
+        lookup.close();
+    } catch (error) {
+        res.status(500).json({
+            code: 500,
+            msg: "Internal Server Error",
+            error: error.message,
+            timestamp: time(),
+        });
+        console.error('读取数据库或查询时出错:', error);
+    }
+}
 function time() {
     return Date.now();
 }
