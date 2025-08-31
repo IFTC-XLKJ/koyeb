@@ -1255,7 +1255,7 @@ app.get("/api/bot/user/details", async (req, res) => {
 
 app.get("/api/requestips", async (req, res) => {
     requestLog(req);
-    res.json(ips)
+    res.json(ips);
 })
 
 app.get("/api/appupdatecheck", async (req, res) => {
