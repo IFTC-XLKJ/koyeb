@@ -3219,6 +3219,6 @@ setInterval(async () => {
     } catch (e) {
         console.log(e);
     }
-})()
+})();
 
 new Other(app, requestLog);
