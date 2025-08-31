@@ -707,12 +707,11 @@ app.get("/api/morse", async (req, res) => {
         type
     } = req.query;
     if (!type || !text) {
-        res.status(400).json({
+        return res.status(400).json({
             code: 400,
             msg: "缺少text或type参数",
             timestamp: time(),
         });
-        return;
     }
     try {
         const xmorse = require("xmorse");
