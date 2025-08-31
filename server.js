@@ -3212,8 +3212,13 @@ setInterval(async () => {
 }, 30000);
 
 (async function () {
-    const r = await fetch("https://iftc.deno.dev/GeoLite2-City.mmdb");
-    await fs.writeFile("GeoLite2-City.mmdb", await r.arrayBuffer());
+    try {
+        const r = await fetch("https://iftc.deno.dev/GeoLite2-City.mmdb");
+        await fs.writeFile("GeoLite2-City.mmdb", await r.arrayBuffer());
+        console.log("GeoLite2-City.mmdb downloaded");
+    } catch (e) {
+        console.log(e);
+    }
 })()
 
 new Other(app, requestLog);
