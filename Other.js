@@ -30,14 +30,14 @@ class Other {
                     lat: req.query.lat,
                     lon: req.query.lon
                 });
-                res.json({
+                return res.json({
                     code: 200,
                     msg: "请求成功",
                     data: geocoder,
                     timestamp: time(),
                 });
             } catch (error) {
-                res.status(500).json({
+                return res.status(500).json({
                     code: 500,
                     msg: "服务器内部错误",
                     error: error.message,
