@@ -6,7 +6,6 @@ const {
     JSDOM
 } = require("jsdom");
 const User = require("./User.js");
-const CloudfunConsole = require("./CloudfunConsole.js");
 const weather = require("weather-js");
 
 const user = new User();
