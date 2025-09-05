@@ -740,37 +740,29 @@ class Other {
                 const json = await user.loginByToken(token);
                 if (json.code == 200) {
                     const data = json.fields[0];
-                    if (!data) {
-                        res.status(401).json({
-                            code: 401,
-                            msg: "token错误",
-                            timestamp: time(),
-                        });
-                        return;
-                    }
-                    const UUID = generateUUID();
-                    const json2 = await uuid_db.addData(UUID, "oauth", data.ID, "");
-                    if (json2.code == 200) {
-                        res.json({
-                            code: 200,
-                            msg: "等待用户授权",
-                            url: `https://iftc.koyeb.app/authorization/${UUID}`,
-                            uuid: UUID,
-                        })
-                    } else {
-                        res.status(json2.code).json({
-                            code: json2.code,
-                            msg: json2.msg,
-                            timestamp: time(),
-                        });
-                    }
-                } else {
-                    res.status(json.code).json({
-                        code: json.code,
-                        msg: json.msg,
+                    if (!data) return res.status(401).json({
+                        code: 401,
+                        msg: "token错误",
                         timestamp: time(),
                     });
-                }
+                    const UUID = generateUUID();
+                    const json2 = await uuid_db.addData(UUID, "oauth", data.ID, "");
+                    if (json2.code == 200) return res.json({
+                        code: 200,
+                        msg: "等待用户授权",
+                        url: `https://iftc.koyeb.app/authorization/${UUID}`,
+                        uuid: UUID,
+                    });
+                    else return res.status(json2.code).json({
+                        code: json2.code,
+                        msg: json2.msg,
+                        timestamp: time(),
+                    });
+                } else return res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
             } catch (e) {
                 res.status(500).json({
                     code: 500,
