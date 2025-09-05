@@ -307,31 +307,22 @@ class Other {
             const filepath = `cloudfunlogs/${uuid}.json`;
             try {
                 const json = await uuid_db.getData(uuid);
-                if (json.code !== 200) {
-                    res.status(json.code).json({
-                        code: json.code,
-                        msg: json.msg,
-                        timestamp: time(),
-                    });
-                    return;
-                }
+                if (json.code !== 200) return res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
                 const data = json.fields[0];
-                if (!data) {
-                    res.status(404).json({
-                        code: 404,
-                        msg: "未知的云函数",
-                        timestamp: time(),
-                    });
-                    return;
-                }
-                if (data.类型 !== "cloudfun") {
-                    res.status(400).json({
-                        code: 400,
-                        msg: "不是云函数",
-                        timestamp: time(),
-                    });
-                    return;
-                }
+                if (!data) return res.status(404).json({
+                    code: 404,
+                    msg: "未知的云函数",
+                    timestamp: time(),
+                });
+                if (data.类型 !== "cloudfun") return res.status(400).json({
+                    code: 400,
+                    msg: "不是云函数",
+                    timestamp: time(),
+                });
                 const src = data.数据;
                 const response = await fetch(src);
                 const code = await response.text();
@@ -340,13 +331,12 @@ class Other {
                 try {
                     fun = eval(`globalThis.require = null;\nvar require = null;\n${code}`);
                 } catch (e) {
-                    res.status(500).json({
+                    return res.status(500).json({
                         code: 500,
                         msg: "云函数代码解析错误",
                         error: e.message,
                         timestamp: time(),
                     });
-                    return;
                 }
                 const request = {
                     response: class {
@@ -360,9 +350,7 @@ class Other {
                             this.#content = content || null;
                         }
                         send() {
-                            for (const key in this.#headers) {
-                                res.set(key, this.#headers[key]);
-                            }
+                            for (const key in this.#headers) res.set(key, this.#headers[key]);
                             res.set({ "X-COPYRIGHTS": "IFTC" });
                             res.status(this.#status).send(this.#content);
                         }
@@ -457,9 +445,7 @@ class Other {
                                             type, filter, fields, page, limit,
                                         }),
                                     });
-                                    if (!response.ok) {
-                                        throw new Error("Network response was not ok " + response.statusText);
-                                    }
+                                    if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
                                     return await response.json();
                                 } catch (error) {
                                     console.error("There was a problem with the fetch operation:", error);
@@ -505,12 +491,8 @@ class Other {
                         }
                     },
                 };
-
-                if (typeof fun === "function" && fun.constructor.name === "AsyncFunction") {
-                    await fun(request);
-                } else if (typeof fun === "function") {
-                    fun(request);
-                }
+                if (typeof fun === "function" && fun.constructor.name === "AsyncFunction") await fun(request);
+                else if (typeof fun === "function") fun(request);
             } catch (e) {
                 console.error(e);
                 res.status(500).send(`出现了错误：${e}`);
@@ -545,35 +527,21 @@ class Other {
                     [request.tools.console.error, "console.error"],
                     [request.tools.console.info, "console.info"]
                 ];
-                for (const [fn, name] of nativeMap) {
-                    if (code === fn?.toLocaleString()) return `function ${name}() { [native code] }`;
-                }
+                for (const [fn, name] of nativeMap) if (code === fn?.toLocaleString()) return `function ${name}() { [native code] }`;
                 return code;
             }
 
             function formatNativeObject(obj, request) {
-                if (obj && (obj.log || obj.error || obj.warn || obj.info)) {
-                    return { object: "console { [native code] }" };
-                }
+                if (obj && (obj.log || obj.error || obj.warn || obj.info)) return { object: "console { [native code] }" };
                 return obj;
             }
 
             function formatLog(log, request) {
-                if (typeof log === "object") {
-                    return JSON.stringify(formatNativeObject(log, request));
-                }
-                if (typeof log === "string") {
-                    return log;
-                }
-                if (typeof log === "function") {
-                    return formatNativeCode(log.toLocaleString(), request);
-                }
-                if (typeof log === "number" || typeof log === "boolean" || typeof log === "bigint") {
-                    return log.toLocaleString();
-                }
-                if (typeof log === "symbol") {
-                    return log.toString();
-                }
+                if (typeof log === "object") return JSON.stringify(formatNativeObject(log, request));
+                if (typeof log === "string") return log;
+                if (typeof log === "function") return formatNativeCode(log.toLocaleString(), request);
+                if (typeof log === "number" || typeof log === "boolean" || typeof log === "bigint") return log.toLocaleString();
+                if (typeof log === "symbol") return log.toString();
                 return String(log);
             }
         });
