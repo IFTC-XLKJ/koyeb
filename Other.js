@@ -46,34 +46,24 @@ class Other {
             }
         })
         this.app.get("/api/ipplace", async (req, res) => {
-            let {
-                ip
-            } = req.query;
+            let { ip } = req.query;
             if (!ip) {
                 ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress || req.socket.remoteAddress || req.ip;
-                if (ip.includes(",")) {
-                    ip = ip.split(",")[0].trim();
-                }
+                if (ip.includes(",")) ip = ip.split(",")[0].trim();
             }
             console.log(ip);
-            if (checkIPType(ip) == "Invalid IP") {
-                res.json({
-                    code: 400,
-                    msg: "IP无效",
-                    timestamp: time(),
-                })
-                return;
-            }
+            if (checkIPType(ip) == "Invalid IP") return res.json({
+                code: 400,
+                msg: "IP无效",
+                timestamp: time(),
+            });
             const response = await fetch(`https://ipapi.co/${ip}/json/`);
-            if (!response.ok) {
-                res.status(500).json({
-                    code: 500,
-                    msg: "服务器内部错误",
-                    error: response.statusText,
-                    timestamp: time(),
-                });
-                return;
-            }
+            if (!response.ok) return res.status(500).json({
+                code: 500,
+                msg: "服务器内部错误",
+                error: response.statusText,
+                timestamp: time(),
+            });
             const data = await response.json();
             res.json({
                 code: 200,
