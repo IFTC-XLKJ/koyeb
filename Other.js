@@ -134,56 +134,41 @@ class Other {
                 });
             });
         });
-        this.app.get("/api/cloudfun/new", async (req,
-            res) => {
+        this.app.get("/api/cloudfun/new", async (req, res) => {
             requestLog(req);
-            const {
-                ID, password, file
-            } = req.query;
-            if (!(ID && ID == 0) || !password || !file) {
-                res.status(400).json({
-                    code: 400,
-                    msg: "缺少参数",
-                    timestamp: time(),
-                });
-                return;
-            }
+            const { ID, password, file } = req.query;
+            if (!(ID && ID == 0) || !password || !file) return res.status(400).json({
+                code: 400,
+                msg: "缺少参数",
+                timestamp: time(),
+            });
             try {
                 const userData = await user.login(ID, password);
-                if (userData.code != 200) {
-                    res.status(userData.code).json({
-                        code: userData.code,
-                        msg: userData.msg,
-                        timestamp: time(),
-                    });
-                    return;
-                }
+                if (userData.code != 200) return res.status(userData.code).json({
+                    code: userData.code,
+                    msg: userData.msg,
+                    timestamp: time(),
+                });
                 const data = userData.fields[0];
-                if (!data) {
-                    res.status(401).json({
-                        code: 401,
-                        msg: "账号或密码错误",
-                        timestamp: time(),
-                    });
-                    return;
-                }
+                if (!data) return res.status(401).json({
+                    code: 401,
+                    msg: "账号或密码错误",
+                    timestamp: time(),
+                });
                 const uuid = generateUUID();
                 const json = await uuid_db.addData(uuid, "cloudfun", ID, file);
-                if (json.code == 200) {
-                    res.status(200).json({
-                        code: 200,
-                        msg: "创建成功",
-                        uuid: uuid,
-                        url: `/api/cloudfun/${uuid}`,
-                        timestamp: time(),
-                    });
-                } else {
-                    res.status(json.code).json({
-                        code: json.code,
-                        msg: json.msg,
-                        timestamp: time(),
-                    });
-                }
+                if (json.code == 200) return res.status(200).json({
+                    code: 200,
+                    msg: "创建成功",
+                    uuid: uuid,
+                    url: `/api/cloudfun/${uuid}`,
+                    timestamp: time(),
+                });
+                else return res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
             } catch (e) {
                 console.error(e);
                 res.status(500).send(null);
