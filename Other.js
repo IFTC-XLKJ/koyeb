@@ -176,17 +176,12 @@ class Other {
         });
         this.app.get("/api/cloudfun/get", async (req, res) => {
             requestLog(req);
-            const {
-                ID
-            } = req.query;
-            if (!(ID && ID == 0)) {
-                res.status(400).json({
-                    code: 400,
-                    msg: "缺少参数",
-                    timestamp: time(),
-                });
-                return;
-            }
+            const { ID } = req.query;
+            if (!(ID && ID == 0)) return res.status(400).json({
+                code: 400,
+                msg: "缺少参数",
+                timestamp: time(),
+            });
             try {
                 const json = await uuid_db.getByID(ID);
                 if (json.code == 200) {
@@ -207,13 +202,11 @@ class Other {
                         data: data,
                         timestamp: time(),
                     });
-                } else {
-                    res.status(json.code).json({
-                        code: json.code,
-                        msg: json.msg,
-                        timestamp: time(),
-                    });
-                }
+                } else return res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
             } catch (e) {
                 console.error(e);
                 res.status(500).json({
