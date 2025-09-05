@@ -717,19 +717,19 @@ app.get("/api/morse", async (req, res) => {
         const xmorse = require("xmorse");
         if (type == "encode") return res.json({
             code: 200,
-            msg: "请求成功",
+            msg: "编码成功",
             data: xmorse.encode(text),
             timestamp: time(),
         });
         else if (type == "decode") return res.json({
             code: 200,
-            msg: "请求成功",
+            msg: "译码成功",
             data: xmorse.decode(text),
             timestamp: time(),
         });
         else return res.status(400).json({
             code: 400,
-            msg: "type参数错误",
+            msg: "type参数错误，仅限encode和decode",
             timestamp: time(),
         });
 
