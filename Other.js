@@ -820,34 +820,23 @@ class Other {
         // });
         this.app.post("/api/aitranslate", async (req, res) => {
             requestLog(req);
-            const {
-                text,
-                from,
-                to
-            } = req.body;
+            const { text, from, to } = req.body;
             const token = req.headers.authorization.split(" ")[1];
-            if (!req.headers.authorization.startsWith("Bearer ")) {
-                res.status(401).json({
-                    code: 401,
-                    msg: "鉴权失败",
-                    timestamp: time()
-                });
-                return;
-            }
-            if (!token) {
-                res.status(401).json({
-                    code: 401,
-                    msg: "鉴权失败",
-                    timestamp: time()
-                });
-            }
-            if (!text || !from || !to) {
-                res.status(400).json({
-                    code: 400,
-                    msg: "Invalid parameters",
-                    timestamp: time()
-                });
-            }
+            if (!req.headers.authorization.startsWith("Bearer ")) return res.status(401).json({
+                code: 401,
+                msg: "鉴权失败",
+                timestamp: time()
+            });
+            if (!token) return res.status(401).json({
+                code: 401,
+                msg: "鉴权失败",
+                timestamp: time()
+            });
+            if (!text || !from || !to) return res.status(400).json({
+                code: 400,
+                msg: "Invalid parameters",
+                timestamp: time()
+            });
             const languages = [
                 "中文",
                 "简体中文",
@@ -879,17 +868,13 @@ class Other {
                 "爱沙尼亚语",
                 "挪威语"
             ];
-            if (!languages.includes(from) || !languages.includes(to)) {
-                return res.status(400).json({ error: "Invalid language", languages: languages });
-            }
+            if (!languages.includes(from) || !languages.includes(to)) return res.status(400).json({ error: "Invalid language", languages: languages });
             try {
-                if (!await checkToken(token)) {
-                    res.status(401).json({
-                        code: 401,
-                        msg: "鉴权失败",
-                        timestamp: time()
-                    });
-                }
+                if (!await checkToken(token)) return res.status(401).json({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time()
+                });
                 const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -919,16 +904,14 @@ class Other {
                     console.log(j.choices[0].message);
                     let result = JSON.parse(j.choices[0].message.content.replace("```json", "").replace("```", ""));
                     const data = [];
-                    result.forEach(item => {
-                        data.push(item.trim());
-                    });
-                    res.json({
+                    result.forEach(item => data.push(item.trim()));
+                    return res.json({
                         code: 200,
                         msg: "翻译成功",
                         data: data,
                     });
                 } else {
-                    res.status(500).json({
+                    return res.status(500).json({
                         code: 500,
                         msg: "API响应格式错误",
                         error: j,
@@ -936,7 +919,7 @@ class Other {
                     });
                 }
             } catch (e) {
-                res.json({
+                return res.json({
                     code: 500,
                     msg: "服务器发生错误",
                     error: e.message,
