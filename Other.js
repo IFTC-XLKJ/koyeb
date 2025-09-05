@@ -582,24 +582,18 @@ class Other {
             requestLog(req);
             const { shareid } = req.params;
             const { pwd } = req.query;
-            if (!shareid) {
-                res.status(400).json({
-                    code: 400,
-                    msg: "缺少参数shareid",
-                    timestamp: time(),
-                });
-                return;
-            }
+            if (!shareid) return res.status(400).json({
+                code: 400,
+                msg: "缺少参数shareid",
+                timestamp: time(),
+            });
             const api = `https://api.pearktrue.cn/api/123panparse/?url=https://www.123pan.com/s/${shareid}&pwd=${pwd || ""}`;
             const response = await fetch(api);
-            if (!response.ok) {
-                res.status(500).json({
-                    code: 500,
-                    msg: response.statusText,
-                    timestamp: time(),
-                });
-                return;
-            }
+            if (!response.ok) return res.status(500).json({
+                code: 500,
+                msg: response.statusText,
+                timestamp: time(),
+            });
             const data = await response.json();
             console.log("API请求成功", data);
             res.json({
