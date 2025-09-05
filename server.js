@@ -702,17 +702,12 @@ app.get("/api/bookshelf/add", async (req, res) => {
 
 app.get("/api/morse", async (req, res) => {
     requestLog(req);
-    const {
-        text,
-        type
-    } = req.query;
-    if (!type || !text) {
-        return res.status(400).json({
-            code: 400,
-            msg: "缺少text或type参数",
-            timestamp: time(),
-        });
-    }
+    const { text, type } = req.query;
+    if (!type || !text) return res.status(400).json({
+        code: 400,
+        msg: "缺少text或type参数",
+        timestamp: time(),
+    });
     try {
         const xmorse = require("xmorse");
         if (type == "encode") return res.json({
