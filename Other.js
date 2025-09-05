@@ -65,7 +65,7 @@ class Other {
                 timestamp: time(),
             });
             const data = await response.json();
-            res.json({
+            return res.json({
                 code: 200,
                 msg: "请求成功",
                 data: data,
@@ -75,14 +75,10 @@ class Other {
                 const ipv4Pattern = /^(\d{1,3}\.){3}\d{1,3}$/;
                 if (ipv4Pattern.test(ip)) {
                     const segments = ip.split(".");
-                    if (segments.every(segment => parseInt(segment, 10) >= 0 && parseInt(segment, 10) <= 255)) {
-                        return "IPv4";
-                    }
+                    if (segments.every(segment => parseInt(segment, 10) >= 0 && parseInt(segment, 10) <= 255)) return "IPv4";
                 }
                 const ipv6Pattern = /^([0-9a-fA-F]{1,4}:){7}[0-9a-fA-F]{1,4}$/;
-                if (ipv6Pattern.test(ip)) {
-                    return "IPv6";
-                }
+                if (ipv6Pattern.test(ip)) return "IPv6";
                 return "Invalid IP";
             }
         });
