@@ -277,26 +277,21 @@ class Other {
                         timestamp: time(),
                     });
                     const json = await uuid_db.deleteData(UUID);
-                    if (json.code == 200) {
-                        res.status(200).json({
-                            code: 200,
-                            msg: "删除成功",
-                            timestamp: time(),
-                        });
-                    } else {
-                        res.status(json.code).json({
-                            code: json.code,
-                            msg: json.msg,
-                            timestamp: time(),
-                        })
-                    }
-                } else {
-                    res.status(userData.code).json({
-                        code: userData.code,
-                        msg: userData.msg,
+                    if (json.code == 200) return res.status(200).json({
+                        code: 200,
+                        msg: "删除成功",
                         timestamp: time(),
-                    })
-                }
+                    });
+                    else return res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                } else return res.status(userData.code).json({
+                    code: userData.code,
+                    msg: userData.msg,
+                    timestamp: time(),
+                });
             } catch (e) {
                 res.status(500).json({
                     code: 500,
