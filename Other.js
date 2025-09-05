@@ -109,40 +109,31 @@ class Other {
                 return res.send(content);
             } else return res.status(500).send(null);
         });
-        this.app.get("/api/weather",
-            async (req, res) => {
-                requestLog(req);
-                const {
-                    city
-                } = req.query;
-                if (!city) {
-                    res.status(400).json({
-                        code: 400,
-                        msg: "缺少参数",
-                        timestamp: time(),
-                    });
-                    return;
-                }
-                weather.find({
-                    search: city, degreeType: "C"
-                }, function (err, result) {
-                    if (err) {
-                        res.status(500).json({
-                            code: 500,
-                            msg: "服务器内部错误",
-                            error: err.message,
-                            timestamp: time(),
-                        });
-                        return;
-                    }
-                    res.json({
-                        code: 200,
-                        msg: "获取成功",
-                        data: result,
-                        timestamp: time(),
-                    });
+        this.app.get("/api/weather", async (req, res) => {
+            requestLog(req);
+            const { city } = req.query;
+            if (!city) return res.status(400).json({
+                code: 400,
+                msg: "缺少参数",
+                timestamp: time(),
+            });
+            weather.find({
+                search: city, degreeType: "C"
+            }, function (err, result) {
+                if (err) return res.status(500).json({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: err.message,
+                    timestamp: time(),
+                });
+                return res.json({
+                    code: 200,
+                    msg: "获取成功",
+                    data: result,
+                    timestamp: time(),
                 });
             });
+        });
         this.app.get("/api/cloudfun/new", async (req,
             res) => {
             requestLog(req);
