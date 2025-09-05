@@ -716,28 +716,28 @@ app.get("/api/morse", async (req, res) => {
     try {
         const xmorse = require("xmorse");
         if (type == "encode") {
-            res.json({
+            return res.json({
                 code: 200,
                 msg: "请求成功",
                 data: xmorse.encode(text),
                 timestamp: time(),
             });
         } else if (type == "decode") {
-            res.json({
+            return res.json({
                 code: 200,
                 msg: "请求成功",
                 data: xmorse.decode(text),
                 timestamp: time(),
             });
         } else {
-            res.status(400).json({
+            return res.status(400).json({
                 code: 400,
                 msg: "type参数错误",
                 timestamp: time(),
             });
         }
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: "服务器错误",
             error: error.message,
