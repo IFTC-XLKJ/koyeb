@@ -261,31 +261,21 @@ class Other {
         });
         this.app.get("/api/cloudfun/delete", async (req, res) => {
             requestLog(req);
-            const {
-                ID,
-                password,
-                UUID
-            } = req.query;
-            if (!(ID && ID == 0) || !password || !UUID) {
-                res.status(400).json({
-                    code: 400,
-                    msg: "缺少参数",
-                    timestamp: time(),
-                });
-                return;
-            }
+            const { ID, password, UUID } = req.query;
+            if (!(ID && ID == 0) || !password || !UUID) return res.status(400).json({
+                code: 400,
+                msg: "缺少参数",
+                timestamp: time(),
+            });
             try {
                 const userData = await user.login(ID, password);
                 if (userData.code == 200) {
                     const data = userData.fields[0];
-                    if (!data) {
-                        res.status(404).json({
-                            code: 401,
-                            msg: "账号或密码错误",
-                            timestamp: time(),
-                        });
-                        return;
-                    }
+                    if (!data) return res.status(401).json({
+                        code: 401,
+                        msg: "账号或密码错误",
+                        timestamp: time(),
+                    });
                     const json = await uuid_db.deleteData(UUID);
                     if (json.code == 200) {
                         res.status(200).json({
