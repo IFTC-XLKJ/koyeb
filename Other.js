@@ -622,15 +622,11 @@ class Other {
         this.app.get("/safejump", async (req, res) => {
             requestLog(req);
             const { page } = req.query;
-            if (!page) {
-                res.send(null);
-                return;
-            }
+            if (!page) return res.send(null);
             try {
                 const url = new URL(formatUrl(page));
                 const domain = url.hostname;
-                if (checkIntranetIP()) {
-                    res.send(`<!DOCTYPE html>
+                if (checkIntranetIP()) return res.send(`<!DOCTYPE html>
 <html>
 
 <head>
@@ -645,17 +641,13 @@ class Other {
 </body>
 
 </html>`);
-                    return;
-                }
                 const icpcheckapi = "https://api.yyy001.com/api/icp";
                 const r = await fetch(`${icpcheckapi}?domain=${domain}`);
                 const j = await r.json();
-                if (j.code == 200) {
-                    res.redirect(formatUrl(page));
-                } else {
-                    if (await checkWhitelist()) {
-                        res.redirect(formatUrl(page));
-                    } else {
+                if (j.code == 200) return res.redirect(formatUrl(page));
+                else {
+                    if (await checkWhitelist()) return res.redirect(formatUrl(page));
+                    else {
                         res.set({
                             "Content-Type": "text/html"
                         });
@@ -737,13 +729,11 @@ class Other {
         });
         this.app.get("/api/authorization", async (req, res) => {
             requestLog(req);
-            if (req.headers.authorization.split(" ")[0] != "Bearer") {
-                res.status(400).json({
-                    code: 400,
-                    msg: "Authorization格式错误",
-                    timestamp: time(),
-                });
-            }
+            if (req.headers.authorization.split(" ")[0] != "Bearer") return res.status(400).json({
+                code: 400,
+                msg: "Authorization格式错误",
+                timestamp: time(),
+            });
             const token = req.headers.authorization.split(" ")[1];
             console.log("toekn:", token);
             try {
