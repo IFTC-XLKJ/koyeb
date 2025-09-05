@@ -550,7 +550,7 @@ class Other {
             const filepath = "cloudfunlogs/" + uuid + ".json";
             try {
                 const content = await fs.readFile(filepath, "utf8");
-                res.json({
+                return res.json({
                     code: 200,
                     msg: "请求成功",
                     logs: JSON.parse(content),
@@ -558,7 +558,7 @@ class Other {
                 });
             } catch (e) {
                 console.log(e);
-                res.json({
+                return res.json({
                     code: 500,
                     msg: "服务器错误",
                     logs: [],
