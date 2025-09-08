@@ -2689,13 +2689,11 @@ app.get("/api/user/details", async (req, res) => {
         id
     } = req.query;
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id))) {
-        return res.status(200).json({
+    if (Number.isNaN(Number(id))) return res.status(200).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
             timestamp: time(),
         });
-    }
     if (id) {
         const user = new User();
         try {
