@@ -2690,7 +2690,7 @@ app.get("/api/user/details", async (req, res) => {
     } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
-        return res.status(400).json({
+        return res.status(200).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
             timestamp: time(),
@@ -2745,7 +2745,7 @@ app.get("/api/user/details", async (req, res) => {
             });
         }
     } else {
-        return res.status(400).json({
+        return res.status(200).json({
             code: 400,
             msg: "缺少id参数",
             timestamp: time(),
