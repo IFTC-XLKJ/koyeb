@@ -2688,7 +2688,7 @@ app.get("/api/user/details", async (req, res) => {
     const {
         id
     } = req.query;
-    console.log(typeof Number(id));
+    console.log(id, typeof Number(id));
     if (Number.isNaN(Number(id))) return res.status(200).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
