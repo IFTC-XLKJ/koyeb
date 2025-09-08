@@ -2690,7 +2690,7 @@ app.get("/api/user/details", async (req, res) => {
     } = req.query;
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id))) {
-        res.status(400).json({
+        return res.status(400).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
             timestamp: time(),
@@ -2703,14 +2703,14 @@ app.get("/api/user/details", async (req, res) => {
             if (json.code == 200) {
                 const data = json.fields[0];
                 if (!data) {
-                    res.status(404).json({
+                    return res.status(404).json({
                         code: 404,
                         id: id,
                         msg: "账号不存在",
                         timestamp: time(),
                     });
                 }
-                res.json({
+                return res.json({
                     code: 200,
                     msg: "账号数据获取成功",
                     data: {
@@ -2731,13 +2731,13 @@ app.get("/api/user/details", async (req, res) => {
                     timestamp: time(),
                 });
             } else {
-                res.status(json.code).json({
+                return res.status(json.code).json({
                     code: json.code,
                     msg: json.msg,
                 });
             }
         } catch (e) {
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
@@ -2745,7 +2745,7 @@ app.get("/api/user/details", async (req, res) => {
             });
         }
     } else {
-        res.status(400).json({
+        return res.status(400).json({
             code: 400,
             msg: "缺少id参数",
             timestamp: time(),
