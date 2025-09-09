@@ -839,14 +839,12 @@ app.get("/api/bookshelf/get", async (req, res) => {
         ID,
         page
     } = req.query;
-    if (!(ID || ID == 0) || !page) {
-        res.status(400).json({
+    if (!(ID || ID == 0) || !page) 
+        return res.status(400).json({
             code: 400,
             msg: "缺少ID或page参数",
             timestamp: time(),
         });
-        return;
-    }
     const books = new Books();
     const p = Number(page);
     const num = 10;
