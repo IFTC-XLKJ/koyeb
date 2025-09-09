@@ -860,7 +860,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
                     createdAt: field.createdAt,
                 });
             });
-            res.json({
+            return res.json({
                 code: 200,
                 msg: "获取成功",
                 data: data,
@@ -869,14 +869,14 @@ app.get("/api/bookshelf/get", async (req, res) => {
                 timestamp: time(),
             });
         } else {
-            res.status(json.code).json({
+            return res.status(json.code).json({
                 code: json.code,
                 msg: json.msg,
                 timestamp: time(),
             });
         }
     } catch (e) {
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: "服务内部错误",
             error: e.stack,
