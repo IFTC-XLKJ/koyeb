@@ -2174,25 +2174,23 @@ app.get("/api/book/chapters", async (req, res) => {
         id
     } = req.query;
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id))) {
-        res.status(400).json({
+    if (Number.isNaN(Number(id))) 
+        return res.status(400).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
             timestamp: time(),
         });
-    }
     if (id || id == 0) {
         const books = new Books();
         try {
             const json = await books.getChapters(id);
             if (json.code == 200) {
-                if (json.fields.length == 0) {
-                    res.status(404).json({
+                if (json.fields.length == 0) 
+                    return res.status(404).json({
                         code: 404,
                         msg: "图书不存在章节",
                         timestamp: time(),
                     });
-                }
                 const data = []
                 json.fields.forEach(field => {
                     data.push({
@@ -2204,16 +2202,16 @@ app.get("/api/book/chapters", async (req, res) => {
                         updatedAt: field.updatedAt
                     })
                 });
-                res.json({
+                return res.json({
                     code: 200,
                     msg: "获取成功",
                     data: data,
                     bookID: Number(id),
                     timestamp: time(),
-                })
+                });
             }
         } catch (e) {
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
@@ -2221,7 +2219,7 @@ app.get("/api/book/chapters", async (req, res) => {
             });
         }
     } else {
-        res.status(400).json({
+        return res.status(400).json({
             code: 400,
             msg: "缺少id参数",
             timestamp: time(),
