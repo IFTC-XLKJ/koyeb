@@ -2138,21 +2138,20 @@ app.get("/api/book/addbook", async (req, res) => {
         const books = new Books();
         try {
             const json = await books.addBook(decodeURIComponent(name), decodeURIComponent(id), decodeURIComponent(author), decodeURIComponent(description), decodeURIComponent(cover));
-            if (json.code == 200) {
-                res.json({
+            if (json.code == 200) 
+                return res.json({
                     code: 200,
                     msg: "添加成功",
                     timestamp: time(),
                 })
-            } else {
-                res.status(json.code).json({
+            else 
+                return res.status(json.code).json({
                     code: json.code,
                     msg: json.msg,
                     timestamp: time(),
                 });
-            }
         } catch (e) {
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
@@ -2160,7 +2159,7 @@ app.get("/api/book/addbook", async (req, res) => {
             });
         }
     } else {
-        res.status(400).json({
+        return res.status(400).json({
             code: 400,
             msg: "缺少name、id、description、cover、author参数",
             timestamp: time(),
