@@ -2813,23 +2813,20 @@ app.get("/api/book/getbyid", async (req, res) => {
         id,
         page = 1,
     } = req.query;
-    if (!id) {
-        res.status(400).json({
+    if (!id) 
+        return res.status(400).json({
             code: 400,
             msg: '缺少参数',
             timestamp: time()
         });
-        return;
-    }
+    
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id))) {
-        res.status(400).json({
+    if (Number.isNaN(Number(id))) 
+        return res.status(400).json({
             code: 400,
             msg: '参数错误',
             timestamp: time()
         });
-        return;
-    }
     const books = new Books();
     try {
         const json = await books.getById(id, page);
@@ -2848,16 +2845,16 @@ app.get("/api/book/getbyid", async (req, res) => {
                 updatedAt: item.updatedAt,
             })
         });
-        res.json({
+        console.log(json);
+        return res.json({
             code: 200,
             msg: '获取成功',
             data: data,
             ID: Number(id),
             timestamp: time()
         });
-        console.log(json);
     } catch (e) {
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: '服务器错误',
             error: e.message,
