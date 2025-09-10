@@ -31,9 +31,7 @@ class Books {
           sort: "书ID DESC",
         })
       });
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
+      if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
       const json = await response.json();
       console.log(json);
       return json;
