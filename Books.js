@@ -106,7 +106,18 @@ class Books {
   }
   async addBook(name, id, author, description, cover) {
     let lastBookId = null;
-    try {}catch(e) {}
+    try {
+      const lastOneJson = this.getLastOne();
+      lastBookId = lastOneJson.fields[0].书ID;
+      if (typeof lastBookId != "number"){
+        throw new Error('NaN');
+      }
+    }catch(e) {
+      return {
+        code: 400,
+        msg: e.message,
+      }
+    }
     const bookID = lastBookId++;
     const timestamp = time();
     const signaturePromise = sign.get(timestamp);
