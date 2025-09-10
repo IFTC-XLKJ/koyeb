@@ -28,7 +28,7 @@ class Books {
           filter: ``,
           page: 1,
           limit: 1,
-          sort: "",
+          sort: "书ID DESC",
         })
       });
       if (!response.ok) {
