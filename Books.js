@@ -76,7 +76,11 @@ class Books {
         }
     }
     async addBook(name, id, author, description, cover) {
-        const bookID = generateBookID();
+      let lastBookId=null;
+        try {
+          
+        }catch(e){}
+        const bookID = lastBookId++;
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
         try {
