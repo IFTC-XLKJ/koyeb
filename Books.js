@@ -107,7 +107,7 @@ class Books {
   async addBook(name, id, author, description, cover) {
     let lastBookId = null;
     try {
-      const lastOneJson = this.getLastOne();
+      const lastOneJson = await this.getLastOne();
       lastBookId = lastOneJson.fields[0].书ID;
       if (typeof lastBookId != "number") {
         throw new Error('NaN');
