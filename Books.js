@@ -10,494 +10,523 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Books {
-    constructor() { }
-    /**
-    * @param {String}
-    */
-    async search(keyword) {
-        const timestamp = time();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(getDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBooksKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    filter: `ID="${keyword}" OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
-                    page: 1,
-                    limit: 1000000000000,
-                    sort: "RAND()",
-                })
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async getChapters(bookID) {
-        const timestamp = time();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(getDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVChaptersKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    filter: `书ID="${bookID}"`,
-                    page: 1,
-                    limit: 1000000000000,
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async addBook(name, id, author, description, cover) {
-      let lastBookId=null;
-        try {
-          
-        }catch(e){}
-        const bookID = lastBookId++;
-        const timestamp = time();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBooksKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    type: "INSERT",
-                    filter: "ID,作者,书ID,书名,封面,介绍",
-                    fields: `(${id},"${author}","${bookID}","${name}","${cover}","${description}")`,
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async addChapter(id, bookid, num, name, content) {
-        const timestamp = time();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVChaptersKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    type: "INSERT",
-                    filter: "ID,书ID,章节编号,章节名,章节内容",
-                    fields: `(${id},"${bookid}","${num}","${name}","${content}")`
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async updateBook(type, id, data) {
-        let filter = `书ID="${id}"`;
-        let fields = ``;
-        if (type == "name") {
-            fields = `书名="${data}"`;
-        } else if (type == "author") {
-            fields = `作者="${data}"`;
-        } else if (type == "description") {
-            fields = `介绍="${data}"`;
-        } else if (type == "cover") {
-            fields = `封面="${data}"`;
-        } else {
-            return {
-                code: 400,
-                msg: "type参数值错误"
-            }
-        }
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBooksKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    type: "UPDATE",
-                    fields: fields,
-                    filter: filter,
-                    page: 1,
-                    limit: 1,
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async updateChapter(type, id, data) {
-        let filter = `书ID="${id}"`;
-        let fields = ``;
-        if (type == "name") {
-            fields = `章节名="${data}"`;
-        } else if (type == "content") {
-            fields = `章节内容="${data}"`;
-        } else {
-            return {
-                code: 400,
-                msg: "type参数值错误"
-            }
-        }
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVChaptersKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    type: "UPDATE",
-                    fields: fields,
-                    filter: filter,
-                    page: 1,
-                    limit: 1,
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async randomBook(num) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(getDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBooksKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    sort: "RAND()",
-                    page: 1,
-                    limit: num
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    async getBookshelf(ID, page, num) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp.toString(16));
-        try {
-            const signature = await signaturePromise;
-            console.log("令牌", signature);
-            const response = await fetch(getDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBookshelfKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    filter: `ID=${ID}`,
-                    sort: "updatedAt desc",
-                    page: page,
-                    limit: num
-                })
-            })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
-    }
-    /**
-    * @param {Array} IDs
-    * @return {Object}
-    */
-    async getBooks(IDs) {
-        let filter = "";
-        IDs.forEach((ID, i) => {
-            if (isNaN(Number(ID)) || ID.trim() == "") return;
-            filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "" : " OR "}`;
+  constructor() {}
+  async getLastOne() {
+    const timestamp = time();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          filter: `ID="${keyword}" OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
+          page: 1,
+          limit: 1000000000000,
+          sort: "RAND()",
         })
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(getDataURL,
-                {
-                    method: "POST",
-                    headers: {
-                        "X-Pgaot-Key": VVBooksKey,
-                        "X-Pgaot-Sign": signature,
-                        "X-Pgaot-Time": timestamp.toString(),
-                        "Content-Type": contentType
-                    },
-                    body: JSON.stringify({
-                        filter: filter,
-                        page: 1,
-                        limit: IDs.length
-                    })
-                })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
     }
-    async updateBookshelf(ID, BID, time) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL,
-                {
-                    method: "POST",
-                    headers: {
-                        "X-Pgaot-Key": VVBookshelfKey,
-                        "X-Pgaot-Sign": signature,
-                        "X-Pgaot-Time": timestamp.toString(),
-                        "Content-Type": contentType
-                    },
-                    body: JSON.stringify({
-                        type: "UPDATE",
-                        filter: `ID=${ID} AND 书ID=${BID}`,
-                        fields: `书ID=${BID}`,
-                    })
-                })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
+  }
+  /**
+  * @param {String}
+  */
+  async search(keyword) {
+    const timestamp = time();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          filter: `ID="${keyword}" OR 书ID LIKE "%${keyword}%" OR 作者 LIKE "%${keyword}%" OR 书名 LIKE "%${keyword}%" OR 介绍 LIKE "%${keyword}%"`,
+          page: 1,
+          limit: 1000000000000,
+          sort: "RAND()",
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
     }
-    async addBookshelf(ID, BID) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL,
-                {
-                    method: "POST",
-                    headers: {
-                        "X-Pgaot-Key": VVBookshelfKey,
-                        "X-Pgaot-Sign": signature,
-                        "X-Pgaot-Time": timestamp.toString(),
-                        "Content-Type": contentType
-                    },
-                    body: JSON.stringify({
-                        type: "INSERT",
-                        filter: `ID,书ID`,
-                        fields: `(${ID}, ${BID})`,
-                    })
-                })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
+  }
+  async getChapters(bookID) {
+    const timestamp = time();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVChaptersKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          filter: `书ID="${bookID}"`,
+          page: 1,
+          limit: 1000000000000,
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
     }
-    async noaddBookshelf(ID, BID) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(setDataURL,
-                {
-                    method: "POST",
-                    headers: {
-                        "X-Pgaot-Key": VVBookshelfKey,
-                        "X-Pgaot-Sign": signature,
-                        "X-Pgaot-Time": timestamp.toString(),
-                        "Content-Type": contentType
-                    },
-                    body: JSON.stringify({
-                        type: "DELETE",
-                        filter: `ID=${ID} AND 书ID=${BID}`,
-                    })
-                })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
+  }
+  async addBook(name, id, author, description, cover) {
+    let lastBookId = null;
+    try {}catch(e) {}
+    const bookID = lastBookId++;
+    const timestamp = time();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          type: "INSERT",
+          filter: "ID,作者,书ID,书名,封面,介绍",
+          fields: `(${id},"${author}","${bookID}","${name}","${cover}","${description}")`,
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
     }
-    async getBookshelfAll(ID) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(getDataURL,
-                {
-                    method: "POST",
-                    headers: {
-                        "X-Pgaot-Key": VVBookshelfKey,
-                        "X-Pgaot-Sign": signature,
-                        "X-Pgaot-Time": timestamp.toString(),
-                        "Content-Type": contentType
-                    },
-                    body: JSON.stringify({
-                        filter: `ID=${ID}`,
-                        page: 1,
-                        limit: 1000000000000,
-                    })
-                })
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
+  }
+  async addChapter(id, bookid, num, name, content) {
+    const timestamp = time();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVChaptersKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          type: "INSERT",
+          filter: "ID,书ID,章节编号,章节名,章节内容",
+          fields: `(${id},"${bookid}","${num}","${name}","${content}")`
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
     }
-    async getById(id, page = 1) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(getDataURL, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": VVBooksKey,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType
-                },
-                body: JSON.stringify({
-                    filter: `ID=${id}`,
-                    page: page,
-                    limit: 10,
-                    sort: "updatedAt DESC"
-                })
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok ' + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            throw error;
-        }
+  }
+  async updateBook(type, id, data) {
+    let filter = `书ID="${id}"`;
+    let fields = ``;
+    if (type == "name") {
+      fields = `书名="${data}"`;
+    } else if (type == "author") {
+      fields = `作者="${data}"`;
+    } else if (type == "description") {
+      fields = `介绍="${data}"`;
+    } else if (type == "cover") {
+      fields = `封面="${data}"`;
+    } else {
+      return {
+        code: 400,
+        msg: "type参数值错误"
+      }
     }
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          type: "UPDATE",
+          fields: fields,
+          filter: filter,
+          page: 1,
+          limit: 1,
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async updateChapter(type, id, data) {
+    let filter = `书ID="${id}"`;
+    let fields = ``;
+    if (type == "name") {
+      fields = `章节名="${data}"`;
+    } else if (type == "content") {
+      fields = `章节内容="${data}"`;
+    } else {
+      return {
+        code: 400,
+        msg: "type参数值错误"
+      }
+    }
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVChaptersKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          type: "UPDATE",
+          fields: fields,
+          filter: filter,
+          page: 1,
+          limit: 1,
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async randomBook(num) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          sort: "RAND()",
+          page: 1,
+          limit: num
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async getBookshelf(ID, page, num) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp.toString(16));
+    try {
+      const signature = await signaturePromise;
+      console.log("令牌", signature);
+      const response = await fetch(getDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBookshelfKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          filter: `ID=${ID}`,
+          sort: "updatedAt desc",
+          page: page,
+          limit: num
+        })
+      })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  /**
+  * @param {Array} IDs
+  * @return {Object}
+  */
+  async getBooks(IDs) {
+    let filter = "";
+    IDs.forEach((ID, i) => {
+      if (isNaN(Number(ID)) || ID.trim() == "") return;
+      filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "": " OR "}`;
+    })
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL,
+        {
+          method: "POST",
+          headers: {
+            "X-Pgaot-Key": VVBooksKey,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+            "Content-Type": contentType
+          },
+          body: JSON.stringify({
+            filter: filter,
+            page: 1,
+            limit: IDs.length
+          })
+        })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async updateBookshelf(ID, BID, time) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL,
+        {
+          method: "POST",
+          headers: {
+            "X-Pgaot-Key": VVBookshelfKey,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+            "Content-Type": contentType
+          },
+          body: JSON.stringify({
+            type: "UPDATE",
+            filter: `ID=${ID} AND 书ID=${BID}`,
+            fields: `书ID=${BID}`,
+          })
+        })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async addBookshelf(ID, BID) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL,
+        {
+          method: "POST",
+          headers: {
+            "X-Pgaot-Key": VVBookshelfKey,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+            "Content-Type": contentType
+          },
+          body: JSON.stringify({
+            type: "INSERT",
+            filter: `ID,书ID`,
+            fields: `(${ID}, ${BID})`,
+          })
+        })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async noaddBookshelf(ID, BID) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL,
+        {
+          method: "POST",
+          headers: {
+            "X-Pgaot-Key": VVBookshelfKey,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+            "Content-Type": contentType
+          },
+          body: JSON.stringify({
+            type: "DELETE",
+            filter: `ID=${ID} AND 书ID=${BID}`,
+          })
+        })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async getBookshelfAll(ID) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL,
+        {
+          method: "POST",
+          headers: {
+            "X-Pgaot-Key": VVBookshelfKey,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+            "Content-Type": contentType
+          },
+          body: JSON.stringify({
+            filter: `ID=${ID}`,
+            page: 1,
+            limit: 1000000000000,
+          })
+        })
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
+  async getById(id, page = 1) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(getDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType
+        },
+        body: JSON.stringify({
+          filter: `ID=${id}`,
+          page: page,
+          limit: 10,
+          sort: "updatedAt DESC"
+        })
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok ' + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error('There was a problem with the fetch operation:', error);
+      throw error;
+    }
+  }
 }
 
 function generateBookID() {
-    const timestamp = Date.now();
-    const id = (timestamp * Math.random()).toString().slice(0, 10).replace('.', '');
-    return id.padEnd(10, '0');
+  const timestamp = Date.now();
+  const id = (timestamp * Math.random()).toString().slice(0, 10).replace('.', '');
+  return id.padEnd(10, '0');
 }
 
 function time() {
-    return Date.now();
+  return Date.now();
 }
 
 module.exports = Books;
