@@ -109,7 +109,7 @@ class Books {
     try {
       const lastOneJson = this.getLastOne();
       lastBookId = lastOneJson.fields[0].书ID;
-      if (typeof lastBookId != "number"){
+      if (typeof lastBookId != "number") {
         throw new Error('NaN');
       }
     }catch(e) {
