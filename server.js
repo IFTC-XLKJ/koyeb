@@ -2441,42 +2441,34 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
 
 app.get("/api/verifycode", async (req, res) => {
     requestLog(req);
-    const {
-        email,
-        code
-    } = req.query;
+    const { email, code } = req.query;
     console.log(email, code);
     if (email && code) {
         const user = new User();
         try {
             const json = await user.verifyCode(decodeURIComponent(email), code);
-            if (json.code == 200) {
-                res.json({
-                    code: 200,
-                    msg: "验证成功",
-                });
-            } else {
-                res.status(400).json({
-                    code: 400,
-                    msg: "验证失败",
-                });
-            }
+            if (json.code == 200) return res.json({
+                code: 200,
+                msg: "验证成功",
+            });
+            else return res.status(400).json({
+                code: 400,
+                msg: "验证失败",
+            });
         } catch (e) {
             console.error(e);
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
                 timestamp: time(),
             });
         }
-    } else {
-        res.status(400).json({
-            code: 400,
-            msg: "缺少email或code参数",
-            timestamp: time(),
-        });
-    }
+    } else return res.status(400).json({
+        code: 400,
+        msg: "缺少email或code参数",
+        timestamp: time(),
+    });
 })
 
 app.get("/api/sendcode", async (req, res) => {
