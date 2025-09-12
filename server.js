@@ -2863,17 +2863,15 @@ app.get("/proxy-file", async (req, res) => {
     try {
         const response = await fetch(url);
         console.log("Content-Type:", response.headers.get('content-type') || "application/octet-stream");
-
         res.set('Content-Type', response.headers.get('content-type') || "application/octet-stream");
         res.set("Content-Length", response.headers.get('content-length'));
         res.set("Accept-Ranges", "bytes");
         res.set("Access-Control-Allow-Origin", "*");
-
         const buffer = await response.buffer();
-        res.send(buffer);
+        return res.send(buffer);
     } catch (error) {
         console.error(error);
-        res.status(500).send('Error fetching file');
+        return res.status(500).send('Error fetching file');
     }
 });
 
