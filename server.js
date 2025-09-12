@@ -2630,10 +2630,7 @@ app.get("/api/user/register", async (req, res) => {
 
 app.get("/api/user/login", async (req, res) => {
     requestLog(req)
-    const {
-        user,
-        password
-    } = req.query;
+    const { user, password } = req.query;
     console.log(user, password);
     if ((user || user == 0) && password) {
         const auser = new User();
@@ -2641,26 +2638,22 @@ app.get("/api/user/login", async (req, res) => {
             const json = await auser.login(decodeURIComponent(user), decodeURIComponent(password));
             if (json.code == 200) {
                 const data = json.fields[0];
-                if (!data) {
-                    res.status(404).json({
-                        code: 401,
-                        msg: "账号或密码错误",
-                        timestamp: time(),
-                    });
-                }
-                res.json({
+                if (!data) return res.status(404).json({
+                    code: 401,
+                    msg: "账号或密码错误",
+                    timestamp: time(),
+                });
+                return res.json({
                     code: 200,
                     msg: "登录成功",
                     id: data.ID,
                 });
-            } else {
-                res.status(json.code).json({
-                    code: json.code,
-                    msg: json.msg,
-                });
-            }
+            } else return res.status(json.code).json({
+                code: json.code,
+                msg: json.msg,
+            });
         } catch (e) {
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
@@ -2668,7 +2661,7 @@ app.get("/api/user/login", async (req, res) => {
             });
         }
     } else {
-        res.status(400).json({
+        return res.status(400).json({
             code: 400,
             msg: "缺少user或password参数",
             timestamp: time(),
