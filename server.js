@@ -2371,9 +2371,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
 
 app.get("/api/user/resetpassword/:uuid", async (req, res) => {
     requestLog(req);
-    const {
-        uuid
-    } = req.params;
+    const { uuid } = req.params;
     if (uuid) {
         const user = new User();
         const UUID_db = new UUIDdb();
@@ -2383,60 +2381,47 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
                 const json = await UUID_db.getData(uuid);
                 if (json.code == 200) {
                     const data = json.fields[0];
-                    if (!data) {
-                        res.status(400).json({
-                            code: 404,
-                            msg: "UUID不存在",
-                            timestamp: time(),
-                        });
-                    }
-                    if (data.类型 != "resetpassword") {
-                        res.status(400).json({
-                            code: 400,
-                            msg: "UUID类型错误",
-                            timestamp: time(),
-                        });
-                    }
+                    if (!data) return res.status(400).json({
+                        code: 404,
+                        msg: "UUID不存在",
+                        timestamp: time(),
+                    });
+                    if (data.类型 != "resetpassword") return res.status(400).json({
+                        code: 400,
+                        msg: "UUID类型错误",
+                        timestamp: time(),
+                    });
                     const json2 = await user.resetPassword(data.ID, String(data.数据));
-                    if (json2.code == 200) {
-                        res.json({
-                            code: 200,
-                            msg: "密码重置成功",
-                        });
-                    } else {
-                        res.status(400).json({
-                            code: 400,
-                            msg: "请求失败",
-                            timestamp: time(),
-                        });
-                    }
-                } else {
-                    res.status(400).json({
+                    if (json2.code == 200) return res.json({
+                        code: 200,
+                        msg: "密码重置成功",
+                    });
+                    else return res.status(400).json({
                         code: 400,
                         msg: "请求失败",
                         timestamp: time(),
                     });
-                }
+                } else return res.status(400).json({
+                    code: 400,
+                    msg: "请求失败",
+                    timestamp: time(),
+                });
             } catch (e) {
-                res.status(500).json({
+                return res.status(500).json({
                     code: 500,
                     msg: "服务内部错误，请联系官方(QQ:3164417130)",
                     error: String(e),
                     timestamp: time(),
                 });
             }
-        } else {
-            res.status(400).json({
-                code: 400,
-                msg: "UUID格式错误"
-            })
-        }
-    } else {
-        res.status(400).json({
+        } else return res.status(400).json({
             code: 400,
-            msg: "缺少uuid参数"
-        })
-    }
+            msg: "UUID格式错误"
+        });
+    } else return res.status(400).json({
+        code: 400,
+        msg: "缺少uuid参数"
+    });
 })
 
 app.get("/api/verifycode", async (req, res) => {
