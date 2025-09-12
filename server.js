@@ -2757,13 +2757,11 @@ app.get('/api/qrcode', async (req, res) => {
     requestLog(req);
     const data = req.query.data;
     const type = req.query.type || 'png';
-    if (!data) {
-        res.status(400).json({
-            code: 400,
-            msg: "缺少data参数",
-            timestamp: time(),
-        });
-    }
+    if (!data) return res.status(400).json({
+        code: 400,
+        msg: "缺少data参数",
+        timestamp: time(),
+    });
     try {
         if (type == "svg") {
             const qrcode = new QRCodeSvg({
@@ -2789,11 +2787,11 @@ app.get('/api/qrcode', async (req, res) => {
             });
             res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
             res.setHeader('Content-Length', qrBuffer.length);
-            res.send(qrBuffer);
+            return res.send(qrBuffer);
         }
     } catch (err) {
         console.error(err);
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: '生成二维码失败',
             error: err.message,
