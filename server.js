@@ -2804,24 +2804,18 @@ app.get('/api/qrcode', async (req, res) => {
 
 app.get("/api/book/getbyid", async (req, res) => {
     requestLog(req);
-    const {
-        id,
-        page = 1,
-    } = req.query;
-    if (!id)
-        return res.status(400).json({
-            code: 400,
-            msg: '缺少参数',
-            timestamp: time()
-        });
-
+    const { id, page = 1, } = req.query;
+    if (!id) return res.status(400).json({
+        code: 400,
+        msg: '缺少参数',
+        timestamp: time()
+    });
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id)))
-        return res.status(400).json({
-            code: 400,
-            msg: '参数错误',
-            timestamp: time()
-        });
+    if (Number.isNaN(Number(id))) return res.status(400).json({
+        code: 400,
+        msg: '参数错误',
+        timestamp: time()
+    });
     const books = new Books();
     try {
         const json = await books.getById(id, page);
