@@ -2522,68 +2522,50 @@ app.get("/api/sendcode", async (req, res) => {
 
 app.get("/api/user/update", async (req, res) => {
     requestLog(req);
-    const {
-        type,
-        id,
-        password,
-        data
-    } = req.query;
+    const { type, id, password, data } = req.query;
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id))) {
-        res.status(400).json({
-            code: 400,
-            msg: "id参数类型错误，必须为数值类型",
-            timestamp: time(),
-        });
-    }
-    if (id != 0 && type == "nickname" && decodeURIComponent(data).includes("#")) {
-        res.status(400).json({
-            code: 400,
-            msg: "昵称不能包含#字符",
-            timestamp: time(),
-        });
-        return;
-    }
-    if (id != 0 && type == "password" && decodeURIComponent(data).includes("#")) {
-        res.status(400).json({
-            code: 400,
-            msg: "密码不能包含#字符",
-            timestamp: time(),
-        });
-        return;
-    }
+    if (Number.isNaN(Number(id))) return res.status(400).json({
+        code: 400,
+        msg: "id参数类型错误，必须为数值类型",
+        timestamp: time(),
+    });
+    if (id != 0 && type == "nickname" && decodeURIComponent(data).includes("#")) return res.status(400).json({
+        code: 400,
+        msg: "昵称不能包含#字符",
+        timestamp: time(),
+    });
+    if (id != 0 && type == "password" && decodeURIComponent(data).includes("#")) return res.status(400).json({
+        code: 400,
+        msg: "密码不能包含#字符",
+        timestamp: time(),
+    });
     if (type && (id || id == 0) && password && data) {
         const user = new User();
         try {
             const json = await user.update(type, id, decodeURIComponent(password), decodeURIComponent(data));
-            if (json.code == 200) {
-                res.json({
-                    code: 200,
-                    msg: "账号数据更新成功",
-                    id: Number(id),
-                })
-            } else {
-                res.status(400).json({
-                    code: 400,
-                    msg: "账号数据更新失败",
-                });
-            }
+            if (json.code == 200) return res.json({
+                code: 200,
+                msg: "账号数据更新成功",
+                id: Number(id),
+            });
+            else return res.status(400).json({
+                code: 400,
+                msg: "账号数据更新失败",
+            });
         } catch (e) {
             console.error(e);
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
                 timestamp: time(),
             });
         }
-    } else {
-        res.status(400).json({
-            code: 400,
-            msg: "缺少type或id或password或data参数",
-            timestamp: time(),
-        });
-    }
+    } else return res.status(400).json({
+        code: 400,
+        msg: "缺少type或id或password或data参数",
+        timestamp: time(),
+    });
 });
 
 app.get("/api/user/register", async (req, res) => {
