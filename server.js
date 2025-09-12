@@ -9,9 +9,7 @@ const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
 const fetch = require("node-fetch");
-const {
-    GameDig
-} = require("./node_modules/gamedig/dist/index.cjs");
+const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
 const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
@@ -839,7 +837,7 @@ app.get("/api/bookshelf/get", async (req, res) => {
         ID,
         page
     } = req.query;
-    if (!(ID || ID == 0) || !page) 
+    if (!(ID || ID == 0) || !page)
         return res.status(400).json({
             code: 400,
             msg: "缺少ID或page参数",
@@ -2138,13 +2136,13 @@ app.get("/api/book/addbook", async (req, res) => {
         const books = new Books();
         try {
             const json = await books.addBook(decodeURIComponent(name), decodeURIComponent(id), decodeURIComponent(author), decodeURIComponent(description), decodeURIComponent(cover));
-            if (json.code == 200) 
+            if (json.code == 200)
                 return res.json({
                     code: 200,
                     msg: "添加成功",
                     timestamp: time(),
                 })
-            else 
+            else
                 return res.status(json.code).json({
                     code: json.code,
                     msg: json.msg,
@@ -2173,7 +2171,7 @@ app.get("/api/book/chapters", async (req, res) => {
         id
     } = req.query;
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id))) 
+    if (Number.isNaN(Number(id)))
         return res.status(400).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
@@ -2184,7 +2182,7 @@ app.get("/api/book/chapters", async (req, res) => {
         try {
             const json = await books.getChapters(id);
             if (json.code == 200) {
-                if (json.fields.length == 0) 
+                if (json.fields.length == 0)
                     return res.status(404).json({
                         code: 404,
                         msg: "图书不存在章节",
@@ -2685,10 +2683,10 @@ app.get("/api/user/details", async (req, res) => {
     } = req.query;
     console.log(id, typeof Number(id));
     if (Number.isNaN(Number(id))) return res.status(200).json({
-            code: 400,
-            msg: "id参数类型错误，必须为数值类型",
-            timestamp: time(),
-        });
+        code: 400,
+        msg: "id参数类型错误，必须为数值类型",
+        timestamp: time(),
+    });
     if (id) {
         const user = new User();
         try {
@@ -2810,15 +2808,15 @@ app.get("/api/book/getbyid", async (req, res) => {
         id,
         page = 1,
     } = req.query;
-    if (!id) 
+    if (!id)
         return res.status(400).json({
             code: 400,
             msg: '缺少参数',
             timestamp: time()
         });
-    
+
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id))) 
+    if (Number.isNaN(Number(id)))
         return res.status(400).json({
             code: 400,
             msg: '参数错误',
