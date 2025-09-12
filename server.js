@@ -2481,43 +2481,34 @@ app.get("/api/verifycode", async (req, res) => {
 
 app.get("/api/sendcode", async (req, res) => {
     requestLog(req);
-    const {
-        email,
-        title,
-        content
-    } = req.query;
+    const { email, title, content } = req.query;
     console.log(email, title, content);
     if (email && title && content) {
         const user = new User();
         try {
             const json = await user.sendCode(decodeURIComponent(email), decodeURIComponent(title), decodeURIComponent(content));
-            if (json.status == 1) {
-                res.json({
-                    code: 200,
-                    msg: "发送成功",
-                });
-            } else {
-                res.status(400).json({
-                    code: 400,
-                    msg: "发送失败",
-                });
-            }
+            if (json.status == 1) return res.json({
+                code: 200,
+                msg: "发送成功",
+            });
+            else return res.status(400).json({
+                code: 400,
+                msg: "发送失败",
+            });
         } catch (e) {
             console.error(e);
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
                 timestamp: time(),
             });
         }
-    } else {
-        res.status(400).json({
-            code: 400,
-            msg: "缺少email或title或content参数",
-            timestamp: time(),
-        });
-    }
+    } else return res.status(400).json({
+        code: 400,
+        msg: "缺少email或title或content参数",
+        timestamp: time(),
+    });
 })
 
 app.get("/api/user/update", async (req, res) => {
