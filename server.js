@@ -2285,7 +2285,7 @@ app.get("/api/runtime", (req, res) => {
 app.get("/api/ip", (req, res) => {
     requestLog(req);
     const ip = req.headers["x-forwarded-for"] || null;
-    res.json({
+    return res.json({
         code: 200,
         msg: "请求成功",
         ip: ip,
