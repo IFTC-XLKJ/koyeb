@@ -2273,7 +2273,7 @@ app.get("/api/book/search", async (req, res) => {
 
 app.get("/api/runtime", (req, res) => {
     requestLog(req);
-    res.json({
+    return res.json({
         code: 200,
         msg: "请求成功",
         runtime: formatDuration(Date.now() - startTime),
