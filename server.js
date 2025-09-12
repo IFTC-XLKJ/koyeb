@@ -2678,9 +2678,7 @@ app.get("/api/user/login", async (req, res) => {
 
 app.get("/api/user/details", async (req, res) => {
     requestLog(req);
-    const {
-        id
-    } = req.query;
+    const { id } = req.query;
     console.log(id, typeof Number(id));
     if (Number.isNaN(Number(id))) return res.status(200).json({
         code: 400,
@@ -2693,14 +2691,12 @@ app.get("/api/user/details", async (req, res) => {
             const json = await user.getByID(id);
             if (json.code == 200) {
                 const data = json.fields[0];
-                if (!data) {
-                    return res.status(404).json({
-                        code: 404,
-                        id: id,
-                        msg: "账号不存在",
-                        timestamp: time(),
-                    });
-                }
+                if (!data) return res.status(404).json({
+                    code: 404,
+                    id: id,
+                    msg: "账号不存在",
+                    timestamp: time(),
+                });
                 return res.json({
                     code: 200,
                     msg: "账号数据获取成功",
@@ -2746,7 +2742,7 @@ app.get("/api/user/details", async (req, res) => {
 
 app.get("/api/console/clear", (req, res) => {
     console.clear();
-    res.json({
+    return res.json({
         code: 200,
         msg: "清除成功",
         timestamp: time(),
