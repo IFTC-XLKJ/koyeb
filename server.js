@@ -2296,20 +2296,13 @@ app.get("/api/ip", (req, res) => {
 app.get("/api/user/resetpassword", async (req, res) => {
     requestLog(req);
     const uuid = generateUUID();
-    const {
-        email,
-        ID,
-        password
-    } = req.query;
+    const { email, ID, password } = req.query;
     console.log(Number(ID));
-    if (Number.isNaN(Number(ID))) {
-        res.status(400).json({
-            code: 400,
-            msg: "id参数类型错误，必须为数值类型",
-            timestamp: time(),
-        });
-        return;
-    }
+    if (Number.isNaN(Number(ID))) return res.status(400).json({
+        code: 400,
+        msg: "id参数类型错误，必须为数值类型",
+        timestamp: time(),
+    });
     if (email || (ID || ID == 0) || password) {
         const UUID_db = new UUIDdb();
         try {
@@ -2328,45 +2321,37 @@ app.get("/api/user/resetpassword", async (req, res) => {
                     </body>
                     </html>`)
                 console.log(typeof json2)
-                if (json2.status == 1) {
-                    res.json({
-                        code: 200,
-                        msg: "请求成功",
-                    });
-                } else if (json2.code == 420) {
-                    res.status(420).json({
-                        code: 420,
-                        msg: "1分钟内只能请求1次",
-                        timestamp: time(),
-                    });
-                } else {
-                    res.status(400).json({
-                        code: 400,
-                        msg: "请求失败",
-                    });
-                }
-            } else {
-                res.status(400).json({
-                    code: 400,
-                    msg: "请求失败",
+                if (json2.status == 1) return res.json({
+                    code: 200,
+                    msg: "请求成功",
+                });
+                else if (json2.code == 420) return res.status(420).json({
+                    code: 420,
+                    msg: "1分钟内只能请求1次",
                     timestamp: time(),
                 });
-            }
+                else return res.status(400).json({
+                    code: 400,
+                    msg: "请求失败",
+                });
+            } else return res.status(400).json({
+                code: 400,
+                msg: "请求失败",
+                timestamp: time(),
+            });
         } catch (e) {
-            res.status(500).json({
+            return res.status(500).json({
                 code: 500,
                 msg: "服务内部错误，请联系官方(QQ:3164417130)",
                 error: String(e),
                 timestamp: time(),
             });
         }
-    } else {
-        res.status(400).json({
-            code: 400,
-            msg: "缺少email或id或password参数",
-            timestamp: time(),
-        });
-    }
+    } else return res.status(400).json({
+        code: 400,
+        msg: "缺少email或id或password参数",
+        timestamp: time(),
+    });
 })
 
 app.get("/api/user/resetpassword/:uuid", async (req, res) => {
