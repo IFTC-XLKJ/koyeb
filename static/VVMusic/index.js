@@ -15,10 +15,11 @@ if (!localStorage.getItem('music-search-history')) {
     localStorage.setItem('music-search-history', JSON.stringify([]));
 }
 
-globalThis.APIHost = "https://www.lihouse.xyz/coco_widget";
+globalThis.APIHost = "https://www.lihouse.xyz";
 (async function () {
     try {
         const r = await fetch(APIHost);
+        APIHost += '/coco_widget';
         console.log(await r.text());
     } catch (e) {
         APIHost = 'https://vvapi.deno.dev';
