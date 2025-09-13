@@ -67,10 +67,7 @@ searchInput.addEventListener('input', function () {
     renderHistory();
 });
 searchBtn.addEventListener('click', async function () {
-    if (!searchInput.value) {
-        const id = toast.showToast('搜索内容不能为空', 2, 'center', 'small', 'error', false, true);
-        return;
-    }
+    if (!searchInput.value) return toast.showToast('搜索内容不能为空', 2, 'center', 'small', 'error', false, true);
     keyword = searchInput.value;
     const musics = await getMusicList(keyword);
     if (!musics) return;
