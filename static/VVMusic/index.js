@@ -16,10 +16,10 @@ if (!localStorage.getItem('music-search-history')) {
 }
 
 globalThis.APIHost = 'https://vvapi.deno.dev';
-(async function(){
-    try{
+(async function () {
+    try {
         const r = await fetch(APIHost);
-    } catch(e) {
+    } catch (e) {
         APIHost = "https://www.lihouse.xyz/coco_widget";
     }
 })();
@@ -40,10 +40,7 @@ const download = document.getElementById('download');
 const changeVolume = document.getElementById('changeVolume');
 searchInput.addEventListener('keydown', async function (e) {
     if (e.key == 'Enter') {
-        if (!searchInput.value) {
-            const id = toast.showToast('搜索内容不能为空', 2, 'center', 'small', 'error', false, true)
-            return;
-        }
+        if (!searchInput.value) return toast.showToast('搜索内容不能为空', 2, 'center', 'small', 'error', false, true);
         keyword = searchInput.value;
         const history = JSON.parse(localStorage.getItem('music-search-history'));
         if (!checkInclude(history, keyword)) history.unshift({ date: Date.now(), keyword });
@@ -52,9 +49,7 @@ searchInput.addEventListener('keydown', async function (e) {
         if (!musics) return;
         renderMusicList(musics);
         function checkInclude(arr, str) {
-            for (let i = 0; i < arr.length; i++) {
-                if (arr[i].keyword === str) return true;
-            }
+            for (let i = 0; i < arr.length; i++) if (arr[i].keyword === str) return true;
             return false;
         }
     } else if (e.key == 'Escape' || e.key == 'Delete') {
