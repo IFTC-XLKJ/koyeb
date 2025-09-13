@@ -15,16 +15,15 @@ if (!localStorage.getItem('music-search-history')) {
     localStorage.setItem('music-search-history', JSON.stringify([]));
 }
 
-globalThis.APIHost = "https://www.lihouse.xyz";
-(async function () {
-    try {
-        const r = await fetch(APIHost);
-        APIHost += '/coco_widget';
-        console.log(await r.text());
-    } catch (e) {
-        APIHost = 'https://vvapi.deno.dev';
-    }
-})();
+globalThis.APIHost = "https://www.lihouse.xyz/coco_widget";
+// (async function () {
+//     try {
+//         const r = await fetch(APIHost);
+//         console.log(await r.text());
+//     } catch (e) {
+//         APIHost = 'https://vvapi.deno.dev';
+//     }
+// })();
 const tips = document.getElementById('tips');
 tips.style.width = '300px';
 tips.style.display = 'flex';
