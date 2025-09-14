@@ -446,22 +446,22 @@ app.all('/proxy/*', async (req, res) => {
 
 app.all("/BingSiteAuth.xml", (req, res) => {
     requestLog(req);
-    res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
+    return res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
 })
 
 app.all("/sitemap.xml", (req, res) => {
     requestLog(req);
-    res.sendFile(path.join(__dirname, "sitemap.xml"));
+    return res.sendFile(path.join(__dirname, "sitemap.xml"));
 })
 
 app.get("/favicon.ico", (req, res) => {
     requestLog(req);
-    res.sendFile(path.join(__dirname, "favicon.ico"));
+    return res.sendFile(path.join(__dirname, "favicon.ico"));
 })
 
 app.get("/102134969.json", (req, res) => {
     requestLog(req);
-    res.json({
+    return res.json({
         "bot_appid": 102134969
     });
 })
