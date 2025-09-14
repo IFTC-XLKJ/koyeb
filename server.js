@@ -510,6 +510,16 @@ app.all("/api", (req, res) => {
         Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true : void 0,
     });
 });
+// 获取书籍收藏量
+app.get("/api/book/getcolections", async (req, res) => {
+    requestLog(req);
+    const { bid } = req.query;
+    if (!bid) return res.status(400).json({
+        code: 400,
+        msg: "缺少参数",
+        timestamp: time(),
+    });
+});
 // 获取所有书架
 app.get("/api/bookshelf/getall", async (req, res) => {
     requestLog(req);
