@@ -1991,11 +1991,11 @@ app.get("/api/noob/publish", async (req, res) => {
 
 app.get("/api/book/updatebook", async (req, res) => {
     requestLog(req);
-    const { type, id, data } = req.query;
-    if (type && (id || id == 0) && data) {
+    const { type, bid, data } = req.query;
+    if (type && bid && data) {
         const books = new Books();
         try {
-            const json = await books.updateBook(type, id, decodeURIComponent(data));
+            const json = await books.updateBook(type, bid, decodeURIComponent(data));
             if (json.code == 200) return res.json({
                 code: 200,
                 msg: "更新成功",
