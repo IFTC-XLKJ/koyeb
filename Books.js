@@ -534,18 +534,16 @@ class Books {
       const response = await fetch(getDataURL, {
         method: "POST",
         headers: {
-          "X-Pgaot-Key": VVBooksKey,
+          "X-Pgaot-Key": VVBookshelfKey,
           "X-Pgaot-Sign": signature,
           "X-Pgaot-Time": timestamp.toString(),
           "Content-Type": contentType
         },
         body: JSON.stringify({
-          filter: `ID=${bid}`,
+          filter: `书ID=${bid}`,
         })
       })
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
+      if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
       const json = await response.json();
       console.log(json);
       return json;
