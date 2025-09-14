@@ -194,13 +194,13 @@ class User {
     }
     verifyCode(email, code) {
         let t = Math.round(new Date().getTime() / 1000);
-        var raw = JSON.stringify({
+        const raw = JSON.stringify({
             key: "f7115d5ac87aedd4d42cf510ed064449",
             identity: email,
             code: code,
             t: t,
         });
-        var requestOptions = {
+        const requestOptions = {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
