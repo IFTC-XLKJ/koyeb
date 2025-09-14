@@ -181,19 +181,13 @@ class Books {
   async updateBook(type, bid, data) {
     let filter = `书ID="${bid}"`;
     let fields = ``;
-    if (type == "name") {
-      fields = `书名="${data}"`;
-    } else if (type == "author") {
-      fields = `作者="${data}"`;
-    } else if (type == "description") {
-      fields = `介绍="${data}"`;
-    } else if (type == "cover") {
-      fields = `封面="${data}"`;
-    } else {
-      return {
-        code: 400,
-        msg: "type参数值错误"
-      }
+    if (type == "name") fields = `书名="${data}"`;
+    else if (type == "author") fields = `作者="${data}"`;
+    else if (type == "description") fields = `介绍="${data}"`;
+    else if (type == "cover") fields = `封面="${data}"`;
+    else return {
+      code: 400,
+      msg: "type参数值错误"
     }
     const timestamp = Date.now();
     const signaturePromise = sign.get(timestamp);
@@ -215,9 +209,7 @@ class Books {
           limit: 1,
         })
       })
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
+      if (!response.ok) throw new Error('Network response was not ok ' + response.statusText);
       const json = await response.json();
       console.log(json);
       return json;
