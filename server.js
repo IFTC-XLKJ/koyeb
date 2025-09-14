@@ -419,22 +419,28 @@ app.all('/proxy/*', async (req, res) => {
     const url = requestedPath.replace("/proxy/", "");
     try {
         const response = await fetch(url, {
-            method: req.method, headers: req.headers, body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body, verbose: true
+            method: req.method,
+            headers: req.headers,
+            body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body,
+            verbose: true
         });
         const contentType = response.headers.get("content-type");
         if (contentType && (contentType.startsWith("image/") || contentType.startsWith("audio/") || contentType.startsWith("video/") || contentType.startsWith("application/octet-stream"))) {
             const blob = await response.blob();
-            res.send(blob)
+            console.log("Blob:", blob);
+            return res.send(blob);
         }
         try {
             const json = await response.json();
-            res.status(response.status).json(json);
+            console.log("JSON:", json);
+            return res.status(response.status).json(json);
         } catch (error) {
-            res.status(response.status).send(response.statusText);
+            console.error(error);
+            return res.status(response.status).send(response.statusText);
         }
     } catch (error) {
         console.error(error);
-        res.status(500).send("Internal Server Error");
+        return res.status(500).send("Internal Server Error");
     }
 });
 
