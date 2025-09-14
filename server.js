@@ -51,16 +51,10 @@ try {
     console.error(e);
 }
 app.use(async (req, res, next) => {
-    if (req.headers["user-agent"] == "Koyeb Health Check") {
-        next();
-        return;
-    }
-    if (req.headers["user-agent"] == "IFTC Bot") {
-        next();
-        return;
-    }
+    if (req.headers["user-agent"] == "Koyeb Health Check") return next();
+    if (req.headers["user-agent"] == "IFTC Bot") return next();
     requestRecord(req);
-    next();
+    return next();
 });
 async function requestRecord(req) {
     const url = new URL(req.url, `https://${req.headers.host}`);
