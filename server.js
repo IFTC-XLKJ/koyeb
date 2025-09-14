@@ -498,7 +498,7 @@ app.all("/api", (req, res) => {
         '发布论坛帖子 POST /discussion/publish {"ID": "用户ID(必填)", "username": "用户名(必填)", "avatar": "头像(必填)", "title": "头衔(必填)", "titleColor": "头衔色(必填)", "content": "帖子内容(必填)"}',
         "随机用户名 GET /randomusername",
     ]
-    res.json({
+    return res.json({
         code: 200,
         msg: "请求成功",
         copyright: "IFTC",
