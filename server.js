@@ -697,7 +697,6 @@ app.get("/api/morse", async (req, res) => {
             msg: "type参数错误，仅限encode和decode",
             timestamp: time(),
         });
-
     } catch (error) {
         return res.status(500).json({
             code: 500,
@@ -707,21 +706,15 @@ app.get("/api/morse", async (req, res) => {
         });
     }
 });
-
+// 更新书架
 app.get("/api/bookshelf/update", async (req, res) => {
     requestLog(req);
-    const {
-        ID,
-        BID
-    } = req.query;
-    if (!(ID && BID)) {
-        res.status(400).json({
-            code: 400,
-            msg: "缺少ID或BID参数",
-            timestamp: time(),
-        });
-        return;
-    }
+    const { ID, BID } = req.query;
+    if (!(ID && BID)) return res.status(400).json({
+        code: 400,
+        msg: "缺少ID或BID参数",
+        timestamp: time(),
+    });
     const books = new Books();
     try {
         const json = await books.updateBookshelf(ID, BID, time());
