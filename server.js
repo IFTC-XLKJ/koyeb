@@ -347,45 +347,31 @@ app.get("/cloudfun", async (req, res) => {
 });
 
 app.get("/noob/share/:nid", async (req, res) => {
-    const {
-        nid
-    } = req.params;
-    if (!nid) {
-        res.status(404).json({
-            code: 404,
-            msg: "Not Found",
-            timestamp: time(),
-        });
-        return;
-    }
+    const { nid } = req.params;
+    if (!nid) return res.status(404).json({
+        code: 404,
+        msg: "Not Found",
+        timestamp: time(),
+    });
     const noob = new NOOB();
     try {
         const work = await noob.getByNID(nid);
-        if (work.code != 200) {
-            res.status(work.code).json({
-                code: work.code,
-                msg: work.msg,
-                timestamp: time(),
-            });
-            return;
-        }
+        if (work.code != 200) return res.status(work.code).json({
+            code: work.code,
+            msg: work.msg,
+            timestamp: time(),
+        });
         const data = work.fields[0];
-        if (!data) {
-            res.status(404).json({
-                code: 404,
-                msg: "作品不存在",
-                timestamp: time(),
-            });
-            return;
-        }
-        if (data.发布 != 1) {
-            res.status(403).json({
-                code: 403,
-                msg: "此作品未发布",
-                timestamp: time(),
-            });
-            return;
-        }
+        if (!data) return res.status(404).json({
+            code: 404,
+            msg: "作品不存在",
+            timestamp: time(),
+        });
+        if (data.发布 != 1) return res.status(403).json({
+            code: 403,
+            msg: "此作品未发布",
+            timestamp: time(),
+        });
         const work_data_src = data.作品数据;
         const r = await fetch(work_data_src);
         const j = await r.json();
@@ -395,9 +381,9 @@ app.get("/noob/share/:nid", async (req, res) => {
             "X-Powered-By": "IFTC",
             "Cache-Control": "no-cache",
         })
-        res.send(work_code);
+        return res.send(work_code);
     } catch (e) {
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: "服务发生错误",
             error: String(e),
