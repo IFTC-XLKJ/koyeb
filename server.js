@@ -519,6 +519,23 @@ app.get("/api/book/getcollections", async (req, res) => {
         msg: "缺少参数",
         timestamp: time(),
     });
+    const book = new Books();
+    try {
+        const json = await book.getCollections(bid);
+        if (json.code != 200) return res.status(json.code).json({
+            code: json.code,
+            msg: json.msg,
+            timestamp: time(),
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            code: 500,
+            msg: "服务器内部错误",
+            error: error.message,
+            timestamp: time(),
+        });
+    }
 });
 // 获取所有书架
 app.get("/api/bookshelf/getall", async (req, res) => {
