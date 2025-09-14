@@ -117,32 +117,21 @@ app.get("/user", async (req, res) => {
     requestLog(req);
     const { id } = req.query;
     const user = new User();
-    if (req.headers["user-agent"] == "Koyeb Health Check") {
-        res.json({
-            code: 200,
-            msg: "请求成功",
-            timestamp: time(),
-        });
-        return;
-    }
+    if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
+        code: 200,
+        msg: "请求成功",
+        timestamp: time(),
+    });
     res.set({
         "Content-Type": "text/html;charset=utf-8",
     });
     try {
         if (id) {
-            const params = {
-                id
-            };
+            const params = { id };
             const userData = await user.getByID(id);
-            if (userData.code != 200) {
-                res.status(userData.code).send(null);
-                return;
-            }
+            if (userData.code != 200) return res.status(userData.code).send(null);
             const json = userData.fields[0];
-            if (!json) {
-                res.status(404).send(null);
-                return;
-            }
+            if (!json) return res.status(404).send(null);
             params.username = json.昵称;
             params.email = json.邮箱;
             params.avatar = json.头像 || "https://iftc.koyeb.app/static/avatar.png";
@@ -151,12 +140,10 @@ app.get("/user", async (req, res) => {
             const date2 = new Date(json.updatedAt * 1000);
             params.updatedDate = date2.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" });
             const content = await mixed("pages/user/index.html", params);
-            if (typeof content !== "string") {
-                throw new Error("Invalid content type");
-            }
+            if (typeof content !== "string") throw new Error("Invalid content type");
             console.log("Content:", content);
             console.log("Type of content:", typeof content);
-            res.send(content);
+            return res.send(content);
         } else {
             const date = new Date(0);
             const params = {
@@ -168,16 +155,14 @@ app.get("/user", async (req, res) => {
                 updatedDate: date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric" }),
             };
             const content = await mixed("pages/user/index.html", params);
-            if (typeof content !== "string") {
-                throw new Error("Invalid content type");
-            }
+            if (typeof content !== "string") throw new Error("Invalid content type");
             console.log("Content:", content);
             console.log("Type of content:", typeof content);
-            res.send(content);
+            return res.send(content);
         }
     } catch (e) {
         console.error(e);
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: String(e),
             timestamp: time(),
