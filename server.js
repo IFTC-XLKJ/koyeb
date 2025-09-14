@@ -200,15 +200,13 @@ app.get("/MagicFive", async (req, res) => {
     });
     try {
         const content = await mixed("pages/神奇五客/index.html", params);
-        if (typeof content !== "string") {
-            throw new Error("Invalid content type");
-        }
+        if (typeof content !== "string") throw new Error("Invalid content type");
         console.log("Content:", content);
         console.log("Type of content:", typeof content);
-        res.send(content);
+        return res.send(content);
     } catch (e) {
         console.error(e);
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: String(e),
             timestamp: time(),
@@ -218,24 +216,19 @@ app.get("/MagicFive", async (req, res) => {
 
 app.get("/noob/editor", async (req, res) => {
     requestLog(req);
-    const {
-        workId
-    } = req.query;
     const params = {};
     res.set({
         "Content-Type": "text/html;charset=utf-8",
     });
     try {
         const content = await mixed("pages/noob/editor/index.html", params);
-        if (typeof content !== "string") {
-            throw new Error("Invalid content type");
-        }
+        if (typeof content !== "string") throw new Error("Invalid content type");
         console.log("Content:", content);
         console.log("Type of content:", typeof content);
-        res.send(content);
+        return res.send(content);
     } catch (e) {
         console.error(e);
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: String(e),
             timestamp: time(),
