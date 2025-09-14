@@ -178,8 +178,8 @@ class Books {
       throw error;
     }
   }
-  async updateBook(type, id, data) {
-    let filter = `书ID="${id}"`;
+  async updateBook(type, bid, data) {
+    let filter = `书ID="${bid}"`;
     let fields = ``;
     if (type == "name") {
       fields = `书名="${data}"`;
