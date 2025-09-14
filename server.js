@@ -326,23 +326,19 @@ app.get("/bindqq", async (req, res) => {
 
 app.get("/cloudfun", async (req, res) => {
     requestLog(req);
-    const params = {
-        cloudfunLogServer: req.query.debug != void 0 ? "127.0.0.1:8000" : "cloudfun.deno.dev",
-    };
+    const params = { cloudfunLogServer: req.query.debug != void 0 ? "127.0.0.1:8000" : "cloudfun.deno.dev", };
     res.set({
         "Content-Type": "text/html;charset=utf-8",
     });
     try {
         const content = await mixed("pages/cloudfun/index.html", params);
-        if (typeof content !== "string") {
-            throw new Error("Invalid content type");
-        }
+        if (typeof content !== "string") throw new Error("Invalid content type");
         console.log("Content:", content);
         console.log("Type of content:", typeof content);
-        res.send(content);
+        return res.send(content);
     } catch (e) {
         console.error(e);
-        res.status(500).json({
+        return res.status(500).json({
             code: 500,
             msg: String(e),
             timestamp: time(),
