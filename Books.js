@@ -221,15 +221,11 @@ class Books {
   async updateChapter(type, id, data) {
     let filter = `书ID="${id}"`;
     let fields = ``;
-    if (type == "name") {
-      fields = `章节名="${data}"`;
-    } else if (type == "content") {
-      fields = `章节内容="${data}"`;
-    } else {
-      return {
-        code: 400,
-        msg: "type参数值错误"
-      }
+    if (type == "name") fields = `章节名="${data}"`;
+    else if (type == "content") fields = `章节内容="${data}"`;
+    else return {
+      code: 400,
+      msg: "type参数值错误"
     }
     const timestamp = Date.now();
     const signaturePromise = sign.get(timestamp);
