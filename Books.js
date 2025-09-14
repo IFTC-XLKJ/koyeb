@@ -10,7 +10,7 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 class Books {
-  constructor() {}
+  constructor() { }
   async getLastOne() {
     const timestamp = time();
     const signaturePromise = sign.get(timestamp);
@@ -112,7 +112,7 @@ class Books {
       if (typeof lastBookId != "number") {
         throw new Error('NaN');
       }
-    }catch(e) {
+    } catch (e) {
       return {
         code: 400,
         msg: e.message,
@@ -340,7 +340,7 @@ class Books {
     let filter = "";
     IDs.forEach((ID, i) => {
       if (isNaN(Number(ID)) || ID.trim() == "") return;
-      filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "": " OR "}`;
+      filter = filter + `书ID=${ID}${i == IDs.length - 1 ? "" : " OR "}`;
     })
     const timestamp = Date.now();
     const signaturePromise = sign.get(timestamp);
@@ -526,6 +526,7 @@ class Books {
       throw error;
     }
   }
+  async getCollections(bid) { }
 }
 
 function generateBookID() {

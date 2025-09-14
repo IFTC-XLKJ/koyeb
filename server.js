@@ -511,7 +511,7 @@ app.all("/api", (req, res) => {
     });
 });
 // 获取书籍收藏量
-app.get("/api/book/getcolections", async (req, res) => {
+app.get("/api/book/getcollections", async (req, res) => {
     requestLog(req);
     const { bid } = req.query;
     if (!bid) return res.status(400).json({
