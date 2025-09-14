@@ -527,6 +527,11 @@ app.get("/api/book/getcollections", async (req, res) => {
             msg: json.msg,
             timestamp: time(),
         });
+        return res.json({
+            code: 200,
+            msg: "获取成功",
+            data: json.fields.length,
+        });
     } catch (error) {
         console.error(error);
         return res.status(500).json({
