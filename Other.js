@@ -879,7 +879,7 @@ class Other {
                 const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
+                        Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app",
                     },
@@ -974,7 +974,7 @@ class Other {
                 const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
+                        Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app",
                     },
@@ -1075,7 +1075,7 @@ class Other {
                 const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
+                        Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
@@ -1161,7 +1161,7 @@ class Other {
                 const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
+                        Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
@@ -1246,7 +1246,7 @@ class Other {
                 const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer sk-yRRrOH3qH8yjYtyZMIcXfhBPJHS7pIRx21Z9r91eigXGfmQd`,
+                        Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
                         "Content-Type": "application/json",
                         Origin: "https://iftc.koyeb.app"
                     },
