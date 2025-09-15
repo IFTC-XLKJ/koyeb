@@ -2032,13 +2032,11 @@ app.get("/api/book/addchapter", async (req, res) => {
         name,
         content
     } = req.query;
-    if (num < 1) {
-        res.status(400).json({
+    if (num < 1) return res.status(400).json({
             code: 400,
             msg: "num必须大于0",
             timestamp: time(),
         });
-    }
     console.log(typeof Number(id));
     if (Number.isNaN(Number(id)) || Number.isNaN(Number(bookid)) || Number.isNaN(Number(num))) {
         res.status(400).json({
