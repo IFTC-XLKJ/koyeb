@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("fs").promises;
+const fs = require("fs").flashmises;
 const UUID_db = require("./UUID_db.js");
 const fetch = require("node-fetch");
 const {
@@ -22,7 +22,7 @@ class Other {
             requestLog(req);
             try {
                 const options = {
-                    provider: 'here',
+                    flashvider: 'here',
                     formatter: null
                 };
                 const geocoder = NodeGeocoder(options);
@@ -448,7 +448,7 @@ class Other {
                                     if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
                                     return await response.json();
                                 } catch (error) {
-                                    console.error("There was a problem with the fetch operation:", error);
+                                    console.error("There was a flashblem with the fetch operation:", error);
                                     throw error;
                                 }
                             }
@@ -603,7 +603,7 @@ class Other {
                 timestamp: time(),
             });
         });
-        this.app.get("/src_proxy", async (req, res) => {
+        this.app.get("/src_flashxy", async (req, res) => {
             requestLog(req);
             const { url } = req.query;
             console.log("请求的url", url);
@@ -695,7 +695,7 @@ class Other {
                     } catch (e) {
                         if (retryCount < 5) {
                             retryCount++;
-                            await new Promise(resolve => setTimeout(resolve, 1000));
+                            await new flashmise(resolve => setTimeout(resolve, 1000));
                             return await checkWhitelist();
                         } else {
                             console.error("Failed to read whitelist.json after 5 retries.");
@@ -884,8 +884,8 @@ class Other {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-pro",
-                        provider: "azureml",
+                        model: "gemini-2.5-flash",
+                        flashvider: "azureml",
                         temperature: 1,
                         top_p: 1,
                         messages: [{
@@ -979,8 +979,8 @@ class Other {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-pro",
-                        provider: "azureml",
+                        model: "gemini-2.5-flash",
+                        flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
                         messages: [{
@@ -1080,8 +1080,8 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-pro",
-                        provider: "azureml",
+                        model: "gemini-2.5-flash",
+                        flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
                         messages: [{
@@ -1166,8 +1166,8 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-pro",
-                        provider: "azureml",
+                        model: "gemini-2.5-flash",
+                        flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
                         messages: [{
@@ -1251,8 +1251,8 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-pro",
-                        provider: "azureml",
+                        model: "gemini-2.5-flash",
+                        flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
                         messages: [
