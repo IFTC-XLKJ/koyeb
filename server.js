@@ -2125,12 +2125,9 @@ app.get("/api/book/addbook", async (req, res) => {
 
 app.get("/api/book/chapters", async (req, res) => {
     requestLog(req);
-    const {
-        id
-    } = req.query;
+    const {id} = req.query;
     console.log(typeof Number(id));
-    if (Number.isNaN(Number(id)))
-        return res.status(400).json({
+    if (Number.isNaN(Number(id))) return res.status(400).json({
             code: 400,
             msg: "id参数类型错误，必须为数值类型",
             timestamp: time(),
