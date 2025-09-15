@@ -2045,7 +2045,7 @@ app.get("/api/book/addchapter", async (req, res) => {
             timestamp: time(),
         });
     }
-    if ((id || id == 0) && (bookid || bookid == 0) && num && name && content) {
+    if ((id || id == 0) && (bookid || bookid == 0) && num && name) {
         const books = new Books();
         try {
             const json = await books.addChapter(id, bookid, num, decodeURIComponent(name), decodeURIComponent(content));
