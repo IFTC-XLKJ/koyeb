@@ -18,9 +18,7 @@
         function uint32ArrayToBase64(uint32Array) {
             const bytes = new Uint8Array(uint32Array.buffer);
             let binary = '';
-            for (let i = 0; i < bytes.length; i++) {
-                binary += String.fromCharCode(bytes[i]);
-            }
+            for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
             return btoa(binary);
         }
 
@@ -28,9 +26,7 @@
             const binaryString = atob(base64);
             const len = binaryString.length;
             const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
-                bytes[i] = binaryString.charCodeAt(i);
-            }
+            for (let i = 0; i < len; i++) bytes[i] = binaryString.charCodeAt(i);
             return new Uint32Array(bytes.buffer);
         }
         function textToBase64(str) {

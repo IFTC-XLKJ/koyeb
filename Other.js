@@ -1317,8 +1317,7 @@ class Other {
     }
     async getFile(path) {
         try {
-            const content = await fs.readFile(path,
-                "utf-8");
+            const content = await fs.readFile(path, "utf-8");
             return content;
         } catch (e) {
             console.error(e);
