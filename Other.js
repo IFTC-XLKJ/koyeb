@@ -1,5 +1,5 @@
 const path = require("path");
-const fs = require("fs").flashmises;
+const fs = require("fs").promises;
 const UUID_db = require("./UUID_db.js");
 const fetch = require("node-fetch");
 const {
@@ -13,6 +13,7 @@ const uuid_db = new UUID_db();
 const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const maxmind = require('maxmind');
+console.log(fs);
 
 class Other {
     constructor(app, requestLog) {
