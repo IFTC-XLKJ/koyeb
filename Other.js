@@ -1374,7 +1374,7 @@ async function queryWhois(domain, res) {
                 } else if (line.includes('Name Server:') || line.includes('Name Server:')) {
                     info.nameServers.push(line.split(':')[1].trim());
                 } else if (line.includes('Domain Status:')) {
-                    info.domainStatus = line.split(':')[1].trim();
+                    info.domainStatus = line.split(':').slice(1).join(':').trim();
                 } else if (line.includes('Registrant Organization:')) {
                     info.registrantOrganization = line.split(':')[1].trim();
                 } else if (line.includes('Registrant Contact Email:')) {
@@ -1392,7 +1392,7 @@ async function queryWhois(domain, res) {
                 } else if (line.includes('Registrar URL:')) {
                     info.registrarUrl = line.split(':').slice(1).join(':').trim();
                 } else if (line.includes('Registrar WHOIS Server:')) {
-                    info.registrarWhoisServer = line.split(':')[1].trim();
+                    info.registrarWhoisServer = line.split(':').slice(1).join(':').trim();
                 } else if (line.includes("Expiration Time:")) {
                     info.expirationTime = line.split(':')[1].trim();
                 } else if (line.includes("Last Updated Time:")) {
