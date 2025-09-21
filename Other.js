@@ -1368,7 +1368,7 @@ async function queryWhois(domain, res) {
                 } else if (line.includes('Creation Date:')) {
                     info.creationDate = line.split(':')[1].trim();
                 } else if (line.includes('Expiry Date:') || line.includes('Expiration Date:')) {
-                    info.expirationDate = line.split(':')[1].trim();
+                    info.expirationDate = line.split(':').slice(1).join(':').trim();
                 } else if (line.includes('Updated Date:')) {
                     info.updatedDate = line.split(':')[1].trim();
                 } else if (line.includes('Name Server:') || line.includes('Name Server:')) {
