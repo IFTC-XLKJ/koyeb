@@ -1397,6 +1397,12 @@ async function queryWhois(domain, res) {
                     info.expirationTime = line.split(':')[1].trim();
                 } else if (line.includes("Last Updated Time:")) {
                     info.lastUpdatedTime = line.split(':')[1].trim();
+                } else if (line.includes('Registrar Abuse Contact Email:')) {
+                    info.registrarAbuseContactEmail = line.split(':')[1].trim();
+                } else if (line.includes('Registrar Abuse Contact Phone:')) {
+                    info.registrarAbuseContactPhone = line.split(':')[1].trim();
+                } else if (line.includes('Registrar Country:')) {
+                    info.registrarCountry = line.split(':')[1].trim();
                 }
             });
 
