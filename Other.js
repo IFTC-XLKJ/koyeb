@@ -1355,18 +1355,13 @@ async function queryWhois(domain, res) {
             const lines = whoisText.split('\n');
 
             const info = {
-                domainName: '',
-                registrar: '',
-                creationDate: '',
-                expirationDate: '',
-                updatedDate: '',
                 nameServers: []
             };
 
             lines.forEach(line => {
                 if (line.includes('Domain Name:')) {
                     info.domainName = line.split(':')[1].trim();
-                } else if(line.includes("ROID:")){
+                } else if (line.includes("ROID:")) {
                     info.roid = line.split(':')[1].trim();
                 } else if (line.includes('Registrar:')) {
                     info.registrar = line.split(':')[1].trim();
