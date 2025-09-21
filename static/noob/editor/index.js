@@ -977,7 +977,7 @@ function obfuscate(code) {
                 const work = await workres.json();
                 const title = work.name;
                 document.getElementById("title").querySelector("input").value = title;
-                const exts = work.exts;
+                const exts = work.exts || {};
                 Object.keys(exts).forEach(async (key, i) => {
                     loadCustomExt(await eval(`const exports = {};(async function() {\n${exts[key]}\nreturn exports})()`), exts[key]);
                     if (i == Object.keys(exts).length - 1) {
