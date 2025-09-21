@@ -1390,7 +1390,7 @@ async function queryWhois(domain, res) {
                 } else if (line.includes('Registrar IANA ID:')) {
                     info.registrarIanaId = line.split(':')[1].trim();
                 } else if (line.includes('Registrar URL:')) {
-                    info.registrarUrl = line.split(':')[1].trim();
+                    info.registrarUrl = line.split(':').slice(1).join(':').trim();
                 } else if (line.includes('Registrar WHOIS Server:')) {
                     info.registrarWhoisServer = line.split(':')[1].trim();
                 } else if (line.includes("Expiration Time:")) {
