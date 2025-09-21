@@ -13,6 +13,7 @@ const uuid_db = new UUID_db();
 const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const maxmind = require('maxmind');
+const whois = require('whois');
 console.log(fs);
 
 class Other {
@@ -1304,15 +1305,24 @@ class Other {
         this.app.get("/api/ip2location", async (req, res) => {
             requestLog(req);
             const { ip } = req.query;
-            if (!ip) {
-                return res.status(400).json({
-                    code: 400,
-                    msg: "Bad Request",
-                    error: "Missing ip",
-                    timestamp: time()
-                });
-            }
+            if (!ip) return res.status(400).json({
+                code: 400,
+                msg: "Bad Request",
+                error: "Missing ip",
+                timestamp: time()
+            });
             lookupIP(ip, res);
+        });
+        this.app.get("/api/whois", async (req, res) => {
+            requestLog(req);
+            const { domain } = req.query;
+            if (!domain) return res.status(400).json({
+                code: 400,
+                msg: "Bad Request",
+                error: "Missing domain",
+                timestamp: time()
+            });
+            whois(domain, res);
         });
         console.log("Other");
     }
@@ -1324,6 +1334,86 @@ class Other {
             console.error(e);
             return null;
         }
+    }
+}
+
+async function whois(domain, res) {
+    try {
+        whois.lookup(domain, (err, data) => {
+            if (err) return console.error('查询出错:', err);
+            console.log('WHOIS信息:');
+            console.log(data);
+            res.status(200).json({
+                code: 200,
+                msg: "查询成功",
+                data: parseWhoisData(data),
+                timestamp: time()
+            });
+        });
+        function parseWhoisData(whoisText) {
+            const lines = whoisText.split('\n');
+
+            const info = {
+                domainName: '',
+                registrar: '',
+                creationDate: '',
+                expirationDate: '',
+                updatedDate: '',
+                nameServers: []
+            };
+
+            lines.forEach(line => {
+                if (line.includes('Domain Name:')) {
+                    info.domainName = line.split(':')[1].trim();
+                } else if(line.includes("ROID:")){
+                    info.roid = line.split(':')[1].trim();
+                } else if (line.includes('Registrar:')) {
+                    info.registrar = line.split(':')[1].trim();
+                } else if (line.includes('Creation Date:')) {
+                    info.creationDate = line.split(':')[1].trim();
+                } else if (line.includes('Expiry Date:') || line.includes('Expiration Date:')) {
+                    info.expirationDate = line.split(':')[1].trim();
+                } else if (line.includes('Updated Date:')) {
+                    info.updatedDate = line.split(':')[1].trim();
+                } else if (line.includes('Name Server:') || line.includes('Name Server:')) {
+                    info.nameServers.push(line.split(':')[1].trim());
+                } else if (line.includes('Domain Status:')) {
+                    info.domainStatus = line.split(':')[1].trim();
+                } else if (line.includes('Registrant Organization:')) {
+                    info.registrantOrganization = line.split(':')[1].trim();
+                } else if (line.includes('Registrant Contact Email:')) {
+                    info.registrantEmail = line.split(':')[1].trim();
+                } else if (line.includes('Registrant Contact Phone:')) {
+                    info.registrantPhone = line.split(':')[1].trim();
+                } else if (line.includes('Registrant Contact Fax:')) {
+                    info.registrantFax = line.split(':')[1].trim();
+                } else if (line.includes('Registration Time:')) {
+                    info.registrationTime = line.split(':')[1].trim();
+                } else if (line.includes('DNSSEC:')) {
+                    info.dnssec = line.split(':')[1].trim();
+                } else if (line.includes('Registrar IANA ID:')) {
+                    info.registrarIanaId = line.split(':')[1].trim();
+                } else if (line.includes('Registrar URL:')) {
+                    info.registrarUrl = line.split(':')[1].trim();
+                } else if (line.includes('Registrar WHOIS Server:')) {
+                    info.registrarWhoisServer = line.split(':')[1].trim();
+                } else if (line.includes("Expiration Time:")) {
+                    info.expirationTime = line.split(':')[1].trim();
+                } else if (line.includes("Last Updated Time:")) {
+                    info.lastUpdatedTime = line.split(':')[1].trim();
+                }
+            });
+
+            console.log('解析后的信息:', info);
+            return info;
+        }
+    } catch (e) {
+        return res.status(500).json({
+            code: 500,
+            msg: "Internal Server Error",
+            error: e.message,
+            timestamp: time()
+        });
     }
 }
 
