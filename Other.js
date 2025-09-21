@@ -1322,7 +1322,7 @@ class Other {
                 error: "Missing domain",
                 timestamp: time()
             });
-            whois(domain, res);
+            queryWhois(domain, res);
         });
         console.log("Other");
     }
@@ -1337,7 +1337,7 @@ class Other {
     }
 }
 
-async function whois(domain, res) {
+async function queryWhois(domain, res) {
     try {
         whois.lookup(domain, (err, data) => {
             if (err) return console.error('查询出错:', err);
