@@ -1401,11 +1401,10 @@ async function queryWhois(domain, res) {
                     info.registrarAbuseContactEmail = line.split(':')[1].trim();
                 } else if (line.includes('Registrar Abuse Contact Phone:')) {
                     info.registrarAbuseContactPhone = line.split(':')[1].trim();
-                } else if (line.includes('Registrar Country:')) {
+                } else if (line.includes('Registrant Country:')) {
                     info.registrarCountry = line.split(':')[1].trim();
                 }
             });
-
             console.log('解析后的信息:', info);
             return info;
         }
