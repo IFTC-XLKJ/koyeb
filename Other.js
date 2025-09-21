@@ -1347,6 +1347,7 @@ async function queryWhois(domain, res) {
                 code: 200,
                 msg: "查询成功",
                 data: parseWhoisData(data),
+                string: data,
                 timestamp: time()
             });
         });
