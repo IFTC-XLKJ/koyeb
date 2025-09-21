@@ -1404,7 +1404,7 @@ async function queryWhois(domain, res) {
                 } else if (line.includes('Registrant Country:')) {
                     info.registrartCountry = line.split(':')[1].trim();
                 } else if (line.includes("Reporting System:")) {
-                    info.reportingSystem = line.split(':')[1].trim();
+                    info.reportingSystem = line.split(':').slice(1).join(':').trim();
                 }
             });
             console.log('解析后的信息:', info);
