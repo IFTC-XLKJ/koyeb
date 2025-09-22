@@ -15,7 +15,7 @@ loginForm.addEventListener("submit", async (e) => {
                 const page = url.searchParams.get("page") || "/";
                 localStorage.setItem("ID", data.id);
                 if (globalThis.vvbrowser) {
-                  vvbrowser.setLogin(data.id);
+                  console.log("VV浏览器登录设置", vvbrowser.setLogin(data.id));
                 }
                 localStorage.setItem("password", globalThis.password)
                 location.href = page;
