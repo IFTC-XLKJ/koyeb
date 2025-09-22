@@ -13,7 +13,10 @@ loginForm.addEventListener("submit", async (e) => {
                 alert("登录成功");
                 const url = new URL(location.href);
                 const page = url.searchParams.get("page") || "/";
-                localStorage.setItem("ID", data.id)
+                localStorage.setItem("ID", data.id);
+                if (globalThis.vvbrowser) {
+                  vvbrowser.setLogin(data.id);
+                }
                 localStorage.setItem("password", globalThis.password)
                 location.href = page;
             } else {
