@@ -1,3 +1,7 @@
 menu.addEventListener("click", function() {
-    drawer.toggle();
+    if (drawer.open === true) {
+        drawer.open = false;
+    } else {
+        drawer.open = true;
+    }
 });
