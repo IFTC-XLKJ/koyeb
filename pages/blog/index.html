@@ -16,30 +16,34 @@
 
 <body>
     <div id="app">
-        <mdui-top-app-bar style="position: relative;">
-            <mdui-button-icon icon="menu"></mdui-button-icon>
-            <mdui-top-app-bar-title>博客</mdui-top-app-bar-title>
-            <!-- <div style="flex-grow: 1"></div>
+        <div class="title">
+            <mdui-top-app-bar style="position: relative;">
+                <mdui-button-icon icon="menu"></mdui-button-icon>
+                <mdui-top-app-bar-title>博客</mdui-top-app-bar-title>
+                <!-- <div style="flex-grow: 1"></div>
             <mdui-button-icon icon="more_vert"></mdui-button-icon> -->
-        </mdui-top-app-bar>
-        <mdui-navigation-drawer close-on-overlay-click open class="example-drawer">
-            <mdui-list>
-                <mdui-collapse accordion>
-                    <mdui-collapse-item>
-                        <mdui-list-item slot="header">Item 1</mdui-list-item>
-                        <div style="margin-left: 2.5rem">
-                            <mdui-list-item>Item 1 - subitem</mdui-list-item>
-                        </div>
-                    </mdui-collapse-item>
-                    <mdui-collapse-item>
-                        <mdui-list-item slot="header">Item 2</mdui-list-item>
-                        <div style="margin-left: 2.5rem">
-                            <mdui-list-item>Item 2 - subitem</mdui-list-item>
-                        </div>
-                    </mdui-collapse-item>
-                </mdui-collapse>
-            </mdui-list>
-        </mdui-navigation-drawer>
+            </mdui-top-app-bar>
+        </div>
+        <div class="main">
+            <mdui-navigation-drawer close-on-overlay-click open class="example-drawer">
+                <mdui-list>
+                    <mdui-collapse accordion>
+                        <mdui-collapse-item>
+                            <mdui-list-item slot="header">Item 1</mdui-list-item>
+                            <div style="margin-left: 2.5rem">
+                                <mdui-list-item>Item 1 - subitem</mdui-list-item>
+                            </div>
+                        </mdui-collapse-item>
+                        <mdui-collapse-item>
+                            <mdui-list-item slot="header">Item 2</mdui-list-item>
+                            <div style="margin-left: 2.5rem">
+                                <mdui-list-item>Item 2 - subitem</mdui-list-item>
+                            </div>
+                        </mdui-collapse-item>
+                    </mdui-collapse>
+                </mdui-list>
+            </mdui-navigation-drawer>
+        </div>
     </div>
     <script src="/static/blog/index.js"></script>
 </body>
