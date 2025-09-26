@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VV用户中心 - {{username}}</title>
+    <link rel="stylesheet" href="/static/user/index.css">
+    <script src="/static/Toast.js"></script>
+    <script src="/static/Dialog.js"></script>
+    <script src="/static/md3.js"></script>
+    <meta name='description' content='VV用户中心 - {{username}}'>
+</head>
+
+<body>
+    <noscript>
+        <div style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background-color: white;">
+            <center>
+                <h1>您的浏览器不支持JavaScript，请升级您的浏览器。</h1>
+            </center>
+        </div>
+    </noscript>
+    <div id="app">
+        <div class="header">
+            <img src="{{avatar}}" alt="用户头像" class="user-avatar" onerror="this.src='/static/avatar.png'"
+                draggable="false">
+            <h1>VV用户中心</h1>
+            <p>欢迎，{{username}}</p>
+        </div>
+        <div class="content">
+            <div class="user-info">
+                <h2>个人信息</h2>
+                <p>用户名: {{username}}</p>
+                <p>邮箱: {{email}}</p>
+                <p>注册时间: {{registrationDate}}</p>
+                <p>更新时间：{{updatedDate}}</p>
+            </div>
+            <div class="user-actions">
+                <h2>操作</h2>
+                <mdui-button id="update-username">更新用户名</mdui-button>
+                <mdui-button id="update-avatar">更新头像</mdui-button>
+                <mdui-button id="change-password">修改密码</mdui-button>
+                <mdui-button id="logout">退出登录</mdui-button>
+            </div>
+        </div>
+    </div>
+    <slot data="username">{{username}}</slot>
+    <script src="/static/user/index.js"></script>
+</body>
+
+</html>
