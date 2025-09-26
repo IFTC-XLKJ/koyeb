@@ -60,8 +60,7 @@ app.use(async (req, res, next) => {
   return next();
 });
 async function requestRecord(req) {
-  const url = new URL(req.url,
-    `https://${req.headers.host}`);
+  const url = new URL(req.url, `https://${req.headers.host}`);
   const sign = new Sign();
   const key = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
   const timestamp = Date.now();
@@ -232,6 +231,28 @@ app.get("/MagicFive", async (req, res) => {
   }
 });
 
+app.get("/blog", async (req, res) => {
+  requestLog(req);
+  const params = {};
+  res.set({
+    "Content-Type": "text/html;charset=utf-8",
+  });
+  try {
+    const content = await mixed("pages/blog/index.html", params);
+    if (typeof content !== "string") throw new Error("Invalid content type");
+    console.log("Content:", content);
+    console.log("Type of content:", typeof content);
+    return res.send(content);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({
+      code: 500,
+      msg: String(e),
+      timestamp: time(),
+    });
+  }
+});
+
 app.get("/noob/editor", async (req, res) => {
   requestLog(req);
   const params = {};
@@ -345,7 +366,7 @@ app.get("/bindqq", async (req, res) => {
 app.get("/cloudfun", async (req, res) => {
   requestLog(req);
   const params = {
-    cloudfunLogServer: req.query.debug != void 0 ? "127.0.0.1:8000": "cloudfun.deno.dev",
+    cloudfunLogServer: req.query.debug != void 0 ? "127.0.0.1:8000" : "cloudfun.deno.dev",
   };
   res.set({
     "Content-Type": "text/html;charset=utf-8",
@@ -443,7 +464,7 @@ app.all('/proxy/*', async (req, res) => {
     const response = await fetch(url, {
       method: req.method,
       headers: req.headers,
-      body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined: req.body,
+      body: req.method == "GET" || req.method == "HEAD" || req.method == "OPTIONS" ? undefined : req.body,
       verbose: true
     });
     const contentType = response.headers.get("content-type");
@@ -529,7 +550,7 @@ app.all("/api", (req, res) => {
     doc: "https://iftc-api.apifox.cn",
     count: apis.length,
     timestamp: time(),
-    Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true: void 0,
+    Apifox: req.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)" ? true : void 0,
   });
 });
 // 获取书籍收藏量
@@ -834,10 +855,10 @@ app.get("/api/bookshelf/get", async (req, res) => {
   } = req.query;
   if (!(ID || ID == 0) || !page)
     return res.status(400).json({
-    code: 400,
-    msg: "缺少ID或page参数",
-    timestamp: time(),
-  });
+      code: 400,
+      msg: "缺少ID或page参数",
+      timestamp: time(),
+    });
   const books = new Books();
   const p = Number(page);
   const num = 10;
@@ -1208,7 +1229,7 @@ app.get("/api/bot/user/details", async (req, res) => {
         const email_domain = data.邮箱.split('@')[1] || '未知';
         res.json({
           code: 200,
-          msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知': '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是': '否'}\n管理员：${data.管理员 == 1 ? '是': '否'}\n冻结：${data.封号 == 1 ? '是': '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
+          msg: `用户ID：${data.ID}\n用户名：${data.昵称}\nV币：${data.V币}\n邮箱：${email_name + (email_domain == '未知' ? '未知' : '@') + email_domain.toUpperCase()}\nVIP：${!!data.VIP ? '是' : '否'}\n管理员：${data.管理员 == 1 ? '是' : '否'}\n冻结：${data.封号 == 1 ? '是' : '否'}\n头衔名：${data.头衔}\n头衔色：${data.头衔色}\n签到：${timestampToDate(data.签到 || -2880000)}\n注册于${timestampToDate(data.createdAt * 1000)}\n更新于${timestampToDate(data.updatedAt * 1000)}`,
           avatar: data.头像,
           timestamp: time(),
         });
@@ -1705,7 +1726,7 @@ app.get("/api/user/search", async (req, res) => {
       res.json({
         code: 200,
         msg: "请求成功",
-        keyword: !!keyword ? decodeURIComponent(keyword): null,
+        keyword: !!keyword ? decodeURIComponent(keyword) : null,
         data: data,
         count: data.length,
         timestamp: time(),
@@ -2134,16 +2155,16 @@ app.get("/api/book/addbook", async (req, res) => {
       const json = await books.addBook(decodeURIComponent(name), decodeURIComponent(id), decodeURIComponent(author), decodeURIComponent(description), decodeURIComponent(cover));
       if (json.code == 200)
         return res.json({
-        code: 200,
-        msg: "添加成功",
-        timestamp: time(),
-      })
+          code: 200,
+          msg: "添加成功",
+          timestamp: time(),
+        })
       else
         return res.status(json.code).json({
-        code: json.code,
-        msg: json.msg,
-        timestamp: time(),
-      });
+          code: json.code,
+          msg: json.msg,
+          timestamp: time(),
+        });
     } catch (e) {
       return res.status(500).json({
         code: 500,
@@ -2179,10 +2200,10 @@ app.get("/api/book/chapters", async (req, res) => {
       if (json.code == 200) {
         if (json.fields.length == 0)
           return res.status(404).json({
-          code: 404,
-          msg: "图书不存在章节",
-          timestamp: time(),
-        });
+            code: 404,
+            msg: "图书不存在章节",
+            timestamp: time(),
+          });
         const data = []
         json.fields.forEach(field => {
           data.push({
@@ -2226,7 +2247,7 @@ app.get("/api/book/search", async (req, res) => {
   } = req.query;
   const books = new Books();
   try {
-    const json = await books.search(decodeURIComponent(keyword ? keyword: ""));
+    const json = await books.search(decodeURIComponent(keyword ? keyword : ""));
     if (json.code == 200) {
       const data = []
       json.fields.forEach(field => {
@@ -2334,10 +2355,10 @@ app.get("/api/user/resetpassword", async (req, res) => {
           msg: "请求失败",
         });
       } else return res.status(400).json({
-          code: 400,
-          msg: "请求失败",
-          timestamp: time(),
-        });
+        code: 400,
+        msg: "请求失败",
+        timestamp: time(),
+      });
     } catch (e) {
       return res.status(500).json({
         code: 500,
@@ -2347,10 +2368,10 @@ app.get("/api/user/resetpassword", async (req, res) => {
       });
     }
   } else return res.status(400).json({
-      code: 400,
-      msg: "缺少email或id或password参数",
-      timestamp: time(),
-    });
+    code: 400,
+    msg: "缺少email或id或password参数",
+    timestamp: time(),
+  });
 })
 
 app.get("/api/user/resetpassword/:uuid", async (req, res) => {
@@ -2388,10 +2409,10 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
             timestamp: time(),
           });
         } else return res.status(400).json({
-            code: 400,
-            msg: "请求失败",
-            timestamp: time(),
-          });
+          code: 400,
+          msg: "请求失败",
+          timestamp: time(),
+        });
       } catch (e) {
         return res.status(500).json({
           code: 500,
@@ -2401,13 +2422,13 @@ app.get("/api/user/resetpassword/:uuid", async (req, res) => {
         });
       }
     } else return res.status(400).json({
-        code: 400,
-        msg: "UUID格式错误"
-      });
-  } else return res.status(400).json({
       code: 400,
-      msg: "缺少uuid参数"
+      msg: "UUID格式错误"
     });
+  } else return res.status(400).json({
+    code: 400,
+    msg: "缺少uuid参数"
+  });
 })
 
 app.get("/api/verifycode", async (req, res) => {
@@ -2439,10 +2460,10 @@ app.get("/api/verifycode", async (req, res) => {
       });
     }
   } else return res.status(400).json({
-      code: 400,
-      msg: "缺少email或code参数",
-      timestamp: time(),
-    });
+    code: 400,
+    msg: "缺少email或code参数",
+    timestamp: time(),
+  });
 })
 
 app.get("/api/sendcode", async (req, res) => {
@@ -2475,10 +2496,10 @@ app.get("/api/sendcode", async (req, res) => {
       });
     }
   } else return res.status(400).json({
-      code: 400,
-      msg: "缺少email或title或content参数",
-      timestamp: time(),
-    });
+    code: 400,
+    msg: "缺少email或title或content参数",
+    timestamp: time(),
+  });
 })
 
 app.get("/api/user/update", async (req, res) => {
@@ -2528,10 +2549,10 @@ app.get("/api/user/update", async (req, res) => {
       });
     }
   } else return res.status(400).json({
-      code: 400,
-      msg: "缺少type或id或password或data参数",
-      timestamp: time(),
-    });
+    code: 400,
+    msg: "缺少type或id或password或data参数",
+    timestamp: time(),
+  });
 });
 
 app.get("/api/user/register", async (req, res) => {
@@ -2545,7 +2566,7 @@ app.get("/api/user/register", async (req, res) => {
   if (nickname && email && password) {
     const user = new User();
     try {
-      const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar): "https://iftc.koyeb.app/static/avatar.png");
+      const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
       if (json.code == 200) return res.json({
         code: 200,
         msg: "注册成功",
@@ -2565,10 +2586,10 @@ app.get("/api/user/register", async (req, res) => {
       });
     }
   } else return res.status(400).json({
-      code: 400,
-      msg: "缺少nickname或email或password参数",
-      timestamp: time(),
-    });
+    code: 400,
+    msg: "缺少nickname或email或password参数",
+    timestamp: time(),
+  });
 });
 
 app.get("/api/user/login", async (req, res) => {
@@ -2595,9 +2616,9 @@ app.get("/api/user/login", async (req, res) => {
           id: data.ID,
         });
       } else return res.status(json.code).json({
-          code: json.code,
-          msg: json.msg,
-        });
+        code: json.code,
+        msg: json.msg,
+      });
     } catch (e) {
       return res.status(500).json({
         code: 500,
@@ -2701,7 +2722,7 @@ app.get('/api/qrcode', async (req, res) => {
   });
   try {
     if (type == "svg") {
-      const qrcode = new QRCodeSvg( {
+      const qrcode = new QRCodeSvg({
         content: data,
         color: {
           dark: '#000000',
@@ -2722,7 +2743,7 @@ app.get('/api/qrcode', async (req, res) => {
         },
         errorCorrectionLevel: 'H',
       });
-      res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml': 'image/png');
+      res.setHeader('Content-Type', type == 'svg' ? 'image/svg+xml' : 'image/png');
       res.setHeader('Content-Length', qrBuffer.length);
       return res.send(qrBuffer);
     }
@@ -2932,7 +2953,7 @@ function generateUUID() {
     function (c) {
       var r = (d + Math.random() * 16) % 16 | 0;
       d = Math.floor(d / 16);
-      return (c === 'x' ? r: (r & 0x3 | 0x8)).toString(16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
   return uuid;
 }
@@ -2950,9 +2971,9 @@ function formatDuration(milliseconds) {
   let h = Math.floor(milliseconds / (1000 * 60 * 60));
   return `${String(h).padStart(2,
     '0')}时${String(m).padStart(2,
-    '0')}分${String(s).padStart(2,
-    '0')}秒${String(ms).padStart(3,
-    '0')}毫秒`;
+      '0')}分${String(s).padStart(2,
+        '0')}秒${String(ms).padStart(3,
+          '0')}毫秒`;
 }
 
 async function mixed(filepath, params) {
@@ -3034,7 +3055,7 @@ async function getRequestCount() {
   const resp = await fetch(url);
   const json = await resp.json();
   const count = json['iftc.koyeb.app'];
-  return count == 'null' ? 0: Number(count);
+  return count == 'null' ? 0 : Number(count);
 }
 
 function timestampToDate(timestamp) {
