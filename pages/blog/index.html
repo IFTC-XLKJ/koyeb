@@ -16,7 +16,22 @@
 <body>
     <div id="app">
         <mdui-navigation-drawer close-on-overlay-click open class="example-drawer">
-            <mdui-button>关闭侧边抽屉栏</mdui-button>
+            <mdui-list>
+                <mdui-collapse accordion>
+                    <mdui-collapse-item>
+                        <mdui-list-item slot="header" icon="near_me">Item 1</mdui-list-item>
+                        <div style="margin-left: 2.5rem">
+                            <mdui-list-item>Item 1 - subitem</mdui-list-item>
+                        </div>
+                    </mdui-collapse-item>
+                    <mdui-collapse-item>
+                        <mdui-list-item slot="header" icon="near_me">Item 2</mdui-list-item>
+                        <div style="margin-left: 2.5rem">
+                            <mdui-list-item>Item 2 - subitem</mdui-list-item>
+                        </div>
+                    </mdui-collapse-item>
+                </mdui-collapse>
+            </mdui-list>
         </mdui-navigation-drawer>
     </div>
     <script src="/static/blog/index.js"></script>
