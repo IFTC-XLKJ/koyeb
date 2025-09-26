@@ -1,8 +1,8 @@
+:root {
+    --mdui-color-primary: #03a9f4;
+}
+
 #app {
     display: grid;
     grid-template-rows: auto auto;
-}
-
-:root {
-    --mdui-color-primary: #03a9f4;
 }
