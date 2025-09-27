@@ -1,7 +1,7 @@
 [
     {
         "title": "第一个博客帖子",
-        "description": "This is the first article",
+        "main": "",
         "author": "Author 1",
         "date": "2021-01-01"
     }
