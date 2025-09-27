@@ -1324,6 +1324,15 @@ class Other {
             });
             queryWhois(domain, res);
         });
+        this.app.get("/api/articles", async (req, res) => {
+            requestLog(req);
+            if (!req.headers["referer"].startsWith("https://iftc.koyeb.app/blog")) return res.status(403).json({
+                code: 403,
+                msg: "Forbidden",
+                error: "Invalid Referer",
+                timestamp: time()
+            })
+        });
         console.log("Other");
     }
     async getFile(path) {

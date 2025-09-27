@@ -22,3 +22,11 @@ function newArticle(title, date, desc, link) {
     });
     articles.appendChild(articleCard);
 }
+
+function loadArticles() {
+    fetch("/api/articles").then(res => res.json()).then(res => {
+        res.forEach(article => {
+            newArticle(article.title, article.date, article.desc, article.link);
+        });
+    });
+}
