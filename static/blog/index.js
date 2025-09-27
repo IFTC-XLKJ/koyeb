@@ -23,11 +23,12 @@ function newArticle(title, date, desc, link) {
     articles.appendChild(articleCard);
 }
 
-function loadArticles() {
-    fetch("/api/articles").then(res => res.json()).then(res => {
-        res.forEach(article => {
-            newArticle(article.title, article.date, article.desc, article.link);
-        });
+async function loadArticles() {
+    const r = await fetch("/api/articles");
+    const j = await r.json();
+    const articles = j.data;
+    data.forEach(article => {
+        newArticle(article.title, article.date, article.desc, article.link);
     });
 }
 loadArticles();
