@@ -11,7 +11,7 @@ drawerHome.addEventListener("click", function () {
 const articles = document.getElementById("articles");
 function newArticle(title, date, desc, link) {
     const articleCard = document.createElement("mdui-card");
-    articleCard.clickable = true;
+    // articleCard.clickable = true;
     articleCard.style.width = "90%";
     articleCard.style.margin = "1rem auto";
     articleCard.style.padding = "1rem";
