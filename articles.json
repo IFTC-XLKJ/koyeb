@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "title": "Article 1",
+        "description": "This is the first article",
+        "author": "Author 1",
+        "date": "2021-01-01"
+    },
+    {
+        "title": "Article 2",
+        "description": "This is the second article",
+        "author": "Author 2",
+        "date": "2021-01-02"
+    }
+]
