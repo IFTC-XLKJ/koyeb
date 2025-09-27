@@ -27,7 +27,7 @@ async function loadArticles() {
     const r = await fetch("/api/articles");
     const j = await r.json();
     const articles = j.data;
-    data.forEach(article => {
+    articles.forEach(article => {
         newArticle(article.title, article.date, article.desc, article.link);
     });
 }
