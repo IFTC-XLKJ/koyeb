@@ -3,5 +3,6 @@
     globalThis.CMLParser = {};
     CMLParser.parser = function (CMLString) {
         const parser = new DOMParser();
+        const doc = parser.parseFromString(CMLString);
     }
 })();
