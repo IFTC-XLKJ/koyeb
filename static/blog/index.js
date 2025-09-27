@@ -17,9 +17,12 @@ function newArticle(title, date, desc, link) {
     articleCard.style.padding = "1rem";
     articleCard.style.boxSizing = "border-box";
     articleCard.style.cursor = "pointer";
-    articleCard.addEventListener("click", function () {
-        window.location.href = link;
-    });
+    // articleCard.addEventListener("click", function () {
+    //     window.location.href = link;
+    // });
+    const articleTitle = document.createElement("h2");
+    articleTitle.innerText = title;
+    articleCard.appendChild(articleTitle);
     articles.appendChild(articleCard);
 }
 
