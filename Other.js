@@ -1331,7 +1331,14 @@ class Other {
                 msg: "Forbidden",
                 error: "Invalid Referer",
                 timestamp: time()
-            })
+            });
+            const articles = await this.getFile("articles.json");
+            res.status(200).json({
+                code: 200,
+                msg: "获取文章成功",
+                data: JSON.parse(articles),
+                timestamp: time()
+            });
         });
         console.log("Other");
     }
