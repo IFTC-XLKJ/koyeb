@@ -36,8 +36,8 @@
     --mdui-color-shadow: 0, 0, 0;
     --mdui-color-outline: 121, 116, 126;
     --mdui-color-on-surface-variant-light: 73, 69, 78;
-    --mdui-color-primary-container: 120 180 255;
-    --mdui-color-background: 200 240 255;
+    --mdui-color-primary-container: 120, 180, 255;
+    --mdui-color-background: 200, 240, 255;
 }
 
 #app {
