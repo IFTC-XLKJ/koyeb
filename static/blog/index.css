@@ -40,6 +40,7 @@
     --mdui-color-background: 200, 240, 255;
     --mdui-color-surface-light: 255, 255, 255;
     --mdui-color-surface-variant: 224, 224, 224;
+    --mdui-color-surface-container-low-light: 255, 255, 255;
 }
 
 #app {
