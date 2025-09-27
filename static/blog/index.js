@@ -5,3 +5,6 @@ menu.addEventListener("click", function () {
 addEventListener("scroll", e => {
     document.querySelector("mdui-top-app-bar").style.top = document.querySelector("html").scrollTop + "px";
 });
+drawerHome.addEventListener("click", function () {
+    window.location.href = "/";
+});
