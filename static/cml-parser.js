@@ -33,6 +33,7 @@
             htmlTagName,
             handleFunc
         };
+        customElements.define(htmlTagName, handleFunc);
         return tags;
     }
 })();
@@ -41,3 +42,8 @@ onload = () => {
 <Text>114514</Text>
 `));
 }
+(async function() {
+    CMLParser.register({
+        htmlTagName
+    });
+})();
