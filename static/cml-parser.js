@@ -8,6 +8,7 @@
         const doc = parser.parseFromString(CMLString, "application/xml");
         console.log(doc);
         const mainNodes = doc.children;
+        let html = "";
         for (let node in mainNodes) {}
         return doc;
     }
