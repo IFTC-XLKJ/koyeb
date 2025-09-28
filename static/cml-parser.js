@@ -57,4 +57,9 @@ onload = () => {
         cmlTagName: "Text",
         tagClass: class extends HTMLElement {}
     });
+    CMLParser.register({
+        HTMLElement: "cml-headline1",
+        cmlTagName: "Headline1",
+        tagClass: class extends HTMLElement {}
+    });
 })();
