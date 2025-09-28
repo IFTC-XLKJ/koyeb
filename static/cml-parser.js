@@ -22,7 +22,7 @@
         const {
             cmlTagName,
             htmlTagName,
-            handleFunc
+            tagClass
         } = options;
         if (htmlTagName.includes(" ")) throw "HTML标签中不允许有空格";
         if (!htmlTagName.includes("-")) throw "HTML标签名必须包含-";
@@ -31,9 +31,9 @@
         if (cmlTagName.includes(" ")) throw "CML标签中不允许有空格";
         tags[cmlTagName] = {
             htmlTagName,
-            handleFunc
+            tagClass
         };
-        customElements.define(htmlTagName, handleFunc);
+        customElements.define(htmlTagName, tagClass);
         return tags;
     }
 })();
@@ -44,6 +44,8 @@ onload = () => {
 }
 (async function() {
     CMLParser.register({
-        htmlTagName
+        htmlTagName: "cml-text",
+        cmlTagName: "Text",
+        tagClass: class extends HTMLElement {}
     });
 })();
