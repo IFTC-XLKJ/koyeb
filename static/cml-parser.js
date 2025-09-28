@@ -27,7 +27,7 @@
         if (htmlTagName.includes(" ")) throw "HTML标签中不允许有空格";
         if (!htmlTagName.includes("-")) throw "HTML标签名必须包含-";
         const ascii = htmlTagName.charCodeAt(0);
-        if ((ascii > 65 && ascii < 91) || (ascii > 97 && ascii < 123)) throw "HTML标签首位必须为英文字母";
+        if (!((ascii > 65 && ascii < 91) || (ascii > 97 && ascii < 123))) throw "HTML标签首位必须为英文字母";
         if (cmlTagName.includes(" ")) throw "CML标签中不允许有空格";
         tags[cmlTagName] = {
             htmlTagName,
