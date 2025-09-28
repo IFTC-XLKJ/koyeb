@@ -12,7 +12,7 @@
         return doc;
     }
     CMLParser.register = function() {
-        
+        // 注册CML标签
     }
 })();
 console.log(CMLParser.parser('<Text>114514</Text>').querySelector('Text'))
