@@ -47,7 +47,8 @@
 })();
 onload = () => {
     console.log(CMLParser.parser(`
-        <Text>114514</Text>
+        <Headline1>1级标题</Headline1>
+        <Text>一段文本</Text>
         `));
 }
 (async function() {
