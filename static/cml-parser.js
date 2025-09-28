@@ -10,7 +10,7 @@
         const mainNodes = doc.children;
         let html = "";
         for (let node in mainNodes) {}
-        return doc;
+        return html;
     }
     CMLParser.register = function(options) {
         // 注册CML标签
@@ -22,5 +22,7 @@
     }
 })();
 onload = () => {
-    console.log(CMLParser.parser('<Text>114514</Text>').querySelector('Text'));
+    console.log(CMLParser.parser(`
+<Text>114514</Text>
+`));
 }
