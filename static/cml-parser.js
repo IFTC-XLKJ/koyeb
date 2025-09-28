@@ -1,6 +1,6 @@
 // CML - 定制化标记语言
 (async function() {
-    const tags = [];
+    const tags = {};
     globalThis.CMLParser = {};
     CMLParser.parser = function (CMLString) {
         // 将CML解析为HTML
@@ -27,7 +27,10 @@
         const ascii = htmlTagName.charCodeAt(0);
         if ((ascii > 65 && ascii < 91) || (ascii > 97 && ascii < 123)) throw "HTML标签首位必须为英文字母";
         if (cmlTagName.includes(" ")) throw "CML标签中不允许有空格";
-        
+        tags[cmlTagName] = {
+            htmlTagName,
+            handleFunc
+        }
     }
 })();
 onload = () => {
