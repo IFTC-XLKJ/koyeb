@@ -12,6 +12,8 @@
         let html = "";
         for (let node of mainNodes) {
             console.log(node, node.tagName);
+            const tag = tags[node.tagName];
+            if (!tag) throw "未注册名为 " + node.tagName + " 的标签";
         }
         return html;
     }
