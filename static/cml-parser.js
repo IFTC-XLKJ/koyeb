@@ -30,7 +30,8 @@
         tags[cmlTagName] = {
             htmlTagName,
             handleFunc
-        }
+        };
+        return tags;
     }
 })();
 onload = () => {
