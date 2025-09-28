@@ -30,7 +30,7 @@
         if (!((ascii > 65 && ascii < 91) || (ascii > 97 && ascii < 123))) throw "HTML标签首位必须为英文字母";
         if (tags[cmlTagName]) throw cmlTagName + " 已被注册";
         try {
-        customElements.define(htmlTagName, tagClass);
+            customElements.define(htmlTagName, tagClass);
         }catch(e) {
             if (e.message == `NotSupportedError: Failed to execute 'define' on 'CustomElementRegistry': the name "${htmlTagName}" has already been used with this registry`) throw htmlTagName + " 已被注册";
         }
@@ -47,8 +47,8 @@
 })();
 onload = () => {
     console.log(CMLParser.parser(`
-<Text>114514</Text>
-`));
+        <Text>114514</Text>
+        `));
 }
 (async function() {
     CMLParser.register({
