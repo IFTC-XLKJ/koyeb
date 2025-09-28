@@ -11,7 +11,7 @@
         console.log(mainNodes.length);
         let html = "";
         for (let node in mainNodes) {
-            console.log(node.tagName);
+            console.log(node);
         }
         return html;
     }
