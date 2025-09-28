@@ -10,7 +10,7 @@
         const mainNodes = doc.children;
         console.log(mainNodes.length);
         let html = "";
-        for (let node in mainNodes) {
+        for (let node of mainNodes) {
             console.log(node);
         }
         return html;
