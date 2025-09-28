@@ -5,6 +5,8 @@
         const parser = new DOMParser();
         const doc = parser.parseFromString(CMLString, "application/xml");
         console.log(doc);
+        const mainNodes = doc.children;
+        for (let node in mainNodes) {}
         return doc;
     }
 })();
