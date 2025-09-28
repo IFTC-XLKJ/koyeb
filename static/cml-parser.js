@@ -8,8 +8,11 @@
         const doc = parser.parseFromString(CMLString, "application/xml");
         console.log(doc);
         const mainNodes = doc.children;
+        console.log(mainNodes.length);
         let html = "";
-        for (let node in mainNodes) {}
+        for (let node in mainNodes) {
+            console.log(node.tagName);
+        }
         return html;
     }
     CMLParser.register = function(options) {
