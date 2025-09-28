@@ -36,6 +36,9 @@
         customElements.define(htmlTagName, tagClass);
         return tags;
     }
+    CMLParser.getTags = function() {
+        return tags;
+    }
 })();
 onload = () => {
     console.log(CMLParser.parser(`
