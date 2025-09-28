@@ -11,8 +11,13 @@
         for (let node in mainNodes) {}
         return doc;
     }
-    CMLParser.register = function() {
+    CMLParser.register = function(options) {
         // 注册CML标签
+        const {
+            cmlTagName,
+            htmlTagName,
+            handleFunc
+        } = options;
     }
 })();
 onload = () => {
