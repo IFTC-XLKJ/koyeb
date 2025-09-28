@@ -5,7 +5,7 @@
     CMLParser.parser = function (CMLString) {
         // 将CML解析为HTML
         const parser = new DOMParser();
-        const doc = parser.parseFromString(CMLString, "application/xml");
+        const doc = parser.parseFromString(CMLString, "text/xml");
         console.log(doc);
         const mainNodes = doc.children;
         console.log(mainNodes.length);
