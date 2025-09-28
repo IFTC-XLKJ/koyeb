@@ -19,6 +19,9 @@
             htmlTagName,
             handleFunc
         } = options;
+        if (!htmlTagName.includes("-")) throw "HTML标签名必须包含-";
+        const ascii = htmlTagName.charCodeAt(0);
+        if (!ascii)
     }
 })();
 onload = () => {
