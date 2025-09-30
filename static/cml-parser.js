@@ -58,15 +58,15 @@
 })();
 onload = () => {
     console.log(CMLParser.parser(`<Article>
-    <Headline1>1级标题</Headline1>
-    <Text>一段文本</Text>
-</Article>`));
+        <Headline1>1级标题</Headline1>
+        <Text>一段文本</Text>
+        </Article>`));
 }
 (async function () {
     CMLParser.register({
         htmlTagName: "cml-article",
         cmlTagName: "Article",
-        tagClass: class extends HTMLElement { 
+        tagClass: class extends HTMLElement {
             constructor() {
                 super();
                 console.log("加载文章");
@@ -76,11 +76,16 @@ onload = () => {
     CMLParser.register({
         htmlTagName: "cml-text",
         cmlTagName: "Text",
-        tagClass: class extends HTMLElement { }
+        tagClass: class extends HTMLElement {}
     });
     CMLParser.register({
         htmlTagName: "cml-headline1",
         cmlTagName: "Headline1",
-        tagClass: class extends HTMLElement { }
+        tagClass: class extends HTMLElement {
+            static get observedAttributes() {
+                return ["color", "bgcolor"];
+            }
+            
+        }
     });
 })();
