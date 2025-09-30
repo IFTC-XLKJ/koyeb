@@ -65,7 +65,12 @@ onload = () => {
     CMLParser.register({
         htmlTagName: "cml-article",
         cmlTagName: "Article",
-        tagClass: class extends HTMLElement { }
+        tagClass: class extends HTMLElement { 
+            constructor() {
+                super();
+                console.log("加载文章");
+            }
+        }
     });
     CMLParser.register({
         htmlTagName: "cml-text",
