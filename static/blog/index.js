@@ -9,7 +9,7 @@ drawerHome.addEventListener("click", function () {
     window.location.href = "/";
 });
 const articles = document.getElementById("articles");
-function newArticle(title, date, desc, link) {
+function newArticle(title, date, content) {
     const articleCard = document.createElement("mdui-card");
     // articleCard.clickable = true;
     articleCard.style.width = "90%";
@@ -23,6 +23,10 @@ function newArticle(title, date, desc, link) {
     const articleTitle = document.createElement("h2");
     articleTitle.innerText = title;
     articleCard.appendChild(articleTitle);
+    const articleDate = document.createElement("span");
+    articleDate.innerText = date;
+    articleDate.style.color = "#888";
+    articleCard.appendChild(articleDate);
     articles.appendChild(articleCard);
 }
 
