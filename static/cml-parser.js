@@ -90,7 +90,7 @@ onload = () => {
                 return ["color", "bgcolor"];
             }
             connectedCallback() {
-                this.shadowRoot.innerText = `<h1>${this.innerText}</h1>`
+                this.shadowRoot.innerText = `<h1 style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</h1>`
             }
         }
     });
