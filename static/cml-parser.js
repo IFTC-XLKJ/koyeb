@@ -7,8 +7,10 @@
         const parser = new DOMParser();
         const doc = parser.parseFromString(CMLString, "text/xml");
         console.log(doc);
-        const mainNodes = doc.children;
-        console.log(mainNodes.length);
+        const rootNodes = doc.children;
+        console.log(rootNodes.length);
+        if (rootNodes[0].tagName != "Article") throw "CML文档的根节点必须为 Article";
+        const mainNodes = rootNodes[0].children;
         let html = "";
         for (let node of mainNodes) {
             console.log(node, node.tagName);
