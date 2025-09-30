@@ -34,8 +34,11 @@ async function loadArticles() {
     const r = await fetch("/api/articles");
     const j = await r.json();
     const articles = j.data;
-    articles.forEach(article => {
-        newArticle(article.title, article.date, article.desc, article.link);
+    articles.forEach(async article => {
+        console.log(article);
+        const r = await fetch(article.main);
+        const text = await r.text();
+        newArticle(article.title, article.date, text);
     });
 }
 (async function () {
