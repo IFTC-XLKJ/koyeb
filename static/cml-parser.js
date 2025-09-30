@@ -12,7 +12,7 @@
         if (rootNodes[0].tagName != "Article") throw "CML文档的根节点必须为 Article";
         const mainNodes = rootNodes[0].children;
         let html = "";
-        new tags["cml-article"].tagClass();
+        new tags["Article"].tagClass();
         for (let node of mainNodes) {
             console.log(node, node.tagName);
             const tag = tags[node.tagName];
