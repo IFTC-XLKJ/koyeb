@@ -16,6 +16,14 @@
             console.log(node, node.tagName);
             const tag = tags[node.tagName];
             if (!tag) throw "未注册名为 " + node.tagName + " 的标签";
+            // 创建自定义元素
+            const element = document.createElement(tag.htmlTagName);
+            // 复制属性
+            for (let attr of node.attributes) {
+                element.setAttribute(attr.name, attr.value);
+            }
+            element.innerHTML = node.innerHTML;
+            html += element.outerHTML;
         }
         return html;
     }
