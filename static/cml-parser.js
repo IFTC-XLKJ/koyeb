@@ -1,5 +1,5 @@
 // CML - 定制化标记语言
-(async function() {
+(async function () {
     const tags = {};
     globalThis.CMLParser = {};
     CMLParser.parser = function (CMLString) {
@@ -17,7 +17,7 @@
         }
         return html;
     }
-    CMLParser.register = function(options) {
+    CMLParser.register = function (options) {
         // 注册CML标签
         const {
             cmlTagName,
@@ -31,7 +31,7 @@
         if (tags[cmlTagName]) throw cmlTagName + " 已被注册";
         try {
             customElements.define(htmlTagName, tagClass);
-        }catch(e) {
+        } catch (e) {
             if (e.message == `NotSupportedError: Failed to execute 'define' on 'CustomElementRegistry': the name "${htmlTagName}" has already been used with this registry`) throw htmlTagName + " 已被注册";
         }
         if (cmlTagName.includes(" ")) throw "CML标签中不允许有空格";
@@ -41,25 +41,25 @@
         };
         return tags;
     }
-    CMLParser.getTags = function() {
+    CMLParser.getTags = function () {
         return tags;
     }
 })();
 onload = () => {
-    console.log(CMLParser.parser(`
-        <Headline1>1级标题</Headline1>
-        <Text>一段文本</Text>
-        `));
+    console.log(CMLParser.parser(`<Article>
+    <Headline1>1级标题</Headline1>
+    <Text>一段文本</Text>
+</Article>`));
 }
-(async function() {
+(async function () {
     CMLParser.register({
         htmlTagName: "cml-text",
         cmlTagName: "Text",
-        tagClass: class extends HTMLElement {}
+        tagClass: class extends HTMLElement { }
     });
     CMLParser.register({
         htmlTagName: "cml-headline1",
         cmlTagName: "Headline1",
-        tagClass: class extends HTMLElement {}
+        tagClass: class extends HTMLElement { }
     });
 })();
