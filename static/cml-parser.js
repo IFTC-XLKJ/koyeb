@@ -82,10 +82,16 @@ onload = () => {
         htmlTagName: "cml-headline1",
         cmlTagName: "Headline1",
         tagClass: class extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({ mode: 'open' });
+            }
             static get observedAttributes() {
                 return ["color", "bgcolor"];
             }
-            
+            connectedCallback() {
+                this.shadowRoot.innerText = `<h1>${this.innerText}</h1>`
+            }
         }
     });
 })();
