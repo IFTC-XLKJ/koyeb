@@ -27,6 +27,10 @@ function newArticle(title, date, content) {
     articleDate.innerText = date;
     articleDate.style.color = "#888";
     articleCard.appendChild(articleDate);
+    const articleContent = document.createElement("div");
+    articleContent.style.marginTop = "1rem";
+    articleContent.innerHTML = CMLParser.parser(content);
+    articleCard.appendChild(articleContent);
     articles.appendChild(articleCard);
 }
 
