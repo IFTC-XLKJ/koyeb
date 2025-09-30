@@ -53,6 +53,11 @@ onload = () => {
 }
 (async function () {
     CMLParser.register({
+        htmlTagName: "cml-article",
+        cmlTagName: "Article",
+        tagClass: class extends HTMLElement { }
+    });
+    CMLParser.register({
         htmlTagName: "cml-text",
         cmlTagName: "Text",
         tagClass: class extends HTMLElement { }
