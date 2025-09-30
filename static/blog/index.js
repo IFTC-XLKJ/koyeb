@@ -34,4 +34,6 @@ async function loadArticles() {
         newArticle(article.title, article.date, article.desc, article.link);
     });
 }
-loadArticles();
+(async function () {
+    await loadArticles();
+})();
