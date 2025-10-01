@@ -76,7 +76,20 @@ onload = () => {
     CMLParser.register({
         htmlTagName: "cml-text",
         cmlTagName: "Text",
-        tagClass: class extends HTMLElement {}
+        tagClass: class extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({
+                    mode: 'open'
+                });
+            }
+            static get observedAttributes() {
+                return ["color", "bgcolor"];
+            }
+            connectedCallback() {
+                this.shadowRoot.innerHTML = `<span style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</span>`
+            }
+        }
     });
     CMLParser.register({
         htmlTagName: "cml-headline1",
@@ -84,7 +97,9 @@ onload = () => {
         tagClass: class extends HTMLElement {
             constructor() {
                 super();
-                this.attachShadow({ mode: 'open' });
+                this.attachShadow({
+                    mode: 'open'
+                });
             }
             static get observedAttributes() {
                 return ["color", "bgcolor"];
