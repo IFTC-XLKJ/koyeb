@@ -1,4 +1,5 @@
 // CML - 定制化标记语言
+// Customization Markup Language
 (async function () {
     const tags = {};
     globalThis.CMLParser = {};
