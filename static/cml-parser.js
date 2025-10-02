@@ -192,6 +192,33 @@ onload = () => {
                     mode: 'open'
                 });
                 this.shadowRoot.innerHTML = `<p></p>`;
+                const config = {
+                    childList: true,      // 观察目标节点的直接子节点的增删
+                    subtree: true,        // 观察目标节点及其所有后代节点（可选）
+                    attributes: true,     // 观察属性变动（可选）
+                    // attributeFilter: ['class', 'style'], // 只观察指定的属性（可选）
+                    attributeOldValue: true, // 记录变动前的属性值（可选）
+                    characterData: true,  // 观察文本内容或文本节点的变动（可选）
+                    characterDataOldValue: true // 记录变动前的文本内容（可选）
+                };
+                const observer = new MutationObserver(function (mutationsList, observer) {
+                    // 当观察到变化时，此回调函数会被执行
+                    for (let mutation of mutationsList) {
+                        if (mutation.type === 'childList') {
+                            console.log('子节点发生了变化：', mutation);
+                            // 例如，有节点被添加或移除
+                        }
+                        else if (mutation.type === 'attributes') {
+                            console.log(`属性 ${mutation.attributeName} 发生了变化`);
+                            // 例如，元素的 class, id, style 等属性被修改
+                        }
+                        else if (mutation.type === 'subtree') {
+                            console.log('子树发生了变化');
+                            // 配合 subtree: true 选项，监听后代节点
+                        }
+                    }
+                });
+                observer.observe(this, config);
             }
             static get observedAttributes() {
                 return ["color", "bgcolor"];
