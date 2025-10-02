@@ -223,9 +223,9 @@ onload = () => {
                             // console.log(that.innerHTML);
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
-                                    const htmlTagName = CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName;
-                                    console.log(node, htmlTagName);
                                     if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
+                                        const htmlTagName = CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName;
+                                        console.log(node, htmlTagName);
                                         changeTag(node, htmlTagName);
                                         const newNode = document.createElement(htmlTagName);
                                         for (let attr of node.attributes) {
