@@ -74,6 +74,7 @@ onload = () => {
             newElement.setAttribute(attr.name, attr.value);
         }
         newElement.innerHTML = element.innerHTML;
+        console.log(element.parentNode);
         element.parentNode.replaceChild(newElement, element);
         return newElement;
     }
