@@ -193,13 +193,12 @@ onload = () => {
                 });
                 this.shadowRoot.innerHTML = `<p></p>`;
                 const config = {
-                    childList: true,      // 观察目标节点的直接子节点的增删
-                    subtree: true,        // 观察目标节点及其所有后代节点（可选）
-                    attributes: true,     // 观察属性变动（可选）
-                    // attributeFilter: ['class', 'style'], // 只观察指定的属性（可选）
-                    attributeOldValue: true, // 记录变动前的属性值（可选）
-                    characterData: true,  // 观察文本内容或文本节点的变动（可选）
-                    characterDataOldValue: true // 记录变动前的文本内容（可选）
+                    childList: true,
+                    subtree: true,
+                    attributes: true,
+                    attributeOldValue: true,
+                    characterData: true,
+                    characterDataOldValue: true
                 };
                 const observer = new MutationObserver(function (mutationsList, observer) {
                     for (let mutation of mutationsList) {
