@@ -223,7 +223,7 @@ onload = () => {
                             // console.log(that.innerHTML);
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
-                                    console.log(node);
+                                    console.log(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
                                     if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
                                         changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
                                         const newNode = that.shadowRoot.createElement(CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
