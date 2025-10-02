@@ -202,13 +202,14 @@ onload = () => {
                     characterDataOldValue: true // 记录变动前的文本内容（可选）
                 };
                 const observer = new MutationObserver(function (mutationsList, observer) {
-                    // 当观察到变化时，此回调函数会被执行
                     for (let mutation of mutationsList) {
                         console.log(mutation.type);
                         if (mutation.type === 'childList') {
                             console.log('子节点发生了变化：', mutation);
                             for (let node of mutation.addedNodes) {
-                                console.log(node instanceof Element);
+                                if (node instanceof Element) {
+                                    console.log(node);
+                                }
                             }
                             for (let node of mutation.removedNodes) {
                                 console.log(node instanceof Element);
