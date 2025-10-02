@@ -230,7 +230,7 @@ onload = () => {
                                         for (let attr of node.attributes) {
                                             newNode.setAttribute(attr.name, attr.value);
                                         }
-                                        this.shadowRoot.querySelector("p").appendChild(newNode);
+                                        that.shadowRoot.querySelector("p").appendChild(newNode);
                                     }
                                     // else {
                                     //     throw "不允许在 Paragraph 中使用未注册的标签：" + capitalize(node.tagName.toLowerCase());
