@@ -226,7 +226,7 @@ onload = () => {
                                     console.log(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
                                     if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
                                         changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
-                                        const newNode = that.shadowRoot.createElement(CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
+                                        const newNode = document.createElement(CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
                                         for (let attr of node.attributes) {
                                             newNode.setAttribute(attr.name, attr.value);
                                         }
