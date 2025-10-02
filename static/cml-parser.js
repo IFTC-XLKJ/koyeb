@@ -207,7 +207,12 @@ onload = () => {
                         console.log(mutation.type);
                         if (mutation.type === 'childList') {
                             console.log('子节点发生了变化：', mutation);
-                            // 例如，有节点被添加或移除
+                            for (let node of mutation.addedNodes) {
+                                console.log(node instanceof Element);
+                            }
+                            for (let node of mutation.removedNodes) {
+                                console.log(node instanceof Element);
+                            }
                         }
                         else if (mutation.type === 'attributes') {
                             console.log(`属性 ${mutation.attributeName} 发生了变化`);
