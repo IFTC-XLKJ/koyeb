@@ -3,4 +3,5 @@
     <Text>欢迎来到我的第一个博客帖子！这是使用定制化标记语言(CML)编写的。CML是一个高度扩展性的标记语言。</Text>
     <Headline2>二级标题</Headline2>
     <Headline3>三级标题</Headline3>
+    <Paragraph>这是一个段落示例。你可以在这里添加更多内容，分享你的想法和见解。</Paragraph>
 </Article>
