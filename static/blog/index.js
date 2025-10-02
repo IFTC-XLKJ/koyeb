@@ -49,5 +49,9 @@ async function loadArticles() {
     });
 }
 (async function () {
-    await loadArticles();
+    try {
+        await loadArticles();
+    } catch (e) {
+        console.error(e);
+    }
 })();
