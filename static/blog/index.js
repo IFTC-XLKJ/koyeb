@@ -12,7 +12,7 @@ const articles = document.getElementById("articles");
 function newArticle(title, date, content) {
     const articleCard = document.createElement("mdui-card");
     // articleCard.clickable = true;
-    articleCard.style.width = "90%";
+    // articleCard.style.width = "90%";
     articleCard.style.margin = "1rem auto";
     articleCard.style.padding = "1rem";
     articleCard.style.boxSizing = "border-box";
