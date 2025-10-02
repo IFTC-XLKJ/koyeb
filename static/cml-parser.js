@@ -64,6 +64,10 @@ onload = () => {
         </Article>`));
 }
 (async function () {
+    function capitalize(str) {
+        if (!str || typeof str !== 'string') return str;
+        return str.charAt(0).toUpperCase() + str.slice(1);
+    }
     CMLParser.register({
         htmlTagName: "cml-article",
         cmlTagName: "Article",
@@ -208,8 +212,8 @@ onload = () => {
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
                                     console.log(node);
-                                    if (CMLParser.getTags()[node.tagName]) { } else {
-                                        throw "不允许在 Paragraph 中使用未注册的标签：" + node.tagName;
+                                    if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) { } else {
+                                        throw "不允许在 Paragraph 中使用未注册的标签：" + capitalize(node.tagName.toLowerCase());
                                     }
                                 }
                             }
