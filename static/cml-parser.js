@@ -182,4 +182,31 @@ onload = () => {
             }
         }
     });
+    CMLParser.register({
+        htmlTagName: "cml-paragraph",
+        cmlTagName: "Paragraph",
+        tagClass: class extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({
+                    mode: 'open'
+                });
+                this.shadowRoot.innerHTML = `<p></p>`;
+            }
+            static get observedAttributes() {
+                return ["color", "bgcolor"];
+            }
+            attributeChangedCallback(name, oldValue, newValue) {
+                if (oldValue === newValue) return;
+                if (name == "color") {
+                    this.shadowRoot.querySelector("p").style.color = newValue;
+                } else if (name == "bgcolor") {
+                    this.shadowRoot.querySelector("p").style.backgroundColor = newValue;
+                }
+            }
+            connectedCallback() {
+                this.shadowRoot.innerHTML = `<p style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</p>`
+            }
+        }
+    })
 })();
