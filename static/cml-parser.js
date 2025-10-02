@@ -219,7 +219,7 @@ onload = () => {
                         console.log(mutation.type);
                         if (mutation.type === 'childList') {
                             console.log('子节点发生了变化：', mutation);
-                            console.log(that.innerHTML);
+                            // console.log(that.innerHTML);
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
                                     console.log(node);
