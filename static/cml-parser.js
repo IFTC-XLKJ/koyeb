@@ -87,6 +87,14 @@ onload = () => {
             static get observedAttributes() {
                 return ["color", "bgcolor"];
             }
+            attributeChangedCallback(name, oldValue, newValue) {
+                if (oldValue === newValue) return;
+                if (name == "color") {
+                    this.shadowRoot.querySelector("span").style.color = newValue;
+                } else if (name == "bgcolor") {
+                    this.shadowRoot.querySelector("span").style.backgroundColor = newValue;
+                }
+            }
             connectedCallback() {
                 this.shadowRoot.innerHTML = `<span style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</span>`
             }
