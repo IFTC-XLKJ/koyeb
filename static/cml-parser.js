@@ -223,10 +223,11 @@ onload = () => {
                             // console.log(that.innerHTML);
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
-                                    console.log(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
+                                    const htmlTagName = CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName;
+                                    console.log(node, htmlTagName);
                                     if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
-                                        changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
-                                        const newNode = document.createElement(CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
+                                        changeTag(node, htmlTagName);
+                                        const newNode = document.createElement(htmlTagName);
                                         for (let attr of node.attributes) {
                                             newNode.setAttribute(attr.name, attr.value);
                                         }
