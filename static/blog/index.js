@@ -44,6 +44,7 @@ async function loadArticles() {
             const text = await r.text();
             newArticle(article.title, article.date, text);
         } catch (e) {
+            newArticle(article.title, article.date, `<Text color="red">加载文章失败</Text>`);
             console.error("加载文章失败", e);
         }
     });
