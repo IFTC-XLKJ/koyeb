@@ -225,7 +225,7 @@ onload = () => {
                                     console.log(node);
                                     if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
                                         changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
-                                    } 
+                                    }
                                     // else {
                                     //     throw "不允许在 Paragraph 中使用未注册的标签：" + capitalize(node.tagName.toLowerCase());
                                     // }
@@ -259,7 +259,7 @@ onload = () => {
                 }
             }
             connectedCallback() {
-                this.shadowRoot.innerHTML = `<p style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</p>`
+                this.shadowRoot.innerHTML = `<p style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerHTML}</p>`
             }
         }
     })
