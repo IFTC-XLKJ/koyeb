@@ -222,10 +222,11 @@ onload = () => {
                             console.log(that.innerHTML);
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
-                                    // console.log(node);
-                                    // if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
-                                    //     changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
-                                    // } else {
+                                    console.log(node);
+                                    if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
+                                        changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
+                                    } 
+                                    // else {
                                     //     throw "不允许在 Paragraph 中使用未注册的标签：" + capitalize(node.tagName.toLowerCase());
                                     // }
                                 }
