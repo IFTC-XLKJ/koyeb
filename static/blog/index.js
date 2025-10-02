@@ -39,9 +39,13 @@ async function loadArticles() {
     const articles = j.data;
     articles.forEach(async article => {
         console.log(article);
-        const r = await fetch(article.main);
-        const text = await r.text();
-        newArticle(article.title, article.date, text);
+        try {
+            const r = await fetch(article.main);
+            const text = await r.text();
+            newArticle(article.title, article.date, text);
+        } catch (e) {
+            console.error("加载文章失败", e);
+        }
     });
 }
 (async function () {
