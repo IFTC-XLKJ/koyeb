@@ -90,9 +90,9 @@ onload = () => {
             attributeChangedCallback(name, oldValue, newValue) {
                 if (oldValue === newValue) return;
                 if (name == "color") {
-                    this.shadowRoot.querySelector("span").style.color = newValue;
+                    this.shadowRoot.querySelector("span")?.style.color = newValue;
                 } else if (name == "bgcolor") {
-                    this.shadowRoot.querySelector("span").style.backgroundColor = newValue;
+                    this.shadowRoot.querySelector("span")?.style.backgroundColor = newValue;
                 }
             }
             connectedCallback() {
