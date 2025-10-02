@@ -1,4 +1,5 @@
 <Article>
     <Headline1>第一个博客帖子</Headline1>
     <Text>欢迎来到我的第一个博客帖子！这是使用定制化标记语言(CML)编写的。CML是一个高度扩展性的标记语言。</Text>
+    <Headline2>二级标题</Headline2>
 </Article>
