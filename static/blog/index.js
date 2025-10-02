@@ -16,6 +16,8 @@ function newArticle(title, date, content) {
     articleCard.style.margin = "1rem auto";
     articleCard.style.padding = "1rem";
     articleCard.style.boxSizing = "border-box";
+    articleCard.style.transition = "box-shadow 0.3s";
+    articleCard.style.minWidth = "300px";
     // articleCard.addEventListener("click", function () {
     //     window.location.href = link;
     // });
