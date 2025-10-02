@@ -204,6 +204,7 @@ onload = () => {
                 const observer = new MutationObserver(function (mutationsList, observer) {
                     // 当观察到变化时，此回调函数会被执行
                     for (let mutation of mutationsList) {
+                        console.log(mutation.type);
                         if (mutation.type === 'childList') {
                             console.log('子节点发生了变化：', mutation);
                             // 例如，有节点被添加或移除
