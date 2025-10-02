@@ -110,6 +110,7 @@ onload = () => {
                 this.attachShadow({
                     mode: 'open'
                 });
+                this.shadowRoot.innerHTML = `<h1></h1>`;
             }
             static get observedAttributes() {
                 return ["color", "bgcolor"];
@@ -124,6 +125,33 @@ onload = () => {
             }
             connectedCallback() {
                 this.shadowRoot.innerHTML = `<h1 style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</h1>`
+            }
+        }
+    });
+    CMLParser.register({
+        htmlTagName: "cml-headline2",
+        cmlTagName: "Headline2",
+        tagClass: class extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({
+                    mode: 'open'
+                });
+                this.shadowRoot.innerHTML = `<h2></h2>`;
+            }
+            static get observedAttributes() {
+                return ["color", "bgcolor"];
+            }
+            attributeChangedCallback(name, oldValue, newValue) {
+                if (oldValue === newValue) return;
+                if (name == "color") {
+                    this.shadowRoot.querySelector("h2").style.color = newValue;
+                } else if (name == "bgcolor") {
+                    this.shadowRoot.querySelector("h2").style.backgroundColor = newValue;
+                }
+            }
+            connectedCallback() {
+                this.shadowRoot.innerHTML = `<h2 style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</h2>`
             }
         }
     });
