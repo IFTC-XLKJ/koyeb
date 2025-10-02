@@ -155,4 +155,31 @@ onload = () => {
             }
         }
     });
+    CMLParser.register({
+        htmlTagName: "cml-headline3",
+        cmlTagName: "Headline3",
+        tagClass: class extends HTMLElement {
+            constructor() {
+                super();
+                this.attachShadow({
+                    mode: 'open'
+                });
+                this.shadowRoot.innerHTML = `<h3></h3>`;
+            }
+            static get observedAttributes() {
+                return ["color", "bgcolor"];
+            }
+            attributeChangedCallback(name, oldValue, newValue) {
+                if (oldValue === newValue) return;
+                if (name == "color") {
+                    this.shadowRoot.querySelector("h3").style.color = newValue;
+                } else if (name == "bgcolor") {
+                    this.shadowRoot.querySelector("h3").style.backgroundColor = newValue;
+                }
+            }
+            connectedCallback() {
+                this.shadowRoot.innerHTML = `<h3 style="color: ${this.getAttribute("color") || "black"};background-color: ${this.getAttribute("bgcolor") || "#FFFFFF00"};">${this.innerText}</h3>`
+            }
+        }
+    });
 })();
