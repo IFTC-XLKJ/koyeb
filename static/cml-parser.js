@@ -209,6 +209,9 @@ onload = () => {
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
                                     console.log(node);
+                                    if (CMLParser.getTags()[node.tagName]) { } else {
+                                        throw "不允许在 Paragraph 中使用未注册的标签：" + node.tagName;
+                                    }
                                 }
                             }
                             for (let node of mutation.removedNodes) {
