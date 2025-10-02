@@ -218,14 +218,15 @@ onload = () => {
                         console.log(mutation.type);
                         if (mutation.type === 'childList') {
                             console.log('子节点发生了变化：', mutation);
+                            console.log(this.innerHTML);
                             for (let node of mutation.addedNodes) {
                                 if (node instanceof Element) {
-                                    console.log(node);
-                                    if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
-                                        changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
-                                    } else {
-                                        throw "不允许在 Paragraph 中使用未注册的标签：" + capitalize(node.tagName.toLowerCase());
-                                    }
+                                    // console.log(node);
+                                    // if (CMLParser.getTags()[capitalize(node.tagName.toLowerCase())]) {
+                                    //     changeTag(node, CMLParser.getTags()[capitalize(node.tagName.toLowerCase())].htmlTagName);
+                                    // } else {
+                                    //     throw "不允许在 Paragraph 中使用未注册的标签：" + capitalize(node.tagName.toLowerCase());
+                                    // }
                                 }
                             }
                             for (let node of mutation.removedNodes) {
