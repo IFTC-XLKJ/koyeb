@@ -886,7 +886,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "qwen3-max",
                         flashvider: "azureml",
                         temperature: 1,
                         top_p: 1,
@@ -981,7 +981,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "qwen3-max",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1082,7 +1082,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "qwen3-max",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1168,7 +1168,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "qwen3-max",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1253,7 +1253,7 @@ class Other {
                         Origin: "https://iftc.koyeb.app"
                     },
                     body: JSON.stringify({
-                        model: "gemini-2.5-flash",
+                        model: "qwen3-max",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
