@@ -1362,6 +1362,7 @@ class Other {
                     data.push({
                         id: field.ID,
                         name: field.名称,
+                        description: field.简介,
                         versionCode: field.版本号,
                         versionName: field.版本名,
                     });
