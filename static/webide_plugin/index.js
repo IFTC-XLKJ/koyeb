@@ -155,6 +155,7 @@ async function download(name, urls) {
             });
             downloading.open = false;
         };
+        r.send();
     });
 }
 loadPlugin();
