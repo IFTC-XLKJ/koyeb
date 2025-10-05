@@ -13,6 +13,7 @@ const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const maxmind = require('maxmind');
 const whois = require('whois');
+const { version } = require("os");
 // console.log(fs);
 
 class Other {
@@ -1357,6 +1358,14 @@ class Other {
                     timestamp: time(),
                 });
                 const data = [];
+                json.fields.forEach(field => {
+                    data.push({
+                        id: field.ID,
+                        name: field.名称,
+                        versionCode: field.版本号,
+                        versionName: field.版本名,
+                    });
+                });
                 return res.json({
                     code: 200,
                     msg: "获取成功",
