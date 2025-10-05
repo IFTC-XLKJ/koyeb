@@ -97,7 +97,7 @@ async function loadPlugin() {
 async function download(name, urls) {
     if (urls.length == 0) {
         mdui.snackbar({
-            message: "没有可用的下载链接",
+            message: "没有下载链接",
             placement: "top"
         });
         return downloading.open = false;
