@@ -88,7 +88,7 @@
 .mdui-theme-light,
 :root {
     color-scheme: light;
-    --mdui-color-primary: var(--mdui-color-primary-light);
+    --mdui-color-primary: 3, 169, 244;
     --mdui-color-primary-container: var(--mdui-color-primary-container-light);
     --mdui-color-on-primary: var(--mdui-color-on-primary-light);
     --mdui-color-on-primary-container: var(--mdui-color-on-primary-container-light);
