@@ -38,6 +38,10 @@ async function loadPlugin() {
         data.forEach(plugin => {
             addItem(plugin);
         });
+        mdui.snackbar({
+            message: "加载成功",
+            placement: "top"
+        });
         loadMore.disabled = false;
         loadMore.loading = false;
         loadMore.innerText = "加载更多";
