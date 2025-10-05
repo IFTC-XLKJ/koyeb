@@ -115,6 +115,7 @@ async function download(name, urls) {
         r.responseType = "blob";
         r.onprogress = function (event) {
             const percent = event.lengthComputable ? (event.loaded / event.total) : 0;
+            console.log(percent);
             // Update overall progress
             progressValue += (percent * 100);
             progressValue = progressValue / urls.length;
