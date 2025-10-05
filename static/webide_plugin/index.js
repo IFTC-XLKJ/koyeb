@@ -16,6 +16,14 @@ async function loadPlugin() {
             });
             return pluginGetPage--;
         }
+        const data = json.data;
+        if (data.length == 0) {
+            mdui.snackbar({
+                message: "没有更多插件了",
+                placement: "top"
+            });
+            return pluginGetPage--;
+        }
     } catch (e) {
         pluginGetPage--;
         mdui.snackbar({
