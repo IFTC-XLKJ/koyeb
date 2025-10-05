@@ -114,7 +114,7 @@
     --mdui-color-on-surface-variant: var(--mdui-color-on-surface-variant-light);
     --mdui-color-inverse-surface: var(--mdui-color-inverse-surface-light);
     --mdui-color-inverse-on-surface: var(--mdui-color-inverse-on-surface-light);
-    --mdui-color-background: var(--mdui-color-background-light);
+    --mdui-color-background: 255, 255, 255;
     --mdui-color-on-background: var(--mdui-color-on-background-light);
     --mdui-color-error: var(--mdui-color-error-light);
     --mdui-color-error-container: var(--mdui-color-error-container-light);
