@@ -1,7 +1,7 @@
 const pluginList = document.getElementById("plugin-list");
 const loadMore = document.getElementById("load-more");
 const downloading = document.getElementById("downloading");
-const progress= document.getElementById("progress");
+const progress = document.getElementById("progress");
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
@@ -94,4 +94,5 @@ async function loadPlugin() {
         });
     }
 }
+async function download(name, urls) { }
 loadPlugin();
