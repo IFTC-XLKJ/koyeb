@@ -125,20 +125,21 @@ async function download(name, urls) {
         placement: "top"
     });
     d(urls[0], 0);
+    let downloadedSize = 0;
     function d(url, index) {
         const r = new XMLHttpRequest();
         r.open("GET", url);
         r.responseType = "blob";
         r.onprogress = function (event) {
-            const percent = event.lengthComputable ? (event.loaded / event.total) : 0;
-            console.log(percent, percent * 100);
+            if (!event.lengthComputable) return;
+            downloadedSize += event.loaded;
+            console.log(`Downloaded ${downloadedSize} of ${totalSize} bytes`);
             // Update overall progress
-            progressValue += (percent * 100);
+            progressValue = downloadedSize / totalSize * 100;
             console.log(progressValue);
-            progressValue = progressValue;
-            progress.value = progressValue / urls.length;
-            progressText.innerText = `${Math.floor(progressValue / urls.length)}%`;
-            console.log(`Overall Progress: ${Math.floor(progressValue / urls.length)}%`);
+            progress.value = progressValue;
+            progressText.innerText = `${Math.floor(progressValue)}%`;
+            console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
         };
         r.onload = function () {
             if (r.status === 200) {
