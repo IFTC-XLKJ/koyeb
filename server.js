@@ -486,6 +486,37 @@ app.all('/proxy/*', async (req, res) => {
     return res.status(500).send("Internal Server Error");
   }
 });
+app.get("/webide_plugin", async (req, res) => {
+  requestLog(req);
+  if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
+    code: 200,
+    msg: "请求成功",
+    timestamp: time(),
+  });
+  if (req.headers["user-agent"] == "IFTC Bot") return res.json({
+    code: 200,
+    msg: "请求成功",
+    timestamp: time(),
+  });
+  const params = {};
+  res.set({
+    "Content-Type": "text/html;charset=utf-8",
+  });
+  try {
+    const content = await mixed("pages/webide_plugin/index.html", params);
+    if (typeof content !== "string") throw new Error("Invalid content type");
+    console.log("Content:", content);
+    console.log("Type of content:", typeof content);
+    return res.send(content);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({
+      code: 500,
+      msg: String(e),
+      timestamp: time(),
+    });
+  }
+});
 
 app.all("/BingSiteAuth.xml", (req, res) => {
   requestLog(req);
