@@ -11,7 +11,15 @@ class WebIDEPlugin {
     static async get(page) {
 
     }
-    async post(type) { }
+    async post(type) {
+        const timestamp = time();
+        const signaturePromise = sign.get(timestamp);
+        try {
+            const signature = await signaturePromise;
+        } catch (e) {
+
+        }
+    }
 }
 
 module.exports = WebIDEPlugin;
