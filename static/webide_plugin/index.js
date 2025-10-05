@@ -113,7 +113,8 @@ async function download(name, urls) {
         r.onprogress = function (event) {
             const percent = event.lengthComputable ? (event.loaded / event.total) : 0;
             // Update overall progress
-            progressValue += percent / urls.length;
+            progressValue += percent;
+            progressValue = progressValue / urls.length;
             progress.value = progressValue;
             progressText.innerText = `${Math.floor(progressValue)}%`;
             console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
