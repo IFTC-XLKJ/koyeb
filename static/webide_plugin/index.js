@@ -102,5 +102,58 @@ async function download(name, urls) {
         });
         return downloading.open = false;
     }
+    let progressValue = 0;
+    const blobs = [];
+    urls.forEach((url, index) => {
+        const r = new XMLHttpRequest();
+        r.open("GET", url);
+        r.responseType = "blob";
+        r.onprogress = function (event) {
+            if (event.lengthComputable) {
+                const percentComplete = event.loaded / event.total;
+                progressValue += percentComplete / urls.length;
+                progress.value = progressValue * 100;
+            } else {
+                // Unable to compute progress information since the total size is unknown
+                progressValue += 1 / urls.length;
+                progress.value = progressValue * 100;
+            }
+        };
+        r.onload = function () {
+            if (r.status === 200) {
+                blobs[index] = r.response;
+                // Check if all downloads are complete
+                if (blobs.filter(b => b).length === urls.length) {
+                    // All downloads are complete
+                    const combinedBlob = new Blob(blobs, { type: 'application/zip' });
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(combinedBlob);
+                    link.download = name;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    URL.revokeObjectURL(link.href);
+                    mdui.snackbar({
+                        message: "下载完成",
+                        placement: "top"
+                    });
+                    downloading.open = false;
+                }
+            } else {
+                mdui.snackbar({
+                    message: `下载失败，状态码：${r.status}`,
+                    placement: "top"
+                });
+                downloading.open = false;
+            }
+        };
+        r.onerror = function () {
+            mdui.snackbar({
+                message: "下载时发生错误",
+                placement: "top"
+            });
+            downloading.open = false;
+        };
+    });
 }
 loadPlugin();
