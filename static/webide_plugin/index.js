@@ -2,6 +2,7 @@ const pluginList = document.getElementById("plugin-list");
 const loadMore = document.getElementById("load-more");
 const downloading = document.getElementById("downloading");
 const progress = document.getElementById("progress");
+const progressText = document.getElementById("progressText");
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
@@ -110,15 +111,12 @@ async function download(name, urls) {
         r.open("GET", url);
         r.responseType = "blob";
         r.onprogress = function (event) {
-            if (event.lengthComputable) {
-                const percentComplete = event.loaded / event.total;
-                progressValue += percentComplete / urls.length;
-                progress.value = progressValue * 100;
-            } else {
-                // Unable to compute progress information since the total size is unknown
-                progressValue += 1 / urls.length;
-                progress.value = progressValue * 100;
-            }
+            const percent = event.lengthComputable ? (event.loaded / event.total) : 0;
+            // Update overall progress
+            progressValue = ((index + percent) / urls.length) * 100;
+            progress.value = progressValue;
+            progressText.innerText = `${Math.floor(progressValue)}%`;
+            console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
         };
         r.onload = function () {
             if (r.status === 200) {
