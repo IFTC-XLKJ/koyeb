@@ -46,6 +46,7 @@ async function loadPlugin() {
         loadMore.loading = false;
         loadMore.innerText = "加载更多";
     } catch (e) {
+        console.error(e);
         pluginGetPage--;
         loadMore.disabled = false;
         loadMore.loading = false;
