@@ -113,7 +113,7 @@ async function download(name, urls) {
         r.onprogress = function (event) {
             const percent = event.lengthComputable ? (event.loaded / event.total) : 0;
             // Update overall progress
-            progressValue = ((index + percent) / urls.length) * 100;
+            progressValue += percent / urls.length;
             progress.value = progressValue;
             progressText.innerText = `${Math.floor(progressValue)}%`;
             console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
@@ -123,6 +123,9 @@ async function download(name, urls) {
                 blobs[index] = r.response;
                 // Check if all downloads are complete
                 if (blobs.filter(b => b).length === urls.length) {
+                    progressValue = 100;
+                    progressText.innerText = `${Math.floor(progressValue)}%`;
+                    console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
                     // All downloads are complete
                     const combinedBlob = new Blob(blobs, { type: 'application/zip' });
                     const link = document.createElement('a');
