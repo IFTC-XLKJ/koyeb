@@ -1353,7 +1353,18 @@ class Other {
             });
             try {
                 const json = await WebIDEPlugin.get(Number(page));
-                return res.status(json.code).json(json);
+                if (json.code != 200) return res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+                const data = [];
+                return res.json({
+                    code: 200,
+                    msg: "获取成功",
+                    data: data,
+                    timestamp: time(),
+                });
             } catch (e) {
                 return res.status(500).json({
                     code: 500,
