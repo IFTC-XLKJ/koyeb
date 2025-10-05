@@ -1,7 +1,6 @@
 const fetch = require("node-fetch");
 const Sign = require("./Sign.js");
 const User = require("./User.js");
-const e = require("express");
 const sign = new Sign();
 
 const NOOBWorkKey = "LkduYVIN+ZUTA2pX6P23IcX+TZ/pbiiMk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOjtpix5Xz10DuRd2uyWwJKst8iKDzWqQWSRSQcB1kDw0lDy+GZKmxv0o15DuJZVFC0=";
