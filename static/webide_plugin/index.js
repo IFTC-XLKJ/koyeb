@@ -9,8 +9,18 @@ async function loadPlugin() {
     try {
         const res = await fetch(`/api/webide_plugin/get?page=${pluginGetPage}`);
         const json = await res.json();
-        if (json.code != 200) return pluginGetPage--;
+        if (json.code != 200) {
+            mdui.snackbar({
+                message: "加载失败，错误信息：(" + json.code + ")" + json.msg + "，请稍后再试",
+                placement: "top"
+            });
+            return pluginGetPage--;
+        }
     } catch (e) {
         pluginGetPage--;
+        mdui.snackbar({
+            message: "加载失败，请检查网络连接",
+            placement: "top"
+        });
     }
 }
