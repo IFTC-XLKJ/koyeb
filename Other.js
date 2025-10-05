@@ -1345,7 +1345,7 @@ class Other {
             requestLog(req);
             const { page } = req.query;
             console.log(page);
-            if (isNaN(Number(page))) return res.status(400).json({
+            if (!page || isNaN(Number(page))) return res.status(400).json({
                 code: 400,
                 msg: "Bad Request",
                 error: "page must be a number",
