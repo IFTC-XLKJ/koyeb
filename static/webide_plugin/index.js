@@ -106,6 +106,10 @@ async function download(name, urls) {
     }
     let progressValue = 0;
     const blobs = [];
+    mdui.snackbar({
+        message: "等待获取文件大小...",
+        placement: "top"
+    });
     let totalSize = 0;
     for (let i = 0; i < urls.length; i++) {
         const url = urls[i];
@@ -116,6 +120,10 @@ async function download(name, urls) {
         totalSize += parseInt(size);
         console.log(`File ${index + 1} size: ${size} bytes`);
     }
+    mdui.snackbar({
+        message: `开始下载，共 ${totalSize} 字节`,
+        placement: "top"
+    });
     d(urls[0], 0);
     function d(url, index) {
         const r = new XMLHttpRequest();
