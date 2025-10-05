@@ -38,6 +38,9 @@ async function loadPlugin() {
         data.forEach(plugin => {
             addItem(plugin);
         });
+        loadMore.disabled = false;
+        loadMore.loading = false;
+        loadMore.innerText = "加载更多";
     } catch (e) {
         pluginGetPage--;
         loadMore.disabled = false;
