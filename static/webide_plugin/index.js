@@ -36,7 +36,7 @@ function addItem(plugin) {
     pluginList.appendChild(mainCard);
 }
 (function () {
-    const p = downloading.shawdowRoot.querySelector(".panel");
+    const p = downloading.shadowRoot.querySelector(".panel");
     p.style.position = "fixed";
     p.style.left = "50%";
     p.style.transform = "translate(-50%)";
