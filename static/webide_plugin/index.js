@@ -107,6 +107,9 @@ async function download(name, urls) {
     let progressValue = 0;
     const blobs = [];
     urls.forEach((url, index) => {
+    });
+    d(urls[0], 0);
+    function d(url, index) {
         const r = new XMLHttpRequest();
         r.open("GET", url);
         r.responseType = "blob";
@@ -141,6 +144,8 @@ async function download(name, urls) {
                         placement: "top"
                     });
                     downloading.open = false;
+                } else {
+                    d(urls[index + 1], index + 1);
                 }
             } else {
                 mdui.snackbar({
@@ -158,6 +163,6 @@ async function download(name, urls) {
             downloading.open = false;
         };
         r.send();
-    });
+    }
 }
 loadPlugin();
