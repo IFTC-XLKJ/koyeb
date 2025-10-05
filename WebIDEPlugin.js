@@ -24,7 +24,7 @@ class WebIDEPlugin {
     }
     static async post(options) {
         const { type, filter, fields, page, limit, sort } = options;
-        const timestamp = time();
+        const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
             const signature = await signaturePromise;
