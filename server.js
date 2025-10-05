@@ -22,7 +22,7 @@ const Sign = require("./Sign.js");
 
 console.log(process.env.IFTC);
 console.log(Segment);
-console.log(fs);
+// console.log(fs);
 
 const ips = [];
 const appUpdateCheck = new AppUpdateCheck();
