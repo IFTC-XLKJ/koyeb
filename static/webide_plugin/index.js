@@ -9,10 +9,7 @@ async function loadPlugin() {
     try {
         const res = await fetch(`/api/webide_plugin/get?page=${pluginGetPage}`);
         const json = await res.json();
-        if (json.code != 200) {
-            pluginGetPage--;
-            return;
-        }
+        if (json.code != 200) return pluginGetPage--;
     } catch (e) {
         pluginGetPage--;
     }
