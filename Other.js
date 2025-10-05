@@ -1343,7 +1343,7 @@ class Other {
         });
         this.app.get("/api/webide_plugin/get", async (req, res) => {
             requestLog(req);
-            const { page } = res.query;
+            const { page } = req.query;
             if (isNaN(Number(page))) return res.status(400).json({
                 code: 400,
                 msg: "Bad Request",
@@ -1352,7 +1352,7 @@ class Other {
             });
             try {
                 const json = await WebIDEPlugin.get(Number(page));
-                return res.status(200).json(json);
+                return res.status(json.code).json(json);
             } catch (e) {
                 return res.status(500).json({
                     code: 500,
