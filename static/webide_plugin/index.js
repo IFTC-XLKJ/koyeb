@@ -28,6 +28,7 @@ function addItem(plugin) {
     const downloadBtn = document.createElement("mdui-button-icon");
     downloadBtn.icon = "cloud_download";
     downloadBtn.variant = "tonal";
+    mainCard.appendChild(downloadBtn);
     pluginList.appendChild(mainCard);
 }
 globalThis.pluginGetPage = 0;
