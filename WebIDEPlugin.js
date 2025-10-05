@@ -17,7 +17,8 @@ class WebIDEPlugin {
         try {
             const signature = await signaturePromise;
         } catch (e) {
-
+            console.log("发送错误(WebIDEPlugin.post)：", e);
+            throw e;
         }
     }
 }
