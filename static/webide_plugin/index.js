@@ -14,6 +14,10 @@ function addItem(plugin) {
     pid.style.color = "#CCC";
     pid.style.fontSize = "12px";
     pid.innerText = plugin.id;
+    mainCard.appendChild(pid);
+    const version = document.createElement("p");
+    version.innerText = `${plugin.versionName}(${plugin.versionCode})`;
+    mainCard.appendChild(version);
     pluginList.appendChild(mainCard);
 }
 globalThis.pluginGetPage = 0;
