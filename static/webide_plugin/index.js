@@ -1,5 +1,6 @@
 const pluginList = document.getElementById("plugin-list");
 const loadMore = document.getElementById("load-more");
+loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
     pluginList.appendChild(mainCard);
@@ -48,3 +49,4 @@ async function loadPlugin() {
         });
     }
 }
+loadPlugin();
