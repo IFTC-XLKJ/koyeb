@@ -106,8 +106,16 @@ async function download(name, urls) {
     }
     let progressValue = 0;
     const blobs = [];
-    urls.forEach((url, index) => {
-    });
+    let totalSize = 0;
+    for (let i = 0; i < urls.length; i++) {
+        const url = urls[i];
+        const index = i;
+        // 获取每个文件的大小
+        const r = await fetch(url, { method: "HEAD" });
+        const size = r.headers.get("Content-Length");
+        totalSize += parseInt(size);
+        console.log(`File ${index + 1} size: ${size} bytes`);
+    }
     d(urls[0], 0);
     function d(url, index) {
         const r = new XMLHttpRequest();
