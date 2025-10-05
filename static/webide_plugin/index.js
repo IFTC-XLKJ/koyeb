@@ -6,6 +6,7 @@ function addItem(plugin) {
     mainCard.style.margin = "1rem auto";
     mainCard.style.padding = "1rem";
     mainCard.style.boxSizing = "border-box";
+    mainCard.style.width = "300px";
     const title = document.createElement("h2");
     title.innerText = plugin.name;
     title.style.margin = "0px";
