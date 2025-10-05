@@ -11,7 +11,7 @@ function addItem(plugin) {
     title.style.margin = "0px";
     mainCard.appendChild(title);
     const pid = document.createElement("p");
-    pid.style.color = "#CCC";
+    pid.style.color = "#999";
     pid.style.fontSize = "12px";
     pid.innerText = plugin.id;
     mainCard.appendChild(pid);
