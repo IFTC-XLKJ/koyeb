@@ -127,12 +127,15 @@ async function download(name, urls) {
     d(urls[0], 0);
     let downloadedSize = 0;
     function d(url, index) {
+        let currentDownloaded = 0;
         const r = new XMLHttpRequest();
         r.open("GET", url);
         r.responseType = "blob";
+        let lastDownloaded = 0;
         r.onprogress = function (event) {
             if (!event.lengthComputable) return;
-            downloadedSize += event.loaded;
+            currentDownloaded = event.loaded;
+            downloadedSize += (currentDownloaded - lastDownloaded);
             console.log(`Downloaded ${downloadedSize} of ${totalSize} bytes`);
             // Update overall progress
             progressValue = downloadedSize / totalSize * 100;
@@ -140,6 +143,7 @@ async function download(name, urls) {
             progress.value = progressValue;
             progressText.innerText = `${Math.floor(progressValue)}%`;
             console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
+            lastDownloaded = currentDownloaded;
         };
         r.onload = function () {
             if (r.status === 200) {
