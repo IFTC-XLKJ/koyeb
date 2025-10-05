@@ -22,7 +22,7 @@ class WebIDEPlugin {
             limit: 10,
         });
     }
-    async post(options) {
+    static async post(options) {
         const { type, filter, fields, page, limit, sort } = options;
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
