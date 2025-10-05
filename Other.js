@@ -1343,6 +1343,7 @@ class Other {
         });
         this.app.get("/api/webide_plugin/get", async (req, res) => {
             requestLog(req);
+            const { page } = res.query;
         })
         console.log("Other");
     }
