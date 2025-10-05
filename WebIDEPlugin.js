@@ -9,7 +9,13 @@ const contentType = "application/json";
 
 class WebIDEPlugin {
     static async get(page) {
-
+        return await this.post({
+            type: "SELECT",
+            filter: ``,
+            fields: ``,
+            page,
+            limit: 10,
+        });
     }
     async post(options) {
         const { type, filter, fields, page, limit, sort } = options;
@@ -34,6 +40,10 @@ class WebIDEPlugin {
                     sort
                 })
             });
+            if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
+            const json = await response.json();
+            console.log(json);
+            return json;
         } catch (e) {
             console.log("发送错误(WebIDEPlugin.post)：", e);
             throw e;
