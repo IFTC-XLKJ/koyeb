@@ -3,6 +3,12 @@ const loadMore = document.getElementById("load-more");
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
+    mainCard.style.margin = "1rem auto";
+    mainCard.style.padding = "1rem";
+    mainCard.style.boxSizing = "border-box";
+    const title = document.createElement("h2");
+    title.innerText = plugin.name;
+    mainCard.appendChild(title);
     pluginList.appendChild(mainCard);
 }
 globalThis.pluginGetPage = 0;
