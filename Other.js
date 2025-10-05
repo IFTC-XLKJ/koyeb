@@ -1365,6 +1365,7 @@ class Other {
                         description: field.简介,
                         versionCode: field.版本号,
                         versionName: field.版本名,
+                        urls: field.资源链接.split(",")
                     });
                 });
                 return res.json({
