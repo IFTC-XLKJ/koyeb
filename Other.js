@@ -2,9 +2,7 @@ const path = require("path");
 const fs = require("fs").promises;
 const UUID_db = require("./UUID_db.js");
 const fetch = require("node-fetch");
-const {
-    JSDOM
-} = require("jsdom");
+const { JSDOM } = require("jsdom");
 const User = require("./User.js");
 const weather = require("weather-js");
 const WebIDEPlugin = require("./WebIDEPlugin.js");
@@ -15,7 +13,7 @@ const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const maxmind = require('maxmind');
 const whois = require('whois');
-console.log(fs);
+// console.log(fs);
 
 class Other {
     constructor(app, requestLog) {
