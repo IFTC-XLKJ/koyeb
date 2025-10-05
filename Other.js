@@ -1341,6 +1341,9 @@ class Other {
                 timestamp: time()
             });
         });
+        this.app.get("/api/webide_plugin/get", async (req, res) => {
+            requestLog(req);
+        })
         console.log("Other");
     }
     async getFile(path) {
