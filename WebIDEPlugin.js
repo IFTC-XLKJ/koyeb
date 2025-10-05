@@ -11,7 +11,8 @@ class WebIDEPlugin {
     static async get(page) {
 
     }
-    async post(type) {
+    async post(options) {
+        const { type, filter, fields, page, limit, sort } = options;
         const timestamp = time();
         const signaturePromise = sign.get(timestamp);
         try {
@@ -25,6 +26,12 @@ class WebIDEPlugin {
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
+                    type,
+                    filter,
+                    fields,
+                    page,
+                    limit,
+                    sort
                 })
             });
         } catch (e) {
