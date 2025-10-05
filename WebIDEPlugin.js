@@ -16,6 +16,17 @@ class WebIDEPlugin {
         const signaturePromise = sign.get(timestamp);
         try {
             const signature = await signaturePromise;
+            const response = await fetch(type == "SELECT" ? getDataURL : setDataURL, {
+                method: "POST",
+                headers: {
+                    "X-Pgaot-Key": Key,
+                    "X-Pgaot-Sign": signature,
+                    "X-Pgaot-Time": timestamp.toString(),
+                    "Content-Type": contentType
+                },
+                body: JSON.stringify({
+                })
+            });
         } catch (e) {
             console.log("发送错误(WebIDEPlugin.post)：", e);
             throw e;
