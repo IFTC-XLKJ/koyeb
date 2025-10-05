@@ -32,6 +32,7 @@ function addItem(plugin) {
     downloadBtn.variant = "tonal";
     downloadBtn.addEventListener("click", e => {
         downloading.open = true;
+        download(`${plugin.name}-${plugin.versionName}.zip`, plugin.urls);
     });
     mainCard.appendChild(downloadBtn);
     pluginList.appendChild(mainCard);
