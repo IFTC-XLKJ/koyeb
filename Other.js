@@ -1382,7 +1382,11 @@ class Other {
                     timestamp: time()
                 });
             }
-        })
+        });
+        this.app.get("/api/webide_plugin/search", async (req, res) => {
+            requestLog(req);
+            const { keyword } = req.query;
+        });
         console.log("Other");
     }
     async getFile(path) {
