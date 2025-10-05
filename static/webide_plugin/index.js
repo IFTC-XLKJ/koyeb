@@ -16,6 +16,7 @@ function addItem(plugin) {
     pid.innerText = plugin.id;
     mainCard.appendChild(pid);
     const version = document.createElement("p");
+    version.style.fontSize = "14px";
     version.innerText = `${plugin.versionName}(${plugin.versionCode})`;
     mainCard.appendChild(version);
     const desc = document.createElement("div");
