@@ -1353,7 +1353,12 @@ class Other {
             try {
                 const json = await WebIDEPlugin.get(Number(page));
             } catch (e) {
-
+                return res.status(500).json({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e.message,
+                    timestamp: time()
+                });
             }
         })
         console.log("Other");
