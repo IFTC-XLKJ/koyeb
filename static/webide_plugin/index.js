@@ -18,6 +18,9 @@ function addItem(plugin) {
     const version = document.createElement("p");
     version.innerText = `${plugin.versionName}(${plugin.versionCode})`;
     mainCard.appendChild(version);
+    const desc = document.createElement("div");
+    desc.innerHTML = plugin.description;
+    mainCard.appendChild(desc);
     pluginList.appendChild(mainCard);
 }
 globalThis.pluginGetPage = 0;
