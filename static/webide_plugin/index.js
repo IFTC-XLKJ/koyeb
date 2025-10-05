@@ -1,5 +1,6 @@
 const pluginList = document.getElementById("plugin-list");
 const loadMore = document.getElementById("load-more");
+const downloading = document.getElementById("downloading");
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
@@ -28,6 +29,9 @@ function addItem(plugin) {
     const downloadBtn = document.createElement("mdui-button-icon");
     downloadBtn.icon = "cloud_download";
     downloadBtn.variant = "tonal";
+    downloadBtn.addEventListener("click", e => {
+        downloading.open = true;
+    });
     mainCard.appendChild(downloadBtn);
     pluginList.appendChild(mainCard);
 }
