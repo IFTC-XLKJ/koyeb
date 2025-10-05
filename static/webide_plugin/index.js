@@ -134,13 +134,14 @@ async function download(name, urls) {
                     console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
                     // All downloads are complete
                     const combinedBlob = new Blob(blobs, { type: 'application/zip' });
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(combinedBlob);
-                    link.download = name;
-                    document.body.appendChild(link);
-                    link.click();
-                    document.body.removeChild(link);
-                    URL.revokeObjectURL(link.href);
+                    // 转为dataURL
+                    const url = URL.createObjectURL(combinedBlob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = name;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
                     mdui.snackbar({
                         message: "下载完成",
                         placement: "top"
