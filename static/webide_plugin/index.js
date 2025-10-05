@@ -24,6 +24,7 @@ function addItem(plugin) {
     const desc = document.createElement("div");
     desc.innerHTML = plugin.description;
     mainCard.appendChild(desc);
+    const downloadBtn = document.createElement("mdui-button-icon");
     pluginList.appendChild(mainCard);
 }
 globalThis.pluginGetPage = 0;
