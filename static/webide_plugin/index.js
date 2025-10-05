@@ -120,9 +120,9 @@ async function download(name, urls) {
             progressValue += (percent * 100);
             console.log(progressValue);
             progressValue = progressValue;
-            progress.value = progressValue;
-            progressText.innerText = `${Math.floor(progressValue)}%`;
-            console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
+            progress.value = progressValue / urls.length;
+            progressText.innerText = `${Math.floor(progressValue / urls.length)}%`;
+            console.log(`Overall Progress: ${Math.floor(progressValue / urls.length)}%`);
         };
         r.onload = function () {
             if (r.status === 200) {
