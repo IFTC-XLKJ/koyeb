@@ -17,7 +17,7 @@ class WebIDEPlugin {
         return await this.post({
             type: "SELECT",
             filter: ``,
-            page,
+            page: page,
             limit: 10,
         });
     }
