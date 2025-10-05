@@ -31,6 +31,12 @@ function addItem(plugin) {
     mainCard.appendChild(downloadBtn);
     pluginList.appendChild(mainCard);
 }
+(function () {
+    const p = downloading.shawdowRoot.querySelector(".panel");
+    p.style.position = "fixed";
+    p.style.left = "50%";
+    p.style.transform = "translate(-50%)";
+})();
 globalThis.pluginGetPage = 0;
 async function loadPlugin() {
     pluginGetPage++;
