@@ -8,7 +8,12 @@ function addItem(plugin) {
     mainCard.style.boxSizing = "border-box";
     const title = document.createElement("h2");
     title.innerText = plugin.name;
+    title.style.margin = "0px";
     mainCard.appendChild(title);
+    const pid = document.createElement("p");
+    pid.style.color = "#CCC";
+    pid.style.fontSize = "12px";
+    pid.innerText = plugin.id;
     pluginList.appendChild(mainCard);
 }
 globalThis.pluginGetPage = 0;
