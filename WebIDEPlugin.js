@@ -36,7 +36,7 @@ class WebIDEPlugin {
                     "Content-Type": contentType
                 },
                 body: JSON.stringify({
-                    type,
+                    type: type == "SELECT" ? void 0 : type,
                     filter,
                     fields,
                     page,
