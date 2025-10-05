@@ -18,7 +18,10 @@
         </div>
         <div id="plugin-list"></div>
         <mdui-button id="load-more">加载更多</mdui-button>
-        <mdui-dialog id="downloading"></mdui-dialog>
+        <mdui-dialog id="downloading" open style="width: 150px;">
+            <h1>下载中</h1>
+            <mdui-linear-progress></mdui-linear-progress>
+        </mdui-dialog>
     </div>
     <script src="/static/webide_plugin/index.js"></script>
 </body>
