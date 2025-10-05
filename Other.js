@@ -1352,6 +1352,7 @@ class Other {
             });
             try {
                 const json = await WebIDEPlugin.get(Number(page));
+                return res.status(200).json(json);
             } catch (e) {
                 return res.status(500).json({
                     code: 500,
