@@ -7,6 +7,7 @@ const {
 } = require("jsdom");
 const User = require("./User.js");
 const weather = require("weather-js");
+const WebIDEPlugin = require("./WebIDEPlugin.js");
 
 const user = new User();
 const uuid_db = new UUID_db();
