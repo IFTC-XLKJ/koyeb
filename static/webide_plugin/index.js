@@ -13,6 +13,7 @@ function addItem(plugin) {
     const pid = document.createElement("p");
     pid.style.color = "#999";
     pid.style.fontSize = "12px";
+    pid.style.margin = "0px";
     pid.innerText = plugin.id;
     mainCard.appendChild(pid);
     const version = document.createElement("p");
