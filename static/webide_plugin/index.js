@@ -1,6 +1,6 @@
 const pluginList = document.getElementById("plugin-list");
 const loadMore = document.getElementById("load-more");
-function addItem() {
+function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
     pluginList.appendChild(mainCard);
 }
@@ -34,6 +34,9 @@ async function loadPlugin() {
             loadMore.innerText = "加载更多";
             return pluginGetPage--;
         }
+        data.forEach(plugin => {
+            addItem(plugin);
+        });
     } catch (e) {
         pluginGetPage--;
         loadMore.disabled = false;
