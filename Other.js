@@ -1387,6 +1387,10 @@ class Other {
             requestLog(req);
             const { keyword } = req.query;
         });
+        this.app.post("/api/webide_plugin/submit", async (req, res) => {
+            requestLog(req);
+            const { name, id, description, versionCode, versionName, urls } = req.body;
+        });
         console.log("Other");
     }
     async getFile(path) {
