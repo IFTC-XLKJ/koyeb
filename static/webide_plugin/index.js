@@ -3,6 +3,7 @@ const loadMore = document.getElementById("load-more");
 const downloading = document.getElementById("downloading");
 const progress = document.getElementById("progress");
 const progressText = document.getElementById("progressText");
+const uploadPlugin = document.getElementById("upload-plugin");
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
@@ -33,7 +34,7 @@ function addItem(plugin) {
     downloadBtn.variant = "tonal";
     downloadBtn.addEventListener("click", e => {
         downloading.open = true;
-        download(`${plugin.name}-${plugin.versionName}.zip`, plugin.urls);
+        download(`${plugin.name}-${plugin.versionName}.js`, plugin.urls);
     });
     mainCard.appendChild(downloadBtn);
     pluginList.appendChild(mainCard);

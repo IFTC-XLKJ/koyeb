@@ -48,6 +48,16 @@
             <mdui-linear-progress id="progress" value="0" min="0" max="100"></mdui-linear-progress>
         </mdui-dialog>
         <mdui-fab icon="add" id="upload-plugin"></mdui-fab>
+        <mdui-dialog id="upload-dialog">
+            <div class="mdui-dialog-title">上传插件</div>
+            <div class="mdui-dialog-content">
+                <input type="file" id="plugin-file" accept=".zip,.js" />
+            </div>
+            <div class="mdui-dialog-actions">
+                <mdui-button mdui-dialog-close>取消</mdui-button>
+                <mdui-button id="upload-confirm">上传</mdui-button>
+            </div>
+        </mdui-dialog>
     </div>
     <script src="/static/webide_plugin/index.js"></script>
 </body>
