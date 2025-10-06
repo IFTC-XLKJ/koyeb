@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/static/md3.css">
     <link rel="stylesheet" href="/static/md3-css2.css">
     <style>
+        #app {
+            width: 100vw;
+            user-select: none;
+        }
+
         #plugin-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -18,7 +23,7 @@
 </head>
 
 <body>
-    <div id="app" style="width: 100vw;user-select: none;">
+    <div id="app">
         <div class="description">
             <h1>WebIDE插件</h1>
             <p>这是WebIDE的插件商店。</p>
