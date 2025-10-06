@@ -91,7 +91,7 @@ async function loadPlugin() {
     }
 }
 async function download(name, urls) {
-    if (urls || urls.length == 0) {
+    if (!urls || urls.length == 0) {
         mdui.snackbar({
             message: "没有下载链接",
             placement: "top"
