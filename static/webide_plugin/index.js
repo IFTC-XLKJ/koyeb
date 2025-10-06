@@ -5,12 +5,27 @@ const progress = document.getElementById("progress");
 const progressText = document.getElementById("progressText");
 const uploadPlugin = document.getElementById("upload-plugin");
 const uploadDialog = document.getElementById("upload-dialog");
+const uploadSubmit = document.getElementById("upload-submit");
 const uploadCancel = document.getElementById("upload-cancel");
 uploadPlugin.addEventListener("click", e => {
     uploadDialog.open = true;
 });
 uploadCancel.addEventListener("click", e => {
     uploadDialog.open = false;
+});
+uploadSubmit.addEventListener("click", e => {
+    const name = document.getElementById("plugin-name").value.trim();
+    const id = document.getElementById("plugin-id").value.trim();
+    const description = document.getElementById("plugin-description").value.trim();
+    const versionCode = document.getElementById("plugin-version-code").value.trim();
+    const versionName = document.getElementById("plugin-version-name").value.trim();
+    if (!name || !id || !description || !versionCode || !versionName) {
+        mdui.snackbar({
+            message: "请填写完整信息",
+            placement: "top"
+        });
+        return;
+    }
 });
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
