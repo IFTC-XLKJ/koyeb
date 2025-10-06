@@ -4,6 +4,14 @@ const downloading = document.getElementById("downloading");
 const progress = document.getElementById("progress");
 const progressText = document.getElementById("progressText");
 const uploadPlugin = document.getElementById("upload-plugin");
+const uploadDialog = document.getElementById("upload-dialog");
+const uploadCancel = document.getElementById("upload-cancel");
+uploadPlugin.addEventListener("click", e => {
+    uploadDialog.open = true;
+});
+uploadCancel.addEventListener("click", e => {
+    uploadDialog.open = false;
+});
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
@@ -185,4 +193,5 @@ async function download(name, urls) {
         r.send();
     }
 }
+
 loadPlugin();
