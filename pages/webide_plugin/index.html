@@ -32,6 +32,11 @@
             bottom: 10px;
             z-index: 100;
         }
+
+        #upload-dialog .actions {
+            margin: 5px;
+            float: right;
+        }
     </style>
 </head>
 
@@ -52,11 +57,14 @@
             <h1>提交插件</h1>
             <mdui-text-field id="plugin-name" label="名称" type="text" helper="插件的名称" helper-on-focus></mdui-text-field>
             <mdui-text-field id="plugin-id" label="ID" type="text" helper="插件的唯一ID" helper-on-focus></mdui-text-field>
-            <mdui-text-field id="plugin-version-code" label="版本号" type="number" min="1" value="1" helper="插件的版本号" helper-on-focus></mdui-text-field>
-            <mdui-text-field id="plugin-version-name" label="版本名" type="text" helper="插件的版本名" helper-on-focus></mdui-text-field>
-            <mdui-text-field id="plugin-description" maxlength="500" counter autosize label="简介" helper="插件的简介" helper-on-focus></mdui-text-field>
+            <mdui-text-field id="plugin-version-code" label="版本号" type="number" min="1" value="1" helper="插件的版本号"
+                helper-on-focus></mdui-text-field>
+            <mdui-text-field id="plugin-version-name" label="版本名" type="text" helper="插件的版本名"
+                helper-on-focus></mdui-text-field>
+            <mdui-text-field id="plugin-description" maxlength="500" counter autosize label="简介" helper="插件的简介"
+                helper-on-focus></mdui-text-field>
             <mdui-text-field id="plugin-file" type="file" accept=".js"></mdui-text-field>
-            <div class="mdui-dialog-actions">
+            <div class="actions">
                 <mdui-button variant="text" id="upload-cancel">取消</mdui-button>
                 <mdui-button id="upload-submit">提交</mdui-button>
             </div>
