@@ -104,6 +104,7 @@ async function download(name, urls) {
         });
         return downloading.open = false;
     }
+    progress.value = 0;
     let progressValue = 0;
     const blobs = [];
     mdui.snackbar({
