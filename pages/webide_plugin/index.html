@@ -50,7 +50,7 @@
         <mdui-fab icon="add" id="upload-plugin"></mdui-fab>
         <mdui-dialog id="upload-dialog">
             <h1>提交插件</h1>
-            <input id="plugin-name" placeholder="名称" type="text">
+            <mdui-text-field id="plugin-name" label="名称" type="text" helper="Supporting text" helper-on-focus></mdui-text-field>
             <input id="plugin-version-code" placeholder="版本号" type="number" min="1" value="1">
             <input id="plugin-version-name" placeholder="版本名" type="text">
             <textarea id="plugin-description" placeholder="简介"></textarea>
