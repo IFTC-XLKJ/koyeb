@@ -6,7 +6,7 @@ const progressText = document.getElementById("progressText");
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
     const mainCard = document.createElement("mdui-card");
-    mainCard.style.margin = "1rem auto";
+    mainCard.style.margin = "1rem 1rem";
     mainCard.style.padding = "1rem";
     mainCard.style.boxSizing = "border-box";
     mainCard.style.width = "300px";
