@@ -1390,6 +1390,7 @@ class Other {
         this.app.post("/api/webide_plugin/submit", async (req, res) => {
             requestLog(req);
             const { name, id, description, versionCode, versionName, urls } = req.body;
+            console.log(name, id, description, versionCode, versionName, urls);
         });
         console.log("Other");
     }
