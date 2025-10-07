@@ -1398,7 +1398,14 @@ ID：<input value="${id}">
 描述：<pre><code>${description}</code></pre>
 版本号：<input value="${versionCode}">
 版本名：<input value="${versionName.replaceAll("\"", "\\\"")}">
-资源链接：<pre><code>${urls.join(",")}</code></pre>`);
+资源链接：<pre><code>${urls.join(",")}</code></pre>
+<style>
+input {
+width: 100%;
+height: 30px;
+outline: none;
+}
+</style>`);
             if (json.status == 1) return res.json({
                 code: 200,
                 msg: "提交成功，等待审核完毕",
