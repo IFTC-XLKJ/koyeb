@@ -33,15 +33,22 @@ uploadSubmit.addEventListener("click", async e => {
         });
         return;
     }
-    const r = await fetch("/api/webide_plugin/submit", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            name: name,
-        }),
-    });
+    try {
+        const r = await fetch("/api/webide_plugin/submit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+            }),
+        });
+    } catch (e) {
+        mdui.snackbar({
+            message: "提交失败：" + e,
+            placement: "top"
+        });
+    }
 });
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
