@@ -92,8 +92,15 @@ uploadSubmit.addEventListener("click", async e => {
             xhr.addEventListener('load', function () {
                 if (xhr.status === 200) {
                     console.log('上传成功:', xhr.responseText);
+                    const json = JSON.parse(xhr.responseText);
+                    if (json.code == 200 && json.url) {
+                        resolve(json.url);
+                    } else {
+                        reject('上传失败: ' + xhr.responseText);
+                    }
                 } else {
                     console.error('上传失败:', xhr.status);
+                    reject(xhr.status + ' ' + xhr.statusText);
                 }
             });
             xhr.addEventListener('error', function () {
