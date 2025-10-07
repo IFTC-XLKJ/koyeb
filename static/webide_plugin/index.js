@@ -96,7 +96,7 @@ uploadSubmit.addEventListener("click", async e => {
                     if (json.code == 200 && json.url) {
                         resolve(json.url);
                     } else {
-                        reject('上传失败: ' + xhr.responseText);
+                        reject(xhr.responseText);
                     }
                 } else {
                     console.error('上传失败:', xhr.status);
