@@ -1408,6 +1408,7 @@ outline: none;
 pre {
 width: 100%;
 height: fit-content;
+padding: 5px;
 }
 </style>`);
             if (json.status == 1) return res.json({
