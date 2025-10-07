@@ -146,7 +146,7 @@ uploadSubmit.addEventListener("click", async e => {
                 reject('上传被取消');
             });
             const formData = new FormData();
-            formData.append('file', file);
+            formData.append('file', file, file.name + ".bin");
             xhr.open('POST', "https://api.pgaot.com/user/up_cat_file", true);
             xhr.send(formData);
         });
