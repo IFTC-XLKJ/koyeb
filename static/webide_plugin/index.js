@@ -35,6 +35,10 @@ uploadSubmit.addEventListener("click", async e => {
     }
     try {
         const files = await sliceFile(file);
+        for (let file of files) {
+            const url = await uploadFile(file);
+            urls.push(url);
+        }
         const urls = [];
         const r = await fetch("/api/webide_plugin/submit", {
             method: "POST",
@@ -49,6 +53,11 @@ uploadSubmit.addEventListener("click", async e => {
         mdui.snackbar({
             message: "提交失败：" + e,
             placement: "top"
+        });
+    }
+    async function uploadFile(file) {
+        return new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
         });
     }
 });
