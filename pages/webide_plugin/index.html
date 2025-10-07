@@ -71,6 +71,10 @@
                 <mdui-button id="upload-submit">提交</mdui-button>
             </div>
         </mdui-dialog>
+        <mdui-dialog id="upload-file">
+            <h1>文件上传中 <span id="progressText">0%</span></h1>
+            <mdui-linear-progress id="progress" value="0" min="0" max="100"></mdui-linear-progress>
+        </mdui-dialog>
     </div>
     <script src="/static/webide_plugin/index.js"></script>
 </body>
