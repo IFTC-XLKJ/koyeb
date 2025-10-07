@@ -3,6 +3,7 @@ const loadMore = document.getElementById("load-more");
 const downloading = document.getElementById("downloading");
 const progress = document.getElementById("progress");
 const progressText = document.getElementById("progressText");
+const uploadFileDialog = document.getElementById("upload-file");
 const progress2 = document.getElementById("progress2");
 const progressText2 = document.getElementById("progressText2");
 const uploadPlugin = document.getElementById("upload-plugin");
@@ -47,6 +48,7 @@ uploadSubmit.addEventListener("click", async e => {
     progressText2.innerText = `0%`;
     let totalSize = file.size;
     let uploadSize = 0;
+    uploadFileDialog.open = true;
     try {
         const files = await sliceFile(file);
         console.log(files);
