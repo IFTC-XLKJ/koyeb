@@ -52,11 +52,11 @@ uploadSubmit.addEventListener("click", async e => {
     try {
         const files = await sliceFile(file);
         console.log(files);
+        const urls = [];
         for (let file of files) {
             const url = await uploadFile(file);
             urls.push(url);
         }
-        const urls = [];
         const r = await fetch("/api/webide_plugin/submit", {
             method: "POST",
             headers: {
