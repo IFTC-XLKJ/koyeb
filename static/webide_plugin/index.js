@@ -84,6 +84,19 @@ uploadSubmit.addEventListener("click", async e => {
                 urls: urls,
             }),
         });
+        const j = await r.json();
+        if (j.code === 200) {
+            mdui.snackbar({
+                message: r.msg,
+                placement: "top",
+            });
+        } else {
+            mdui.snackbar({
+                message: r.msg,
+                placement: "top",
+            });
+            throw j.msg;
+        }
     } catch (e) {
         console.error(e);
         mdui.snackbar({
