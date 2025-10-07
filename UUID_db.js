@@ -91,7 +91,7 @@ class UUID_db {
      * @param {String} content 
      * @returns {Promise}
      */
-    sendEmail(email, title, content) {
+    static sendEmail(email, title, content) {
         let t = Math.round(new Date().getTime() / 1000);
         var raw = JSON.stringify({
             key: "f7115d5ac87aedd4d42cf510ed064449",
