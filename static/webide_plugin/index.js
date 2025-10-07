@@ -250,7 +250,7 @@ function sliceFile(file) {
         const slices = [];
         let workerEnd = 0;
         for (let i = 0; i < 4; i++) {
-            const worker = new Worker('/static/fileSlicerWorker.js');
+            const worker = new Worker('/static/fileSlice.js');
             const startChunk = i * chunksPerWorker;
             const endChunk = Math.min(startChunk + chunksPerWorker, numChunks);
             worker.postMessage({
