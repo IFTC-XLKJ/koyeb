@@ -64,6 +64,11 @@ uploadSubmit.addEventListener("click", async e => {
             },
             body: JSON.stringify({
                 name: name,
+                id: id,
+                versionCode: versionCode,
+                versionName: versionName,
+                description: description,
+                urls: urls,
             }),
         });
     } catch (e) {
