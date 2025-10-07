@@ -46,7 +46,7 @@ uploadSubmit.addEventListener("click", async e => {
     // 用正则表达式验证ID格式：xxx.xxx.xxx
     if (id.test(/^[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+$/)) {
         mdui.snackbar({
-            message: "请勿使用特殊字符",
+            message: "ID格式不合法",
             placement: "top"
         });
         return;
