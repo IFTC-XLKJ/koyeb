@@ -67,6 +67,7 @@ uploadSubmit.addEventListener("click", async e => {
             }),
         });
     } catch (e) {
+        console.error(e);
         mdui.snackbar({
             message: "提交失败：" + e,
             placement: "top"
