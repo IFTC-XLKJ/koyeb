@@ -57,6 +57,8 @@ uploadSubmit.addEventListener("click", async e => {
             const url = await uploadFile(file);
             urls.push(url);
         }
+        progress2.value = 100;
+        progressText2.innerText = `100%`;
         const r = await fetch("/api/webide_plugin/submit", {
             method: "POST",
             headers: {
