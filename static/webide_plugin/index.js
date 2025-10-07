@@ -87,6 +87,7 @@ uploadSubmit.addEventListener("click", async e => {
             message: "提交失败：" + e,
             placement: "top"
         });
+        uploadFileDialog.open = false;
     }
     async function uploadFile(file) {
         let currentUploaded = 0;
