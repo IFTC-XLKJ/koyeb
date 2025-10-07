@@ -89,6 +89,23 @@ uploadSubmit.addEventListener("click", async e => {
                 console.log(`Overall Progress: ${Math.floor(progressValue * 100)}%`);
                 lastUploaded = currentUploaded;
             });
+            xhr.addEventListener('load', function () {
+                if (xhr.status === 200) {
+                    console.log('上传成功:', xhr.responseText);
+                } else {
+                    console.error('上传失败:', xhr.status);
+                }
+            });
+            xhr.addEventListener('error', function () {
+                console.error('上传出错');
+            });
+            xhr.addEventListener('abort', function () {
+                console.log('上传被取消');
+            });
+            const formData = new FormData();
+            formData.append('file', file);
+            xhr.open('POST', uploadUrl, true);
+            xhr.send(formData);
         });
     }
 });
