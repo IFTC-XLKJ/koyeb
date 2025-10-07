@@ -105,9 +105,11 @@ uploadSubmit.addEventListener("click", async e => {
             });
             xhr.addEventListener('error', function () {
                 console.error('上传出错');
+                reject('上传出错');
             });
             xhr.addEventListener('abort', function () {
                 console.log('上传被取消');
+                reject('上传被取消');
             });
             const formData = new FormData();
             formData.append('file', file);
