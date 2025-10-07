@@ -277,6 +277,7 @@ async function download(name, urls) {
         r.responseType = "blob";
         let lastDownloaded = 0;
         r.onprogress = function (event) {
+            console.log(event);
             if (!event.lengthComputable) return;
             currentDownloaded = event.loaded;
             downloadedSize += (currentDownloaded - lastDownloaded);
@@ -298,7 +299,7 @@ async function download(name, urls) {
                     progressText.innerText = `${Math.floor(progressValue)}%`;
                     console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
                     // All downloads are complete
-                    const combinedBlob = new Blob(blobs, { type: 'application/zip' });
+                    const combinedBlob = new Blob(blobs, { type: 'application/javascript' });
                     // 转为dataURL
                     const url = URL.createObjectURL(combinedBlob);
                     const a = document.createElement("a");
