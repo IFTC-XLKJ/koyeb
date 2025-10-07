@@ -19,7 +19,7 @@ uploadPlugin.addEventListener("click", e => {
 uploadCancel.addEventListener("click", e => {
     uploadDialog.open = false;
 });
-uploadSubmit.addEventListener("click", e => {
+uploadSubmit.addEventListener("click", async e => {
     const name = pluginName.value.trim();
     const id = pluginId.value.trim();
     const description = pluginDescription.value.trim();
@@ -33,6 +33,15 @@ uploadSubmit.addEventListener("click", e => {
         });
         return;
     }
+    const r = await fetch("/api/webide_plugin/submit", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            name: name,
+        }),
+    });
 });
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
