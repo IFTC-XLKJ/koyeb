@@ -1392,7 +1392,7 @@ class Other {
             requestLog(req);
             const { name, id, description, versionCode, versionName, urls } = req.body;
             console.log(name, id, description, versionCode, versionName, urls);
-            const json = await uuid_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交", `
+            const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交", `
 名称：<input value="${name.replaceAll("\"", "\\\"")}">
 ID：<input value="${id}">
 描述：<textarea>${description.replaceAll("\"", "\\\"")}</textarea>
