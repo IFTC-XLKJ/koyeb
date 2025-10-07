@@ -1395,7 +1395,7 @@ class Other {
             const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交", `
 名称：<input value="${name.replaceAll("\"", "\\\"")}">
 ID：<input value="${id}">
-描述：<textarea>${description.replaceAll("\"", "\\\"")}</textarea>
+描述：<textarea value="${description.replaceAll("\"", "\\\"")}"></textarea>
 版本号：<input value="${versionCode}">
 版本名：<input value="${versionName.replaceAll("\"", "\\\"")}">
 资源链接：<textarea>${urls.join(",")}</textarea>`);
