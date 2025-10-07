@@ -80,6 +80,12 @@ uploadSubmit.addEventListener("click", async e => {
                 currentUploaded = event.loaded;
                 uploadSize += (currentUploaded - lastUploaded);
                 console.log(`Uploaded ${uploadSize} of ${totalSize} bytes`);
+                progressValue = uploadSize / totalSize;
+                console.log(progressValue);
+                progress2.value = progressValue * 100;
+                progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
+                console.log(`Overall Progress: ${Math.floor(progressValue * 100)}%`);
+                lastUploaded = currentUploaded;
             });
         });
     }
