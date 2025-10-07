@@ -233,3 +233,47 @@ async function download(name, urls) {
 }
 
 loadPlugin();
+
+/**
+ * 文件切片
+ * @param {File} file 
+ */
+function sliceFile(file) {
+    return new Promise((resolve, reject) => {
+        if (file.size <= 1024 * 1024 * 10) {
+            resolve([file]);
+            return;
+        }
+        const chunkSize = 1024 * 1024 * 10;
+        const numChunks = Math.ceil(file.size / chunkSize);
+        const chunksPerWorker = Math.ceil(numChunks / 4);
+        const slices = [];
+        let workerEnd = 0;
+        for (let i = 0; i < 4; i++) {
+            const worker = new Worker('/static/fileSlicerWorker.js');
+            const startChunk = i * chunksPerWorker;
+            const endChunk = Math.min(startChunk + chunksPerWorker, numChunks);
+            worker.postMessage({
+                file: file,
+                chunkSize: chunkSize,
+                startChunk: startChunk,
+                endChunk: endChunk,
+                totalSize: file.size
+            });
+            worker.onmessage = function (e) {
+                const { chunks } = e.data;
+                slices.push(...chunks);
+                console.log(`Received ${chunks.length} chunks from worker`);
+                workerEnd++;
+                if (workerEnd === 4) {
+                    console.log('All workers completed');
+                    resolve(slices);
+                }
+            };
+            worker.onerror = function (error) {
+                console.error('Error in worker:', error);
+                reject(error);
+            };
+        }
+    })
+}
