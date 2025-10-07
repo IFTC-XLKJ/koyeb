@@ -265,7 +265,7 @@ async function download(name, urls) {
         console.log(`File ${index + 1} size: ${size} bytes`);
     }
     mdui.snackbar({
-        message: `开始下载，共 ${totalSize} 字节`,
+        message: `开始下载，共 ${isNaN(totalSize) ? "未知" : totalSize} 字节`,
         placement: "top"
     });
     d(urls[0], 0);
