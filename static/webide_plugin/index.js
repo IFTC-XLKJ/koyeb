@@ -35,6 +35,9 @@ uploadSubmit.addEventListener("click", async e => {
         });
         return;
     }
+    let progressValue = 0;
+    progress2.value = 0;
+    progressText2.innerText = `0%`;
     try {
         const files = await sliceFile(file);
         for (let file of files) {
@@ -60,6 +63,14 @@ uploadSubmit.addEventListener("click", async e => {
     async function uploadFile(file) {
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
+            xhr.upload.addEventListener('progress', function (event) {
+                if (event.lengthComputable) {
+                    const percentComplete = (event.loaded / event.total) * 100;
+                    document.getElementById('progress').style.width = percentComplete + '%';
+                    document.getElementById('progress-text').textContent =
+                        Math.round(percentComplete) + '%';
+                }
+            });
         });
     }
 });
