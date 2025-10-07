@@ -35,6 +35,13 @@ uploadSubmit.addEventListener("click", async e => {
         });
         return;
     }
+    if (file.name.split(".").pop() != "js") {
+        mdui.snackbar({
+            message: "请选择一个js文件",
+            placement: "top"
+        });
+        return;
+    }
     let progressValue = 0;
     progress2.value = 0;
     progressText2.innerText = `0%`;
