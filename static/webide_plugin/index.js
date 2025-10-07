@@ -88,13 +88,13 @@ uploadSubmit.addEventListener("click", async e => {
         loading.open = false;
         if (j.code === 200) {
             mdui.snackbar({
-                message: r.msg,
+                message: j.msg,
                 placement: "top",
             });
             uploadCancel.click();
         } else {
             mdui.snackbar({
-                message: r.msg,
+                message: j.msg,
                 placement: "top",
             });
             throw j.msg;
