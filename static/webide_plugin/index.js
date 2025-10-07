@@ -34,6 +34,8 @@ uploadSubmit.addEventListener("click", async e => {
         return;
     }
     try {
+        const files = await sliceFile(file);
+        const urls = [];
         const r = await fetch("/api/webide_plugin/submit", {
             method: "POST",
             headers: {
@@ -240,11 +242,11 @@ loadPlugin();
  */
 function sliceFile(file) {
     return new Promise((resolve, reject) => {
-        if (file.size <= 1024 * 1024 * 10) {
+        const chunkSize = 1024 * 1024 * 1;
+        if (file.size <= chunkSize) {
             resolve([file]);
             return;
         }
-        const chunkSize = 1024 * 1024 * 10;
         const numChunks = Math.ceil(file.size / chunkSize);
         const chunksPerWorker = Math.ceil(numChunks / 4);
         const slices = [];
