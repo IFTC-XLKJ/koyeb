@@ -14,6 +14,7 @@ const expressWs = require('express-ws');
 const maxmind = require('maxmind');
 const whois = require('whois');
 const { version } = require("os");
+const { timeStamp } = require("console");
 // console.log(fs);
 
 class Other {
@@ -1391,13 +1392,23 @@ class Other {
             requestLog(req);
             const { name, id, description, versionCode, versionName, urls } = req.body;
             console.log(name, id, description, versionCode, versionName, urls);
-            uuid_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交", `
+            const json = await uuid_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交", `
 名称：<input value="${name.replaceAll("\"", "\\\"")}">
 ID：<input value="${id}">
 描述：<textarea>${description.replaceAll("\"", "\\\"")}</textarea>
 版本号：<input value="${versionCode}">
 版本名：<input value="${versionName.replaceAll("\"", "\\\"")}">
 资源链接：<textarea>${urls.join(",")}</textarea>`);
+            if (json.status == 1) return res.json({
+                code: 200,
+                msg: "提交成功，等待审核完毕",
+                timestamp: time()
+            })
+            else return res.status(500).json({
+                code: 500,
+                msg: "提交失败：" + json.msg,
+                timestamp: time()
+            });
         });
         console.log("Other");
     }
