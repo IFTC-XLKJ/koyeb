@@ -16,6 +16,7 @@ const pluginDescription = document.getElementById("plugin-description");
 const pluginVersionCode = document.getElementById("plugin-version-code");
 const pluginVersionName = document.getElementById("plugin-version-name");
 const pluginFile = document.getElementById("plugin-file");
+const loading = document.getElementById("loading");
 uploadPlugin.addEventListener("click", e => {
     uploadDialog.open = true;
 });
@@ -67,6 +68,8 @@ uploadSubmit.addEventListener("click", async e => {
         }
         progress2.value = 100;
         progressText2.innerText = `100%`;
+        uploadFileDialog.open = false;
+        loading.open = true;
         const r = await fetch("/api/webide_plugin/submit", {
             method: "POST",
             headers: {
