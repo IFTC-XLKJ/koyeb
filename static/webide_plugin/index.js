@@ -43,6 +43,14 @@ uploadSubmit.addEventListener("click", async e => {
         });
         return;
     }
+    // 用正则表达式验证ID格式：xxx.xxx.xxx
+    if (id.test(/^[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+$/)) {
+        mdui.snackbar({
+            message: "请勿使用特殊字符",
+            placement: "top"
+        });
+        return;
+    }
     let progressValue = 0;
     progress2.value = 0;
     progressText2.innerText = `0%`;
