@@ -85,6 +85,7 @@ uploadSubmit.addEventListener("click", async e => {
             }),
         });
         const j = await r.json();
+        loading.open = false;
         if (j.code === 200) {
             mdui.snackbar({
                 message: r.msg,
