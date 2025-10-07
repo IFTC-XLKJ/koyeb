@@ -48,6 +48,7 @@ uploadSubmit.addEventListener("click", async e => {
     let totalSize = file.size;
     try {
         const files = await sliceFile(file);
+        console.log(files);
         for (let file of files) {
             const url = await uploadFile(file);
             urls.push(url);
