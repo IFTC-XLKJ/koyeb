@@ -46,6 +46,7 @@ uploadSubmit.addEventListener("click", async e => {
     progress2.value = 0;
     progressText2.innerText = `0%`;
     let totalSize = file.size;
+    let uploadSize = 0;
     try {
         const files = await sliceFile(file);
         console.log(files);
@@ -70,12 +71,15 @@ uploadSubmit.addEventListener("click", async e => {
         });
     }
     async function uploadFile(file) {
+        let currentUploaded = 0;
+        let lastUploaded = 0;
         return new Promise((resolve, reject) => {
             const xhr = new XMLHttpRequest();
             xhr.upload.addEventListener('progress', function (event) {
-                if (event.lengthComputable) {
-                    const percentComplete = (event.loaded / event.total) * 100;
-                }
+                if (!event.lengthComputable) return;
+                currentUploaded = event.loaded;
+                uploadSize += (currentUploaded - lastUploaded);
+                console.log(`Uploaded ${uploadSize} of ${totalSize} bytes`);
             });
         });
     }
