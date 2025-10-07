@@ -25,7 +25,7 @@ uploadSubmit.addEventListener("click", e => {
     const description = pluginDescription.value.trim();
     const versionCode = pluginVersionCode.value.trim();
     const versionName = pluginVersionName.value.trim();
-    const file = pluginFile.files[0];
+    const file = pluginFile.shadowRoot.querySelector("input").files[0];
     if (!name || !id || !description || !versionCode || !versionName || !file) {
         mdui.snackbar({
             message: "请填写完整信息",
