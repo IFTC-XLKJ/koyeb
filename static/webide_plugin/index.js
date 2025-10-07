@@ -319,7 +319,9 @@ async function download(name, urls) {
         r.send();
     }
 }
-loading.shadowRoot.querySelector(".body").style.overflow = "hidden";
+setTimeout(function () {
+    loading.shadowRoot.querySelector(".body").style.overflow = "hidden";
+}, 500);
 loadPlugin();
 
 /**
