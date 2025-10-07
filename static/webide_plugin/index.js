@@ -91,6 +91,7 @@ uploadSubmit.addEventListener("click", async e => {
                 message: r.msg,
                 placement: "top",
             });
+            uploadCancel.click();
         } else {
             mdui.snackbar({
                 message: r.msg,
