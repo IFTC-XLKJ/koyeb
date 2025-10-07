@@ -1405,6 +1405,10 @@ width: 100%;
 height: 30px;
 outline: none;
 }
+pre {
+width: 100%;
+height: fit-content;
+}
 </style>`);
             if (json.status == 1) return res.json({
                 code: 200,
