@@ -1392,8 +1392,12 @@ class Other {
             const { name, id, description, versionCode, versionName, urls } = req.body;
             console.log(name, id, description, versionCode, versionName, urls);
             uuid_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交", `
-名称：<input value="${name.replaceAll("\"", "\\\"")}" disabled>
-ID：<input value="${id}" disabled> ${description} ${versionCode} ${versionName} ${urls}`);
+名称：<input value="${name.replaceAll("\"", "\\\"")}">
+ID：<input value="${id}">
+描述：<textarea>${description.replaceAll("\"", "\\\"")}</textarea>
+版本号：<input value="${versionCode}">
+版本名：<input value="${versionName.replaceAll("\"", "\\\"")}">
+资源链接：<textarea>${urls.join(",")}</textarea>`);
         });
         console.log("Other");
     }
