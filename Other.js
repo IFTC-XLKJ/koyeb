@@ -1392,25 +1392,33 @@ class Other {
             requestLog(req);
             const { name, id, description, versionCode, versionName, urls } = req.body;
             console.log(name, id, description, versionCode, versionName, urls);
-            const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交待处理", `
-名称：<input value="${name.replaceAll("\"", "\\\"")}">
-ID：<input value="${id}">
-描述：<pre><code>${description.replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</code></pre>
-版本号：<input value="${versionCode}">
-版本名：<input value="${versionName.replaceAll("\"", "\\\"")}">
-资源链接：<pre><code>${urls.join(",")}</code></pre>
-<style>
-input {
-width: 100%;
-height: 30px;
-outline: none;
-}
-pre {
-width: 100%;
-height: fit-content;
-padding: 5px;
-}
-</style>`);
+            //             const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交待处理", `
+            // 名称：<input value="${name.replaceAll("\"", "\\\"")}">
+            // ID：<input value="${id}">
+            // 描述：<pre><code>${description.replaceAll("<", "&lt;").replaceAll(">", "&gt;")}</code></pre>
+            // 版本号：<input value="${versionCode}">
+            // 版本名：<input value="${versionName.replaceAll("\"", "\\\"")}">
+            // 资源链接：<pre><code>${urls.join(",")}</code></pre>
+            // <style>
+            // input {
+            // width: 100%;
+            // height: 30px;
+            // outline: none;
+            // }
+            // pre {
+            // width: 100%;
+            // height: fit-content;
+            // padding: 5px;
+            // }
+            // </style>`);
+            const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交待处理", JSON.stringify({
+                name: name,
+                id: id,
+                description: description,
+                versionCode: versionCode,
+                versionName: versionName,
+                urls: urls
+            }))
             if (json.status == 1) return res.json({
                 code: 200,
                 msg: "提交成功，等待审核完毕",
