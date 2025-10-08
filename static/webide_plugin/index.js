@@ -192,7 +192,7 @@ function addItem(plugin) {
     downloadBtn.variant = "tonal";
     downloadBtn.addEventListener("click", e => {
         downloading.open = true;
-        download(`${plugin.name}-${plugin.versionName}.js`, plugin.urls);
+        download(`${plugin.name}-${plugin.versionName}.js`, plugin.urls, plugin.name);
     });
     mainCard.appendChild(downloadBtn);
     pluginList.appendChild(mainCard);
@@ -249,7 +249,7 @@ async function loadPlugin() {
         });
     }
 }
-async function download(name, urls) {
+async function download(name, urls, n) {
     if (!urls || urls.length == 0) {
         mdui.snackbar({
             message: "没有下载链接",
@@ -313,7 +313,7 @@ async function download(name, urls) {
                     // 转为dataURL
                     if (globalThis.bzyapp) {
                         const code = await combinedBlob.text();
-                        bzyapp.plugin(name, code);
+                        bzyapp.plugin(n, code);
                         mdui.snackbar({
                             message: "已加载插件到WebIDE",
                             placement: "top"
