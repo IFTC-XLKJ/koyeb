@@ -377,6 +377,18 @@ loadPlugin();
                     },
                     body: JSON.stringify(json)
                 });
+                const j = await r.json();
+                if (j.code != 200) {
+                    mdui.snackbar({
+                        message: "提交失败：" + j.msg,
+                        placement: "top"
+                    });
+                    return;
+                }
+                mdui.snackbar({
+                    message: "提交成功",
+                    placement: "top"
+                });
             } catch (e) {
                 mdui.snackbar({
                     message: "提交失败：" + e.message,
