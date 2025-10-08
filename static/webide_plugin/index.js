@@ -342,11 +342,11 @@ setTimeout(function () {
 loadPlugin();
 (async function () {
     const userId = localStorage.getItem("ID");
-    if (!userId) return;
+    if (!userId) return end();
     const r = await fetch("/api/user/details?id=" + userId);
     const j = await r.json();
     console.log(j);
-    if (json.code != 200) return;
+    if (json.code != 200) return end();
     const data = j.data;
     if (data.op) {
         opUpload.style.display = "flex";
@@ -357,6 +357,10 @@ loadPlugin();
             message: "欢迎回来，" + data.username,
             placement: "top"
         });
+    }
+    function end() {
+        opUpload.remove();
+        opUploadDialog.remove();
     }
 })();
 /**
