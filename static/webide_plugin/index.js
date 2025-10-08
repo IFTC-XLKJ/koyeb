@@ -346,6 +346,14 @@ loadPlugin();
     const r = await fetch("/api/user/details?id=" + userId);
     const j = await r.json();
     console.log(j);
+    if (json.code != 200) return;
+    const data = j.data;
+    if (data.op) {
+        mdui.snackbar({
+            message: "欢迎回来，" + data.username,
+            placement: "top"
+        });
+    }
 })();
 /**
  * 文件切片
