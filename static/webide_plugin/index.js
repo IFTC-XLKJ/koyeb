@@ -21,6 +21,7 @@ const pluginFile = document.getElementById("plugin-file");
 const loading = document.getElementById("loading");
 const opUpload = document.getElementById("op-upload");
 const opUploadDialog = document.getElementById("op-upload-dialog");
+const opUploadData = document.getElementById("op-upload-data");
 uploadPlugin.addEventListener("click", e => {
     uploadDialog.open = true;
 });
@@ -357,6 +358,24 @@ loadPlugin();
         });
         opUploadCancel.addEventListener("click", function () {
             opUploadDialog.open = false;
+        });
+        opUploadSubmit.addEventListener("click", async function () {
+            const data = opUploadData.value.trim();
+            if (!data) {
+                mdui.snackbar({
+                    message: "请输入数据",
+                    placement: "top"
+                });
+                return;
+            }
+            try {
+                const json = JSON.parse(data);
+            }catch(e){
+                mdui.snackbar({
+                    message: "提交失败：" + e.message,
+                    placement: "top"
+                });
+            }
         });
         mdui.snackbar({
             message: "欢迎回来，" + data.username,
