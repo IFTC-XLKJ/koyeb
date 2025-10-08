@@ -1440,6 +1440,26 @@ class Other {
                 error: "Missing parameter",
                 timestamp: time()
             });
+            try {
+                const json = await WebIDEPlugin.insert(`("${name}","${id}","${description}",${versionCode},"${versionName}","${urls.join(",")}")`);
+                if (json.code != 200) return res.status(json.code).json({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
+                return res.json({
+                    code: 200,
+                    msg: "上传成功",
+                    timestamp: time(),
+                });
+            } catch (e) {
+                return res.status(500).json({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e.message,
+                    timestamp: time()
+                });
+            }
         });
         console.log("Other");
     }
