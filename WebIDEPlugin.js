@@ -19,6 +19,7 @@ class WebIDEPlugin {
             filter: ``,
             page: page,
             limit: 10,
+            sort: `updatedAt DESC`
         });
     }
     static async insert(data) {
