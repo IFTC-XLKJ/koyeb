@@ -21,6 +21,13 @@ class WebIDEPlugin {
             limit: 10,
         });
     }
+    static async insert(data) {
+        return await this.post({
+            type: "INSERT",
+            filter: `名称,版本号,版本名,ID,简介,资源链接`,
+            fields: data,
+        });
+    }
     static async post(options) {
         const { type, filter, fields, page, limit, sort } = options;
         const timestamp = Date.now();
