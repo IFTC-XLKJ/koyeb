@@ -17,6 +17,8 @@ const pluginVersionCode = document.getElementById("plugin-version-code");
 const pluginVersionName = document.getElementById("plugin-version-name");
 const pluginFile = document.getElementById("plugin-file");
 const loading = document.getElementById("loading");
+const opUpload = document.getElementById("op-upload");
+const opUploadDialog = document.getElementById("op-upload-dialog");
 uploadPlugin.addEventListener("click", e => {
     uploadDialog.open = true;
 });
@@ -341,7 +343,7 @@ loadPlugin();
 (async function () {
     const userId = localStorage.getItem("ID");
     if (!userId) return;
-    const r = await fetch("/api/user/details?id=" + userId)
+    const r = await fetch("/api/user/details?id=" + userId);
 })();
 /**
  * 文件切片
