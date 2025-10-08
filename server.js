@@ -2358,7 +2358,7 @@ app.get("/api/user/resetpassword", async (req, res) => {
       const json = await UUID_db.addData(uuid, "resetpassword", ID, decodeURIComponent(password));
       if (json.code == 200) {
         const url = `https://iftc.koyeb.app/api/user/resetpassword/${uuid}`
-        const json2 = await UUID_db.sendEmail(decodeURIComponent(email), "重置密码", `<!DOCTYPE html>
+        const json2 = await UUIDdb.sendEmail(decodeURIComponent(email), "重置密码", `<!DOCTYPE html>
           <html lang="zh-CN">
           <head>
           <meta charset="UTF-8">
