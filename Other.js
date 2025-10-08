@@ -1441,6 +1441,26 @@ class Other {
                 timestamp: time()
             });
             try {
+                const json2 = await WebIDEPlugin.getByID(id);
+                if (json2.code != 200) return res.status(400).json({
+                    code: 400,
+                    msg: json2.msg,
+                    timestamp: time()
+                });
+                const data = json2.fields[0];
+                if (data){
+                    const json = await WebIDEPlugin.update(id, `名称="${name}",版本号=${versionCode},版本名="${versionName}",简介="${description}",资源链接="${urls.join(",")}"`);
+                    if (json.code != 200) return res.status(json.code).json({
+                        code: json.code,
+                        msg: json.msg,
+                        timestamp: time(),
+                    });
+                    return res.json({
+                        code: 200,
+                        msg: "上传成功",
+                        timestamp: time(),
+                    });
+                }
                 const json = await WebIDEPlugin.insert(`("${name}",${versionCode},"${versionName}","${id}","${description}","${urls.join(",")}")`);
                 if (json.code != 200) return res.status(json.code).json({
                     code: json.code,

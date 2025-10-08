@@ -34,6 +34,13 @@ class WebIDEPlugin {
             filter: `ID="${ID}"`,
         });
     }
+    static async update(ID, data) {
+        return await this.post({
+            type: "UPDATE",
+            filter: `ID="${ID}"`,
+            fields: data,
+        });
+    }
     static async post(options) {
         const { type, filter, fields, page, limit, sort } = options;
         const timestamp = Date.now();
