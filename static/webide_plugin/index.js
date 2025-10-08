@@ -10,6 +10,8 @@ const uploadPlugin = document.getElementById("upload-plugin");
 const uploadDialog = document.getElementById("upload-dialog");
 const uploadSubmit = document.getElementById("upload-submit");
 const uploadCancel = document.getElementById("upload-cancel");
+const opUploadSubmit = document.getElementById("op-upload-submit");
+const opUploadCancel = document.getElementById("op-upload-cancel");
 const pluginName = document.getElementById("plugin-name");
 const pluginId = document.getElementById("plugin-id");
 const pluginDescription = document.getElementById("plugin-description");
@@ -352,6 +354,9 @@ loadPlugin();
         opUpload.style.display = "block";
         opUpload.addEventListener("click", function () {
             opUploadDialog.open = true;
+        });
+        opUploadDialog.addEventListener("cancel", function () {
+            opUploadDialog.open = false;
         });
         mdui.snackbar({
             message: "欢迎回来，" + data.username,
