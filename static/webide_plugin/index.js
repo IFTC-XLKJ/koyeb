@@ -295,7 +295,7 @@ async function download(name, urls) {
             console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
             lastDownloaded = currentDownloaded;
         };
-        r.onload = function () {
+        r.onload = async function () {
             if (r.status === 200) {
                 blobs[index] = r.response;
                 // Check if all downloads are complete
@@ -307,16 +307,25 @@ async function download(name, urls) {
                     const combinedBlob = new Blob(blobs, { type: 'application/javascript' });
                     // 转为dataURL
                     const url = URL.createObjectURL(combinedBlob);
-                    const a = document.createElement("a");
-                    a.href = url;
-                    a.download = name;
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    mdui.snackbar({
-                        message: "下载完成",
-                        placement: "top"
-                    });
+                    if (globalThis.bzyapp) {
+                        const code = await combinedBlob.text();
+                        bzyapp.plugin(name, code);
+                        mdui.snackbar({
+                            message: "已加载插件到WebIDE",
+                            placement: "top"
+                        });
+                    } else {
+                        const a = document.createElement("a");
+                        a.href = url;
+                        a.download = name;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        mdui.snackbar({
+                            message: "下载完成",
+                            placement: "top"
+                        });
+                    }
                     downloading.open = false;
                 } else {
                     d(urls[index + 1], index + 1);
