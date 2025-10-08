@@ -370,7 +370,7 @@ loadPlugin();
             }
             try {
                 const json = JSON.parse(data);
-            }catch(e){
+            } catch (e) {
                 mdui.snackbar({
                     message: "提交失败：" + e.message,
                     placement: "top"
