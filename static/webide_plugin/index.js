@@ -346,7 +346,7 @@ loadPlugin();
     const r = await fetch("/api/user/details?id=" + userId);
     const j = await r.json();
     console.log(j);
-    if (json.code != 200) return end();
+    if (j.code != 200) return end();
     const data = j.data;
     if (data.op) {
         opUpload.style.display = "flex";
