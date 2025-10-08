@@ -355,7 +355,7 @@ loadPlugin();
         opUpload.addEventListener("click", function () {
             opUploadDialog.open = true;
         });
-        opUploadDialog.addEventListener("cancel", function () {
+        opUploadCancel.addEventListener("click", function () {
             opUploadDialog.open = false;
         });
         mdui.snackbar({
