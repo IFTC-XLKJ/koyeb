@@ -1430,6 +1430,17 @@ class Other {
                 timestamp: time()
             });
         });
+        this.app.post("/api/webide_plugin/upload", async (req, res) => {
+            requestLog(req);
+            const { name, id, description, versionCode, versionName, urls } = req.body;
+            console.log(name, id, description, versionCode, versionName, urls);
+            if (!name || !id || !description || !versionCode || !versionName || !urls) return res.status(400).json({
+                code: 400,
+                msg: "Bad Request",
+                error: "Missing parameter",
+                timestamp: time()
+            });
+        });
         console.log("Other");
     }
     async getFile(path) {

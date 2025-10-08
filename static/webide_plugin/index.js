@@ -370,6 +370,13 @@ loadPlugin();
             }
             try {
                 const json = JSON.parse(data);
+                const r = await fetch("/api/webide_plugin/upload", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(json)
+                });
             } catch (e) {
                 mdui.snackbar({
                     message: "提交失败：" + e.message,
