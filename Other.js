@@ -1412,13 +1412,13 @@ class Other {
             // }
             // </style>`);
             const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交待处理", JSON.stringify({
-                name: name,
+                name: name.replaceAll(" ", "&nbsp;").replaceAll("\"", "\\\""),
                 id: id,
-                description: description,
+                description: description.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "\\\""),
                 versionCode: versionCode,
-                versionName: versionName,
+                versionName: versionName.replaceAll(" ", "&nbsp;").replaceAll("\"", "\\\""),
                 urls: urls
-            }, null, 4).replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "\\\"").replaceAll("&", "&amp;"));
+            }, null, 4));
             if (json.status == 1) return res.json({
                 code: 200,
                 msg: "提交成功，等待审核完毕",
