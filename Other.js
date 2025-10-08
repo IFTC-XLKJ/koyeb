@@ -1418,7 +1418,7 @@ class Other {
                 versionCode: versionCode,
                 versionName: versionName,
                 urls: urls
-            }))
+            }, null, 4));
             if (json.status == 1) return res.json({
                 code: 200,
                 msg: "提交成功，等待审核完毕",
