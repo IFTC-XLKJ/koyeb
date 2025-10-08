@@ -22,6 +22,10 @@ const loading = document.getElementById("loading");
 const opUpload = document.getElementById("op-upload");
 const opUploadDialog = document.getElementById("op-upload-dialog");
 const opUploadData = document.getElementById("op-upload-data");
+const reload = document.getElementById("reload");
+reload.addEventListener("click", async e => {
+    location.reload();
+});
 uploadPlugin.addEventListener("click", e => {
     uploadDialog.open = true;
 });
