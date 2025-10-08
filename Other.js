@@ -1448,7 +1448,7 @@ class Other {
                     timestamp: time()
                 });
                 const data = json2.fields[0];
-                if (data){
+                if (data) {
                     const json = await WebIDEPlugin.update(id, `名称="${name}",版本号=${versionCode},版本名="${versionName}",简介="${description}",资源链接="${urls.join(",")}"`);
                     if (json.code != 200) return res.status(json.code).json({
                         code: json.code,
