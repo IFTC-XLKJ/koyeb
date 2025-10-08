@@ -349,7 +349,7 @@ loadPlugin();
     if (j.code != 200) return end();
     const data = j.data;
     if (data.op) {
-        opUpload.style.display = "flex";
+        opUpload.style.display = "block";
         opUpload.addEventListener("click", function () {
             opUploadDialog.open = true;
         });
