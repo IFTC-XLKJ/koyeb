@@ -345,6 +345,7 @@ loadPlugin();
     if (!userId) return;
     const r = await fetch("/api/user/details?id=" + userId);
     const j = await r.json();
+    console.log(j);
 })();
 /**
  * 文件切片
