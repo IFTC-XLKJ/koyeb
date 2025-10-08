@@ -349,6 +349,10 @@ loadPlugin();
     if (json.code != 200) return;
     const data = j.data;
     if (data.op) {
+        opUpload.style.display = "flex";
+        opUpload.addEventListener("click", function () {
+            opUploadDialog.open = true;
+        });
         mdui.snackbar({
             message: "欢迎回来，" + data.username,
             placement: "top"
