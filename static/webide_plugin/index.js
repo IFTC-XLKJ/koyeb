@@ -306,7 +306,6 @@ async function download(name, urls) {
                     // All downloads are complete
                     const combinedBlob = new Blob(blobs, { type: 'application/javascript' });
                     // 转为dataURL
-                    const url = URL.createObjectURL(combinedBlob);
                     if (globalThis.bzyapp) {
                         const code = await combinedBlob.text();
                         bzyapp.plugin(name, code);
@@ -315,6 +314,7 @@ async function download(name, urls) {
                             placement: "top"
                         });
                     } else {
+                        const url = URL.createObjectURL(combinedBlob);
                         const a = document.createElement("a");
                         a.href = url;
                         a.download = name;
