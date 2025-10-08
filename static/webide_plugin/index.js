@@ -368,6 +368,8 @@ loadPlugin();
                 });
                 return;
             }
+            opUploadSubmit.disabled = true;
+            opUploadSubmit.loading = true;
             try {
                 const json = JSON.parse(data);
                 const r = await fetch("/api/webide_plugin/upload", {
@@ -383,17 +385,24 @@ loadPlugin();
                         message: "提交失败：" + j.msg,
                         placement: "top"
                     });
+                    opUploadSubmit.disabled = false;
+                    opUploadSubmit.loading = false;
                     return;
                 }
                 mdui.snackbar({
                     message: "提交成功",
                     placement: "top"
                 });
+                opUploadDialog.open = false;
+                opUploadSubmit.disabled = false;
+                opUploadSubmit.loading = false;
             } catch (e) {
                 mdui.snackbar({
                     message: "提交失败：" + e.message,
                     placement: "top"
                 });
+                opUploadSubmit.disabled = false;
+                opUploadSubmit.loading = false;
             }
         });
         mdui.snackbar({
