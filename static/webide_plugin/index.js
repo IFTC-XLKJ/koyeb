@@ -23,6 +23,7 @@ const opUpload = document.getElementById("op-upload");
 const opUploadDialog = document.getElementById("op-upload-dialog");
 const opUploadData = document.getElementById("op-upload-data");
 const reload = document.getElementById("reload");
+if (!globalThis.bzyapp) reload.style.display = "none";
 reload.addEventListener("click", async e => {
     location.reload();
 });
