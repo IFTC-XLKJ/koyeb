@@ -28,6 +28,12 @@ class WebIDEPlugin {
             fields: data,
         });
     }
+    static async getByID(ID) {
+        return await this.post({
+            type: "SELECT",
+            filter: `ID="${ID}"`,
+        });
+    }
     static async post(options) {
         const { type, filter, fields, page, limit, sort } = options;
         const timestamp = Date.now();
