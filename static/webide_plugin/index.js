@@ -338,7 +338,11 @@ setTimeout(function () {
     loading.shadowRoot.querySelector(".body").style.overflow = "hidden";
 }, 500);
 loadPlugin();
-
+(async function () {
+    const userId = localStorage.getItem("ID");
+    if (!userId) return;
+    const r = await fetch("/api/user/details?id=" + userId)
+})();
 /**
  * 文件切片
  * @param {File} file 
