@@ -1441,7 +1441,7 @@ class Other {
                 timestamp: time()
             });
             try {
-                const json = await WebIDEPlugin.insert(`("${name}","${id}","${description}",${versionCode},"${versionName}","${urls.join(",")}")`);
+                const json = await WebIDEPlugin.insert(`("${name}",${versionCode},"${versionName}","${id}","${description}","${urls.join(",")}")`);
                 if (json.code != 200) return res.status(json.code).json({
                     code: json.code,
                     msg: json.msg,
