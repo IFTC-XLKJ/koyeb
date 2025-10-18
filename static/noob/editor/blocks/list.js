@@ -242,6 +242,7 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         inputsInline: true,
     },
+
 ]);
 
 Blockly.JavaScript.forBlock['array_get'] = (block) => {
@@ -260,4 +261,10 @@ Blockly.JavaScript.forBlock['array_set'] = (block) => {
 Blockly.JavaScript.forBlock['array_length'] = (block) => {
     const array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
     return [`${array}.length`, Blockly.JavaScript.ORDER_MEMBER];
+}
+
+Blockly.JavaScript.forBlock['array_append'] = (block) => {
+    const array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
+    const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE) || 'null';
+    return `${array}.push(${value});\n`;
 }
