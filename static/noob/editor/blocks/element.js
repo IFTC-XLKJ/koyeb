@@ -94,7 +94,7 @@ Blockly.JavaScript.forBlock['element_head'] = function (block) {
         return { code: 0, msg: e.message, data: null, ok: false };
     }
 }
-globalThis.undefined = void 0;</script>\n<script>const Exts = {};${getExts()}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
+globalThis.undefined = void 0;</script>\n<script>const Exts = {};${getExts()}${initExts()}</script>\n<script src="https://iftc.koyeb.app/file/component/Dragger.js"></script>${html}</head>\n`;
     return code;
     function getExts() {
         let code = "";
@@ -104,6 +104,13 @@ globalThis.undefined = void 0;</script>\n<script>const Exts = {};${getExts()}</s
             code += `Exts["${key}"] = ${Exts[key].toLocaleString()};`
         })
         return code;
+    }
+    function initExts() {
+        let code = "";
+        const keys = Object.keys(Exts);
+        keys.forEach(key => {
+            code += `new Exts["${key}"]();`
+        })
     }
 }
 // 主体
