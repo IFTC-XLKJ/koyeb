@@ -591,12 +591,14 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "annotation",
-                    inputs: [
-                        {
-                            name: "TEXT",
-                            text: "这是一条注释",
-                        },
-                    ],
+                    inputs: {
+                        TEXT: {
+                            shadow: {
+                                type: "text",
+                                text: "TODO",
+                            }
+                        }
+                    }
                 },
                 {
                     kind: "block",
