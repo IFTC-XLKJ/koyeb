@@ -335,3 +335,7 @@ Blockly.JavaScript.forBlock["controls_repeat"] = function (block) {
     // console.log(code);
     return code;
 }
+
+Blockly.JavaScript.forBlock["annotation"] = function (block) {
+    return `\n// ${block.getFieldValue('TEXT')}\n`;
+}
