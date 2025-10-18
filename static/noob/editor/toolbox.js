@@ -1,6 +1,7 @@
 const toolbox = {
     kind: "categoryToolbox",
     contents: [
+        // 元素
         {
             kind: "category",
             name: "元素",
@@ -162,6 +163,7 @@ const toolbox = {
                 },
             ]
         },
+        // 样式
         {
             kind: "category",
             name: "样式",
@@ -213,6 +215,7 @@ const toolbox = {
                 },
             ]
         },
+        // 属性
         {
             kind: "category",
             name: "属性",
@@ -232,6 +235,7 @@ const toolbox = {
                 },
             ]
         },
+        // 运算
         {
             kind: "category",
             name: "运算",
@@ -330,6 +334,7 @@ const toolbox = {
                 },
             ]
         },
+        // 变量
         {
             kind: "category",
             name: "变量",
@@ -387,6 +392,7 @@ const toolbox = {
                 },
             ]
         },
+        // 列表
         {
             kind: "category",
             name: "列表",
@@ -441,6 +447,10 @@ const toolbox = {
                             }
                         }
                     }
+                },
+                {
+                    kind: "block",
+                    type: "array_length",
                 }
             ]
         },
