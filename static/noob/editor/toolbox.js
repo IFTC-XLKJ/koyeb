@@ -454,10 +454,7 @@ const toolbox = {
                     inputs: {
                         ARRAY: {
                             shadow: {
-                                type: "text",
-                                fields: {
-                                    TEXT: "[]"
-                                }
+                                type: "variables_get",
                             }
                         }
                     }
