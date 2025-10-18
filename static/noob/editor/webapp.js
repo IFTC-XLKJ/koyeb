@@ -13,7 +13,18 @@ const types = {
             ],
             valueType: ["String"],
             color: "#008cff",
-            tooltip: "Example Block",
+            tooltip: "获取应用名称",
+        },
+        {
+            key: "getAppPackageName",
+            params: [
+                {
+                    label: "获取应用包名称",
+                },
+            ],
+            valueType: ["String"],
+            color: "#008cff",
+            tooltip: "获取应用包名",
         },
         // {
         //     key: "exampleblock",
@@ -81,10 +92,16 @@ class Ext {
             获取应用名称: function () {
                 return "Debug WebApp";
             },
+            获取应用包名: function () {
+                return "cn.iftc.debug";
+            },
         };
     }
     static getAppName() {
         return webapp.获取应用名称();
+    }
+    static async getAppPackageName() {
+        return webapp.获取应用包名();
     }
 }
 
