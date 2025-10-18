@@ -101,7 +101,7 @@ globalThis.undefined = void 0;</script>\n<script>const Exts = {};${getExts()}${i
         const keys = Object.keys(Exts);
         keys.forEach(key => {
             // console.log(Exts[key].toLocaleString());
-            code += `Exts["${key}"] = ${Exts[key].toLocaleString()};`
+            code += `Exts["${key}"] = ${Exts[key].toLocaleString()};\n`
         })
         return code;
     }
@@ -109,8 +109,9 @@ globalThis.undefined = void 0;</script>\n<script>const Exts = {};${getExts()}${i
         let code = "";
         const keys = Object.keys(Exts);
         keys.forEach(key => {
-            code += `new Exts["${key}"]();`
-        })
+            code += `new Exts["${key}"]();\n`
+        });
+        return code;
     }
 }
 // 主体
