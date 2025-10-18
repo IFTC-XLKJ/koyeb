@@ -233,3 +233,8 @@ Blockly.JavaScript.forBlock['array_set'] = (block) => {
     const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE) || 'null';
     return `${array}[${index}] = ${value};\n`;
 }
+
+Blockly.JavaScript.forBlock['array_length'] = (block) => {
+    const array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
+    return [`${array}.length`, Blockly.JavaScript.ORDER_MEMBER];
+}
