@@ -204,6 +204,21 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         inputsInline: true,
     },
+    {
+        type: "array_length",
+        message0: "获取数组 %1 的长度",
+        args0: [
+            {
+                type: 'input_value',
+                name: 'ARRAY'
+            }
+        ],
+        output: 'Number',
+        colour: ARRAY_COLOR,
+        tooltip: '获取数组的长度',
+        helpUrl: '',
+        inputsInline: true,
+    },
 ]);
 
 Blockly.JavaScript.forBlock['array_get'] = (block) => {
