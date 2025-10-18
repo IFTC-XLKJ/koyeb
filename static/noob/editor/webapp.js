@@ -83,12 +83,6 @@ class Ext {
             },
         };
     }
-    // static exampleblock(paramsValue) {
-    //     console.log("example", paramsValue.inputValue);
-    // }
-    // static async exampleblock_return(paramsValue) {
-    //     return "example" + paramsValue.inputValue;
-    // }
     static getAppName() {
         return webapp.获取应用名称();
     }
