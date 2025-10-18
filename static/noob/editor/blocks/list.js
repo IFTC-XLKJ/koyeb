@@ -242,7 +242,28 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         inputsInline: true,
     },
-
+    {
+        type: "array_remove",
+        message0: "删除数组 %1 的 %2",
+        args0: [
+            {
+                type: "input_value",
+                name: "ARRAY",
+                check: "Array"
+            },
+            {
+                type: "input_value",
+                name: "INDEX",
+                check: "Number"
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: ARRAY_COLOR,
+        tooltip: '从数组中删除元素',
+        helpUrl: '',
+        inputsInline: true
+    },
 ]);
 
 Blockly.JavaScript.forBlock['array_get'] = (block) => {
