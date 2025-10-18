@@ -499,6 +499,7 @@ const toolbox = {
                 },
             ]
         },
+        // 字典
         {
             kind: "category",
             name: "字典",
@@ -581,11 +582,22 @@ const toolbox = {
                 }
             ]
         },
+        // 脚本
         {
             kind: "category",
             name: "脚本",
             colour: "#68CDFF",
             contents: [
+                {
+                    kind: "block",
+                    type: "annotation",
+                    inputs: [
+                        {
+                            name: "TEXT",
+                            text: "这是一条注释",
+                        },
+                    ],
+                },
                 {
                     kind: "block",
                     type: "window"
