@@ -210,7 +210,8 @@ Blockly.defineBlocksWithJsonArray([
         args0: [
             {
                 type: 'input_value',
-                name: 'ARRAY'
+                name: 'ARRAY',
+                check: 'Array'
             }
         ],
         output: 'Number',
