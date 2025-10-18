@@ -467,6 +467,14 @@ const toolbox = {
                             shadow: {
                                 type: "variables_get",
                             }
+                        },
+                        VALUE: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "value"
+                                },
+                            }
                         }
                     }
                 },
@@ -477,6 +485,14 @@ const toolbox = {
                         ARRAY: {
                             shadow: {
                                 type: "variables_get",
+                            }
+                        },
+                        INDEX: {
+                            shadow: {
+                                type: "math_number",
+                                fields: {
+                                    NUM: 0
+                                }
                             }
                         }
                     }
