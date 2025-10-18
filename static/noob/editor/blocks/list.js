@@ -244,7 +244,7 @@ Blockly.defineBlocksWithJsonArray([
     },
     {
         type: "array_remove",
-        message0: "删除数组 %1 的 %2",
+        message0: "删除数组 %1 第 %2 项",
         args0: [
             {
                 type: "input_value",
@@ -288,4 +288,10 @@ Blockly.JavaScript.forBlock['array_append'] = (block) => {
     const array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
     const value = Blockly.JavaScript.valueToCode(block, 'VALUE', Blockly.JavaScript.ORDER_NONE) || 'null';
     return `${array}.push(${value});\n`;
+}
+
+Blockly.JavaScript.forBlock['array_remove'] = (block) => {
+    const array = Blockly.JavaScript.valueToCode(block, 'ARRAY', Blockly.JavaScript.ORDER_MEMBER) || '[]';
+    const index = Blockly.JavaScript.valueToCode(block, 'INDEX', Blockly.JavaScript.ORDER_NONE) || '0';
+    return `${array}.splice(${index}, 1);\n`;
 }
