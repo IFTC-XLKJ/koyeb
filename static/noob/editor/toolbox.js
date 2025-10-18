@@ -591,14 +591,6 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "annotation",
-                    inputs: {
-                        TEXT: {
-                            shadow: {
-                                type: "text",
-                                text: "TODO",
-                            }
-                        }
-                    }
                 },
                 {
                     kind: "block",

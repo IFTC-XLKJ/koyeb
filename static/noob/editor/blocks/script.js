@@ -263,6 +263,7 @@ Blockly.defineBlocksWithJsonArray([
             {
                 type: "field_input",
                 name: "TEXT",
+                text: "这是一条注释",
             },
         ],
         colour: "#68CDFF",
