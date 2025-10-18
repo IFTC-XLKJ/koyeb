@@ -451,6 +451,16 @@ const toolbox = {
                 {
                     kind: "block",
                     type: "array_length",
+                    inputs: {
+                        ARRAY: {
+                            shadow: {
+                                type: "text",
+                                fields: {
+                                    TEXT: "[]"
+                                }
+                            }
+                        }
+                    }
                 }
             ]
         },
