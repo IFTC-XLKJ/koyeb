@@ -469,7 +469,18 @@ const toolbox = {
                             }
                         }
                     }
-                }
+                },
+                {
+                    kind: "block",
+                    type: "array_remove",
+                    inputs: {
+                        ARRAY: {
+                            shadow: {
+                                type: "variables_get",
+                            }
+                        }
+                    }
+                },
             ]
         },
         {
