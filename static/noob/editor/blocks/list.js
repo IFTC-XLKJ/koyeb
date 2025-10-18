@@ -220,6 +220,28 @@ Blockly.defineBlocksWithJsonArray([
         helpUrl: '',
         inputsInline: true,
     },
+    {
+        type: "array_append",
+        message0: "向数组 %1 添加 %2",
+        args0: [
+            {
+                type: 'input_value',
+                name: 'ARRAY',
+                check: 'Array'
+            },
+            {
+                type: 'input_value',
+                name: 'VALUE',
+                check: null
+            }
+        ],
+        previousStatement: null,
+        nextStatement: null,
+        colour: ARRAY_COLOR,
+        tooltip: '向数组添加元素',
+        helpUrl: '',
+        inputsInline: true,
+    },
 ]);
 
 Blockly.JavaScript.forBlock['array_get'] = (block) => {
