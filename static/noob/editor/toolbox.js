@@ -458,6 +458,17 @@ const toolbox = {
                             }
                         }
                     }
+                },
+                {
+                    kind: "block",
+                    type: "array_append",
+                    inputs: {
+                        ARRAY: {
+                            shadow: {
+                                type: "variables_get",
+                            }
+                        }
+                    }
                 }
             ]
         },
