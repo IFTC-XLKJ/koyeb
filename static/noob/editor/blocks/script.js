@@ -256,6 +256,21 @@ Blockly.defineBlocksWithJsonArray([
         tooltip: '重复执行代码，谨慎使用，重复执行次数过多会导致主线程阻塞',
         helpUrl: '%{BKY_CONTROLS_REPEAT_HELPURL}',
     },
+    {
+        type: "annotation",
+        message0: "注释 %1",
+        args0: [
+            {
+                type: "field_input",
+                name: "TEXT",
+            },
+        ],
+        colour: "#68CDFF",
+        tooltip: "注释",
+        helpUrl: "%{BKY_CONTROLS_REPEAT_HELPURL}",
+        nextStatement: null,
+        previousStatement: null,
+    },
 ])
 
 Blockly.JavaScript.forBlock['script_console'] = function (block) {
