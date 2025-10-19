@@ -487,13 +487,13 @@ app.all('/proxy/*', async (req, res) => {
 app.get("/webide_plugin", async (req, res) => {
   const { debug } = req.query;
   console.log("Debug:", debug);
-  if (debug == void 0) {
-    return res.json({
-      code: 200,
-      msg: "暂时关闭服务",
-      timestamp: time(),
-    });
-  }
+  // if (debug == void 0) {
+  //   return res.json({
+  //     code: 200,
+  //     msg: "暂时关闭服务",
+  //     timestamp: time(),
+  //   });
+  // }
   requestLog(req);
   if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
     code: 200,
