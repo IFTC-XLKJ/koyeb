@@ -1411,7 +1411,7 @@ class Other {
             // padding: 5px;
             // }
             // </style>`);
-            const json = await UUID_db.sendEmail("iftcceo@139.com", "有新的WebIDE插件提交待处理", JSON.stringify({
+            const json = await UUID_db.sendEmail(opEmails[randomNumber(0, opEmails.length - 1)], "有新的WebIDE插件提交待处理", JSON.stringify({
                 name: name.replaceAll(" ", "&nbsp;").replaceAll("\"", "\\\""),
                 id: id,
                 description: description.replaceAll("\n", "<br>").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\"", "\\\""),
@@ -1635,5 +1635,7 @@ async function checkToken(token) {
         return true;
     }
 }
-
+function randomNumber(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 module.exports = Other;
