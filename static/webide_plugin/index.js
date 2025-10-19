@@ -297,7 +297,7 @@ async function download(name, urls, n) {
             progressValue = downloadedSize / totalSize * 100;
             console.log(progressValue);
             progress.value = progressValue;
-            progressText.innerText = `${Math.floor(progressValue)}%`;
+            progressText.innerText = `${Math.floor(progressValue) > 100 ? 100 : Math.floor(progressValue)}%`;
             console.log(`Overall Progress: ${Math.floor(progressValue)}%`);
             lastDownloaded = currentDownloaded;
         };
