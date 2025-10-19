@@ -140,11 +140,15 @@ uploadSubmit.addEventListener("click", async e => {
 
             xhr.addEventListener('load', function () {
                 if (xhr.status === 200) {
-                    const json = JSON.parse(xhr.responseText);
-                    if (json.code == 200 && json.url) {
-                        resolve(json.url);
-                    } else {
-                        reject(xhr.responseText);
+                    try {
+                        const json = JSON.parse(xhr.responseText);
+                        if (json.url) {
+                            resolve(json.url);
+                        } else {
+                            reject(xhr.responseText);
+                        }
+                    } catch (e) {
+                        reject(e);
                     }
                 } else {
                     reject(xhr.status + ' ' + xhr.statusText);
