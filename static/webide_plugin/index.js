@@ -116,60 +116,60 @@ uploadSubmit.addEventListener("click", async e => {
         });
         uploadFileDialog.open = false;
     }
-async function uploadFile(file) {
-    let currentUploaded = 0;
-    let lastUploaded = 0;
-    
-    return new Promise((resolve, reject) => {
-        const formData = new FormData();
-        formData.append('file', file, file.name + ".bin");
-        
-        // 使用 fetch 替代 XMLHttpRequest
-        fetch("https://cloud.hopex.top/apiv1/upfile/r2up.php", {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            // 处理进度的响应
-            const reader = response.clone().body.getReader();
-            let downloadedSize = 0;
-            const contentLength = response.headers.get('Content-Length');
-            const total = parseInt(contentLength, 10);
-            
-            // 模拟进度更新
-            reader.read().then(function processText({done, value}) {
-                if (done) {
-                    return;
-                }
-                
-                downloadedSize += value.length;
-                currentUploaded = downloadedSize;
-                uploadSize += (currentUploaded - lastUploaded);
-                progressValue = uploadSize / totalSize;
-                progress2.value = progressValue * 100;
-                progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
-                lastUploaded = currentUploaded;
-                
-                // 继续读取
-                return reader.read().then(processText);
-            });
-            
-            // 处理响应结果
-            return response.json();
-        })
-        .then(json => {
-            if (json.code == 200 && json.url) {
-                resolve(json.url);
-            } else {
-                reject(JSON.stringify(json));
-            }
-        })
-        .catch(error => {
-            console.error('上传出错:', error);
-            reject(error.message || '上传出错');
+    async function uploadFile(file) {
+        let currentUploaded = 0;
+        let lastUploaded = 0;
+
+        return new Promise((resolve, reject) => {
+            const formData = new FormData();
+            formData.append('file', file, file.name + ".bin");
+
+            // 使用 fetch 替代 XMLHttpRequest
+            fetch("https://cloud.hopex.top/apiv1/upfile/r2up.php", {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    // 处理进度的响应
+                    const reader = response.clone().body.getReader();
+                    let downloadedSize = 0;
+                    const contentLength = response.headers.get('Content-Length');
+                    const total = parseInt(contentLength, 10);
+
+                    // 模拟进度更新
+                    reader.read().then(function processText({ done, value }) {
+                        if (done) {
+                            return;
+                        }
+
+                        downloadedSize += value.length;
+                        currentUploaded = downloadedSize;
+                        uploadSize += (currentUploaded - lastUploaded);
+                        progressValue = uploadSize / totalSize;
+                        progress2.value = progressValue * 100;
+                        progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
+                        lastUploaded = currentUploaded;
+
+                        // 继续读取
+                        return reader.read().then(processText);
+                    });
+
+                    // 处理响应结果
+                    return response.json();
+                })
+                .then(json => {
+                    if (json.code == 200 && json.url) {
+                        resolve(json.url);
+                    } else {
+                        reject(JSON.stringify(json));
+                    }
+                })
+                .catch(error => {
+                    console.error('上传出错:', error);
+                    reject(error.message || '上传出错');
+                });
         });
-    });
-}
+    }
 });
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
