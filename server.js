@@ -486,6 +486,7 @@ app.all('/proxy/*', async (req, res) => {
 });
 app.get("/webide_plugin", async (req, res) => {
   const { debug } = req.query;
+  console.log("Debug:", debug);
   if (debug != void 0) {
     return res.json({
       code: 200,
