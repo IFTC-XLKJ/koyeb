@@ -75,6 +75,7 @@ uploadSubmit.addEventListener("click", async e => {
             const url = await uploadFile(file);
             urls.push(url);
         }
+        console.log(urls);
         progress2.value = 100;
         progressText2.innerText = `100%`;
         uploadFileDialog.open = false;
