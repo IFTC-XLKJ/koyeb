@@ -158,7 +158,7 @@ uploadSubmit.addEventListener("click", async e => {
             const formData = new FormData();
             formData.append('file', file, file.name + ".bin");
             // xhr.open('POST', "https://api.pgaot.com/user/up_cat_file", true);
-            xhr.open('POST', "https://cloud.hopex.top/apiv1/upfile/r2up.php", true);
+            xhr.open('POST', "https://cloud.hopex.top/apiv1/upfile/r2up.php", false);
             xhr.send(formData);
         });
     }
