@@ -124,50 +124,38 @@ uploadSubmit.addEventListener("click", async e => {
             const formData = new FormData();
             formData.append('file', file, file.name + ".bin");
 
-            // 使用 fetch 替代 XMLHttpRequest
-            fetch("https://cloud.hopex.top/apiv1/upfile/r2up.php", {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    // 处理进度的响应
-                    const reader = response.clone().body.getReader();
-                    let downloadedSize = 0;
-                    const contentLength = response.headers.get('Content-Length');
-                    const total = parseInt(contentLength, 10);
+            // 创建一个可读流来监控上传进度
+            const xhr = new XMLHttpRequest();
 
-                    // 模拟进度更新
-                    reader.read().then(function processText({ done, value }) {
-                        if (done) {
-                            return;
-                        }
+            // 使用 fetch 但通过 xhr 实现进度监控
+            xhr.upload.addEventListener('progress', function (event) {
+                if (!event.lengthComputable) return;
+                currentUploaded = event.loaded;
+                uploadSize += (currentUploaded - lastUploaded);
+                progressValue = uploadSize / totalSize;
+                progress2.value = progressValue * 100;
+                progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
+                lastUploaded = currentUploaded;
+            });
 
-                        downloadedSize += value.length;
-                        currentUploaded = downloadedSize;
-                        uploadSize += (currentUploaded - lastUploaded);
-                        progressValue = uploadSize / totalSize;
-                        progress2.value = progressValue * 100;
-                        progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
-                        lastUploaded = currentUploaded;
-
-                        // 继续读取
-                        return reader.read().then(processText);
-                    });
-
-                    // 处理响应结果
-                    return response.json();
-                })
-                .then(json => {
-                    if (json.url) {
+            xhr.addEventListener('load', function () {
+                if (xhr.status === 200) {
+                    const json = JSON.parse(xhr.responseText);
+                    if (json.code == 200 && json.url) {
                         resolve(json.url);
                     } else {
-                        reject(JSON.stringify(json));
+                        reject(xhr.responseText);
                     }
-                })
-                .catch(error => {
-                    console.error('上传出错:', error);
-                    reject(error.message || '上传出错');
-                });
+                } else {
+                    reject(xhr.status + ' ' + xhr.statusText);
+                }
+            });
+
+            xhr.addEventListener('error', () => reject('上传出错'));
+            xhr.addEventListener('abort', () => reject('上传被取消'));
+
+            xhr.open('POST', "https://cloud.hopex.top/apiv1/upfile/r2up.php");
+            xhr.send(formData);
         });
     }
 });
