@@ -116,52 +116,60 @@ uploadSubmit.addEventListener("click", async e => {
         });
         uploadFileDialog.open = false;
     }
-    async function uploadFile(file) {
-        let currentUploaded = 0;
-        let lastUploaded = 0;
-        return new Promise((resolve, reject) => {
-            const xhr = new XMLHttpRequest();
-            xhr.upload.addEventListener('progress', function (event) {
-                if (!event.lengthComputable) return;
-                currentUploaded = event.loaded;
+async function uploadFile(file) {
+    let currentUploaded = 0;
+    let lastUploaded = 0;
+    
+    return new Promise((resolve, reject) => {
+        const formData = new FormData();
+        formData.append('file', file, file.name + ".bin");
+        
+        // 使用 fetch 替代 XMLHttpRequest
+        fetch("https://cloud.hopex.top/apiv1/upfile/r2up.php", {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            // 处理进度的响应
+            const reader = response.clone().body.getReader();
+            let downloadedSize = 0;
+            const contentLength = response.headers.get('Content-Length');
+            const total = parseInt(contentLength, 10);
+            
+            // 模拟进度更新
+            reader.read().then(function processText({done, value}) {
+                if (done) {
+                    return;
+                }
+                
+                downloadedSize += value.length;
+                currentUploaded = downloadedSize;
                 uploadSize += (currentUploaded - lastUploaded);
-                console.log(`Uploaded ${uploadSize} of ${totalSize} bytes`);
                 progressValue = uploadSize / totalSize;
-                console.log(progressValue);
                 progress2.value = progressValue * 100;
                 progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
-                console.log(`Overall Progress: ${Math.floor(progressValue * 100)}%`);
                 lastUploaded = currentUploaded;
+                
+                // 继续读取
+                return reader.read().then(processText);
             });
-            xhr.addEventListener('load', function () {
-                if (xhr.status === 200) {
-                    console.log('上传成功:', xhr.responseText);
-                    const json = JSON.parse(xhr.responseText);
-                    if (json.code == 200 && json.url) {
-                        resolve(json.url);
-                    } else {
-                        reject(xhr.responseText);
-                    }
-                } else {
-                    console.error('上传失败:', xhr.status);
-                    reject(xhr.status + ' ' + xhr.statusText);
-                }
-            });
-            xhr.addEventListener('error', function () {
-                console.error('上传出错');
-                reject('上传出错');
-            });
-            xhr.addEventListener('abort', function () {
-                console.log('上传被取消');
-                reject('上传被取消');
-            });
-            const formData = new FormData();
-            formData.append('file', file, file.name + ".bin");
-            // xhr.open('POST', "https://api.pgaot.com/user/up_cat_file", true);
-            xhr.open('POST', "https://cloud.hopex.top/apiv1/upfile/r2up.php", false);
-            xhr.send(formData);
+            
+            // 处理响应结果
+            return response.json();
+        })
+        .then(json => {
+            if (json.code == 200 && json.url) {
+                resolve(json.url);
+            } else {
+                reject(JSON.stringify(json));
+            }
+        })
+        .catch(error => {
+            console.error('上传出错:', error);
+            reject(error.message || '上传出错');
         });
-    }
+    });
+}
 });
 loadMore.addEventListener("click", loadPlugin);
 function addItem(plugin) {
