@@ -158,7 +158,7 @@ uploadSubmit.addEventListener("click", async e => {
                     return response.json();
                 })
                 .then(json => {
-                    if (json.code == 200 && json.url) {
+                    if (json.url) {
                         resolve(json.url);
                     } else {
                         reject(JSON.stringify(json));
