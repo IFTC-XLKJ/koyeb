@@ -22,6 +22,9 @@ console.log(process.env.IFTC);
 console.log(Segment);
 // console.log(fs);
 
+globalThis.opEmails = [
+  "iftcceo@139.com",
+]
 const ips = [];
 const appUpdateCheck = new AppUpdateCheck();
 const discussion = new Discussion();
