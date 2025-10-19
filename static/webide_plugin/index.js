@@ -134,7 +134,7 @@ uploadSubmit.addEventListener("click", async e => {
                 uploadSize += (currentUploaded - lastUploaded);
                 progressValue = uploadSize / totalSize;
                 progress2.value = progressValue * 100;
-                progressText2.innerText = `${Math.floor(progressValue * 100)}%`;
+                progressText2.innerText = `${Math.floor(progressValue * 100) > 100 ? 100 : Math.floor(progressValue * 100)}%`;
                 lastUploaded = currentUploaded;
             });
 
