@@ -35,7 +35,7 @@ class CoDrive {
         console.log('CoDrive', j);
         return j;
     }
-    start() {}
+    start(app) {}
 }
 
 module.exports = CoDrive;
