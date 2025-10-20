@@ -6,11 +6,21 @@ class CoDrive {
     constructor() {
         
     }
-    fetchData(path, _raw) {
+    async fetchData(path, method, _raw) {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Authentication"， `Bearer ${this.token}`)
         const raw = _raw;
+        const requestOptions = {
+            method: method,
+            headers: headers,
+            body: raw,
+            redirect: 'follow'
+        };
+        const r = await fetch(`${this.baseUrl}${path}`, requestOptions);
+        const j = await r.json();
+        console.log('CoDrive', j);
+        return j;
     }
 }
 
