@@ -43,6 +43,7 @@ class CoDrive {
             return res.json(json);
         });
     }
+    async createFile() {}
 }
 
 module.exports = CoDrive;
