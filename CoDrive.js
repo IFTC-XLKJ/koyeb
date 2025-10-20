@@ -4,6 +4,7 @@ class CoDrive {
     fetchData(_raw) {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
+        const raw = _raw;
     }
 }
 
