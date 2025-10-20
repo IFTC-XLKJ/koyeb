@@ -1,3 +1,3 @@
 class CoDrive {}
 
-export default CoDrive;
+module.exports = CoDrive;
