@@ -13,8 +13,8 @@ class CoDrive {
                 password: this.pwd,
             }));
             if (json.code != 0) return;
-            const token = json.data.token.refresh_token;
-            const expires = json.data.token.refresh_expires;
+            const token = json.data.token.access_token;
+            const expires = json.data.token.access_expires;
             this.token = token;
             this.expires = Date.parse(expires);
         }, 30000);
@@ -23,7 +23,7 @@ class CoDrive {
         console.log(this.token);
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authentication", `Bearer ${this.token}`)
+        headers.append("Authorization", `Bearer ${this.token}`)
         const raw = _raw;
         const requestOptions = {
             method: method,
