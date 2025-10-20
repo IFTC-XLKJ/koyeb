@@ -7,7 +7,7 @@ class CoDrive {
     constructor() {
         setInterval(async () => {
             const now = Date.now();
-            if (now < expires) return;
+            if (now < this.expires) return;
             const json = await this.fetchData('/session/token', 'POST', JSON.stringify({
                 email: this.email,
                 password: this.pwd,
