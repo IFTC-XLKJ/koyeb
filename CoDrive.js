@@ -37,7 +37,9 @@ class CoDrive {
     }
     start(app) {
         app.get("/api/cloud/filelist", async (req,res) => {
-            const json = await this.fetchData("/file", "GET")
+            const json = await this.fetchData("/file", "GET", JSON.stringify({
+                uri: ``
+            }));
         });
     }
 }
