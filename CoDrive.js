@@ -5,11 +5,17 @@ class CoDrive {
     pwd = 'stree123456';
     expires = 0;
     constructor() {
-        setInterval(async () => {
+        setIterval(async () => {
+            const now = Date.now();
+            if (now < expires) return;
             const json = await this.fetchData('/session/token', 'POST', JSON.stringify({
                 email: this.email,
                 password: this.pwd,
             }));
+            const token = json.token.access_token;
+            const expires = json.token.access_expires;
+            this.token = token;
+            this.expires = Date.parse(expires);
         }, 30000);
     }
     async fetchData(path, method, _raw) {
