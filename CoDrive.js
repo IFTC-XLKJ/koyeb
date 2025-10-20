@@ -44,7 +44,7 @@ class CoDrive {
         });
     }
     async createFile(uri) {
-        const json = await this.fetchData();
+        const json = await this.fetchData("/file/create");
     }
 }
 
