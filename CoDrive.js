@@ -27,7 +27,7 @@ class CoDrive {
         const requestOptions = {
             method: method,
             headers: headers,
-            body: raw,
+            body: method == 'GET' ? void 0 : raw,
             redirect: 'follow'
         };
         const r = await fetch(`${this.baseUrl}${path}`, requestOptions);
