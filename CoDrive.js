@@ -35,7 +35,9 @@ class CoDrive {
         console.log('CoDrive', j);
         return j;
     }
-    start(app) {}
+    start(app) {
+        app.get("/api/cloud/filelist", async (req,res) => {});
+    }
 }
 
 module.exports = CoDrive;
