@@ -20,6 +20,7 @@ class CoDrive {
         }, 30000);
     }
     async fetchData(path, method, _raw) {
+        console.log(this.token);
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Authentication", `Bearer ${this.token}`)
