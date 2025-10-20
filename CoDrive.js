@@ -25,6 +25,7 @@ class CoDrive {
         headers.append("Content-Type", "application/json");
         headers.append("Authorization", `Bearer ${this.token}`)
         const raw = _raw;
+        console.log(raw);
         const requestOptions = {
             method: method,
             headers: headers,
