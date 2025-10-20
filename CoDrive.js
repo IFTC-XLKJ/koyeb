@@ -15,7 +15,7 @@ class CoDrive {
     async fetchData(path, method, _raw) {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
-        headers.append("Authentication"， `Bearer ${this.token}`)
+        headers.append("Authentication", `Bearer ${this.token}`)
         const raw = _raw;
         const requestOptions = {
             method: method,
