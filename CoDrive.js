@@ -13,8 +13,8 @@ class CoDrive {
                 password: this.pwd,
             }));
             if (json.code != 0) return;
-            const token = json.data.token.access_token;
-            const expires = json.data.token.access_expires;
+            const token = json.data.token.refresh_token;
+            const expires = json.data.token.refresh_expires;
             this.token = token;
             this.expires = Date.parse(expires);
         }, 30000);
