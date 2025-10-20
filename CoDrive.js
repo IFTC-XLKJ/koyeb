@@ -12,7 +12,7 @@ class CoDrive {
                 email: this.email,
                 password: this.pwd,
             }));
-            if (code != 0) return;
+            if (json.code != 0) return;
             const token = json.data.token.access_token;
             const expires = json.data.token.access_expires;
             this.token = token;
