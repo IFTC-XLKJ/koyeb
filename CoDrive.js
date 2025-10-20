@@ -37,9 +37,11 @@ class CoDrive {
     }
     start(app) {
         app.get("/api/cloud/filelist", async (req,res) => {
-            const {uri}=req.query
+            const {uri,page,pagesize}=req.query
             const json = await this.fetchData("/file", "GET", JSON.stringify({
                 uri: `cloudreve://my${decodeURIComponent(uri)}`,
+                page: Number(page),
+                page_size: Number(pagesize)
             }));
         });
     }
