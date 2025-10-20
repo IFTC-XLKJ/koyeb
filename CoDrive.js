@@ -3,8 +3,9 @@ class CoDrive {
     token = '';
     email = 'iftcceo@139.com';
     pwd = 'stree123456';
+    expires = 0;
     constructor() {
-        
+        setIterval(() => {});
     }
     async fetchData(path, method, _raw) {
         const headers = new Headers();
