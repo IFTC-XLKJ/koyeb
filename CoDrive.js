@@ -6,7 +6,7 @@ class CoDrive {
     constructor() {
         
     }
-    fetchData(_raw) {
+    fetchData(path, _raw) {
         const headers = new Headers();
         headers.append("Content-Type", "application/json");
         headers.append("Authentication"， `Bearer ${this.token}`)
