@@ -5,7 +5,7 @@ class CoDrive {
     pwd = 'stree123456';
     expires = 0;
     constructor() {
-        setIterval(() => {});
+        setIterval(() => {}, 30000);
     }
     async fetchData(path, method, _raw) {
         const headers = new Headers();
