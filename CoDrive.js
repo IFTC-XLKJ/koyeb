@@ -42,12 +42,18 @@ class CoDrive {
             const json = await this.fetchData(`/file?uri=${`cloudreve://my${decodeURIComponent(uri)}`}&page=${page}&page_size=${pagesize}`, "GET");
             return res.json(json);
         });
+        app.get("/api/cloud/createfile", async (req, res) => {
+            const {uri,type}=req.query;
+            const json = await this.createFile(uri, Number(type));
+            return res.json(json);
+        });
     }
     async createFile(uri, type) {
         const json = await this.fetchData("/file/create", "POST", JSON.stringify({
             uri: `cloudreve://my${uri}`,
             type: type
         }));
+        return json;
     }
 }
 
