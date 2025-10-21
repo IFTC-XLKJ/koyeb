@@ -64,7 +64,7 @@ class CoDrive {
                 const json = await this.createFile(uri, type);
                 return res.json(json);
             });
-        app.get("/api/cloud/getfile", (req, res)=> {
+        app.get("/api/cloud/getfile", async (req, res)=> {
             const {
                 uri
             } = req.query;
