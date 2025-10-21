@@ -83,7 +83,15 @@ class CoDrive {
                     `cloudreve://my${uri}`
                 ],
             }));
-        
+        if (json.code != 0) return {
+            error: json.error
+        };
+        const url = json.data.urls[0].url;
+        const r = await fetch(url);
+        const blob = await r.blob();
+        return {
+            file: blob
+        }
     }
 }
 
