@@ -73,7 +73,7 @@ class CoDrive {
                 if (r.error) return res.send(r.error);
                 const buffer = Buffer.from([r.file]);
                 res.set("Content-Type", r.contentType);
-                return res.send(r.file);
+                return res.send(buffer);
             })
     }
     async createFile(uri,
