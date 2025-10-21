@@ -97,8 +97,10 @@ class CoDrive {
             error: json.error
         };
         const url = json.data.urls[0].url;
+        console.log(url);
         const r = await fetch(url);
         const blob = await r.blob();
+        console.log(blob);
         return {
             file: blob
         };
