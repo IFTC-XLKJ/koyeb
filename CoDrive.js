@@ -56,6 +56,7 @@ class CoDrive {
         }));
         return json;
     }
+    async getFile() {}
 }
 
 module.exports = CoDrive;
