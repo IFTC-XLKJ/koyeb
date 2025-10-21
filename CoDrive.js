@@ -73,6 +73,7 @@ class CoDrive {
                 if (r.error) return res.send(r.error);
                 const buffer = Buffer.from([r.file]);
                 res.set("Content-Type", r.contentType);
+                res.set('Content-Disposition', `attachment; filename="${uri.split('/')[uri.split('/').length - 1]}"`);
                 return res.send(buffer);
             })
     }
