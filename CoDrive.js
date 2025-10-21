@@ -72,6 +72,7 @@ class CoDrive {
                 const r = await this.getFile(uri);
                 if (r.error) return res.send(r.error);
                 const buffer = Buffer.from([r.file]);
+                console.log(buffer);
                 res.set("Content-Type", r.contentType);
                 res.set("Content-Length", r.file.length);
                 res.set('Content-Disposition', `attachment; filename="${uri.split('/')[uri.split('/').length - 1]}"`);
