@@ -104,7 +104,7 @@ class CoDrive {
         const contentType = r.headers.get("Content-Type");
         console.log(contentType);
         const blob = await r.blob();
-        console.log(blob);
+        console.log(blob, blob.type);
         return {
             file: blob,
             contentType: contentType
