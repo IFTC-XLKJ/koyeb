@@ -71,9 +71,8 @@ class CoDrive {
                 } = req.query;
                 const r = await this.getFile(uri);
                 if (r.error) return res.send(r.error);
-                res.set({
-                    "Content-Type": r.contentType
-                });
+                const buffer = Buffer.from([r.file]);
+                res.set("Content-Type", r.contentType);
                 return res.send(r.file);
             })
     }
