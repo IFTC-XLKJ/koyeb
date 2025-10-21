@@ -78,7 +78,10 @@ class CoDrive {
                 res.set('Content-Disposition', `attachment; filename="${uri.split('/')[uri.split('/').length - 1]}"`);
                 return res.send(buffer);
             });
-        app.post("/api/cloud/upload")
+        app.post("/api/cloud/upload-avatar", async (req,res)=>{
+            const {id,file}=req.body;
+            console.log(id,file)
+        });
     }
     async createFile(uri,
         type) {
