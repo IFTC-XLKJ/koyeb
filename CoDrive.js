@@ -99,7 +99,7 @@ class CoDrive {
             }));
         console.log(json);
         if (json.code != 0) return {
-            error: json.error
+            error: json.error || json.msg
         };
         const url = json.data.urls[0].url;
         console.log(url);
