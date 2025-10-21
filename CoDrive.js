@@ -80,7 +80,7 @@ class CoDrive {
             });
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             const {id,file}=req.body;
-            console.log(id,file)
+            console.log(req,id,file);
         });
     }
     async createFile(uri,
