@@ -99,10 +99,12 @@ class CoDrive {
         const url = json.data.urls[0].url;
         console.log(url);
         const r = await fetch(url);
+        const contentType = r.headers.get("Content-Type");
         const blob = await r.blob();
         console.log(blob);
         return {
-            file: blob
+            file: blob,
+            contentType: contentType
         };
     }
 }
