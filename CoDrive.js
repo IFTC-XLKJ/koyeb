@@ -64,6 +64,14 @@ class CoDrive {
                 const json = await this.createFile(uri, type);
                 return res.json(json);
             });
+        app.get("/api/cloud/getfile", (req, res)=> {
+            const {
+                uri
+            } = req.query;
+            const r = await this.getFile(uri);
+            if (r.error) return res.send(r.error);
+            return res.send(r.file);
+        })
     }
     async createFile(uri,
         type) {
@@ -91,7 +99,7 @@ class CoDrive {
         const blob = await r.blob();
         return {
             file: blob
-        }
+        };
     }
 }
 
