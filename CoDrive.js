@@ -64,14 +64,15 @@ class CoDrive {
                 const json = await this.createFile(uri, type);
                 return res.json(json);
             });
-        app.get("/api/cloud/getfile", async (req, res)=> {
-            const {
-                uri
-            } = req.query;
-            const r = await this.getFile(uri);
-            if (r.error) return res.send(r.error);
-            return res.send(r.file);
-        })
+        app.get("/api/cloud/getfile",
+            async (req, res)=> {
+                const {
+                    uri
+                } = req.query;
+                const r = await this.getFile(uri);
+                if (r.error) return res.send(r.error);
+                return res.send(r.file);
+            })
     }
     async createFile(uri,
         type) {
@@ -91,6 +92,7 @@ class CoDrive {
                     `cloudreve://my${uri}`
                 ],
             }));
+        console.log(json);
         if (json.code != 0) return {
             error: json.error
         };
