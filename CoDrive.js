@@ -75,7 +75,7 @@ class CoDrive {
                 console.log(buffer);
                 res.set("Content-Type", r.contentType);
                 res.set("Content-Length", r.file.length);
-                res.set('Content-Disposition', `attachment; filename="${uri.split('/')[uri.split('/').length - 1]}"`);
+                // res.set('Content-Disposition', `attachment; filename="${uri.split('/')[uri.split('/').length - 1]}"`);
                 return res.send(buffer);
             })
     }
