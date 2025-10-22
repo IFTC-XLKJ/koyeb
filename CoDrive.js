@@ -121,29 +121,73 @@ class CoDrive {
     }
 }
 function parseFormData(buf, contentType) {
-  const boundary = '--' + contentType.match(/boundary=(.+?)(;|$)/)[1];
-  const parts = buf.split(boundary).slice(1, -1); // 去掉首尾空段
+  // 1. 提取 boundary
+  const match = contentType.match(/boundary=(.+?)(;|$)/);
+  if (!match) throw new Error('No boundary found');
+  const boundary = '--' + match[1];
+  const boundaryBuf = Buffer.from(boundary);
+
+  // 2. 查找所有 boundary 的位置
+  const parts = [];
+  let start = 0;
+  let index;
+
+  while ((index = buf.indexOf(boundaryBuf, start)) !== -1) {
+    parts.push(buf.slice(start, index));
+    start = index + boundaryBuf.length;
+  }
+
+  // 最后一部分（末尾可能是 --\r\n）
+  const lastPart = buf.slice(start);
+  if (lastPart.length > 2) { // 排除结尾的 \r\n 或 --
+    parts.push(lastPart);
+  }
+
+  // 去掉第一段（应该是空的）和最后一段（通常是 --\r\n）
+  const dataParts = parts.slice(1, -1);
 
   const fields = {};
   const files = {};
 
-  for (const part of parts) {
-    const [head, ...body] = part.trim().split('\r\n\r\n');
-    const name = head.match(/name="([^"]+)"/)[1];
+  for (const part of dataParts) {
+    if (part.length < 2) continue;
 
-    if (head.includes('filename="')) {
-      // 文件
-      const filename = head.match(/filename="([^"]+)"/)[1];
-      const data = Buffer.from(body.join('\r\n\r\n'), 'binary');
-      files[name] = { filename, data };
+    // 找到头部和体部分隔符 \r\n\r\n
+    const endOfHeaderIndex = part.indexOf('\r\n\r\n');
+    if (endOfHeaderIndex === -1) continue;
+
+    const headerBuf = part.slice(0, endOfHeaderIndex);
+    const bodyBuf = part.slice(endOfHeaderIndex + 4); // +4 是 \r\n\r\n 长度
+
+    const headerStr = headerBuf.toString();
+
+    // 解析 Content-Disposition 头部
+    const disposition = headerStr.match(/Content-Disposition: form-data; (.+)/i);
+    if (!disposition) continue;
+
+    const attrs = {};
+    // 简单解析 name 和 filename
+    const re = /(\w+)="([^"]*)"/g;
+    let m;
+    while ((m = re.exec(disposition[1]))) {
+      attrs[m[1]] = m[2];
+    }
+
+    if (attrs.filename) {
+      // 是文件
+      files[attrs.name] = {
+        filename: attrs.filename,
+        data: Buffer.from(bodyBuf), // 文件内容（去掉末尾 \r\n）
+        size: bodyBuf.length,
+      };
     } else {
       // 普通字段
-      const value = Buffer.from(body.join('\r\n\r\n'), 'binary').toString();
-      fields[name] = value;
+      fields[attrs.name] = bodyBuf.toString().trim(); // 移除 \r\n
     }
   }
 
   return { fields, files };
 }
+
 
 module.exports = CoDrive;
