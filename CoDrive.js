@@ -118,5 +118,30 @@ class CoDrive {
         };
     }
 }
-function parseFormData() {}
+function parseFormData(buf, contentType) {
+  const boundary = '--' + contentType.match(/boundary=(.+?)(;|$)/)[1];
+  const parts = buf.split(boundary).slice(1, -1); // 去掉首尾空段
+
+  const fields = {};
+  const files = {};
+
+  for (const part of parts) {
+    const [head, ...body] = part.trim().split('\r\n\r\n');
+    const name = head.match(/name="([^"]+)"/)[1];
+
+    if (head.includes('filename="')) {
+      // 文件
+      const filename = head.match(/filename="([^"]+)"/)[1];
+      const data = Buffer.from(body.join('\r\n\r\n'), 'binary');
+      files[name] = { filename, data };
+    } else {
+      // 普通字段
+      const value = Buffer.from(body.join('\r\n\r\n'), 'binary').toString();
+      fields[name] = value;
+    }
+  }
+
+  return { fields, files };
+}
+
 module.exports = CoDrive;
