@@ -80,17 +80,7 @@ class CoDrive {
             });
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             console.log(req.body);
-            const {id,file}=req.body;
-            console.log(id,file, req.on);
-            let datas = [];
-            req.on('data', chunk => {
-                datas.push(chunk);
-                console.log(datas);
-            });
-            return req.on('end', () => {
-                console.log('Raw Body:', datas);
-                return res.send(JSON.stringify({ message: 'FormData received' }));
-            });
+            return res.send(JSON.stringify({ message: 'FormData received' }));
         });
     }
     async createFile(uri,
