@@ -80,7 +80,7 @@ class CoDrive {
             });
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             const {id,file}=req.body;
-            console.log(req,id,file);
+            console.log(req,id,file, req.on);
             let body = '';
 req.on('data', chunk => {
 body += chunk.toString(); // 拼接数据块
