@@ -81,6 +81,7 @@ class CoDrive {
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             const {id,file}=req.body;
             console.log(req,id,file);
+            res.send(file);
         });
     }
     async createFile(uri,
