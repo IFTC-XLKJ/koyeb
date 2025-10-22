@@ -86,7 +86,7 @@ class CoDrive {
                 datas.push(chunk);
                 console.log(datas);
             });
-            req.on('end', () => {
+            return req.on('end', () => {
                 console.log('Raw Body:', datas);
                 return res.send(JSON.stringify({ message: 'FormData received' }));
             });
