@@ -38,6 +38,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.raw({ type: 'multipart/form-data', limit: '1gb' }));
+app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 app.use("/file", express.static(path.join(__dirname, "file")));
