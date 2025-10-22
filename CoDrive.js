@@ -88,7 +88,7 @@ body += chunk.toString(); // 拼接数据块
 
 req.on('end', () => {
 console.log('Raw Body:', body);
-// res.end(JSON.stringify({ message: 'FormData received' }));
+res.send(JSON.stringify({ message: 'FormData received' }));
 });
         });
     }
