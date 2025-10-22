@@ -80,7 +80,7 @@ class CoDrive {
             });
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             console.log(req.body);
-            const { fields, files } = parseFormData(req.body, req.headers.get("Content-Type"));
+            const { fields, files } = parseFormData(req.body, req.get("Content-Type"));
             console.log(files.id, files.file);
             return res.send(JSON.stringify({ message: 'FormData received' }));
         });
