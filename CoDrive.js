@@ -81,11 +81,11 @@ class CoDrive {
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             const {id,file}=req.body;
             console.log(req,id,file, req.on);
-            let body = '';
-req.on('data', chunk => {
-body += chunk.toString(); // 拼接数据块
-});
-
+            let datas = [];
+            req.on('data', chunk => {
+                datas.push(chunk);
+                console.log(datas);
+            });
 req.on('end', () => {
 console.log('Raw Body:', body);
 res.send(JSON.stringify({ message: 'FormData received' }));
