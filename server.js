@@ -35,10 +35,10 @@ const corsOptions = {
     callback(null, true);
   }
 }
-/*app.use((req, res) => {
+app.use((req, res) => {
     res.status(404).render('<center><h1>CNMD，没有找到页面</h1></center>');
 });
-app.use((err, req, res, next) => {
+/*app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).render('server-error', {error: err });
 });*/
