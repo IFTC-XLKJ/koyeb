@@ -36,7 +36,7 @@ const corsOptions = {
   }
 }
 app.use((req, res) => {
-    res.status(404).render('not-found');
+    res.status(404).render('CNMD，没有找到页面');
 });
 app.use((err, req, res, next) => {
     console.error(err.stack);
