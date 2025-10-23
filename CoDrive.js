@@ -80,6 +80,11 @@ class CoDrive {
             });
         app.post("/api/cloud/upload-avatar", async (req,res)=>{
             console.log(req.body, req.body.length);
+            if (!req.body) return res.status(400).json({
+                code: 400,
+                msg: "缺少文件",
+                timestamp: Date.now()
+            });
             const size = req.body.length;
             if (size > 5 * 1024 * 1024) return res.status(413).json({
                 code: 413,
