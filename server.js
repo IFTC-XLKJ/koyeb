@@ -35,6 +35,13 @@ const corsOptions = {
     callback(null, true);
   }
 }
+app.use((req, res) => {
+    res.status(404).render('not-found');
+});
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).render('server-error', {error: err });
+});
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
