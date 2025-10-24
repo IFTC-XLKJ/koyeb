@@ -98,6 +98,7 @@ class CoDrive {
                 } = req.query;
                 //const { fields, files } = parseFormData(req.body, req.get("Content-Type"));
                 console.log(id);
+                const ts = Date.now();
                 return res.send(JSON.stringify({
                     message: 'FormData received'
                 }));
