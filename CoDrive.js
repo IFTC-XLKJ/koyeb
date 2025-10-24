@@ -129,6 +129,7 @@ class CoDrive {
             const { key } = req.query;
             const j = await this.getFile(`/VVAvatar/${key}.vvavatar`);
             if (j.error) return res.send();
+            return res.send();
         });
     }
     async createFile(uri,
