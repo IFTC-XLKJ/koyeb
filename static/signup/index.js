@@ -120,6 +120,15 @@ avatar.addEventListener("change", async (e) => {
             },
             body: e.target.files[0],
         });
+        if (response.ok) {
+            const data = await response.json();
+            if (data.code != 200) {
+                alert("上传头像失败，原因：" + data.msg);
+                return;
+            }
+            globalThis.Avatar = data.url;
+            alert("上传头像成功");
+        }
     } catch (error) {
         alert("上传头像失败，原因：" + error);
     }
