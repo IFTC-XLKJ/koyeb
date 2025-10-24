@@ -169,7 +169,7 @@ class CoDrive {
         });
         return json;
     }
-    async renameFile() {
+    async renameFile(type, id, name) {
         const json = await this.fetchData('/file/rename')
     }
 }
