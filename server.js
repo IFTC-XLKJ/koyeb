@@ -2618,7 +2618,8 @@ app.get("/api/user/register", async (req, res) => {
               id: json.id,
           });
           const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
-          Other.CoDrive.updateFileContent(`/VVAvatar/${json.id}.vvavatar`, j.file);
+          if (j.error) return;
+          return await Other.CoDrive.updateFileContent(`/VVAvatar/${json.id}.vvavatar`, j.file);
       }
       else return res.status(json.code).json({
         code: json.code,
