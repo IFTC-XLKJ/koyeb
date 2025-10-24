@@ -123,6 +123,7 @@ class CoDrive {
                     timestamp: Date.now()
                 });
             });
+        app.get('/api/cloud/avatar', async (req, res) => {});
     }
     async createFile(uri,
         type) {
