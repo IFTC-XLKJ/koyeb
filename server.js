@@ -2611,13 +2611,15 @@ app.get("/api/user/register", async (req, res) => {
     const user = new User();
     try {
       const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
-      const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
-      Other.CoDrive.updateFileContent();
-      if (json.code == 200) return res.json({
-        code: 200,
-        msg: "注册成功",
-        id: json.id,
-      });
+      if (json.code == 200){
+          res.json({
+              code: 200,
+              msg: "注册成功",
+              id: json.id,
+          });
+          const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
+          Other.CoDrive.updateFileContent(j.file);
+      }
       else return res.status(json.code).json({
         code: json.code,
         msg: json.msg,
