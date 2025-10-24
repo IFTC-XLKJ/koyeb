@@ -127,6 +127,8 @@ class CoDrive {
             });
         app.get('/api/cloud/avatar', async (req, res) => {
             const { key } = req.query;
+            const j = await this.getFile(`/VVAvatar/${key}.vvavatar`);
+            if (j.error) return res.send();
         });
     }
     async createFile(uri,
