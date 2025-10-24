@@ -125,7 +125,7 @@ class CoDrive {
                 });
             });
         app.get('/api/cloud/avatar', async (req, res) => {
-            
+            const { key } = req.query;
         });
     }
     async createFile(uri,
