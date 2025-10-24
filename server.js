@@ -31,10 +31,6 @@ const corsOptions = {
     callback(null, true);
   }
 }
-// 放在所有 app.get、app.post 之后
-app.use((req, res) => {
-  res.status(404).json({ error: 'Not Found', path: req.originalUrl });
-});
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
@@ -3159,3 +3155,8 @@ setInterval(async () => {
 })();
 
 new Other(app, requestLog);
+
+// 放在所有 app.get、app.post 之后
+app.use((req, res) => {
+  res.status(404).json({ error: 'Not Found', path: req.originalUrl });
+});
