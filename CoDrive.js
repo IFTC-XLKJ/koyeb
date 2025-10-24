@@ -118,7 +118,7 @@ class CoDrive {
                     timestamp: Date.now()
                 });
                 return res.json({
-                    code: 0,
+                    code: 200,
                     msg: "上传成功",
                     key: id || ts,
                     timestamp: Date.now()
