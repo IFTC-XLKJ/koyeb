@@ -129,7 +129,7 @@ class CoDrive {
         app.get('/api/cloud/avatar', async (req, res) => {
             const { key } = req.query;
             const j = await this.getFile(`/VVAvatar/${key}.vvavatar`);
-            res.set('Content-Type', 'image/*');
+            res.set('Content-Type', 'image/png');
             const defaultAvatar = await fs.readFile('static/avatar.png');
             if (j.error) {
                 res.set('Content-Length', defaultAvatar.length);
