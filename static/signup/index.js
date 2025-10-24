@@ -113,7 +113,13 @@ avatar.addEventListener("change", async (e) => {
             globalThis.Avatar = data.url;
             alert("上传头像成功");
         }*/
-        const r = await fetch('/api/cloud/upload-avatar')
+        const r = await fetch('/api/cloud/upload-avatar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/octet-stream'
+            },
+            body: e.target.files[0],
+        });
     } catch (error) {
         alert("上传头像失败，原因：" + error);
     }
