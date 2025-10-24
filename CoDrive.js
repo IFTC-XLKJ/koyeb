@@ -100,6 +100,11 @@ class CoDrive {
                 console.log(id);
                 const ts = Date.now();
                 const json1 = this.createFile(`/VVAvatar/${id || ts}.vvavatar`);
+                if (json1.code != 0) return res.json({
+                    code: 500,
+                    msg: "上传失败",
+                    timestamp: Date.now()
+                });
                 return res.send(JSON.stringify({
                     message: 'FormData received'
                 }));
