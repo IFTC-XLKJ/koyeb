@@ -126,7 +126,7 @@ avatar.addEventListener("change", async (e) => {
                 alert("上传头像失败，原因：" + data.msg);
                 return;
             }
-            globalThis.Avatar = data.url;
+            globalThis.Avatar = data.key;
             alert("上传头像成功");
         }
     } catch (error) {
