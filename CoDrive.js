@@ -98,21 +98,28 @@ class CoDrive {
                     msg: '最大5MB',
                     timestamp: Date.now()
                 });
-                const {
-                    id
-                } = req.query;
-                //const { fields, files } = parseFormData(req.body, req.get("Content-Type"));
+                const { id } = req.query;
                 console.log(id);
                 const ts = Date.now();
                 const json1 = this.createFile(`/VVAvatar/${id || ts}.vvavatar`);
                 if (json1.code != 0) return res.json({
                     code: 500,
                     msg: "上传失败",
+                    error: json1.error || json1.msg,
                     timestamp: Date.now()
                 });
-                return res.send(JSON.stringify({
-                    message: 'FormData received'
-                }));
+                const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
+                if (json2.code != 0) return res.json({
+                    code: 500,
+                    msg: "上传失败",
+                    error: json2.error || json2.msg,
+                    timestamp: Date.now()
+                });
+                return res.json({
+                    code: 0,
+                    msg: "上传成功",
+                    timestamp: Date.now()
+                });
             });
     }
     async createFile(uri,
