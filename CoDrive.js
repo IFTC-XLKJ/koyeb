@@ -101,7 +101,7 @@ class CoDrive {
                 const { id } = req.query;
                 console.log(id);
                 const ts = Date.now();
-                const json1 = this.createFile(`/VVAvatar/${id || ts}.vvavatar`);
+                const json1 = this.createFile(`/VVAvatar/${id || ts}.vvavatar`, "file");
                 if (json1.code != 0) return res.json({
                     code: 500,
                     msg: "上传失败",
