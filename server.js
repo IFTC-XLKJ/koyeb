@@ -33,9 +33,7 @@ const corsOptions = {
 }
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
-  res.status(404).render('404.ejs', { url: req.originalUrl }); 
-  // 或者返回 JSON
-  // res.status(404).json({ error: 'Not Found', path: req.originalUrl });
+  res.status(404).json({ error: 'Not Found', path: req.originalUrl });
 });
 
 app.use(cors(corsOptions));
