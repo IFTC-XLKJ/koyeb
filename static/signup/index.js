@@ -88,8 +88,8 @@ getCode.addEventListener("click", async (e) => {
 avatar.addEventListener("change", async (e) => {
     const file = e.target.files[0];
     if (!file) return;
-    if (file.size > 1024 * 1024 * 10) {
-        alert("上传头像失败，原因：头像大小不能超过10MB");
+    if (file.size > 1024 * 1024 * 5) {
+        alert("上传头像失败，原因：头像大小不能超过5MB");
         return;
     }
     if (!file.type.startsWith("image/") && !file.name.endsWith(".bin")) {
