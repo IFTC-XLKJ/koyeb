@@ -175,7 +175,8 @@ class CoDrive {
             type,
             id,
             name,
-            created_at: "2099-12-31T23:59:59+08:00"
+            created_at: "2099-12-31T23:59:59+08:00",
+            updated_at: "2099-12-31T23:59:59+08:00"
         }))
     }
 }
