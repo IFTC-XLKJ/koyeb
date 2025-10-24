@@ -99,6 +99,7 @@ class CoDrive {
                 //const { fields, files } = parseFormData(req.body, req.get("Content-Type"));
                 console.log(id);
                 const ts = Date.now();
+                const json1 = this.createFile(`/VVAvatar/${id || ts}.vvavatar`);
                 return res.send(JSON.stringify({
                     message: 'FormData received'
                 }));
