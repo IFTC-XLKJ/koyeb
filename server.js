@@ -2612,6 +2612,7 @@ app.get("/api/user/register", async (req, res) => {
     try {
       const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
       const j = await Other.CoDrive.getFile();
+      Other.CoDrive.updateFileContent();
       if (json.code == 200) return res.json({
         code: 200,
         msg: "注册成功",
