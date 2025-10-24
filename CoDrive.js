@@ -131,7 +131,7 @@ class CoDrive {
             const j = await this.getFile(`/VVAvatar/${key}.vvavatar`);
             res.set('Content-Type', 'image/*');
             const defaultAvatar = await fs.readFile('static/avatar.png');
-            if (j.error)  {
+            if (j.error) {
                 res.set('Content-Length', defaultAvatar.length);
                 return res.send(defaultAvatar);
             }
