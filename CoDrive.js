@@ -1,3 +1,4 @@
+const fs = require('fs/promises');
 // API文档：https://cloudrevev4.apifox.cn/
 class CoDrive {
     baseUrl = 'https://drive.amethyst.ltd/api/v4';
