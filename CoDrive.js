@@ -133,7 +133,7 @@ class CoDrive {
             const defaultAvatar = await fs.readFile('static/avatar.png');
             if (j.error)  {
                 res.set('Content-Length', defaultAvatar.length);
-                res.send(defaultAvatar);
+                return res.send(defaultAvatar);
             }
             res.set('Content-Length', j.file.size);
             const buffer = Buffer.from(j.file);
