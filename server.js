@@ -34,7 +34,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(bodyParser.raw());
+app.use(bodyParser.raw({ limit: '1gb' }));
 app.use(bodyParser.text());
 app.use(bodyParser.urlencoded({ extended: false }));
 const port = process.env.PORT || 3000;
