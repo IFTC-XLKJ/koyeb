@@ -121,7 +121,7 @@ class CoDrive {
                     code: 200,
                     msg: "上传成功",
                     key: id || ts,
-                    id: json
+                    id: json1.data.id,
                     timestamp: Date.now()
                 });
             });
