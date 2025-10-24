@@ -169,6 +169,7 @@ class CoDrive {
         });
         return json;
     }
+    async renameFile() {}
 }
 function parseFormData(buf, contentType) {
     // 1. 提取 boundary
