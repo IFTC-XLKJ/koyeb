@@ -1,3 +1,4 @@
+// API文档：https://cloudrevev4.apifox.cn/
 class CoDrive {
     baseUrl = 'https://drive.amethyst.ltd/api/v4';
     token = '';
@@ -23,7 +24,7 @@ class CoDrive {
     async fetchData(path,
         method,
         _raw,
-        contentType = "application/json",extraHeaders) {
+        contentType = "application/json", extraHeaders) {
         console.log(this.token);
         const headers = new Headers();
         headers.append("Content-Type",
@@ -39,7 +40,7 @@ class CoDrive {
         const requestOptions = {
             method: method,
             headers: headers,
-            body: method == 'GET' ? void 0: raw,
+            body: method == 'GET' ? void 0 : raw,
             redirect: 'follow'
         };
         const r = await fetch(`${this.baseUrl}${path}`,
@@ -70,7 +71,7 @@ class CoDrive {
                 return res.json(json);
             });
         app.get("/api/cloud/getfile",
-            async (req, res)=> {
+            async (req, res) => {
                 const {
                     uri
                 } = req.query;
@@ -84,7 +85,7 @@ class CoDrive {
                 return res.send(buffer);
             });
         app.post("/api/cloud/upload-avatar",
-            async (req, res)=> {
+            async (req, res) => {
                 console.log(req.body, req.body.length);
                 if (!req.body) return res.status(400).json({
                     code: 400,
@@ -147,6 +148,12 @@ class CoDrive {
             file: blob,
             contentType: contentType
         };
+    }
+    async updateFileContent(uri, content) {
+        const json = await this.fetchData(`/file/content?uri=${`cloudreve://my${uri}`}`, "PUT", content, "application/octet-stream", {
+            'Content-Length': content.length
+        });
+        return json;
     }
 }
 function parseFormData(buf, contentType) {
