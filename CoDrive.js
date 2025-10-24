@@ -102,6 +102,7 @@ class CoDrive {
                 console.log(id);
                 const ts = Date.now();
                 const json1 = this.createFile(`/VVAvatar/${id || ts}.vvavatar`, "file");
+                console.log(json1);
                 if (json1.code != 0) return res.json({
                     code: 500,
                     msg: "上传失败",
@@ -109,6 +110,7 @@ class CoDrive {
                     timestamp: Date.now()
                 });
                 const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
+                console.log(json2);
                 if (json2.code != 0) return res.json({
                     code: 500,
                     msg: "上传失败",
