@@ -120,11 +120,12 @@ class CoDrive {
                 return res.json({
                     code: 0,
                     msg: "上传成功",
+                    key: id || ts,
                     timestamp: Date.now()
                 });
             });
         app.get('/api/cloud/avatar', async (req, res) => {
-            const 
+            
         });
     }
     async createFile(uri,
