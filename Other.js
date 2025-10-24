@@ -19,6 +19,7 @@ const CoDrive = new _CoDrive();
 // console.log(fs);
 
 class Other {
+    static CoDrive = CoDrive;
     constructor(app, requestLog) {
         this.app = app;
         CoDrive.start(app);
