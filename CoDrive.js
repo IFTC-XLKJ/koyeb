@@ -136,7 +136,7 @@ class CoDrive {
                 return res.send(defaultAvatar);
             }
             res.set('Content-Length', j.file.size);
-            const buffer = Buffer.from(j.file);
+            const buffer = Buffer.from(await j.file.arrayBuffer());
             return res.send(buffer);
         });
     }
