@@ -3154,7 +3154,8 @@ setInterval(async () => {
   }
 })();
 
-new Other(app, requestLog);
+const other = new Other(app, requestLog);
+console.log(other.CoDrive)
 
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
