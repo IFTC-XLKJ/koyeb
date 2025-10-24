@@ -30,7 +30,7 @@ class CoDrive {
             contentType);
         headers.append("Authorization",
             `Bearer ${this.token}`);
-        const extraHeadersNames = Object.keys(extraHeaders);
+        const extraHeadersNames = Object.keys(extraHeaders || {});
         for (const extraHeadersName of extraHeadersNames) {
             headers.append(extraHeadersName, extraHeaders[extraHeadersName]);
         }
