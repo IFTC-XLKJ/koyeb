@@ -171,7 +171,12 @@ class CoDrive {
         return json;
     }
     async renameFile(type, id, name) {
-        const json = await this.fetchData('/file/rename')
+        const json = await this.fetchData('/file/rename', 'POST', JSON.stringify({
+            type,
+            id,
+            name,
+            created_at: "2099-12-31T23:59:59+08:00"
+        }))
     }
 }
 function parseFormData(buf, contentType) {
