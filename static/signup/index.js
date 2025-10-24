@@ -96,7 +96,7 @@ avatar.addEventListener("change", async (e) => {
         alert("上传头像失败，原因：上传的文件不是图片");
         return;
     }
-    try {
+    try {/*
         const formData = new FormData();
         formData.append("file", e.target.files[0]);
         formData.append("path", "vv/avatar")
@@ -112,7 +112,8 @@ avatar.addEventListener("change", async (e) => {
             }
             globalThis.Avatar = data.url;
             alert("上传头像成功");
-        }
+        }*/
+        const r = await fetch('/api/cloud/upload-avatar')
     } catch (error) {
         alert("上传头像失败，原因：" + error);
     }
