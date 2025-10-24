@@ -157,6 +157,7 @@ class CoDrive {
         };
     }
     async updateFileContent(uri, content) {
+        console.log('updateFileContent', uri, content.length);
         const json = await this.fetchData(`/file/content?uri=${`cloudreve://my${uri}`}`, "PUT", content, "application/octet-stream", {
             'Content-Length': content.length
         });
