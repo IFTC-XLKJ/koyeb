@@ -1743,7 +1743,7 @@ app.get("/api/user/search", async (req, res) => {
           VC: typeof item.V币 == "number" ? item.V币 : NaN,
           email: item.邮箱,
           VIP: !!item.VIP,
-          signed: item.签到,
+          signed: item.签到 || null,
           op: item.管理员 == 1,
           freezed: item.封号 == 1,
           title: item.头衔,
