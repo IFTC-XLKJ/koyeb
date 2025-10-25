@@ -1740,7 +1740,7 @@ app.get("/api/user/search", async (req, res) => {
           ID: item.ID,
           username: String(item.昵称),
           avatar: item.头像,
-          VC: item.V币,
+          VC: typeof item.V币 == "number" ? item.V币 : NaN,
           email: item.邮箱,
           VIP: !!item.VIP,
           signed: item.签到,
