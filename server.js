@@ -1741,7 +1741,7 @@ app.get("/api/user/search", async (req, res) => {
           username: String(item.昵称),
           avatar: item.头像,
           VC: typeof item.V币 == "number" ? item.V币 : NaN,
-          email: item.邮箱 || "",
+          email: item.邮箱 || "Unknown Email",
           VIP: !!item.VIP,
           signed: item.签到 || null,
           op: item.管理员 == 1,
