@@ -636,7 +636,7 @@ app.get("/api/bookshelf/getall", async (req, res) => {
   requestLog(req);
   const { ID } = req.query;
   console.log(ID);
-  if (!(ID && ID == 0)) {
+  if (!(ID || ID == 0)) {
     res.status(400).json({
       code: 400,
       msg: "缺少参数",
