@@ -20,12 +20,15 @@ loginForm.addEventListener("submit", async (e) => {
                 localStorage.setItem("password", globalThis.password)
                 location.href = page;
             } else {
+                console.log(3)
                 alert("登录失败，原因：" + data.msg);
             }
         } else {
+            console.log(2)
             alert("登录失败，原因：" + data.msg);
         }
     } catch (error) {
+        console.log(1)
         alert("登录失败，原因：" + error);
     }
 });
