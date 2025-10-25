@@ -120,8 +120,8 @@ avatar.addEventListener("change", async (e) => {
             },
             body: e.target.files[0],
         });
-        if (response.ok) {
-            const data = await response.json();
+        if (r.ok) {
+            const data = await r.json();
             if (data.code != 200) {
                 alert("上传头像失败，原因：" + data.msg);
                 return;
