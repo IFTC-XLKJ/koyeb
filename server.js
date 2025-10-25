@@ -652,21 +652,19 @@ app.get("/api/bookshelf/getall", async (req, res) => {
           lastRead: field.updatedAt,
         })
       });
-      res.json({
+      return res.json({
         code: 200,
         msg: "获取成功",
         data: data,
         timestamp: time(),
       })
-    } else {
-      res.status(json.code).json({
-        code: json.code,
-        msg: json.msg,
-        timestamp: time(),
-      })
-    }
+    } else return res.status(json.code).json({
+      code: json.code,
+      msg: json.msg,
+      timestamp: time(),
+    });
   } catch (e) {
-    res.status(500).json({
+    return res.status(500).json({
       code: 500,
       msg: "服务内部错误",
       error: e.message,
