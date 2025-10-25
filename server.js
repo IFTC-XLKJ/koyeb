@@ -634,9 +634,8 @@ app.get("/api/book/getcollections", async (req, res) => {
 // 获取所有书架
 app.get("/api/bookshelf/getall", async (req, res) => {
   requestLog(req);
-  const {
-    ID
-  } = req.query;
+  const { ID } = req.query;
+  console.log(ID);
   if (!(ID && ID == 0)) {
     res.status(400).json({
       code: 400,
@@ -2611,15 +2610,15 @@ app.get("/api/user/register", async (req, res) => {
     const user = new User();
     try {
       const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(`https://iftc.koyeb.app/api/cloud/avatar?key=${avatar}`) : "https://iftc.koyeb.app/static/avatar.png");
-      if (json.code == 200){
-          res.json({
-              code: 200,
-              msg: "注册成功",
-              id: json.id,
-          });
-          const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
-          if (j.error) return;
-          return await Other.CoDrive.updateFileContent(`/VVAvatar/${json.id}.vvavatar`, j.file);
+      if (json.code == 200) {
+        res.json({
+          code: 200,
+          msg: "注册成功",
+          id: json.id,
+        });
+        const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
+        if (j.error) return;
+        return await Other.CoDrive.updateFileContent(`/VVAvatar/${json.id}.vvavatar`, j.file);
       }
       else return res.status(json.code).json({
         code: json.code,
