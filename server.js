@@ -675,18 +675,12 @@ app.get("/api/bookshelf/getall", async (req, res) => {
 // 取消加入书架
 app.get("/api/bookshelf/noadd", async (req, res) => {
   requestLog(req);
-  const {
-    ID,
-    BID
-  } = req.query;
-  if (!(ID && ID == 0) || !BID) {
-    res.status(400).json({
-      code: 400,
-      msg: "缺少参数",
-      timestamp: time(),
-    });
-    return;
-  }
+  const { ID, BID } = req.query;
+  if (!(ID || ID == 0) || !BID) return res.status(400).json({
+    code: 400,
+    msg: "缺少参数",
+    timestamp: time(),
+  });
   const books = new Books();
   try {
     const json = await books.noaddBookshelf(ID, BID);
