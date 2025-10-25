@@ -684,21 +684,18 @@ app.get("/api/bookshelf/noadd", async (req, res) => {
   const books = new Books();
   try {
     const json = await books.noaddBookshelf(ID, BID);
-    if (json.code == 200) {
-      res.json({
-        code: 200,
-        msg: "取加书架成功",
-        timestamp: time(),
-      })
-    } else {
-      res.status(json.code).json({
-        code: json.code,
-        msg: json.msg,
-        timestamp: time(),
-      })
-    }
+    if (json.code == 200) return res.json({
+      code: 200,
+      msg: "取加书架成功",
+      timestamp: time(),
+    });
+    else return res.status(json.code).json({
+      code: json.code,
+      msg: json.msg,
+      timestamp: time(),
+    });
   } catch (e) {
-    res.status(500).json({
+    return res.status(500).json({
       code: 500,
       msg: "服务内部错误",
       error: e.message,
