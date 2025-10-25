@@ -636,14 +636,11 @@ app.get("/api/bookshelf/getall", async (req, res) => {
   requestLog(req);
   const { ID } = req.query;
   console.log(ID);
-  if (!(ID || ID == 0)) {
-    res.status(400).json({
-      code: 400,
-      msg: "缺少参数",
-      timestamp: time(),
-    });
-    return;
-  }
+  if (!(ID || ID == 0)) return res.status(400).json({
+    code: 400,
+    msg: "缺少参数",
+    timestamp: time(),
+  });
   const books = new Books();
   try {
     const json = await books.getBookshelfAll(ID);
