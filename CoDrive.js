@@ -110,6 +110,7 @@ class CoDrive {
                     error: json1.error || json1.msg,
                     timestamp: Date.now()
                 });
+                setTimeout(() => {
                 const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
                 console.log(json2);
                 if (json2.code != 0) return res.json({
@@ -124,7 +125,7 @@ class CoDrive {
                     key: id || ts,
                     id: json1.data.id,
                     timestamp: Date.now()
-                });
+                });});
             });
         app.get('/api/cloud/avatar', async (req, res) => {
             const { key } = req.query;
