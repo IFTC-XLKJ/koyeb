@@ -125,7 +125,7 @@ class CoDrive {
                     key: id || ts,
                     id: json1.data.id,
                     timestamp: Date.now()
-                });});
+                });}, 200);
             });
         app.get('/api/cloud/avatar', async (req, res) => {
             const { key } = req.query;
