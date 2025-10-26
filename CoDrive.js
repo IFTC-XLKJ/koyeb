@@ -3,8 +3,8 @@ const fs = require('fs/promises');
 class CoDrive {
     baseUrl = 'https://drive.amethyst.ltd/api/v4';
     token = '';
-    email = 'iftcceo@139.com';
-    pwd = 'stree123456';
+    email = 'iftc@example.com';
+    pwd = 'iftc114514';
     expires = 0;
     constructor() {
         setInterval(async () => {
