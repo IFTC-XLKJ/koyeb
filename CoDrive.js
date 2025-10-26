@@ -110,7 +110,7 @@ class CoDrive {
                     error: json1.error || json1.msg,
                     timestamp: Date.now()
                 });
-                setTimeout(() => {
+                setTimeout(async () => {
                 const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
                 console.log(json2);
                 if (json2.code != 0) return res.json({
