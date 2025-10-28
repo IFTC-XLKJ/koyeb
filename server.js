@@ -553,7 +553,7 @@ app.get("/102134969.json", (req, res) => {
   });
 })
 
-app.get('904b21fb6825335a7724a990735aeffa.txt', (req, res) => {
+app.get('/904b21fb6825335a7724a990735aeffa.txt', (req, res) => {
     return res.send('dc592f5445ff57eb1cc714bc1eab145b28f7b169');
 })
 app.get("/")
