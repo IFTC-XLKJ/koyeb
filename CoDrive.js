@@ -6,7 +6,7 @@ class CoDrive {
     email = 'iftc@example.com';
     pwd = 'iftc114514';
     expires = 0;
-    constructor() {
+    constructor(app) {
         return new Promise((resolve, reject) => {
             setInterval(async () => {
                 try {
@@ -21,7 +21,7 @@ class CoDrive {
                     const expires = json.data.token.access_expires;
                     this.token = token;
                     this.expires = Date.parse(expires);
-                    this.start();
+                    this.start(app);
                     resolve(json);
                 }catch(e) {
                     reject('CoDrive报错', e);
