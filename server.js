@@ -17,6 +17,7 @@ const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
 const Other = require("./Other.js");
 const Sign = require("./Sign.js");
+const os = required("os");
 
 console.log(process.env.IFTC);
 console.log(Segment);
