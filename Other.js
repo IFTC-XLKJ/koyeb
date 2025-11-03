@@ -25,7 +25,7 @@ const _CoDrive = require("./CoDrive.js");
 class Other {
     CoDrive = null;
     constructor(app, requestLog) {
-        return new Promise(aaync (resolve, reject) => {
+        return new Promise(async (resolve, reject) => {
             this.app = app;
             this.CoDrive = await new _CoDrive(app);
             expressWs(app);
