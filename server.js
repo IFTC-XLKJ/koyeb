@@ -3155,7 +3155,7 @@ setInterval(async () => {
 
 const other = await new Other.default(app, requestLog);
 console.log(Other.CoDrive)
-
+console.log('end')
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
   res.status(404).send("<center><h1>CNMD，找不到这个页面</h1></center>");
