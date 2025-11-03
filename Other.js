@@ -20,7 +20,7 @@ const _CoDrive = require("./CoDrive.js");
 
 class Other {
     CoDrive = null;
-    constructor(app, requestLog) {
+    async constructor(app, requestLog) {
         this.app = app;
         this.CoDrive = await new _CoDrive();
         expressWs(app);
