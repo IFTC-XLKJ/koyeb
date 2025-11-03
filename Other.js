@@ -15,15 +15,14 @@ const maxmind = require('maxmind');
 const whois = require('whois');
 const { version } = require("os");
 const _CoDrive = require("./CoDrive.js");
-const CoDrive = await new _CoDrive();
-console.log('初始化', CoDrive)
+// console.log('初始化', CoDrive)
 // console.log(fs);
 
 class Other {
-    static CoDrive = CoDrive;
+    CoDrive = null;
     constructor(app, requestLog) {
         this.app = app;
-        CoDrive.start(app);
+        this.CoDrive = await new _CoDrive();
         expressWs(app);
         this.app.get("/api/geocoder", async (req, res) => {
             requestLog(req);
