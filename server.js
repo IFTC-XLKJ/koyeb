@@ -91,6 +91,9 @@ async function requestRecord(req) {
   console.log("IP记录结果:",
     json);
 }
+
+console.log(os.cpus());
+
 app.get("/", async (req, res) => {
   requestLog(req);
   if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
