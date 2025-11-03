@@ -15,7 +15,7 @@ const AppUpdateCheck = require("./AppUpdateCheck.js");
 const QRCode = require('qrcode');
 const QRCodeSvg = require('qrcode-svg');
 const Discussion = require("./Discussion.js");
-const Other = require("./Other.js");
+const Other = await import("./Other.js");
 const Sign = require("./Sign.js");
 const os = require("os");
 
