@@ -7,20 +7,27 @@ class CoDrive {
     pwd = 'iftc114514';
     expires = 0;
     constructor() {
-        setInterval(async () => {
-            const now = Date.now();
-            if (now < this.expires) return;
-            const json = await this.fetchData('/session/token', 'POST', JSON.stringify({
-                email: this.email,
-                password: this.pwd,
-            }));
-            if (json.code != 0) return;
-            const token = json.data.token.access_token;
-            const expires = json.data.token.access_expires;
-            this.token = token;
-            this.expires = Date.parse(expires);
-        },
-            30000);
+        return new Promise((resolve, reject) => {
+            setInterval(async () => {
+                try {
+                    const now = Date.now();
+                    if (now < this.expires) return;
+                    const json = await this.fetchData('/session/token', 'POST', JSON.stringify({
+                        email: this.email,
+                        password: this.pwd,
+                    }));
+                    if (json.code != 0) return;
+                    const token = json.data.token.access_token;
+                    const expires = json.data.token.access_expires;
+                    this.token = token;
+                    this.expires = Date.parse(expires);
+                    resolve(json);
+                }catch(e) {
+                    reject('CoDrive报错', e);
+                }
+            },
+                30000);
+        });
     }
     async fetchData(path,
         method,
@@ -41,7 +48,7 @@ class CoDrive {
         const requestOptions = {
             method: method,
             headers: headers,
-            body: method == 'GET' ? void 0 : raw,
+            body: method == 'GET' ? void 0: raw,
             redirect: 'follow'
         };
         const r = await fetch(`${this.baseUrl}${path}`,
@@ -99,7 +106,9 @@ class CoDrive {
                     msg: '最大5MB',
                     timestamp: Date.now()
                 });
-                const { id } = req.query;
+                const {
+                    id
+                } = req.query;
                 console.log(id);
                 const ts = Date.now();
                 const json1 = await this.createFile(`/VVAvatar/${id || ts}.vvavatar`, "file");
@@ -111,28 +120,34 @@ class CoDrive {
                     timestamp: Date.now()
                 });
                 setTimeout(async () => {
-                const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
-                console.log(json2);
-                if (json2.code != 0) return res.json({
-                    code: 500,
-                    msg: "上传失败",
-                    error: json2.error || json2.msg,
-                    timestamp: Date.now()
-                });
-                return res.json({
-                    code: 200,
-                    msg: "上传成功",
-                    key: id || ts,
-                    id: json1.data.id,
-                    timestamp: Date.now()
-                });
-                }, 200);
+                    const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
+                    console.log(json2);
+                    if (json2.code != 0) return res.json({
+                        code: 500,
+                        msg: "上传失败",
+                        error: json2.error || json2.msg,
+                        timestamp: Date.now()
+                    });
+                    return res.json({
+                        code: 200,
+                        msg: "上传成功",
+                        key: id || ts,
+                        id: json1.data.id,
+                        timestamp: Date.now()
+                    });
+                },
+                    200);
             });
-        app.get('/api/cloud/avatar', async (req, res) => {
-            const { key } = req.query;
+        app.get('/api/cloud/avatar', async (req,
+            res) => {
+            const {
+                key
+            } = req.query;
             const j = await this.getFile(`/VVAvatar/${key}.vvavatar`);
-            res.set('Content-Type', 'image/png');
-            res.set('Accept-Ranges', 'bytes');
+            res.set('Content-Type',
+                'image/png');
+            res.set('Accept-Ranges',
+                'bytes');
             const defaultAvatar = await fs.readFile('static/avatar.png');
             if (j.error) {
                 res.set('Content-Length', defaultAvatar.length);
