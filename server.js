@@ -19,6 +19,7 @@ const Other = await import("./Other.js");
 const Sign = require("./Sign.js");
 const os = require("os");
 
+console.log(Other)
 console.log(process.env.IFTC);
 console.log(Segment);
 
