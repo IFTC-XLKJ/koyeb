@@ -21,6 +21,7 @@ class CoDrive {
                     const expires = json.data.token.access_expires;
                     this.token = token;
                     this.expires = Date.parse(expires);
+                    this.start();
                     resolve(json);
                 }catch(e) {
                     reject('CoDrive报错', e);
