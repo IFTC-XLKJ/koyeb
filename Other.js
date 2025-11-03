@@ -15,7 +15,7 @@ const maxmind = require('maxmind');
 const whois = require('whois');
 const { version } = require("os");
 const _CoDrive = require("./CoDrive.js");
-const CoDrive = new _CoDrive();
+const CoDrive = await new _CoDrive();
 // console.log(fs);
 
 class Other {
