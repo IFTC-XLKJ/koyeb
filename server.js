@@ -3153,7 +3153,7 @@ setInterval(async () => {
   }
 })();
 
-const other = new Other(app, requestLog);
+const other = new Other.default(app, requestLog);
 console.log(Other.CoDrive)
 
 // 放在所有 app.get、app.post 之后
