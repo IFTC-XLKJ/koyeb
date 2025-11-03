@@ -22,6 +22,7 @@ class Other {
     static CoDrive = CoDrive;
     constructor(app, requestLog) {
         this.app = app;
+        console.log(CoDrive)
         CoDrive.start(app);
         expressWs(app);
         this.app.get("/api/geocoder", async (req, res) => {
