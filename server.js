@@ -161,6 +161,7 @@ app.get("/user", async (req, res) => {
       params.updatedDate = date2.toLocaleDateString("zh-CN", {
         year: "numeric", month: "long", day: "numeric", weekday: "long", hour: "numeric", minute: "numeric", second: "numeric"
       });
+      param.id = id;
       const content = await mixed("pages/user/index.html", params);
       if (typeof content !== "string") throw new Error("Invalid content type");
       console.log("Content:", content);
