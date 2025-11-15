@@ -3156,6 +3156,7 @@ setInterval(async () => {
 
 const other = await new Other.default(app, requestLog);
 console.log(Other.CoDrive)
+console.log(other);
 console.log('end')
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
