@@ -19,6 +19,7 @@ const Other = await import("./Other.js");
 const Sign = require("./Sign.js");
 const os = require("os");
 
+console.log(Other)
 console.log(Other.default)
 console.log(process.env.IFTC);
 console.log(Segment);
@@ -3155,8 +3156,8 @@ setInterval(async () => {
 })();
 
 const other = new Other.default(app, requestLog);
-console.log(Other.CoDrive)
 console.log("other", other);
+console.log(Other.CoDrive)
 console.log('end')
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
