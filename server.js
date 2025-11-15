@@ -3154,7 +3154,7 @@ setInterval(async () => {
   }
 })();
 
-const other = await new Other.default(app, requestLog);
+const other = new Other.default(app, requestLog);
 console.log(Other.CoDrive)
 console.log("other", other);
 console.log('end')
