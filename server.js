@@ -560,7 +560,7 @@ app.get("/102134969.json", (req, res) => {
 })
 
 app.get('/904b21fb6825335a7724a990735aeffa.txt', (req, res) => {
-    return res.send('dc592f5445ff57eb1cc714bc1eab145b28f7b169');
+  return res.send('dc592f5445ff57eb1cc714bc1eab145b28f7b169');
 })
 app.get("/")
 // 所有API
@@ -3156,7 +3156,7 @@ setInterval(async () => {
 
 const other = await new Other.default(app, requestLog);
 console.log(Other.CoDrive)
-console.log(other);
+console.log("other", other);
 console.log('end')
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
