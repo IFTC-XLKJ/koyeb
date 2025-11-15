@@ -24,6 +24,7 @@ class CoDrive {
                     this.start(app);
                     resolve(json);
                 }catch(e) {
+                    console.log('CoDrive报错', e);
                     reject('CoDrive报错', e);
                 }
             },
