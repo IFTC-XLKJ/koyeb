@@ -29,7 +29,7 @@ class Other {
     (async function() {
       try {
         this.CoDrive = new _CoDrive(app);
-      } catch (e) {}})()
+      } catch (e) {}})();
     expressWs(app);
     this.app.get("/api/geocoder", async (req, res) => {
       requestLog(req);
