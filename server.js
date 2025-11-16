@@ -20,7 +20,6 @@ const Sign = require("./Sign.js");
 const os = require("os");
 
 console.log(Other);
-console.log(Other.default);
 console.log(process.env.IFTC);
 console.log(Segment);
 
