@@ -27,7 +27,7 @@ class Other {
     constructor(app, requestLog) {
             this.app = app;
             try {
-                this.CoDrive = await new _CoDrive(app);
+                this.CoDrive = new _CoDrive(app);
             } catch (e) { }
             expressWs(app);
             this.app.get("/api/geocoder", async (req, res) => {
