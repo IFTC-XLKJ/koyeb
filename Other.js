@@ -25,7 +25,6 @@ const _CoDrive = require("./CoDrive.js");
 class Other {
     CoDrive = null;
     constructor(app, requestLog) {
-        return new Promise(async (resolve, reject) => {
             this.app = app;
             try {
                 this.CoDrive = await new _CoDrive(app);
@@ -1599,8 +1598,6 @@ class Other {
                     }
                 });
             console.log("Other");
-            resolve();
-        });
     }
     async getFile(path) {
         try {
