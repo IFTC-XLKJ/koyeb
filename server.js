@@ -19,8 +19,8 @@ const Other = require('./Other.js');
 const Sign = require("./Sign.js");
 const os = require("os");
 
-console.log(Other)
-console.log(Other.default)
+console.log(Other);
+console.log(Other.default);
 console.log(process.env.IFTC);
 console.log(Segment);
 
@@ -3159,7 +3159,7 @@ setInterval(async () => {
 // console.log("other", other);
 // console.log(Other.CoDrive)
 new Other(app, requestLog);
-console.log('end')
+console.log('end');
 // 放在所有 app.get、app.post 之后
 app.use((req, res) => {
   res.status(404).send("<center><h1>CNMD，找不到这个页面</h1></center>");
