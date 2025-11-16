@@ -291,6 +291,7 @@ app.get("/signup", async (req, res) => {
   res.set({
     "Content-Type": "text/html;charset=utf-8",
   });
+  return res.send(`<center><h1>注册功能暂停服务，请等待服务升级</h1></center>`);
   try {
     const content = await mixed("pages/signup/index.html", params);
     if (typeof content !== "string") throw new Error("Invalid content type");
