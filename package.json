@@ -28,6 +28,7 @@
     "@blockly/plugin-workspace-search": "^9.1.6",
     "@blockly/shadow-block-converter": "^6.0.13",
     "@mit-app-inventor/blockly-plugin-workspace-multiselect": "^1.0.1",
+    "@supabase/supabase-js": "^2.84.0",
     "axios": "^1.9.0",
     "body-parser": "^1.20.3",
     "cors": "^2.8.5",
