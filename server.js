@@ -94,7 +94,9 @@ async function requestRecord(req) {
 }
 
 console.log(os.cpus());
-
+app.get('/.well-known/acme-challenge/a2Mg_9VaLFKwF3xWZRqqwiEF-4rTmbWixDiAaIkaa_4', (req, res) => {
+  res.send('a2Mg_9VaLFKwF3xWZRqqwiEF-4rTmbWixDiAaIkaa_4.PJCUUozKAeVqscc6ZooXCLVCqbYEU30__Wo4WfBhop4');
+})
 app.get("/", async (req, res) => {
   requestLog(req);
   if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
