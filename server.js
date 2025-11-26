@@ -3187,12 +3187,8 @@ setInterval(async () => {
   }
 })();
 
-// const other = new Other.default(app, requestLog);
-// console.log("other", other);
-// console.log(Other.CoDrive)
 new Other(app, requestLog);
 console.log('end');
-// 放在所有 app.get、app.post 之后
 app.use((req, res) => {
   res.status(404).send("<center><h1>草泥马，找不到这个页面</h1></center>");
 });
