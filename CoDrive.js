@@ -55,6 +55,8 @@ class CoDrive {
         };
         const r = await fetch(`${this.baseUrl}${path}`,
             requestOptions);
+            const cr = r.clone();
+            console.log(await cr.text());
         const j = await r.json();
         console.log('CoDrive',
             j);
