@@ -3015,7 +3015,8 @@ app.get("/token", async (req, res) => {
     </script>`);
 });
 
-app.get("/api/vvapps/");
+app.get("/api/vvapps/random", async (req, res) => {
+});
 
 app.listen(port, () => {
   startTime = Date.now();
