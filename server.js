@@ -94,7 +94,9 @@ async function requestRecord(req) {
 }
 
 console.log(os.cpus());
-
+app.get('/.well-known/acme-challenge/a2Mg_9VaLFKwF3xWZRqqwiEF-4rTmbWixDiAaIkaa_4', (req, res) => {
+  res.send('a2Mg_9VaLFKwF3xWZRqqwiEF-4rTmbWixDiAaIkaa_4.PJCUUozKAeVqscc6ZooXCLVCqbYEU30__Wo4WfBhop4');
+})
 app.get("/", async (req, res) => {
   requestLog(req);
   if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
@@ -126,7 +128,37 @@ app.get("/", async (req, res) => {
     });
   }
 });
-
+app.get("/ads", async (req, res) => {
+  requestLog(req);
+  if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
+    code: 200,
+    msg: "请求成功",
+    timestamp: time(),
+  });
+  if (req.headers["user-agent"] == "IFTC Bot") return res.json({
+    code: 200,
+    msg: "请求成功",
+    timestamp: time(),
+  });
+  const params = {};
+  res.set({
+    "Content-Type": "text/html;charset=utf-8",
+  });
+  try {
+    const content = await mixed("pages/ads/index.html", params);
+    if (typeof content !== "string") throw new Error("Invalid content type");
+    console.log("Content:", content);
+    console.log("Type of content:", typeof content);
+    return res.send(content);
+  } catch (e) {
+    console.error(e);
+    return res.status(500).json({
+      code: 500,
+      msg: String(e),
+      timestamp: time(),
+    });
+  }
+});
 app.get("/user", async (req, res) => {
   requestLog(req);
   const {
@@ -3157,12 +3189,8 @@ setInterval(async () => {
   }
 })();
 
-// const other = new Other.default(app, requestLog);
-// console.log("other", other);
-// console.log(Other.CoDrive)
 new Other(app, requestLog);
 console.log('end');
-// 放在所有 app.get、app.post 之后
 app.use((req, res) => {
   res.status(404).send("<center><h1>草泥马，找不到这个页面</h1></center>");
 });
