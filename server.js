@@ -22,6 +22,7 @@ const os = require("os");
 console.log(Other);
 console.log(process.env.IFTC);
 console.log(Segment);
+console.log(os.platform());
 
 const ips = [];
 const appUpdateCheck = new AppUpdateCheck();
