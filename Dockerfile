@@ -1,4 +1,5 @@
 FROM oven/bun:1
+FROM node:slim
 WORKDIR /app
 COPY . .
 RUN bun install
