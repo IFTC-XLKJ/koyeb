@@ -19,6 +19,7 @@ const Other = require('./Other.js');
 const Sign = require("./Sign.js");
 const os = require("os");
 
+console.log(fetch, globalThis.fetch);
 console.log(Other);
 console.log(process.env.IFTC);
 console.log(Segment);
