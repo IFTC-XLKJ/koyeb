@@ -46,20 +46,23 @@ app.use("/file", express.static(path.join(__dirname, "file")));
 let startTime;
 globalThis.opEmails = [
   "iftcceo@139.com",
-]
-try {
+];
+(async function () {
   try {
-    const stats = await fs.stat("output.txt");
-    console.log("文件存在")
+    try {
+      const stats = await fs.stat("output.txt");
+      console.log("文件存在")
+    } catch (e) {
+      console.log("文件不存在")
+    }
+    await fs.writeFile("output.txt", "Hello World!");
+    console.log("写入文件成功")
+    console.log(await fs.readFile("output.txt", "utf-8"));
   } catch (e) {
-    console.log("文件不存在")
+    console.error(e);
   }
-  await fs.writeFile("output.txt", "Hello World!");
-  console.log("写入文件成功")
-  console.log(await fs.readFile("output.txt", "utf-8"));
-} catch (e) {
-  console.error(e);
-}
+})();
+
 app.use(async (req, res, next) => {
   if (req.headers["user-agent"] == "Koyeb Health Check") return next();
   if (req.headers["user-agent"] == "IFTC Bot") return next();
