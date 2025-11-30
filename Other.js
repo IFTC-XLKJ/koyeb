@@ -1,10 +1,6 @@
-const path = require("path");
 const fs = require("fs").promises;
 const UUID_db = require("./UUID_db.js");
-const fetch = require("node-fetch");
-const {
-  JSDOM
-} = require("jsdom");
+const { JSDOM } = require("jsdom");
 const User = require("./User.js");
 const weather = require("weather-js");
 const WebIDEPlugin = require("./WebIDEPlugin.js");
@@ -15,9 +11,7 @@ const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const maxmind = require('maxmind');
 const whois = require('whois');
-const {
-  version
-} = require("os");
+const { version } = require("os");
 const _CoDrive = require("./CoDrive.js");
 // console.log('初始化', CoDrive)
 // console.log(fs);
@@ -26,10 +20,11 @@ class Other {
   CoDrive = null;
   constructor(app, requestLog) {
     this.app = app;
-    (async function() {
+    (async function () {
       try {
         this.CoDrive = new _CoDrive(app);
-      } catch (e) {}})();
+      } catch (e) { }
+    })();
     expressWs(app);
     this.app.get("/api/geocoder", async (req, res) => {
       requestLog(req);
@@ -230,10 +225,10 @@ class Other {
               timestamp: time(),
             });
           } else return res.status(json.code).json({
-              code: json.code,
-              msg: json.msg,
-              timestamp: time(),
-            });
+            code: json.code,
+            msg: json.msg,
+            timestamp: time(),
+          });
         } catch (e) {
           console.error(e);
           res.status(500).json({
@@ -279,10 +274,10 @@ class Other {
               timestamp: time(),
             });
           } else return res.status(userData.code).json({
-              code: userData.code,
-              msg: userData.msg,
-              timestamp: time(),
-            });
+            code: userData.code,
+            msg: userData.msg,
+            timestamp: time(),
+          });
         } catch (e) {
           res.status(500).json({
             code: 500,
@@ -326,10 +321,10 @@ class Other {
               timestamp: time(),
             });
           } else return res.status(userData.code).json({
-              code: userData.code,
-              msg: userData.msg,
-              timestamp: time(),
-            });
+            code: userData.code,
+            msg: userData.msg,
+            timestamp: time(),
+          });
         } catch (e) {
           res.status(500).json({
             code: 500,
@@ -530,15 +525,15 @@ class Other {
                   cloudfunLogs.push({
                     type: "log", msg: log
                   });
-                  await writeLogs( {
+                  await writeLogs({
                     type: "log",
                     msg: log,
                     timestamp: time(),
                   });
                 },
-                warn: () => {},
-                error: () => {},
-                info: () => {}
+                warn: () => { },
+                error: () => { },
+                info: () => { }
               }
             },
           };
@@ -643,7 +638,7 @@ class Other {
             "Content-Type": "text/css"
           })
           res.send(css);
-        } catch (e) {}
+        } catch (e) { }
       });
     this.app.get("/api/123pan/share/:shareid",
       async (req, res) => {
@@ -840,10 +835,10 @@ class Other {
               timestamp: time(),
             });
           } else return res.status(json.code).json({
-              code: json.code,
-              msg: json.msg,
-              timestamp: time(),
-            });
+            code: json.code,
+            msg: json.msg,
+            timestamp: time(),
+          });
         } catch (e) {
           res.status(500).json({
             code: 500,
@@ -1355,12 +1350,12 @@ class Other {
                   type: "text",
                   text: "仅识别图中文字"
                 },
-                  {
-                    type: "image_url",
-                    image_url: {
-                      url: img
-                    }
-                  }]
+                {
+                  type: "image_url",
+                  image_url: {
+                    url: img
+                  }
+                }]
               }]
             })
           })
@@ -1464,7 +1459,7 @@ class Other {
               description: field.简介,
               versionCode: field.版本号,
               versionName: field.版本名,
-              urls: field.资源链接 === null ? []: field.资源链接.split(",")
+              urls: field.资源链接 === null ? [] : field.资源链接.split(",")
             });
           });
           return res.json({
@@ -1742,7 +1737,7 @@ function generateUUID() {
     function (c) {
       var r = (d + Math.random() * 16) % 16 | 0;
       d = Math.floor(d / 16);
-      return (c === 'x' ? r: (r & 0x3 | 0x8)).toString(16);
+      return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
     });
   return uuid;
 }
