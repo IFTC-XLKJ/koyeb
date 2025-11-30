@@ -1,4 +1,3 @@
-const fetch = require("node-fetch");
 const Sign = require("./Sign.js");
 const User = require("./User.js");
 const sign = new Sign();
