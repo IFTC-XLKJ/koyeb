@@ -3029,7 +3029,7 @@ app.get("/api/vvapps/random", async (req, res) => {
     timestamp: time()
   });
   try {
-    const j = await VVApps.randomApps();
+    const j = await VVApps.randomApps(platform);
     return res.status(200).json(j);
   } catch (e) {
     return res.status(500).json({
