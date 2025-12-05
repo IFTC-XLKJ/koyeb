@@ -3021,6 +3021,16 @@ app.get("/token", async (req, res) => {
 });
 
 app.get("/api/vvapps/random", async (req, res) => {
+  try {
+
+  } catch (e) {
+    return res.status(500).json({
+      code: 500,
+      msg: "Internal Server Error",
+      error: e.message,
+      timestamp: time(),
+    });
+  }
 });
 
 app.listen(port, () => {
