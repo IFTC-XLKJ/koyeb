@@ -3054,6 +3054,8 @@ app.get("/api/vvapps/random", async (req, res) => {
   }
 });
 
+app.get("/api/vvapps/search", async (req, res) => { });
+
 app.listen(port, () => {
   startTime = Date.now();
   console.log(`服务器已在端口 ${port} 开启`);
