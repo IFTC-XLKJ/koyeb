@@ -16,7 +16,7 @@ module.exports = class {
                 filter: `平台="${platform}"`,
                 page: 1,
                 limit: 10,
-                sort: "RANDOM()",
+                sort: "RAND()",
             }
         });
         return j;
