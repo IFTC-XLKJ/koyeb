@@ -3031,7 +3031,11 @@ app.get("/api/vvapps/random", async (req, res) => {
   try {
     const j = await VVApps.randomApps(platform);
     const data = [];
-    j.fields.forEach(item => {});
+    j.fields.forEach(item => {
+      data.push({
+        platform: item.平台,
+      });
+    });
     return res.status(200).json({
       code: 200,
       msg: "获取成功",
