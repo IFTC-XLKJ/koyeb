@@ -3023,13 +3023,11 @@ app.get("/token", async (req, res) => {
 app.get("/api/vvapps/random", async (req, res) => {
   requestLog(req);
   const { platform } = req.query;
-  if (!platform || !["android", "windows"].includes(platform)) {
-    res.status(400).json({
-      code: 400,
-      msg: "Invalid parameters",
-      timestamp: time()
-    });
-  }
+  if (!platform || !["android", "windows"].includes(platform)) return res.status(400).json({
+    code: 400,
+    msg: "Invalid parameters",
+    timestamp: time()
+  });
   try {
     const j = await VVApps.randomApps();
     return res.status(200).json(j);
