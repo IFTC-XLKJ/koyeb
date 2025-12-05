@@ -3030,7 +3030,14 @@ app.get("/api/vvapps/random", async (req, res) => {
   });
   try {
     const j = await VVApps.randomApps(platform);
-    return res.status(200).json(j);
+    const data = [];
+    j.fields.forEach(item => {});
+    return res.status(200).json({
+      code: 200,
+      msg: "获取成功",
+      data: data,
+      timestamp: time()
+    });
   } catch (e) {
     return res.status(500).json({
       code: 500,
