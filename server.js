@@ -8,7 +8,6 @@ const crypto = require("crypto");
 const Books = require("./Books.js");
 const NOOB = require("./NOOB.js");
 const cors = require("cors");
-// const fetch = require("node-fetch");
 const { GameDig } = require("./node_modules/gamedig/dist/index.cjs");
 const Segment = require('node-segment').Segment;
 const AppUpdateCheck = require("./AppUpdateCheck.js");
@@ -18,6 +17,7 @@ const Discussion = require("./Discussion.js");
 const Other = require('./Other.js');
 const Sign = require("./Sign.js");
 const os = require("os");
+const VVApps = require("./VVApps.js");
 
 console.log(fetch, globalThis.fetch);
 console.log(Other);
