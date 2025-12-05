@@ -21,7 +21,7 @@ module.exports = class {
         });
         return j;
     }
-    async postData(options = {}) {
+    static async postData(options = {}) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
         try {
