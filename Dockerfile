@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . .
 
 RUN npm ci
+RUN npm install @supabase/supabase-js
 
 ARG PORT
 EXPOSE ${PORT:-3000}
