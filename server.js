@@ -3022,7 +3022,8 @@ app.get("/token", async (req, res) => {
 
 app.get("/api/vvapps/random", async (req, res) => {
   try {
-
+    const j = await VVApps.randomApps();
+    return res.status(200).json(j);
   } catch (e) {
     return res.status(500).json({
       code: 500,
