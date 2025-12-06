@@ -21,6 +21,19 @@ module.exports = class {
         });
         return j;
     }
+    static async searchApps(platform, keyword, page) {
+        const j = await this.postData({
+            url: getDataURL,
+            key: VVAppsAppkey,
+            body: {
+                filter: `平台="${platform}" AND (名称 LIKE "%${keyword}%" OR 简介 LIKE "%${keyword}%")`,
+                page: page,
+                limit: 10,
+                sort: `updatedAt DESC`,
+            }
+        });
+        return j;
+    }
     static async postData(options = {}) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
