@@ -3073,7 +3073,22 @@ app.get("/api/vvapps/search", async (req, res) => {
     timestamp: time()
   });
   try {
-
+    const j = await VVApps.searchApps(platform, keyword, page);
+    const data = [];
+    j.fields.forEach(item => {
+      data.push({
+        platform: item.平台,
+        appId: item.包名,
+        name: String(item.应用名),
+        version: {
+          name: String(item.版本名),
+          code: Number(item.版本号),
+        },
+        icon: String(item.图标),
+        description: String(item.简介),
+        createdAt: item.createdAt,
+      })
+    })
   } catch (e) {
     return res.status(500).json({
       code: 500,
