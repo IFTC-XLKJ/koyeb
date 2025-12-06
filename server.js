@@ -24,6 +24,7 @@ console.log(Other);
 console.log(process.env.IFTC);
 console.log(Segment);
 console.log(os.platform());
+console.log(`本机 IP 地址: ${getLocalIP()}`);
 
 const ips = [];
 const appUpdateCheck = new AppUpdateCheck();
@@ -3236,6 +3237,18 @@ setInterval(async () => {
     console.log(e);
   }
 })();
+
+function getLocalIP() {
+  const interfaces = os.networkInterfaces();
+  for (const interfaceName in interfaces) {
+    for (const iface of interfaces[interfaceName]) {
+      if (iface.family === 'IPv4' && !iface.internal) {
+        return iface.address;
+      }
+    }
+  }
+  return '127.0.0.1';
+}
 
 function systemMonitor() {
   console.log('=== 系统监控 ===');
