@@ -3041,7 +3041,7 @@ app.get("/api/vvapps/random", async (req, res) => {
           code: Number(item.版本号),
         },
         icon: String(item.图标),
-        description: String(item.介绍),
+        description: String(item.简介),
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
       });
