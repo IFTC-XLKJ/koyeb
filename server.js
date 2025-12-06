@@ -3270,7 +3270,7 @@ async function systemMonitor() {
   // console.log(`CPU 利用率: ${}%`);
   console.log(`CPU 利用率: ${await getCpuUsageSI()}%`);
   console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
-  console.log(`已使用内存: ${(os.totalmem() - os.freemem() / 1024 / 1024).toFixed(2)} MB`);
+  console.log(`已使用内存: ${((os.totalmem() - os.freemem()) / 1024 / 1024).toFixed(2)} MB`);
   console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`系统运行时间: ${(os.uptime() / 60 / 60).toFixed(2)} 小时`);
   console.log('=== ↑系统监控↑ ===');
