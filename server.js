@@ -3257,7 +3257,7 @@ async function getCpuUsageSI() {
   data.cpus.forEach(cpu => {
     cpuUsage += cpu.load;
   });
-  return cpuUsage;
+  return cpuUsage.toFixed(2);
 }
 
 async function systemMonitor() {
