@@ -3088,7 +3088,13 @@ app.get("/api/vvapps/search", async (req, res) => {
         description: String(item.简介),
         createdAt: item.createdAt,
       })
-    })
+    });
+    return res.status(200).json({
+      code: 200,
+      msg: "获取成功",
+      data: data,
+      timestamp: time()
+    });
   } catch (e) {
     return res.status(500).json({
       code: 500,
