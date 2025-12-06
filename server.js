@@ -3034,6 +3034,7 @@ app.get("/api/vvapps/random", async (req, res) => {
     j.fields.forEach(item => {
       data.push({
         platform: item.平台,
+        appId: item.包名,
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
       });
