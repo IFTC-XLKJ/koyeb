@@ -3035,6 +3035,13 @@ app.get("/api/vvapps/random", async (req, res) => {
       data.push({
         platform: item.平台,
         appId: item.包名,
+        name: String(item.应用名),
+        version: {
+          name: String(item.版本名),
+          code: Number(item.版本号),
+        },
+        icon: String(item.图标),
+        description: String(item.介绍),
         createdAt: item.createdAt,
         updatedAt: item.updatedAt,
       });
