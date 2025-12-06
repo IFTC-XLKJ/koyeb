@@ -3251,6 +3251,15 @@ function getLocalIP() {
   return '127.0.0.1';
 }
 
+async function getCpuUsageSI() {
+  const data = await si.currentLoad();
+  let cpuUsage = 0;
+  data.cpus.forEach(cpu => {
+    cpuUsage += cpu.load;
+  });
+  return cpuUsage;
+}
+
 async function systemMonitor() {
   console.log('=== ↓系统监控↓ ===');
   console.log(`操作系统: ${os.type()} ${os.release()}`);
@@ -3258,9 +3267,7 @@ async function systemMonitor() {
   console.log(`CPU 核心数: ${os.cpus().length}`);
   console.log(`CPU 型号: ${os.cpus()[0].model}`);
   // console.log(`CPU 利用率: ${}%`);
-  const data = await si.currentLoad();
-  console.log(data);
-  console.log(`CPU 利用率: ${data.currentload.toFixed(2)}%`);
+  console.log(`CPU 利用率: ${await getCpuUsageSI()}%`);
   console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`已使用内存: ${(os.totalmem() - os.freemem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
