@@ -3226,7 +3226,7 @@ async function randomUsername() {
 setInterval(async () => {
   systemMonitor();
   const r = await fetch("https://iftc.deno.dev");
-  console.log(await r.text())
+  console.log(await r.text());
 }, 30000);
 
 (async function () {
@@ -3267,7 +3267,6 @@ async function systemMonitor() {
   console.log(`CPU 架构: ${os.arch()}`);
   console.log(`CPU 核心数: ${os.cpus().length}`);
   console.log(`CPU 型号: ${os.cpus()[0].model}`);
-  // console.log(`CPU 利用率: ${}%`);
   console.log(`CPU 利用率: ${await getCpuUsageSI()}%`);
   console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`已使用内存: ${((os.totalmem() - os.freemem()) / 1024 / 1024).toFixed(2)} MB`);
