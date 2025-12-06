@@ -3066,8 +3066,8 @@ app.get("/api/vvapps/random", async (req, res) => {
 
 app.get("/api/vvapps/search", async (req, res) => {
   requestLog(req);
-  const { platform, keyword } = req.query;
-  if (!platform || !["android", "windows"].includes(platform) || !keyword) return res.status(400).json({
+  const { platform, keyword, page } = req.query;
+  if (!platform || !["android", "windows"].includes(platform) || !page) return res.status(400).json({
     code: 400,
     msg: "Invalid parameters",
     timestamp: time()
