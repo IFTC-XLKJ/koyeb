@@ -3,6 +3,7 @@ WORKDIR /app
 COPY . .
 
 RUN apt upgrade
+RUN apt update
 
 RUN npm ci
 RUN npm install @supabase/supabase-js
