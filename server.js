@@ -3072,6 +3072,16 @@ app.get("/api/vvapps/search", async (req, res) => {
     msg: "Invalid parameters",
     timestamp: time()
   });
+  try {
+
+  } catch (e) {
+    return res.status(500).json({
+      code: 500,
+      msg: "Internal Server Error",
+      error: e.message,
+      timestamp: time(),
+    });
+  }
 });
 
 app.listen(port, () => {
