@@ -3255,6 +3255,7 @@ function systemMonitor() {
   console.log(`操作系统: ${os.type()} ${os.release()}`);
   console.log(`CPU 架构: ${os.arch()}`);
   console.log(`CPU 核心数: ${os.cpus().length}`);
+  console.log(`CPU 负载: ${os.loadavg().map(n => n.toFixed(2)).join(', ')}`);
   console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`系统运行时间: ${(os.uptime() / 60 / 60).toFixed(2)} 小时`);
