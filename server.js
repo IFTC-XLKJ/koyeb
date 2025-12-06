@@ -3257,7 +3257,8 @@ async function systemMonitor() {
   console.log(`CPU 架构: ${os.arch()}`);
   console.log(`CPU 核心数: ${os.cpus().length}`);
   // console.log(`CPU 利用率: ${}%`);
-  console.log(`CPU 利用率: ${(await si.currentLoad()).currentload.toFixed(2)}%`);
+  const data = await si.currentLoad();
+  console.log(`CPU 利用率: ${data.currentload.toFixed(2)}%`);
   console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`已使用内存: ${(os.totalmem() - os.freemem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
