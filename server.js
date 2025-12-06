@@ -3250,12 +3250,58 @@ function getLocalIP() {
   return '127.0.0.1';
 }
 
-function systemMonitor() {
+
+function readCpuInfo() {
+  return new Promise((resolve, reject) => {
+    fs.readFile('/proc/stat', 'utf8', (err, data) => {
+      if (err) return reject(err);
+
+      const lines = data.trim().split('\n');
+      for (let line of lines) {
+        if (line.startsWith('cpu ')) {
+          const parts = line.split(/\s+/).slice(1); // skip 'cpu'
+          const total = parts.reduce((sum, val) => sum + parseInt(val), 0);
+          const idle = parseInt(parts[3]); // index 3 is idle time
+
+          resolve({ total, idle });
+          break;
+        }
+      }
+    });
+  });
+}
+
+async function getCpuUsage() {
+  try {
+    const start = await readCpuInfo();
+
+    setTimeout(async () => {
+      try {
+        const end = await readCpuInfo();
+
+        const totalDiff = end.total - start.total;
+        const idleDiff = end.idle - start.idle;
+
+        const usagePercent = ((totalDiff - idleDiff) / totalDiff) * 100;
+
+        console.log(`CPU 利用率: ${usagePercent.toFixed(2)}%`);
+      } catch (error) {
+        console.error("Error reading CPU info on second read:", error);
+      }
+    }, 1000); // wait 1 second between readings
+
+  } catch (error) {
+    console.error("Error reading CPU info initially:", error);
+  }
+}
+
+async function systemMonitor() {
   console.log('=== ↓系统监控↓ ===');
   console.log(`操作系统: ${os.type()} ${os.release()}`);
   console.log(`CPU 架构: ${os.arch()}`);
   console.log(`CPU 核心数: ${os.cpus().length}`);
-  console.log(`CPU 负载: ${os.loadavg().map(n => n.toFixed(2)).join(', ')}`);
+  // console.log(`CPU 利用率: ${}%`);
+  await getCpuUsage();
   console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`已使用内存: ${(os.totalmem() - os.freemem() / 1024 / 1024).toFixed(2)} MB`);
   console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
