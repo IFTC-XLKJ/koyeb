@@ -2907,7 +2907,8 @@ app.get("/proxy-file", async (req, res) => {
     res.set("Accept-Ranges", "bytes");
     res.set("Access-Control-Allow-Origin", "*");
     res.set("Content-Disposition", `attachment; filename=${filename || new URL(url).pathname.split('/').pop()}`);
-    const buffer = await response.buffer();
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
     return res.send(buffer);
   } catch (error) {
     console.error(error);
