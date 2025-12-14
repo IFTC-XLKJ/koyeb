@@ -2899,6 +2899,10 @@ app.get("/proxy-file", async (req, res) => {
     url,
     filename
   } = req.query;
+  console.log("Proxying file from URL:", url);
+  if (!url) {
+    return res.status(400).send('Missing url parameter');
+  }
   try {
     const response = await fetch(url);
     console.log("Content-Type:", response.headers.get('content-type') || "application/octet-stream");
