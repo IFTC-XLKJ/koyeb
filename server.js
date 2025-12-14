@@ -2920,6 +2920,10 @@ app.get("/proxy-file", async (req, res) => {
   }
 });
 
+app.get("/kubejs", async (req, res) => {
+  res.redirect("https://kubejs.nocode.host");
+})
+
 app.get("/token", async (req, res) => {
   res.set("Content-Type", "text/html");
   return res.send(`<title>VV用户Token</title>
