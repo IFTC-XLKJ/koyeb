@@ -959,15 +959,15 @@ class Other {
             msg: "鉴权失败",
             timestamp: time()
           });
-          const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
+          const r = await fetch("https://fetchs.de5.net/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
+              Authorization: `Bearer PublicKey1`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app",
             },
             body: JSON.stringify({
-              model: "qwen3-max",
+              model: "claude-opus-4-5-20251101",
               flashvider: "azureml",
               temperature: 1,
               top_p: 1,
