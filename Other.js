@@ -1348,7 +1348,7 @@ class Other {
                 role: "user",
                 content: [{
                   type: "text",
-                  text: "仅识别图中文字"
+                  text: "仅识别图中文字，回答时，仅回答识别结果"
                 },
                 {
                   type: "image_url",
