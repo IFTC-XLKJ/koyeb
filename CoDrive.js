@@ -27,8 +27,7 @@ class CoDrive {
                     console.log('CoDrive报错', e);
                     // reject('CoDrive报错', e);
                 }
-            },
-                30000);
+            }, 30000);
         });
     }
     async fetchData(path,
