@@ -7,6 +7,7 @@ RUN apt update
 
 RUN npm ci
 RUN npm install @supabase/supabase-js
+RUN npm install puppeteer
 
 ARG PORT
 EXPOSE ${PORT:-3000}
