@@ -12,6 +12,7 @@ RUN npm install puppeteer
 # 安装 Chromium 和必要依赖
 RUN apt-get update && \
     apt-get install -y \
+    dnsutils \
     libglib2.0-0 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
