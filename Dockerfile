@@ -9,13 +9,28 @@ RUN npm ci
 RUN npm install @supabase/supabase-js
 
 # 安装 Chromium 和必要依赖
-RUN apk add --no-cache \
-    chromium \
-    nss \
-    freetype \
-    harfbuzz \
+RUN apt-get install -y \
+    libglib2.0-0 \
+    libatk1.0-0 \
+    libatk-bridge2.0-0 \
+    libcups2 \
+    libxkbcommon0 \
+    libxcomposite1 \
+    libxdamage1 \
+    libxrandr2 \
+    libgbm1 \
+    libasound2 \
+    libpangocairo-1.0-0 \
+    libxss1 \
+    libnss3 \
+    libnspr4 \
+    libfontconfig1 \
+    libexpat1 \
     ca-certificates \
-    ttf-freefont
+    fonts-liberation \
+    wget \
+    gnupg && \
+    rm -rf /var/lib/apt/lists/*
 
 # 告诉 Puppeteer 使用系统 Chromium
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
