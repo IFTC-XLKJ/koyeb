@@ -34,7 +34,7 @@ RUN apt-get install -y \
     rm -rf /var/lib/apt/lists/*
 
 # 告诉 Puppeteer 使用系统 Chromium
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+# ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
 
 ARG PORT
