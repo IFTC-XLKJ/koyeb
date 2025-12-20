@@ -3149,6 +3149,41 @@ app.get("/api/vvapps/search", async (req, res) => {
   }
 });
 
+app.get("/api/webpage_screenshot", async (req, res) => {
+  requestLog(req);
+  const { url } = req.query;
+  if (!url) return res.status(400).json({
+    code: 400,
+    msg: "Invalid parameters",
+    timestamp: time()
+  });
+  try {
+    const browser = await puppeteer.launch({
+      args: [
+        '--no-sandbox',
+        '--disable-setuid-sandbox',
+        '--disable-dev-shm-usage',
+        '--disable-gpu'
+      ],
+    });
+    const page = await browser.newPage();
+    await page.goto(url);
+    const screenshotBuffer = await page.screenshot({ fullPage: true });
+    await browser.close();
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader('Content-Length', screenshotBuffer.length);
+    return res.send(screenshotBuffer);
+  } catch (e) {
+    return res.status(500).json({
+      code: 500,
+      msg: "Internal Server Error",
+      error: e.message,
+      timestamp: time(),
+    });
+  }
+});
+
+
 app.listen(port, () => {
   startTime = Date.now();
   console.log(`服务器已在端口 ${port} 开启`);
