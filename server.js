@@ -3167,6 +3167,9 @@ app.get("/api/webpage_screenshot", async (req, res) => {
       ],
     });
     const page = await browser.newPage();
+    await page.setExtraHTTPHeaders({
+      'Accept-Language': 'zh-CN'
+    });
     await page.goto(url, {
       timeout: 60000,
     });
