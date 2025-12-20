@@ -66,7 +66,22 @@ globalThis.opEmails = [
     console.error(e);
   }
 })();
-(async () => {
+// (async () => {
+//   const browser = await puppeteer.launch({
+//     // executablePath: '/usr/bin/chromium-browser',
+//     args: [
+//       '--no-sandbox',
+//       '--disable-setuid-sandbox',
+//       '--disable-dev-shm-usage', // 避免内存不足（重要！）
+//       '--disable-gpu'
+//     ],
+//   });
+//   const page = await browser.newPage();
+//   await page.goto('https://iftc.koyeb.app/');
+//   await page.screenshot({ path: 'static/screenshot.png' });
+//   await browser.close();
+// })();
+app.get("/start", async (req, res) => {
   const browser = await puppeteer.launch({
     // executablePath: '/usr/bin/chromium-browser',
     args: [
@@ -80,8 +95,7 @@ globalThis.opEmails = [
   await page.goto('https://iftc.koyeb.app/');
   await page.screenshot({ path: 'static/screenshot.png' });
   await browser.close();
-})();
-
+})
 app.use(async (req, res, next) => {
   if (req.headers["user-agent"] == "Koyeb Health Check") return next();
   if (req.headers["user-agent"] == "IFTC Bot") return next();
