@@ -95,6 +95,11 @@ app.get("/start", async (req, res) => {
   await page.goto('https://iftc.koyeb.app/');
   await page.screenshot({ path: 'static/screenshot.png' });
   await browser.close();
+  return res.json({
+    code: 200,
+    msg: "请求成功",
+    timestamp: time(),
+  });
 })
 app.use(async (req, res, next) => {
   if (req.headers["user-agent"] == "Koyeb Health Check") return next();
