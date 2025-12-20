@@ -3190,7 +3190,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
       'Accept-Language': 'zh-CN'
     });
     await page.goto(url, {
-      timeout: 60000,
+      timeout: 5 * 60 * 1000,
     });
     const screenshotBuffer = await page.screenshot({ fullPage: true });
     await browser.close();
