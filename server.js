@@ -3160,6 +3160,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
   try {
     const browser = await puppeteer.launch({
       args: [
+        '--lang=zh-CN,zh',
         '--no-sandbox',
         '--disable-setuid-sandbox',
         '--disable-dev-shm-usage',
