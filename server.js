@@ -3167,7 +3167,9 @@ app.get("/api/webpage_screenshot", async (req, res) => {
       ],
     });
     const page = await browser.newPage();
-    await page.goto(url);
+    await page.goto(url, {
+      timeout: 60000,
+    });
     const screenshotBuffer = await page.screenshot({ fullPage: true });
     await browser.close();
     res.setHeader('Content-Type', 'image/png');
