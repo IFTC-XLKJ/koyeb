@@ -99,7 +99,8 @@ app.get("/start", async (req, res) => {
     msg: "请求成功",
     timestamp: time(),
   });
-})
+});
+
 app.use(async (req, res, next) => {
   if (req.headers["user-agent"] == "Koyeb Health Check") return next();
   if (req.headers["user-agent"] == "IFTC Bot") return next();
