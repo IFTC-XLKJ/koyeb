@@ -83,11 +83,10 @@ globalThis.opEmails = [
 // })();
 app.get("/start", async (req, res) => {
   const browser = await puppeteer.launch({
-    // executablePath: '/usr/bin/chromium-browser',
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
-      '--disable-dev-shm-usage', // 避免内存不足（重要！）
+      '--disable-dev-shm-usage',
       '--disable-gpu'
     ],
   });
