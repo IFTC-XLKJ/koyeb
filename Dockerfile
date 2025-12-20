@@ -10,7 +10,8 @@ RUN npm install @supabase/supabase-js
 RUN npm install puppeteer
 
 # 安装 Chromium 和必要依赖
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
     libglib2.0-0 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
@@ -29,6 +30,18 @@ RUN apt-get install -y \
     libexpat1 \
     ca-certificates \
     fonts-liberation \
+    # 👇 关键：以下这些常被遗漏，但 Chrome 需要
+    libx11-6 \
+    libx11-xcb1 \
+    libxcb1 \
+    libxcomposite1 \
+    libxcursor1 \
+    libxdamage1 \
+    libxext6 \
+    libxfixes3 \
+    libxi6 \
+    libxrender1 \
+    libxtst6 \
     wget \
     gnupg && \
     rm -rf /var/lib/apt/lists/*
