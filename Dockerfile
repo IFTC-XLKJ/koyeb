@@ -44,4 +44,4 @@ ENV IFTC=IFTC
 
 CMD ["node", "server.js"]
 
-RUN apt-get install sudo
+# RUN apt-get install sudo
