@@ -3157,6 +3157,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
     msg: "Invalid parameters",
     timestamp: time()
   });
+  console.log(url);
   try {
     const browser = await puppeteer.launch({
       args: [
