@@ -3191,7 +3191,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
     });
     await page.goto(url, {
       timeout: 0,
-      waitUntil: [domcontentloaded, networkidle2],
+      waitUntil: ["domcontentloaded", "networkidle2"],
     });
     await page.waitForNetworkIdle();
     const screenshotBuffer = await page.screenshot({ fullPage: true });
