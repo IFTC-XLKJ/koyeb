@@ -25,7 +25,6 @@ class CoDrive {
                     resolve(json);
                 } catch (e) {
                     console.log('CoDrive报错', e);
-                    // reject('CoDrive报错', e);
                 }
             }, 30000);
         });
