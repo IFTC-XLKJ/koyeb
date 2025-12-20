@@ -30,6 +30,11 @@ RUN apt-get update && \
     libexpat1 \
     ca-certificates \
     fonts-liberation \
+    fonts-noto-cjk \
+    fonts-wqy-zenhei \
+    fonts-wqy-microhei \
+    fonts-droid-fallback \
+    fonts-dejavu \
     # 👇 关键：以下这些常被遗漏，但 Chrome 需要
     libx11-6 \
     libx11-xcb1 \
