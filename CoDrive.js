@@ -23,7 +23,7 @@ class CoDrive {
                     this.expires = Date.parse(expires);
                     this.start(app);
                     resolve(json);
-                }catch(e) {
+                } catch (e) {
                     console.log('CoDrive报错', e);
                     // reject('CoDrive报错', e);
                 }
@@ -37,10 +37,9 @@ class CoDrive {
         contentType = "application/json", extraHeaders) {
         console.log(this.token);
         const headers = new Headers();
-        headers.append("Content-Type",
-            contentType);
-        headers.append("Authorization",
-            `Bearer ${this.token}`);
+        headers.append("Content-Type", contentType);
+        headers.append("Authorization", `Bearer ${this.token}`);
+        headers.append("Referer", "https://drive.amethyst.ltd/session");
         const extraHeadersNames = Object.keys(extraHeaders || {});
         for (const extraHeadersName of extraHeadersNames) {
             headers.append(extraHeadersName, extraHeaders[extraHeadersName]);
@@ -50,16 +49,14 @@ class CoDrive {
         const requestOptions = {
             method: method,
             headers: headers,
-            body: method == 'GET' ? void 0: raw,
+            body: method == 'GET' ? void 0 : raw,
             redirect: 'follow'
         };
-        const r = await fetch(`${this.baseUrl}${path}`,
-            requestOptions);
-            const cr = r.clone();
-            console.log(await cr.text());
+        const r = await fetch(`${this.baseUrl}${path}`, requestOptions);
+        const cr = r.clone();
+        console.log(await cr.text());
         const j = await r.json();
-        console.log('CoDrive',
-            j);
+        console.log('CoDrive', j);
         return j;
     }
     start(app) {
