@@ -3168,6 +3168,18 @@ app.get("/api/webpage_screenshot", async (req, res) => {
       ],
     });
     const page = await browser.newPage();
+    await page.evaluateOnNewDocument(() => {
+      Object.defineProperty(navigator, "language", {
+        get: function () {
+          return "zh-CN";
+        }
+      });
+      Object.defineProperty(navigator, "languages", {
+        get: function () {
+          return ["zh-CN", "zh"];
+        }
+      });
+    });
     await page.setViewport({
       width: 1920,
       height: 1080,
