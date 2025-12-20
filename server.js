@@ -3167,6 +3167,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
         '--disable-dev-shm-usage',
         '--disable-gpu'
       ],
+      env: { LANGUAGE: "zh-CN" }
     });
     const page = await browser.newPage();
     await page.evaluateOnNewDocument(() => {
