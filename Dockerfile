@@ -13,6 +13,7 @@ RUN npm install puppeteer
 RUN apt-get update && \
     apt-get install -y \
     dnsutils \
+    sudo \
     libglib2.0-0 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
