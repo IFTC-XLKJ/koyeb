@@ -3187,7 +3187,8 @@ app.get("/api/webpage_screenshot", async (req, res) => {
       height: 1080,
     });
     await page.setExtraHTTPHeaders({
-      'Accept-Language': 'zh-CN'
+      'Accept-Language': 'zh-CN',
+      'Accept-Encoding': 'gzip, deflate, br',
     });
     await page.goto(url, {
       timeout: 0,
