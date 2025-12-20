@@ -7,6 +7,7 @@ RUN apt update
 
 RUN npm ci
 RUN npm install @supabase/supabase-js
+RUN npm install puppeteer
 
 # 安装 Chromium 和必要依赖
 RUN apt-get install -y \
@@ -35,7 +36,6 @@ RUN apt-get install -y \
 # 告诉 Puppeteer 使用系统 Chromium
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
 
-RUN npm install puppeteer
 
 ARG PORT
 EXPOSE ${PORT:-3000}
