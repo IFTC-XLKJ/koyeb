@@ -19,6 +19,7 @@ const Sign = require("./Sign.js");
 const os = require("os");
 const VVApps = require("./VVApps.js");
 const si = require('systeminformation');
+const puppeteer = require('puppeteer');
 
 console.log(fetch, globalThis.fetch);
 console.log(Other);
@@ -64,6 +65,13 @@ globalThis.opEmails = [
   } catch (e) {
     console.error(e);
   }
+})();
+(async () => {
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto('https://iftc.koyeb.app/');
+  await page.screenshot({ path: 'static/screenshot.png' });
+  await browser.close();
 })();
 
 app.use(async (req, res, next) => {
