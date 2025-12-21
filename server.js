@@ -3189,6 +3189,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
     await page.setExtraHTTPHeaders({
       'Accept-Language': 'zh-CN',
       'Accept-Encoding': 'gzip, deflate, br',
+      'Author': 'IFTC Bot',
     });
     await page.goto(url, {
       timeout: 0,
