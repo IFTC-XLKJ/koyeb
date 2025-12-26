@@ -1620,7 +1620,7 @@ class Other {
             timestamp: time()
           });
         }
-        const r = await fetch("https://api.openai.com/v1/chat/completions", {
+        const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
