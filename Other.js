@@ -1063,7 +1063,7 @@ class Other {
               Origin: "https://iftc.koyeb.app",
             },
             body: JSON.stringify({
-              model: "qwen3-max",
+              model: "gpt-5.2",
               flashvider: "azureml",
               temperature: 0.5,
               top_p: 1,
