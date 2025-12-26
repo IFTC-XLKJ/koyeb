@@ -1593,6 +1593,42 @@ class Other {
           });
         }
       });
+    this.app.post("/api/v1/chat/completions", async (req, res) => {
+      requestLog(req);
+      const body = req.body;
+      const token = req.headers.authorization.split(" ")[1];
+      if (!req.headers.authorization.startsWith("Bearer ")) {
+        res.status(401).json({
+          code: 401,
+          msg: "鉴权失败",
+          timestamp: time()
+        });
+        return;
+      }
+      if (!token) {
+        res.status(401).json({
+          code: 401,
+          msg: "鉴权失败",
+          timestamp: time()
+        });
+      }
+      try {
+        if (!await checkToken(token)) {
+          res.status(401).json({
+            code: 401,
+            msg: "鉴权失败",
+            timestamp: time()
+          });
+        }
+      } catch (e) {
+        return res.status(500).json({
+          code: 500,
+          msg: "Internal Server Error",
+          error: e.message,
+          timestamp: time()
+        });
+      }
+    })
     console.log("Other");
   }
   async getFile(path) {
