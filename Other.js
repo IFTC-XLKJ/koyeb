@@ -1620,6 +1620,18 @@ class Other {
             timestamp: time()
           });
         }
+        const r = await fetch("https://api.openai.com/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer sk-2qkUlFinUm5Hd45cQICK0nEqQZsf3Yd4DAwF4vHWsi99fwcC`,
+            Origin: "https://iftc.koyeb.app",
+          },
+          body: JSON.stringify(body),
+        });
+        const data = await r.json();
+        console.log(data);
+        res.status(r.status).json(data);
       } catch (e) {
         return res.status(500).json({
           code: 500,
