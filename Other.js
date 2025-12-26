@@ -1157,15 +1157,15 @@ class Other {
               timestamp: time()
             });
           }
-          const r = await fetch("https://ai-open.amethyst.ltd/v1/chat/completions", {
+          const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer sk-20vV6YlF3tH98YXJgNdEVhFXxccgQT6M4kbXEKjgzw6ezHLJ`,
+              Authorization: `Bearer sk-2qkUlFinUm5Hd45cQICK0nEqQZsf3Yd4DAwF4vHWsi99fwcC`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app"
             },
             body: JSON.stringify({
-              model: "qwen3-max",
+              model: "gpt-5.2",
               flashvider: "azureml",
               temperature: 0.5,
               top_p: 1,
@@ -1244,15 +1244,15 @@ class Other {
               timestamp: time()
             });
           }
-          const r = await fetch("https://fetchs.de5.net/v1/chat/completions", {
+          const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer PublicKey1`,
+              Authorization: `Bearer sk-2qkUlFinUm5Hd45cQICK0nEqQZsf3Yd4DAwF4vHWsi99fwcC`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app"
             },
             body: JSON.stringify({
-              model: "claude-opus-4-5-20251101",
+              model: "gpt-5.2",
               flashvider: "azureml",
               temperature: 0.5,
               top_p: 1,
