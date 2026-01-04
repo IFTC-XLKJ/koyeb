@@ -618,6 +618,12 @@ app.get('/avatar/:id', async (req, res) => {
   try {
     const user = new User();
     const json = await user.getById(id);
+    if (json.code != 200) {
+      throw {
+        message: json.msg,
+      }
+    }
+    
   } catch(e) {
     return res.json({
       code: 500,
