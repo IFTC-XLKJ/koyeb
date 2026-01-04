@@ -614,6 +614,7 @@ app.get("/webide_plugin", async (req, res) => {
 
 app.get('/avatar/:id', async (req, res) => {
   requestLog(req);
+  const id = req.params.id;
   try {
     const user = new User();
   } catch(e) {
