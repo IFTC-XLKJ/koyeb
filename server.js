@@ -626,8 +626,9 @@ app.get('/avatar/:id', async (req, res) => {
     const data = json.fields[0];
     const url = data.头像;
     const r = await fetch(url);
-    const buffer = await r.buffer();
     res.set('Content-Type', 'image/png');
+    const arrayBuffer = await r.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
     res.set('Content-Length', buffer.size)
     res.send(buffer);
   } catch(e) {
