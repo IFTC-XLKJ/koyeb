@@ -612,6 +612,10 @@ app.get("/webide_plugin", async (req, res) => {
   }
 });
 
+app.get('/avatar/:id', async (req, res) => {
+  requestLog(req);
+});
+
 app.all("/BingSiteAuth.xml", (req, res) => {
   requestLog(req);
   return res.sendFile(path.join(__dirname, "BingSiteAuth.xml"));
