@@ -614,7 +614,9 @@ app.get("/webide_plugin", async (req, res) => {
 
 app.get('/avatar/:id', async (req, res) => {
   requestLog(req);
-  try {} catch(e) {
+  try {
+    const user = new User();
+  } catch(e) {
     return res.json({
       code: 500,
       msg: '服务内部错误',
