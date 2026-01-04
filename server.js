@@ -623,7 +623,13 @@ app.get('/avatar/:id', async (req, res) => {
         message: json.msg,
       }
     }
-    
+    const data = json.fields[0];
+    const url = data.头像;
+    const r = await fetch(url);
+    const buffer = await r.buffer();
+    res.set('Content-Type', 'image/png');
+    res.set('Content-Length', buffer.length)
+    res.send(buffer);
   } catch(e) {
     return res.json({
       code: 500,
