@@ -617,6 +617,7 @@ app.get('/avatar/:id', async (req, res) => {
   const id = req.params.id;
   try {
     const user = new User();
+    const json = await user.getById(id);
   } catch(e) {
     return res.json({
       code: 500,
