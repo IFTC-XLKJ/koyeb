@@ -614,6 +614,14 @@ app.get("/webide_plugin", async (req, res) => {
 
 app.get('/avatar/:id', async (req, res) => {
   requestLog(req);
+  try {} catch(e) {
+    return res.json({
+      code: 500,
+      msg: '服务内部错误',
+      error: e.message,
+      timestamp: time()
+    })
+  }
 });
 
 app.all("/BingSiteAuth.xml", (req, res) => {
