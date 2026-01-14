@@ -37,8 +37,7 @@ class AppUpdateCheck {
             if (json.code == 200) {
                 const data = json.fields[0];
                 if (data) {
-                    if (data.版本号 > versionCode) {
-                        return {
+                    if (data.版本号 > versionCode) return {
                             code: 200,
                             msg: "有新版本",
                             update: true,
@@ -47,8 +46,7 @@ class AppUpdateCheck {
                             versionName: data.版本名,
                             description: data.更新内容,
                         };
-                    } else if (data.版本号 == 0) {
-                        return {
+                    else if (data.版本号 == 0) return {
                             code: 200,
                             msg: "test版本更新",
                             update: false,
@@ -57,7 +55,7 @@ class AppUpdateCheck {
                             versionName: data.版本名,
                             description: data.更新内容,
                         };
-                    } else return {
+                    else return {
                             code: 200,
                             msg: "无更新",
                             update: false,
