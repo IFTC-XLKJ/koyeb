@@ -15,7 +15,6 @@ class User {
         const signaturePromise = sign.get(timestamp);
         try {
             const signature = await signaturePromise;
-
             const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
@@ -31,10 +30,7 @@ class User {
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-
+            if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json = await response.json();
             console.log(json);
             return json;
