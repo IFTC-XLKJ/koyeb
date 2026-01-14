@@ -129,12 +129,12 @@ class User {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        resolve( {
+        resolve({
           ...result, id: count
         });
       })
       .catch((error) => {
-        resolve( {
+        resolve({
           msg: error.message
         });
       });
