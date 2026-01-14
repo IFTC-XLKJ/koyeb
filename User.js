@@ -98,9 +98,7 @@ class User {
     // 注册
     async register(email, password, nickname, avatar) {
         const all = await this.getAll();
-        if (all.code != 200) {
-            throw new Error(all.msg);
-        }
+        if (all.code != 200) throw new Error(all.msg);
         const count = all.fields[0].ID + 1;
         if (all.fields.filter((item) => item.邮箱 == email).length > 0) {
             return {
