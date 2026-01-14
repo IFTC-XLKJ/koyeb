@@ -167,7 +167,7 @@ class User {
         console.log(result);
         resolve(result);
       })
-      .catch((error) => throw new Error("error:", error));
+      .catch((error) => {throw new Error("error:", error)});
     });
   }
   verifyCode(email, code) {
