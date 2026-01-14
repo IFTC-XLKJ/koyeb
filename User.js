@@ -104,12 +104,10 @@ class User {
       code: 400,
       msg: "邮箱已被注册"
     };
-    if (all.fields.filter((item) => item.昵称 == nickname).length > 0) {
-      return {
-        code: 400,
-        msg: "昵称已被注册"
-      };
-    }
+    if (all.fields.filter((item) => item.昵称 == nickname).length > 0) return {
+      code: 400,
+      msg: "昵称已被注册"
+    };
     var raw = JSON.stringify({
       type: "INSERT",
       filter: `ID,昵称,头像,邮箱,密码,V币,头衔,头衔色`,
