@@ -129,12 +129,12 @@ class User {
       .then((response) => response.json())
       .then((result) => {
         console.log(result);
-        resolve({
+        resolve( {
           ...result, id: count
         });
       })
       .catch((error) => {
-        resolve({
+        resolve( {
           msg: error.message
         });
       });
@@ -167,7 +167,8 @@ class User {
         console.log(result);
         resolve(result);
       })
-      .catch((error) => {throw new Error("error:", error)});
+      .catch((error) => {
+        throw new Error("error:", error)});
     });
   }
   verifyCode(email, code) {
