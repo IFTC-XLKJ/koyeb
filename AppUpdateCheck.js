@@ -64,13 +64,11 @@ class AppUpdateCheck {
                             update: false,
                         };
                     }
-                } else {
-                    return {
+                } else return {
                         code: 404,
                         msg: "找不到更新",
                         update: false,
                     };
-                }
             } else return {
                     code: 400,
                     msg: "查询失败",
