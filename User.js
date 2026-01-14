@@ -70,10 +70,8 @@ class User {
     async login(user, password) {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
-
         try {
             const signature = await signaturePromise;
-
             const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
@@ -88,11 +86,7 @@ class User {
                     limit: 1,
                 }),
             });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-
+            if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json = await response.json();
             console.log(json);
             return json;
