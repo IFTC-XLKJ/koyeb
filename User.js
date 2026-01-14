@@ -202,9 +202,8 @@ class User {
   async update(type, id, password, data) {
     let filter = `ID="${id}" AND 密码="${md5Hash(password)}"`;
     let fields = "";
-    if (type == "nickname") {
-      fields = `昵称="${data}"`;
-    } else if (type == "avatar") {
+    if (type == "nickname") fields = `昵称="${data}"`;
+    else if (type == "avatar") {
       fields = `头像="${data}"`;
     } else if (type == "email") {
       fields = `邮箱="${data}"`;
