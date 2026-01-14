@@ -29,7 +29,6 @@ class User {
                     limit: 1,
                 }),
             });
-
             if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json = await response.json();
             console.log(json);
@@ -43,10 +42,8 @@ class User {
     async getAll() {
         const timestamp = Date.now();
         const signaturePromise = sign.get(timestamp);
-
         try {
             const signature = await signaturePromise;
-
             const response = await fetch(getDataURL, {
                 method: "POST",
                 headers: {
@@ -61,11 +58,7 @@ class User {
                     limit: 10000000000000000,
                 }),
             });
-
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-
+            if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json = await response.json();
             return json;
         } catch (error) {
