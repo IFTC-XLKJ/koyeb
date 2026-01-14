@@ -57,13 +57,11 @@ class AppUpdateCheck {
                             versionName: data.版本名,
                             description: data.更新内容,
                         };
-                    } else {
-                        return {
+                    } else return {
                             code: 200,
                             msg: "无更新",
                             update: false,
                         };
-                    }
                 } else return {
                         code: 404,
                         msg: "找不到更新",
