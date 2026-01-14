@@ -71,13 +71,11 @@ class AppUpdateCheck {
                         update: false,
                     };
                 }
-            } else {
-                return {
+            } else return {
                     code: 400,
                     msg: "查询失败",
                     update: false,
                 };
-            }
         } catch (error) {
             console.error('There was a problem with the fetch operation:', error);
             throw error;
