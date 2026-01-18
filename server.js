@@ -365,7 +365,7 @@ app.get("/signup", async (req, res) => {
   res.set({
     "Content-Type": "text/html;charset=utf-8",
   });
-  return res.send(`<center><h1>注册功能暂停服务，请等待服务升级</h1></center>`);
+  // return res.send(`<center><h1>注册功能暂停服务，请等待服务升级</h1></center>`);
   try {
     const content = await mixed("pages/signup/index.html", params);
     if (typeof content !== "string") throw new Error("Invalid content type");
@@ -609,6 +609,35 @@ app.get("/webide_plugin", async (req, res) => {
       msg: String(e),
       timestamp: time(),
     });
+  }
+});
+
+app.get('/avatar/:id', async (req, res) => {
+  requestLog(req);
+  const id = req.params.id;
+  try {
+    const user = new User();
+    const json = await user.getByID(id);
+    if (json.code != 200) {
+      throw {
+        message: json.msg,
+      }
+    }
+    const data = json.fields[0];
+    const url = data.头像;
+    const r = await fetch(url);
+    res.set('Content-Type', 'image/png');
+    const arrayBuffer = await r.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
+    res.set('Content-Length', buffer.size)
+    res.send(buffer);
+  } catch(e) {
+    return res.json({
+      code: 500,
+      msg: '服务内部错误',
+      error: e.message,
+      timestamp: time()
+    })
   }
 });
 

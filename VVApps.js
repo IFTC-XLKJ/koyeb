@@ -8,56 +8,54 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 
 module.exports = class {
-    static async randomApps(platform) {
-        const j = await this.postData({
-            url: getDataURL,
-            key: VVAppsAppkey,
-            body: {
-                filter: `平台="${platform}"`,
-                page: 1,
-                limit: 10,
-                sort: "RAND()",
-            }
-        });
-        return j;
+  static async randomApps(platform) {
+    const j = await this.postData({
+      url: getDataURL,
+      key: VVAppsAppkey,
+      body: {
+        filter: `平台="${platform}"`,
+        page: 1,
+        limit: 10,
+        sort: "RAND()",
+      }
+    });
+    return j;
+  }
+  static async searchApps(platform, keyword, page) {
+    const j = await this.postData({
+      url: getDataURL,
+      key: VVAppsAppkey,
+      body: {
+        filter: `平台="${platform}" AND (名称 LIKE "%${keyword}%" OR 简介 LIKE "%${keyword}%")`,
+        page: page,
+        limit: 10,
+        sort: `updatedAt DESC`,
+      }
+    });
+    return j;
+  }
+  static async postData(options = {}) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(options.url, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": options.key,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+          "Content-Type": contentType,
+        },
+        body: JSON.stringify(options.body),
+      })
+      if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      throw error;
     }
-    static async searchApps(platform, keyword, page) {
-        const j = await this.postData({
-            url: getDataURL,
-            key: VVAppsAppkey,
-            body: {
-                filter: `平台="${platform}" AND (名称 LIKE "%${keyword}%" OR 简介 LIKE "%${keyword}%")`,
-                page: page,
-                limit: 10,
-                sort: `updatedAt DESC`,
-            }
-        });
-        return j;
-    }
-    static async postData(options = {}) {
-        const timestamp = Date.now();
-        const signaturePromise = sign.get(timestamp);
-        try {
-            const signature = await signaturePromise;
-            const response = await fetch(options.url, {
-                method: "POST",
-                headers: {
-                    "X-Pgaot-Key": options.key,
-                    "X-Pgaot-Sign": signature,
-                    "X-Pgaot-Time": timestamp.toString(),
-                    "Content-Type": contentType,
-                },
-                body: JSON.stringify(options.body),
-            })
-            if (!response.ok) {
-                throw new Error("Network response was not ok " + response.statusText);
-            }
-            const json = await response.json();
-            console.log(json);
-            return json;
-        } catch (error) {
-            console.error("There was a problem with the fetch operation:", error);
-            throw error;
-        }
-    }
+  }
 };
