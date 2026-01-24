@@ -40,13 +40,11 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '1gb' }));
 app.use(bodyParser.raw({ limit: '1gb' }));
 app.use(bodyParser.text());
-app.use(bodyParser.urlencoded({ extended: false }));
-// 在 server.js 中设置更大的 body 大小限制
-app.use(bodyParser.json({ limit: '10mb' }));  // 增加 JSON 请求大小限制
-app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));  // 同时也增加 urlencoded 请求限制
+// app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 app.use("/file", express.static(path.join(__dirname, "file")));
