@@ -14,6 +14,7 @@ const whois = require('whois');
 const { version } = require("os");
 const _CoDrive = require("./CoDrive.js");
 const { createClient } = require("@supabase/supabase-js");
+const { resolve } = require("path");
 // console.log('初始化', CoDrive)
 // console.log(fs);
 
@@ -1656,6 +1657,11 @@ class Other {
         msg: "File too large",
         timestamp: time()
       });
+      if (!(await isImage(file))) return res.status(400).json({
+        code: 400,
+        msg: "File must be a Image",
+        timestamp: time(),
+      });
       const uuid = generateUUID();
       const { data, error } = await avatarBucket.update(uuid + ".png", file, {
         contentType: "image/png",
@@ -1842,6 +1848,50 @@ function base64ToFile(base64String, filename = "file") {
     u8arr[n] = bstr.charCodeAt(n);
   }
   return new File([u8arr], filename);
+}
+/**
+ * 读取内容来判断是否为图片，而不是通过type
+ * @param {File} file 
+ * @returns {boolean}
+ */
+function isImage(file) {
+  if (!file || file.size < 10) return false;
+  const temporaryReader = new FileReader();
+  const imageSignatures = [
+    { bytes: [0xFF, 0xD8, 0xFF], exts: ['jpg', 'jpeg'] },
+    { bytes: [0x89, 0x50, 0x4E, 0x47], exts: ['png'] },
+    { bytes: [0x47, 0x49, 0x46, 0x38], exts: ['gif'] },
+    { bytes: [0x52, 0x49, 0x46, 0x46, , 0x57, 0x45, 0x42, 0x50], exts: ['webp'] },
+    { bytes: [0x42, 0x4D], exts: ['bmp'] },
+    { bytes: [0x00, 0x00, 0x00, 0x0C, 0x6A, 0x50, 0x20, 0x20], exts: ['jp2'] },
+    { bytes: [0x49, 0x49, 0x2A, 0x00], exts: ['tif', 'tiff'] },
+    { bytes: [0x4D, 0x4D, 0x00, 0x2A], exts: ['tif', 'tiff'] }
+  ];
+  const slice = file.slice(0, 10);
+  const buffer = new ArrayBuffer(10);
+  const view = new Uint8Array(buffer);
+  return new Promise((resolve) => {
+    temporaryReader.onload = function (e) {
+      const arr = new Uint8Array(e.target.result);
+      for (const sig of imageSignatures) {
+        let match = true;
+        for (let i = 0; i < sig.bytes.length; i++) {
+          if (arr[i] !== sig.bytes[i]) {
+            match = false;
+            break;
+          }
+        }
+        if (match) {
+          resolve(true);
+          return;
+        }
+      }
+      resolve(false);
+    };
+
+    temporaryReader.onerror = () => resolve(false);
+    temporaryReader.readAsArrayBuffer(slice);
+  });
 }
 module.exports = Other;
 // export default Other;
