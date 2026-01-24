@@ -16,21 +16,56 @@
 <body>
     <h1 style="display: none;">VV账号注册</h1>
     <div class="register-form">
-        <h2>用户注册</h2>
+        <div class="register-header">
+            <div class="logo">VV</div>
+            <div>
+                <h2>用户注册</h2>
+                <p>创建你的 VV 账号</p>
+            </div>
+        </div>
+
         <form id="registerForm">
-            用户名<input type="text" id="user" required>
-            <button id="random_username">随机用户名</button><br>
-            密码<input type="password" id="password" required><br>
-            确认密码<input type="password" id="confirmPassword" required><br>
-            邮箱<input type="email" id="email" required><br>
-            邮箱验证码
-            <div class="button-group">
-                <input type="text" id="emailVerifyCode" required>
-                <button type="button" id="getCode">获取验证码</button>
-            </div><br>
-            头像<input type="file" id="avatar" accept="image/*" required><br>
+            <div class="field">
+                <label for="user">用户名</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <input type="text" id="user" required placeholder="用户名">
+                    <button id="random_username" type="button">随机用户名</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="password">密码</label>
+                <input type="password" id="password" required placeholder="至少8位">
+            </div>
+
+            <div class="field">
+                <label for="confirmPassword">确认密码</label>
+                <input type="password" id="confirmPassword" required placeholder="再次输入密码">
+            </div>
+
+            <div class="field">
+                <label for="email">邮箱</label>
+                <input type="email" id="email" required placeholder="邮箱地址">
+            </div>
+
+            <div class="field">
+                <label>邮箱验证码</label>
+                <div class="button-group">
+                    <input type="text" id="emailVerifyCode" required placeholder="验证码">
+                    <button type="button" id="getCode">获取验证码</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <label for="avatar">头像</label>
+                <input type="file" id="avatar" accept="image/*">
+            </div>
+
             <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess" data-lang="zh"></div>
-            <input type="submit" value="注册">
+
+            <div class="submit-row">
+                <input type="submit" value="注册">
+            </div>
         </form>
     </div>
     <script src="/static/signup/index.js"></script>
