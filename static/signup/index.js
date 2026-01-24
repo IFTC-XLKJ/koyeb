@@ -132,10 +132,7 @@ console.log("注册页面全新升级");
             });
             if (r.ok) {
                 const data = await r.json();
-                if (data.code != 200) {
-                    alert("上传头像失败，原因：" + data.msg);
-                    return;
-                }
+                if (data.error) return alert("上传头像失败，原因：" + data.msg);
                 globalThis.Avatar = data.key;
                 alert("上传头像成功");
             }
