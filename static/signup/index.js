@@ -132,8 +132,8 @@ console.log("注册页面全新升级");
             });
             if (r.ok) {
                 const data = await r.json();
-                if (data.error) return alert("上传头像失败，原因：" + data.msg);
-                globalThis.Avatar = data.key;
+                if (data.error) return alert("上传头像失败，原因：" + data.error);
+                globalThis.Avatar = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/avatar/" + data.data.path;
                 alert("上传头像成功");
             }
         } catch (error) {
