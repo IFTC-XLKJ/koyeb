@@ -1650,7 +1650,7 @@ class Other {
     })
     this.app.post("/api/upload-avatar", async (req, res) => {
       const { img } = req.body;
-      const file = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), "base64");
+      const file = base64ToFile(img, "avatar.png");
       const uuid = generateUUID();
       const { data, error } = await avatarBucket.update(uuid + ".png", file, {
         contentType: "image/png",
@@ -1829,16 +1829,14 @@ function randomNumber(min, max) {
  * @param {string} filename - 生成的文件名
  * @returns {File} - 返回File对象
  */
-function base64ToFile(base64String, filename) {
-  const arr = base64String.split(',');
-  const mime = arr[0].match(/:(.*?);/)[1];
-  const bstr = atob(arr[1]);
+function base64ToFile(base64String, filename = "file") {
+  const bstr = atob(base64String);
   let n = bstr.length;
   const u8arr = new Uint8Array(n);
   while (n--) {
     u8arr[n] = bstr.charCodeAt(n);
   }
-  return new File([u8arr], filename, { type: mime });
+  return new File([u8arr], filename);
 }
 module.exports = Other;
 // export default Other;
