@@ -1651,6 +1651,11 @@ class Other {
     this.app.post("/api/upload-avatar", async (req, res) => {
       const { img } = req.body;
       const file = base64ToFile(img, "avatar.png");
+      if (file.size > 1024 * 1024 * 5) return res.status(400).json({
+        code: 400,
+        msg: "File too large",
+        timestamp: time()
+      });
       const uuid = generateUUID();
       const { data, error } = await avatarBucket.update(uuid + ".png", file, {
         contentType: "image/png",
