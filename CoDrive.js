@@ -91,52 +91,52 @@ class CoDrive {
                 res.set('Content-Disposition', `attachment; filename="${uri.split('/')[uri.split('/').length - 1]}"`);
                 return res.send(buffer);
             });
-        app.post("/api/cloud/upload-avatar",
-            async (req, res) => {
-                console.log(req.body, req.body.length);
-                if (!req.body) return res.status(400).json({
-                    code: 400,
-                    msg: "缺少文件",
-                    timestamp: Date.now()
-                });
-                const size = req.body.length;
-                if (size > 5 * 1024 * 1024) return res.status(413).json({
-                    code: 413,
-                    msg: '最大5MB',
-                    timestamp: Date.now()
-                });
-                const {
-                    id
-                } = req.query;
-                console.log(id);
-                const ts = Date.now();
-                const json1 = await this.createFile(`/VVAvatar/${id || ts}.vvavatar`, "file");
-                console.log(json1);
-                if (json1.code != 0) return res.json({
-                    code: 500,
-                    msg: "上传失败",
-                    error: json1.error || json1.msg,
-                    timestamp: Date.now()
-                });
-                setTimeout(async () => {
-                    const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
-                    console.log(json2);
-                    if (json2.code != 0) return res.json({
-                        code: 500,
-                        msg: "上传失败",
-                        error: json2.error || json2.msg,
-                        timestamp: Date.now()
-                    });
-                    return res.json({
-                        code: 200,
-                        msg: "上传成功",
-                        key: id || ts,
-                        id: json1.data.id,
-                        timestamp: Date.now()
-                    });
-                },
-                    200);
-            });
+        // app.post("/api/cloud/upload-avatar",
+        //     async (req, res) => {
+        //         console.log(req.body, req.body.length);
+        //         if (!req.body) return res.status(400).json({
+        //             code: 400,
+        //             msg: "缺少文件",
+        //             timestamp: Date.now()
+        //         });
+        //         const size = req.body.length;
+        //         if (size > 5 * 1024 * 1024) return res.status(413).json({
+        //             code: 413,
+        //             msg: '最大5MB',
+        //             timestamp: Date.now()
+        //         });
+        //         const {
+        //             id
+        //         } = req.query;
+        //         console.log(id);
+        //         const ts = Date.now();
+        //         const json1 = await this.createFile(`/VVAvatar/${id || ts}.vvavatar`, "file");
+        //         console.log(json1);
+        //         if (json1.code != 0) return res.json({
+        //             code: 500,
+        //             msg: "上传失败",
+        //             error: json1.error || json1.msg,
+        //             timestamp: Date.now()
+        //         });
+        //         setTimeout(async () => {
+        //             const json2 = await this.updateFileContent(`/VVAvatar/${id || ts}.vvavatar`, req.body);
+        //             console.log(json2);
+        //             if (json2.code != 0) return res.json({
+        //                 code: 500,
+        //                 msg: "上传失败",
+        //                 error: json2.error || json2.msg,
+        //                 timestamp: Date.now()
+        //             });
+        //             return res.json({
+        //                 code: 200,
+        //                 msg: "上传成功",
+        //                 key: id || ts,
+        //                 id: json1.data.id,
+        //                 timestamp: Date.now()
+        //             });
+        //         },
+        //             200);
+        //     });
         app.get('/api/cloud/avatar', async (req,
             res) => {
             const {
