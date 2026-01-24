@@ -1,113 +1,231 @@
-:root{
-    --bg1:#e6f6ff;
-    --bg2:#d9f0ff;
-    --accent:#37aef9;
-    --accent-2:#16a4fd;
-    --panel:#ffffff;
-    --muted:#6b7280;
+:root {
+    --bg1: #e6f6ff;
+    --bg2: #d9f0ff;
+    --accent: #37aef9;
+    --accent-2: #16a4fd;
+    --panel: #ffffff;
+    --muted: #6b7280;
 }
 
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0
+}
+
 body {
     font-family: "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", Arial, sans-serif;
-    background: radial-gradient(1200px 600px at 10% 20%, rgba(55,174,249,0.08), transparent),
-                linear-gradient(135deg,var(--bg1),var(--bg2));
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:32px;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
+    background: radial-gradient(1200px 600px at 10% 20%, rgba(55, 174, 249, 0.08), transparent),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-.register-form{
-    width:100%;
-    max-width:520px;
-    background:var(--panel);
-    padding:28px;
-    border-radius:14px;
-    box-shadow:0 10px 30px rgba(16,24,40,0.08), 0 2px 6px rgba(16,24,40,0.04);
-    text-align:left;
-    position:relative;
+.register-form {
+    width: 100%;
+    max-width: 520px;
+    background: var(--panel);
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(16, 24, 40, 0.08), 0 2px 6px rgba(16, 24, 40, 0.04);
+    text-align: left;
+    position: relative;
 }
 
-.register-form::before{
-    content:'';
-    position:absolute;
-    right:-60px;
-    top:-40px;
-    width:160px;height:160px;
-    background:linear-gradient(45deg,rgba(55,174,249,0.12),rgba(22,164,253,0.08));
-    border-radius:50%;
-    filter:blur(24px);
-    pointer-events:none;
+.register-form::before {
+    content: '';
+    position: absolute;
+    right: -60px;
+    top: -40px;
+    width: 160px;
+    height: 160px;
+    background: linear-gradient(45deg, rgba(55, 174, 249, 0.12), rgba(22, 164, 253, 0.08));
+    border-radius: 50%;
+    filter: blur(24px);
+    pointer-events: none;
 }
 
-.login-header, .register-header{display:flex;align-items:center;gap:12px;margin-bottom:18px}
-.register-header .logo{width:48px;height:48px;border-radius:8px;background:linear-gradient(135deg,var(--accent),var(--accent-2));display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:20px}
-.register-header h2{margin:0;color:var(--accent);font-size:20px}
-.register-header p{margin:0;color:var(--muted);font-size:13px}
+.login-header,
+.register-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 18px
+}
 
-.field{margin-top:12px}
-.field label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.register-header .logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px
+}
+
+.register-header h2 {
+    margin: 0;
+    color: var(--accent);
+    font-size: 20px
+}
+
+.register-header p {
+    margin: 0;
+    color: var(--muted);
+    font-size: 13px
+}
+
+.field {
+    margin-top: 12px
+}
+
+.field label {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 6px
+}
+
 .field input[type="text"],
 .field input[type="password"],
 .field input[type="email"],
-.field input[type="file"]{
-    width:100%;
-    padding:12px 14px;
-    border-radius:10px;
-    border:1px solid rgba(15,23,42,0.06);
-    background:linear-gradient(#fff,#fbfdff);
-    font-size:14px;color:#111827;
-    transition:box-shadow .18s ease,transform .12s ease;
+.field input[type="file"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    background: linear-gradient(#fff, #fbfdff);
+    font-size: 14px;
+    color: #111827;
+    transition: box-shadow .18s ease, transform .12s ease;
 }
-.field input::placeholder{color:#c7d5e0}
-.field input:focus{box-shadow:0 6px 18px rgba(55,174,249,0.14);transform:translateY(-1px);outline:none}
 
-.button-group{margin-top:6px;display:flex;gap:8px;align-items:center}
-.button-group input[type="text"]{flex:1}
-.button-group button{padding:8px 12px;border-radius:8px;border:1px solid rgba(15,23,42,0.06);background:transparent;color:var(--accent);cursor:pointer;font-weight:600}
-.button-group button:hover{background:rgba(55,174,249,0.06)}
+.field input::placeholder {
+    color: #c7d5e0
+}
+
+.field input:focus {
+    box-shadow: 0 6px 18px rgba(55, 174, 249, 0.14);
+    transform: translateY(-1px);
+    outline: none
+}
+
+.button-group {
+    margin-top: 6px;
+    display: flex;
+    gap: 8px;
+    align-items: center
+}
+
+.button-group input[type="text"] {
+    flex: 1
+}
+
+.button-group button {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 600
+}
+
+.button-group button:hover {
+    background: rgba(55, 174, 249, 0.06)
+}
 
 /* 样式应用到 input 旁边的内联按钮（例如随机用户名） */
-.field > div button,
-#random_username{
-    padding:8px 12px;
-    border-radius:8px;
-    border:1px solid rgba(15,23,42,0.06);
-    background:transparent;
-    color:var(--accent);
-    cursor:pointer;
-    font-weight:600;
+.field>div button,
+#random_username {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    font-weight: 600;
+    width: 120px;
 }
-.field > div button:hover,
-#random_username:hover{background:rgba(55,174,249,0.06)}
 
-.shield-verify{margin-top:12px}
-
-.submit-row{margin-top:18px}
-.submit-row input[type="submit"]{
-    width:100%;
-    padding:12px 14px;
-    border-radius:10px;
-    border:none;
-    background:linear-gradient(90deg,var(--accent),var(--accent-2));
-    color:#fff;font-weight:600;font-size:15px;cursor:pointer;
-    box-shadow:0 8px 20px rgba(22,164,253,0.18);
-    transition:transform .12s ease,box-shadow .12s ease,opacity .12s ease;
+.field>div button:hover,
+#random_username:hover {
+    background: rgba(55, 174, 249, 0.06)
 }
-.submit-row input[type="submit"]:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(22,164,253,0.18)}
 
-.action{display:flex;gap:10px;justify-content:center;margin-top:14px}
-.action button{background:transparent;border:1px solid rgba(15,23,42,0.06);padding:8px 14px;border-radius:8px;cursor:pointer;color:var(--accent);font-weight:600}
-.action button:hover{background:rgba(55,174,249,0.06)}
+.shield-verify {
+    margin-top: 12px
+}
 
-@media (max-width:640px){
-    .register-form{padding:18px;border-radius:12px}
+.submit-row {
+    margin-top: 18px
+}
+
+.submit-row input[type="submit"] {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    color: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(22, 164, 253, 0.18);
+    transition: transform .12s ease, box-shadow .12s ease, opacity .12s ease;
+}
+
+.submit-row input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(22, 164, 253, 0.18)
+}
+
+.action {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 14px
+}
+
+.action button {
+    background: transparent;
+    border: 1px solid rgba(15, 23, 42, 0.06);
+    padding: 8px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--accent);
+    font-weight: 600
+}
+
+.action button:hover {
+    background: rgba(55, 174, 249, 0.06)
+}
+
+@media (max-width:640px) {
+    .register-form {
+        padding: 18px;
+        border-radius: 12px
+    }
 }
 
 /* accessibility */
-input,button{outline:none}
-button:focus,input:focus{box-shadow:0 8px 20px rgba(55,174,249,0.12)}
+input,
+button {
+    outline: none
+}
+
+button:focus,
+input:focus {
+    box-shadow: 0 8px 20px rgba(55, 174, 249, 0.12)
+}
