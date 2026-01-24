@@ -58,7 +58,11 @@
 
             <div class="field">
                 <label for="avatar">头像</label>
-                <input type="file" id="avatar" accept="image/*">
+                <div class="file-picker">
+                    <input type="file" id="avatar" accept="image/*" class="file-input">
+                    <button type="button" class="file-btn">选择头像</button>
+                    <span class="file-name">未选择文件</span>
+                </div>
             </div>
 
             <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess" data-lang="zh"></div>
@@ -68,6 +72,21 @@
             </div>
         </form>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            const input = document.getElementById('avatar');
+            const btn = document.querySelector('.file-btn');
+            const name = document.querySelector('.file-name');
+            btn && btn.addEventListener('click', ()=> input && input.click());
+            input && input.addEventListener('change', ()=>{
+                if(input.files && input.files[0]){
+                    name.textContent = input.files[0].name;
+                } else {
+                    name.textContent = '未选择文件';
+                }
+            });
+        });
+    </script>
     <script src="/static/signup/index.js"></script>
 </body>
 
