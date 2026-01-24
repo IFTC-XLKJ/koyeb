@@ -3,8 +3,7 @@
     const user = document.getElementById("user");
     const password = document.getElementById("password");
     let verifyToken = null;
-
-    function onVerifySuccess(token) {
+    globalThis.onVerifySuccess = function(token) {
         verifyToken = token;
         console.log("verify success", token);
     };
