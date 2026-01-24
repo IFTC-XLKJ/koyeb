@@ -11,6 +11,7 @@
 
     loginForm.addEventListener("submit", async (e) => {
         e.preventDefault();
+        if (!verifyToken) return alert("请完成验证");
         globalThis.password = password.value;
         try {
             const response = await fetch(`/api/user/login?user=${encodeURIComponent(user.value)}&password=${encodeURIComponent(password.value)}`);
