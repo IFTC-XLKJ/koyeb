@@ -1,3 +1,5 @@
+const { fileFrom } = require("node-fetch");
+
 console.log("注册页面全新升级");
 (async function () {
     const registerForm = document.getElementById("registerForm");
@@ -9,7 +11,7 @@ console.log("注册页面全新升级");
     const getCode = document.getElementById("getCode");
     const avatar = document.getElementById("avatar");
     let verifyToken = null;
-    globalThis.onVerifySuccess = function(token) {
+    globalThis.onVerifySuccess = function (token) {
         verifyToken = token;
         console.log("verify success", token);
     };
@@ -121,12 +123,14 @@ console.log("注册页面全新升级");
             globalThis.Avatar = data.url;
             alert("上传头像成功");
         }*/
-            const r = await fetch('/api/cloud/upload-avatar', {
+            const r = await fetch('/api/upload-avatar', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/octet-stream'
+                    'Content-Type': 'application/json'
                 },
-                body: e.target.files[0],
+                body: JSON.stringify({
+                    img: (await fileToBase64(e.target.files[0])).split(",")[1]
+                }),
             });
             if (r.ok) {
                 const data = await r.json();
@@ -162,3 +166,23 @@ console.log("注册页面全新升级");
         user.value = username;
     });
 })();
+
+/**
+ * 将文件(File/Blob)转换为Base64
+ * @param {File} file - 要转换的文件
+ * @returns {Promise<string>} - 返回Base64字符串的Promise
+ */
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            // 它的格式通常是: "data:image/png;base64,iVBORw0KGgo..."
+            resolve(reader.result);
+        };
+
+        reader.onerror = (error) => {
+            reject(error);
+        };
+    });
+}
