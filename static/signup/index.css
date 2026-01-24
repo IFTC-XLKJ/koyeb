@@ -71,6 +71,20 @@ body {
 .button-group button{padding:8px 12px;border-radius:8px;border:1px solid rgba(15,23,42,0.06);background:transparent;color:var(--accent);cursor:pointer;font-weight:600}
 .button-group button:hover{background:rgba(55,174,249,0.06)}
 
+/* 样式应用到 input 旁边的内联按钮（例如随机用户名） */
+.field > div button,
+#random_username{
+    padding:8px 12px;
+    border-radius:8px;
+    border:1px solid rgba(15,23,42,0.06);
+    background:transparent;
+    color:var(--accent);
+    cursor:pointer;
+    font-weight:600;
+}
+.field > div button:hover,
+#random_username:hover{background:rgba(55,174,249,0.06)}
+
 .shield-verify{margin-top:12px}
 
 .submit-row{margin-top:18px}
