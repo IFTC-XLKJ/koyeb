@@ -1,3 +1,4 @@
+console.log("登录页面全新升级");
 (async function () {
     const loginForm = document.getElementById("loginForm");
     const user = document.getElementById("user");
