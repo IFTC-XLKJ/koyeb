@@ -21,6 +21,7 @@ const SUPABASE_URL = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzQ2OTc5MjAwLCJleHAiOjE5MDQ3NDU2MDB9.11QbQ5OW_m10vblDXAlw1Qq7Dve5Swzn12ILo7-9IXY";
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const avatarBucket = supabase.storage.from("avatar");
 
 class Other {
   CoDrive = null;
@@ -1647,6 +1648,20 @@ class Other {
         });
       }
     })
+    this.app.post("/api/upload-avatar", async (req, res) => {
+      const { img } = req.body;
+      const file = Buffer.from(data.replace(/^data:image\/\w+;base64,/, ""), "base64");
+      const uuid = generateUUID();
+      const { data, error } = await avatarBucket.update(uuid + ".png", file, {
+        contentType: "image/png",
+        cacheControl: "public, max-age=31536000",
+      });
+      return res.json({
+        data,
+        error,
+        timestamp: time(),
+      });
+    });
     console.log("Other");
   }
   async getFile(path) {
@@ -1807,6 +1822,23 @@ async function checkToken(token) {
 }
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+/**
+ * 将Base64转换为文件(File)
+ * @param {string} base64String - Base64字符串
+ * @param {string} filename - 生成的文件名
+ * @returns {File} - 返回File对象
+ */
+function base64ToFile(base64String, filename) {
+  const arr = base64String.split(',');
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n);
+  }
+  return new File([u8arr], filename, { type: mime });
 }
 module.exports = Other;
 // export default Other;
