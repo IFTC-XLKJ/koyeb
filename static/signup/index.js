@@ -1,3 +1,4 @@
+console.log("注册页面全新升级");
 (async function () {
     const registerForm = document.getElementById("registerForm");
     const user = document.getElementById("user");
