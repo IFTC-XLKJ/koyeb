@@ -11,10 +11,13 @@ const NodeGeocoder = require('node-geocoder');
 const expressWs = require('express-ws');
 const maxmind = require('maxmind');
 const whois = require('whois');
-const { version } = require("os");
 const _CoDrive = require("./CoDrive.js");
 const { createClient } = require("@supabase/supabase-js");
-const { resolve } = require("path");
+const multer = require('multer');
+const storage = multer.memoryStorage(); // 存储在内存中
+const upload = multer({ 
+  storage: storage
+});
 // console.log('初始化', CoDrive)
 // console.log(fs);
 
