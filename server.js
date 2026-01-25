@@ -82,9 +82,19 @@ globalThis.opEmails = [
 //   await browser.close();
 // })();
 
+const crawlerAgents = [
+  'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
+  'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
+
+  'python', 'urllib', 'requests', 'httpclient', 'go-http-client',
+  'java', 'curl', 'wget', 'axios', 'node-fetch',
+
+  'scrapy', 'apify', 'puppeteer', 'playwright', 'selenium'
+];
+
 app.use(async (req, res, next) => {
-  const ua = req.headers["user-agent"];
-  if (ua.includes("python")) return res.status(403).json({
+  const ua = (req.headers["user-agent"] || '').toLowerCase();
+  if (crawlerAgents.some(agent => ua.includes(agent))) return res.status(403).json({
     code: 403,
     msg: "爬你妈呢",
     timestamp: time(),
