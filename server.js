@@ -89,6 +89,7 @@ app.use(async (req, res, next) => {
     msg: "爬你妈呢",
     timestamp: time(),
   });
+  next();
 });
 
 app.get("/start", async (req, res) => {
