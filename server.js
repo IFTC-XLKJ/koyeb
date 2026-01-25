@@ -89,7 +89,7 @@ app.use(async (req, res, next) => {
     msg: "爬你妈呢",
     timestamp: time(),
   });
-})
+});
 
 app.get("/start", async (req, res) => {
   const browser = await puppeteer.launch({
