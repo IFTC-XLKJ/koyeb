@@ -52,18 +52,11 @@ const storage = multer.memoryStorage(); // 存储在内存中
 const upload = multer({ 
   storage: storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB 限制
-    files: 1 // 只允许一个文件
+    fileSize: 1024 * 1024 * 1024, // 5MB 限制
+    files: 100
   },
-  fileFilter: (req, file, cb) => {
-    // 只接受图片文件
-    if (file.mimetype.startsWith('image/')) {
-      cb(null, true);
-    } else {
-      cb(new Error('Only image files are allowed'), false);
-    }
-  }
 });
+app.use(upload);
 let startTime;
 globalThis.opEmails = [
   "iftcceo@139.com",
