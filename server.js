@@ -105,6 +105,11 @@ app.use(async (req, res, next) => {
     msg: "爬你妈呢",
     timestamp: time(),
   });
+  if (isSuspiciousBehavior(req)) return res.status(403).json({
+    code: 403,
+    msg: "可疑请求行为",
+    timestamp: time(),
+  });
   if (await isRateLimited(ip)) return res.status(429).json({
     code: 429,
     msg: "请求过于频繁",
@@ -135,18 +140,11 @@ function isSuspiciousBehavior(req) {
   const hasBrowserHeaders = req.headers.accept &&
     req.headers['accept-language'] &&
     req.headers['accept-encoding'];
-
-  // 检查是否有 referer（真实浏览器通常有）
   const hasReferer = !!req.headers.referer;
-
-  // 检查连接类型（爬虫可能使用 keep-alive）
   const connectionType = req.headers.connection;
-
-  // 如果没有浏览器特征且连接类型异常，则可能是爬虫
   if (!hasBrowserHeaders && connectionType === 'close') {
     return true;
   }
-
   return false;
 }
 
