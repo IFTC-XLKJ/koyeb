@@ -20,6 +20,7 @@ const os = require("os");
 const VVApps = require("./VVApps.js");
 const si = require('systeminformation');
 const puppeteer = require('puppeteer');
+const multer = require('multer');
 
 console.log(fetch, globalThis.fetch);
 console.log(Other);
@@ -47,6 +48,22 @@ app.use(bodyParser.urlencoded({ limit: '1gb', extended: true }));
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 app.use("/file", express.static(path.join(__dirname, "file")));
+const storage = multer.memoryStorage(); // 存储在内存中
+const upload = multer({ 
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB 限制
+    files: 1 // 只允许一个文件
+  },
+  fileFilter: (req, file, cb) => {
+    // 只接受图片文件
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed'), false);
+    }
+  }
+});
 let startTime;
 globalThis.opEmails = [
   "iftcceo@139.com",
