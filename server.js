@@ -82,6 +82,7 @@ globalThis.opEmails = [
 //   await browser.close();
 // })();
 
+const requestCounts = new Map();
 const crawlerAgents = [
   'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
   'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
@@ -94,6 +95,7 @@ const crawlerAgents = [
 
 app.use(async (req, res, next) => {
   const ua = (req.headers["user-agent"] || '').toLowerCase();
+  const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   if (crawlerAgents.some(agent => ua.includes(agent))) return res.status(403).json({
     code: 403,
     msg: "爬你妈呢",
