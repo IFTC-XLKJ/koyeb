@@ -121,14 +121,11 @@ console.log("注册页面全新升级");
             globalThis.Avatar = data.url;
             alert("上传头像成功");
         }*/
+            const formData = new FormData();
+            formData.append('avatar', e.target.files[0]);
             const r = await fetch('/api/upload-avatar', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    img: (await fileToBase64(e.target.files[0])).split(",")[1]
-                }),
+                body: formData,
             });
             if (r.ok) {
                 const data = await r.json();
