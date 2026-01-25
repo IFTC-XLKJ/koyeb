@@ -82,6 +82,8 @@ globalThis.opEmails = [
 //   await browser.close();
 // })();
 
+const backendPass = "21ec360b05962410edbcc561edc8648e";
+
 const requestCounts = new Map();
 const crawlerAgents = [
   'googlebot', 'bingbot', 'slurp', 'duckduckbot', 'baiduspider',
@@ -94,6 +96,8 @@ const crawlerAgents = [
 ];
 
 app.use(async (req, res, next) => {
+  if (req.headers["user-agent"] == "Koyeb Health Check") return next();
+  if (req.headers["X-PASS"] == backendPass) return next();
   const ua = (req.headers["user-agent"] || '').toLowerCase();
   const ip = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
   if (crawlerAgents.some(agent => ua.includes(agent))) return res.status(403).json({
@@ -124,6 +128,25 @@ async function isRateLimited(ip) {
   }
   recentRequests.push(now);
   requestCounts.set(ip, recentRequests);
+  return false;
+}
+
+function isSuspiciousBehavior(req) {
+  const hasBrowserHeaders = req.headers.accept &&
+    req.headers['accept-language'] &&
+    req.headers['accept-encoding'];
+
+  // 检查是否有 referer（真实浏览器通常有）
+  const hasReferer = !!req.headers.referer;
+
+  // 检查连接类型（爬虫可能使用 keep-alive）
+  const connectionType = req.headers.connection;
+
+  // 如果没有浏览器特征且连接类型异常，则可能是爬虫
+  if (!hasBrowserHeaders && connectionType === 'close') {
+    return true;
+  }
+
   return false;
 }
 
