@@ -101,8 +101,35 @@ app.use(async (req, res, next) => {
     msg: "爬你妈呢",
     timestamp: time(),
   });
+  if (await isRateLimited(ip)) return res.status(429).json({
+    code: 429,
+    msg: "请求过于频繁",
+    timestamp: time(),
+  });
   next();
 });
+
+async function isRateLimited(ip) {
+  const now = Date.now();
+  const windowMs = 60000; // 1分钟窗口
+  const maxRequests = 30; // 最大请求数
+
+  if (!requestCounts.has(ip)) {
+    requestCounts.set(ip, []);
+  }
+
+  const requests = requestCounts.get(ip);
+  // 清理过期请求
+  const recentRequests = requests.filter(time => now - time < windowMs);
+
+  if (recentRequests.length >= maxRequests) {
+    return true;
+  }
+
+  recentRequests.push(now);
+  requestCounts.set(ip, recentRequests);
+  return false;
+}
 
 app.get("/start", async (req, res) => {
   const browser = await puppeteer.launch({
