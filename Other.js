@@ -1876,17 +1876,13 @@ function base64ToFile(base64String, filename = "file") {
   return new File([u8arr], filename);
 }
 /**
- * 读取内容来判断是否为图片，而不是通过type
- * @param {File} file 
+ * 从 multipart 文件对象检查是否为图片
+ * @param {Object} file - multer 解析的文件对象
  * @returns {Promise<boolean>}
  */
-async function isImage(file) {
-  if (!file || file.size < 10) return false;
-
-  // 将 File 对象转换为 Buffer
-  const arrayBuffer = await file.arrayBuffer();
-  const buffer = Buffer.from(arrayBuffer);
-
+async function isImageFromFile(file) {
+  if (!file || !file.buffer || file.buffer.length < 10) return false;
+  
   // 检查各种图像格式的魔数
   const signatures = [
     { bytes: [0xFF, 0xD8, 0xFF], exts: ['jpg', 'jpeg'] },       // JPEG
@@ -1902,7 +1898,7 @@ async function isImage(file) {
   for (const sig of signatures) {
     let match = true;
     for (let i = 0; i < sig.bytes.length; i++) {
-      if (buffer[i] !== sig.bytes[i]) {
+      if (file.buffer[i] !== sig.bytes[i]) {
         match = false;
         break;
       }
