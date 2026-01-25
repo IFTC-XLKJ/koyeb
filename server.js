@@ -84,7 +84,7 @@ globalThis.opEmails = [
 
 app.use(async (req, res, next) => {
   const ua = req.headers["user-agent"];
-  if (using.includes("python")) return res.status(403).json({
+  if (ua.includes("python")) return res.status(403).json({
     code: 403,
     msg: "爬你妈呢",
     timestamp: time(),
