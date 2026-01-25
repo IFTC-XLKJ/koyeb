@@ -48,15 +48,7 @@ app.use(bodyParser.urlencoded({ limit: '1gb', extended: true }));
 const port = process.env.PORT || 3000;
 app.use("/static", express.static(path.join(__dirname, "static")));
 app.use("/file", express.static(path.join(__dirname, "file")));
-const storage = multer.memoryStorage(); // 存储在内存中
-const upload = multer({ 
-  storage: storage,
-  limits: {
-    fileSize: 1024 * 1024 * 1024, // 5MB 限制
-    files: 100
-  },
-});
-app.use(upload);
+const storage = multer.memoryStorage();
 let startTime;
 globalThis.opEmails = [
   "iftcceo@139.com",
