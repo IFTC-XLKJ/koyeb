@@ -81,6 +81,16 @@ globalThis.opEmails = [
 //   await page.screenshot({ path: 'static/screenshot.png' });
 //   await browser.close();
 // })();
+
+app.use(async (req, res, next) => {
+  const ua = req.headers["user-agent"];
+  if (using.includes("python")) return res.status(403).json({
+    code: 403,
+    msg: "爬你妈呢",
+    timestamp: time(),
+  });
+})
+
 app.get("/start", async (req, res) => {
   const browser = await puppeteer.launch({
     args: [
@@ -631,7 +641,7 @@ app.get('/avatar/:id', async (req, res) => {
     const buffer = Buffer.from(arrayBuffer);
     res.set('Content-Length', buffer.size)
     res.send(buffer);
-  } catch(e) {
+  } catch (e) {
     return res.json({
       code: 500,
       msg: '服务内部错误',
