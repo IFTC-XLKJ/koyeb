@@ -1651,7 +1651,7 @@ class Other {
     })
     this.app.post("/api/upload-avatar", async (req, res) => {
       try {
-        console.log(req.files);
+        console.log("头像文件", req.files);
         if (!req.files || !req.files['avatar']) {
           return res.status(400).json({
             code: 400,
