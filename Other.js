@@ -1650,28 +1650,50 @@ class Other {
       }
     })
     this.app.post("/api/upload-avatar", async (req, res) => {
-      const { img } = req.body;
-      const file = base64ToFile(img, "avatar.png");
-      if (file.size > 1024 * 1024 * 5) return res.status(400).json({
-        code: 400,
-        msg: "File too large",
-        timestamp: time()
-      });
-      if (!(await isImage(file))) return res.status(400).json({
-        code: 400,
-        msg: "File must be a Image",
-        timestamp: time(),
-      });
-      const uuid = generateUUID();
-      const { data, error } = await avatarBucket.update(uuid + ".png", file, {
-        contentType: "image/png",
-        cacheControl: "public, max-age=31536000",
-      });
-      return res.json({
-        data,
-        error,
-        timestamp: time(),
-      });
+      try {
+        if (!req.files || !req.files['avatar']) {
+          return res.status(400).json({
+            code: 400,
+            msg: "No avatar file provided",
+            timestamp: time()
+          });
+        }
+        const file = req.files['avatar'][0];
+        if (file.size > 1024 * 1024 * 5) {
+          return res.status(400).json({
+            code: 400,
+            msg: "File too large",
+            timestamp: time()
+          });
+        }
+        if (!(await isImageFromFile(file))) {
+          return res.status(400).json({
+            code: 400,
+            msg: "File must be an Image",
+            timestamp: time(),
+          });
+        }
+        const uuid = generateUUID();
+        const { data, error } = await avatarBucket.update(uuid + ".png", file.buffer, {
+          contentType: file.mimetype || "image/png",
+          cacheControl: "public, max-age=31536000",
+        });
+        return res.json({
+          code: 200,
+          msg: "Upload successful",
+          data,
+          error: error ? error.message : null,
+          timestamp: time(),
+        });
+      } catch (err) {
+        console.error('Avatar upload error:', err);
+        return res.status(500).json({
+          code: 500,
+          msg: "Upload failed",
+          error: err.message,
+          timestamp: time()
+        });
+      }
     });
     console.log("Other");
   }
@@ -1856,7 +1878,7 @@ function base64ToFile(base64String, filename = "file") {
  */
 async function isImage(file) {
   if (!file || file.size < 10) return false;
-  
+
   // 将 File 对象转换为 Buffer
   const arrayBuffer = await file.arrayBuffer();
   const buffer = Buffer.from(arrayBuffer);
