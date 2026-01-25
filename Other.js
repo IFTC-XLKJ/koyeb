@@ -1882,19 +1882,16 @@ function base64ToFile(base64String, filename = "file") {
  */
 async function isImageFromFile(file) {
   if (!file || !file.buffer || file.buffer.length < 10) return false;
-  
-  // 检查各种图像格式的魔数
   const signatures = [
-    { bytes: [0xFF, 0xD8, 0xFF], exts: ['jpg', 'jpeg'] },       // JPEG
-    { bytes: [0x89, 0x50, 0x4E, 0x47], exts: ['png'] },        // PNG
-    { bytes: [0x47, 0x49, 0x46, 0x38], exts: ['gif'] },        // GIF
-    { bytes: [0x52, 0x49, 0x46, 0x46], exts: ['webp'] },       // WebP (RIFF header)
-    { bytes: [0x42, 0x4D], exts: ['bmp'] },                    // BMP
-    { bytes: [0x00, 0x00, 0x00, 0x0C, 0x6A, 0x50, 0x20, 0x20], exts: ['jp2'] }, // JP2
-    { bytes: [0x49, 0x49, 0x2A, 0x00], exts: ['tif', 'tiff'] }, // TIFF (little endian)
-    { bytes: [0x4D, 0x4D, 0x00, 0x2A], exts: ['tif', 'tiff'] }  // TIFF (big endian)
+    { bytes: [0xFF, 0xD8, 0xFF], exts: ['jpg', 'jpeg'] },
+    { bytes: [0x89, 0x50, 0x4E, 0x47], exts: ['png'] },
+    { bytes: [0x47, 0x49, 0x46, 0x38], exts: ['gif'] },
+    { bytes: [0x52, 0x49, 0x46, 0x46], exts: ['webp'] },
+    { bytes: [0x42, 0x4D], exts: ['bmp'] },
+    { bytes: [0x00, 0x00, 0x00, 0x0C, 0x6A, 0x50, 0x20, 0x20], exts: ['jp2'] },
+    { bytes: [0x49, 0x49, 0x2A, 0x00], exts: ['tif', 'tiff'] },
+    { bytes: [0x4D, 0x4D, 0x00, 0x2A], exts: ['tif', 'tiff'] }
   ];
-
   for (const sig of signatures) {
     let match = true;
     for (let i = 0; i < sig.bytes.length; i++) {
