@@ -1649,7 +1649,7 @@ class Other {
         });
       }
     })
-    this.app.post("/api/upload-avatar", async (req, res) => {
+    this.app.post("/api/upload-avatar", upload.fields([{ name: 'avatar', maxCount: 1 }]), async (req, res) => {
       try {
         console.log("头像文件", req.files);
         if (!req.files || !req.files['avatar']) {
