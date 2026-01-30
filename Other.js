@@ -969,7 +969,7 @@ class Other {
           msg: "鉴权失败",
           timestamp: time()
         });
-        const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
+        const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
           method: "POST",
           headers: {
             Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
