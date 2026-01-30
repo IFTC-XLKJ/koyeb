@@ -1013,6 +1013,7 @@ class Other {
           });
         }
       } catch (e) {
+        console.log(e);
         return res.json({
           code: 500,
           msg: "服务器发生错误",
