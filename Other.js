@@ -972,7 +972,7 @@ class Other {
         const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
           method: "POST",
           headers: {
-            Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
+            Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
             "Content-Type": "application/json",
             Origin: "https://iftc.koyeb.app",
           },
@@ -1069,7 +1069,7 @@ class Other {
           const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
+              Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app",
             },
@@ -1171,7 +1171,7 @@ class Other {
           const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
+              Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app"
             },
@@ -1258,7 +1258,7 @@ class Other {
           const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
+              Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app"
             },
@@ -1346,7 +1346,7 @@ class Other {
           const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
-              Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
+              Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
               "Content-Type": "application/json",
               Origin: "https://iftc.koyeb.app"
             },
@@ -1635,7 +1635,7 @@ class Other {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer sk-qjz2PL8u4nMpU1ukag15nvxplG7SG1ZsvyQQ3RhuOf6BiIKA`,
+            Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
             Origin: "https://iftc.koyeb.app",
           },
           body: JSON.stringify(body),
