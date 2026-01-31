@@ -1066,7 +1066,7 @@ class Other {
               timestamp: time()
             });
           }
-          const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
+          const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
               Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
@@ -1168,7 +1168,7 @@ class Other {
               timestamp: time()
             });
           }
-          const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
+          const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
               Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
@@ -1255,7 +1255,7 @@ class Other {
               timestamp: time()
             });
           }
-          const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
+          const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
               Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
@@ -1343,7 +1343,7 @@ class Other {
               timestamp: time()
             });
           }
-          const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
+          const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
             method: "POST",
             headers: {
               Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
@@ -1631,7 +1631,7 @@ class Other {
             timestamp: time()
           });
         }
-        const r = await fetch("https://ai.amethyst.ltd/v1/chat/completions", {
+        const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
