@@ -1728,6 +1728,50 @@ class Other {
         });
       }
     });
+    this.app.get("/api/auth/verify", async (req, res) => {
+      requestLog(req);
+      const { token } = req.query;
+      if (!token) return res.status(400).json({
+        code: 400,
+        msg: "Missing token parameter",
+        timestamp: time()
+      });
+      const AuthTokenTable = supabase.from('AuthToken');
+      try {
+        const { data, error } = await AuthTokenTable.select().eq('token', token);
+        if (error) {
+          return res.status(404).json({
+            code: 404,
+            msg: "Token not found",
+            timestamp: time()
+          });
+        }
+        if (!data || data.length === 0) {
+          return res.status(404).json({
+            code: 404,
+            msg: "Token not found",
+            timestamp: time()
+          });
+        }
+        return res.json({
+          code: 200,
+          msg: "Success",
+          data: {
+            token: token,
+            redirect: data[0].redirect,
+            id: data[0].uid,
+          },
+          timestamp: time()
+        });
+      } catch (error) {
+        return res.status(500).json({
+          code: 500,
+          msg: "Internal Server Error",
+          error: error.message,
+          timestamp: time()
+        });
+      }
+    });
     console.log("Other");
   }
   async getFile(path) {
