@@ -1663,6 +1663,40 @@ class Other {
       });
       const AuthTokenTable = supabase.from('AuthToken');
       console.log("AuthTokenTable", AuthTokenTable);
+      try {
+        const { data, error } = await AuthTokenTable.select().eq('token', token);
+        if (error) {
+          return res.status(404).json({
+            code: 404,
+            msg: "Token not found",
+            timestamp: time()
+          });
+        }
+        if (!data || data.length === 0) {
+          return res.status(404).json({
+            code: 404,
+            msg: "Token not found",
+            timestamp: time()
+          });
+        }
+        const redirect = data[0].redirect;
+        return res.json({
+          code: 200,
+          msg: "Success",
+          data: {
+            token: token,
+            redirect: redirect
+          },
+          timestamp: time()
+        });
+      } catch (error) {
+        return res.status(500).json({
+          code: 500,
+          msg: "Internal Server Error",
+          error: error.message,
+          timestamp: time()
+        });
+      }
     });
     this.app.get("/api/auth/token", async (req, res) => {
       requestLog(req);
