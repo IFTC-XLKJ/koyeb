@@ -1753,7 +1753,7 @@ class Other {
             timestamp: time()
           });
         }
-        if (!data[0].uid) {
+        if (!(data[0].uid || data[0].uid == 0)) {
           return res.status(401).json({
             code: 401,
             msg: "Token not verified",
