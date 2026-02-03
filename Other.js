@@ -1770,7 +1770,7 @@ class Other {
           },
           timestamp: time()
         });
-        await AuthTokenTable.delete().eq('token', token);
+        await AuthTokenTable.delete().eq('id', data[0].id);
       } catch (error) {
         return res.status(500).json({
           code: 500,
