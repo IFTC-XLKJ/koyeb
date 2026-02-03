@@ -1711,7 +1711,17 @@ class Other {
       const AuthTokenTable = supabase.from('AuthToken');
       console.log("AuthTokenTable", AuthTokenTable);
       const token = generateRandomString(32);
-      const json = await AuthTokenTable.insert([{ token: token, redirect: redirect }]);
+      try {
+        const json = await AuthTokenTable.insert([{ token: token, redirect: redirect }]);
+        console.log(json);
+      } catch (error) {
+        return res.status(500).json({
+          code: 500,
+          msg: "Internal Server Error",
+          error: error.message,
+          timestamp: time()
+        });
+      }
     });
     console.log("Other");
   }
