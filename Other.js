@@ -1655,6 +1655,12 @@ class Other {
     });
     this.app.get("/api/authorization", async (req, res) => {
       requestLog(req);
+      const { token } = req.query;
+      if (!token) return res.status(400).json({
+        code: 400,
+        msg: "Missing token parameter",
+        timestamp: time()
+      });
     });
     this.app.get("/api/auth/token", async (req, res) => {
       requestLog(req);
