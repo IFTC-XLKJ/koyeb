@@ -1661,6 +1661,8 @@ class Other {
         msg: "Missing token parameter",
         timestamp: time()
       });
+      const AuthTokenTable = supabase.from('AuthToken');
+      console.log("AuthTokenTable", AuthTokenTable);
     });
     this.app.get("/api/auth/token", async (req, res) => {
       requestLog(req);
