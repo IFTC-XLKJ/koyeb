@@ -1682,7 +1682,9 @@ class Other {
           });
         }
         const redirect = data[0].redirect;
-        const json = await User.updateToken(data[0].id, token);
+        const data2 = await AuthTokenTable.update({ uid: ID }, { id: data[0].id });
+        console.log("Updated AuthTokenTable:", data2);
+        return res.redirect(redirect);
       } catch (error) {
         return res.status(500).json({
           code: 500,
