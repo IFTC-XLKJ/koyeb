@@ -1701,6 +1701,15 @@ class Other {
     });
     this.app.get("/api/auth/token", async (req, res) => {
       requestLog(req);
+      const { redirect } = req.query;
+      if (!redirect) return res.status(400).json({
+        code: 400,
+        msg: "Bad Request",
+        error: "Missing redirect parameter",
+        timestamp: time()
+      });
+      const AuthTokenTable = supabase.from('Auth Token');
+      console.log("AuthTokenTable", AuthTokenTable);
     });
     console.log("Other");
   }
