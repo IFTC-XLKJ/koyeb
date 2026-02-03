@@ -1677,6 +1677,16 @@ class Other {
       try {
         const json = await AuthTokenTable.insert([{ token: token, redirect: redirect }]);
         console.log(json);
+        return res.json({
+          code: 200,
+          msg: "Success",
+          data: {
+            token: token,
+            redirect: redirect,
+            url: `https://iftc.koyeb.app/api/authorization?token=${token}`,
+          },
+          timestamp: time()
+        });
       } catch (error) {
         return res.status(500).json({
           code: 500,
