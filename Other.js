@@ -1657,7 +1657,7 @@ class Other {
       requestLog(req);
       const { token } = req.query;
       const ID = req.cookies.ID;
-      if (!(ID || ID == 0)) return res.redirect(`https://iftc.koyeb.app/login?redirect=${encodeURIComponent(`https://iftc.koyeb.app/api/authorization?token=${token}`)}`);
+      if (!(ID || ID == 0)) return res.redirect(`https://iftc.koyeb.app/login?page=${encodeURIComponent(`https://iftc.koyeb.app/api/authorization?token=${token}`)}`);
       if (!token) return res.status(400).json({
         code: 400,
         msg: "Missing token parameter",
