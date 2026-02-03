@@ -1681,8 +1681,8 @@ class Other {
             timestamp: time()
           });
         }
-        const redirect = data[0].redirect;
         const data2 = await AuthTokenTable.update({ uid: ID }).eq("id", data[0].id).select();
+        const redirect = data[0].redirect;
         console.log("Updated AuthTokenTable:", data2);
         return res.redirect(redirect);
       } catch (error) {
