@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
 const path = require("path");
 const fs = require("fs").promises;
 const User = require("./User.js");
@@ -41,6 +42,7 @@ const corsOptions = {
 }
 
 app.use(cors(corsOptions));
+app.use(cookieParser());
 app.use(bodyParser.json({ limit: '1gb' }));
 app.use(bodyParser.raw({ limit: '1gb' }));
 app.use(bodyParser.text());

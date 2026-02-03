@@ -6,8 +6,9 @@ RUN apt upgrade
 RUN apt update
 
 RUN npm ci
-RUN npm install @supabase/supabase-js
-RUN npm install puppeteer
+RUN npm i @supabase/supabase-js
+RUN npm i puppeteer
+RUN npm i cookie-parser
 
 # 安装 Chromium 和必要依赖
 RUN apt-get update && \
