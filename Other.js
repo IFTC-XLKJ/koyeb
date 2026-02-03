@@ -1708,8 +1708,10 @@ class Other {
         error: "Missing redirect parameter",
         timestamp: time()
       });
-      const AuthTokenTable = supabase.from('Auth Token');
+      const AuthTokenTable = supabase.from('AuthToken');
       console.log("AuthTokenTable", AuthTokenTable);
+      const token = generateRandomString(32);
+      const json = await AuthTokenTable.insert([{ token: token, redirect: redirect }]);
     });
     console.log("Other");
   }
