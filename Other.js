@@ -1656,6 +1656,8 @@ class Other {
     this.app.get("/api/authorization", async (req, res) => {
       requestLog(req);
       const { token } = req.query;
+      const ID = req.cookies.ID;
+      if (!ID) return res.redirect(`https://iftc.koyeb.app/login?redirect=${encodeURIComponent(`https://iftc.koyeb.app/api/authorization?token=${token}`)}`);
       if (!token) return res.status(400).json({
         code: 400,
         msg: "Missing token parameter",
@@ -1680,15 +1682,7 @@ class Other {
           });
         }
         const redirect = data[0].redirect;
-        return res.json({
-          code: 200,
-          msg: "Success",
-          data: {
-            token: token,
-            redirect: redirect
-          },
-          timestamp: time()
-        });
+        const json = await User.updateToken(data[0].id, token);
       } catch (error) {
         return res.status(500).json({
           code: 500,
