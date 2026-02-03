@@ -173,6 +173,7 @@ app.get("/start", async (req, res) => {
 });
 
 app.use(async (req, res, next) => {
+  console.log(req.cookies)
   if (req.headers["user-agent"] == "Koyeb Health Check") return next();
   if (req.headers["user-agent"] == "IFTC Bot") return next();
   requestRecord(req);
