@@ -1699,6 +1699,9 @@ class Other {
         });
       }
     });
+    this.app.get("/api/auth/token", async (req, res) => {
+      requestLog(req);
+    });
     console.log("Other");
   }
   async getFile(path) {
