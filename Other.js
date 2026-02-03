@@ -1753,7 +1753,14 @@ class Other {
             timestamp: time()
           });
         }
-        return res.json({
+        if (!data[0].uid) {
+          return res.status(401).json({
+            code: 401,
+            msg: "Token not verified",
+            timestamp: time()
+          });
+        }
+        res.json({
           code: 200,
           msg: "Success",
           data: {
@@ -1763,6 +1770,7 @@ class Other {
           },
           timestamp: time()
         });
+        await AuthTokenTable.delete().eq('token', token);
       } catch (error) {
         return res.status(500).json({
           code: 500,
