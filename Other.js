@@ -813,52 +813,6 @@ class Other {
           res.send(`服务端发生错误`);
         }
       });
-    this.app.get("/api/authorization",
-      async (req, res) => {
-        requestLog(req);
-        if (req.headers.authorization.split(" ")[0] != "Bearer") return res.status(400).json({
-          code: 400,
-          msg: "Authorization格式错误",
-          timestamp: time(),
-        });
-        const token = req.headers.authorization.split(" ")[1];
-        console.log("toekn:", token);
-        try {
-          const json = await user.loginByToken(token);
-          if (json.code == 200) {
-            const data = json.fields[0];
-            if (!data) return res.status(401).json({
-              code: 401,
-              msg: "token错误",
-              timestamp: time(),
-            });
-            const UUID = generateUUID();
-            const json2 = await uuid_db.addData(UUID, "oauth", data.ID, "");
-            if (json2.code == 200) return res.json({
-              code: 200,
-              msg: "等待用户授权",
-              url: `https://iftc.koyeb.app/authorization/${UUID}`,
-              uuid: UUID,
-            });
-            else return res.status(json2.code).json({
-              code: json2.code,
-              msg: json2.msg,
-              timestamp: time(),
-            });
-          } else return res.status(json.code).json({
-            code: json.code,
-            msg: json.msg,
-            timestamp: time(),
-          });
-        } catch (e) {
-          res.status(500).json({
-            code: 500,
-            msg: "服务器发生错误",
-            error: e.message,
-            timestamp: time()
-          })
-        }
-      });
     // this.app.get("/api/authorization/:uuid", async (req, res) => {
     //     requestLog(req);
     //     const { uuid } = req.params;
@@ -1698,6 +1652,9 @@ class Other {
           timestamp: time()
         });
       }
+    });
+    this.app.get("/api/authorization", async (req, res) => {
+      requestLog(req);
     });
     this.app.get("/api/auth/token", async (req, res) => {
       requestLog(req);
