@@ -686,10 +686,7 @@ publish.addEventListener("click", async function () {
     const password = localStorage.getItem("password");
     const NID = new URLSearchParams(location.search).get("nid");
     if (ID && password) {
-        if (!NID) {
-            alert("请先确保作品已保存到云端");
-            return;
-        }
+        if (!NID) return alert("请先确保作品已保存到云端");
         const toast = new Toast();
         const lid = toast.loading("正在发布");
         try {
