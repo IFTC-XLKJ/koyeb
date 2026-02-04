@@ -573,10 +573,7 @@ setInterval(function () {
                 },
                 set(value) {
                     frameTitle = value;
-                    if (frameTitle) {
-                        docTitle.innerText = frameTitle;
-                        return;
-                    }
+                    if (frameTitle) return docTitle.innerText = frameTitle;
                     docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
                 }
             })
