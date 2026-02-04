@@ -962,8 +962,7 @@ function obfuscate(code) {
     const nid = new URLSearchParams(location.search).get('nid');
     if (nid && (!ID || !password)) {
         alert("请先登录");
-        location.href = '/login?page=/noob/editor?nid' + nid;
-        return;
+        return location.href = '/login?page=/noob/editor?nid' + nid;
     }
     if (nid) {
         const toast = new Toast();
