@@ -125,7 +125,7 @@ app.use(async (req, res, next) => {
 async function isRateLimited(ip) {
   const now = Date.now();
   const windowMs = 60000;
-  const maxRequests = 30;
+  const maxRequests = 100;
   if (!requestCounts.has(ip)) {
     requestCounts.set(ip, []);
   }
