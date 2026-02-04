@@ -988,20 +988,17 @@ function obfuscate(code) {
             } else if (data.code == 403) {
                 toast.hideToast(lid);
                 alert("你没有权限打开此作品");
-                location.href = '/noob/editor';
-                return;
+                return location.href = '/noob/editor';
             } else {
                 toast.hideToast(lid);
                 alert("打开作品失败");
-                location.href = '/noob/editor';
-                return;
+                return location.href = '/noob/editor';
             }
         } catch (error) {
             console.error(error);
             toast.hideToast(lid);
             alert("打开作品失败\n" + error.stack);
-            location.href = '/noob/editor';
-            return;
+            return location.href = '/noob/editor';
         }
     }
 })();
