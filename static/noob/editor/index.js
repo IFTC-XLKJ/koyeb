@@ -1,3 +1,5 @@
+const { text } = require("body-parser");
+
 globalThis.isSaved = true;
 const pathToMedia = "/static/blockly/package/media/";
 setTimeout(function () {
@@ -61,6 +63,42 @@ multiselectPlugin.init(options);
 workspace.addChangeListener(shadowBlockConversionChangeListener);
 console.log('Workspace initialized:', workspace);
 loadBlocks(initBlocks())
+const varNotStartWith = [
+    "_",
+    "@",
+    "%",
+    "&",
+    "*",
+    "!",
+    "#",
+    "$",
+    "%",
+    "^",
+    "&",
+    "*",
+    "(",
+    ")",
+    "-",,
+    "=",
+    "+",
+    "[",
+    "]",
+    "{",
+    "}",
+    "|",
+    "\\",
+    "?",
+    "/",
+    ":",
+    ";",
+    "'",
+    '"',
+    ",",
+    ".",
+    "<",
+    ">",
+    "`",
+]
 workspace.registerButtonCallback("createVar", function (ws) {
     const mask = document.createElement("div");
     mask.style.position = "fixed";
@@ -97,189 +135,15 @@ workspace.registerButtonCallback("createVar", function (ws) {
     confirm.addEventListener("click", e => {
         varName.value = varName.value.trim();
         const name = varName.value;
-        if (name.length === 0) {
-            tips.innerText = "不能为空";
+        if (name.length === 0) return textTip("不能为空");
+        if (!Number.isNaN(Number(name.slice(0, 1)))) return textTip("不能以数字开头");
+        if (name.includes(" ")) return textTip("不能包含空格");
+        for (let i = 0; i < varNotStartWith.length; i++) if (name.slice(0, 1) === varNotStartWith[i]) return textTip("不能以" + varNotStartWith[i] + "开头");
+        if (vars.find(v => v[0] === name)) return textTip("变量已存在");
+        function textTip(text) {
+            tips.innerText = text;
             tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (!Number.isNaN(Number(name))) {
-            tips.innerText = "不能为数字";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "_") {
-            tips.innerText = "不能以_开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "@") {
-            tips.innerText = "不能以@开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (!Number.isNaN(Number(name.slice(0, 1)))) {
-            tips.innerText = "不能以数字开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "%") {
-            tips.innerText = "不能以%开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "&") {
-            tips.innerText = "不能以&开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "*") {
-            tips.innerText = "不能以*开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "!") {
-            tips.innerText = "不能以!开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "?") {
-            tips.innerText = "不能以?开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "=") {
-            tips.innerText = "不能以=开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "+") {
-            tips.innerText = "不能以+开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "-") {
-            tips.innerText = "不能以-开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "~") {
-            tips.innerText = "不能以~开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "^") {
-            tips.innerText = "不能以^开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === ":") {
-            tips.innerText = "不能以:开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "|") {
-            tips.innerText = "不能以|开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "`") {
-            tips.innerText = "不能以`开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "\\") {
-            tips.innerText = "不能以\\开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "\"") {
-            tips.innerText = "不能以\"开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.slice(0, 1) === "\'") {
-            tips.innerText = "不能以\'开头";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (name.includes(" ")) {
-            tips.innerText = "变量名不能有空格";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
-        }
-        if (vars.find(v => v[0] === name)) {
-            tips.innerText = "变量已存在";
-            tips.style.display = "flex";
-            setTimeout(() => {
-                tips.style.display = "none";
-            }, 2000);
-            return;
+            setTimeout(() => tips.style.display = "none", 2000);
         }
         vars = [[name, encodeURIComponent(name).replaceAll("%", "_")], ...vars]
         mask.remove();
