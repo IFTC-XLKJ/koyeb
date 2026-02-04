@@ -601,8 +601,7 @@ document.getElementById("title").querySelector("input").addEventListener("change
     if (e.target.value.trim() == "") {
         e.target.value = globalThis.cacheTitle;
         const toast = new Toast();
-        toast.showToast("标题不能为空", 2, "center", "small", "error", false, true);
-        return;
+        return toast.showToast("标题不能为空", 2, "center", "small", "error", false, true);
     }
     globalThis.cacheTitle = e.target.value.trim();
 })
@@ -650,9 +649,7 @@ save.addEventListener("click", async function () {
                 if (json.code == 200) {
                     toast.hideToast(lid);
                     toast.showToast("保存成功", 2, "center", "small", "success", false, false);
-                    if (NID == "new") {
-                        updateURLParameter('nid', json.nid);
-                    }
+                    if (NID == "new") updateURLParameter('nid', json.nid);
                     function updateURLParameter(param, value) {
                         let url = new URL(window.location.href);
                         url.searchParams.set(param, value);
@@ -663,8 +660,7 @@ save.addEventListener("click", async function () {
                     alert("鉴权失败，需重新登录");
                     localStorage.removeItem("ID");
                     localStorage.removeItem("password");
-                    window.location.href = "/login";
-                    return;
+                    return window.location.href = "/login";
                 }
             } else {
                 toast.showToast(r.message, 2, "center", "small", "error", false, true);
