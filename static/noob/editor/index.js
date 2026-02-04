@@ -1,5 +1,3 @@
-const { text } = require("body-parser");
-
 globalThis.isSaved = true;
 const pathToMedia = "/static/blockly/package/media/";
 setTimeout(function () {
