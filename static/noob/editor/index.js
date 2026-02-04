@@ -562,11 +562,8 @@ setInterval(function () {
         previewFrame.srcdoc = code;
         previewFrame.onload = function () {
             let frameTitle = previewFrame.contentDocument.title;
-            if (frameTitle) {
-                docTitle.innerText = frameTitle;
-            } else {
-                docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
-            }
+            if (frameTitle) docTitle.innerText = frameTitle;
+            else docTitle.innerHTML = `<em style="color: grey;">未命名标题</em>`;
             Object.defineProperty(previewFrame.contentDocument, "title", {
                 get() {
                     return frameTitle;
