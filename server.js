@@ -126,15 +126,11 @@ async function isRateLimited(ip) {
   const now = Date.now();
   const windowMs = 60000;
   const maxRequests = 100;
-  if (!requestCounts.has(ip)) {
-    requestCounts.set(ip, []);
-  }
+  if (!requestCounts.has(ip)) requestCounts.set(ip, []);
   const requests = requestCounts.get(ip);
   const recentRequests = requests.filter(time => now - time < windowMs);
 
-  if (recentRequests.length >= maxRequests) {
-    return true;
-  }
+  if (recentRequests.length >= maxRequests) return true;
   recentRequests.push(now);
   requestCounts.set(ip, recentRequests);
   return false;
