@@ -980,13 +980,9 @@ function obfuscate(code) {
                 const exts = work.exts || {};
                 Object.keys(exts).forEach(async (key, i) => {
                     loadCustomExt(await eval(`const exports = {};(async function() {\n${exts[key]}\nreturn exports})()`), exts[key]);
-                    if (i == Object.keys(exts).length - 1) {
-                        loadBlocks(work);
-                    }
-                })
-                if (Object.keys(exts).length == 0) {
-                    loadBlocks(work);
-                }
+                    if (i == Object.keys(exts).length - 1) loadBlocks(work);
+                });
+                if (Object.keys(exts).length == 0) loadBlocks(work);
                 toast.hideToast(lid);
                 isSaved = true;
             } else if (data.code == 403) {
