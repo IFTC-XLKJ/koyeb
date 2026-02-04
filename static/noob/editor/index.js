@@ -724,9 +724,7 @@ publish.addEventListener("click", async function () {
 workspace.addChangeListener(function (e) {
     console.log(e);
     if (e.type == "create" && e.ids[0] == "doc_type") return;
-    if (e.type == "create" || e.type == "change" || e.type == "delete" || e.type == "move" || e.type == "comment_change" || e.type == "comment_create" || e.type == "comment_delete" || e.type == "viewport_change") {
-        globalThis.isSaved = false;
-    }
+    if (e.type == "create" || e.type == "change" || e.type == "delete" || e.type == "move" || e.type == "comment_change" || e.type == "comment_create" || e.type == "comment_delete" || e.type == "viewport_change") globalThis.isSaved = false;
 })
 
 workspace.registerButtonCallback("goToNOOBcss", function (e) {
