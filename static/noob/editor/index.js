@@ -699,14 +699,10 @@ publish.addEventListener("click", async function () {
                 if (j.code == 401) {
                     toast.hideToast(lid);
                     toast.showToast("鉴权失败，请重新登录", 2, "center", "small", "error", false, true);
-                    setTimeout(() => {
-                        window.location.href = "/login";
-                    }, 2000);
-                    return;
+                    return setTimeout(() => window.location.href = "/login", 2000);
                 }
                 toast.hideToast(lid);
-                toast.showToast(j.message, 2, "center", "small", "error", false, true);
-                return;
+                return toast.showToast(j.message, 2, "center", "small", "error", false, true);
             }
             toast.hideToast(lid);
             toast.showToast("发布成功", 2, "center", "small", "success", false, true);
