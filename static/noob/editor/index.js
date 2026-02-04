@@ -544,8 +544,7 @@ workspace.registerButtonCallback("deleteVar", function (ws) {
         if (vars.length === 1) {
             tips.innerText = "必须保留一个变量（不保留会报错）";
             tips.style.display = "flex";
-            setTimeout(() => tips.style.display = "none", 2000);
-            return;
+            return setTimeout(() => tips.style.display = "none", 2000);
         }
         vars = vars.filter(v => v[0] != name);
         mask.remove();
