@@ -73,6 +73,13 @@ ENV IFTC=IFTC
 
 RUN mkdir -p ${ANDROID_HOME}/cmdline-tools
 
+RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip && \
+    unzip -q /tmp/cmdline-tools.zip -d /tmp && \
+    mv /tmp/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest && \
+    rm -f /tmp/cmdline-tools.zip
+
+RUN yes | sdkmanager --licenses >/dev/null 2>&1 || true
+
 CMD ["node", "server.js"]
 
 # RUN apt-get install sudo
