@@ -80,6 +80,10 @@ RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-1107
 
 RUN yes | sdkmanager --licenses >/dev/null 2>&1 || true
 
+RUN sdkmanager "build-tools;34.0.0"
+
+RUN apksigner --version && zipalign -h
+
 CMD ["node", "server.js"]
 
 # RUN apt-get install sudo
