@@ -2,6 +2,8 @@ FROM node:slim
 WORKDIR /app
 COPY . .
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt upgrade
 RUN apt update
 
@@ -13,6 +15,8 @@ RUN npm i cookie-parser
 # 安装 Chromium 和必要依赖
 RUN apt-get update && \
     apt-get install -y \
+    unzip \
+    openjdk-11-jdk \
     dnsutils \
     sudo \
     curl \
@@ -53,6 +57,7 @@ RUN apt-get update && \
     libxtst6 \
     wget \
     gnupg && \
+    apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # 告诉 Puppeteer 使用系统 Chromium
@@ -62,7 +67,11 @@ RUN apt-get update && \
 ARG PORT
 EXPOSE ${PORT:-3000}
 
+ENV ANDROID_HOME=/opt/android-sdk
+ENV PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/build-tools/34.0.0"
 ENV IFTC=IFTC
+
+RUN mkdir -p ${ANDROID_HOME}/cmdline-tools
 
 CMD ["node", "server.js"]
 
