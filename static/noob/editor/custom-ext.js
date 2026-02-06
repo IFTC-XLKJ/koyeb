@@ -21,14 +21,12 @@ globalThis.loadCustomExt = async function (obj, code) {
             }
             if (exit) return;
             if (Ext instanceof Function) {
-                if (!cover) {
-                    toolbox.contents.push({
-                        kind: "category",
-                        name: name,
-                        colour: color,
-                        contents: parseBlocks(blocks, name)
-                    });
-                }
+                if (!cover) toolbox.contents.push({
+                    kind: "category",
+                    name: name,
+                    colour: color,
+                    contents: parseBlocks(blocks, name)
+                });
                 Blockly.defineBlocksWithJsonArray(parseBlocksWithDefine(blocks, name));
                 blocks.forEach(block => {
                     const { key } = block;
