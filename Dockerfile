@@ -17,7 +17,7 @@ RUN npm i cookie-parser
 RUN apt-get update && \
     apt-get install -y \
     unzip \
-    openjdk-11-jdk \
+    openjdk-17-jdk \
     dnsutils \
     sudo \
     curl \
