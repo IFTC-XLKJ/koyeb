@@ -1,4 +1,5 @@
-FROM node:slim
+# FROM node:slim
+FROM node:18-bullseye
 WORKDIR /app
 COPY . .
 
