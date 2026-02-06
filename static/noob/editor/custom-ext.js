@@ -129,6 +129,8 @@ globalThis.loadCustomExt = async function (obj, code) {
                                 }
                             };
                             break;
+                        default:
+                            inputs[param.inputValue.key] = {};
                     }
                 }
             });
