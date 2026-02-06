@@ -84,7 +84,8 @@ RUN yes | sdkmanager --licenses >/dev/null 2>&1 || true
 RUN sdkmanager "build-tools;34.0.0"
 
 RUN which apksigner && which zipalign
-RUN apksigner --version && zipalign -v
+RUN apksigner --version
+RUN zipalign
 
 CMD ["node", "server.js"]
 
