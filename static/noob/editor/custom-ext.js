@@ -15,9 +15,7 @@ globalThis.loadCustomExt = async function (obj, code) {
                         exit = true;
                         break;
                     }
-                    if (cover) {
-                        toolbox.contents[i] = content;
-                    }
+                    if (cover) toolbox.contents[i] = content;
                 }
                 i++;
             }
