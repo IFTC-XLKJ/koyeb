@@ -146,9 +146,7 @@ globalThis.loadCustomExt = async function (obj, code) {
             const block = blocks[i];
             const newBlock = {};
             newBlock.type = "custom_" + name + "_" + block.key;
-            if (block.valueType) {
-                newBlock.output = block.valueType;
-            }
+            if (block.valueType) newBlock.output = block.valueType;
             newBlock.colour = block.color;
             newBlock.tooltip = block.tooltip;
             newBlock.helpUrl = block.helpUrl;
@@ -169,23 +167,21 @@ globalThis.loadCustomExt = async function (obj, code) {
                         const checkType = inputValue.checkType;
                         n++;
                         message += `${label} %${n} `
-                        args.push({
+                        return args.push({
                             type: "input_value",
                             name: inputValue.key,
                             check: checkType == "Number" ? "Number" : (checkType == "String" ? "String" : (checkType == "Object" ? "Dictionary" : checkType == "Array" ? "Array" : void 0))
                         })
-                        return;
                     }
                 } else if (param.dropdown) {
                     const dropdown = param.dropdown;
                     n++;
                     message += `${label} %${n} `
-                    args.push({
+                    return args.push({
                         type: "field_dropdown",
                         options: dropdown.options,
                         name: dropdown.key
                     })
-                    return;
                 }
                 message += label + " ";
             });
