@@ -22,6 +22,7 @@ const VVApps = require("./VVApps.js");
 const si = require('systeminformation');
 const puppeteer = require('puppeteer');
 const multer = require('multer');
+const { exec } = require("child_process");
 
 console.log(fetch, globalThis.fetch);
 console.log(Other);
@@ -70,6 +71,13 @@ globalThis.opEmails = [
     console.error(e);
   }
 })();
+exec("apksigner --version", (error, stdout, stderr) => {
+  if (error) {
+    console.error("执行 apksigner --version 时出错:", error);
+  } else {
+    console.log("apksigner 版本信息:", stdout);
+  }
+});
 // (async () => {
 //   const browser = await puppeteer.launch({
 //     // executablePath: '/usr/bin/chromium-browser',
