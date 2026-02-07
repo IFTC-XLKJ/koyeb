@@ -341,7 +341,7 @@ app.get("/user", async (req, res) => {
     console.error(e);
     return res.status(500).json({
       code: 500,
-      msg: String(e),
+      msg: e.stack || String(e),
       timestamp: time(),
     });
   }
