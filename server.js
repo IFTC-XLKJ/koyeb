@@ -2784,16 +2784,16 @@ app.get("/api/user/register", async (req, res) => {
   if (nickname && email && password) {
     const user = new User();
     try {
-      const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(`https://iftc.koyeb.app/api/cloud/avatar?key=${avatar}`) : "https://iftc.koyeb.app/static/avatar.png");
+      const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
       if (json.code == 200) {
         res.json({
           code: 200,
           msg: "注册成功",
           id: json.id,
         });
-        const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
-        if (j.error) return;
-        return await Other.CoDrive.updateFileContent(`/VVAvatar/${json.id}.vvavatar`, j.file);
+        // const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
+        // if (j.error) return;
+        // return await Other.CoDrive.updateFileContent(`/VVAvatar/${json.id}.vvavatar`, j.file);
       }
       else return res.status(json.code).json({
         code: json.code,
