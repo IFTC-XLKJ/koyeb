@@ -142,3 +142,12 @@ body {
         font-size: 16px
     }
 }
+
+.tip {
+    background: #fef3c7;
+    color: #92400e;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 13px
+}
