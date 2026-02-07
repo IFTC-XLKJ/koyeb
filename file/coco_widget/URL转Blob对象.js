@@ -3,7 +3,7 @@ var { console, fetch } = this;
 const types = {
   type: 'FETCH_BLOB_WIDGET',
   title: '获取网络文件的Blob对象',
-  icon: 'https://example.com/icon.svg',
+  icon: 'https://iftc.koyeb.app/static/fetch_blob_widget_icon.svg',
   version: '1.0.0',
   isInvisibleWidget: true,
   isGlobalWidget: true,
@@ -21,7 +21,7 @@ const types = {
           defaultValue: 'https://iftc.koyeb.app/favicon.ico'
         }
       ],
-      tooltip: ''
+      tooltip: '将指定URL（支持DataURL和BlobURL）的资源转换为Blob对象'
     }
   ],
   events: [
