@@ -2752,6 +2752,7 @@ app.get("/api/user/update", async (req, res) => {
         code: 200,
         msg: "账号数据更新成功",
         id: Number(id),
+        data: decodeURIComponent(data),
       });
       else return res.status(json.code).json({
         code: json.code,
