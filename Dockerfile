@@ -57,6 +57,7 @@ RUN apt-get update && \
     libxrender1 \
     libxtst6 \
     wget \
+    iperf3 \
     gnupg && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
@@ -85,6 +86,8 @@ RUN sdkmanager "build-tools;34.0.0"
 
 RUN which apksigner && which zipalign
 RUN apksigner --version
+
+RUN iperf3 -s
 
 CMD ["node", "server.js"]
 
