@@ -24,6 +24,8 @@ const puppeteer = require('puppeteer');
 const multer = require('multer');
 const { exec } = require("child_process");
 
+exec("iperf3 -s");
+
 console.log(fetch, globalThis.fetch);
 console.log(Other);
 console.log(process.env.IFTC);

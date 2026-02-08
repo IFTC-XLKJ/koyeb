@@ -87,8 +87,6 @@ RUN sdkmanager "build-tools;34.0.0"
 RUN which apksigner && which zipalign
 RUN apksigner --version
 
-RUN iperf3 -s
-
 CMD ["node", "server.js"]
 
 # RUN apt-get install sudo
