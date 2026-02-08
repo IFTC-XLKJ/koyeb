@@ -2753,9 +2753,9 @@ app.get("/api/user/update", async (req, res) => {
         msg: "账号数据更新成功",
         id: Number(id),
       });
-      else return res.status(400).json({
-        code: 400,
-        msg: "账号数据更新失败",
+      else return res.status(json.code).json({
+        code: json.code,
+        msg: json.msg,
       });
     } catch (e) {
       console.error(e);
