@@ -3357,8 +3357,7 @@ function formatDuration(milliseconds) {
 
 async function mixed(filepath, params) {
   try {
-    let content = await fs.readFile(filepath,
-      "utf-8");
+    let content = await fs.readFile(filepath, "utf-8");
     const keys = Object.keys(params);
     console.log(keys);
     keys.forEach((key) => {
@@ -3372,13 +3371,8 @@ async function mixed(filepath, params) {
 }
 
 function requestLog(req) {
-  if (req.headers["user-agent"] == "Koyeb Health Check") {
-    return;
-  }
-  if (req.headers["user-agent"] == "IFTC Bot") {
-    console.log("状态检测请求");
-    return;
-  }
+  if (req.headers["user-agent"] == "Koyeb Health Check") return;
+  if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
   addRequestCount();
   if (!(
     req.url.startsWith("/api/user/login") ||
