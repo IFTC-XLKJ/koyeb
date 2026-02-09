@@ -1609,28 +1609,22 @@ class Other {
     this.app.post("/api/upload-avatar", upload.fields([{ name: 'avatar', maxCount: 1 }]), async (req, res) => {
       try {
         console.log("头像文件", req.files);
-        if (!req.files || !req.files['avatar']) {
-          return res.status(400).json({
-            code: 400,
-            msg: "No avatar file provided",
-            timestamp: time()
-          });
-        }
+        if (!req.files || !req.files['avatar']) return res.status(400).json({
+          code: 400,
+          msg: "No avatar file provided",
+          timestamp: time()
+        });
         const file = req.files['avatar'][0];
-        if (file.size > 1024 * 1024 * 5) {
-          return res.status(400).json({
-            code: 400,
-            msg: "File too large",
-            timestamp: time()
-          });
-        }
-        if (!(await isImageFromFile(file))) {
-          return res.status(400).json({
-            code: 400,
-            msg: "File must be an Image",
-            timestamp: time(),
-          });
-        }
+        if (file.size > 1024 * 1024 * 5) return res.status(400).json({
+          code: 400,
+          msg: "File too large",
+          timestamp: time()
+        });
+        if (!(await isImageFromFile(file))) return res.status(400).json({
+          code: 400,
+          msg: "File must be an Image",
+          timestamp: time(),
+        });
         const uuid = generateUUID();
         const { data, error } = await avatarBucket.update(uuid + ".png", file.buffer, {
           contentType: file.mimetype || "image/png",
