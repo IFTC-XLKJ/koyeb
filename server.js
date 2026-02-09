@@ -3430,7 +3430,7 @@ async function addRequestCount() {
 
 async function getRequestCount() {
   const url = twapi + '&action=get&tag=iftc.koyeb.app';
-  console.log(url);
+  // console.log(url);
   const resp = await fetch(url);
   const json = await resp.json();
   const count = json['iftc.koyeb.app'];
@@ -3444,7 +3444,7 @@ function timestampToDate(timestamp) {
 
 async function getAIAPIKey() {
   const url = twapi + '&action=get&tag=openrouter';
-  console.log(url);
+  // console.log(url);
   const resp = await fetch(url);
   const json = await resp.json();
   return json['openrouter'];
