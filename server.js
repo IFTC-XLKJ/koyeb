@@ -137,7 +137,6 @@ async function isRateLimited(ip) {
   if (!requestCounts.has(ip)) requestCounts.set(ip, []);
   const requests = requestCounts.get(ip);
   const recentRequests = requests.filter(time => now - time < windowMs);
-
   if (recentRequests.length >= maxRequests) return true;
   recentRequests.push(now);
   requestCounts.set(ip, recentRequests);
@@ -145,9 +144,7 @@ async function isRateLimited(ip) {
 }
 
 function isSuspiciousBehavior(req) {
-  const hasBrowserHeaders = req.headers.accept &&
-    req.headers['accept-language'] &&
-    req.headers['accept-encoding'];
+  const hasBrowserHeaders = req.headers.accept && req.headers['accept-language'] && req.headers['accept-encoding'];
   const hasReferer = !!req.headers.referer;
   const connectionType = req.headers.connection;
   if (!hasBrowserHeaders && connectionType === 'close') {
