@@ -147,9 +147,7 @@ function isSuspiciousBehavior(req) {
   const hasBrowserHeaders = req.headers.accept && req.headers['accept-language'] && req.headers['accept-encoding'];
   const hasReferer = !!req.headers.referer;
   const connectionType = req.headers.connection;
-  if (!hasBrowserHeaders && connectionType === 'close') {
-    return true;
-  }
+  if (!hasBrowserHeaders && connectionType === 'close') return true;
   return false;
 }
 
@@ -204,8 +202,7 @@ async function requestRecord(req) {
       }),
     });
   const json = await r.json();
-  console.log("IP记录结果:",
-    json);
+  console.log("IP记录结果:", json);
 }
 
 console.log(os.cpus());
