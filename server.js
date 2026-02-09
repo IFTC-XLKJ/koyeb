@@ -271,9 +271,7 @@ app.get("/ads", async (req, res) => {
 });
 app.get("/user", async (req, res) => {
   requestLog(req);
-  const {
-    id
-  } = req.query;
+  const { id } = req.query;
   const user = new User();
   if (req.headers["user-agent"] == "Koyeb Health Check") return res.json({
     code: 200,
