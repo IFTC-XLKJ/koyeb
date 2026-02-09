@@ -26,10 +26,8 @@ const { exec } = require("child_process");
 
 exec("iperf3 -s");
 
-console.log(fetch, globalThis.fetch);
 console.log(Other);
 console.log(process.env.IFTC);
-console.log(Segment);
 console.log(os.platform());
 console.log(`本机 IP 地址: ${getLocalIP()}`);
 
