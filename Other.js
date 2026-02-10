@@ -1784,7 +1784,7 @@ class Other {
         timestamp: time()
       });
       try {
-        const { data, error } = await messagesTable.select().eq('uid', id).range(start, end);
+        const { data, error } = await messagesTable.select().eq('uid', id).range(start - 1, end - 1);
         if (error) {
           return res.status(500).json({
             code: 500,
