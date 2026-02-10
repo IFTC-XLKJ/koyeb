@@ -26,6 +26,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const avatarBucket = supabase.storage.from("avatar");
+const messagesTable = supabase.from("messages");
 
 class Other {
   CoDrive = null;
@@ -1765,6 +1766,39 @@ class Other {
           timestamp: time()
         });
         await AuthTokenTable.delete().eq('id', data[0].id);
+      } catch (error) {
+        return res.status(500).json({
+          code: 500,
+          msg: "Internal Server Error",
+          error: error.message,
+          timestamp: time()
+        });
+      }
+    });
+    this.app.get("/api/user/messages", async (req, res) => {
+      requestLog(req);
+      const { uid } = req.query;
+      if (!uid) return res.status(400).json({
+        code: 400,
+        msg: "Missing uid parameter",
+        timestamp: time()
+      });
+      try {
+        const { data, error } = await messagesTable.select().eq('uid', uid);
+        if (error) {
+          return res.status(500).json({
+            code: 500,
+            msg: "Internal Server Error",
+            error: error.message,
+            timestamp: time()
+          });
+        }
+        return res.json({
+          code: 200,
+          msg: "Success",
+          data: data,
+          timestamp: time()
+        });
       } catch (error) {
         return res.status(500).json({
           code: 500,
