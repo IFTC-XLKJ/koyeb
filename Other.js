@@ -1777,14 +1777,14 @@ class Other {
     });
     this.app.get("/api/user/messages", async (req, res) => {
       requestLog(req);
-      const { uid, start, end } = req.query;
-      if (!uid) return res.status(400).json({
+      const { id, start, end } = req.query;
+      if (!id) return res.status(400).json({
         code: 400,
-        msg: "Missing uid parameter",
+        msg: "Missing id parameter",
         timestamp: time()
       });
       try {
-        const { data, error } = await messagesTable.select().eq('uid', uid);
+        const { data, error } = await messagesTable.select().eq('uid', id);
         if (error) {
           return res.status(500).json({
             code: 500,
