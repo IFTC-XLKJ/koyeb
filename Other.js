@@ -26,7 +26,7 @@ const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 
 const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const avatarBucket = supabase.storage.from("avatar");
-const messagesTable = supabase.from("messages");
+const messagesTable = supabase.from("Messages");
 
 class Other {
   CoDrive = null;
