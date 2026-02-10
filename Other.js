@@ -1777,7 +1777,7 @@ class Other {
     });
     this.app.get("/api/user/messages", async (req, res) => {
       requestLog(req);
-      const { uid } = req.query;
+      const { uid, start, end } = req.query;
       if (!uid) return res.status(400).json({
         code: 400,
         msg: "Missing uid parameter",
