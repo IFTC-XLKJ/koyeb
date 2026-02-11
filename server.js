@@ -2787,7 +2787,7 @@ app.get("/api/user/register", async (req, res) => {
         await RecordMessages.recordMessage({
           title: "新用户注册",
           uid: json.id,
-          content: `用户 ${decodeURIComponent(nickname)} (${decodeURIComponent(email)}) 注册了账号，ID为 ${json.id}`,
+          content: `用户 ${decodeURIComponent(nickname)} (${decodeURIComponent(email)}) 注册了账号，ID为 ${json.id}，注册IP为 <b>${req.headers["x-forwarded-for"] || "Unknown"}</b>，注册地点为 <b>${lookupIP(req.headers["x-forwarded-for"] || null)}</b>`,
         });
         // const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
         // if (j.error) return;
