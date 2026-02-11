@@ -1796,7 +1796,10 @@ class Other {
         return res.json({
           code: 200,
           msg: "Success",
-          data: data,
+          data: data.map(item => ({
+            ...item,
+            createdAt: Date.parse(item.createdAt)  // 将 createdAt 转换为时间戳
+          })),
           timestamp: time()
         });
       } catch (error) {
