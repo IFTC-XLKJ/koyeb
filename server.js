@@ -24,6 +24,7 @@ const puppeteer = require('puppeteer');
 const multer = require('multer');
 const { exec } = require("child_process");
 const RecordMessages = require("./RecordMessages.js");
+const maxmind = require('maxmind');
 
 exec("iperf3 -s");
 
@@ -2829,10 +2830,15 @@ app.get("/api/user/login", async (req, res) => {
           msg: "账号或密码错误",
           timestamp: time(),
         });
-        return res.json({
+        res.json({
           code: 200,
           msg: "登录成功",
           id: data.ID,
+        });
+        return await RecordMessages.recordMessage({
+          title: "用户登录",
+          uid: data.ID,
+          content: `用户 <b>${data.Nickname} (${data.Email})</b> 登录了账号，登录IP为 <b>${req.headers["x-forwarded-for"] || "Unknown"}</b>，登录地点为 <b>${lookupIP(req.headers["x-forwarded-for"] || null)}</b>`,
         });
       } else return res.status(json.code).json({
         code: json.code,
@@ -3519,3 +3525,19 @@ console.log('end');
 app.use((req, res) => {
   res.status(404).send("<center><h1>草泥马，找不到这个页面</h1></center>");
 });
+
+async function lookupIP(ip) {
+  if (!ip) return "Unknown";
+  try {
+    const reader = await maxmind.open('./GeoLite2-City.mmdb');
+    const result = reader.get(ip);
+    const continent = result.continent ? result.continent.names["zh-CN"] : "";
+    const country = result.country ? result.country.names["zh-CN"] : "";
+    const subdivisions = result.subdivisions && result.subdivisions.length > 0 ? result.subdivisions[0].names["zh-CN"] : "";
+    const city = result.city ? result.city.names["zh-CN"] : "";
+    return `${continent}${country}${subdivisions}${city}`;
+  } catch (e) {
+    console.log(e);
+    return "Unknown";
+  }
+}
