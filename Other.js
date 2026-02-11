@@ -1784,7 +1784,11 @@ class Other {
         timestamp: time()
       });
       try {
-        const { data, error } = await messagesTable.select().eq('uid', id).range(start - 1, end - 1);
+        const { data, error } = await messagesTable
+          .select()
+          .eq('uid', id)
+          .range(start - 1, end - 1)
+          .order('createdAt', { ascending: false });
         if (error) {
           return res.status(500).json({
             code: 500,
