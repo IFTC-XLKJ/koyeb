@@ -1802,7 +1802,7 @@ class Other {
           msg: "Success",
           data: data.map(item => ({
             ...item,
-            createdAt: Date.parse(item.createdAt)  // 将 createdAt 转换为时间戳
+            createdAt: Date.parse(item.createdAt)
           })),
           timestamp: time()
         });
