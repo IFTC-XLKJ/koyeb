@@ -23,6 +23,7 @@ const si = require('systeminformation');
 const puppeteer = require('puppeteer');
 const multer = require('multer');
 const { exec } = require("child_process");
+const RecordMessages = require("./RecordMessages.js");
 
 exec("iperf3 -s");
 
@@ -2781,6 +2782,11 @@ app.get("/api/user/register", async (req, res) => {
           code: 200,
           msg: "注册成功",
           id: json.id,
+        });
+        await RecordMessages.recordMessage({
+          title: "新用户注册",
+          uid: json.id,
+          content: `用户 ${decodeURIComponent(nickname)} (${decodeURIComponent(email)}) 注册了账号，ID为 ${json.id}`,
         });
         // const j = await Other.CoDrive.getFile(`/VVAvatar/${avatar}.vvavatar`);
         // if (j.error) return;
