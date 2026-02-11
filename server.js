@@ -2838,7 +2838,7 @@ app.get("/api/user/login", async (req, res) => {
         return await RecordMessages.recordMessage({
           title: "用户登录",
           uid: data.ID,
-          content: `用户 <b>${data.Nickname} (${data.Email})</b> 登录了账号，登录IP为 <b>${req.headers["x-forwarded-for"] || "Unknown"}</b>，登录地点为 <b>${lookupIP(req.headers["x-forwarded-for"] || null)}</b>`,
+          content: `用户 <b>${data.用户名} (${data.邮箱})</b> 登录了账号，登录IP为 <b>${req.headers["x-forwarded-for"] || "Unknown"}</b>，登录地点为 <b>${await lookupIP(req.headers["x-forwarded-for"] || null)}</b>`,
         });
       } else return res.status(json.code).json({
         code: json.code,
