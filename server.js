@@ -25,6 +25,7 @@ const multer = require('multer');
 const { exec } = require("child_process");
 const RecordMessages = require("./RecordMessages.js");
 const maxmind = require('maxmind');
+const { title } = require("process");
 
 exec("iperf3 -s");
 
@@ -1639,6 +1640,11 @@ app.get("/api/user/updatetoken", async (req, res) => {
           code: 200,
           msg: "更新成功",
           timestamp: time(),
+        });
+        await RecordMessages.recordMessage({
+          title: "Token已经更新",
+          content: `Token已经更新，请勿泄露此Token，请勿将此Token用于非授权使用。`,
+          uid: id,
         })
       }
     } catch (e) {
