@@ -2746,12 +2746,19 @@ app.get("/api/user/update", async (req, res) => {
     const user = new User();
     try {
       const json = await user.update(type, id, decodeURIComponent(password), decodeURIComponent(data));
-      if (json.code == 200) return res.json({
-        code: 200,
-        msg: "账号数据更新成功",
-        id: Number(id),
-        data: decodeURIComponent(data),
-      });
+      if (json.code == 200) {
+        res.json({
+          code: 200,
+          msg: "账号数据更新成功",
+          id: Number(id),
+          data: decodeURIComponent(data),
+        });
+        return await RecordMessages.recordMessage({
+          uid: id,
+          title: "用户数据更新",
+          content: `用户数据更新成功，更新数据为：${decodeURIComponent(data)}`,
+        })
+      }
       else return res.status(json.code).json({
         code: json.code,
         msg: json.msg,
