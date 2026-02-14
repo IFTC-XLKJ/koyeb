@@ -927,7 +927,7 @@ class Other {
         const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
           method: "POST",
           headers: {
-            Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
+            Authorization: `Bearer sk-VE6PNU5XtCaTatVorgyHx1gJiuiAvDDS1ouuB6d1mKbDbhQ7`,
             "Content-Type": "application/json",
             Origin: "https://iftc.koyeb.app",
           },
