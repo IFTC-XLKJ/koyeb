@@ -154,6 +154,10 @@ function isSuspiciousBehavior(req) {
   return false;
 }
 
+app.get('/bb46732d1e78476b84b32f31bacfb5af.txt', async function() {
+  return res.send('bb46732d1e78476b84b32f31bacfb5af');
+})
+
 app.get("/start", async (req, res) => {
   const browser = await puppeteer.launch({
     args: [
