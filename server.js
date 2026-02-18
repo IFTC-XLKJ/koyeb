@@ -154,7 +154,7 @@ function isSuspiciousBehavior(req) {
   return false;
 }
 
-app.get('/bb46732d1e78476b84b32f31bacfb5af.txt', async function() {
+app.get('/bb46732d1e78476b84b32f31bacfb5af.txt', async function(req, res) {
   return res.send('bb46732d1e78476b84b32f31bacfb5af');
 })
 
