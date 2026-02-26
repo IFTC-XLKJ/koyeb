@@ -3323,7 +3323,7 @@ app.get("/api/webpage_screenshot", async (req, res) => {
     await browser.close();
     res.setHeader('Content-Type', 'image/png');
     res.setHeader('Content-Length', screenshotBuffer.length);
-    return res.send(screenshotBuffer);
+    return res.send(new Uint8Array(screenshotBuffer));
   } catch (e) {
     return res.status(500).json({
       code: 500,
