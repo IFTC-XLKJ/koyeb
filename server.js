@@ -153,7 +153,7 @@ function isSuspiciousBehavior(req) {
   return false;
 }
 
-app.get('/bb46732d1e78476b84b32f31bacfb5af.txt', async function(req, res) {
+app.get('/bb46732d1e78476b84b32f31bacfb5af.txt', async function (req, res) {
   return res.send('bb46732d1e78476b84b32f31bacfb5af');
 })
 
@@ -3321,9 +3321,11 @@ app.get("/api/webpage_screenshot", async (req, res) => {
     await page.waitForNetworkIdle();
     const screenshotBuffer = await page.screenshot({ fullPage: true });
     await browser.close();
-    res.setHeader('Content-Type', 'image/png');
-    res.setHeader('Content-Length', screenshotBuffer.length);
-    return res.send(new Uint8Array(screenshotBuffer));
+    res.writeHead(200, {
+      'Content-Type': 'image/png',
+      'Content-Length': screenshotBuffer.length
+    });
+    res.end(screenshotBuffer);
   } catch (e) {
     return res.status(500).json({
       code: 500,
