@@ -18,12 +18,7 @@ bot.onText(/\/start/, (msg, match) => {
             text: '获取帮助',
             callback_data: 'help'
           }
-        ], [ // 第二行
-          {
-            text: '搜索内容',
-            switch_inline_query: '默认搜索词'
-          }
-        ]
+        ], []
       ]
     }
   };
