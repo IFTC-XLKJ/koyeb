@@ -56,9 +56,11 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   }
 });
 
+/*
 bot.onText(/\/queryuser/, (msg, match) => {
   const chatId = msg.chat.id;
   return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
 });
+*/
 
 module.exports = bot;
