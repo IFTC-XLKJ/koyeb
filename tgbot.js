@@ -41,6 +41,7 @@ bot.onText(/\/queryuser/, (msg, match) => {
   return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
 });
 bot.onText(/\/queryuser (.+)/, async (msg, match) => {
+  try{
   const chatId = msg.chat.id;
   const resp = match[1];
   const ID = Number(resp);
@@ -51,6 +52,10 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   const r = await fetch("https://iftc.koyeb.app/api/user/details?id=" + ID);
   const j = await r.json();
   bot.sendMessage(chatId, JSON.stringify(j, null, 4));
+  }.catch(error) {
+    console.error('Promise Catch:', error);
+    bot.sendMessage(chatId, "查询出错：" + error + "，请稍后再试...");
+  }
 });
 
 module.exports = bot;
