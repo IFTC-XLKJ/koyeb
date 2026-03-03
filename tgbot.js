@@ -34,10 +34,7 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   const resp = match[1];
   bot.sendMessage(chatId, resp);
 });
-bot.onText(/\/queryuser/, (msg, match) => {
-  const chatId = msg.chat.id;
-  return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
-});
+
 bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   try {
     const chatId = msg.chat.id;
@@ -54,6 +51,11 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     console.error('Promise Catch:', error);
     bot.sendMessage(chatId, "查询出错：" + error + "，请稍后再试...");
   }
+});
+
+bot.onText(/\/queryuser/, (msg, match) => {
+  const chatId = msg.chat.id;
+  return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
 });
 
 module.exports = bot;
