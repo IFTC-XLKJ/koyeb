@@ -40,7 +40,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   try {
     const resp = match[1];
     const ID = Number(resp);
-    if (ID.trim() == "") return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
+    if (resp.trim() == "") return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
     if (isNaN(ID)) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
     if (ID < 0) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
     bot.sendMessage(chatId, "正在查询中，请稍后...");
