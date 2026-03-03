@@ -7,7 +7,7 @@ const bot = new TelegramBot(token, {
 
 
 
-bot.onText(/\/hentai/, function onLoveText(msg) {
+bot.onText(/\/hello/, function onLoveText(msg) {
   bot.sendMessage(msg.chat.id, 'Are you a hetai?');
 });
 
