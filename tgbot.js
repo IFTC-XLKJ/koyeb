@@ -40,14 +40,15 @@ bot.onText(/\/queryuser/, (msg, match) => {
   const chatId = msg.chat.id;
   return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
 });
-bot.onText(/\/queryuser (.+)/, (msg, match) => {
+bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
   const resp = match[1];
   const ID = Number(resp);
   if (ID.trim() == "") return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
   if (isNaN(ID)) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
   if (ID < 0) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
-  bot.sendMessage(chatId, "正在查询中，请稍后...")
+  bot.sendMessage(chatId, "正在查询中，请稍后...");
+  const r = await fetch("https://iftc.koyeb.app/api/user/details?id=" + ID);
 });
 
 module.exports = bot;
