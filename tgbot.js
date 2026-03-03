@@ -37,4 +37,8 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   bot.sendMessage(chatId, resp);
 });
 
+bot.onText(/\/queryuser (.+)/, (msg, match) => {
+  const chatId = msg.chat.id;
+});
+
 module.exports = bot;
