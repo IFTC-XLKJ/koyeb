@@ -8,7 +8,7 @@ const bot = new TelegramBot(token, {
 
 
 bot.onText(/\/hello/, function onLoveText(msg) {
-  bot.sendMessage(msg.chat.id, 'Are you a hetai?');
+  bot.sendMessage(msg.chat.id, 'Hello, Telegram!');
 });
 
 
