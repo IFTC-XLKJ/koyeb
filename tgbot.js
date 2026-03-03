@@ -36,7 +36,10 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   const resp = match[1];
   bot.sendMessage(chatId, resp);
 });
-
+bot.onText(/\/queryuser/, (msg, match) => {
+  const chatId = msg.chat.id;
+  return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
+});
 bot.onText(/\/queryuser (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
   const resp = match[1];
