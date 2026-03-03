@@ -39,6 +39,10 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
 
 bot.onText(/\/queryuser (.+)/, (msg, match) => {
   const chatId = msg.chat.id;
+  const resp = match[1];
+  const ID = Number(resp);
+  if (ID.trim() == "") return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
+  if (isNaN(ID)) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
 });
 
 module.exports = bot;
