@@ -18,3 +18,5 @@ bot.onText(/\/echo (.+)/, (msg, match) => {
   const resp = match[1];
   bot.sendMessage(chatId, resp);
 });
+
+module.exports = bot;
