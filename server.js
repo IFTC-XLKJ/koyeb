@@ -25,6 +25,7 @@ const multer = require('multer');
 const { exec } = require("child_process");
 const RecordMessages = require("./RecordMessages.js");
 const maxmind = require('maxmind');
+require("./tgbot.js");
 
 exec("iperf3 -s");
 
