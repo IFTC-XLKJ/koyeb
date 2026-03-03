@@ -48,7 +48,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     const j = await r.json();
     bot.sendMessage(chatId, JSON.stringify(j, null, 4));
   } catch(error) {
-    console.error('Promise Catch:', error);
+    console.error('TG Bot Error:', error);
     bot.sendMessage(chatId, "查询出错：" + error + "，请稍后再试...");
   }
 });
