@@ -47,6 +47,7 @@ bot.onText(/\/queryuser (.+)/, (msg, match) => {
   if (ID.trim() == "") return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
   if (isNaN(ID)) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
   if (ID < 0) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
+  bot.sendMessage(chatId, "正在查询中，请稍后...")
 });
 
 module.exports = bot;
