@@ -49,6 +49,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   if (ID < 0) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
   bot.sendMessage(chatId, "正在查询中，请稍后...");
   const r = await fetch("https://iftc.koyeb.app/api/user/details?id=" + ID);
+  const j = await r.json();
 });
 
 module.exports = bot;
