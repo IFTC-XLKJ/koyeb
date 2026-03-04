@@ -46,6 +46,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     bot.sendMessage(chatId, "正在查询中，请稍后...");
     const r = await fetch("https://iftc.koyeb.app/api/user/details?id=" + ID);
     const j = await r.json();
+    if (j.code != 200) return bot.sendMessage(chatId, j.msg);
     const data = j.data;
     const avatar = data.avatar;
     bot.sendPhoto(chatId, avatar, {
