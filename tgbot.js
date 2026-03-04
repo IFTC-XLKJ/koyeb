@@ -49,8 +49,9 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     const data = j.data;
     const avatar = data.avatar;
     bot.sendPhoto(chatId, avatar, {
-      caption: "头像"
+      caption: ""
     });
+    const str = `用户ID：${data.ID}`;
     bot.sendMessage(chatId, JSON.stringify(j, null, 4));
   } catch(error) {
     console.error('TG Bot Error:', error);
