@@ -101,6 +101,7 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
     const username = match[1];
     const password = match[2];
     console.log("Telegram Bot Received login command:", username, password);
+    bot.sendMessage(chatId, "正在登录中，请稍后...");
     const r = await fetch("https://iftc.koyeb.app/api/user/login?user=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
     const j = await r.json();
     if (j.code != 200) return bot.sendMessage(chatId, j.msg);
