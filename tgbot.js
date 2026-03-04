@@ -107,21 +107,16 @@ function escapeHtml(text) {
 }
 
 function formatTimestamp(timestamp, timezone) {
-  // 1. 创建 Date 对象
-  // 注意：如果 timestamp 是秒级（10位），需要 * 1000 转为毫秒
   const date = new Date(timestamp);
-
-  // 2. 使用 Intl 进行时区格式化
   return new Intl.DateTimeFormat('zh-CN', {
-    timeZone: timezone, // 关键参数：指定目标时区
+    timeZone: timezone,
     year: 'numeric',
     month: '2-digit',
     day: '2-digit',
     hour: '2-digit',
     minute: '2-digit',
     second: '2-digit',
-    hour12: false, // 使用24小时制
-    // timeZoneName: 'short' // 如果需要显示时区缩写（如 CST, PST）
+    hour12: false,
   }).format(date);
 }
 
