@@ -75,7 +75,11 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
 
 bot.onText(/\/help/, (msg, match) => {
   const chatId = msg.chat.id;
-  const helpText = "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0";
+  const helpText = `VV助手是一个Telegram机器人，可以帮助你查询用户信息。
+当前可用命令：
+<code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
+<code>/help</code> - 显示帮助信息
+<code>/about</code> - 关于VV助手`;
   bot.sendMessage(chatId, helpText);
 });
 
