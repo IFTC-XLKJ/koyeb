@@ -60,7 +60,7 @@ VIP：${data.VIP ? "是" : "否"}
 冻结：${data.freezed ? "是" : "否"}
 头衔：${data.title}
 头衔色：${data.titleColor}
-上次签到时间：${data.signed}`;
+上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}`;
     bot.sendMessage(chatId, JSON.stringify(j, null, 4));
   } catch(error) {
     console.error('TG Bot Error:', error);
@@ -74,5 +74,29 @@ bot.onText(/\/queryuser/, (msg, match) => {
   return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
 });
 */
+
+function formatTimestamp(timestamp, timezone) {
+  // 1. 创建 Date 对象
+  // 注意：如果 timestamp 是秒级（10位），需要 * 1000 转为毫秒
+  const date = new Date(timestamp); 
+
+  // 2. 使用 Intl 进行时区格式化
+  return new Intl.DateTimeFormat('zh-CN', {
+    timeZone: timezone, // 关键参数：指定目标时区
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false, // 使用24小时制
+    // timeZoneName: 'short' // 如果需要显示时区缩写（如 CST, PST）
+  }).format(date);
+}
+
+// 使用示例
+const timestamp = 1735689600000; // 毫秒时间戳 (2025-01-01 00:00:00 UTC)
+
+console.log(formatTimestamp(timestamp, 'Asia/Shanghai')); 
 
 module.exports = bot;
