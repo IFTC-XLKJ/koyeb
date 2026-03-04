@@ -52,7 +52,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     bot.sendPhoto(chatId, avatar, {
       caption: ""
     });
-    const str = `用户ID：${data.ID}
+    const str = `<div>用户ID：${data.ID}
 用户名：${data.username}
 邮箱：${data.email}
 V币：${data.VC}
@@ -63,7 +63,7 @@ VIP：${data.VIP ? "是" : "否"}
 头衔色：<div style="background-color: ${data.titleColor};">${data.titleColor}</div>
 上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}
 注册时间：${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}
-更新时间：${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}`;
+更新时间：${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}</div>`;
     // bot.sendMessage(chatId, JSON.stringify(j, null, 4));
     bot.sendMessage(chatId, str, {
       parse_mode: "HTML"
