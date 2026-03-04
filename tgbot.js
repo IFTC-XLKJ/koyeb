@@ -4,6 +4,8 @@ const token = '8201224672:AAHd8id6qYF4_J-vi4t7mcrewLN9qa1gKv4';
 const bot = new TelegramBot(token, {
   polling: true
 });
+const users = {};
+const User = require('./User');
 
 bot.onText(/\/start/, (msg, match) => {
   const chatId = msg.chat.id;
@@ -89,6 +91,15 @@ bot.onText(/\/about/, (msg, match) => {
   const chatId = msg.chat.id;
   const aboutText = `VV助手 v1.0 by <a href=\"https://github.com/IFTC-XLKJ\">@IFTC-XLKJ</a>`;
   bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
+});
+
+bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
+  const chatId = msg.chat.id;
+  const uid = msg.from.id;
+  if (!uid) return bot.sendMessage(chatId, "无法获取你的 Telegram 用户ID，请确保你已正确使用 /login 命令");
+  const username = match[1];
+  const password = match[2];
+  console.log("Telegram Bot Received login command:", username, password);
 });
 
 bot.on("message", (msg) => {
