@@ -63,7 +63,8 @@ VIP：${data.VIP ? "是" : "否"}
 上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}
 注册时间：${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}
 更新时间：${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}`;
-    bot.sendMessage(chatId, JSON.stringify(j, null, 4));
+    // bot.sendMessage(chatId, JSON.stringify(j, null, 4));
+    bot.sendMessage(chatId, str);
   } catch(error) {
     console.error('TG Bot Error:', error);
     bot.sendMessage(chatId, "查询出错：" + error + "，请稍后再试...");
