@@ -133,6 +133,11 @@ bot.on('edited_channel_post', (msg) => {
   console.log('频道编辑消息:', msg.text);
 });
 
+/**
+ * 转义 HTML 特殊字符
+ * @param {String} text 
+ * @returns 
+ */
 function escapeHtml(text) {
   if (!text) return '';
   return String(text)
@@ -142,6 +147,12 @@ function escapeHtml(text) {
     .replace(/"/g, '&quot;');
 }
 
+/**
+ * 时间戳格式化
+ * @param {Number} timestamp 
+ * @param {String} timezone 
+ * @returns 
+ */
 function formatTimestamp(timestamp, timezone) {
   const date = new Date(timestamp);
   return new Intl.DateTimeFormat('zh-CN', {
