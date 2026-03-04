@@ -83,7 +83,8 @@ bot.onText(/\/help/, (msg, match) => {
 <code>/hello</code> - 测试命令，回复 "Hello, Telegram!"
 <code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
 <code>/help</code> - 显示帮助信息
-<code>/about</code> - 关于VV助手`;
+<code>/about</code> - 关于VV助手
+<code>/login <用户名> <密码></code> - 登录并绑定Telegram，例如：<code>/login testuser testpassword</code><br>`;
   bot.sendMessage(chatId, helpText, { parse_mode: "HTML" });
 });
 
@@ -105,7 +106,7 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
     const r = await fetch("https://iftc.koyeb.app/api/user/login?user=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
     const j = await r.json();
     if (j.code != 200) return bot.sendMessage(chatId, j.msg);
-    const j2 = await User.setTelegram(j.data.ID, uid);
+    const j2 = await User.setTelegram(j.data.id, uid);
     if (j2.code != 200) return bot.sendMessage(chatId, "登录成功，但绑定 Telegram 失败：" + j2.msg);
     bot.sendMessage(chatId, "登录并绑定 Telegram 成功！");
   } catch (error) {
