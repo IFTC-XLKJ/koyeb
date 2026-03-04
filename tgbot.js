@@ -80,7 +80,7 @@ bot.onText(/\/help/, (msg, match) => {
 <code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
 <code>/help</code> - 显示帮助信息
 <code>/about</code> - 关于VV助手`;
-  bot.sendMessage(chatId, helpText);
+  bot.sendMessage(chatId, helpText, { parse_mode: "HTML" });
 });
 
 bot.onText(/\/about/, (msg, match) => {
