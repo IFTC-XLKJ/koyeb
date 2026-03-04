@@ -54,7 +54,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     });
     const str = `<b>用户 ID：</b><code>${data.ID}</code>
 <b>用户名：</b><code>${data.username}</code>
-<b>邮箱：</b><span><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a></span>
+<b>邮箱：</b><code>${escapeHtml(data.email)}</code>
 <b>V 币：</b><code>${data.VC}</code>
 <b>VIP：</b><code>${data.VIP ? "是" : "否"}</code>
 <b>管理员：</b><code>${data.op ? "是" : "否"}</code>
