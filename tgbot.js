@@ -60,7 +60,8 @@ VIP：${data.VIP ? "是" : "否"}
 冻结：${data.freezed ? "是" : "否"}
 头衔：${data.title}
 头衔色：${data.titleColor}
-上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}`;
+上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}
+注册时间：${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}`;
     bot.sendMessage(chatId, JSON.stringify(j, null, 4));
   } catch(error) {
     console.error('TG Bot Error:', error);
