@@ -54,7 +54,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     });
     const str = `<b>用户 ID：</b><code>${data.ID}</code>
 <b>用户名：</b><code>${data.username}</code>
-<b>邮箱：</b><code>${data.email}</code>
+<b>邮箱：</b><a href="mailto:${escapeHtml(data.email)}">${escapeHtml(data.email)}</a>
 <b>V 币：</b><code>${data.VC}</code>
 <b>VIP：</b><code>${data.VIP ? "是" : "否"}</code>
 <b>管理员：</b><code>${data.op ? "是" : "否"}</code>
@@ -80,6 +80,15 @@ bot.onText(/\/queryuser/, (msg, match) => {
   return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
 });
 */
+
+function escapeHtml(text) {
+  if (!text) return '';
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
 
 function formatTimestamp(timestamp, timezone) {
   // 1. 创建 Date 对象
