@@ -2792,6 +2792,16 @@ app.get("/api/user/register", async (req, res) => {
     password
   } = req.query;
   if (nickname && email && password) {
+    if (decodeURIComponent(nickname).includes("#")) return res.status(400).json({
+      code: 400,
+      msg: "昵称不能包含#字符",
+      timestamp: time(),
+    });
+    if (decodeURIComponent(email).includes(" ") || decodeURIComponent(nickname).includes(" ") || decodeURIComponent(password).includes(" ")) return res.status(400).json({
+      code: 400,
+      msg: "昵称、邮箱和密码不能包含空格字符",
+      timestamp: time(),
+    });
     const user = new User();
     try {
       const json = await user.register(decodeURIComponent(email), decodeURIComponent(password), decodeURIComponent(nickname), decodeURIComponent(avatar) ? decodeURIComponent(avatar) : "https://iftc.koyeb.app/static/avatar.png");
