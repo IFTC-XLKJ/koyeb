@@ -49,7 +49,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     const data = j.data;
     const avatar = data.avatar;
     bot.sendPhoto(chatId, avatar, {
-      caption: ""
+      caption: "头像"
     });
     bot.sendMessage(chatId, JSON.stringify(j, null, 4));
   } catch(error) {
