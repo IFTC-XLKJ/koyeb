@@ -89,7 +89,7 @@ bot.onText(/\/help/, (msg, match) => {
 
 bot.onText(/\/about/, (msg, match) => {
   const chatId = msg.chat.id;
-  const aboutText = `VV助手 v1.0 by <a href=\"https://github.com/IFTC-XLKJ\">@IFTC-XLKJ</a>`;
+  const aboutText = `VV助手 v1.0 by <a href=\"https://t.me/IFTCCEO\">@IFTCCEO</a>`;
   bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
 });
 
