@@ -52,23 +52,23 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     bot.sendPhoto(chatId, avatar, {
       caption: ""
     });
-    const str = `<div>用户ID：${data.ID}
-用户名：${data.username}
-邮箱：${data.email}
-V币：${data.VC}
-VIP：${data.VIP ? "是" : "否"}
-管理员：${data.op ? "是" : "否"}
-冻结：${data.freezed ? "是" : "否"}
-头衔：${data.title}
-头衔色：<div style="background-color: ${data.titleColor};">${data.titleColor}</div>
-上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}
-注册时间：${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}
-更新时间：${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}</div>`;
+    const str = `<b>用户 ID：</b><code>${data.ID}</code>
+<b>用户名：</b><code>${data.username}</code>
+<b>邮箱：</b><code>${data.email}</code>
+<b>V 币：</b><code>${data.VC}</code>
+<b>VIP：</b><code>${data.VIP ? "是" : "否"}</code>
+<b>管理员：</b><code>${data.op ? "是" : "否"}</code>
+<b>冻结：</b><code>${data.freezed ? "是" : "否"}</code>
+<b>头衔：</b><code>${data.title}</code>
+<b>头衔色：</b><code>${data.titleColor}</code>
+<b>上次签到时间：</b><code>${formatTimestamp(data.signed, 'Asia/Shanghai')}</code>
+<b>注册时间：</b><code>${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}</code>
+<b>更新时间：</b><code>${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}</code>`;
     // bot.sendMessage(chatId, JSON.stringify(j, null, 4));
     bot.sendMessage(chatId, str, {
       parse_mode: "HTML"
     });
-  } catch(error) {
+  } catch (error) {
     console.error('TG Bot Error:', error);
     bot.sendMessage(chatId, "查询出错：" + error + "，请稍后再试...");
   }
@@ -84,7 +84,7 @@ bot.onText(/\/queryuser/, (msg, match) => {
 function formatTimestamp(timestamp, timezone) {
   // 1. 创建 Date 对象
   // 注意：如果 timestamp 是秒级（10位），需要 * 1000 转为毫秒
-  const date = new Date(timestamp); 
+  const date = new Date(timestamp);
 
   // 2. 使用 Intl 进行时区格式化
   return new Intl.DateTimeFormat('zh-CN', {
@@ -103,6 +103,6 @@ function formatTimestamp(timestamp, timezone) {
 // 使用示例
 const timestamp = 1735689600000; // 毫秒时间戳 (2025-01-01 00:00:00 UTC)
 
-console.log(formatTimestamp(timestamp, 'Asia/Shanghai')); 
+console.log(formatTimestamp(timestamp, 'Asia/Shanghai'));
 
 module.exports = bot;
