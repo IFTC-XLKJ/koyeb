@@ -73,6 +73,12 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   }
 });
 
+bot.onText(/\/help/, (msg, match) => {
+  const chatId = msg.chat.id;
+  const helpText = "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0";
+  bot.sendMessage(chatId, helpText);
+});
+
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   console.log(" Telegram Bot Received message:", msg.text);
