@@ -64,7 +64,6 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
 <b>上次签到时间：</b><code>${formatTimestamp(data.signed, 'Asia/Shanghai')}</code>
 <b>注册时间：</b><code>${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}</code>
 <b>更新时间：</b><code>${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}</code>`;
-    // bot.sendMessage(chatId, JSON.stringify(j, null, 4));
     bot.sendMessage(chatId, str, {
       parse_mode: "HTML"
     });
