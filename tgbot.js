@@ -60,7 +60,7 @@ VIP：${data.VIP ? "是" : "否"}
 管理员：${data.op ? "是" : "否"}
 冻结：${data.freezed ? "是" : "否"}
 头衔：${data.title}
-头衔色：${data.titleColor}
+头衔色：<div style="background-color: ${data.titleColor};">${data.titleColor}</div>
 上次签到时间：${formatTimestamp(data.signed, 'Asia/Shanghai')}
 注册时间：${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}
 更新时间：${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}`;
