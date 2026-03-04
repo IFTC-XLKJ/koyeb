@@ -49,7 +49,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     if (j.code != 200) return bot.sendMessage(chatId, j.msg);
     const data = j.data;
     const avatar = data.avatar;
-    bot.sendPhoto(chatId, avatar, {
+    await bot.sendPhoto(chatId, avatar, {
       caption: ""
     });
     const str = `<b>用户 ID：</b><code>${data.ID}</code>
