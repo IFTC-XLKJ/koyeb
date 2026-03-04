@@ -8,7 +8,7 @@ const setDataURL = "https://api.pgaot.com/dbs/cloud/set_table_data";
 const contentType = "application/json";
 // 用户-数据表
 class User {
-  constructor() {}
+  constructor() { }
   // 通过ID获取数据
   async getByID(id) {
     const timestamp = Date.now();
@@ -126,18 +126,18 @@ class User {
     };
     return new Promise((resolve, reject) => {
       fetch("https://api.pgaot.com/dbs/cloud/set_table_data", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        resolve( {
-          ...result, id: count
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          resolve({
+            ...result, id: count
+          });
+        })
+        .catch((error) => {
+          resolve({
+            msg: error.message
+          });
         });
-      })
-      .catch((error) => {
-        resolve( {
-          msg: error.message
-        });
-      });
     });
   }
   // 发送验证码
@@ -162,13 +162,14 @@ class User {
     };
     return new Promise((resolve, reject) => {
       fetch("https://api.pgaot.com/email/customize_sand", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        resolve(result);
-      })
-      .catch((error) => {
-        throw new Error("error:", error)});
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          resolve(result);
+        })
+        .catch((error) => {
+          throw new Error("error:", error)
+        });
     });
   }
   verifyCode(email, code) {
@@ -189,14 +190,14 @@ class User {
     };
     return new Promise((resolve, reject) => {
       fetch("https://api.pgaot.com/email/customize", requestOptions)
-      .then((response) => response.json())
-      .then((result) => {
-        console.log(result);
-        resolve(result);
-      })
-      .catch((error) => {
-        throw new Error("error:", error);
-      });
+        .then((response) => response.json())
+        .then((result) => {
+          console.log(result);
+          resolve(result);
+        })
+        .catch((error) => {
+          throw new Error("error:", error);
+        });
     });
   }
   async update(type, id, password, data) {
@@ -465,6 +466,35 @@ class User {
           type: "UPDATE",
           filter: `ID=${ID}`,
           fields: `QQ=${QQ}`,
+        })
+      })
+      if (!response.ok) {
+        throw new Error("Network response was not ok " + response.statusText);
+      }
+      const json = await response.json();
+      console.log(json);
+      return json;
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+      throw error;
+    }
+  }
+  static async setTelegram(ID, telegram) {
+    const timestamp = Date.now();
+    const signaturePromise = sign.get(timestamp);
+    try {
+      const signature = await signaturePromise;
+      const response = await fetch(setDataURL, {
+        method: "POST",
+        headers: {
+          "X-Pgaot-Key": VVZHkey,
+          "X-Pgaot-Sign": signature,
+          "X-Pgaot-Time": timestamp.toString(),
+        },
+        body: JSON.stringify({
+          type: "UPDATE",
+          filter: `ID=${ID}`,
+          fields: `telegram=${telegram}`,
         })
       })
       if (!response.ok) {
