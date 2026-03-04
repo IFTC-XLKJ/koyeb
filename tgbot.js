@@ -79,6 +79,12 @@ bot.onText(/\/help/, (msg, match) => {
   bot.sendMessage(chatId, helpText);
 });
 
+bot.onText(/\/about/, (msg, match) => {
+  const chatId = msg.chat.id;
+  const aboutText = `VV助手 v1.0 by <a href=\"https://github.com/IFTC-XLKJ\">@IFTC-XLKJ</a>`;
+  bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
+});
+
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   console.log(" Telegram Bot Received message:", msg.text);
