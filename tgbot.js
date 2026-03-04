@@ -77,6 +77,8 @@ bot.onText(/\/help/, (msg, match) => {
   const chatId = msg.chat.id;
   const helpText = `VV助手是一个Telegram机器人，可以帮助你查询用户信息。<br>
 当前可用命令：<br>
+<code>/start</code> - 启动机器人
+<code>/hello</code> - 测试命令，回复 "Hello, Telegram!"
 <code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
 <code>/help</code> - 显示帮助信息
 <code>/about</code> - 关于VV助手`;
