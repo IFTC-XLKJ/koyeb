@@ -95,11 +95,22 @@ bot.onText(/\/about/, (msg, match) => {
 
 bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
   const chatId = msg.chat.id;
-  const uid = msg.from.id;
-  if (!uid) return bot.sendMessage(chatId, "无法获取你的 Telegram 用户ID，请确保你已正确使用 /login 命令");
-  const username = match[1];
-  const password = match[2];
-  console.log("Telegram Bot Received login command:", username, password);
+  try {
+    const uid = msg.from.id;
+    if (!uid) return bot.sendMessage(chatId, "无法获取你的 Telegram 用户ID，请确保你已正确使用 /login 命令");
+    const username = match[1];
+    const password = match[2];
+    console.log("Telegram Bot Received login command:", username, password);
+    const r = await fetch("https://iftc.koyeb.app/api/user/login?user=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
+    const j = await r.json();
+    if (j.code != 200) return bot.sendMessage(chatId, j.msg);
+    const j2 = await User.setTelegram(j.data.ID, uid);
+    if (j2.code != 200) return bot.sendMessage(chatId, "登录成功，但绑定 Telegram 失败：" + j2.msg);
+    bot.sendMessage(chatId, "登录并绑定 Telegram 成功！");
+  } catch (error) {
+    console.error('TG Bot Login Error:', error);
+    bot.sendMessage(chatId, "登录出错：" + error + "，请稍后再试...");
+  }
 });
 
 bot.on("message", (msg) => {
