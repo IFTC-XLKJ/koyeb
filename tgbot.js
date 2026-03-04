@@ -106,7 +106,7 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
     const r = await fetch("https://iftc.koyeb.app/api/user/login?user=" + encodeURIComponent(username) + "&password=" + encodeURIComponent(password));
     const j = await r.json();
     if (j.code != 200) return bot.sendMessage(chatId, j.msg);
-    const j2 = await User.setTelegram(j.data.id, uid);
+    const j2 = await User.setTelegram(j.id, uid);
     if (j2.code != 200) return bot.sendMessage(chatId, "登录成功，但绑定 Telegram 失败：" + j2.msg);
     bot.sendMessage(chatId, "登录并绑定 Telegram 成功！");
   } catch (error) {
