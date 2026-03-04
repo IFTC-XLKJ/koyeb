@@ -81,6 +81,22 @@ bot.onText(/\/queryuser/, (msg, match) => {
 });
 */
 
+bot.on("message", (msg) => {
+  const chatId = msg.chat.id;
+  if (msg.text.startsWith("/")) return;
+  bot.sendMessage(chatId, "未知命令，请使用 /help 获取帮助");
+});
+
+bot.on("callback_query", (query) => {
+  const chatId = query.message.chat.id;
+  const data = query.data;
+  if (data === "help") {
+    bot.sendMessage(chatId, "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0");
+  } else {
+    bot.sendMessage(chatId, "未知操作");
+  }
+});
+
 function escapeHtml(text) {
   if (!text) return '';
   return String(text)
