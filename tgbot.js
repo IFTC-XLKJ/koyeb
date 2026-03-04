@@ -60,7 +60,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
 <b>管理员：</b><code>${data.op ? "是" : "否"}</code>
 <b>冻结：</b><code>${data.freezed ? "是" : "否"}</code>
 <b>头衔：</b><code>${data.title}</code>
-<b>头衔色：</b><code><span style="color: ${data.titleColor};">${data.titleColor}</span></code>
+<b>头衔色：</b><code>${data.titleColor}</code>
 <b>上次签到时间：</b><code>${formatTimestamp(data.signed, 'Asia/Shanghai')}</code>
 <b>注册时间：</b><code>${formatTimestamp(data.createdAt * 1000, 'Asia/Shanghai')}</code>
 <b>更新时间：</b><code>${formatTimestamp(data.updatedAt * 1000, 'Asia/Shanghai')}</code>`;
