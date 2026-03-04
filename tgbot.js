@@ -53,7 +53,14 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     });
     const str = `用户ID：${data.ID}
 用户名：${data.username}
-邮箱：${data.email}`;
+邮箱：${data.email}
+V币：${data.VC}
+VIP：${data.VIP ? "是" : "否"}
+管理员：${data.op ? "是" : "否"}
+冻结：${data.freezed ? "是" : "否"}
+头衔：${data.title}
+头衔色：${data.titleColor}
+上次签到时间：${data.signed}`;
     bot.sendMessage(chatId, JSON.stringify(j, null, 4));
   } catch(error) {
     console.error('TG Bot Error:', error);
