@@ -83,6 +83,7 @@ bot.onText(/\/queryuser/, (msg, match) => {
 
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
+  console.log(" Telegram Bot Received message:", msg.text);
   if (msg.text.startsWith("/")) return;
   bot.sendMessage(chatId, "未知命令，请使用 /help 获取帮助");
 });
