@@ -74,13 +74,6 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
   }
 });
 
-/*
-bot.onText(/\/queryuser/, (msg, match) => {
-  const chatId = msg.chat.id;
-  return bot.sendMessage(chatId, "请输入用户ID以查询用户信息");
-});
-*/
-
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   console.log(" Telegram Bot Received message:", msg.text);
@@ -121,10 +114,5 @@ function formatTimestamp(timestamp, timezone) {
     hour12: false,
   }).format(date);
 }
-
-// 使用示例
-const timestamp = 1735689600000; // 毫秒时间戳 (2025-01-01 00:00:00 UTC)
-
-console.log(formatTimestamp(timestamp, 'Asia/Shanghai'));
 
 module.exports = bot;
