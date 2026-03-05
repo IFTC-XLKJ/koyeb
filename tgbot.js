@@ -84,7 +84,7 @@ bot.onText(/\/help/, (msg, match) => {
 <code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
 <code>/help</code> - 显示帮助信息
 <code>/about</code> - 关于VV助手
-<code>/login <用户名> <密码></code> - 登录并绑定Telegram，例如：<code>/login testuser testpassword</code><br>`;
+<code>/login 用户名 密码</code> - 登录并绑定Telegram，例如：<code>/login testuser testpassword</code><br>`;
   bot.sendMessage(chatId, helpText, { parse_mode: "HTML" });
 });
 
