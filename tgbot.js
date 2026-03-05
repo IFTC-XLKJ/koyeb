@@ -119,6 +119,7 @@ bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   console.log(" Telegram Bot Received message:", msg.text);
   if (msg.text.trim() == "/queryuser") return bot.sendMessage(chatId, "请输入用户ID以查询用户信息，如：/queryuser 0");
+  if (msg.text.trim() == "/login") return bot.sendMessage(chatId, "请输入用户ID、用户名或邮箱和密码以登录VV账号，如：/login testuser testpassword");
   if (msg.text.startsWith("/")) return;
   bot.sendMessage(chatId, "未知命令，请使用 /help 获取帮助");
 });
