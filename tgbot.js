@@ -127,7 +127,7 @@ bot.on("callback_query", (query) => {
   const chatId = query.message.chat.id;
   const data = query.data;
   if (data === "help") {
-    bot.sendMessage(chatId, "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0");
+    bot.sendMessage(chatId, "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0\n输入 /help 以获取更多帮助");
   } else {
     bot.sendMessage(chatId, "未知操作");
   }
