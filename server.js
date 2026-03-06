@@ -2785,12 +2785,7 @@ app.get("/api/user/update", async (req, res) => {
 
 app.get("/api/user/register", async (req, res) => {
   requestLog(req);
-  const {
-    nickname,
-    avatar,
-    email,
-    password
-  } = req.query;
+  const { nickname, avatar, email, password } = req.query;
   if (nickname && email && password) {
     if (decodeURIComponent(nickname).includes("#")) return res.status(400).json({
       code: 400,
