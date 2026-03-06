@@ -84,7 +84,7 @@ bot.onText(/\/help/, (msg, match) => {
 <code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
 <code>/help</code> - 显示帮助信息
 <code>/about</code> - 关于VV助手
-<code>/login <用户名> <密码></code> - 登录并绑定Telegram，例如：<code>/login testuser testpassword</code><br>`;
+<code>/login 用户名 密码</code> - 登录并绑定Telegram，例如：<code>/login testuser testpassword</code><br>`;
   bot.sendMessage(chatId, helpText, { parse_mode: "HTML" });
 });
 
@@ -119,6 +119,7 @@ bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   console.log(" Telegram Bot Received message:", msg.text);
   if (msg.text.trim() == "/queryuser") return bot.sendMessage(chatId, "请输入用户ID以查询用户信息，如：/queryuser 0");
+  if (msg.text.trim() == "/login") return bot.sendMessage(chatId, "请输入用户ID、用户名或邮箱和密码以登录VV账号，如：/login testuser testpassword");
   if (msg.text.startsWith("/")) return;
   bot.sendMessage(chatId, "未知命令，请使用 /help 获取帮助");
 });
@@ -127,7 +128,7 @@ bot.on("callback_query", (query) => {
   const chatId = query.message.chat.id;
   const data = query.data;
   if (data === "help") {
-    bot.sendMessage(chatId, "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0");
+    bot.sendMessage(chatId, "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0\n输入 /help 以获取更多帮助");
   } else {
     bot.sendMessage(chatId, "未知操作");
   }
