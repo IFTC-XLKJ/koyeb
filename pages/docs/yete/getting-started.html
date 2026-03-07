@@ -26,8 +26,13 @@
             </p>
             <h2>创建项目</h2>
             <p>使用 Yete CLI 创建一个新的项目：</p>
-            <pre><code class="bash">chcp 65001
-yete init my-project</code></pre>
+            <p>通过 <code>chcp 65001</code> 命令设置控制台编码为 UTF-8。</p>
+            <pre><code class="language-bash">yete init my-project</code></pre>
+            <h2>运行开发服务器</h2>
+            <p>进入项目目录并启动开发服务器：</p>
+            <pre><code class="language-bash">cd my-project
+yete serve</code></pre>
+            <p>打开浏览器访问 <a href="http://localhost:3000">http://localhost:3000</a>，你应该能看到你的应用正在运行！</p>
         </div>
     </div>
 </body>
