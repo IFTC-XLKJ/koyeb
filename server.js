@@ -618,7 +618,18 @@ app.get("/VOS", async (req, res) => {
 app.use((req, res, next) => {
   if (req.url.startsWith("/docs")) {
     requestLog(req);
-    return res.sendFile(path.join(__dirname, "pages", req.url + ".html"));
+    res.set({
+      "Content-Type": "text/html;charset=utf-8",
+    });
+    try {
+      return res.sendFile(path.join(__dirname, "pages", req.url + ".html"));
+    } catch (error) {
+      return res.status(404).json({
+        code: 404,
+        msg: "Not Found",
+        timestamp: time(),
+      });
+    }
   }
 });
 
