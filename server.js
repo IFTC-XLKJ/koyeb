@@ -615,6 +615,13 @@ app.get("/VOS", async (req, res) => {
   }
 });
 
+app.use((req, res, next) => {
+  if (req.url.startsWith("/docs")) {
+    requestLog(req);
+    return res.sendFile(path.join(__dirname, "pages", req.url + ".html"));
+  }
+});
+
 app.all('/proxy/*', async (req, res) => {
   const requestedPath = req.url;
   const url = requestedPath.replace("/proxy/", "");
