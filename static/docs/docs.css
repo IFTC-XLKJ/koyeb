@@ -4,3 +4,15 @@
 }
 
 #title {}
+
+pre {
+    background: #f3f3f3;
+    padding: 1em;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: monospace;
+    font-size: 0.9em;
+    line-height: 1.5em;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
