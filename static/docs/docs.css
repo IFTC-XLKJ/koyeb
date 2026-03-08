@@ -23,3 +23,12 @@ pre {
     -webkit-border-radius: 3px;
     border-radius: 3px;
 }
+
+a {
+    color: lightskyblue;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
