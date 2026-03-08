@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>开始使用</title>
+    <title>Yete CLI</title>
     <link rel="shortcut icon" href="/static/yate.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/static/docs/docs.css">
     <link rel="stylesheet" href="/static/highlight.min.css">
@@ -13,43 +13,12 @@
 
 <body>
     <div id="app">
-        <h1 id="title">开始使用</h1><!-- title -->
+        <h1 id="title">Yete CLI</h1><!-- title -->
         <div id="content"><!-- content -->
-            <p>欢迎来到 Yete！这是一个简单的指南，帮助你快速上手。</p>
-            <p>Yete 是一个现代化的前端开发框架，旨在简化 Web 应用的开发过程。</p>
-            <h2>安装</h2>
-            <p>Yete CLI: </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/yete.exe">Windows
-                    x64</a>
-            </p>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;<a
-                    href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/yete">Linux
-                    arm64</a></p>
-            <p>下载完成后建议将可执行文件添加到系统 PATH 中。</p>
-            <h2>创建项目</h2>
-            <p>使用 Yete CLI 创建一个新的项目：</p>
-            <p>建议通过 <code>chcp 65001</code> 命令设置控制台编码为 UTF-8。</p>
-            <pre><code class="language-bash">yete init my-project</code></pre>
-            <p>项目目录：</p>
-            <pre><code class="language-bash">my-project
-├── dist/ # 静态资源输出目录
-├── esbuild.config.js # esbuild构建配置文件
-├── index.xml # 页面主文件
-├── index.js # 项目入口文件
-├── package.json # 项目依赖
-└── yete.config.json # Yete 配置文件</code></pre>
-            <h2>安装依赖</h2>
-            <pre><code class="language-bash">npm i</code></pre>
-            <h2>构建项目并运行开发服务器</h2>
-            <p>进入项目目录并启动开发服务器：</p>
-            <pre><code class="language-bash">cd my-project
-yete build && yete serve</code></pre>
-            <p>打开浏览器访问 <a href="http://localhost:12345">http://localhost:12345</a>，你应该能看到你的应用正在运行！</p>
         </div>
         <div id="nav">
             <div id="previoui">
-                <a href="/docs/yete">上一篇</a>
+                <a href="/docs/yete/getting-started">上一篇</a>
             </div>
             <div id="next">
                 <a href="/docs/yete/cli">下一篇</a>
