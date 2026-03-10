@@ -631,6 +631,7 @@ app.use((req, res, next) => {
       });
     }
   }
+  return next();
 });
 
 app.all('/proxy/*', async (req, res) => {
