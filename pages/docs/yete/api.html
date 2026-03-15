@@ -40,7 +40,19 @@ setTitle("Yete");</code></pre>
 route([
     { path: '/', page: () => loadPage(HomePage) },
     { path: '/about', page: () => loadPage(AboutPage) }
-]);</code></pre>
+]);
+route([
+    { path: '/other', page: () => loadPage(OtherPage) }
+]); // 添加新路由
+/*
+添加新路由不会覆盖旧路由，新路由会追加到旧路由之后。
+实际路由变为：
+[
+    { path: '/', page: () => loadPage(HomePage) },
+    { path: '/about', page: () => loadPage(AboutPage) },
+    { path: '/other', page: () => loadPage(OtherPage) }
+]
+*/</code></pre>
             <p>添加路由，第二次使用不会覆盖第一次添加的路由</p>
             <h4>参数：</h4>
             <ul>
