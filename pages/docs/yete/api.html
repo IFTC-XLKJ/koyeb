@@ -131,7 +131,7 @@ const button = newElement("Button");</code></pre>
             <ul>
                 <li><code>element[HTMLElement]</code> - 元素对象</li>
             </ul>
-            <h3>addEventListener(type, listener) \ on(type, listener)</h3>
+            <h3>addEventListener(type, listener) / on(type, listener)</h3>
             <pre><code class="language-javascript">const { addEventListener, on } = require("@iftc/yete");
 addEventListener("event-name", function(event) {
     console.log(event);
@@ -145,7 +145,7 @@ on("event-name", function(event) {
                 <li><code>eventName[string]</code> - 事件名称</li>
                 <li><code>callback[function]</code> - 回调函数</li>
             </ul>
-            <h3>removeEventListener(type, listener) \ off(type, listener)</h3>
+            <h3>removeEventListener(type, listener) / off(type, listener)</h3>
             <pre><code class="language-javascript">const { removeEventListener, off } = require("@iftc/yete");
 removeEventListener("event-name", function(event) {
     console.log(event);
