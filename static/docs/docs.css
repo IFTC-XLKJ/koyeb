@@ -23,6 +23,17 @@ pre {
     border-radius: 3px;
 }
 
+code {
+    font-family: monospace;
+    font-size: 0.9em;
+    line-height: 1.5em;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 0.5em;
+}
+
 a {
     color: lightskyblue;
     text-decoration: none;
