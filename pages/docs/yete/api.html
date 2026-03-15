@@ -162,7 +162,7 @@ off("event-name", function(event) {
             <h3>dispatchEvent(type, event) / emit(type, event)</h3>
             <pre><code class="language-javascript">const { dispatchEvent, emit } = require("@iftc/yete");
 dispatchEvent("event-name", new YeteEvent("event-name"));
-emit("event-name", new YeteEvent("event-name"));</code></pre> 
+emit("event-name", new YeteEvent("event-name"));</code></pre>
             <p>派发事件</p>
             <h4>参数：</h4>
             <ul>
@@ -176,6 +176,11 @@ class NewYeteEvent extends YeteEvent {
         super(type, options);
     }
 }</code></pre>
+            <p>YeteEvent 事件类型，所有事件触发的事件类型都为这个。</p>
+            <h3>getBinding()</h3>
+            <pre><code class="language-javascript">const { getBinding } = require("@iftc/yete");
+getBinding();</code></pre>
+            <p>获取当前绑定的所有 <code>yete-id</code> 属性的元素。</p>
         </div>
         <div id="nav">
             <div id="previoui">
