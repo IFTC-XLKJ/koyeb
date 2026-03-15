@@ -159,7 +159,11 @@ off("event-name", function(event) {
                 <li><code>eventName[string]</code> - 事件名称</li>
                 <li><code>callback[function]</code> - 回调函数</li>
             </ul>
-            <h4></h4>
+            <h3>dispatchEvent(type, event) / emit(type, event)</h3>
+            <pre><code class="language-javascript">const { dispatchEvent, emit } = require("@iftc/yete");
+dispatchEvent("event-name", new Event("event-name"));
+emit("event-name", new Event("event-name"));</code></pre> 
+            <p>派发事件</p>
         </div>
         <div id="nav">
             <div id="previoui">
