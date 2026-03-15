@@ -170,6 +170,12 @@ emit("event-name", new YeteEvent("event-name"));</code></pre>
                 <li><code>event[Event]</code> 事件对象</li>
             </ul>
             <h3>YeteEvent</h3>
+            <pre><code class="language-javascript">const { YeteEvent } = require("@iftc/yete");
+class NewYeteEvent extends YeteEvent {
+    constructor(type, options) {
+        super(type, options);
+    }
+}</code></pre>
         </div>
         <div id="nav">
             <div id="previoui">
