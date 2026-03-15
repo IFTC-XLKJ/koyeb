@@ -145,6 +145,20 @@ on("event-name", function(event) {
                 <li><code>eventName[string]</code> - 事件名称</li>
                 <li><code>callback[function]</code> - 回调函数</li>
             </ul>
+            <h4>removeEventListener(type, listener) \ off(type, listener)</h4>
+            <pre><code class="language-javascript">const { removeEventListener, off } = require("@iftc/yete");
+removeEventListener("event-name", function(event) {
+    console.log(event);
+});
+off("event-name", function(event) {
+    console.log(event);
+});</code></pre>
+            <p>移出事件监听器</p>
+            <h4>参数：</h4>
+            <ul>
+                <li><code>eventName[string]</code> - 事件名称</li>
+                <li><code>callback[function]</code> - 回调函数</li>
+            </ul>
         </div>
         <div id="nav">
             <div id="previoui">
