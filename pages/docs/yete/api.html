@@ -131,6 +131,20 @@ const button = newElement("Button");</code></pre>
             <ul>
                 <li><code>element[HTMLElement]</code> - 元素对象</li>
             </ul>
+            <h4>addEventListener(type, listener) \ on(type, listener)</h4>
+            <pre><code class="language-javascript">const { addEventListener, on } = require("@iftc/yete");
+addEventListener("event-name", function(event) {
+    console.log(event);
+});
+on("event-name", function(event) {
+    console.log(event);
+});</code></pre>
+            <p>添加事件监听器</p>
+            <h4>参数：</h4>
+            <ul>
+                <li><code>eventName[string]</code> - 事件名称</li>
+                <li><code>callback[function]</code> - 回调函数</li>
+            </ul>
         </div>
         <div id="nav">
             <div id="previoui">
