@@ -181,6 +181,17 @@ class NewYeteEvent extends YeteEvent {
             <pre><code class="language-javascript">const { getBinding } = require("@iftc/yete");
 getBinding();</code></pre>
             <p>获取当前绑定的所有 <code>yete-id</code> 属性的元素。</p>
+            <h4>返回：</h4>
+            <ul>
+                <li><code>NodeList[]</code> - 当前绑定的所有 <code>yete-id</code> 属性的元素。</li>
+            </ul>
+            <h3>custom404(page = null)</h3>
+            <pre><code class="language-javascript">const { custom404 } = require("@iftc/yete");
+custom404(Custom404Page);</code></pre>
+            <h4>参数：</h4>
+            <ul>
+                <li><code>page[yete.Page]</code> - 自定义404页面。</li>
+            </ul>
         </div>
         <div id="nav">
             <div id="previoui">
