@@ -117,7 +117,7 @@ toPage("/about");</code></pre>
                 <li><code>path[string]</code> - 页面路径</li>
                 <li><code>message[object]</code> - 传递给页面的消息</li>
             </ul>
-            <h2>newElement(tag, options = {})</h2>
+            <h3>newElement(tag, options = {})</h3>
             <pre><code class="language-javascript">const { newElement } = require("@iftc/yete");
 const text = newElement("Text");
 const button = newElement("Button");</code></pre>
@@ -131,7 +131,7 @@ const button = newElement("Button");</code></pre>
             <ul>
                 <li><code>element[HTMLElement]</code> - 元素对象</li>
             </ul>
-            <h4>addEventListener(type, listener) \ on(type, listener)</h4>
+            <h3>addEventListener(type, listener) \ on(type, listener)</h3>
             <pre><code class="language-javascript">const { addEventListener, on } = require("@iftc/yete");
 addEventListener("event-name", function(event) {
     console.log(event);
@@ -145,7 +145,7 @@ on("event-name", function(event) {
                 <li><code>eventName[string]</code> - 事件名称</li>
                 <li><code>callback[function]</code> - 回调函数</li>
             </ul>
-            <h4>removeEventListener(type, listener) \ off(type, listener)</h4>
+            <h3>removeEventListener(type, listener) \ off(type, listener)</h3>
             <pre><code class="language-javascript">const { removeEventListener, off } = require("@iftc/yete");
 removeEventListener("event-name", function(event) {
     console.log(event);
@@ -159,6 +159,7 @@ off("event-name", function(event) {
                 <li><code>eventName[string]</code> - 事件名称</li>
                 <li><code>callback[function]</code> - 回调函数</li>
             </ul>
+            <h4></h4>
         </div>
         <div id="nav">
             <div id="previoui">
