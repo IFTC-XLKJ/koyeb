@@ -43,6 +43,10 @@ a {
     text-decoration: none;
 }
 
+li {
+    margin-bottom: 3px;
+}
+
 a:hover {
     text-decoration: underline;
 }
