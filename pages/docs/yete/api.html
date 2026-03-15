@@ -35,6 +35,12 @@ setTitle("Yete");</code></pre>
             <ul>
                 <li><code>title[string]</code> 标题</li>
             </ul>
+            <h3>route(options)</h3>
+            <pre><code class="language-javascript">const { route } = require("@iftc/yete");
+route([
+    { path: '/', page: () => loadPage(HomePage) },
+    { path: '/about', page: () => loadPage(AboutPage) }
+]);</code></pre>
         </div>
         <div id="nav">
             <div id="previoui">
