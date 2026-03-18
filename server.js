@@ -102,7 +102,7 @@ const backendPass = "21ec360b05962410edbcc561edc8648e";
 const requestCounts = new Map();
 const crawlerAgents = [
   'slurp', 'duckduckbot', 'baiduspider',
-  'yandexbot', 'facebookexternalhit', 'twitterbot', 'rogerbot',
+ 'facebookexternalhit', 'twitterbot', 'rogerbot',
 
   'python', 'urllib', 'requests', 'httpclient', 'go-http-client',
   'java', 'curl', 'wget', 'axios', 'node-fetch',
