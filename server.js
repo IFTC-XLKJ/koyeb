@@ -102,7 +102,7 @@ const backendPass = "21ec360b05962410edbcc561edc8648e";
 const requestCounts = new Map();
 const crawlerAgents = [
   'slurp', 'duckduckbot', 'baiduspider',
- 'facebookexternalhit', 'twitterbot', 'rogerbot',
+  'facebookexternalhit', 'twitterbot', 'rogerbot',
 
   'python', 'urllib', 'requests', 'httpclient', 'go-http-client',
   'java', 'curl', 'wget', 'axios', 'node-fetch',
@@ -632,6 +632,33 @@ app.use((req, res, next) => {
     }
   }
   return next();
+});
+
+app.get("/stream-test", async (req, res) => {
+  requestLog(req);
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  let count = 0;
+  const interval = setInterval(() => {
+    const logMessage = `Log entry at ${new Date().toISOString()}\n`;
+
+    // 写入数据
+    res.write(`data: ${logMessage}\n\n`);
+
+    // 模拟某种条件停止
+    if (count > 100) {
+      clearInterval(interval);
+      res.end();
+    }
+    count++;
+  }, 1000);
+
+  // 客户端断开时清理
+  req.on('close', () => {
+    clearInterval(interval);
+    res.end();
+  });
 });
 
 app.all('/proxy/*', async (req, res) => {
