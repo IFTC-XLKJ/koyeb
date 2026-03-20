@@ -649,6 +649,7 @@ app.get("/stream-test", async (req, res) => {
     // 模拟某种条件停止
     if (count > 100) {
       clearInterval(interval);
+      res.write("data: [DONE]\n\n");
       res.end();
     }
     count++;
@@ -657,6 +658,7 @@ app.get("/stream-test", async (req, res) => {
   // 客户端断开时清理
   req.on('close', () => {
     clearInterval(interval);
+    res.write("data: [DONE]\n\n");
     res.end();
   });
 });
