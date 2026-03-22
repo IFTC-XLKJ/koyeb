@@ -624,6 +624,21 @@ app.get("/feedback", async (req, res) => {
   });
 });
 
+app.get("/robots.txt", (req, res) => {
+  return res.send(`User-agent: *
+    Disallow: /api
+    Allow: /
+    Allow: /docs/yete
+    Allow: /VVMusic
+    Allow: /noob/editor
+    Allow: /cloudfun
+    Allow: /VOS
+    Allow: /feedback
+
+    Sitemap: https://iftc.koyeb.app/sitemap.xml
+    `);
+});
+
 app.use((req, res, next) => {
   if (req.url.startsWith("/docs")) {
     requestLog(req);
