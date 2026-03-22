@@ -615,6 +615,15 @@ app.get("/VOS", async (req, res) => {
   }
 });
 
+app.get("/feedback", async (req, res) => {
+  requestLog(req);
+  return res.json({
+    code: 200,
+    msg: "反馈功能正在开发中，请耐心等待",
+    timestamp: time(),
+  });
+});
+
 app.use((req, res, next) => {
   if (req.url.startsWith("/docs")) {
     requestLog(req);
