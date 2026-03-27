@@ -634,6 +634,7 @@ app.get("/robots.txt", (req, res) => {
     Allow: /cloudfun
     Allow: /VOS
     Allow: /feedback
+    Allow: /sitemap.xml
 
     Sitemap: https://iftc.koyeb.app/sitemap.xml
     `);
