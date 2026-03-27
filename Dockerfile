@@ -17,6 +17,7 @@ RUN npm i node-telegram-bot-api
 # 安装 Chromium 和必要依赖
 RUN apt-get update && \
     apt-get install -y \
+    traceroute \
     unzip \
     openjdk-17-jdk \
     dnsutils \

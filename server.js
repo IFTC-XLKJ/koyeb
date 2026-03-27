@@ -3415,6 +3415,14 @@ app.get("/api/webpage_screenshot", async (req, res) => {
   }
 });
 
+app.get("/api/adreward", async (req, res) => {
+  requestLog(req);
+  console.log("谷歌广告奖励：", req);
+  return res.json({
+    code: 200
+  });
+});
+
 
 app.listen(port, () => {
   startTime = Date.now();
