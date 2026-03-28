@@ -457,6 +457,7 @@ app.get("/signup", async (req, res) => {
 
 app.get("/login", async (req, res) => {
   requestLog(req);
+  if (req.cookies.ID || (req.cookies.ID == 0)) return res.redirect("https://iftc.koyeb.app/");
   const params = {};
   res.set({
     "Content-Type": "text/html;charset=utf-8",
