@@ -42,9 +42,9 @@ console.log("登录页面全新升级");
         }
     });
 
-    if (localStorage.getItem("ID") && localStorage.getItem("password")) {
-        const url = new URL(location.href);
-        const page = url.searchParams.get("page") || "/";
-        location.href = page;
-    }
+    // if (localStorage.getItem("ID") && localStorage.getItem("password")) {
+    //     const url = new URL(location.href);
+    //     const page = url.searchParams.get("page") || "/";
+    //     location.href = page;
+    // }
 })();
