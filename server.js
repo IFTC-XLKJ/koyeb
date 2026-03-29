@@ -40,7 +40,6 @@ const discussion = new Discussion();
 const app = express();
 const corsOptions = {
   origin: function (origin, callback) {
-    // console.log("Origin:", origin || "Unknown");
     callback(null, true);
   }
 }
