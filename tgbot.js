@@ -117,7 +117,7 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
   }
 });
 
-bot.onText('whoami', )
+bot.onText('whoami', async function(msg){});
 
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
