@@ -117,6 +117,8 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
   }
 });
 
+bot.onText('whoami', )
+
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
   console.log(" Telegram Bot Received message:", msg.text);
