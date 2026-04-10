@@ -28,7 +28,7 @@ bot.onText(/\/start/, (msg, match) => {
 bot.onText(/\/hello/, function onLoveText(msg) {
   const from = msg.from;
   const username = from.username;
-  bot.sendMessage(msg.chat.id, 'Hello, ' + username + '!');
+  bot.sendMessage(msg.chat.id, 'Hello, @' + username + '!');
 });
 
 
