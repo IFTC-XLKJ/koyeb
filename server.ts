@@ -16,7 +16,7 @@ const fastify: FastifyInstance = Fastify({
     logger: false,
 });
 
-console.log(">>> System information:", await si.getStaticData());
+// console.log(">>> System information:", await si.getStaticData());
 
 const port: number = Number(process.env.PORT) || 8000;
 const backendPass: string = "21ec360b05962410edbcc561edc8648e";
@@ -32,6 +32,8 @@ fastify.register(fastifyStatic, {
     root: path.join(__dirname, "files"),
     prefix: "/files/",
 });
+
+console.log(">>> Static file serving configured for:", path.join(__dirname, "static"), "and", path.join(__dirname, "files"));
 
 fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
     if (request.headers["user-agent"] == "Koyeb Health Check") return;
