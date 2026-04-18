@@ -176,12 +176,21 @@ async function start() {
         fastify.addHook(
             "onRequest",
             async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+                if (request.url.endsWith("php"))
+                    return reply.status(403).send({
+                        code: 403,
+                        msg: "PHP你妈呢",
+                        timestamp: time(),
+                    });
+            },
+        );
+        fastify.addHook(
+            "onRequest",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
                 if (request.headers["user-agent"] == "Koyeb Health Check") return;
                 if (request.headers["X-PASS"] == backendPass) return;
                 if (request.headers["user-agent"] == null)
-                    return reply
-                        .status(400)
-                        .send({ code: 400, msg: "", timestamp: time() });
+                    return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
                 if (crawlerAgents.some((agent: string) => ua.includes(agent)))
