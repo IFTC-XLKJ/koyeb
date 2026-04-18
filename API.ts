@@ -92,7 +92,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-            return { message: "Hello, World!" };
         },
     );
 }
