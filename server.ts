@@ -382,6 +382,51 @@ async function start() {
             },
         );
         API(fastify);
+        fastify.get(
+            "/file/blockly/workspace-search",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const content: string = await fs.readFile(
+                    "node_modules/@blockly/plugin-workspace-search/dist/index.js",
+                    "utf8",
+                );
+                if (content) {
+                    reply.headers({
+                        "Content-Type": "text/javascript;charset=utf-8",
+                    });
+                    return reply.send(content);
+                } else return reply.status(500).send(null);
+            },
+        );
+        fastify.get(
+            "/file/blockly/shadow-block-converter",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const content: string = await fs.readFile(
+                    "node_modules/@blockly/shadow-block-converter/dist/index.js",
+                    "utf8",
+                );
+                if (content) {
+                    reply.headers({
+                        "Content-Type": "text/javascript;charset=utf-8",
+                    });
+                    return reply.send(content);
+                } else return reply.status(500).send(null);
+            },
+        );
+        fastify.get(
+            "/file/blockly/blockly-plugin-workspace-multiselect",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const content: string = await fs.readFile(
+                    "node_modules/@mit-app-inventor/blockly-plugin-workspace-multiselect/dist/index.js",
+                    "utf8",
+                );
+                if (content) {
+                    reply.headers({
+                        "Content-Type": "text/javascript;charset=utf-8",
+                    });
+                    return reply.send(content);
+                } else return reply.status(500).send(null);
+            },
+        );
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
         await fastify.listen({ port: port, host: "0.0.0.0" });
