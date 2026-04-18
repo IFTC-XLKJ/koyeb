@@ -10,6 +10,14 @@ const fastify: FastifyInstance = Fastify({
 
 const port: number = Number(process.env.PORT) || 8000;
 
+fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+    reply.status(404).send({
+        code: 404,
+        msg: `Route ${request.method} ${request.url} not found`,
+        error: "Not Found",
+    });
+});
+
 fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
     return { hello: "world" };
 });
