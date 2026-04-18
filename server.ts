@@ -36,6 +36,19 @@ setInterval(async (): Promise<void> => {
     console.log(await r.text());
 }, 30000);
 
+setInterval((): void => {
+    const time: String = new Date().toLocaleDateString("zh-CN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+    });
+    console.log("服务器正在运行中...", time);
+}, 30000);
+
 (async function (): Promise<void> {
     try {
         const r: Response = await fetch("https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb");
