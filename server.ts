@@ -38,7 +38,7 @@ setInterval(async (): Promise<void> => {
 
 (async function (): Promise<void> {
     try {
-        const r: Response = await fetch("https://iftc.deno.dev/GeoLite2-City.mmdb");
+        const r: Response = await fetch("https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb");
         await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(await r.arrayBuffer()));
         console.log("GeoLite2-City.mmdb downloaded");
     } catch (e: unknown) {
