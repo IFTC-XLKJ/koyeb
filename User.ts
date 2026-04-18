@@ -1,6 +1,6 @@
 import Sign from "./Sign.ts";
 import crypto from "crypto";
-import { GetByIDResponse } from "./types.ts";
+import type { GetByIDResponse } from "./types.ts";
 
 const sign: Sign = new Sign();
 
@@ -19,11 +19,11 @@ function md5Hash(input: string): string {
 export default class User {
     constructor() {}
     async getByID(id: number): Promise<GetByIDResponse> {
-        return await this.fetchData(getDataURL, {
+        return (await this.fetchData(getDataURL, {
             filter: `ID=${id}`,
             page: 1,
             limit: 1,
-        }) as GetByIDResponse;
+        })) as GetByIDResponse;
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
