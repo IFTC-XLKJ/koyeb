@@ -11,16 +11,65 @@ const fastify: FastifyInstance = Fastify({
 });
 
 const port: number = Number(process.env.PORT) || 8000;
+const backendPass: string = "21ec360b05962410edbcc561edc8648e";
+const requestCounts = new Map();
+const crawlerAgents = ["slurp", "duckduckbot", "baiduspider", "facebookexternalhit", "twitterbot", "rogerbot", "python", "urllib", "requests", "httpclient", "go-http-client", "java", "curl", "wget", "axios", "node-fetch", "scrapy", "apify", "puppeteer", "playwright", "selenium"];
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, 'static'),
-    prefix: '/static/',
+    root: path.join(__dirname, "static"),
+    prefix: "/static/",
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, 'files'),
-    prefix: '/files/',
+    root: path.join(__dirname, "files"),
+    prefix: "/files/",
 });
+
+fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+    if (request.headers["user-agent"] == "Koyeb Health Check") return;
+    if (request.headers["X-PASS"] == backendPass) return;
+    const ua: string = (request.headers["user-agent"] || "").toLowerCase();
+    const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
+    if (crawlerAgents.some((agent: string) => ua.includes(agent)))
+        return reply.status(403).send({
+            code: 403,
+            msg: "爬你妈呢",
+            timestamp: time(),
+        });
+    if (isSuspiciousBehavior(request))
+        return reply.status(403).send({
+            code: 403,
+            msg: "可疑请求行为",
+            timestamp: time(),
+        });
+    if (await isRateLimited(ip))
+        return reply.status(429).send({
+            code: 429,
+            msg: "请求过于频繁",
+            timestamp: time(),
+        });
+});
+
+async function isRateLimited(ip: string | string[]): Promise<boolean> {
+    const now: number = Date.now();
+    const windowMs: number = 60000;
+    const maxRequests: number = 100;
+    if (!requestCounts.has(ip)) requestCounts.set(ip, []);
+    const requests: number[] = requestCounts.get(ip);
+    const recentRequests: number[] = requests.filter((time: number) => now - time < windowMs);
+    if (recentRequests.length >= maxRequests) return true;
+    recentRequests.push(now);
+    requestCounts.set(ip, recentRequests);
+    return false;
+}
+
+function isSuspiciousBehavior(req: FastifyRequest): boolean {
+    const hasBrowserHeaders: boolean = !!req.headers.accept && !!req.headers["accept-language"] && !!req.headers["accept-encoding"];
+    const hasReferer: boolean = !!req.headers.referer;
+    const connectionType: string | undefined = req.headers.connection;
+    if (!hasBrowserHeaders && connectionType === "close") return true;
+    return false;
+}
 
 fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
     requestLog(request);
