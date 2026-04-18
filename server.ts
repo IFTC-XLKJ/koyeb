@@ -1,5 +1,8 @@
 import Fastify from "fastify";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import os from "os";
+import si from "systeminformation";
+
 const fastify: FastifyInstance = Fastify({
     logger: true,
 });
@@ -17,3 +20,34 @@ fastify.listen({ port: port }, (err: Error | null, address: String): void => {
     }
     console.log(`Server listening at ${address}`);
 });
+
+setInterval(async (): Promise<void> => {
+    systemMonitor();
+    const r: Response = await fetch("https://iftc.deno.dev");
+    console.log(await r.text());
+}, 30000);
+
+async function getCpuUsageSI(): Promise<string> {
+    const data: si.Systeminformation.CurrentLoadData = await si.currentLoad();
+    let cpuUsage: number = 0;
+    data.cpus.forEach((cpu: si.Systeminformation.CurrentLoadCpuData) => {
+        cpuUsage += cpu.load;
+    });
+    cpuUsage = cpuUsage / data.cpus.length;
+    return cpuUsage.toFixed(2);
+}
+
+async function systemMonitor(): Promise<void> {
+    console.log("=== ↓系统监控↓ ===");
+    console.log(`操作系统: ${os.type()} ${os.release()}`);
+    console.log(`CPU 架构: ${os.arch()}`);
+    console.log(`CPU 核心数: ${os.cpus().length}`);
+    console.log(`CPU 型号: ${os.cpus()[0].model}`);
+    console.log(`CPU 利用率: ${await getCpuUsageSI()}%`);
+    console.log(`总内存: ${(os.totalmem() / 1024 / 1024).toFixed(2)} MB`);
+    console.log(`已使用内存: ${((os.totalmem() - os.freemem()) / 1024 / 1024).toFixed(2)} MB`);
+    console.log(`内存使用率: ${(((os.totalmem() - os.freemem()) / os.totalmem()) * 100).toFixed(2)}%`);
+    console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
+    console.log(`系统运行时间: ${(os.uptime() / 60 / 60).toFixed(2)} 小时`);
+    console.log("=== ↑系统监控↑ ===");
+}
