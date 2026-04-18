@@ -187,7 +187,7 @@ export default function (fastify: FastifyInstance) {
         ): Promise<Object> => {
             const { keyword } = request.query;
             try {
-                const json: SearchResponse = await user.search(keyword);
+                const json: SearchResponse = await user.search(decodeURIComponent(keyword || ""));
                 const code: number = json["code"];
             } catch (error: unknown) {
                 return reply.status(500).send({
