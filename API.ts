@@ -417,6 +417,30 @@ export default function (fastify: FastifyInstance) {
             return await r.json();
         },
     );
+    fastify.get(
+        "/api/music_resource/id/:id",
+        {
+            schema: {
+                params: {
+                    type: "object",
+                    properties: {
+                        id: { type: "string" },
+                    },
+                    required: ["id"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Params: { id: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { id } = request.params;
+            const r: Response = await fetch(
+                "http://www.lihouse.xyz/coco_widget/music_resource/id/" + id,
+            );
+            return await r.json();
+        },
+    );
 }
 
 function time(): number {
