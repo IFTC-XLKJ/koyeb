@@ -72,6 +72,9 @@ function isSuspiciousBehavior(req: FastifyRequest): boolean {
 }
 
 fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+    console.log("Cookies:", request.headers.cookie);
+    if (request.headers["user-agent"] == "Koyeb Health Check") return;
+    if (request.headers["user-agent"] == "IFTC Bot") return;
     requestLog(request);
 });
 
