@@ -8,6 +8,12 @@ interface UserDetailsQueryParams {
     id: number;
 }
 
+interface UserMessagesQueryParams {
+    id: number;
+    start: number;
+    end: number;
+}
+
 export default function (fastify: FastifyInstance) {
     console.log("defining API routes...");
     fastify.setErrorHandler(
@@ -98,8 +104,25 @@ export default function (fastify: FastifyInstance) {
     );
     fastify.get(
         "/api/user/messages",
-        {},
-        async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {},
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        id: { type: "number" },
+                        start: { type: "number" },
+                        end: { type: "number" },
+                    },
+                    required: ["id", "start", "end"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: UserMessagesQueryParams }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { id, start, end } = request.query;
+        },
     );
 }
 
