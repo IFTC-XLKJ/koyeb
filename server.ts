@@ -127,6 +127,10 @@ fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: str
     console.log(`Server listening at ${address}`);
 });
 
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("Unhandled Rejection at:", promise, "reason:", reason);
+});
+
 function time(): number {
     return Date.now();
 }
