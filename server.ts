@@ -49,7 +49,6 @@ fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<O
             timestamp: time(),
         });
     }
-    return { hello: "world" };
 });
 
 fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: string): void => {
