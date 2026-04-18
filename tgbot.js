@@ -26,7 +26,9 @@ bot.onText(/\/start/, (msg, match) => {
 })
 
 bot.onText(/\/hello/, function onLoveText(msg) {
-  bot.sendMessage(msg.chat.id, 'Hello, Telegram!');
+  const from = msg.from;
+  const username = from.username;
+  bot.sendMessage(msg.chat.id, 'Hello, @' + username + '!');
 });
 
 
@@ -90,7 +92,7 @@ bot.onText(/\/help/, (msg, match) => {
 
 bot.onText(/\/about/, (msg, match) => {
   const chatId = msg.chat.id;
-  const aboutText = `VV助手 v1.0 by <a href=\"https://t.me/IFTCCEO\">@IFTCCEO</a>`;
+  const aboutText = `VV助手 v1.0 by @IFTCCEO`;
   bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
 });
 
@@ -114,6 +116,8 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
     bot.sendMessage(chatId, "登录出错：" + error + "，请稍后再试...");
   }
 });
+
+bot.onText('whoami', async function(msg){});
 
 bot.on("message", (msg) => {
   const chatId = msg.chat.id;
