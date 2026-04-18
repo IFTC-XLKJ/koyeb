@@ -181,7 +181,7 @@ async function start() {
                 if (request.headers["user-agent"] == null)
                     return reply
                         .status(400)
-                        .send({ code: 400, msg: "缺少User-Agent", timestamp: time() });
+                        .send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
                 if (crawlerAgents.some((agent: string) => ua.includes(agent)))
