@@ -207,8 +207,10 @@ export default function (fastify: FastifyInstance) {
                             titleColor: item.头衔色,
                             createdAt: item.createdAt,
                             updatedAt: item.updatedAt,
-                        }))
-                    })
+                        })),
+                        keyword: keyword,
+                        timestamp: time(),
+                    });
                 } else {
                     return reply.status(code).send({
                         code: code,
