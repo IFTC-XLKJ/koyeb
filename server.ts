@@ -19,6 +19,7 @@ fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply):
         code: 404,
         msg: `Route ${request.method} ${request.url} not found`,
         error: "Not Found",
+        timestamp: time(),
     });
 });
 
@@ -33,6 +34,16 @@ fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<O
     reply.headers({
         "Content-Type": "text/html; charset=utf-8",
     });
+    try {
+    } catch (e: unknown) {
+        console.error(e);
+        return reply.send({
+            code: 500,
+            msg: "服务器内部错误",
+            error: (e as Error).message || "Internal Server Error",
+            timestamp: time(),
+        });
+    }
     return { hello: "world" };
 });
 
