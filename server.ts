@@ -5,7 +5,7 @@ import si from "systeminformation";
 import fs from "fs/promises";
 
 const fastify: FastifyInstance = Fastify({
-    logger: true,
+    logger: false,
 });
 
 const port: number = Number(process.env.PORT) || 8000;
