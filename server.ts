@@ -117,7 +117,7 @@ async function requestRecord(req: FastifyRequest): Promise<void> {
         body: JSON.stringify({
             type: "INSERT",
             filter: `IP,站点,UA`,
-            fields: `("${ip}", "${new URL(url.pathname, "iftc://main/").toString() || "Unknown"}", "${req.headers["user-agent"] || "Unknown"}")`,
+            fields: `("${ip}", "${decodeURIComponent(new URL(url.pathname, "iftc://main/").toString() || "Unknown")}", "${req.headers["user-agent"] || "Unknown"}")`,
         }),
     });
     const json: Record<string, any> = await r.json();
