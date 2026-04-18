@@ -16,6 +16,8 @@ const fastify: FastifyInstance = Fastify({
     logger: false,
 });
 
+console.log(">>> System information:", await si.getStaticData());
+
 const port: number = Number(process.env.PORT) || 8000;
 const backendPass: string = "21ec360b05962410edbcc561edc8648e";
 const requestCounts = new Map();
