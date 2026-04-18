@@ -2,6 +2,7 @@ import Fastify from "fastify";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import os from "os";
 import si from "systeminformation";
+import fs from "fs/promises";
 
 const fastify: FastifyInstance = Fastify({
     logger: true,
@@ -26,6 +27,16 @@ setInterval(async (): Promise<void> => {
     const r: Response = await fetch("https://iftc.deno.dev");
     console.log(await r.text());
 }, 30000);
+
+(async function (): Promise<void> {
+    try {
+        const r: Response = await fetch("https://iftc.deno.dev/GeoLite2-City.mmdb");
+        await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(await r.arrayBuffer()));
+        console.log("GeoLite2-City.mmdb downloaded");
+    } catch (e: unknown) {
+        console.log(e);
+    }
+})();
 
 async function getCpuUsageSI(): Promise<string> {
     const data: si.Systeminformation.CurrentLoadData = await si.currentLoad();
