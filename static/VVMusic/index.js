@@ -15,7 +15,8 @@ if (!localStorage.getItem('music-search-history')) {
     localStorage.setItem('music-search-history', JSON.stringify([]));
 }
 
-globalThis.APIHost = "https://www.lihouse.xyz/coco_widget";
+// globalThis.APIHost = "https://www.lihouse.xyz/coco_widget";
+globalThis.APIHost = "http://www.lihouse.xyz/coco_widget";
 // (async function () {
 //     try {
 //         const r = await fetch(APIHost);
