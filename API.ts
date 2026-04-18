@@ -301,6 +301,48 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.get(
+        "/api/user/register",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        nickname: { type: "string" },
+                        email: { type: "string" },
+                        password: { type: "string" },
+                        avatar: { type: "string" },
+                    },
+                    required: ["nickname", "email", "password"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Querystring: { nickname: string; email: string; password: string; avatar: string };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { nickname, email, password, avatar } = request.query;
+            if (decodeURIComponent(nickname).includes("#"))
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "昵称不能包含#字符",
+                    timestamp: time(),
+                });
+            if (
+                decodeURIComponent(email).includes(" ") ||
+                decodeURIComponent(nickname).includes(" ") ||
+                decodeURIComponent(password).includes(" ")
+            )
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "昵称、邮箱和密码不能包含空格字符",
+                    timestamp: time(),
+                });
+            return {};
+        },
+    );
 }
 
 function time(): number {
