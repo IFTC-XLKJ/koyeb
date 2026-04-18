@@ -124,9 +124,9 @@ async function start() {
             if (await isRateLimited(ip)) return reply.status(429).send({ code: 429, msg: "请求过于频繁", timestamp: time() });
         });
         fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-            console.log("Cookies:", request.headers.cookie);
             if (request.headers["user-agent"] == "Koyeb Health Check") return;
             if (request.headers["user-agent"] == "IFTC Bot") return;
+            console.log("Cookies:", request.headers.cookie);
             requestLog(request);
         });
         console.log(">>> [STEP 5] Hooks added.");
