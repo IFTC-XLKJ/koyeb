@@ -21,8 +21,6 @@ const backendPass: string = "21ec360b05962410edbcc561edc8648e";
 const requestCounts = new Map();
 const crawlerAgents = ["slurp", "duckduckbot", "baiduspider", "facebookexternalhit", "twitterbot", "rogerbot", "python", "urllib", "requests", "httpclient", "go-http-client", "java", "curl", "wget", "axios", "node-fetch", "scrapy", "apify", "puppeteer", "playwright", "selenium"];
 
-// --- 辅助函数定义 ---
-
 function time(): number {
     return Date.now();
 }
@@ -97,35 +95,24 @@ async function systemMonitor(): Promise<void> {
     console.log("=== ↑系统监控↑ ===");
 }
 
-// --- 主启动逻辑 ---
-
 async function start() {
     console.log(">>> [STEP 1] Start function entered");
     try {
-        // 1. 注册静态文件 (已知正常)
         const staticPath = path.join(__dirname, "static");
         const filePath = path.join(__dirname, "file");
         await fs.mkdir(staticPath, { recursive: true });
         await fs.mkdir(filePath, { recursive: true });
-
         console.log(">>> [STEP 2] Registering static plugins...");
-        
-        // 第一个注册：保持默认，提供 sendFile 装饰器
-        await fastify.register(fastifyStatic, { 
+                await fastify.register(fastifyStatic, { 
             root: staticPath, 
             prefix: "/static/" 
         });
-
-        // 第二个注册：禁用 decorateReply，避免 'sendFile' 冲突
         await fastify.register(fastifyStatic, { 
             root: filePath, 
             prefix: "/file/",
-            decorateReply: false // <--- 关键修改
+            decorateReply: false
         });
-        
         console.log(">>> [STEP 3] Static plugins registered.");
-
-        // 2. 注册钩子 (嫌疑点 1)
         console.log(">>> [STEP 4] Adding hooks...");
         fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
             if (request.headers["user-agent"] == "Koyeb Health Check") return;
@@ -139,7 +126,6 @@ async function start() {
             if (await isRateLimited(ip))
                 return reply.status(429).send({ code: 429, msg: "请求过于频繁", timestamp: time() });
         });
-
         fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
             console.log("Cookies:", request.headers.cookie);
             if (request.headers["user-agent"] == "Koyeb Health Check") return;
@@ -147,13 +133,10 @@ async function start() {
             requestLog(request);
         });
         console.log(">>> [STEP 5] Hooks added.");
-
-        // 3. 注册路由 (嫌疑点 2)
         console.log(">>> [STEP 6] Adding routes...");
         fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
             reply.status(404).send({ code: 404, msg: `Route ${request.method} ${request.url} not found`, error: "Not Found", timestamp: time() });
         });
-
         fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
             if (request.headers["user-agent"] == "Koyeb Health Check" || request.headers["user-agent"] == "IFTC Bot")
                 return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
@@ -169,23 +152,17 @@ async function start() {
             }
         });
         console.log(">>> [STEP 7] Routes added.");
-
-        // 4. 启动服务器
         console.log(">>> [STEP 8] Starting listener...");
         await fastify.listen({ port: port, host: "0.0.0.0" });
         console.log(`Server listening at http://0.0.0.0:${port}`);
-
     } catch (err) {
         console.error("!!! FATAL ERROR in start():", err);
         if (err instanceof Error) console.error("Stack:", err.stack);
         process.exit(1);
     }
 }
-
-// 执行启动
 start();
 
-// --- 全局错误处理 ---
 process.on("unhandledRejection", (reason, promise) => {
     console.error("!!! Unhandled Rejection at:", promise, "reason:", reason);
 });
@@ -195,7 +172,6 @@ process.on("uncaughtException", (err) => {
     process.exit(1);
 });
 
-// --- 定时任务 ---
 setInterval(async (): Promise<void> => {
     try {
         await systemMonitor();
