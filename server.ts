@@ -22,13 +22,28 @@ fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<O
     return { hello: "world" };
 });
 
-fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: String): void => {
+fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: string): void => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);
     }
     console.log(`Server listening at ${address}`);
 });
+
+async function mixed(filepath: string, params: Record<string, any>): Promise<string> {
+    try {
+        let content:string = await fs.readFile(filepath, "utf-8");
+        const keys = Object.keys(params);
+        console.log(keys);
+        keys.forEach((key) => {
+            const regex = new RegExp(`{{${key}}}`, "g");
+            content = content.replace(regex, params[key]);
+        });
+        return content;
+    } catch (error) {
+        throw error;
+    }
+}
 
 setInterval(async (): Promise<void> => {
     systemMonitor();
@@ -37,7 +52,7 @@ setInterval(async (): Promise<void> => {
 }, 30000);
 
 setInterval((): void => {
-    const time: String = new Date().toLocaleDateString("zh-CN", {
+    const time: string = new Date().toLocaleDateString("zh-CN", {
         year: "numeric",
         month: "long",
         day: "numeric",
