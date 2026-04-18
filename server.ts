@@ -3,12 +3,24 @@ import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import os from "os";
 import si from "systeminformation";
 import fs from "fs/promises";
+import path from "path";
+import fastifyStatic from "@fastify/static";
 
 const fastify: FastifyInstance = Fastify({
     logger: false,
 });
 
 const port: number = Number(process.env.PORT) || 8000;
+
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, 'static'),
+    prefix: '/static/',
+});
+
+fastify.register(fastifyStatic, {
+    root: path.join(__dirname, 'files'),
+    prefix: '/files/',
+});
 
 fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
     requestLog(request);
