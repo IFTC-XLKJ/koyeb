@@ -7,7 +7,7 @@ const fastify: FastifyInstance = Fastify({
     logger: true,
 });
 
-const port: number = Number(process.env.PORT) || 3000;
+const port: number = Number(process.env.PORT) || 8000;
 
 fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
     return { hello: "world" };
