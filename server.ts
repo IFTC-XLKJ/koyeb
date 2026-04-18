@@ -21,42 +21,33 @@ const backendPass: string = "21ec360b05962410edbcc561edc8648e";
 const requestCounts = new Map();
 const crawlerAgents = ["slurp", "duckduckbot", "baiduspider", "facebookexternalhit", "twitterbot", "rogerbot", "python", "urllib", "requests", "httpclient", "go-http-client", "java", "curl", "wget", "axios", "node-fetch", "scrapy", "apify", "puppeteer", "playwright", "selenium"];
 
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "static"),
-    prefix: "/static/",
-});
+// --- 辅助函数定义 ---
 
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "file"),
-    prefix: "/file/",
-});
+function time(): number {
+    return Date.now();
+}
 
-console.log(">>> Static file serving configured for:", path.join(__dirname, "static"), "and", path.join(__dirname, "file"));
+async function mixed(filepath: string, params: Record<string, any>): Promise<string> {
+    try {
+        let content: string = await fs.readFile(filepath, "utf-8");
+        const keys = Object.keys(params);
+        keys.forEach((key) => {
+            const regex = new RegExp(`{{${key}}}`, "g");
+            content = content.replace(regex, params[key]);
+        });
+        return content;
+    } catch (error) {
+        throw error;
+    }
+}
 
-fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-    if (request.headers["user-agent"] == "Koyeb Health Check") return;
-    if (request.headers["X-PASS"] == backendPass) return;
-    const ua: string = (request.headers["user-agent"] || "").toLowerCase();
-    const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
-    if (crawlerAgents.some((agent: string) => ua.includes(agent)))
-        return reply.status(403).send({
-            code: 403,
-            msg: "爬你妈呢",
-            timestamp: time(),
-        });
-    if (isSuspiciousBehavior(request))
-        return reply.status(403).send({
-            code: 403,
-            msg: "可疑请求行为",
-            timestamp: time(),
-        });
-    if (await isRateLimited(ip))
-        return reply.status(429).send({
-            code: 429,
-            msg: "请求过于频繁",
-            timestamp: time(),
-        });
-});
+function isSuspiciousBehavior(req: FastifyRequest): boolean {
+    const hasBrowserHeaders: boolean = !!req.headers.accept && !!req.headers["accept-language"] && !!req.headers["accept-encoding"];
+    const hasReferer: boolean = !!req.headers.referer;
+    const connectionType: string | undefined = req.headers.connection;
+    if (!hasBrowserHeaders && connectionType === "close") return true;
+    return false;
+}
 
 async function isRateLimited(ip: string | string[]): Promise<boolean> {
     const now: number = Date.now();
@@ -71,147 +62,15 @@ async function isRateLimited(ip: string | string[]): Promise<boolean> {
     return false;
 }
 
-function isSuspiciousBehavior(req: FastifyRequest): boolean {
-    const hasBrowserHeaders: boolean = !!req.headers.accept && !!req.headers["accept-language"] && !!req.headers["accept-encoding"];
-    const hasReferer: boolean = !!req.headers.referer;
-    const connectionType: string | undefined = req.headers.connection;
-    if (!hasBrowserHeaders && connectionType === "close") return true;
-    return false;
-}
-
-fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-    console.log("Cookies:", request.headers.cookie);
-    if (request.headers["user-agent"] == "Koyeb Health Check") return;
-    if (request.headers["user-agent"] == "IFTC Bot") return;
-    requestLog(request);
-});
-
-fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-    reply.status(404).send({
-        code: 404,
-        msg: `Route ${request.method} ${request.url} not found`,
-        error: "Not Found",
-        timestamp: time(),
-    });
-});
-
-fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-    if (request.headers["user-agent"] == "Koyeb Health Check" || request.headers["user-agent"] == "IFTC Bot")
-        return reply.send({
-            code: 200,
-            msg: "请求成功",
-            timestamp: time(),
-        });
-    const params: Record<string, any> = {};
-    reply.headers({
-        "Content-Type": "text/html; charset=utf-8",
-    });
-    try {
-        const content: string = await mixed("pages/index.html", params);
-        if (typeof content !== "string") throw new Error("Invalid content type");
-        console.log("Content:", content);
-        console.log("Type of content:", typeof content);
-        return reply.send(content);
-    } catch (e: unknown) {
-        console.error(e);
-        return reply.send({
-            code: 500,
-            msg: "服务器内部错误",
-            error: (e as Error).message || "Internal Server Error",
-            timestamp: time(),
-        });
-    }
-});
-
-fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: string): void => {
-    if (err) {
-        fastify.log.error(err);
-        process.exit(1);
-    }
-    console.log(`Server listening at ${address}`);
-});
-
-process.on("unhandledRejection", (reason, promise) => {
-    console.error("Unhandled Rejection at:", promise, "reason:", reason);
-});
-
-function time(): number {
-    return Date.now();
-}
-
-async function mixed(filepath: string, params: Record<string, any>): Promise<string> {
-    try {
-        let content: string = await fs.readFile(filepath, "utf-8");
-        const keys = Object.keys(params);
-        console.log(keys);
-        keys.forEach((key) => {
-            const regex = new RegExp(`{{${key}}}`, "g");
-            content = content.replace(regex, params[key]);
-        });
-        return content;
-    } catch (error) {
-        throw error;
-    }
-}
-
 function requestLog(req: FastifyRequest): void {
     if (req.headers["user-agent"] == "Koyeb Health Check") return;
     if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
-    // addRequestCount();
-    if (!(req.url.startsWith("/api/user/login") || req.url.startsWith("/api/user/register") || req.url.startsWith("/api/sendcode") || req.url.startsWith("/api/verifycode") || req.url.startsWith("/api/user/resetpassword") || req.url.startsWith("/api/loginbytoken") || req.url.startsWith("/api/updatetoken") || req.url.startsWith("/api/gettoken"))) {
-        // ips.unshift({
-        //     ip: req.headers["x-forwarded-for"],
-        //     url: req.url,
-        //     method: req.method,
-        //     headers: req.headers,
-        //     body: req.body,
-        //     time: new Date(time()).toLocaleDateString("zh-CN", {
-        //         year: "numeric",
-        //         month: "long",
-        //         day: "numeric",
-        //         weekday: "long",
-        //         hour: "numeric",
-        //         minute: "numeric",
-        //         second: "numeric",
-        //     }),
-        // });
-    }
-
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`);
     console.log(`请求源：${req.headers["referer"] || "Unknown"}`);
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Body: ${JSON.stringify(req.body)}`);
 }
-
-setInterval(async (): Promise<void> => {
-    systemMonitor();
-    const r: Response = await fetch("https://iftc.deno.dev");
-    console.log(await r.text());
-}, 30000);
-
-setInterval((): void => {
-    const time: string = new Date().toLocaleDateString("zh-CN", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-        weekday: "long",
-        hour: "numeric",
-        minute: "numeric",
-        second: "numeric",
-    });
-    console.log("服务器正在运行中...", time);
-}, 30000);
-
-(async function (): Promise<void> {
-    try {
-        const r: Response = await fetch("https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb");
-        await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(await r.arrayBuffer()));
-        console.log("GeoLite2-City.mmdb downloaded");
-    } catch (e: unknown) {
-        console.log(e);
-    }
-})();
 
 async function getCpuUsageSI(): Promise<string> {
     const data: si.Systeminformation.CurrentLoadData = await si.currentLoad();
@@ -237,3 +96,125 @@ async function systemMonitor(): Promise<void> {
     console.log(`系统运行时间: ${(os.uptime() / 60 / 60).toFixed(2)} 小时`);
     console.log("=== ↑系统监控↑ ===");
 }
+
+// --- 主启动逻辑 ---
+
+async function start() {
+    console.log(">>> [STEP 1] Start function entered");
+    try {
+        // 1. 注册静态文件 (已知正常)
+        const staticPath = path.join(__dirname, "static");
+        const filePath = path.join(__dirname, "file");
+        await fs.mkdir(staticPath, { recursive: true });
+        await fs.mkdir(filePath, { recursive: true });
+
+        console.log(">>> [STEP 2] Registering static plugins...");
+        
+        // 第一个注册：保持默认，提供 sendFile 装饰器
+        await fastify.register(fastifyStatic, { 
+            root: staticPath, 
+            prefix: "/static/" 
+        });
+
+        // 第二个注册：禁用 decorateReply，避免 'sendFile' 冲突
+        await fastify.register(fastifyStatic, { 
+            root: filePath, 
+            prefix: "/file/",
+            decorateReply: false // <--- 关键修改
+        });
+        
+        console.log(">>> [STEP 3] Static plugins registered.");
+
+        // 2. 注册钩子 (嫌疑点 1)
+        console.log(">>> [STEP 4] Adding hooks...");
+        fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+            if (request.headers["user-agent"] == "Koyeb Health Check") return;
+            if (request.headers["X-PASS"] == backendPass) return;
+            const ua: string = (request.headers["user-agent"] || "").toLowerCase();
+            const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
+            if (crawlerAgents.some((agent: string) => ua.includes(agent)))
+                return reply.status(403).send({ code: 403, msg: "爬你妈呢", timestamp: time() });
+            if (isSuspiciousBehavior(request))
+                return reply.status(403).send({ code: 403, msg: "可疑请求行为", timestamp: time() });
+            if (await isRateLimited(ip))
+                return reply.status(429).send({ code: 429, msg: "请求过于频繁", timestamp: time() });
+        });
+
+        fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+            console.log("Cookies:", request.headers.cookie);
+            if (request.headers["user-agent"] == "Koyeb Health Check") return;
+            if (request.headers["user-agent"] == "IFTC Bot") return;
+            requestLog(request);
+        });
+        console.log(">>> [STEP 5] Hooks added.");
+
+        // 3. 注册路由 (嫌疑点 2)
+        console.log(">>> [STEP 6] Adding routes...");
+        fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+            reply.status(404).send({ code: 404, msg: `Route ${request.method} ${request.url} not found`, error: "Not Found", timestamp: time() });
+        });
+
+        fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+            if (request.headers["user-agent"] == "Koyeb Health Check" || request.headers["user-agent"] == "IFTC Bot")
+                return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
+            const params: Record<string, any> = {};
+            reply.headers({ "Content-Type": "text/html; charset=utf-8" });
+            try {
+                const content: string = await mixed("pages/index.html", params);
+                if (typeof content !== "string") throw new Error("Invalid content type");
+                return reply.send(content);
+            } catch (e: unknown) {
+                console.error(e);
+                return reply.send({ code: 500, msg: "服务器内部错误", error: (e as Error).message || "Internal Server Error", timestamp: time() });
+            }
+        });
+        console.log(">>> [STEP 7] Routes added.");
+
+        // 4. 启动服务器
+        console.log(">>> [STEP 8] Starting listener...");
+        await fastify.listen({ port: port, host: "0.0.0.0" });
+        console.log(`Server listening at http://0.0.0.0:${port}`);
+
+    } catch (err) {
+        console.error("!!! FATAL ERROR in start():", err);
+        if (err instanceof Error) console.error("Stack:", err.stack);
+        process.exit(1);
+    }
+}
+
+// 执行启动
+start();
+
+// --- 全局错误处理 ---
+process.on("unhandledRejection", (reason, promise) => {
+    console.error("!!! Unhandled Rejection at:", promise, "reason:", reason);
+});
+
+process.on("uncaughtException", (err) => {
+    console.error("!!! Uncaught Exception:", err);
+    process.exit(1);
+});
+
+// --- 定时任务 ---
+setInterval(async (): Promise<void> => {
+    try {
+        await systemMonitor();
+        const r: Response = await fetch("https://iftc.deno.dev");
+        console.log(await r.text());
+    } catch (e) {
+        console.error("Monitor error:", e);
+    }
+}, 30000);
+
+setInterval((): void => {
+    const timeStr: string = new Date().toLocaleDateString("zh-CN", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        weekday: "long",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+    });
+    console.log("服务器正在运行中...", timeStr);
+}, 30000);
