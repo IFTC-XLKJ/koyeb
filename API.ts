@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
-import { GetByIDResponse, UserData } from "./types.ts";
+import type { GetByIDResponse, UserData } from "./types.ts";
 import User from "./User.ts";
 
 const user = new User();
