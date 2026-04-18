@@ -1,5 +1,6 @@
 import Sign from "./Sign.ts";
 import crypto from "crypto";
+import { GetByIDResponse } from "./types.ts";
 
 const sign: Sign = new Sign();
 
@@ -13,12 +14,6 @@ function md5Hash(input: string): string {
     const hash: crypto.Hash = crypto.createHash("md5");
     hash.update(input);
     return hash.digest("hex");
-}
-
-interface GetByIDResponse {
-    code: number;
-    data?: any; // 根据实际业务调整 data 的结构
-    message?: string;
 }
 
 export default class User {
