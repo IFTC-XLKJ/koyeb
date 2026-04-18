@@ -28,3 +28,13 @@ export interface GetByIDResponse {
     fields: UserData[];
     sql: string;
 }
+
+export interface SearchResponse {
+    code: number;
+    msg: string;
+    logid: string;
+    createdAt: number;
+    count: number;
+    fields: UserData[];
+    sql: string;
+}

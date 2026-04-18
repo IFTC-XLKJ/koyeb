@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
-import type { GetByIDResponse, UserData } from "./types.ts";
+import type { GetByIDResponse, SearchResponse, UserData } from "./types.ts";
 import User from "./User.ts";
 import { createClient } from "@supabase/supabase-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -187,8 +187,8 @@ export default function (fastify: FastifyInstance) {
         ): Promise<Object> => {
             const { keyword } = request.query;
             try {
-                const json: Object = await user.search(keyword);
-                // const code: number = json["code"];
+                const json: SearchResponse = await user.search(keyword);
+                const code: number = json["code"];
             } catch (error: unknown) {
                 return reply.status(500).send({
                     code: 500,
