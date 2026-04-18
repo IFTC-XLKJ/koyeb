@@ -15,14 +15,20 @@ function md5Hash(input: string): string {
     return hash.digest("hex");
 }
 
+interface GetByIDResponse {
+    code: number;
+    data?: any; // 根据实际业务调整 data 的结构
+    message?: string;
+}
+
 export default class User {
     constructor() {}
-    async getByID(id: number): Promise<Object> {
+    async getByID(id: number): Promise<GetByIDResponse> {
         return await this.fetchData(getDataURL, {
             filter: `ID=${id}`,
             page: 1,
             limit: 1,
-        });
+        }) as GetByIDResponse;
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();

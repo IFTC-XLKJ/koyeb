@@ -1,10 +1,16 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
-import User from "./User";
+import User from "./User.ts";
 
 const user = new User();
 
 interface UserDetailsQueryParams {
     id: number;
+}
+
+interface GetByIDResponse {
+    code: number;
+    data?: any; // 根据实际业务调整 data 的结构
+    message?: string;
 }
 
 export default function (fastify: FastifyInstance) {
@@ -44,6 +50,17 @@ export default function (fastify: FastifyInstance) {
         ): Promise<Object> => {
             const { id } = request.query;
             console.log(id, typeof id);
+            try {
+                const json: GetByIDResponse = await user.getByID(id);
+                const code: number = json["code"];
+            } catch (error: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
             return { message: "Hello, World!" };
         },
     );
