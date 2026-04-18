@@ -103,14 +103,14 @@ async function start() {
         await fs.mkdir(staticPath, { recursive: true });
         await fs.mkdir(filePath, { recursive: true });
         console.log(">>> [STEP 2] Registering static plugins...");
-                await fastify.register(fastifyStatic, { 
-            root: staticPath, 
-            prefix: "/static/" 
+        await fastify.register(fastifyStatic, {
+            root: staticPath,
+            prefix: "/static/",
         });
-        await fastify.register(fastifyStatic, { 
-            root: filePath, 
+        await fastify.register(fastifyStatic, {
+            root: filePath,
             prefix: "/file/",
-            decorateReply: false
+            decorateReply: false,
         });
         console.log(">>> [STEP 3] Static plugins registered.");
         console.log(">>> [STEP 4] Adding hooks...");
@@ -119,12 +119,9 @@ async function start() {
             if (request.headers["X-PASS"] == backendPass) return;
             const ua: string = (request.headers["user-agent"] || "").toLowerCase();
             const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
-            if (crawlerAgents.some((agent: string) => ua.includes(agent)))
-                return reply.status(403).send({ code: 403, msg: "爬你妈呢", timestamp: time() });
-            if (isSuspiciousBehavior(request))
-                return reply.status(403).send({ code: 403, msg: "可疑请求行为", timestamp: time() });
-            if (await isRateLimited(ip))
-                return reply.status(429).send({ code: 429, msg: "请求过于频繁", timestamp: time() });
+            if (crawlerAgents.some((agent: string) => ua.includes(agent))) return reply.status(403).send({ code: 403, msg: "爬你妈呢", timestamp: time() });
+            if (isSuspiciousBehavior(request)) return reply.status(403).send({ code: 403, msg: "可疑请求行为", timestamp: time() });
+            if (await isRateLimited(ip)) return reply.status(429).send({ code: 429, msg: "请求过于频繁", timestamp: time() });
         });
         fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
             console.log("Cookies:", request.headers.cookie);
@@ -138,8 +135,7 @@ async function start() {
             reply.status(404).send({ code: 404, msg: `Route ${request.method} ${request.url} not found`, error: "Not Found", timestamp: time() });
         });
         fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-            if (request.headers["user-agent"] == "Koyeb Health Check" || request.headers["user-agent"] == "IFTC Bot")
-                return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
+            if (request.headers["user-agent"] == "Koyeb Health Check" || request.headers["user-agent"] == "IFTC Bot") return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
             const params: Record<string, any> = {};
             reply.headers({ "Content-Type": "text/html; charset=utf-8" });
             try {
