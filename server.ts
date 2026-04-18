@@ -272,7 +272,8 @@ async function start() {
                     code: 200,
                     msg: "请求成功",
                     copyright: "IFTC",
-                    origin: request.headers["referer"] || request.headers["x-forwarded-for"] || null,
+                    origin:
+                        request.headers["referer"] || request.headers["x-forwarded-for"] || null,
                     apis: apis,
                     doc: "https://iftc-api.apifox.cn",
                     count: apis.length,
@@ -282,6 +283,12 @@ async function start() {
                             ? true
                             : void 0,
                 };
+            },
+        );
+        fastify.get(
+            "/apidoc",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                return reply.redirect("https://iftc-api.apifox.cn");
             },
         );
         console.log(">>> [STEP 7] Routes added.");
