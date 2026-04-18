@@ -1,11 +1,11 @@
-import Fastify, { FastifyInstance } from "fastify";
+import Fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 const fastify: FastifyInstance = Fastify({
     logger: true,
 });
 
 const port: number = Number(process.env.PORT) || 3000;
 
-fastify.get("/", async (request, reply) => {
+fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
     return { hello: "world" };
 });
 
