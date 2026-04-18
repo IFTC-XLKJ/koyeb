@@ -7,6 +7,8 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fastifyStatic from "@fastify/static";
 
+console.log(">>> Server starting, __dirname is:", path.dirname(fileURLToPath(import.meta.url)));
+
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
 
