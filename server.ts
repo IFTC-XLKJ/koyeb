@@ -156,6 +156,27 @@ async function requestRecord(req: FastifyRequest): Promise<void> {
     console.log("IP记录结果:", json);
 }
 
+async function returnPage(
+    path: string,
+    params: Record<string, any>,
+    reply: FastifyReply,
+): Promise<Object> {
+    reply.headers({ "Content-Type": "text/html; charset=utf-8" });
+    try {
+        const content: string = await mixed(`pages/${path}`, params);
+        if (typeof content !== "string") throw new Error("Invalid content type");
+        return reply.send(content);
+    } catch (e: unknown) {
+        console.error(e);
+        return reply.send({
+            code: 500,
+            msg: "服务器内部错误",
+            error: (e as Error).message || "Internal Server Error",
+            timestamp: time(),
+        });
+    }
+}
+
 async function start() {
     console.log(">>> [STEP 1] Start function entered");
     try {
@@ -238,20 +259,7 @@ async function start() {
             )
                 return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
             const params: Record<string, any> = {};
-            reply.headers({ "Content-Type": "text/html; charset=utf-8" });
-            try {
-                const content: string = await mixed("pages/index.html", params);
-                if (typeof content !== "string") throw new Error("Invalid content type");
-                return reply.send(content);
-            } catch (e: unknown) {
-                console.error(e);
-                return reply.send({
-                    code: 500,
-                    msg: "服务器内部错误",
-                    error: (e as Error).message || "Internal Server Error",
-                    timestamp: time(),
-                });
-            }
+            return returnPage("index.html", params, reply);
         });
         fastify.get(
             "/api",
@@ -330,20 +338,7 @@ async function start() {
                     return reply.redirect(redirectUrl);
                 }
                 const params: Record<string, any> = {};
-                reply.headers({ "Content-Type": "text/html; charset=utf-8" });
-                try {
-                    const content: string = await mixed("pages/login/index.html", params);
-                    if (typeof content !== "string") throw new Error("Invalid content type");
-                    return reply.send(content);
-                } catch (e: unknown) {
-                    console.error(e);
-                    return reply.send({
-                        code: 500,
-                        msg: "服务器内部错误",
-                        error: (e as Error).message || "Internal Server Error",
-                        timestamp: time(),
-                    });
-                }
+                return returnPage("login/index.html", params, reply);
             },
         );
         fastify.get(
@@ -369,22 +364,13 @@ async function start() {
                     return reply.redirect(redirectUrl);
                 }
                 const params: Record<string, any> = {};
-                reply.headers({ "Content-Type": "text/html; charset=utf-8" });
-                try {
-                    const content: string = await mixed("pages/signup/index.html", params);
-                    if (typeof content !== "string") throw new Error("Invalid content type");
-                    return reply.send(content);
-                } catch (e: unknown) {
-                    console.error(e);
-                    return reply.send({
-                        code: 500,
-                        msg: "服务器内部错误",
-                        error: (e as Error).message || "Internal Server Error",
-                        timestamp: time(),
-                    });
-                }
+                return returnPage("signup/index.html", params, reply);
             },
         );
+        fastify.get("/VVMusic", async (request: FastifyRequest, reply: FastifyReply) => {
+            const params: Record<string, any> = {};
+            return returnPage("VVMusic/index.html", params, reply);
+        });
         API(fastify);
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
