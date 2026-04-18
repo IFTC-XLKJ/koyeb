@@ -89,6 +89,6 @@ RUN sdkmanager "build-tools;34.0.0"
 RUN which apksigner && which zipalign
 RUN apksigner --version
 
-CMD ["node", "server.js"]
+CMD ["node", "server.ts"]
 
 # RUN apt-get install sudo
