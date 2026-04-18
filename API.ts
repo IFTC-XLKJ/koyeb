@@ -384,6 +384,39 @@ export default function (fastify: FastifyInstance) {
             return {};
         },
     );
+    fastify.get(
+        "/api/music_resource/info",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        key: { type: "string" },
+                        page: { type: "number" },
+                        limit: { type: "number" },
+                    },
+                    required: ["key"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Querystring: { key: string; page: number; limit: number };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { key, page, limit } = request.query;
+            const r: Response = await fetch(
+                "http://www.lihouse.xyz/coco_widget/music_resource/info?key=" +
+                    key +
+                    "&page=" +
+                    page +
+                    "&limit=" +
+                    limit,
+            );
+            return await r.json();
+        },
+    );
 }
 
 function time(): number {
