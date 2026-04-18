@@ -25,6 +25,13 @@ export default class User {
             limit: 1,
         })) as GetByIDResponse;
     }
+    async search(keyword: string): Promise<Object> {
+        return await this.fetchData(getDataURL, {
+            filter: `昵称 LIKE "%${keyword}%" OR 邮箱 LIKE "%${keyword}%" OR ID LIKE "%${keyword}%" OR 头衔 LIKE "%${keyword}%"`,
+            page: 1,
+            limit: 1000000000000,
+        });
+    }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
         const signaturePromise: Promise<string> = sign.get(String(timestamp));
