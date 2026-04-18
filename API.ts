@@ -189,6 +189,33 @@ export default function (fastify: FastifyInstance) {
             try {
                 const json: SearchResponse = await user.search(decodeURIComponent(keyword || ""));
                 const code: number = json["code"];
+                if (code == 200) {
+                    return reply.send({
+                        code: 200,
+                        msg: "搜索成功",
+                        data: json.fields.map((item: UserData) => ({
+                            ID: item.ID,
+                            username: String(item.昵称),
+                            avatar: item.头像,
+                            VC: item.V币,
+                            email: item.邮箱,
+                            VIP: !!item.VIP,
+                            signed: item.签到 || 0,
+                            op: item.管理员 == 1,
+                            freezed: item.封号 == 1,
+                            title: item.头衔,
+                            titleColor: item.头衔色,
+                            createdAt: item.createdAt,
+                            updatedAt: item.updatedAt,
+                        }))
+                    })
+                } else {
+                    return reply.status(code).send({
+                        code: code,
+                        msg: json["msg"],
+                        timestamp: time(),
+                    });
+                }
             } catch (error: unknown) {
                 return reply.status(500).send({
                     code: 500,
