@@ -1,5 +1,11 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
-import type { GetByIDResponse, SearchResponse, UserData, UserLoginResponse } from "./types.ts";
+import type {
+    GetByIDResponse,
+    SearchResponse,
+    UserData,
+    UserLoginResponse,
+    UserRegisterResponse,
+} from "./types.ts";
 import User from "./User.ts";
 import { createClient } from "@supabase/supabase-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -341,6 +347,32 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             try {
+                const json: UserRegisterResponse = await user.register(
+                    decodeURIComponent(email || ""),
+                    decodeURIComponent(nickname || ""),
+                    decodeURIComponent(avatar || ""),
+                    decodeURIComponent(password || ""),
+                );
+                const code: number = json["code"];
+                if (code == 200) {
+                    reply.send({
+                        code: 200,
+                        msg: "注册成功",
+                        id: json.fields[0].ID,
+                        timestamp: time(),
+                    });
+                    return await RecordMessages.recordMessage({
+                        title: "新用户注册",
+                        uid: json.fields[0].ID,
+                        content: `用户 ${decodeURIComponent(nickname)} (${decodeURIComponent(email)}) 注册了账号，ID为 ${json.fields[0].ID}，注册IP为 <b>${request.headers["x-forwarded-for"] || "Unknown"}</b>，注册地点为 <b>${await lookupIP(request.headers["x-forwarded-for"] || null)}</b>`,
+                    });
+                } else {
+                    return reply.status(code).send({
+                        code: code,
+                        msg: json["msg"],
+                        timestamp: time(),
+                    });
+                }
             } catch (error: unknown) {
                 return reply.status(500).send({
                     code: 500,
