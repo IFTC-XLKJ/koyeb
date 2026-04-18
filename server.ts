@@ -6,6 +6,9 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import fastifyStatic from "@fastify/static";
+import Sign from "./Sign.ts";
+
+const sign: Sign = new Sign();
 
 console.log(">>> Server starting, __dirname is:", path.dirname(fileURLToPath(import.meta.url)));
 
@@ -63,6 +66,7 @@ async function isRateLimited(ip: string | string[]): Promise<boolean> {
 function requestLog(req: FastifyRequest): void {
     if (req.headers["user-agent"] == "Koyeb Health Check") return;
     if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
+    requestRecord(req);
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`);
     console.log(`请求源：${req.headers["referer"] || "Unknown"}`);
     console.log(`Method: ${req.method} URL: ${req.url}`);
@@ -93,6 +97,31 @@ async function systemMonitor(): Promise<void> {
     console.log(`可用内存: ${(os.freemem() / 1024 / 1024).toFixed(2)} MB`);
     console.log(`系统运行时间: ${(os.uptime() / 60 / 60).toFixed(2)} 小时`);
     console.log("=== ↑系统监控↑ ===");
+}
+
+async function requestRecord(req: FastifyRequest): Promise<void> {
+    const url: URL = new URL(req.url, `https://${req.headers.host}`);
+    const key: string = "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
+    const timestamp: number = Date.now();
+    const signaturePromise: Promise<string> = sign.get(String(timestamp));
+    const signature: string = await signaturePromise;
+    const ip: string | string[] = req.headers["x-forwarded-for"] || req.ip;
+    const r: Response = await fetch(`https://api.pgaot.com/dbs/cloud/set_table_data`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-Pgaot-Key": key,
+            "X-Pgaot-Sign": signature,
+            "X-Pgaot-Time": timestamp.toString(),
+        },
+        body: JSON.stringify({
+            type: "INSERT",
+            filter: `IP,站点,UA`,
+            fields: `("${ip}", "${new URL(url.pathname, "iftc://main/").toString() || "Unknown"}", "${req.headers["user-agent"] || "Unknown"}")`,
+        }),
+    });
+    const json: Record<string, any> = await r.json();
+    console.log("IP记录结果:", json);
 }
 
 async function start() {
