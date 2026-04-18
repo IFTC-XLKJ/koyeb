@@ -229,6 +229,26 @@ export default function (fastify: FastifyInstance) {
             return {};
         },
     );
+    fastify.get(
+        "/api/user/login",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        user: { type: "string" },
+                        password: { type: "string" },
+                    },
+                    required: ["user", "password"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Querystring: { user: string; password: string } }>, reply: FastifyReply): Promise<Object> => {
+            const { user, password } = request.query;
+            console.log(user, password);
+            return {};
+        },
+    );
 }
 
 function time(): number {
