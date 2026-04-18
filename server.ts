@@ -23,6 +23,12 @@ fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply):
 });
 
 fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+    if (request.headers["user-agent"] == "Koyeb Health Check")
+        return reply.send({
+            code: 200,
+            msg: "请求成功",
+            timestamp: time(),
+        });
     return { hello: "world" };
 });
 
@@ -33,6 +39,10 @@ fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: str
     }
     console.log(`Server listening at ${address}`);
 });
+
+function time(): number {
+    return Date.now();
+}
 
 async function mixed(filepath: string, params: Record<string, any>): Promise<string> {
     try {
@@ -48,6 +58,7 @@ async function mixed(filepath: string, params: Record<string, any>): Promise<str
         throw error;
     }
 }
+
 function requestLog(req: FastifyRequest): void {
     if (req.headers["user-agent"] == "Koyeb Health Check") return;
     if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
