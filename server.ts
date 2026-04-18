@@ -4,7 +4,11 @@ import os from "os";
 import si from "systeminformation";
 import fs from "fs/promises";
 import path from "path";
+import { fileURLToPath } from "url";
 import fastifyStatic from "@fastify/static";
+
+const __filename: string = fileURLToPath(import.meta.url);
+const __dirname: string = path.dirname(__filename);
 
 const fastify: FastifyInstance = Fastify({
     logger: false,
