@@ -35,6 +35,11 @@ fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<O
         "Content-Type": "text/html; charset=utf-8",
     });
     try {
+        const content: string = await mixed("pages/index.html", params);
+        if (typeof content !== "string") throw new Error("Invalid content type");
+        console.log("Content:", content);
+        console.log("Type of content:", typeof content);
+        return reply.send(content);
     } catch (e: unknown) {
         console.error(e);
         return reply.send({
