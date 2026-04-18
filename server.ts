@@ -346,6 +346,45 @@ async function start() {
                 }
             },
         );
+        fastify.get(
+            "/signup",
+            {
+                schema: {
+                    querystring: {
+                        type: "object",
+                        properties: {
+                            page: { type: "string" },
+                        },
+                    },
+                },
+            },
+            async (
+                request: FastifyRequest<{ Querystring: { page: string } }>,
+                reply: FastifyReply,
+            ): Promise<Object> => {
+                const { page } = request.query;
+                const cookieId = request.cookies.ID;
+                if (cookieId) {
+                    const redirectUrl = page ? decodeURIComponent(page) : "https://iftc.koyeb.app/";
+                    return reply.redirect(redirectUrl);
+                }
+                const params: Record<string, any> = {};
+                reply.headers({ "Content-Type": "text/html; charset=utf-8" });
+                try {
+                    const content: string = await mixed("pages/signup/index.html", params);
+                    if (typeof content !== "string") throw new Error("Invalid content type");
+                    return reply.send(content);
+                } catch (e: unknown) {
+                    console.error(e);
+                    return reply.send({
+                        code: 500,
+                        msg: "服务器内部错误",
+                        error: (e as Error).message || "Internal Server Error",
+                        timestamp: time(),
+                    });
+                }
+            },
+        );
         API(fastify);
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
