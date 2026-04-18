@@ -10,6 +10,10 @@ const fastify: FastifyInstance = Fastify({
 
 const port: number = Number(process.env.PORT) || 8000;
 
+fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+    requestLog(request);
+});
+
 fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
     reply.status(404).send({
         code: 404,
@@ -32,7 +36,7 @@ fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: str
 
 async function mixed(filepath: string, params: Record<string, any>): Promise<string> {
     try {
-        let content:string = await fs.readFile(filepath, "utf-8");
+        let content: string = await fs.readFile(filepath, "utf-8");
         const keys = Object.keys(params);
         console.log(keys);
         keys.forEach((key) => {
@@ -43,6 +47,35 @@ async function mixed(filepath: string, params: Record<string, any>): Promise<str
     } catch (error) {
         throw error;
     }
+}
+function requestLog(req: FastifyRequest): void {
+    if (req.headers["user-agent"] == "Koyeb Health Check") return;
+    if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
+    // addRequestCount();
+    if (!(req.url.startsWith("/api/user/login") || req.url.startsWith("/api/user/register") || req.url.startsWith("/api/sendcode") || req.url.startsWith("/api/verifycode") || req.url.startsWith("/api/user/resetpassword") || req.url.startsWith("/api/loginbytoken") || req.url.startsWith("/api/updatetoken") || req.url.startsWith("/api/gettoken"))) {
+        // ips.unshift({
+        //     ip: req.headers["x-forwarded-for"],
+        //     url: req.url,
+        //     method: req.method,
+        //     headers: req.headers,
+        //     body: req.body,
+        //     time: new Date(time()).toLocaleDateString("zh-CN", {
+        //         year: "numeric",
+        //         month: "long",
+        //         day: "numeric",
+        //         weekday: "long",
+        //         hour: "numeric",
+        //         minute: "numeric",
+        //         second: "numeric",
+        //     }),
+        // });
+    }
+
+    console.log(`收到请求 IP: ${req.ip}或${req.headers["x-fowarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`);
+    console.log(`请求源：${req.headers["referer"]}`);
+    console.log(`Method: ${req.method} URL: ${req.url}`);
+    console.log(`Headers: ${JSON.stringify(req.headers)}`);
+    console.log(`Body: ${JSON.stringify(req.body)}`);
 }
 
 setInterval(async (): Promise<void> => {
