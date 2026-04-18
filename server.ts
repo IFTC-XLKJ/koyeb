@@ -367,10 +367,20 @@ async function start() {
                 return returnPage("signup/index.html", params, reply);
             },
         );
-        fastify.get("/VVMusic", async (request: FastifyRequest, reply: FastifyReply) => {
-            const params: Record<string, any> = {};
-            return returnPage("VVMusic/index.html", params, reply);
-        });
+        fastify.get(
+            "/VVMusic",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const params: Record<string, any> = {};
+                return returnPage("VVMusic/index.html", params, reply);
+            },
+        );
+        fastify.get(
+            "/noob/editor",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const params: Record<string, any> = {};
+                return returnPage("noob/editor.html", params, reply);
+            },
+        );
         API(fastify);
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
