@@ -29,8 +29,8 @@ fastify.register(fastifyStatic, {
 });
 
 fastify.register(fastifyStatic, {
-    root: path.join(__dirname, "files"),
-    prefix: "/files/",
+    root: path.join(__dirname, "file"),
+    prefix: "/file/",
 });
 
 console.log(">>> Static file serving configured for:", path.join(__dirname, "static"), "and", path.join(__dirname, "files"));
