@@ -1,6 +1,12 @@
 import Sign from "./Sign.ts";
 import crypto from "crypto";
-import type { GetByIDResponse, SearchResponse, UserLoginResponse } from "./types.ts";
+import type {
+    GetAllUsersResponse,
+    GetByIDResponse,
+    SearchResponse,
+    UserLoginResponse,
+    UserRegisterResponse,
+} from "./types.ts";
 
 const sign: Sign = new Sign();
 
@@ -32,11 +38,11 @@ export default class User {
             limit: 1000000000000,
         })) as SearchResponse;
     }
-    async getAll(): Promise<SearchResponse> {
+    async getAll(): Promise<GetAllUsersResponse> {
         return (await this.fetchData(getDataURL, {
             page: 1,
             limit: 1000000000000,
-        })) as SearchResponse;
+        })) as GetAllUsersResponse;
     }
     async login(user: string, password: string): Promise<UserLoginResponse> {
         return (await this.fetchData(getDataURL, {
@@ -44,6 +50,42 @@ export default class User {
             page: 1,
             limit: 1,
         })) as UserLoginResponse;
+    }
+    async register(
+        email: string,
+        nickname: string,
+        avatar: string,
+        password: string,
+    ): Promise<UserRegisterResponse> {
+        const all: GetAllUsersResponse = await this.getAll();
+        if (all.code != 200) throw new Error(all.msg);
+        const count: number = all.fields[0].ID + 1;
+        if (all.fields.filter((item) => item.邮箱 == email).length > 0)
+            return {
+                code: 400,
+                msg: "邮箱已被注册",
+                logid: "",
+                createdAt: 0,
+                count: 0,
+                fields: [],
+                sql: "",
+            };
+        if (all.fields.filter((item) => item.昵称 == nickname).length > 0)
+            return {
+                code: 400,
+                msg: "昵称已被注册",
+                logid: "",
+                createdAt: 0,
+                count: 0,
+                fields: [],
+                sql: "",
+            };
+        const body: Object = {
+            type: "INSERT",
+            filter: `ID,昵称,头像,邮箱,密码,V币,头衔,头衔色`,
+            fields: `("${count}","${nickname}","${avatar}","${email}","${md5Hash(password)}",0,"用户","#1BC514FF")`,
+        };
+        return (await this.fetchData(setDataURL, body)) as UserRegisterResponse;
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();

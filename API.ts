@@ -340,6 +340,15 @@ export default function (fastify: FastifyInstance) {
                     msg: "昵称、邮箱和密码不能包含空格字符",
                     timestamp: time(),
                 });
+            try {
+            } catch (error: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
             return {};
         },
     );

@@ -58,3 +58,13 @@ export interface UserRegisterResponse {
     fields: UserData[];
     sql: string;
 }
+
+export interface GetAllUsersResponse {
+    code: number;
+    msg: string;
+    logid: string;
+    createdAt: number;
+    count: number;
+    fields: UserData[];
+    sql: string;
+}
