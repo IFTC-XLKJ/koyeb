@@ -17,7 +17,7 @@ if (!localStorage.getItem('music-search-history')) {
 
 // globalThis.APIHost = "https://www.lihouse.xyz/coco_widget";
 // globalThis.APIHost = "http://www.lihouse.xyz/coco_widget";
-globalThis.APIHost = "http://iftc.koyeb.app/api";
+globalThis.APIHost = "https://iftc.koyeb.app/api";
 // (async function () {
 //     try {
 //         const r = await fetch(APIHost);
