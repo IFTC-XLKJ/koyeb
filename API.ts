@@ -10,22 +10,24 @@ interface UserDetailsQueryParams {
 
 export default function (fastify: FastifyInstance) {
     console.log("defining API routes...");
-    fastify.setErrorHandler((error: FastifyError, request: FastifyRequest, reply: FastifyReply) => {
-        if (error.validation) {
-            const firstError = error.validation[0];
-            return reply.status(400).send({
-                code: 400,
-                msg: `参数校验失败: ${firstError.message}`,
+    fastify.setErrorHandler(
+        (error: FastifyError, request: FastifyRequest, reply: FastifyReply): Object => {
+            if (error.validation) {
+                const firstError = error.validation[0];
+                return reply.status(400).send({
+                    code: 400,
+                    msg: `参数校验失败: ${firstError.message}`,
+                    timestamp: Date.now(),
+                    details: error.validation,
+                });
+            }
+            return reply.status(error.statusCode || 500).send({
+                code: error.statusCode || 500,
+                msg: error.message,
                 timestamp: Date.now(),
-                details: error.validation,
             });
-        }
-        return reply.status(error.statusCode || 500).send({
-            code: error.statusCode || 500,
-            msg: error.message,
-            timestamp: Date.now(),
-        });
-    });
+        },
+    );
     fastify.get(
         "/api/user/details",
         {
@@ -93,6 +95,11 @@ export default function (fastify: FastifyInstance) {
                 });
             }
         },
+    );
+    fastify.get(
+        "/api/user/messages",
+        {},
+        async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {},
     );
 }
 
