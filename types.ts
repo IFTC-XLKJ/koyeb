@@ -38,3 +38,23 @@ export interface SearchResponse {
     fields: UserData[];
     sql: string;
 }
+
+export interface UserLoginResponse {
+    code: number;
+    msg: string;
+    logid: string;
+    createdAt: number;
+    count: number;
+    fields: UserData[];
+    sql: string;
+}
+
+export interface UserRegisterResponse {
+    code: number;
+    msg: string;
+    logid: string;
+    createdAt: number;
+    count: number;
+    fields: UserData[];
+    sql: string;
+}

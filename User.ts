@@ -1,6 +1,6 @@
 import Sign from "./Sign.ts";
 import crypto from "crypto";
-import type { GetByIDResponse, SearchResponse } from "./types.ts";
+import type { GetByIDResponse, SearchResponse, UserLoginResponse } from "./types.ts";
 
 const sign: Sign = new Sign();
 
@@ -26,11 +26,24 @@ export default class User {
         })) as GetByIDResponse;
     }
     async search(keyword: string): Promise<SearchResponse> {
-        return await this.fetchData(getDataURL, {
+        return (await this.fetchData(getDataURL, {
             filter: `昵称 LIKE "%${keyword}%" OR 邮箱 LIKE "%${keyword}%" OR ID LIKE "%${keyword}%" OR 头衔 LIKE "%${keyword}%"`,
             page: 1,
             limit: 1000000000000,
-        }) as SearchResponse;
+        })) as SearchResponse;
+    }
+    async getAll(): Promise<SearchResponse> {
+        return (await this.fetchData(getDataURL, {
+            page: 1,
+            limit: 1000000000000,
+        })) as SearchResponse;
+    }
+    async login(user: string, password: string): Promise<UserLoginResponse> {
+        return (await this.fetchData(getDataURL, {
+            filter: `(ID="${user}" OR 昵称="${user}" OR 邮箱="${user}") AND 密码="${md5Hash(password)}"`,
+            page: 1,
+            limit: 1,
+        })) as UserLoginResponse;
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();

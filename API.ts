@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
-import type { GetByIDResponse, SearchResponse, UserData } from "./types.ts";
+import type { GetByIDResponse, SearchResponse, UserData, UserLoginResponse } from "./types.ts";
 import User from "./User.ts";
 import { createClient } from "@supabase/supabase-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
@@ -243,9 +243,55 @@ export default function (fastify: FastifyInstance) {
                 },
             },
         },
-        async (request: FastifyRequest<{ Querystring: { user: string; password: string } }>, reply: FastifyReply): Promise<Object> => {
-            const { user, password } = request.query;
-            console.log(user, password);
+        async (
+            request: FastifyRequest<{ Querystring: { user: string; password: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { password } = request.query;
+            const _user: string = request.query.user;
+            console.log(_user, password);
+            try {
+                const json: UserLoginResponse = await user.login(
+                    decodeURIComponent(_user || ""),
+                    decodeURIComponent(password || ""),
+                );
+                const code: number = json["code"];
+                if (code == 200) {
+                    if (json.fields[0].封号 == 1) {
+                        return reply.status(403).send({
+                            code: 403,
+                            msg: "封号用户",
+                            timestamp: time(),
+                        });
+                    }
+                    const data = json.fields[0];
+                    if (!data)
+                        return reply.status(401).send({
+                            code: 401,
+                            msg: "账号或密码错误",
+                            timestamp: time(),
+                        });
+                    return reply.send({
+                        code: 200,
+                        msg: "登录成功",
+                        id: data.ID,
+                        timestamp: time(),
+                    });
+                } else {
+                    return reply.status(code).send({
+                        code: code,
+                        msg: json["msg"],
+                        timestamp: time(),
+                    });
+                }
+            } catch (error: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
             return {};
         },
     );
