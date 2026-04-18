@@ -5,6 +5,8 @@ import { createClient } from "@supabase/supabase-js";
 import type { SupabaseClient } from "@supabase/supabase-js";
 import type { StorageClient } from "@supabase/storage-js";
 import { PostgrestClient } from "@supabase/postgrest-js";
+import RecordMessages from "./RecordMessages.ts";
+import maxmind from "maxmind";
 
 const user: User = new User();
 const SUPABASE_URL: string = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn";
@@ -271,11 +273,16 @@ export default function (fastify: FastifyInstance) {
                             msg: "账号或密码错误",
                             timestamp: time(),
                         });
-                    return reply.send({
+                    reply.send({
                         code: 200,
                         msg: "登录成功",
                         id: data.ID,
                         timestamp: time(),
+                    });
+                    return await RecordMessages.recordMessage({
+                        title: "用户登录",
+                        uid: data.ID,
+                        content: `用户 <b>${data.昵称} (${data.邮箱})</b> 登录了账号，登录IP为 <b>${request.headers["x-forwarded-for"] || "Unknown"}</b>，登录地点为 <b>${await lookupIP(request.headers["x-forwarded-for"] || null)}</b>`,
                     });
                 } else {
                     return reply.status(code).send({
@@ -292,11 +299,35 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-            return {};
         },
     );
 }
 
 function time(): number {
     return Date.now();
+}
+
+async function lookupIP(ip: string | string[] | null): Promise<string> {
+    if (!ip) return "Unknown";
+    try {
+        const reader = await maxmind.open("./GeoLite2-City.mmdb");
+        const result = reader.get(Array.isArray(ip) ? ip[0] : ip);
+        if (!result) {
+            return "Unknown";
+        }
+        const continent: string | undefined =
+            "continent" in result && result.continent ? result.continent.names["zh-CN"] : "";
+        const country: string | undefined =
+            "country" in result && result.country ? result.country.names["zh-CN"] : "";
+        const subdivisions: string | undefined =
+            "subdivisions" in result && result.subdivisions && result.subdivisions.length > 0
+                ? result.subdivisions[0].names["zh-CN"]
+                : "";
+        const city: string | undefined =
+            "city" in result && result.city ? result.city.names["zh-CN"] : "";
+        return `${continent}${country}${subdivisions}${city}`;
+    } catch (e: unknown) {
+        console.log(e);
+        return "Unknown";
+    }
 }
