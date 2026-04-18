@@ -29,6 +29,10 @@ fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<O
             msg: "请求成功",
             timestamp: time(),
         });
+    const params: Record<string, any> = {};
+    reply.headers({
+        "Content-Type": "text/html; charset=utf-8",
+    });
     return { hello: "world" };
 });
 
