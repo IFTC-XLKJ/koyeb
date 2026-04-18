@@ -378,7 +378,7 @@ async function start() {
             "/noob/editor",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 const params: Record<string, any> = {};
-                return returnPage("noob/editor.html", params, reply);
+                return returnPage("noob/editor/index.html", params, reply);
             },
         );
         API(fastify);
