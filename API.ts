@@ -188,7 +188,7 @@ export default function (fastify: FastifyInstance) {
             const { keyword } = request.query;
             try {
                 const json: Object = await user.search(keyword);
-                const code: number = json["code"];
+                // const code: number = json["code"];
             } catch (error: unknown) {
                 return reply.status(500).send({
                     code: 500,
