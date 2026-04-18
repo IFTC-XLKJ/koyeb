@@ -13,7 +13,7 @@ fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<O
     return { hello: "world" };
 });
 
-fastify.listen({ port: port }, (err: Error | null, address: String): void => {
+fastify.listen({ port: port, host: "0.0.0.0" }, (err: Error | null, address: String): void => {
     if (err) {
         fastify.log.error(err);
         process.exit(1);
