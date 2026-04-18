@@ -6,6 +6,7 @@ import fs from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";
 import fastifyStatic from "@fastify/static";
+import fastifyCookie from "@fastify/cookie";
 import Sign from "./Sign.ts";
 import API from "./API.ts";
 
@@ -163,6 +164,7 @@ async function start() {
         await fs.mkdir(staticPath, { recursive: true });
         await fs.mkdir(filePath, { recursive: true });
         console.log(">>> [STEP 2] Registering static plugins...");
+        await fastify.register(fastifyCookie);
         await fastify.register(fastifyStatic, {
             root: staticPath,
             prefix: "/static/",
@@ -303,6 +305,45 @@ async function start() {
             "/apidoc",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 return reply.redirect("https://iftc-api.apifox.cn");
+            },
+        );
+        fastify.get(
+            "/login",
+            {
+                schema: {
+                    querystring: {
+                        type: "object",
+                        properties: {
+                            page: { type: "string" },
+                        },
+                    },
+                },
+            },
+            async (
+                request: FastifyRequest<{ Querystring: { page: string } }>,
+                reply: FastifyReply,
+            ): Promise<Object> => {
+                const { page } = request.query;
+                const cookieId = request.cookies.ID;
+                if (cookieId) {
+                    const redirectUrl = page ? decodeURIComponent(page) : "https://iftc.koyeb.app/";
+                    return reply.redirect(redirectUrl);
+                }
+                const params: Record<string, any> = {};
+                reply.headers({ "Content-Type": "text/html; charset=utf-8" });
+                try {
+                    const content: string = await mixed("pages/login/index.html", params);
+                    if (typeof content !== "string") throw new Error("Invalid content type");
+                    return reply.send(content);
+                } catch (e: unknown) {
+                    console.error(e);
+                    return reply.send({
+                        code: 500,
+                        msg: "服务器内部错误",
+                        error: (e as Error).message || "Internal Server Error",
+                        timestamp: time(),
+                    });
+                }
             },
         );
         API(fastify);

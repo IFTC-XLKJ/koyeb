@@ -28,6 +28,7 @@
   "dependencies": {
     "@blockly/plugin-workspace-search": "^9.1.6",
     "@blockly/shadow-block-converter": "^6.0.13",
+    "@fastify/cookie": "^11.0.2",
     "@fastify/static": "^9.1.1",
     "@mit-app-inventor/blockly-plugin-workspace-multiselect": "^1.0.1",
     "@supabase/supabase-js": "^2.84.0",
