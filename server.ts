@@ -102,7 +102,7 @@ function requestLog(req: FastifyRequest): void {
     }
 
     console.log(`收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`);
-    console.log(`请求源：${req.headers["referer"]}`);
+    console.log(`请求源：${req.headers["referer"] || "Unknown"}`);
     console.log(`Method: ${req.method} URL: ${req.url}`);
     console.log(`Headers: ${JSON.stringify(req.headers)}`);
     console.log(`Body: ${JSON.stringify(req.body)}`);
