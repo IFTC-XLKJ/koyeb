@@ -9,8 +9,8 @@ export interface UserData {
     容量: number;
     VIP: string;
     签到: number;
-    管理员: number;
-    封号: string;
+    管理员: number | null;
+    封号: number | null;
     头衔: string;
     头衔色: string;
     密码: string;

@@ -1,5 +1,5 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
-import { GetByIDResponse } from "./types.ts";
+import { GetByIDResponse, UserData } from "./types.ts";
 import User from "./User.ts";
 
 const user = new User();
@@ -49,6 +49,34 @@ export default function (fastify: FastifyInstance) {
                 const json: GetByIDResponse = await user.getByID(id);
                 const code: number = json["code"];
                 if (code == 200) {
+                    const data: UserData = json.fields[0];
+                    if (!data)
+                        return reply.status(404).send({
+                            code: 404,
+                            id: id,
+                            msg: "账号不存在",
+                            timestamp: time(),
+                        });
+                    return reply.send({
+                        code: 200,
+                        msg: "账号数据获取成功",
+                        data: {
+                            ID: data.ID,
+                            username: String(data.昵称),
+                            avatar: data.头像,
+                            VC: data.V币,
+                            email: data.邮箱,
+                            VIP: !!data.VIP,
+                            signed: data.签到 || 0,
+                            op: data.管理员 == 1,
+                            freezed: data.封号 == 1,
+                            title: data.头衔,
+                            titleColor: data.头衔色,
+                            createdAt: data.createdAt,
+                            updatedAt: data.updatedAt,
+                        },
+                        timestamp: time(),
+                    });
                 } else {
                     return reply.status(code).send({
                         code: code,
