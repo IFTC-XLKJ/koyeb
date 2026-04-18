@@ -8,6 +8,17 @@ export default function (fastify: FastifyInstance) {
     console.log("defining API routes...");
     fastify.get(
         "/api/user/details",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        id: { type: "number" },
+                    },
+                    required: ["id"],
+                },
+            },
+        },
         async (
             request: FastifyRequest<{ Querystring: UserDetailsQueryParams }>,
             reply: FastifyReply,
