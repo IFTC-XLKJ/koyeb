@@ -7,6 +7,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fastifyStatic from "@fastify/static";
 import Sign from "./Sign.ts";
+import API from "./API.ts";
 
 const sign: Sign = new Sign();
 
@@ -304,6 +305,7 @@ async function start() {
                 return reply.redirect("https://iftc-api.apifox.cn");
             },
         );
+        API(fastify);
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
         await fastify.listen({ port: port, host: "0.0.0.0" });
