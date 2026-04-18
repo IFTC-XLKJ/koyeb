@@ -31,7 +31,7 @@ fastify.register(fastifyStatic, {
     prefix: "/file/",
 });
 
-console.log(">>> Static file serving configured for:", path.join(__dirname, "static"), "and", path.join(__dirname, "files"));
+console.log(">>> Static file serving configured for:", path.join(__dirname, "static"), "and", path.join(__dirname, "file"));
 
 fastify.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
     if (request.headers["user-agent"] == "Koyeb Health Check") return;
