@@ -23,7 +23,7 @@ fastify.setNotFoundHandler(async (request: FastifyRequest, reply: FastifyReply):
 });
 
 fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-    if (request.headers["user-agent"] == "Koyeb Health Check")
+    if (request.headers["user-agent"] == "Koyeb Health Check" || request.headers["user-agent"] == "IFTC Bot")
         return reply.send({
             code: 200,
             msg: "请求成功",
