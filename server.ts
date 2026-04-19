@@ -433,7 +433,6 @@ async function start() {
         await fastify.listen({ port: port, host: "0.0.0.0" });
         console.log(`Server listening at http://0.0.0.0:${port}`);
         console.log("Telegram Bot", TGBot);
-        process.exit(0)
     } catch (err) {
         console.error("!!! FATAL ERROR in start():", err);
         if (err instanceof Error) console.error("Stack:", err.stack);
@@ -473,3 +472,7 @@ setInterval((): void => {
     });
     console.log("服务器正在运行中...", timeStr);
 }, 30000);
+
+setInterval(async (): Promise<void> => {
+    process.exit(0);
+}, 3600000);
