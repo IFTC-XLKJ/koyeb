@@ -27,5 +27,11 @@ bot.onText(/\/start/, (msg: TelegramBot.Message, match: any): Promise<TelegramBo
     return bot.sendMessage(chatId, "欢迎使用VV助手", btns);
 });
 
+bot.onText(/\/hello/, function onLoveText(msg: TelegramBot.Message): Promise<TelegramBot.Message> {
+    const from: TelegramBot.User | undefined = msg.from;
+    const username: string = from?.username ?? "未知用户";
+    return bot.sendMessage(msg.chat.id, "Hello, @" + username + "!");
+});
+
 export default bot;
 export { TelegramBot };
