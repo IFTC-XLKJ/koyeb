@@ -406,15 +406,31 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ): Promise<Object> => {
             const { key, page, limit } = request.query;
-            const r: Response = await fetch(
-                "https://www.lihouse.xyz/coco_widget/music_resource/info?key=" +
-                    key +
-                    "&page=" +
-                    page +
-                    "&limit=" +
-                    limit,
-            );
-            return await r.json();
+
+            try {
+                // 改为 HTTPS，并确保 URL 编码正确
+                const url = `https://www.lihouse.xyz/coco_widget/music_resource/info?key=${encodeURIComponent(key)}&page=${page}&limit=${limit}`;
+                const r: Response = await fetch(url);
+
+                if (!r.ok) {
+                    return reply.status(r.status).send({
+                        code: r.status,
+                        msg: `External API error: ${await r.text()}`,
+                        timestamp: time(),
+                    });
+                }
+
+                const data = await r.json();
+                return reply.send(data);
+            } catch (error: unknown) {
+                console.error("Fetch error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "fetch failed",
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
         },
     );
     fastify.get(
