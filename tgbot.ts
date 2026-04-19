@@ -33,5 +33,11 @@ bot.onText(/\/hello/, function onLoveText(msg: TelegramBot.Message): Promise<Tel
     return bot.sendMessage(msg.chat.id, "Hello, @" + username + "!");
 });
 
+bot.onText(/\/echo (.+)/, (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message> => {
+    const chatId: number = msg.chat.id;
+    const resp: string = match[1];
+    return bot.sendMessage(chatId, resp);
+});
+
 export default bot;
 export { TelegramBot };
