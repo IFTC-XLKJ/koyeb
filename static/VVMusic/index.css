@@ -375,7 +375,7 @@ dialog {
     align-items: center;
     cursor: pointer;
     border-radius: 5px;
-    padding: 5px;
+    padding: 5px 0;
 }
 
 .menu-item:hover {
