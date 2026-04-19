@@ -5,6 +5,11 @@ const bot = new TelegramBot(token, {
     polling: true,
 });
 
+bot.on("message", (msg: TelegramBot.Message): void => {
+    const chatId: number = msg.chat.id;
+    console.log("Received message from chat ID", chatId, ":", msg.text);
+});
+
 bot.onText(/\/start/, (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message> => {
     const chatId: number = msg.chat.id;
     const btns: Object = {
