@@ -409,23 +409,15 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ): Promise<Object> => {
             const { key, page, limit } = request.query;
-
             try {
                 const url = `https://www.lihouse.xyz/coco_widget/music_resource/info?key=${encodeURIComponent(key)}&page=${page}&limit=${limit}`;
-
-                // 创建一个忽略证书错误的 Agent
                 const agent = new https.Agent({
                     rejectUnauthorized: false,
                 });
-
-                // 使用 node-fetch 的 RequestInit 类型，它兼容 agent 属性
                 const fetchOptions: RequestInit = {
                     agent: agent,
                 };
-
-                // 使用从 node-fetch 导入的 fetch
                 const r = await fetch(url, fetchOptions);
-
                 if (!r.ok) {
                     return reply.status(r.status).send({
                         code: r.status,
@@ -433,7 +425,6 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 }
-
                 const data = await r.json();
                 return reply.send(data);
             } catch (error: unknown) {
@@ -467,13 +458,9 @@ export default function (fastify: FastifyInstance) {
             const { id } = request.params;
             try {
                 const url = `https://www.lihouse.xyz/coco_widget/music_resource/id/${encodeURIComponent(id)}`;
-
-                // 创建一个忽略证书错误的 Agent
                 const agent = new https.Agent({
                     rejectUnauthorized: false,
                 });
-
-                // 使用 node-fetch 的 RequestInit 类型，它兼容 agent 属性
                 const fetchOptions: RequestInit = {
                     agent: agent,
                 };
