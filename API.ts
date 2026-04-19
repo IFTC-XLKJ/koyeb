@@ -445,7 +445,7 @@ export default function (fastify: FastifyInstance) {
                 params: {
                     type: "object",
                     properties: {
-                        id: { type: "string" },
+                        id: { type: "number" },
                     },
                     required: ["id"],
                 },
