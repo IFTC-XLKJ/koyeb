@@ -7,9 +7,28 @@ const bot = new TelegramBot(token, {
     polling: true,
 });
 
-bot.on("message", (msg: TelegramBot.Message): void => {
+bot.on("message", async (msg: TelegramBot.Message): Promise<void> => {
     const chatId: number = msg.chat.id;
-    console.log("Received message from chat ID", chatId, ":", msg.text);
+    const text: string | undefined = msg.text;
+    const photo: TelegramBot.PhotoSize[] | undefined = msg.photo;
+    if (text) {
+        console.log("Received message from chat ID", chatId, ":", text);
+    }
+    if (photo && photo.length > 0) {
+        try {
+            const fileId: string = photo[photo.length - 1].file_id;
+            const fileLink: string = await bot.getFileLink(fileId);
+            console.log("Image URL:", fileLink);
+            const response = await fetch(fileLink);
+            const arrayBuffer = await response.arrayBuffer();
+            const imageBuffer = Buffer.from(arrayBuffer);
+            console.log("Image size:", imageBuffer.length, "bytes");
+            // fs.writeFileSync('received_photo.jpg', imageBuffer);
+            // await bot.sendMessage(chatId, "图片已收到！");
+        } catch (error) {
+            console.error("Failed to download image:", error);
+        }
+    }
 });
 
 bot.onText(/\/start/, (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message> => {
