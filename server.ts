@@ -433,6 +433,7 @@ async function start() {
         await fastify.listen({ port: port, host: "0.0.0.0" });
         console.log(`Server listening at http://0.0.0.0:${port}`);
         console.log("Telegram Bot", TGBot);
+        process.exit(0)
     } catch (err) {
         console.error("!!! FATAL ERROR in start():", err);
         if (err instanceof Error) console.error("Stack:", err.stack);
