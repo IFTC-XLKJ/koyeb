@@ -407,7 +407,7 @@ export default function (fastify: FastifyInstance) {
         ): Promise<Object> => {
             const { key, page, limit } = request.query;
             const r: Response = await fetch(
-                "http://www.lihouse.xyz/coco_widget/music_resource/info?key=" +
+                "https://www.lihouse.xyz/coco_widget/music_resource/info?key=" +
                     key +
                     "&page=" +
                     page +
