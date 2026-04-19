@@ -12,7 +12,6 @@ RUN npm ci
 RUN npm i @supabase/supabase-js
 RUN npm i puppeteer
 RUN npm i cookie-parser
-RUN npm i node-telegram-bot-api
 
 # 安装 Chromium 和必要依赖
 RUN apt-get update && \
