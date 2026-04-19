@@ -465,9 +465,36 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ): Promise<Object> => {
             const { id } = request.params;
-            // 修复：移除 ": Response" 类型注解，让 TS 自动推断为 node-fetch 的 Response 类型
-            const r = await fetch("http://www.lihouse.xyz/coco_widget/music_resource/id/" + id);
-            return await r.json() as Object;
+            try {
+                const url = `https://www.lihouse.xyz/coco_widget/music_resource/id/${encodeURIComponent(id)}`;
+
+                // 创建一个忽略证书错误的 Agent
+                const agent = new https.Agent({
+                    rejectUnauthorized: false,
+                });
+
+                // 使用 node-fetch 的 RequestInit 类型，它兼容 agent 属性
+                const fetchOptions: RequestInit = {
+                    agent: agent,
+                };
+                const r = await fetch(url, fetchOptions);
+                if (!r.ok) {
+                    return reply.status(r.status).send({
+                        code: r.status,
+                        msg: `External API error: ${await r.text()}`,
+                        timestamp: time(),
+                    });
+                }
+                return reply.send(await r.json());
+            } catch (error: unknown) {
+                console.error("Fetch error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "fetch failed",
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
         },
     );
 }
