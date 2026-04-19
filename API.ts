@@ -13,6 +13,9 @@ import type { StorageClient } from "@supabase/storage-js";
 import { PostgrestClient } from "@supabase/postgrest-js";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
+import https from "https";
+import fetch from "node-fetch";
+import type { RequestInit } from "node-fetch";
 
 const user: User = new User();
 const SUPABASE_URL: string = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn";
@@ -408,9 +411,20 @@ export default function (fastify: FastifyInstance) {
             const { key, page, limit } = request.query;
 
             try {
-                // 改为 HTTPS，并确保 URL 编码正确
                 const url = `https://www.lihouse.xyz/coco_widget/music_resource/info?key=${encodeURIComponent(key)}&page=${page}&limit=${limit}`;
-                const r: Response = await fetch(url);
+
+                // 创建一个忽略证书错误的 Agent
+                const agent = new https.Agent({
+                    rejectUnauthorized: false,
+                });
+
+                // 使用 node-fetch 的 RequestInit 类型，它兼容 agent 属性
+                const fetchOptions: RequestInit = {
+                    agent: agent,
+                };
+
+                // 使用从 node-fetch 导入的 fetch
+                const r = await fetch(url, fetchOptions);
 
                 if (!r.ok) {
                     return reply.status(r.status).send({
@@ -451,10 +465,9 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ): Promise<Object> => {
             const { id } = request.params;
-            const r: Response = await fetch(
-                "http://www.lihouse.xyz/coco_widget/music_resource/id/" + id,
-            );
-            return await r.json();
+            // 修复：移除 ": Response" 类型注解，让 TS 自动推断为 node-fetch 的 Response 类型
+            const r = await fetch("http://www.lihouse.xyz/coco_widget/music_resource/id/" + id);
+            return await r.json() as Object;
         },
     );
 }
