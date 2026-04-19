@@ -9,6 +9,7 @@ import fastifyStatic from "@fastify/static";
 import fastifyCookie from "@fastify/cookie";
 import Sign from "./Sign.ts";
 import API from "./API.ts";
+import TGBot from "./tgbot.ts";
 
 const sign: Sign = new Sign();
 
@@ -431,6 +432,7 @@ async function start() {
         console.log(">>> [STEP 8] Starting listener...");
         await fastify.listen({ port: port, host: "0.0.0.0" });
         console.log(`Server listening at http://0.0.0.0:${port}`);
+        console.log("Telegram Bot", TGBot);
     } catch (err) {
         console.error("!!! FATAL ERROR in start():", err);
         if (err instanceof Error) console.error("Stack:", err.stack);
