@@ -1,4 +1,7 @@
 import TelegramBot from "node-telegram-bot-api";
+import User from "./User.ts";
+
+const user: User = new User();
 
 console.log("Telegram Bot is starting...");
 
@@ -70,6 +73,43 @@ bot.onText(/\/about/, (msg: TelegramBot.Message, match: any): Promise<TelegramBo
     const aboutText: string = `VV助手 v1.0 by @IFTCCEO`;
     return bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
 });
+
+bot.onText(
+    /\/login (.+) (.+)/,
+    async (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message | undefined> => {
+        const chatId: number = msg.chat.id;
+        const from: TelegramBot.User | undefined = msg.from;
+        if (!from) return;
+        try {
+            const uid: number = from.id;
+            if (!uid)
+                return bot.sendMessage(
+                    chatId,
+                    "无法获取你的 Telegram 用户ID，请确保你已正确使用 /login 命令",
+                );
+            const username: string = match[1];
+            const password: string = match[2];
+            console.log("Telegram Bot Received login command:", username, password);
+            bot.sendMessage(chatId, "正在登录中，请稍后...");
+            const r: Response = await fetch(
+                "https://iftc.koyeb.app/api/user/login?user=" +
+                    encodeURIComponent(username) +
+                    "&password=" +
+                    encodeURIComponent(password),
+            );
+            const j = await r.json();
+            if (j.code != 200) return bot.sendMessage(chatId, j.msg);
+            const ID: number = j.id;
+            const j2 = await user.setTelegram(ID, uid);
+            if (j2.code != 200)
+                return bot.sendMessage(chatId, "登录成功，但绑定 Telegram 失败：" + j2.msg);
+            bot.sendMessage(chatId, "登录并绑定 Telegram 成功！");
+        } catch (error) {
+            console.error("TG Bot Login Error:", error);
+            return bot.sendMessage(chatId, "登录出错：" + error + "，请稍后再试...");
+        }
+    },
+);
 
 // bot.onText("whoami", async function (msg) {});
 
