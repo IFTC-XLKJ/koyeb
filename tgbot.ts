@@ -88,6 +88,47 @@ bot.onText(/\/help/, (msg: TelegramBot.Message, match: any): Promise<TelegramBot
 });
 
 bot.onText(
+    /\/queryuser (.+)/,
+    async (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message> => {
+        const chatId: number = msg.chat.id;
+        try {
+            const resp: string = match[1];
+            const ID: number = Number(resp);
+            if (resp.trim() == "") return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
+            if (isNaN(ID)) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
+            if (ID < 0) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
+            bot.sendMessage(chatId, "正在查询中，请稍后...");
+            const r: Response = await fetch("https://iftc.koyeb.app/api/user/details?id=" + ID);
+            const j = await r.json();
+            if (j.code != 200) return bot.sendMessage(chatId, j.msg);
+            const data = j.data;
+            const avatar: string = data.avatar;
+            await bot.sendPhoto(chatId, avatar, {
+                caption: "",
+            });
+            const str: string = `<b>用户 ID：</b><code>${data.ID}</code>
+<b>用户名：</b><code>${data.username}</code>
+<b>邮箱：</b><code>${escapeHtml(data.email)}</code>
+<b>V 币：</b><code>${data.VC}</code>
+<b>VIP：</b><code>${data.VIP ? "是" : "否"}</code>
+<b>管理员：</b><code>${data.op ? "是" : "否"}</code>
+<b>冻结：</b><code>${data.freezed ? "是" : "否"}</code>
+<b>头衔：</b><code>${data.title}</code>
+<b>头衔色：</b><code>${data.titleColor}</code>
+<b>上次签到时间：</b><code>${formatTimestamp(data.signed, "Asia/Shanghai")}</code>
+<b>注册时间：</b><code>${formatTimestamp(data.createdAt * 1000, "Asia/Shanghai")}</code>
+<b>更新时间：</b><code>${formatTimestamp(data.updatedAt * 1000, "Asia/Shanghai")}</code>`;
+            return bot.sendMessage(chatId, str, {
+                parse_mode: "HTML",
+            });
+        } catch (error) {
+            console.error("TG Bot Error:", error);
+            return bot.sendMessage(chatId, "查询出错：" + error + "，请稍后再试...");
+        }
+    },
+);
+
+bot.onText(
     /\/login (.+) (.+)/,
     async (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message | undefined> => {
         const chatId: number = msg.chat.id;
@@ -194,3 +235,26 @@ console.log("Telegram Bot started.");
 
 export default bot;
 export { TelegramBot };
+
+function escapeHtml(text: string): string {
+    if (!text) return "";
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+}
+
+function formatTimestamp(timestamp: number, timezone: string) {
+    const date: Date = new Date(timestamp);
+    return new Intl.DateTimeFormat("zh-CN", {
+        timeZone: timezone,
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: false,
+    }).format(date);
+}
