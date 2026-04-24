@@ -10,6 +10,7 @@ import fastifyCookie from "@fastify/cookie";
 import Sign from "./Sign.ts";
 import API from "./API.ts";
 import TGBot from "./tgbot.ts";
+import multipart from '@fastify/multipart';
 
 const sign: Sign = new Sign();
 
@@ -187,6 +188,7 @@ async function start() {
         await fs.mkdir(filePath, { recursive: true });
         console.log(">>> [STEP 2] Registering static plugins...");
         await fastify.register(fastifyCookie);
+        await fastify.register(multipart);
         await fastify.register(fastifyStatic, {
             root: staticPath,
             prefix: "/static/",
