@@ -86,12 +86,12 @@ bot.on("message", (msg: TelegramBot.Message, metadata: TelegramBot.Metadata): vo
 });
 
 // 接收频道消息（Bot 需为频道管理员）
-bot.on("channel_post", (msg) => {
+bot.on("channel_post", (msg: TelegramBot.Message): void => {
     console.log("频道消息:", msg.text, "来自频道:", msg.chat.title);
 });
 
 // 接收频道编辑消息
-bot.on("edited_channel_post", (msg) => {
+bot.on("edited_channel_post", (msg: TelegramBot.Message): void => {
     console.log("频道编辑消息:", msg.text);
 });
 
