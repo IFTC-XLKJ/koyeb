@@ -74,6 +74,19 @@ bot.onText(/\/about/, (msg: TelegramBot.Message, match: any): Promise<TelegramBo
     return bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
 });
 
+bot.onText(/\/help/, (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message> => {
+    const chatId: number = msg.chat.id;
+    const helpText: string = `VV助手是一个Telegram机器人，可以帮助你查询用户信息。<br>
+当前可用命令：<br>
+<code>/start</code> - 启动机器人
+<code>/hello</code> - 测试命令，回复 "Hello, Telegram!"
+<code>/queryuser <用户ID></code> - 查询用户信息，例如：<code>/queryuser 0</code>
+<code>/help</code> - 显示帮助信息
+<code>/about</code> - 关于VV助手
+<code>/login 用户名 密码</code> - 登录并绑定Telegram，例如：<code>/login testuser testpassword</code><br>`;
+    return bot.sendMessage(chatId, helpText, { parse_mode: "HTML" });
+});
+
 bot.onText(
     /\/login (.+) (.+)/,
     async (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message | undefined> => {
