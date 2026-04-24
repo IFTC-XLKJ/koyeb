@@ -71,6 +71,30 @@ bot.onText(/\/about/, (msg: TelegramBot.Message, match: any): Promise<TelegramBo
     return bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
 });
 
+// 接收群组消息
+bot.on("group_chat_created", (msg: TelegramBot.Message, metadata: TelegramBot.Metadata): void => {
+    console.log("Bot 被添加到新群组:", msg.chat.title);
+});
+
+bot.on("message", (msg: TelegramBot.Message, metadata: TelegramBot.Metadata): void => {
+    // 判断消息来源
+    if (msg.chat.type === "private") {
+        console.log("私聊消息:", msg.text);
+    } else if (msg.chat.type === "group" || msg.chat.type === "supergroup") {
+        console.log("群组消息:", msg.text, "来自群组:", msg.chat.title);
+    }
+});
+
+// 接收频道消息（Bot 需为频道管理员）
+bot.on("channel_post", (msg) => {
+    console.log("频道消息:", msg.text, "来自频道:", msg.chat.title);
+});
+
+// 接收频道编辑消息
+bot.on("edited_channel_post", (msg) => {
+    console.log("频道编辑消息:", msg.text);
+});
+
 console.log("Telegram Bot started.");
 
 export default bot;
