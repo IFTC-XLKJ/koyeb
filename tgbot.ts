@@ -71,6 +71,48 @@ bot.onText(/\/about/, (msg: TelegramBot.Message, match: any): Promise<TelegramBo
     return bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
 });
 
+// bot.onText("whoami", async function (msg) {});
+
+bot.on(
+    "message",
+    (
+        msg: TelegramBot.Message,
+        metadata: TelegramBot.Metadata,
+    ): Promise<TelegramBot.Message> | undefined => {
+        const chatId: number = msg.chat.id;
+        const text: string = msg.text || "";
+        if (!text) return;
+        console.log(" Telegram Bot Received message:", msg.text);
+        if (text.trim() == "/queryuser")
+            return bot.sendMessage(chatId, "请输入用户ID以查询用户信息，如：/queryuser 0");
+        if (text.trim() == "/login")
+            return bot.sendMessage(
+                chatId,
+                "请输入用户ID、用户名或邮箱和密码以登录VV账号，如：/login testuser testpassword",
+            );
+        if (text.startsWith("/")) return;
+        return bot.sendMessage(chatId, "未知命令，请使用 /help 获取帮助");
+    },
+);
+
+bot.on(
+    "callback_query",
+    (query: TelegramBot.CallbackQuery): Promise<TelegramBot.Message> | undefined => {
+        const message: TelegramBot.Message | null = query.message || null;
+        if (!message) return;
+        const chatId: number = message.chat.id;
+        const data: string | undefined = query.data;
+        if (data === "help") {
+            return bot.sendMessage(
+                chatId,
+                "VV助手是一个Telegram机器人，可以帮助你查询用户信息。使用 /queryuser <用户ID> 来查询用户详情。例如：/queryuser 0\n输入 /help 以获取更多帮助",
+            );
+        } else {
+            return bot.sendMessage(chatId, "未知操作");
+        }
+    },
+);
+
 // 接收群组消息
 bot.on("group_chat_created", (msg: TelegramBot.Message, metadata: TelegramBot.Metadata): void => {
     console.log("Bot 被添加到新群组:", msg.chat.title);
