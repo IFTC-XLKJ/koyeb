@@ -65,6 +65,12 @@ bot.onText(/\/echo (.+)/, (msg: TelegramBot.Message, match: any): Promise<Telegr
     return bot.sendMessage(chatId, resp);
 });
 
+bot.onText(/\/about/, (msg: TelegramBot.Message, match: any): Promise<TelegramBot.Message> => {
+    const chatId: number = msg.chat.id;
+    const aboutText: string = `VV助手 v1.0 by @IFTCCEO`;
+    return bot.sendMessage(chatId, aboutText, { parse_mode: "HTML" });
+});
+
 console.log("Telegram Bot started.");
 
 export default bot;

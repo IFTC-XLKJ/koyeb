@@ -529,7 +529,7 @@ export default function (fastify: FastifyInstance) {
                     {
                         contentType: contentType,
                         cacheControl: "public, max-age=31536000",
-                        upsert: true, // 对应原代码中的 update 行为，如果存在则覆盖
+                        upsert: true,
                     },
                 );
                 if (error) {
