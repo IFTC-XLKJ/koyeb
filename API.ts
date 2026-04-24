@@ -514,3 +514,34 @@ async function lookupIP(ip: string | string[] | null): Promise<string> {
         return "Unknown";
     }
 }
+
+function generateUUID(): string {
+    return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c: string): string {
+        var r: number = (Math.random() * 16) | 0,
+            v: number = c == "x" ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
+async function isImageFromFile(fileBuffer: Buffer): Promise<boolean> {
+    if (!fileBuffer || fileBuffer.length < 10) return false;
+    const signatures: { bytes: number[]; exts: string[] }[] = [
+        { bytes: [0xff, 0xd8, 0xff], exts: ["jpg", "jpeg"] },
+        { bytes: [0x89, 0x50, 0x4e, 0x47], exts: ["png"] },
+        { bytes: [0x47, 0x49, 0x46, 0x38], exts: ["gif"] },
+        { bytes: [0x52, 0x49, 0x46, 0x46], exts: ["webp"] },
+        { bytes: [0x42, 0x4d], exts: ["bmp"] },
+    ];
+
+    for (const sig of signatures) {
+        let match: boolean = true;
+        for (let i: number = 0; i < sig.bytes.length; i++) {
+            if (fileBuffer[i] !== sig.bytes[i]) {
+                match = false;
+                break;
+            }
+        }
+        if (match) return true;
+    }
+    return false;
+}
