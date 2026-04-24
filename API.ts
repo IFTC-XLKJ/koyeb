@@ -484,6 +484,106 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.post("/api/upload-avatar", async (request: FastifyRequest, reply: FastifyReply) => {
+        try {
+            // 1. 解析 multipart 数据
+            // @fastify/multipart 会将文件挂载到 request.file() 或 request.files()
+            // 这里我们期望单个字段 'avatar'
+            const data = await request.file({
+                limits: {
+                    fileSize: 1024 * 1024 * 5,
+                },
+            });
+
+            // 2. 校验文件是否存在
+            if (!data || !data.file) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "No avatar file provided",
+                    timestamp: time(),
+                });
+            }
+
+            // 3. 读取文件 buffer 进行校验
+            // 注意：为了校验文件大小和内容，我们需要先消费流或者使用 limits 自动拦截
+            // 如果使用了 limits，超过大小会直接报错进入 catch，或者我们可以手动检查
+            // 这里为了兼容原逻辑，我们先获取 buffer
+
+            // 由于 request.file() 返回的是 ReadableStream，我们需要将其转换为 Buffer
+            // @fastify/multipart 通常提供 toBuffer 方法或者直接访问 data.file
+            // 更推荐的方式是使用 data.toBuffer() 如果可用，或者手动收集流
+
+            // 简化处理：假设我们信任 limits 截断了过大文件，或者我们手动收集
+            const chunks: Buffer[] = [];
+            for await (const chunk of data.file) {
+                chunks.push(chunk);
+            }
+            const fileBuffer = Buffer.concat(chunks);
+
+            // 再次检查大小 (因为 limits 可能只是停止接收，而不是立即抛出异常取决于配置)
+            if (fileBuffer.length > 1024 * 1024 * 5) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "File too large",
+                    timestamp: time(),
+                });
+            }
+
+            // 4. 校验是否为图片
+            const isImage = await isImageFromFile(fileBuffer);
+            if (!isImage) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "File must be an Image",
+                    timestamp: time(),
+                });
+            }
+
+            // 5. 生成 UUID 并上传到 Supabase
+            const uuid = generateUUID();
+            const fileName = `${uuid}.png`;
+
+            // 获取原始文件的 mimetype，如果不存在则默认为 image/png
+            const contentType = data.mimetype || "image/png";
+
+            const { data: uploadData, error } = await avatarBucket.upload(fileName, fileBuffer, {
+                contentType: contentType,
+                cacheControl: "public, max-age=31536000",
+                upsert: true, // 对应原代码中的 update 行为，如果存在则覆盖
+            });
+
+            if (error) {
+                throw error;
+            }
+
+            // 6. 返回成功响应
+            return reply.send({
+                code: 200,
+                msg: "Upload successful",
+                data: uploadData,
+                error: null,
+                timestamp: time(),
+            });
+        } catch (err: any) {
+            console.error("Avatar upload error:", err);
+
+            // 区分是文件大小错误还是其他错误
+            if (err.message && err.message.includes("File too large")) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "File too large",
+                    timestamp: time(),
+                });
+            }
+
+            return reply.status(500).send({
+                code: 500,
+                msg: "Upload failed",
+                error: err.message,
+                timestamp: time(),
+            });
+        }
+    });
 }
 
 function time(): number {
