@@ -16,8 +16,11 @@ import maxmind from "maxmind";
 import https from "https";
 import fetch from "node-fetch";
 import type { RequestInit } from "node-fetch";
+import VVApps from "./VVApps.ts";
+import AppUpdateCheck from "./AppUpdateCheck.ts";
 
 const user: User = new User();
+const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
 const SUPABASE_URL: string = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn";
 const SUPABASE_ANON_KEY: string =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzQ2OTc5MjAwLCJleHAiOjE5MDQ3NDU2MDB9.11QbQ5OW_m10vblDXAlw1Qq7Dve5Swzn12ILo7-9IXY";
@@ -555,6 +558,42 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "Upload failed",
                     error: (err as Error).message,
+                    timestamp: time(),
+                });
+            }
+        },
+    );
+    fastify.get(
+        "/api/appupdatecheck",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        packageName: { type: "string" },
+                        versionCode: { type: "string" },
+                    },
+                    required: ["packageName", "versionCode"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { packageName: string; versionCode: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { packageName, versionCode } = request.query;
+            try {
+                const result: AppUpdateCheckResult = await appUpdateCheck.check(
+                    decodeURIComponent(packageName || ""),
+                    Number(versionCode) || 0,
+                );
+                return reply.send(result);
+            } catch (error: unknown) {
+                console.error("App update check error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Update check failed",
+                    error: (error as Error).message,
                     timestamp: time(),
                 });
             }

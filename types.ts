@@ -68,3 +68,35 @@ export interface GetAllUsersResponse {
     fields: UserData[];
     sql: string;
 }
+
+export interface PGDBSResponse {
+    code: number;
+    msg: string;
+    logid: string;
+    createdAt: number;
+    count: number;
+    fields: Object[];
+    sql: string;
+}
+
+export interface AppUpdateCheckResponse extends PGDBSResponse {
+    fields: {
+        应用包名: string;
+        版本号: number;
+        更新内容: string;
+        更新链接: string;
+        版本名: string;
+        createdAt: number;
+        updatedAt: number;
+    }[];
+}
+
+export interface AppUpdateCheckResult {
+    code: number;
+    msg: string;
+    update: boolean;
+    downloadURL?: string;
+    versionCode?: number;
+    versionName?: string;
+    description?: string;
+}
