@@ -41,7 +41,9 @@ export default class AppUpdateCheck {
                     versionName: data.版本名,
                     description: data.更新内容,
                 };
-            else if (data.版本号 == 0)
+            else if (data.版本名.includes("test")) {
+                const vaersionName = data.版本名.split(" ")[0];
+                const [major, minor, patch] = vaersionName.split(".");
                 return {
                     code: 200,
                     msg: "test版本更新",
@@ -50,8 +52,13 @@ export default class AppUpdateCheck {
                     versionCode: data.版本号,
                     versionName: data.版本名,
                     description: data.更新内容,
+                    testUpdate: {
+                        major: Number(major),
+                        minor: Number(minor),
+                        patch: Number(patch),
+                    },
                 };
-            else
+            } else
                 return {
                     code: 200,
                     msg: "无更新",

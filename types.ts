@@ -99,4 +99,9 @@ export interface AppUpdateCheckResult {
     versionCode?: number;
     versionName?: string;
     description?: string;
+    testUpdate?: {
+        major: number;
+        minor: number;
+        patch: number;
+    };
 }
