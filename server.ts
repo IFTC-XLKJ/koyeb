@@ -10,7 +10,7 @@ import fastifyCookie from "@fastify/cookie";
 import Sign from "./Sign.ts";
 import API from "./API.ts";
 import TGBot from "./tgbot.ts";
-import multipart from '@fastify/multipart';
+import multipart from "@fastify/multipart";
 
 const sign: Sign = new Sign();
 
@@ -220,7 +220,10 @@ async function start() {
                     return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
-                if (crawlerAgents.some((agent: string) => ua.includes(agent)) || ua == "Mozilla/5.0")
+                if (
+                    crawlerAgents.some((agent: string) => ua.includes(agent)) ||
+                    ua == "Mozilla/5.0"
+                )
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
@@ -388,7 +391,14 @@ async function start() {
             "/kubejs",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 const params: Record<string, any> = {};
-                return reply.redirect("https://kubejs.nocode.host")
+                return reply.redirect("https://kubejs.nocode.host");
+            },
+        );
+        fastify.get(
+            "/MagicFive",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const params: Record<string, any> = {};
+                return returnPage("神奇五客/index.html", params, reply);
             },
         );
         API(fastify);
