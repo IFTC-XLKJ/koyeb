@@ -599,6 +599,17 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.get(
+        "/api/ip",
+        async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+            return reply.send({
+                code: 200,
+                msg: "请求成功",
+                ip: request.headers["x-forwarded-for"] || null,
+                timestamp: time(),
+            });
+        },
+    );
 }
 
 function time(): number {
