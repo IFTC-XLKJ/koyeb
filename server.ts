@@ -220,7 +220,7 @@ async function start() {
                     return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
-                if (crawlerAgents.some((agent: string) => ua.includes(agent)))
+                if (crawlerAgents.some((agent: string) => ua.includes(agent)) || ua == "Mozilla/5.0")
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
