@@ -384,6 +384,13 @@ async function start() {
                 return returnPage("noob/editor/index.html", params, reply);
             },
         );
+        fastify.get(
+            "/kubejs",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const params: Record<string, any> = {};
+                return reply.redirect("https://kubejs.nocode.host")
+            },
+        );
         API(fastify);
         fastify.get(
             "/file/blockly/workspace-search",
