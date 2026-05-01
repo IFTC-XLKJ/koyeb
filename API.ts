@@ -645,6 +645,7 @@ async function lookupIP(ip: string | string[] | null): Promise<string> {
     try {
         const reader = await maxmind.open("./GeoLite2-City.mmdb");
         const result = reader.get(Array.isArray(ip) ? ip[0] : ip);
+        console.log(result);
         if (!result) {
             return "Unknown";
         }
