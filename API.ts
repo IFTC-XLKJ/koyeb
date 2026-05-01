@@ -620,12 +620,11 @@ export default function (fastify: FastifyInstance) {
                     properties: {
                         ip: { type: "string" },
                     },
-                    required: ["ip"],
                 },
             },
         },
         async (request: FastifyRequest<{ Querystring: { ip: string } }>, reply: FastifyReply): Promise<Object> => {
-            const ip = request.query.ip;
+            const ip = request.query.ip || request.headers["x-forwarded-for"] || null;
             return reply.send({
                 code: 200,
                 msg: "请求成功",
