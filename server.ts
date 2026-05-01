@@ -501,3 +501,4 @@ const r = await fetch(
 );
 const buffer = await r.arrayBuffer();
 await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
+console.log("GeoLite2-City.mmdb downloaded successfully");
