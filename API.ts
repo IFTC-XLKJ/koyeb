@@ -611,6 +611,30 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
+    fastify.get(
+        "/api/ip2location",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        ip: { type: "string" },
+                    },
+                    required: ["ip"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Querystring: { ip: string } }>, reply: FastifyReply): Promise<Object> => {
+            const ip = request.query.ip;
+            return reply.send({
+                code: 200,
+                msg: "请求成功",
+                ip: ip,
+                location: await lookupIP(ip),
+                timestamp: time(),
+            });
+        },
+    );
 }
 
 function time(): number {
