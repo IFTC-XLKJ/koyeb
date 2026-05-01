@@ -495,3 +495,9 @@ setInterval((): void => {
 setInterval(async (): Promise<void> => {
     process.exit(0);
 }, 3600000);
+
+const r = await fetch(
+    "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb",
+);
+const buffer = await r.arrayBuffer();
+await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
