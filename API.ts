@@ -1,5 +1,6 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
 import type {
+    AppUpdateCheckResult,
     GetByIDResponse,
     SearchResponse,
     UserData,
