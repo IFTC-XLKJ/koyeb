@@ -31,6 +31,10 @@ class Widget extends InvisibleWidget {
                 constructor(filePath) {
                     this.path = filePath || '/sdcard/abc.txt';
                 }
+                async read() {
+                    this.widgetWarn(`模拟读取文件：${this.path}`);
+                    return new Blob(`这是文件${this.path}的内容`);
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify(this)}`;
                 }
@@ -147,6 +151,24 @@ types['methods'].push({
 })
 Widget.prototype.setFilePath = function (file, path) {
     file.path = path;
+}
+types['methods'].push({
+    key: 'readFile',
+    label: '读取文件',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: new vvbrowser.File(''),
+        labelAfter: '的内容',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+})
+Widget.prototype.readFile = async function (file) {
+    return await file.read();
 }
 
 exports.types = types;
