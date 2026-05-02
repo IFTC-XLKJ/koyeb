@@ -35,6 +35,10 @@ class Widget extends InvisibleWidget {
                     this.widgetWarn(`模拟读取文件：${this.path}`);
                     return new Blob(`这是文件${this.path}的内容`);
                 }
+                async write(blob) {
+                    this.widgetWarn(`模拟写入文件：${this.path} 内容为：${blob}`);
+                    return true;
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify(this)}`;
                 }
@@ -174,6 +178,30 @@ types['methods'].push({
 })
 Widget.prototype.readFile = async function (file) {
     return await file.read();
+}
+types['methods'].push({
+    key: 'writeFile',
+    label: '写入文件',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的内容为',
+    }, {
+        key: 'content',
+        label: '',
+        valueType: ['string', 'Blob'],
+        defaultValue: ""
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
+})
+Widget.prototype.writeFile = async function (file, content) {
+    return await file.write(content);
 }
 
 exports.types = types;
