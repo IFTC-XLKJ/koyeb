@@ -31,6 +31,9 @@ class Widget extends InvisibleWidget {
                 constructor(filePath) {
                     this.path = filePath;
                 }
+                toString() {
+                    return `[File: ${this.path}]`;
+                }
             },
         };
     }
