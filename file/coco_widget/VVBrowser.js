@@ -39,11 +39,16 @@ class Widget extends InvisibleWidget {
                     this.widgetWarn(`模拟写入文件：${this.path} 内容为：${blob}`);
                     return true;
                 }
+                async append(blob) {
+                    this.widgetWarn(`模拟追加文件：${this.path} 内容为：${blob}`);
+                    return true;
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify({
                         path: this.path,
                         read: "模拟读取文件方法",
                         write: "模拟写入文件方法",
+                        append: "模拟追加文件方法",
                     })}`;
                 }
             },
@@ -207,6 +212,25 @@ types['methods'].push({
 })
 Widget.prototype.writeFile = async function (file, content) {
     return await file.write(content);
+}
+types['methods'].push({
+    key: 'appendFile',
+    label: '追加文件',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的内容为',
+    }, {
+        key: 'content',
+        label: '',
+        valueType: ['string', 'Blob'],
+        defaultValue: ""
+    }]
+})
+Widget.prototype.appendFile = async function (file, content) {
+    return await file.append(content);
 }
 types['methods'].push({
     key: 'toolTextToBlob',
