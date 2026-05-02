@@ -215,6 +215,7 @@ types['methods'].push({
     blockOptions: {
         callMethodLabel: false,
         color: METHOD_COLOR,
+        line: "辅助工具"
     },
     valueType: 'Blob',
 });
