@@ -18,6 +18,7 @@ class Widget extends InvisibleWidget {
         this.widgetWarn("IFTC官网QQ群：870350184");
         const isVVBrowser = !!globalThis.isVVBrowser;
         this.widgetWarn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
+        const that = this;
         if (!isVVBrowser) globalThis.vvbrowser = {
             version: {
                 browser: {
@@ -32,15 +33,15 @@ class Widget extends InvisibleWidget {
                     this.path = filePath || '/sdcard/abc.txt';
                 }
                 async read() {
-                    this.widgetWarn(`模拟读取文件：${this.path}`);
+                    that.widgetWarn(`模拟读取文件：${this.path}`);
                     return new Blob(`这是文件${this.path}的内容`);
                 }
                 async write(blob) {
-                    this.widgetWarn(`模拟写入文件：${this.path} 内容为：${blob}`);
+                    that.widgetWarn(`模拟写入文件：${this.path} 内容为：${blob}`);
                     return true;
                 }
                 async append(blob) {
-                    this.widgetWarn(`模拟追加文件：${this.path} 内容为：${blob}`);
+                    that.widgetWarn(`模拟追加文件：${this.path} 内容为：${blob}`);
                     return true;
                 }
                 toString() {
