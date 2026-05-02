@@ -35,7 +35,7 @@ class Widget extends InvisibleWidget {
         }
         types['methods'].push({
             key: 'getVVBrowserVersionName',
-            label: '获取VV浏览器版本',
+            label: '获取VV浏览器版本名',
             params: [],
             blockOptions: {
                 callMethodLabel: false,
@@ -45,6 +45,19 @@ class Widget extends InvisibleWidget {
         })
         Widget.prototype.getVVBrowserVersionName = function () {
             return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN';
+        }
+        types['methods'].push({
+            key: 'getVVBrowserVersionCode',
+            label: '获取VV浏览器版本号',
+            params: [],
+            blockOptions: {
+                callMethodLabel: false,
+                color: METHOD_COLOR,
+            },
+            valueType: 'string',
+        })
+        Widget.prototype.getVVBrowserVersionCode = function () {
+            return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.version : 'UNKNOWN';
         }
     }
 }
