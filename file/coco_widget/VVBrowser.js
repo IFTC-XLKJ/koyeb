@@ -142,7 +142,12 @@ types['methods'].push({
         label: '',
         valueType: ['File', 'string'],
         defaultValue: "",
-        labelAfter: '的路径',
+        labelAfter: '的路径为',
+    }, {
+        key: 'path',
+        label: '',
+        valueType: 'string',
+        defaultValue: ""
     }],
     blockOptions: {
         callMethodLabel: false,
