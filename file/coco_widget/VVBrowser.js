@@ -17,7 +17,7 @@ class Widget extends InvisibleWidget {
         Object.assign(this, props);
         this.widgetWarn("IFTC官网QQ群：870350184");
         const isVVBrowser = !!globalThis.isVVBrowser;
-        Widget.warn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
+        this.widgetWarn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
         if (!isVVBrowser) globalThis.vvbrowser = {
             version: {
                 browser: {
