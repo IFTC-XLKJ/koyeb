@@ -103,6 +103,23 @@ types['methods'].push({
 Widget.prototype.newFileInstance = function (filePath) {
     return new vvbrowser.File(filePath);
 }
+types['methods'].push({
+    key: 'getFilePath',
+    label: '获取文件路径',
+    params: [{
+        key: 'file',
+        label: '',
+        type: 'File',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'string',
+})
+Widget.prototype.getFilePath = function (file) {
+    return file.path;
+}
 
 exports.types = types;
 exports.widget = Widget;
