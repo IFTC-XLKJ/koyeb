@@ -40,7 +40,11 @@ class Widget extends InvisibleWidget {
                     return true;
                 }
                 toString() {
-                    return `[File: ${this.path}] ${JSON.stringify(this)}`;
+                    return `[File: ${this.path}] ${JSON.stringify({
+                        path: this.path,
+                        read: "模拟读取文件方法",
+                        write: "模拟写入文件方法",
+                    })}`;
                 }
             },
         };
