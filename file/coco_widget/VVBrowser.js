@@ -2,7 +2,7 @@ const METHOD_COLOR = '#1E90FF';
 const types = {
     isInvisibleWidget: true,
     type: "VVBROWSER",
-    icon: "https://cdn.cocotais.cn/project/waddle-2/logo/waddle2-logo.svg",
+    icon: "https://iftc.koyeb.app/static/vvbrowser.png",
     title: "VV浏览器私有接口",
     version: "1.0.0",
     isGlobalWidget: true,
