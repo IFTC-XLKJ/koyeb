@@ -203,6 +203,24 @@ types['methods'].push({
 Widget.prototype.writeFile = async function (file, content) {
     return await file.write(content);
 }
+types['methods'].push({
+    key: 'toolTextToBlob',
+    label: '将文本转为Blob',
+    params: [{
+        key: 'text',
+        label: '文本',
+        valueType: 'string',
+        defaultValue: "",
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'Blob',
+});
+Widget.prototype.toolTextToBlob = function (text) {
+    return new Blob([text]);
+}
 
 exports.types = types;
 exports.widget = Widget;
