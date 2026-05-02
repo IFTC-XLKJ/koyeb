@@ -16,71 +16,74 @@ class Widget extends InvisibleWidget {
         super(props);
         Object.assign(this, props);
         this.widgetWarn("IFTC官网QQ群：870350184");
-        const isVVBrowser = !!globalThis.isVVBrowser;
-        this.widgetWarn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
-        if (!isVVBrowser) globalThis.vvbrowser = {
-            version: {
-                browser: {
-                    name: "UNKNOWN",
-                    version: "UNKNOWN",
-                },
-                webview: "UNKNOWN",
-            },
-        };
-
-        types['methods'].push({
-            key: 'isVVBrowser',
-            label: '是否在VV浏览器中',
-            params: [],
-            blockOptions: {
-                callMethodLabel: false,
-                color: METHOD_COLOR,
-            },
-            valueType: 'boolean',
-        })
-        Widget.prototype.isVVBrowser = function () {
-            return isVVBrowser;
-        }
-        types['methods'].push({
-            key: 'getVVBrowserVersionName',
-            label: '获取VV浏览器版本名',
-            params: [],
-            blockOptions: {
-                callMethodLabel: false,
-                color: METHOD_COLOR,
-            },
-            valueType: 'string',
-        })
-        Widget.prototype.getVVBrowserVersionName = function () {
-            return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN';
-        }
-        types['methods'].push({
-            key: 'getVVBrowserVersionCode',
-            label: '获取VV浏览器版本号',
-            params: [],
-            blockOptions: {
-                callMethodLabel: false,
-                color: METHOD_COLOR,
-            },
-            valueType: 'string',
-        })
-        Widget.prototype.getVVBrowserVersionCode = function () {
-            return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.version : 'UNKNOWN';
-        }
-        types['methods'].push({
-            key: 'getVVBrowserWebViewVersion',
-            label: '获取VV浏览器WebView版本',
-            params: [],
-            blockOptions: {
-                callMethodLabel: false,
-                color: METHOD_COLOR,
-            },
-            valueType: 'string',
-        })
-        Widget.prototype.getVVBrowserWebViewVersion = function () {
-            return globalThis.isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
-        }
     }
+    static warn(message) {
+        this.prototype.widgetWarn(message);
+    }
+}
+
+const isVVBrowser = !!globalThis.isVVBrowser;
+Widget.warn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
+if (!isVVBrowser) globalThis.vvbrowser = {
+    version: {
+        browser: {
+            name: "UNKNOWN",
+            version: "UNKNOWN",
+        },
+        webview: "UNKNOWN",
+    },
+};
+types['methods'].push({
+    key: 'isVVBrowser',
+    label: '是否在VV浏览器中',
+    params: [],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
+})
+Widget.prototype.isVVBrowser = function () {
+    return isVVBrowser;
+}
+types['methods'].push({
+    key: 'getVVBrowserVersionName',
+    label: '获取VV浏览器版本名',
+    params: [],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'string',
+})
+Widget.prototype.getVVBrowserVersionName = function () {
+    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN';
+}
+types['methods'].push({
+    key: 'getVVBrowserVersionCode',
+    label: '获取VV浏览器版本号',
+    params: [],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'string',
+})
+Widget.prototype.getVVBrowserVersionCode = function () {
+    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.version : 'UNKNOWN';
+}
+types['methods'].push({
+    key: 'getVVBrowserWebViewVersion',
+    label: '获取VV浏览器WebView版本',
+    params: [],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'string',
+})
+Widget.prototype.getVVBrowserWebViewVersion = function () {
+    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
 }
 
 exports.types = types;
