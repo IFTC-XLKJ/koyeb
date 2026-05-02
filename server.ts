@@ -11,6 +11,7 @@ import Sign from "./Sign.ts";
 import API from "./API.ts";
 import TGBot from "./tgbot.ts";
 import multipart from "@fastify/multipart";
+import fastifyCors from "@fastify/cors";
 
 const sign: Sign = new Sign();
 
@@ -197,6 +198,12 @@ async function start() {
             root: filePath,
             prefix: "/file/",
             decorateReply: false,
+        });
+        await fastify.register(fastifyCors, {
+            origin: true,
+            methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+            allowedHeaders: ["Content-Type", "Authorization", "X-PASS"],
+            credentials: true,
         });
         console.log(">>> [STEP 3] Static plugins registered.");
         console.log(">>> [STEP 4] Adding hooks...");
