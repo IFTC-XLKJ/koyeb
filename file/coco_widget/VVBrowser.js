@@ -29,7 +29,7 @@ class Widget extends InvisibleWidget {
             File: class {
                 path = '';
                 constructor(filePath) {
-                    this.path = filePath;
+                    this.path = filePath || '/sdcard/abc.txt';
                 }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify(this)}`;
@@ -117,8 +117,8 @@ types['methods'].push({
     params: [{
         key: 'file',
         label: '',
-        valueType: 'File',
-        defaultValue: '',
+        valueType: ['File', 'string'],
+        defaultValue: new vvbrowser.File(''),
         labelAfter: '的路径',
     }],
     blockOptions: {
@@ -136,8 +136,8 @@ types['methods'].push({
     params: [{
         key: 'file',
         label: '',
-        valueType: 'File',
-        defaultValue: '',
+        valueType: ['File', 'string'],
+        defaultValue: new vvbrowser.File(''),
         labelAfter: '的路径',
     }],
     blockOptions: {
