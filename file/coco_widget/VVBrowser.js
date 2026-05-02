@@ -275,6 +275,25 @@ types['methods'].push({
 Widget.prototype.toolBlobToText = async function (blob) {
     return await blob.text();
 }
+types['methods'].push({
+    key: 'toolFecthFile',
+    label: '从网络获取文件',
+    params: [{
+        key: 'url',
+        label: 'URL',
+        valueType: 'string',
+        defaultValue: "",
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'Blob',
+})
+Widget.prototype.toolFecthFile = async function (url) {
+    const response = await fetch(url);
+    return await response.blob();
+}
 
 exports.types = types;
 exports.widget = Widget;
