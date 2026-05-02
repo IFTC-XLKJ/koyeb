@@ -125,6 +125,23 @@ types['methods'].push({
 Widget.prototype.getFilePath = function (file) {
     return file.path;
 }
+types['methods'].push({
+    key: 'setFilePath',
+    label: '设置',
+    params: [{
+        key: 'file',
+        label: '',
+        type: 'File',
+        labelAfter: '的路径',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+})
+Widget.prototype.setFilePath = function (file, path) {
+    file.path = path;
+}
 
 exports.types = types;
 exports.widget = Widget;
