@@ -1,3 +1,5 @@
+var { fetch } = globalThis;
+
 const METHOD_COLOR = '#1E90FF';
 const types = {
     isInvisibleWidget: true,
