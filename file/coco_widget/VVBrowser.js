@@ -109,11 +109,12 @@ Widget.prototype.newFileInstance = function (filePath) {
 }
 types['methods'].push({
     key: 'getFilePath',
-    label: '获取文件路径',
+    label: '获取',
     params: [{
         key: 'file',
         label: '',
         type: 'File',
+        labelAfter: '的路径',
     }],
     blockOptions: {
         callMethodLabel: false,
