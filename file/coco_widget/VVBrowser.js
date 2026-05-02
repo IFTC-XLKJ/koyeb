@@ -26,6 +26,8 @@ class Widget extends InvisibleWidget {
                 },
                 webview: "UNKNOWN",
             },
+            File: class {
+            },
         };
     }
 }
@@ -82,6 +84,24 @@ types['methods'].push({
 })
 Widget.prototype.getVVBrowserWebViewVersion = function () {
     return globalThis.isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
+}
+types['methods'].push({
+    key: 'newFileInstance',
+    label: '创建文件实例',
+    params: [{
+        key: 'filePath',
+        label: '文件路径',
+        type: 'string',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+        line: "操作文件"
+    },
+    valueType: 'File',
+})
+Widget.prototype.newFileInstance = function (filePath) {
+    return new vvbrowser.File(filePath);
 }
 
 exports.types = types;
