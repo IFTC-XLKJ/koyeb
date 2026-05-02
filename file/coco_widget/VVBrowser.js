@@ -122,7 +122,7 @@ types['methods'].push({
         key: 'file',
         label: '',
         valueType: ['File', 'string'],
-        defaultValue: new vvbrowser.File(''),
+        defaultValue: "",
         labelAfter: '的路径',
     }],
     blockOptions: {
@@ -141,7 +141,7 @@ types['methods'].push({
         key: 'file',
         label: '',
         valueType: ['File', 'string'],
-        defaultValue: new vvbrowser.File(''),
+        defaultValue: "",
         labelAfter: '的路径',
     }],
     blockOptions: {
@@ -159,7 +159,7 @@ types['methods'].push({
         key: 'file',
         label: '',
         valueType: ['File', 'string'],
-        defaultValue: new vvbrowser.File(''),
+        defaultValue: "",
         labelAfter: '的内容',
     }],
     blockOptions: {
