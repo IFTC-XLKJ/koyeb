@@ -22,7 +22,7 @@ class Widget extends InvisibleWidget {
             version: {
                 browser: {
                     name: "UNKNOWN",
-                    version: "UNKNOWN",
+                    code: 0,
                 },
                 webview: "UNKNOWN",
             },
@@ -68,7 +68,7 @@ types['methods'].push({
     valueType: 'string',
 })
 Widget.prototype.getVVBrowserVersionCode = function () {
-    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.version : 'UNKNOWN';
+    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.code : 'UNKNOWN';
 }
 types['methods'].push({
     key: 'getVVBrowserWebViewVersion',
