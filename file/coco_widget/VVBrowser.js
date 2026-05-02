@@ -37,7 +37,7 @@ class Widget extends InvisibleWidget {
                 async read() {
                     that.widgetWarn(`模拟读取文件：${this.path}`);
                     return new Promise((resolve, reject) => {
-                        resolve(new Blob(`这是文件${this.path}的内容`));
+                        resolve(new Blob([`这是文件${this.path}的内容`]));
                     });
                 }
                 async write(blob) {
