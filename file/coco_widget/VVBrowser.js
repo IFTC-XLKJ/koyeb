@@ -98,7 +98,8 @@ types['methods'].push({
     params: [{
         key: 'filePath',
         label: '文件路径',
-        type: 'string',
+        valueType: 'string',
+        defaultValue: '/sdcard/test.txt',
     }],
     blockOptions: {
         callMethodLabel: false,
@@ -116,7 +117,8 @@ types['methods'].push({
     params: [{
         key: 'file',
         label: '',
-        type: 'File',
+        valueType: 'File',
+        defaultValue: '',
         labelAfter: '的路径',
     }],
     blockOptions: {
@@ -134,7 +136,8 @@ types['methods'].push({
     params: [{
         key: 'file',
         label: '',
-        type: 'File',
+        valueType: 'File',
+        defaultValue: '',
         labelAfter: '的路径',
     }],
     blockOptions: {
