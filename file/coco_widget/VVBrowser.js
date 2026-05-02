@@ -228,7 +228,12 @@ types['methods'].push({
         label: '',
         valueType: ['string', 'Blob'],
         defaultValue: ""
-    }]
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
 })
 Widget.prototype.appendFile = async function (file, content) {
     return await file.append(content);
