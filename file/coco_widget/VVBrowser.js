@@ -27,6 +27,10 @@ class Widget extends InvisibleWidget {
                 webview: "UNKNOWN",
             },
             File: class {
+                path = '';
+                constructor(filePath) {
+                    this.path = filePath;
+                }
             },
         };
     }
