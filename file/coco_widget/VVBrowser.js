@@ -32,7 +32,7 @@ class Widget extends InvisibleWidget {
                     this.path = filePath;
                 }
                 toString() {
-                    return `[File: ${this.path}]`;
+                    return `[File: ${this.path}] ${JSON.stringify(this)}`;
                 }
             },
         };
