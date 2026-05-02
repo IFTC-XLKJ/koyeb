@@ -179,6 +179,7 @@ types['methods'].push({
         callMethodLabel: false,
         color: METHOD_COLOR,
     },
+    valueType: 'Blob',
 })
 Widget.prototype.readFile = async function (file) {
     return await file.read();
@@ -225,6 +226,24 @@ types['methods'].push({
 });
 Widget.prototype.toolTextToBlob = function (text) {
     return new Blob([text]);
+}
+types['methods'].push({
+    key: 'toolBlobToText',
+    label: '将Blob转为文本',
+    params: [{
+        key: 'blob',
+        label: 'Blob',
+        valueType: ['Blob', 'string'],
+        defaultValue: "",
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'string',
+})
+Widget.prototype.toolBlobToText = async function (blob) {
+    return await blob.text();
 }
 
 exports.types = types;
