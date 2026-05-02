@@ -44,6 +44,10 @@ class Widget extends InvisibleWidget {
                     that.widgetWarn(`模拟追加文件：${this.path} 内容为：${blob}`);
                     return true;
                 }
+                delete() {
+                    that.widgetWarn(`模拟删除文件：${this.path}`);
+                    return true;
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify({
                         path: this.path,
@@ -237,6 +241,25 @@ types['methods'].push({
 })
 Widget.prototype.appendFile = async function (file, content) {
     return await file.append(content);
+}
+types['methods'].push({
+    key: 'deleteFile',
+    label: '删除文件',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的文件',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
+})
+Widget.prototype.deleteFile = async function (file) {
+    return await file.delete();
 }
 types['methods'].push({
     key: 'toolTextToBlob',
