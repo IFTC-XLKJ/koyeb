@@ -7,6 +7,7 @@ const types = {
     icon: "https://iftc.koyeb.app/static/vvbrowser.png",
     title: "VV浏览器私有接口",
     version: "1.0.0 test",
+    author: "IFTC",
     doc: {
         url: "https://cuz-drive.me.uk/s/Vdt2"
     },
