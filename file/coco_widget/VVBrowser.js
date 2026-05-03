@@ -80,7 +80,13 @@ class Widget extends InvisibleWidget {
                         read: "模拟读取文件方法",
                         write: "模拟写入文件方法",
                         append: "模拟追加文件方法",
-                    })}`;
+                        delete: "模拟删除文件方法",
+                        exist: "模拟检查文件是否存在方法",
+                        size: "模拟获取文件大小方法",
+                        isDir: "模拟检查文件是否为目录方法",
+                        isFile: "模拟检查文件是否为文件方法",
+                        lastModified: "模拟获取文件最后修改时间方法",
+                    })})}`;
                 }
             },
         };
