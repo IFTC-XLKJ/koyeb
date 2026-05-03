@@ -156,6 +156,7 @@ types['methods'].push({
     blockOptions: {
         callMethodLabel: false,
         color: METHOD_COLOR,
+        space: 50,
     },
     valueType: 'string',
     tooltip: '获取VV浏览器WebView版本',
