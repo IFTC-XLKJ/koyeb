@@ -1,3 +1,5 @@
+const { url } = require("inspector");
+
 var { fetch } = globalThis;
 
 const METHOD_COLOR = '#1E90FF';
@@ -6,7 +8,10 @@ const types = {
     type: "VVBROWSER",
     icon: "https://iftc.koyeb.app/static/vvbrowser.png",
     title: "VV浏览器私有接口",
-    version: "1.0.0",
+    version: "1.0.0 test",
+    doc: {
+        url: "https://cuz-drive.me.uk/s/Vdt2"
+    },
     isGlobalWidget: true,
     properties: [],
     methods: [],
