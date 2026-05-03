@@ -70,6 +70,10 @@ class Widget extends InvisibleWidget {
                     that.widgetWarn(`模拟检查文件是否为文件：${this.path}`);
                     return true;
                 }
+                lastModified() {
+                    that.widgetWarn(`模拟获取文件最后修改时间：${this.path}`);
+                    return Date.now();
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify({
                         path: this.path,
@@ -376,7 +380,7 @@ types['methods'].push({
     valueType: 'number',
 })
 Widget.prototype.getFileLastModified = async function (file) {
-    return await file.lastModified();
+    return file.lastModified();
 }
 types['methods'].push({
     key: 'toolTextToBlob',
