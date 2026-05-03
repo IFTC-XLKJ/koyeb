@@ -18,7 +18,7 @@ class Widget extends InvisibleWidget {
         super(props);
         Object.assign(this, props);
         this.nativeWidgetWarn = this.widgetWarn;
-        this.widgetWarn = function (message) {
+        this.widgetWarn = (message) => {
             console.warn(`[VVBrowser Widget] ${message}`);
             this.nativeWidgetWarn(message);
         };
