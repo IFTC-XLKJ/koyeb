@@ -106,7 +106,7 @@ class Widget extends InvisibleWidget {
                         isDir: "模拟检查文件是否为目录方法",
                         isFile: "模拟检查文件是否为文件方法",
                         lastModified: "模拟获取文件最后修改时间方法",
-                    })})}`;
+                    })}`;
                 }
             },
         };
