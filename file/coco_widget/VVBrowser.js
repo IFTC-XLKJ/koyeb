@@ -20,7 +20,7 @@ class Widget extends InvisibleWidget {
         this.nativeWidgetWarn = this.widgetWarn;
         this.widgetWarn = function (message) {
             console.warn(`[VVBrowser Widget] ${message}`);
-            that.nativeWidgetWarn(message);
+            this.nativeWidgetWarn(message);
         };
         this.widgetWarn("IFTC官网QQ群：870350184");
         const isVVBrowser = !!globalThis.isVVBrowser;
