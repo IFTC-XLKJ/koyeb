@@ -56,6 +56,20 @@ class Widget extends InvisibleWidget {
                     that.widgetWarn(`模拟检查文件是否存在：${this.path}`);
                     return true;
                 }
+                size() {
+                    that.widgetWarn(`模拟获取文件大小：${this.path}`);
+                    return new Promise((resolve, reject) => {
+                        resolve(1024); // 模拟返回文件大小
+                    });
+                }
+                isDir() {
+                    that.widgetWarn(`模拟检查文件是否为目录：${this.path}`);
+                    return true;
+                }
+                isFile() {
+                    that.widgetWarn(`模拟检查文件是否为文件：${this.path}`);
+                    return true;
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify({
                         path: this.path,
@@ -287,6 +301,82 @@ types['methods'].push({
 })
 Widget.prototype.existFile = function (file) {
     return file.exist();
+}
+types['methods'].push({
+    key: 'getFileSize',
+    label: '获取文件大小',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的文件大小',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'number',
+})
+Widget.prototype.getFileSize = async function (file) {
+    return await file.size();
+}
+types['methods'].push({
+    key: 'isDir',
+    label: '检查文件是否为目录',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的文件是否为目录',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
+})
+Widget.prototype.isDir = function (file) {
+    return file.isDir();
+}
+types['methods'].push({
+    key: 'isFile',
+    label: '检查文件是否为文件',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的文件是否为文件',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
+})
+Widget.prototype.isFile = function (file) {
+    return file.isFile();
+}
+types['methods'].push({
+    key: 'getFileLastModified',
+    label: '获取文件最后修改时间',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的文件最后修改时间',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'number',
+})
+Widget.prototype.getFileLastModified = async function (file) {
+    return await file.lastModified();
 }
 types['methods'].push({
     key: 'toolTextToBlob',
