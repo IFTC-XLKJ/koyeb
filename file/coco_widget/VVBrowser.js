@@ -262,6 +262,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '写入文件内容，content必须为一个Blob对象，返回是否写入成功',
 })
 Widget.prototype.writeFile = async function (file, content) {
     return await file.write(content);
@@ -286,6 +287,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '追加文件内容，content必须为一个Blob对象，返回是否追加成功',
 })
 Widget.prototype.appendFile = async function (file, content) {
     return await file.append(content);
@@ -305,6 +307,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '删除文件，返回是否删除成功',
 })
 Widget.prototype.deleteFile = async function (file) {
     return await file.delete();
@@ -324,6 +327,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '检查文件是否存在，返回是否存在',
 })
 Widget.prototype.existFile = function (file) {
     return file.exist();
@@ -343,6 +347,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'number',
+    tooltip: '获取文件大小，返回文件的字节数',
 })
 Widget.prototype.getFileSize = async function (file) {
     return await file.size();
@@ -362,6 +367,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '检查文件是否为目录'
 })
 Widget.prototype.isDir = function (file) {
     return file.isDir();
@@ -381,6 +387,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '检查文件是否为文件',
 })
 Widget.prototype.isFile = function (file) {
     return file.isFile();
@@ -400,6 +407,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'number',
+    tooltip: '获取文件最后修改时间，返回文件的最后修改时间，单位为毫秒',
 })
 Widget.prototype.getFileLastModified = async function (file) {
     return file.lastModified();
@@ -419,6 +427,7 @@ types['methods'].push({
         line: "辅助工具"
     },
     valueType: 'Blob',
+    tooltip: '将文本转为Blob对象',
 });
 Widget.prototype.toolTextToBlob = function (text) {
     return new Blob([text]);
@@ -437,6 +446,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'string',
+    tooltip: '将Blob转为文本',
 })
 Widget.prototype.toolBlobToText = async function (blob) {
     return await blob.text();
@@ -455,6 +465,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'Blob',
+    tooltip: '从网络获取文件，返回一个Blob对象',
 })
 Widget.prototype.toolFecthFile = async function (url) {
     const response = await fetch(url);
