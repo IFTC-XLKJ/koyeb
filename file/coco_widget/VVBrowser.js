@@ -34,6 +34,9 @@ class Widget extends InvisibleWidget {
                 },
                 webview: "UNKNOWN",
             },
+            toast(message) {
+                that.widgetWarn(`模拟Toast：${message}`);
+            },
             File: class {
                 path = '';
                 constructor(filePath) {
@@ -163,6 +166,24 @@ types['methods'].push({
 })
 Widget.prototype.getVVBrowserWebViewVersion = function () {
     return globalThis.isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
+}
+types['methods'].push({
+    key: 'toast',
+    label: '显示Toast',
+    params: [{
+        key: 'text',
+        label: '文本',
+        valueType: 'string',
+        defaultValue: 'Hello World',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    tooltip: '显示Toast',
+});
+Widget.prototype.toast = function (text) {
+    vvbrowser.toast(text);
 }
 types['methods'].push({
     key: 'newFileInstance',
