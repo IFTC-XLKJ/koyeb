@@ -52,6 +52,10 @@ class Widget extends InvisibleWidget {
                     that.widgetWarn(`模拟删除文件：${this.path}`);
                     return true;
                 }
+                exist() {
+                    that.widgetWarn(`模拟检查文件是否存在：${this.path}`);
+                    return true;
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify({
                         path: this.path,
@@ -264,6 +268,25 @@ types['methods'].push({
 })
 Widget.prototype.deleteFile = async function (file) {
     return await file.delete();
+}
+types['methods'].push({
+    key: 'existFile',
+    label: '检查文件是否存在',
+    params: [{
+        key: 'file',
+        label: '',
+        valueType: ['File', 'string'],
+        defaultValue: "",
+        labelAfter: '的文件是否存在',
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'boolean',
+})
+Widget.prototype.existFile = function (file) {
+    return file.exist();
 }
 types['methods'].push({
     key: 'toolTextToBlob',
