@@ -74,6 +74,14 @@ class Widget extends InvisibleWidget {
                     that.widgetWarn(`模拟获取文件最后修改时间：${this.path}`);
                     return Date.now();
                 }
+                list() {
+                    that.widgetWarn(`模拟获取文件列表：${this.path}`);
+                    return [
+                        "/sdcard/abc.txt",
+                        "/sdcard/def.txt",
+                        "/sdcard/ghi.txt",
+                    ]
+                }
                 toString() {
                     return `[File: ${this.path}] ${JSON.stringify({
                         path: this.path,
