@@ -476,6 +476,54 @@ Widget.prototype.toolFecthFile = async function (url) {
     const response = await fetch(url);
     return await response.blob();
 }
+types['methods'].push({
+    key: 'BlobToDataURL',
+    label: '将Blob转为Data URL',
+    params: [{
+        key: 'blob',
+        label: 'Blob',
+        valueType: ['Blob', 'string'],
+        defaultValue: "",
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'string',
+    tooltip: '将Blob转为Data URL',
+});
+Widget.prototype.BlobToDataURL = async function (blob) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = function () {
+            resolve(reader.result);
+        };
+        reader.onerror = function (error) {
+            reject(error);
+        };
+        reader.readAsDataURL(blob);
+    });
+}
+types['methods'].push({
+    key: 'DataURLToBlob',
+    label: '将Data URL转为Blob',
+    params: [{
+        key: 'dataURL',
+        label: 'Data URL',
+        valueType: 'string',
+        defaultValue: "",
+    }],
+    blockOptions: {
+        callMethodLabel: false,
+        color: METHOD_COLOR,
+    },
+    valueType: 'Blob',
+    tooltip: '将Data URL转为Blob',
+});
+Widget.prototype.DataURLToBlob = async function (dataURL) {
+    const r = await fetch(dataURL);
+    return await r.blob();
+}
 
 exports.types = types;
 exports.widget = Widget;
