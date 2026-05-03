@@ -26,7 +26,7 @@ class Widget extends InvisibleWidget {
             this.nativeWidgetWarn(message);
         };
         this.widgetWarn("IFTC官网QQ群：870350184");
-        this.widgetWarn("VV浏览器下载及其文档地址：<a href=\"https://cuz-drive.me.uk/s/Vdt2\" target=\"_blank\">https://cuz-drive.me.uk/s/Vdt2</a>");
+        this.widgetWarn("VV浏览器下载及其文档地址：https://cuz-drive.me.uk/s/Vdt2");
         const isVVBrowser = !!globalThis.isVVBrowser;
         this.widgetWarn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
         const that = this;
