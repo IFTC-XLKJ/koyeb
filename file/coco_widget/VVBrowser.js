@@ -17,6 +17,11 @@ class Widget extends InvisibleWidget {
     constructor(props) {
         super(props);
         Object.assign(this, props);
+        this.nativeWidgetWarn = this.widgetWarn;
+        this.widgetWarn = function (message) {
+            console.warn(`[VVBrowser Widget] ${message}`);
+            that.nativeWidgetWarn(message);
+        };
         this.widgetWarn("IFTC官网QQ群：870350184");
         const isVVBrowser = !!globalThis.isVVBrowser;
         this.widgetWarn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
