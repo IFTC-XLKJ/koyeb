@@ -1,5 +1,3 @@
-const { url } = require("inspector");
-
 var { fetch } = globalThis;
 
 const METHOD_COLOR = '#1E90FF';
