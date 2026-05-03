@@ -111,6 +111,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'boolean',
+    tooltip: '判断当前环境是否为VV浏览器',
 })
 Widget.prototype.isVVBrowser = function () {
     return isVVBrowser;
@@ -124,6 +125,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'string',
+    tooltip: '获取VV浏览器版本名',
 })
 Widget.prototype.getVVBrowserVersionName = function () {
     return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN';
@@ -137,6 +139,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'string',
+    tooltip: '获取VV浏览器版本号',
 })
 Widget.prototype.getVVBrowserVersionCode = function () {
     return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.code : 'UNKNOWN';
@@ -150,6 +153,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'string',
+    tooltip: '获取VV浏览器WebView版本',
 })
 Widget.prototype.getVVBrowserWebViewVersion = function () {
     return globalThis.isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
@@ -169,6 +173,7 @@ types['methods'].push({
         line: "操作文件"
     },
     valueType: 'File',
+    tooltip: '创建一个文件实例',
 })
 Widget.prototype.newFileInstance = function (filePath) {
     return new vvbrowser.File(filePath);
@@ -188,6 +193,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'string',
+    tooltip: '获取文件的路径',
 })
 Widget.prototype.getFilePath = function (file) {
     return file.path;
@@ -211,6 +217,7 @@ types['methods'].push({
         callMethodLabel: false,
         color: METHOD_COLOR,
     },
+    tooltip: '设置文件的路径',
 })
 Widget.prototype.setFilePath = function (file, path) {
     file.path = path;
@@ -230,6 +237,7 @@ types['methods'].push({
         color: METHOD_COLOR,
     },
     valueType: 'Blob',
+    tooltip: '读取文件内容，返回一个Blob对象',
 })
 Widget.prototype.readFile = async function (file) {
     return await file.read();
