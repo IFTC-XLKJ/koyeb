@@ -506,7 +506,9 @@ async function start() {
                             }
                         }
                     }
-                } catch (error) {}
+                } catch (error) {
+                    return reply.status(500).send(null);
+                }
             },
         );
         fastify.get(
