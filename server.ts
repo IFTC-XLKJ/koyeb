@@ -431,6 +431,9 @@ async function start() {
                     const url = new URL(formatUrl(page));
                     const domain = url.hostname;
                     if (checkIntranetIP(domain))
+                        reply.headers({
+                            "Content-Type": "text/html",
+                        });
                         return reply.send(`<!DOCTYPE html>
 <html>
 <head>
