@@ -726,7 +726,7 @@ class Other {
             </body>
 
             </html>`);
-          const icpcheckapi = "https://api.yyy001.com/api/icp";
+          const icpcheckapi = "https://uapis.cn/api/v1/network/icp";
           const r = await fetch(`${icpcheckapi}?domain=${domain}`);
           const j = await r.json();
           if (j.code == 200) return res.redirect(formatUrl(page));

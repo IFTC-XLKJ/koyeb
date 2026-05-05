@@ -430,6 +430,82 @@ async function start() {
                 try {
                     const url = new URL(formatUrl(page));
                     const domain = url.hostname;
+                    if (checkIntranetIP(domain))
+                        return reply.send(`<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>内网IP</title>
+</head>
+<body>
+    <center>
+        <h1>内网IP</h1>
+        <p><b>${domain}</b> 是内网IP，无法确定此URL的安全性</p>
+    </center>
+</body>
+</html>`);
+                    const icpcheckapi = "https://uapis.cn/api/v1/network/icp";
+                    const r = await fetch(`${icpcheckapi}?domain=${domain}`);
+                    const j = await r.json();
+                    if (j.code == 200) return reply.redirect(formatUrl(page));
+                    else {
+                        if (await checkWhitelist()) return reply.redirect(formatUrl(page));
+                        else {
+                            reply.headers({
+                                "Content-Type": "text/html",
+                            });
+                            reply.send(`<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>阻止访问</title>
+    <style>
+        a {
+            text-decoration: none;
+            color: lightskyblue;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <h1>阻止访问</h1>
+        <p><b>${domain}</b> 为备案或不在官方白名单中，如需加入白名单，请联系 <a href="https://qm.qq.com/q/tpZthU6N5m">QQ 3164417130</a> 或向 <a href="mailto:iftcceo@139.com">iftcceo@139.com</a> 发送邮件</p>
+    </center>
+</body>
+</html>`);
+                        }
+                    }
+                    let retryCount = 0;
+                    async function checkWhitelist() {
+                        const whitelistFilename = "whitelist.json";
+                        try {
+                            const whitelist = await fs.readFile(whitelistFilename, {
+                                encoding: "utf-8",
+                            });
+                            const whitelistJson = JSON.parse(whitelist);
+                            let has = false;
+                            for (var i = 0; i < whitelistJson.length; i++) {
+                                const item = whitelistJson[i];
+                                if (domain == item) {
+                                    has = true;
+                                    break;
+                                }
+                            }
+                            return has;
+                        } catch (e) {
+                            if (retryCount < 5) {
+                                retryCount++;
+                                await new Promise((resolve) => setTimeout(resolve, 1000));
+                                return await checkWhitelist();
+                            } else {
+                                console.error("Failed to read whitelist.json after 5 retries.");
+                                return false;
+                            }
+                        }
+                    }
                 } catch (error) {}
             },
         );
@@ -539,4 +615,14 @@ function formatUrl(url: string): string {
     url = decodeURIComponent(url);
     if (url.startsWith("https://") || url.startsWith("http://")) return url;
     return `http://${url}`;
+}
+
+function checkIntranetIP(domain: string): boolean {
+    const intranetDomains: string[] = ["localhost", "127.0.0.1", "0.0.0.0", "::1"];
+    if (intranetDomains.includes(domain)) return true;
+    const ipv4Pattern: RegExp = /^(10\.|192\.168\.|172\.(1[6-9]|2[0-9]|3[0-1])\.)/;
+    if (ipv4Pattern.test(domain)) return true;
+    if (domain.startsWith("fe80:") || domain.startsWith("fc00:") || domain.startsWith("fd00:"))
+        return true;
+    return false;
 }
