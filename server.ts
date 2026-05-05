@@ -410,6 +410,30 @@ async function start() {
         );
         API(fastify);
         fastify.get(
+            "/safejump",
+            {
+                schema: {
+                    querystring: {
+                        type: "object",
+                        properties: {
+                            page: { type: "string" },
+                        },
+                    },
+                },
+            },
+            async (
+                request: FastifyRequest<{ Querystring: { page: string } }>,
+                reply: FastifyReply,
+            ): Promise<Object> => {
+                const { page } = request.query;
+                if (!page) return reply.status(400).send(null);
+                try {
+                    const url = new URL(formatUrl(page));
+                    const domain = url.hostname;
+                } catch (error) {}
+            },
+        );
+        fastify.get(
             "/file/blockly/workspace-search",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 const content: string = await fs.readFile(
@@ -509,3 +533,10 @@ const r = await fetch(
 const buffer = await r.arrayBuffer();
 await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
 console.log("GeoLite2-City.mmdb downloaded successfully");
+
+function formatUrl(url: string): string {
+    url = url.trim();
+    url = decodeURIComponent(url);
+    if (url.startsWith("https://") || url.startsWith("http://")) return url;
+    return `http://${url}`;
+}
