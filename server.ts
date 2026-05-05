@@ -430,7 +430,7 @@ async function start() {
                 try {
                     const url = new URL(formatUrl(page));
                     const domain = url.hostname;
-                    if (checkIntranetIP(domain))
+                    if (checkIntranetIP(domain)) {
                         reply.headers({
                             "Content-Type": "text/html",
                         });
@@ -447,6 +447,7 @@ async function start() {
     </center>
 </body>
 </html>`);
+                    }
                     const icpcheckapi = "https://uapis.cn/api/v1/network/icp";
                     const r = await fetch(`${icpcheckapi}?domain=${domain}`);
                     const j = await r.json();
