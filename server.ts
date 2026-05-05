@@ -458,7 +458,7 @@ async function start() {
                             reply.headers({
                                 "Content-Type": "text/html",
                             });
-                            reply.send(`<!DOCTYPE html>
+                            return reply.send(`<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
