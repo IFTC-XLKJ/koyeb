@@ -433,6 +433,7 @@ function updatetime() {
             currentLyricIndex = newIndex;
             // 确保 lrclist 有对应索引的内容
             const lyricText = lrclist[currentLyricIndex] || "";
+            console.log(audio.currentTime, lyricText);
             if (lyricText) {
                 lrc.innerHTML = `<p class="poplrc">${lyricText}</p>`;
             } else {
