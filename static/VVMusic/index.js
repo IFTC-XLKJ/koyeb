@@ -280,8 +280,8 @@ function renderMusicList(musics) {
                                             lrclist.push(subsequenceFromStartLast(item, ((item.indexOf(']') + 1 + 1) - 1)));
                                         }
                                     })
-                                    lrclist.push(name + ' - ' + artist);
-                                    lrcstimes.push(lrcstimes[lrcstimes.length - 1] + 1);
+                                    // lrclist.push(name + ' - ' + artist);
+                                    // lrcstimes.push(lrcstimes[lrcstimes.length - 1] + 1);
                                     totaltime();
                                     audio.play()
                                     updatetime();
