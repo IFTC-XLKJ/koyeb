@@ -169,7 +169,7 @@ addEventListener('load', function () {
                     this.startTime = timestamp;
                 }
             }
-            fps.innerHTML = `FPS:${this.fps == 61 ? 60 : this.fps}`;
+            fps.innerHTML = `FPS:${this.fps - 1}`;
             this.frameCount++;
             requestAnimationFrame(this.update.bind(this));
         }
