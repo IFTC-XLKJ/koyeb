@@ -176,7 +176,7 @@ addEventListener('load', function () {
 
 document.getElementById('history').addEventListener('mouseout', function (e) {
     if (searchInput && !searchInput.isFocus) {
-        this.style.display = 'none';
+        this.innerHTML = '';
     }
 });
 
