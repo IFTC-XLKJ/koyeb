@@ -68,7 +68,9 @@ searchInput.addEventListener('focus', function () {
 });
 searchInput.addEventListener('blur', function () {
     this.isFocus = false;
-    document.getElementById("history").innerHTML = '';
+    setTimeout(() => {
+        document.getElementById("history").innerHTML = '';
+    }, 10);
 });
 searchInput.addEventListener('input', function () {
     keyword = searchInput.value;
