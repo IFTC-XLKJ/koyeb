@@ -398,46 +398,30 @@ var current = 0;
 function updatetime() {
     const time = document.getElementById('player-progress-time');
     const lrc = document.getElementById('music-lrc');
-
-    // 缓存 DOM 引用，避免每次查询
     let currentLyricIndex = -1;
-
     audio.ontimeupdate = function () {
         if (!isPlay) return;
-
-        const currentTimeSec = audio.currentTime; // 直接使用秒，无需转换微秒
-
-        // 更新进度条和时间显示
+        const currentTimeSec = audio.currentTime;
         time.innerHTML = formatSecondsToTime(Math.ceil(currentTimeSec));
-        // 注意：如果 progress.max 是微秒，这里需要转换，保持一致性
-        // 假设 progress.value 也需要微秒，则：
         if (progress && progress.max > 0) {
             progress.value = currentTimeSec * 1e6;
         }
-
-        // 歌词同步逻辑优化
-        // 1. 找到当前时间对应的歌词索引
-        // 由于时间是递增的，我们可以从 currentLyricIndex 开始向后查找，或者简单遍历
-        // 为了简单且健壮，这里使用一个简单的循环找到最后一个 startTime <= currentTime 的歌词
         let newIndex = -1;
         for (let i = 0; i < lrcstimes.length; i++) {
             if (currentTimeSec >= lrcstimes[i]) {
                 newIndex = i;
             } else {
-                break; // 因为 lrcstimes 是排序好的，一旦大于当前时间，后面的都大于
+                break;
             }
         }
-
-        // 2. 只有当索引发生变化时才更新 DOM
         if (newIndex !== -1 && newIndex !== currentLyricIndex) {
             currentLyricIndex = newIndex;
-            // 确保 lrclist 有对应索引的内容
             const lyricText = lrclist[currentLyricIndex] || "";
             console.log(audio.currentTime, lyricText);
             if (lyricText) {
                 lrc.innerHTML = `<p class="poplrc">${lyricText}</p>`;
             } else {
-                lrc.innerHTML = ''; // 或者显示空行
+                lrc.innerHTML = '';
             }
         }
     };
@@ -445,9 +429,8 @@ function updatetime() {
     audio.onend = function () {
         isPlay = false;
         lrc.innerHTML = '';
-        currentLyricIndex = -1; // 重置索引
-        // 注意：原代码中 last=0, current=0 似乎未在其他地方使用，可移除或保留用于其他逻辑
-        audio.play(); // 原逻辑是自动重播？通常 onend 后暂停或重播取决于需求
+        currentLyricIndex = -1;
+        audio.play();
     };
 }
 
