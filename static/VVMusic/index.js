@@ -177,13 +177,6 @@ addEventListener('load', function () {
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
 
-// addEventListener('click', function (e) {
-//     console.log(e.target);
-//     if (searchInput && !searchInput.isFocus) {
-//         this.innerHTML = '';
-//     }
-// });
-
 let lrcstimes = [];
 let lrclist = [];
 
