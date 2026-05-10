@@ -175,6 +175,7 @@ addEventListener('load', function () {
 });
 
 addEventListener('click', function (e) {
+    console.log(e.target);
     if (searchInput && !searchInput.isFocus) {
         this.innerHTML = '';
     }
