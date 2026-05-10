@@ -70,7 +70,7 @@ searchInput.addEventListener('blur', function () {
     this.isFocus = false;
     setTimeout(() => {
         document.getElementById("history").innerHTML = '';
-    }, 10);
+    }, 100);
 });
 searchInput.addEventListener('input', function () {
     keyword = searchInput.value;
