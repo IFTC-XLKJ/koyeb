@@ -170,6 +170,10 @@ addEventListener('load', function () {
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
 
+history.addEventListener('mouseout', function (e) {
+    history.style.display = 'none';
+});
+
 let lrcstimes = [];
 let lrclist = [];
 
