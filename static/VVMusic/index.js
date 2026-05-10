@@ -174,7 +174,7 @@ addEventListener('load', function () {
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
 
-document.getElementById('history').addEventListener('mouseout', function (e) {
+addEventListener('click', function (e) {
     if (searchInput && !searchInput.isFocus) {
         this.innerHTML = '';
     }
