@@ -286,10 +286,12 @@ function renderMusicList(musics) {
                                     updatetime();
                                     console.log(lrcstimes, lrclist);
                                 } else {
+                                    console.error('创建ObjectURL失败');
                                     toast.hideToast(id1)
                                     toast.showToast('加载失败', 2, 'center', 'small', 'error', false, true);
                                 }
                             } else {
+                                console.error('获取blob对象失败');
                                 toast.hideToast(id1)
                                 toast.showToast('加载失败', 2, 'center', 'small', 'error', false, true);
                             }
@@ -486,10 +488,12 @@ download.addEventListener('click', async () => {
             toast.hideToast(id)
             toast.showToast('下载成功', 2, 'center', 'small', 'success', false, true);
         } else {
+            console.error('响应失败', response.statusText);
             toast.hideToast(id)
             toast.showToast('下载失败', 2, 'center', 'small', 'error', false, true);
         }
     } else {
+        console.error('blobURL是null');
         toast.hideToast(id)
         toast.showToast('下载失败', 2, 'center', 'small', 'error', false, true);
     }
