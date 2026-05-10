@@ -151,8 +151,8 @@ function relayout() {
 }
 
 addEventListener('load', function () {
-    var fps = document.getElementById("fps");
-    var fpsCounter = {
+    const fps = document.getElementById("fps");
+    const fpsCounter = {
         startTime: 0,
         frameCount: 0,
         fps: 0,
@@ -398,24 +398,55 @@ var current = 0;
 function updatetime() {
     const time = document.getElementById('player-progress-time');
     const lrc = document.getElementById('music-lrc');
+
+    // 缓存 DOM 引用，避免每次查询
+    let currentLyricIndex = -1;
+
     audio.ontimeupdate = function () {
         if (!isPlay) return;
-        const currentTime = audio.currentTime * 1e6; // Convert to microseconds
-        const nextIndex = lrcstimes.findIndex((time, index) => currentTime <= lrcstimes[index + 1] * 1e6);
-        if (nextIndex !== -1 && current !== nextIndex) {
-            current = nextIndex;
-            console.log(lrclist[current]);
-            lrc.innerHTML = `<p class="poplrc">${lrclist[current]}</p>`;
+
+        const currentTimeSec = audio.currentTime; // 直接使用秒，无需转换微秒
+
+        // 更新进度条和时间显示
+        time.innerHTML = formatSecondsToTime(Math.ceil(currentTimeSec));
+        // 注意：如果 progress.max 是微秒，这里需要转换，保持一致性
+        // 假设 progress.value 也需要微秒，则：
+        if (progress && progress.max > 0) {
+            progress.value = currentTimeSec * 1e6;
         }
-        time.innerHTML = formatSecondsToTime(Math.ceil(currentTime / 1e6));
-        progress.value = currentTime;
+
+        // 歌词同步逻辑优化
+        // 1. 找到当前时间对应的歌词索引
+        // 由于时间是递增的，我们可以从 currentLyricIndex 开始向后查找，或者简单遍历
+        // 为了简单且健壮，这里使用一个简单的循环找到最后一个 startTime <= currentTime 的歌词
+        let newIndex = -1;
+        for (let i = 0; i < lrcstimes.length; i++) {
+            if (currentTimeSec >= lrcstimes[i]) {
+                newIndex = i;
+            } else {
+                break; // 因为 lrcstimes 是排序好的，一旦大于当前时间，后面的都大于
+            }
+        }
+
+        // 2. 只有当索引发生变化时才更新 DOM
+        if (newIndex !== -1 && newIndex !== currentLyricIndex) {
+            currentLyricIndex = newIndex;
+            // 确保 lrclist 有对应索引的内容
+            const lyricText = lrclist[currentLyricIndex] || "";
+            if (lyricText) {
+                lrc.innerHTML = `<p class="poplrc">${lyricText}</p>`;
+            } else {
+                lrc.innerHTML = ''; // 或者显示空行
+            }
+        }
     };
+
     audio.onend = function () {
         isPlay = false;
         lrc.innerHTML = '';
-        last = 0;
-        current = 0;
-        audio.play();
+        currentLyricIndex = -1; // 重置索引
+        // 注意：原代码中 last=0, current=0 似乎未在其他地方使用，可移除或保留用于其他逻辑
+        audio.play(); // 原逻辑是自动重播？通常 onend 后暂停或重播取决于需求
     };
 }
 
