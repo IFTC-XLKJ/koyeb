@@ -62,8 +62,12 @@ searchInput.addEventListener('keydown', async function (e) {
     }
 });
 searchInput.addEventListener('focus', function () {
+    this.isFocus = true;
     keyword = searchInput.value;
     renderHistory();
+});
+searchInput.addEventListener('blur', function () {
+    this.isFocus = false;
 });
 searchInput.addEventListener('input', function () {
     keyword = searchInput.value;
@@ -171,7 +175,9 @@ addEventListener('load', function () {
 });
 
 document.getElementById('history').addEventListener('mouseout', function (e) {
-    this.style.display = 'none';
+    if (searchInput && !searchInput.isFocus) {
+        this.style.display = 'none';
+    }
 });
 
 let lrcstimes = [];
