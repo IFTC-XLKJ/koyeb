@@ -68,6 +68,7 @@ searchInput.addEventListener('focus', function () {
 });
 searchInput.addEventListener('blur', function () {
     this.isFocus = false;
+    document.getElementById("history").innerHTML = '';
 });
 searchInput.addEventListener('input', function () {
     keyword = searchInput.value;
@@ -174,12 +175,12 @@ addEventListener('load', function () {
     requestAnimationFrame(fpsCounter.update.bind(fpsCounter));
 });
 
-addEventListener('click', function (e) {
-    console.log(e.target);
-    if (searchInput && !searchInput.isFocus) {
-        this.innerHTML = '';
-    }
-});
+// addEventListener('click', function (e) {
+//     console.log(e.target);
+//     if (searchInput && !searchInput.isFocus) {
+//         this.innerHTML = '';
+//     }
+// });
 
 let lrcstimes = [];
 let lrclist = [];
