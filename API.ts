@@ -19,6 +19,7 @@ import fetch from "node-fetch";
 import type { RequestInit } from "node-fetch";
 import VVApps from "./VVApps.ts";
 import AppUpdateCheck from "./AppUpdateCheck.ts";
+import weather from "weather-js";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -623,7 +624,10 @@ export default function (fastify: FastifyInstance) {
                 },
             },
         },
-        async (request: FastifyRequest<{ Querystring: { ip: string } }>, reply: FastifyReply): Promise<Object> => {
+        async (
+            request: FastifyRequest<{ Querystring: { ip: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
             const ip = request.query.ip || request.headers["x-forwarded-for"] || null;
             return reply.send({
                 code: 200,
@@ -634,7 +638,42 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
-}
+    fastify.get("/api/weather", {
+        schema: {
+            querystring: {
+                type: "object",
+                properties: {
+                    city: { type: "string" },
+                },
+            },
+        },
+    }, async (request: FastifyRequest<{ Querystring: { city: string } }>, reply: FastifyReply) => {
+        const { city } = request.query;
+        weather.find({ search: city, degreeType: "C" }, (err: Error | null, result: any) => {
+            if (err) {
+                console.error("Weather API error:", err);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Weather API error",
+                    error: err.message,
+                    timestamp: time(),
+                });
+            }
+            if (!result || result.length === 0) {
+                return reply.status(404).send({
+                    code: 404,
+                    msg: "City not found",
+                    timestamp: time(),
+                });
+            }
+            return reply.send({
+                code: 200,
+                msg: "请求成功",
+                data: result,
+                timestamp: time(),
+            });
+        });
+    });
 
 function time(): number {
     return Date.now();
