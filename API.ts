@@ -674,7 +674,7 @@ export default function (fastify: FastifyInstance) {
             });
         });
     });
-
+}
 function time(): number {
     return Date.now();
 }
