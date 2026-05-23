@@ -689,6 +689,7 @@ export default function (fastify: FastifyInstance) {
                 body: {
                     type: "object",
                     properties: {
+                        token: { type: "string" },
                         title: { type: "string" },
                         category: { type: "string" },
                         content: { type: "string" },
@@ -701,6 +702,7 @@ export default function (fastify: FastifyInstance) {
         async (
             request: FastifyRequest<{
                 Body: {
+                    token: string;
                     title: string;
                     category: string;
                     content: string;
@@ -710,7 +712,15 @@ export default function (fastify: FastifyInstance) {
             }>,
             reply: FastifyReply,
         ): Promise<Object> => {
-            const { title, category, content, tags, files } = request.body;
+            const { token, title, category, content, tags, files } = request.body;
+            // TODO: 验证 token
+            const json = await user.getByToken(token);
+            if (json.code !== 200 || json.fields.length === 0)
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "Invalid token",
+                    timestamp: time(),
+                });
         },
     );
 }

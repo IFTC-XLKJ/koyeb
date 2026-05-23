@@ -121,6 +121,13 @@ export default class User {
         //     throw error;
         // }
     }
+    async getByToken(token: string): Promise<GetByIDResponse> {
+        return (await this.fetchData(getDataURL, {
+            filter: `token="${token}"`,
+            page: 1,
+            limit: 1,
+        })) as GetByIDResponse;
+    }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
         const signaturePromise: Promise<string> = sign.get(String(timestamp));
