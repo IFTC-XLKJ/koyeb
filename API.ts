@@ -723,7 +723,15 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 const { ID, 昵称, 头像 } = json.fields[0];
-                const json2 = await KJSCInstance.publishPost(title, category, content, tags, files, ID, 昵称);
+                const json2 = await KJSCInstance.publishPost(
+                    title,
+                    category,
+                    content,
+                    tags,
+                    files,
+                    ID,
+                    昵称,
+                );
                 if (json2.error)
                     return reply.status(500).send({
                         code: 500,
@@ -746,6 +754,64 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
+        },
+    );
+    fastify.get(
+        "/api/user/loginbytoken",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        token: { type: "string" },
+                    },
+                    required: ["token"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Querystring: {
+                    token: string;
+                };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const token = request.query.token || "";
+            const json: UserResponse = await user.getByToken(token);
+            if (json.code !== 200 || json.fields.length === 0)
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "Invalid token",
+                    timestamp: time(),
+                });
+            const data = json.fields[0];
+            if (data.封号 == 1)
+                return reply.status(403).send({
+                    code: 403,
+                    msg: "封号用户",
+                    timestamp: time(),
+                });
+            return reply.send({
+                code: 200,
+                msg: "登录成功",
+                token: token,
+                data: {
+                    ID: data.ID,
+                    username: String(data.昵称),
+                    avatar: data.头像,
+                    VC: data.V币,
+                    email: data.邮箱,
+                    VIP: !!data.VIP,
+                    signed: data.签到 || 0,
+                    op: data.管理员 == 1,
+                    freezed: data.封号 == 1,
+                    title: data.头衔,
+                    titleColor: data.头衔色,
+                    createdAt: data.createdAt,
+                    updatedAt: data.updatedAt,
+                },
+            });
         },
     );
 }
