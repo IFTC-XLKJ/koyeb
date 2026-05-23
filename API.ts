@@ -723,7 +723,7 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 const { ID, 昵称, 头像 } = json.fields[0];
-                const json2 = await KJSCInstance.publishPost(title, category, content, tags, files, ID, 昵称, 头像);
+                const json2 = await KJSCInstance.publishPost(title, category, content, tags, files, ID, 昵称);
                 if (json2.error)
                     return reply.status(500).send({
                         code: 500,

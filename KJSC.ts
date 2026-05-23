@@ -21,7 +21,7 @@ export class KJSC {
             author_id: author_id,
             author_username: author_username,
             title: title,
-            category: category,
+            category_id: category,
             content: content,
             tags: tags,
             files: files,
