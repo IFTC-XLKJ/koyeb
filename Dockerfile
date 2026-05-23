@@ -10,7 +10,7 @@ RUN apt update
 
 RUN npm ci
 RUN npm i @supabase/supabase-js
-RUN npm i puppeteer
+# RUN npm i puppeteer
 RUN npm i cookie-parser
 
 # 安装 Chromium 和必要依赖
