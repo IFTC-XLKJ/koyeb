@@ -682,22 +682,38 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
-    fastify.post("/api/kjsc/post/publish", {
-        schema: {
-            body: {
-                type: "object",
-                properties: {
-                    title: { type: "string" },
-                    content: { type: "string" },
-                    tags: { type: "array", items: { type: "string" } },
-                    status: { type: "string" },
-                    allowComment: { type: "boolean" },
-                    allowPing: { type: "boolean" },
-                }
-            }
-        }
-    } ,async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-    });
+    fastify.post(
+        "/api/kjsc/post/publish",
+        {
+            schema: {
+                body: {
+                    type: "object",
+                    properties: {
+                        title: { type: "string" },
+                        category: { type: "string" },
+                        content: { type: "string" },
+                        tags: { type: "array", items: { type: "string" } },
+                        files: { type: "array", items: { type: "string" } },
+                    },
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Body: {
+                    title: string;
+                    category: string;
+                    content: string;
+                    tags: string[];
+                    files: string[];
+                };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { title, category, content, tags, files } = request.body;
+        },
+    );
+}
 function time(): number {
     return Date.now();
 }
