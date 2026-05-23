@@ -408,6 +408,10 @@ async function start() {
                 return returnPage("神奇五客/index.html", params, reply);
             },
         );
+        fastify.get("/kjsc", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+            const params: Record<string, any> = {};
+            return reply.redirect("https://kjsc.nocode.host");
+        });
         API(fastify);
         fastify.get(
             "/safejump",

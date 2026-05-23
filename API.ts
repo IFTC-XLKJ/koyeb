@@ -291,6 +291,7 @@ export default function (fastify: FastifyInstance) {
                         code: 200,
                         msg: "登录成功",
                         id: data.ID,
+                        token: data.token,
                         timestamp: time(),
                     });
                     return await RecordMessages.recordMessage({
