@@ -721,7 +721,6 @@ export default function (fastify: FastifyInstance) {
                     msg: "Invalid token",
                     timestamp: time(),
                 });
-            // 发布帖子
             const json2 = await KJSCInstance.publishPost(title, category, content, tags, files);
             if (json2.error)
                 return reply.status(500).send({
