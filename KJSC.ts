@@ -8,5 +8,20 @@ const supabase = createClient(
 const forumsBase = supabase.from("forums");
 
 export class KJSC {
-    async publishPost() {}
+    async publishPost(
+        title: string,
+        category: string,
+        content: string,
+        tags: string[],
+        files: string[],
+    ) {
+        const { data, error } = await forumsBase.insert({
+            title,
+            category,
+            content,
+            tags,
+            files,
+        });
+        return { data, error };
+    }
 }
