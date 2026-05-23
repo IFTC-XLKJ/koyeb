@@ -24,7 +24,7 @@ export class KJSC {
             category_id: category,
             content: content,
             tags: tags,
-            files: files,
+            attachments: files,
         });
         return { data, error };
     }
