@@ -6,6 +6,7 @@ import type {
     UserData,
     UserLoginResponse,
     UserRegisterResponse,
+    UserResponse,
 } from "./types.ts";
 import User from "./User.ts";
 import { createClient } from "@supabase/supabase-js";
@@ -713,14 +714,28 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ): Promise<Object> => {
             const { token, title, category, content, tags, files } = request.body;
-            // TODO: 验证 token
-            const json = await user.getByToken(token);
+            const json: UserResponse = await user.getByToken(token);
             if (json.code !== 200 || json.fields.length === 0)
                 return reply.status(401).send({
                     code: 401,
                     msg: "Invalid token",
                     timestamp: time(),
                 });
+            // 发布帖子
+            const json2 = await KJSCInstance.publishPost(title, category, content, tags, files);
+            if (json2.error)
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Failed to publish post: " + json2.error.message,
+                    error: json2.error.message,
+                    timestamp: time(),
+                });
+            return reply.send({
+                code: 200,
+                msg: "发布成功",
+                data: json2,
+                timestamp: time(),
+            });
         },
     );
 }

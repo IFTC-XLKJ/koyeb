@@ -19,6 +19,16 @@ export interface UserData {
     telegram: number | null;
 }
 
+export interface UserResponse {
+    code: number;
+    msg: string;
+    logid: string;
+    createdAt: number;
+    count: number;
+    fields: UserData[];
+    sql: string;
+}
+
 export interface GetByIDResponse {
     code: number;
     msg: string;

@@ -6,6 +6,7 @@ import type {
     SearchResponse,
     UserLoginResponse,
     UserRegisterResponse,
+    UserResponse
 } from "./types.ts";
 
 const sign: Sign = new Sign();
@@ -121,12 +122,12 @@ export default class User {
         //     throw error;
         // }
     }
-    async getByToken(token: string): Promise<GetByIDResponse> {
+    async getByToken(token: string): Promise<UserResponse> {
         return (await this.fetchData(getDataURL, {
             filter: `token="${token}"`,
             page: 1,
             limit: 1,
-        })) as GetByIDResponse;
+        })) as UserResponse;
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
