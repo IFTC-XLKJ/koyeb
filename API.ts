@@ -20,9 +20,11 @@ import type { RequestInit } from "node-fetch";
 import VVApps from "./VVApps.ts";
 import AppUpdateCheck from "./AppUpdateCheck.ts";
 import weather from "weather-js";
+import KJSC from "./KJSC.ts";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
+const KJSCInstance: KJSC = new KJSC();
 const SUPABASE_URL: string = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn";
 const SUPABASE_ANON_KEY: string =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzQ2OTc5MjAwLCJleHAiOjE5MDQ3NDU2MDB9.11QbQ5OW_m10vblDXAlw1Qq7Dve5Swzn12ILo7-9IXY";
