@@ -682,7 +682,22 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
-}
+    fastify.post("/api/kjsc/post/publish", {
+        schema: {
+            body: {
+                type: "object",
+                properties: {
+                    title: { type: "string" },
+                    content: { type: "string" },
+                    tags: { type: "array", items: { type: "string" } },
+                    status: { type: "string" },
+                    allowComment: { type: "boolean" },
+                    allowPing: { type: "boolean" },
+                }
+            }
+        }
+    } ,async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+    });
 function time(): number {
     return Date.now();
 }
