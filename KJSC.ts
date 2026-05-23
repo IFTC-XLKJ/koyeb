@@ -10,17 +10,21 @@ const forumsBase = supabase.from("forums");
 export class KJSC {
     async publishPost(
         title: string,
-        category: string,
+        category: number,
         content: string,
         tags: string[],
         files: string[],
+        author_id: number,
+        author_username: string,
     ) {
         const { data, error } = await forumsBase.insert({
-            title,
-            category,
-            content,
-            tags,
-            files,
+            author_id: author_id,
+            author_username: author_username,
+            title: title,
+            category: category,
+            content: content,
+            tags: tags,
+            files: files,
         });
         return { data, error };
     }

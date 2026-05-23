@@ -705,7 +705,7 @@ export default function (fastify: FastifyInstance) {
                 Body: {
                     token: string;
                     title: string;
-                    category: string;
+                    category: number;
                     content: string;
                     tags: string[];
                     files: string[];
@@ -722,7 +722,8 @@ export default function (fastify: FastifyInstance) {
                         msg: "Invalid token",
                         timestamp: time(),
                     });
-                const json2 = await KJSCInstance.publishPost(title, category, content, tags, files);
+                const { ID, 昵称, 头像 } = json.fields[0];
+                const json2 = await KJSCInstance.publishPost(title, category, content, tags, files, ID, 昵称, 头像);
                 if (json2.error)
                     return reply.status(500).send({
                         code: 500,
