@@ -779,7 +779,12 @@ export default function (fastify: FastifyInstance) {
         ): Promise<Object> => {
             const token = request.query.token || "";
             const json: UserResponse = await user.getByToken(token);
-            if (json.code !== 200 || json.fields.length === 0)
+            if (json.code !== 200) return reply.status(json.code).send({
+                code: json.code,
+                msg: json.msg,
+                timestamp: time(),
+            });
+            if (json.fields.length === 0)
                 return reply.status(401).send({
                     code: 401,
                     msg: "Invalid token",
