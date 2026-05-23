@@ -713,28 +713,38 @@ export default function (fastify: FastifyInstance) {
             }>,
             reply: FastifyReply,
         ): Promise<Object> => {
-            const { token, title, category, content, tags, files } = request.body;
-            const json: UserResponse = await user.getByToken(token);
-            if (json.code !== 200 || json.fields.length === 0)
-                return reply.status(401).send({
-                    code: 401,
-                    msg: "Invalid token",
+            try {
+                const { token, title, category, content, tags, files } = request.body;
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0)
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "Invalid token",
+                        timestamp: time(),
+                    });
+                const json2 = await KJSCInstance.publishPost(title, category, content, tags, files);
+                if (json2.error)
+                    return reply.status(500).send({
+                        code: 500,
+                        msg: "Failed to publish post: " + json2.error.message,
+                        error: json2.error.message,
+                        timestamp: time(),
+                    });
+                return reply.send({
+                    code: 200,
+                    msg: "发布成功",
+                    data: json2,
                     timestamp: time(),
                 });
-            const json2 = await KJSCInstance.publishPost(title, category, content, tags, files);
-            if (json2.error)
+            } catch (error: unknown) {
+                console.error("KJSC API error:", error);
                 return reply.status(500).send({
                     code: 500,
-                    msg: "Failed to publish post: " + json2.error.message,
-                    error: json2.error.message,
+                    msg: "KJSC API error: " + (error as Error).message,
+                    error: (error as Error).message,
                     timestamp: time(),
                 });
-            return reply.send({
-                code: 200,
-                msg: "发布成功",
-                data: json2,
-                timestamp: time(),
-            });
+            }
         },
     );
 }
