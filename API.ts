@@ -394,7 +394,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-            return {};
         },
     );
     fastify.get(
