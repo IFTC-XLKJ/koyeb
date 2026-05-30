@@ -587,7 +587,6 @@ async function start() {
                     stream.destroy();
                     clearInterval(interval);
                 });
-                // return reply.raw;
             },
         );
         console.log(">>> [STEP 7] Routes added.");
