@@ -570,7 +570,7 @@ async function start() {
         );
         fastify.get(
             "/stream-test",
-            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+            async (request: FastifyRequest, reply: FastifyReply): Promise<undefined> => {
                 reply.raw.writeHead(200, {
                     "Content-Type": "text/event-stream",
                     "Cache-Control": "no-cache",
@@ -587,7 +587,7 @@ async function start() {
                     stream.destroy();
                     clearInterval(interval);
                 });
-                return reply.raw;
+                // return reply.raw;
             },
         );
         console.log(">>> [STEP 7] Routes added.");
