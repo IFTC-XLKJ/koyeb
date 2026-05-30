@@ -12,6 +12,7 @@ import API from "./API.ts";
 import TGBot from "./tgbot.ts";
 import multipart from "@fastify/multipart";
 import fastifyCors from "@fastify/cors";
+import { Readable } from "stream";
 
 const sign: Sign = new Sign();
 
@@ -408,10 +409,13 @@ async function start() {
                 return returnPage("神奇五客/index.html", params, reply);
             },
         );
-        fastify.get("/kjsc", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-            const params: Record<string, any> = {};
-            return reply.redirect("https://kjsc.nocode.host");
-        });
+        fastify.get(
+            "/kjsc",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const params: Record<string, any> = {};
+                return reply.redirect("https://kjsc.nocode.host");
+            },
+        );
         API(fastify);
         fastify.get(
             "/safejump",
@@ -562,6 +566,28 @@ async function start() {
                     });
                     return reply.send(content);
                 } else return reply.status(500).send(null);
+            },
+        );
+        fastify.get(
+            "/stream-test",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                reply.raw.writeHead(200, {
+                    "Content-Type": "text/event-stream",
+                    "Cache-Control": "no-cache",
+                    Connection: "keep-alive",
+                });
+                const stream = new Readable({
+                    read() {},
+                });
+                stream.pipe(reply.raw);
+                const interval = setInterval(() => {
+                    stream.push(`data: ${Date.now()}\n\n`);
+                }, 1000);
+                request.raw.on("close", () => {
+                    stream.destroy();
+                    clearInterval(interval);
+                });
+                return reply.raw;
             },
         );
         console.log(">>> [STEP 7] Routes added.");
