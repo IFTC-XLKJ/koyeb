@@ -526,6 +526,9 @@ async function start() {
         fastify.get(
             "/favicon.ico",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                reply.headers({
+                    "Content-Type": "image/x-icon",
+                });
                 return fs.readFile("favicon.ico");
             },
         );
