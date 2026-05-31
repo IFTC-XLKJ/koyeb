@@ -416,6 +416,14 @@ async function start() {
                 return reply.redirect("https://kjsc.nocode.host");
             },
         );
+        fastify.get(
+            "/feedback",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                return `反馈功能正在开发中...<br>如需反馈请使用邮箱 <a href="mailto:iftcceo@139.com">iftcceo@139.com</a></a> 或 <a href="mailto:iftcceo@gmail.com">iftcceo@gmail.com</a>">`;
+                const params: Record<string, any> = {};
+                return returnPage("feedback/index.html", params, reply);
+            },
+        );
         API(fastify);
         fastify.get(
             "/safejump",
