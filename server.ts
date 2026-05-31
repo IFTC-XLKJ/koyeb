@@ -524,6 +524,12 @@ async function start() {
             },
         );
         fastify.get(
+            "/favicon.ico",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                return fs.readFile("favicon.ico");
+            },
+        );
+        fastify.get(
             "/file/blockly/workspace-search",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 const content: string = await fs.readFile(
