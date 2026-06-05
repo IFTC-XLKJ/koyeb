@@ -607,14 +607,32 @@ async function start() {
                 });
             },
         );
-        fastify.get("/code", async (request: FastifyRequest<{ Querystring: { code: string; msg: string } }>, reply: FastifyReply): Promise<Object> => {
-            const { code, msg } = request.query;
-            return reply.status(Number(code)).send({
-                code: code,
-                msg: msg || (code == "200" ? "请求成功" : "请求失败"),
-                timestamp: time(),
-            });
-        });
+        fastify.get(
+            "/code",
+            {
+                schema: {
+                    querystring: {
+                        type: "object",
+                        properties: {
+                            code: { type: "number" },
+                            msg: { type: "string" },
+                        },
+                        required: ["code"],
+                    },
+                },
+            },
+            async (
+                request: FastifyRequest<{ Querystring: { code: number; msg: string } }>,
+                reply: FastifyReply,
+            ): Promise<Object> => {
+                const { code, msg } = request.query;
+                return reply.status(code).send({
+                    code: code,
+                    msg: msg || (code == 200 ? "请求成功" : "请求失败"),
+                    timestamp: time(),
+                });
+            },
+        );
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
         await fastify.listen({ port: port, host: "0.0.0.0" });
