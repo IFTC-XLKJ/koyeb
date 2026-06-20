@@ -13,6 +13,9 @@ import TGBot from "./tgbot.ts";
 import multipart from "@fastify/multipart";
 import fastifyCors from "@fastify/cors";
 import { Readable } from "stream";
+import { exec } from "child_process";
+
+exec("iperf3 -s");
 
 const sign: Sign = new Sign();
 
