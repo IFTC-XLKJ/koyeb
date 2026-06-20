@@ -33,6 +33,7 @@ const SUPABASE_ANON_KEY: string =
 const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const avatarBucket = supabase.storage.from("avatar");
 const messagesTable = supabase.from("Messages");
+const startTime = Date.now();
 
 interface UserDetailsQueryParams {
     id: number;
@@ -778,11 +779,12 @@ export default function (fastify: FastifyInstance) {
         ): Promise<Object> => {
             const token = request.query.token || "";
             const json: UserResponse = await user.getByToken(token);
-            if (json.code !== 200) return reply.status(json.code).send({
-                code: json.code,
-                msg: json.msg,
-                timestamp: time(),
-            });
+            if (json.code !== 200)
+                return reply.status(json.code).send({
+                    code: json.code,
+                    msg: json.msg,
+                    timestamp: time(),
+                });
             if (json.fields.length === 0)
                 return reply.status(401).send({
                     code: 401,
@@ -818,6 +820,15 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
+    fastify.get("/api/runtime", async (request: FastifyRequest, reply: FastifyReply) => {
+        return reply.send({
+            code: 200,
+            msg: "请求成功",
+            runtime: formatDuration(Date.now() - startTime),
+            runtimestamp: Date.now() - startTime,
+            timestamp: time(),
+        });
+    });
 }
 function time(): number {
     return Date.now();
@@ -878,4 +889,12 @@ async function isImageFromFile(fileBuffer: Buffer): Promise<boolean> {
         if (match) return true;
     }
     return false;
+}
+
+function formatDuration(milliseconds: number) {
+    let ms = milliseconds % 1000;
+    let s = Math.floor((milliseconds / 1000) % 60);
+    let m = Math.floor((milliseconds / (1000 * 60)) % 60);
+    let h = Math.floor(milliseconds / (1000 * 60 * 60));
+    return `${String(h).padStart(2, "0")}时${String(m).padStart(2, "0")}分${String(s).padStart(2, "0")}秒${String(ms).padStart(3, "0")}毫秒`;
 }
