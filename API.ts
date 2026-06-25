@@ -829,6 +829,7 @@ export default function (fastify: FastifyInstance) {
             timestamp: time(),
         });
     });
+    fastify.post("/api/ccwoss", async (request: FastifyRequest, reply: FastifyReply) => {});
 }
 function time(): number {
     return Date.now();
