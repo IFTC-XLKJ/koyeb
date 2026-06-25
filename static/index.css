@@ -39,7 +39,8 @@ footer ul {
     margin: 0;
 }
 
-footer ul li a {
+footer ul li a,
+.footer-item a {
     color: white;
     text-decoration: none;
 }
