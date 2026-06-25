@@ -45,7 +45,8 @@ footer ul li a,
     text-decoration: none;
 }
 
-footer ul li a:hover {
+footer ul li a:hover,
+.footer-item a:hover {
     text-decoration: underline;
 }
 
