@@ -23,6 +23,7 @@ import AppUpdateCheck from "./AppUpdateCheck.ts";
 // @ts-ignore
 import weather from "weather-js";
 import { KJSC } from "./KJSC.ts";
+import { Segment } from "node-segment";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -830,6 +831,52 @@ export default function (fastify: FastifyInstance) {
         });
     });
     fastify.post("/api/ccwoss", async (request: FastifyRequest, reply: FastifyReply) => {});
+    fastify.get(
+        "/api/participle",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        text: { type: "string" },
+                    },
+                    required: ["text"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Querystring: {
+                    text: string;
+                };
+            }>,
+            reply: FastifyReply,
+        ) => {
+            const { text } = request.query;
+            const segment = new Segment();
+            segment.useDefault();
+            try {
+                const result = segment.doSegment(text, {
+                    removePunct: true,
+                    removeStopword: true,
+                });
+                return reply.send({
+                    code: 200,
+                    msg: "请求成功",
+                    data: result,
+                    timestamp: time(),
+                });
+            } catch (error: unknown) {
+                console.error("Participle error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Participle error: " + (error as Error).message,
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
+        },
+    );
 }
 function time(): number {
     return Date.now();
