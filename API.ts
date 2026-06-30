@@ -23,6 +23,7 @@ import AppUpdateCheck from "./AppUpdateCheck.ts";
 // @ts-ignore
 import weather from "weather-js";
 import { KJSC } from "./KJSC.ts";
+// @ts-ignore
 import { Segment } from "node-segment";
 
 const user: User = new User();
@@ -877,6 +878,26 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.get(
+        "/api/sign",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        token: { type: "string" },
+                    },
+                    required: ["token"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { token: string } }>,
+            reply: FastifyReply,
+        ) => {
+            const { token } = request.query;
+        },
+    ); // 签到
 }
 function time(): number {
     return Date.now();
