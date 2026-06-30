@@ -6,7 +6,7 @@ import type {
     SearchResponse,
     UserLoginResponse,
     UserRegisterResponse,
-    UserResponse
+    UserResponse,
 } from "./types.ts";
 
 const sign: Sign = new Sign();
@@ -45,7 +45,7 @@ export default class User {
             limit: 1000000000000,
         })) as GetAllUsersResponse;
     }
-    async login(user: string, password: string): Promise<UserLoginResponse> {
+    async login(user: string | number, password: string): Promise<UserLoginResponse> {
         return (await this.fetchData(getDataURL, {
             filter: `(ID="${user}" OR 昵称="${user}" OR 邮箱="${user}") AND 密码="${md5Hash(password)}"`,
             page: 1,

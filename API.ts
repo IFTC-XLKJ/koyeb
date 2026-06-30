@@ -940,7 +940,26 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { id, password } = request.query;
-            try { 
+            try {
+                const j = await user.login(id, password);
+                if (j.code !== 200)
+                    return reply.status(j.code).send({
+                        code: j.code,
+                        msg: j.msg,
+                        timestamp: time(),
+                    });
+                if (j.fields.length === 0)
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "Invalid password",
+                        timestamp: time(),
+                    });
+                return reply.send({
+                    code: 200,
+                    msg: "请求成功",
+                    token: j.fields[0].token,
+                    timestamp: time(),
+                });
             } catch (error: unknown) {
                 console.error("Get token error:", error);
                 return reply.status(500).send({
