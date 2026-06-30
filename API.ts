@@ -913,6 +913,19 @@ export default function (fastify: FastifyInstance) {
                 const data = j.fields[0];
                 const singedAt = data.签到 || 0;
                 const signedDate = formatDate(singedAt);
+                const nowDate = formatDate(Date.now());
+                const isSameDay =
+                    signedDate.getFullYear() === nowDate.getFullYear() &&
+                    signedDate.getMonth() === nowDate.getMonth() &&
+                    signedDate.getDate() === nowDate.getDate();
+                if (isSameDay) {
+                    return reply.send({
+                        code: 200,
+                        msg: "今日已签到",
+                        signedAt: singedAt,
+                        timestamp: time(),
+                    });
+                }
             } catch (error: unknown) {
                 console.error("Sign error:", error);
                 return reply.status(500).send({
