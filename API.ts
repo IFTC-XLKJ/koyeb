@@ -911,6 +911,8 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 const data = j.fields[0];
+                const singedAt = data.签到 || 0;
+                const signedDate = formatDate(singedAt);
             } catch (error: unknown) {
                 console.error("Sign error:", error);
                 return reply.status(500).send({
