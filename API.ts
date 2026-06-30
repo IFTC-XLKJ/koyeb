@@ -921,6 +921,27 @@ export default function (fastify: FastifyInstance) {
             }
         },
     ); // 签到
+    fastify.get(
+        "/api/user/gettoken",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        id: { type: "number" },
+                        password: { type: "string" },
+                    },
+                    required: ["id", "password"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { id: number; password: string } }>,
+            reply: FastifyReply,
+        ) => {
+            const { id, password } = request.query;
+        },
+    );
 }
 function time(): number {
     return Date.now();
