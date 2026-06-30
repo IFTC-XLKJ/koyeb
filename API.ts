@@ -896,6 +896,17 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { token } = request.query;
+            try {
+                const j = await user.getByToken(token);
+            } catch (error: unknown) {
+                console.error("Sign error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "签到出错：" + (error as Error).message,
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
         },
     ); // 签到
 }
