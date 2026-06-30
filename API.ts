@@ -910,6 +910,7 @@ export default function (fastify: FastifyInstance) {
                         msg: "Invalid token",
                         timestamp: time(),
                     });
+                const data = j.fields[0];
             } catch (error: unknown) {
                 console.error("Sign error:", error);
                 return reply.status(500).send({
@@ -1039,4 +1040,8 @@ function formatDuration(milliseconds: number) {
     let m = Math.floor((milliseconds / (1000 * 60)) % 60);
     let h = Math.floor(milliseconds / (1000 * 60 * 60));
     return `${String(h).padStart(2, "0")}时${String(m).padStart(2, "0")}分${String(s).padStart(2, "0")}秒${String(ms).padStart(3, "0")}毫秒`;
+}
+
+function formatDate(timestamp: number) {
+    return new Date(new Date(timestamp).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" }));
 }
