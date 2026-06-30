@@ -940,6 +940,16 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { id, password } = request.query;
+            try { 
+            } catch (error: unknown) {
+                console.error("Get token error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "获取用户令牌出错：" + (error as Error).message,
+                    error: (error as Error).message,
+                    timestamp: time(),
+                });
+            }
         },
     );
 }
