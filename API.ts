@@ -898,6 +898,18 @@ export default function (fastify: FastifyInstance) {
             const { token } = request.query;
             try {
                 const j = await user.getByToken(token);
+                if (j.code !== 200)
+                    return reply.status(j.code).send({
+                        code: j.code,
+                        msg: j.msg,
+                        timestamp: time(),
+                    });
+                if (j.fields.length === 0)
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "Invalid token",
+                        timestamp: time(),
+                    });
             } catch (error: unknown) {
                 console.error("Sign error:", error);
                 return reply.status(500).send({
