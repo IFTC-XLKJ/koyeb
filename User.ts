@@ -129,6 +129,13 @@ export default class User {
             limit: 1,
         })) as UserResponse;
     }
+    async sign(token: string) {
+        return (await this.fetchData(setDataURL, {
+            type: "UPDATE",
+            filter: `token="${token}"`,
+            fields: `签到=${Date.now()}`,
+        })) as UserResponse;
+    }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
         const signaturePromise: Promise<string> = sign.get(String(timestamp));

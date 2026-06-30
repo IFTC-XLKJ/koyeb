@@ -926,6 +926,19 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 }
+                const j2 = await user.sign(token);
+                if (j2.code !== 200)
+                    return reply.status(j2.code).send({
+                        code: j2.code,
+                        msg: j2.msg,
+                        timestamp: time(),
+                    });
+                return reply.send({
+                    code: 200,
+                    msg: "签到成功",
+                    signedAt: Date.now(),
+                    timestamp: time(),
+                });
             } catch (error: unknown) {
                 console.error("Sign error:", error);
                 return reply.status(500).send({
