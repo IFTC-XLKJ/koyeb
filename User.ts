@@ -133,7 +133,7 @@ export default class User {
         return (await this.fetchData(setDataURL, {
             type: "UPDATE",
             filter: `token="${token}"`,
-            fields: `签到=${Date.now()}`,
+            fields: `签到=${Date.now()}, V币=V币+5`,
         })) as UserResponse;
     }
     async fetchData(url: string, body: Object): Promise<Object> {
