@@ -919,8 +919,8 @@ export default function (fastify: FastifyInstance) {
                     signedDate.getMonth() === nowDate.getMonth() &&
                     signedDate.getDate() === nowDate.getDate();
                 if (isSameDay) {
-                    return reply.send({
-                        code: 200,
+                    return reply.status(400).send({
+                        code: 400,
                         msg: "今日已签到",
                         signedAt: singedAt,
                         timestamp: time(),
