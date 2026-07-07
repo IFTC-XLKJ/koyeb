@@ -21,6 +21,7 @@ import weather from "weather-js";
 import { KJSC } from "./KJSC.ts";
 // @ts-ignore
 import { Segment } from "node-segment";
+import fs from "fs/promises";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -34,14 +35,17 @@ let geoReaderLoading: Promise<void> | null = null;
 async function getGeoReader() {
     if (geoReader) return geoReader;
     if (geoReaderLoading) return geoReaderLoading.then(() => geoReader);
-    geoReaderLoading = maxmind.open("./GeoLite2-City.mmdb").then((reader) => {
-        geoReader = reader;
-        geoReaderLoading = null;
-    }).catch((e) => {
-        console.error("Failed to load GeoLite2:", e);
-        geoReaderLoading = null;
-        throw e;
-    });
+    geoReaderLoading = maxmind
+        .open("./GeoLite2-City.mmdb")
+        .then((reader) => {
+            geoReader = reader;
+            geoReaderLoading = null;
+        })
+        .catch((e) => {
+            console.error("Failed to load GeoLite2:", e);
+            geoReaderLoading = null;
+            throw e;
+        });
     await geoReaderLoading;
     return geoReader;
 }
@@ -1007,13 +1011,19 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
-    fastify.get(
-        "/api/requestips",
-        async (request: FastifyRequest, reply: FastifyReply) => {
-            const data = await user.getAll();
-            return reply.send(data);
-        },
-    );
+    fastify.get("/api/requestips", async (request: FastifyRequest, reply: FastifyReply) => {
+        const data = await user.getAll();
+        return reply.send(data);
+    });
+    fastify.get("/api/randomusername", async (request: FastifyRequest, reply: FastifyReply) => {
+        return reply.send({
+            code: 200,
+            msg: "请求成功",
+            copyright: "IFTC",
+            username: await randomUsername(),
+            timestamp: Date.now(),
+        });
+    });
     fastify.get(
         "/api/user/sendcode",
         {
@@ -1030,7 +1040,9 @@ export default function (fastify: FastifyInstance) {
             },
         },
         async (
-            request: FastifyRequest<{ Querystring: { email: string; title: string; content: string } }>,
+            request: FastifyRequest<{
+                Querystring: { email: string; title: string; content: string };
+            }>,
             reply: FastifyReply,
         ) => {
             const { email, title, content } = request.query;
@@ -1109,4 +1121,15 @@ function formatDuration(milliseconds: number) {
 
 function formatDate(timestamp: number) {
     return new Date(new Date(timestamp).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai" }));
+}
+
+async function randomUsername() {
+    const wordds = await fs.readFile("Random_username.json", "utf-8");
+    const words = JSON.parse(wordds);
+    const adjs = words.adj;
+    const nouns = words.noun;
+    const adj = adjs[Math.floor(Math.random() * adjs.length)];
+    const noun = nouns[Math.floor(Math.random() * nouns.length)];
+    const id = btoa((Math.random() * 10 ** 16).toString(36)).slice(0, 4);
+    return adj + noun + id;
 }
