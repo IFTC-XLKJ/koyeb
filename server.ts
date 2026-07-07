@@ -655,7 +655,9 @@ setInterval(async (): Promise<void> => {
 }, 30000);
 
 setInterval(async (): Promise<void> => {
-    process.exit(0);
+    if (typeof global.gc === "function") {
+        global.gc();
+    }
 }, 3600000);
 
 // Download GeoLite2 database on startup (non-blocking)
