@@ -255,6 +255,14 @@ async function start() {
                 requestLog(request);
             },
         );
+        fastify.addHook(
+            "onResponse",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+                if (typeof global.gc === "function") {
+                    global.gc();
+                }
+            },
+        );
         console.log(">>> [STEP 5] Hooks added.");
         console.log(">>> [STEP 6] Adding routes...");
         fastify.setNotFoundHandler(
