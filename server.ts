@@ -660,7 +660,6 @@ setInterval(async (): Promise<void> => {
     }
 }, 3600000);
 
-// Download GeoLite2 database on startup (non-blocking)
 (async () => {
     try {
         const r = await fetch(
@@ -676,7 +675,7 @@ setInterval(async (): Promise<void> => {
 
 let whitelistCache: Set<string> | null = null;
 let whitelistCacheTime = 0;
-const WHITELIST_CACHE_TTL = 60000; // 1 minute
+const WHITELIST_CACHE_TTL = 60000;
 
 async function checkWhitelist(domain: string): Promise<boolean> {
     const now = Date.now();
