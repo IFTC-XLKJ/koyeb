@@ -1,7 +1,4 @@
-import crypto from "crypto";
-import Sign from "./Sign.ts";
-
-const sign: Sign = new Sign();
+import { sign } from "./shared.ts";
 
 const VVAppsAppkey: string =
     "LkduYVIN+ZUWzF7FSj+NsNqrGBGJmkFdk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOgX1YRTD4bRxkEhaZ0+evEwQSqYnA7z5aHmCrd0o8F4OZU8p3gJla+jo15DuJZVFC0=";
@@ -26,7 +23,6 @@ export default class VVApps {
             });
             if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json = await response.json();
-            console.log(json);
             return json;
         } catch (error: unknown) {
             console.error("There was a problem with the fetch operation:", error);

@@ -9,16 +9,12 @@ import type {
     UserResponse,
 } from "./types.ts";
 import User from "./User.ts";
-import { createClient } from "@supabase/supabase-js";
-import type { SupabaseClient } from "@supabase/supabase-js";
-import type { StorageClient } from "@supabase/storage-js";
-import { PostgrestClient } from "@supabase/postgrest-js";
+import { supabase, messagesTable, avatarBucket } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
 import https from "https";
 import fetch from "node-fetch";
 import type { RequestInit } from "node-fetch";
-import VVApps from "./VVApps.ts";
 import AppUpdateCheck from "./AppUpdateCheck.ts";
 // @ts-ignore
 import weather from "weather-js";
@@ -29,13 +25,26 @@ import { Segment } from "node-segment";
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
 const KJSCInstance: KJSC = new KJSC();
-const SUPABASE_URL: string = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn";
-const SUPABASE_ANON_KEY: string =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InN1cGFiYXNlIiwiaWF0IjoxNzQ2OTc5MjAwLCJleHAiOjE5MDQ3NDU2MDB9.11QbQ5OW_m10vblDXAlw1Qq7Dve5Swzn12ILo7-9IXY";
-const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-const avatarBucket = supabase.storage.from("avatar");
-const messagesTable = supabase.from("Messages");
 const startTime = Date.now();
+
+// Singleton GeoLite2 reader - cached in memory instead of opening per request
+let geoReader: any = null;
+let geoReaderLoading: Promise<void> | null = null;
+
+async function getGeoReader() {
+    if (geoReader) return geoReader;
+    if (geoReaderLoading) return geoReaderLoading.then(() => geoReader);
+    geoReaderLoading = maxmind.open("./GeoLite2-City.mmdb").then((reader) => {
+        geoReader = reader;
+        geoReaderLoading = null;
+    }).catch((e) => {
+        console.error("Failed to load GeoLite2:", e);
+        geoReaderLoading = null;
+        throw e;
+    });
+    await geoReaderLoading;
+    return geoReader;
+}
 
 interface UserDetailsQueryParams {
     id: number;
@@ -100,7 +109,7 @@ export default function (fastify: FastifyInstance) {
                             code: 404,
                             id: id,
                             msg: "账号不存在",
-                            timestamp: time(),
+                            timestamp: Date.now(),
                         });
                     return reply.send({
                         code: 200,
@@ -120,13 +129,13 @@ export default function (fastify: FastifyInstance) {
                             createdAt: data.createdAt,
                             updatedAt: data.updatedAt,
                         },
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 } else {
                     return reply.status(code).send({
                         code: code,
                         msg: json["msg"],
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
             } catch (error: unknown) {
@@ -134,7 +143,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "服务器内部错误",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -170,7 +179,7 @@ export default function (fastify: FastifyInstance) {
                         code: 500,
                         msg: "Internal Server Error",
                         error: error.message,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 return reply.send({
                     code: 200,
@@ -179,14 +188,14 @@ export default function (fastify: FastifyInstance) {
                         ...item,
                         createdAt: Date.parse(String(item.createdAt)),
                     })),
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             } catch (error: unknown) {
                 return reply.status(500).send({
                     code: 500,
                     msg: "服务器内部错误",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -231,13 +240,13 @@ export default function (fastify: FastifyInstance) {
                             updatedAt: item.updatedAt,
                         })),
                         keyword: keyword,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 } else {
                     return reply.status(code).send({
                         code: code,
                         msg: json["msg"],
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
             } catch (error: unknown) {
@@ -245,7 +254,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "服务器内部错误",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -282,7 +291,7 @@ export default function (fastify: FastifyInstance) {
                         return reply.status(403).send({
                             code: 403,
                             msg: "封号用户",
-                            timestamp: time(),
+                            timestamp: Date.now(),
                         });
                     }
                     const data = json.fields[0];
@@ -290,14 +299,14 @@ export default function (fastify: FastifyInstance) {
                         return reply.status(401).send({
                             code: 401,
                             msg: "账号或密码错误",
-                            timestamp: time(),
+                            timestamp: Date.now(),
                         });
                     reply.send({
                         code: 200,
                         msg: "登录成功",
                         id: data.ID,
                         token: data.token,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                     return await RecordMessages.recordMessage({
                         title: "用户登录",
@@ -308,7 +317,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(code).send({
                         code: code,
                         msg: json["msg"],
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
             } catch (error: unknown) {
@@ -316,7 +325,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "服务器内部错误： " + (error as Error).message,
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -348,7 +357,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(400).send({
                     code: 400,
                     msg: "昵称不能包含#字符",
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             if (
                 decodeURIComponent(email).includes(" ") ||
@@ -358,7 +367,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(400).send({
                     code: 400,
                     msg: "昵称、邮箱和密码不能包含空格字符",
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             try {
                 const json: UserRegisterResponse = await user.register(
@@ -373,7 +382,7 @@ export default function (fastify: FastifyInstance) {
                         code: 200,
                         msg: "注册成功",
                         id: json.fields[0].ID,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                     return await RecordMessages.recordMessage({
                         title: "新用户注册",
@@ -384,7 +393,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(code).send({
                         code: code,
                         msg: json["msg"],
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
             } catch (error: unknown) {
@@ -392,7 +401,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "服务器内部错误",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -432,7 +441,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(r.status).send({
                         code: r.status,
                         msg: `External API error: ${await r.text()}`,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 const data = await r.json();
@@ -443,7 +452,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "fetch failed",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -479,7 +488,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(r.status).send({
                         code: r.status,
                         msg: `External API error: ${await r.text()}`,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 return reply.send(await r.json());
@@ -489,7 +498,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "fetch failed",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -507,7 +516,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(400).send({
                         code: 400,
                         msg: "No avatar file provided",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 const chunks: Buffer[] = [];
@@ -519,7 +528,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(400).send({
                         code: 400,
                         msg: "File too large",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 const isImage: boolean = await isImageFromFile(fileBuffer);
@@ -527,7 +536,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(400).send({
                         code: 400,
                         msg: "File must be an Image",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 const uuid: string = generateUUID();
@@ -550,7 +559,7 @@ export default function (fastify: FastifyInstance) {
                     msg: "Upload successful",
                     data: uploadData,
                     error: null,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             } catch (err: unknown) {
                 console.error("Avatar upload error:", err);
@@ -558,14 +567,14 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(400).send({
                         code: 400,
                         msg: "File too large",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 return reply.status(500).send({
                     code: 500,
                     msg: "Upload failed",
                     error: (err as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -601,7 +610,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "Update check failed",
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -613,7 +622,7 @@ export default function (fastify: FastifyInstance) {
                 code: 200,
                 msg: "请求成功",
                 ip: request.headers["x-forwarded-for"] || null,
-                timestamp: time(),
+                timestamp: Date.now(),
             });
         },
     );
@@ -639,7 +648,7 @@ export default function (fastify: FastifyInstance) {
                 msg: "请求成功",
                 ip: ip,
                 location: await lookupIP(ip),
-                timestamp: time(),
+                timestamp: Date.now(),
             });
         },
     );
@@ -664,21 +673,21 @@ export default function (fastify: FastifyInstance) {
                         code: 500,
                         msg: "Weather API error",
                         error: err.message,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 if (!result || result.length === 0) {
                     return reply.status(404).send({
                         code: 404,
                         msg: "City not found",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 return reply.send({
                     code: 200,
                     msg: "请求成功",
                     data: result,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             });
         },
@@ -720,7 +729,7 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(401).send({
                         code: 401,
                         msg: "Invalid token",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 const { ID, 昵称, 头像 } = json.fields[0];
                 const json2 = await KJSCInstance.publishPost(
@@ -737,13 +746,13 @@ export default function (fastify: FastifyInstance) {
                         code: 500,
                         msg: "Failed to publish post: " + json2.error.message,
                         error: json2.error.message,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 return reply.send({
                     code: 200,
                     msg: "发布成功",
                     data: json2,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             } catch (error: unknown) {
                 console.error("KJSC API error:", error);
@@ -751,7 +760,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "KJSC API error: " + (error as Error).message,
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -783,20 +792,20 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(json.code).send({
                     code: json.code,
                     msg: json.msg,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             if (json.fields.length === 0)
                 return reply.status(401).send({
                     code: 401,
                     msg: "Invalid token",
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             const data = json.fields[0];
             if (data.封号 == 1)
                 return reply.status(403).send({
                     code: 403,
                     msg: "封号用户",
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             return reply.send({
                 code: 200,
@@ -826,7 +835,7 @@ export default function (fastify: FastifyInstance) {
             msg: "请求成功",
             runtime: formatDuration(Date.now() - startTime),
             runtimestamp: Date.now() - startTime,
-            timestamp: time(),
+            timestamp: Date.now(),
         });
     });
     fastify.post("/api/ccwoss", async (request: FastifyRequest, reply: FastifyReply) => {});
@@ -863,7 +872,7 @@ export default function (fastify: FastifyInstance) {
                     code: 200,
                     msg: "请求成功",
                     data: result,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             } catch (error: unknown) {
                 console.error("Participle error:", error);
@@ -871,7 +880,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "Participle error: " + (error as Error).message,
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -900,13 +909,13 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(j.code).send({
                         code: j.code,
                         msg: j.msg,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 if (j.fields.length === 0)
                     return reply.status(401).send({
                         code: 401,
                         msg: "Invalid token",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 const data = j.fields[0];
                 const singedAt = data.签到 || 0;
@@ -921,7 +930,7 @@ export default function (fastify: FastifyInstance) {
                         code: 400,
                         msg: "今日已签到",
                         signedAt: singedAt,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 }
                 const j2 = await user.sign(token);
@@ -929,13 +938,13 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(j2.code).send({
                         code: j2.code,
                         msg: j2.msg,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 return reply.send({
                     code: 200,
                     msg: "签到成功",
                     signedAt: Date.now(),
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             } catch (error: unknown) {
                 console.error("Sign error:", error);
@@ -943,7 +952,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "签到出错：" + (error as Error).message,
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
         },
@@ -973,19 +982,19 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(j.code).send({
                         code: j.code,
                         msg: j.msg,
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 if (j.fields.length === 0)
                     return reply.status(401).send({
                         code: 401,
                         msg: "Invalid password",
-                        timestamp: time(),
+                        timestamp: Date.now(),
                     });
                 return reply.send({
                     code: 200,
                     msg: "请求成功",
                     token: j.fields[0].token,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             } catch (error: unknown) {
                 console.error("Get token error:", error);
@@ -993,9 +1002,39 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "获取用户令牌出错：" + (error as Error).message,
                     error: (error as Error).message,
-                    timestamp: time(),
+                    timestamp: Date.now(),
                 });
             }
+        },
+    );
+    fastify.get(
+        "/api/requestips",
+        async (request: FastifyRequest, reply: FastifyReply) => {
+            const data = await user.getAll();
+            return reply.send(data);
+        },
+    );
+    fastify.get(
+        "/api/user/sendcode",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        email: { type: "string" },
+                        title: { type: "string" },
+                        content: { type: "string" },
+                    },
+                    required: ["email", "title", "content"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { email: string; title: string; content: string } }>,
+            reply: FastifyReply,
+        ) => {
+            const { email, title, content } = request.query;
+            // ... existing code ...
         },
     );
 }
@@ -1006,9 +1045,9 @@ function time(): number {
 async function lookupIP(ip: string | string[] | null): Promise<string> {
     if (!ip) return "Unknown";
     try {
-        const reader = await maxmind.open("./GeoLite2-City.mmdb");
+        const reader = await getGeoReader();
+        if (!reader) return "Unknown";
         const result = reader.get(Array.isArray(ip) ? ip[0] : ip);
-        console.log(result);
         if (!result) {
             return "Unknown";
         }

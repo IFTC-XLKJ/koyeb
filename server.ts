@@ -7,7 +7,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import fastifyStatic from "@fastify/static";
 import fastifyCookie from "@fastify/cookie";
-import Sign from "./Sign.ts";
+import { sign } from "./shared.ts";
 import API from "./API.ts";
 import TGBot from "./tgbot.ts";
 import multipart from "@fastify/multipart";
@@ -16,8 +16,6 @@ import { Readable } from "stream";
 import { exec } from "child_process";
 
 exec("iperf3 -s");
-
-const sign: Sign = new Sign();
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
@@ -90,17 +88,29 @@ async function isRateLimited(ip: string | string[]): Promise<boolean> {
     return false;
 }
 
+// Periodic cleanup of stale rate limit entries to prevent memory leak
+setInterval(() => {
+    const now: number = Date.now();
+    const windowMs: number = 60000;
+    for (const [ip, timestamps] of requestCounts.entries()) {
+        const recent = (timestamps as number[]).filter((t: number) => now - t < windowMs);
+        if (recent.length === 0) {
+            requestCounts.delete(ip);
+        } else {
+            requestCounts.set(ip, recent);
+        }
+    }
+}, 60000);
+
 function requestLog(req: FastifyRequest): void {
     if (req.headers["user-agent"] == "Koyeb Health Check") return;
     if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
     requestRecord(req);
     console.log(
-        `收到请求 IP: ${req.ip}或${req.headers["x-forwarded-for"]} IPs: ${req.ips} UA: ${req.headers["user-agent"]}`,
+        `收到请求 IP: ${req.ip} XFF: ${req.headers["x-forwarded-for"] || "-"} UA: ${req.headers["user-agent"]}`,
     );
     console.log(`请求源：${req.headers["referer"] || "Unknown"}`);
     console.log(`Method: ${req.method} URL: ${req.url}`);
-    console.log(`Headers: ${JSON.stringify(req.headers)}`);
-    console.log(`Body: ${JSON.stringify(req.body)}`);
 }
 
 async function getCpuUsageSI(): Promise<string> {
@@ -640,12 +650,19 @@ setInterval(async (): Promise<void> => {
     process.exit(0);
 }, 3600000);
 
-const r = await fetch(
-    "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb",
-);
-const buffer = await r.arrayBuffer();
-await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
-console.log("GeoLite2-City.mmdb downloaded successfully");
+// Download GeoLite2 database on startup (non-blocking)
+(async () => {
+    try {
+        const r = await fetch(
+            "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb",
+        );
+        const buffer = await r.arrayBuffer();
+        await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
+        console.log("GeoLite2-City.mmdb downloaded successfully");
+    } catch (e) {
+        console.error("Failed to download GeoLite2-City.mmdb:", e);
+    }
+})();
 
 let whitelistCache: Set<string> | null = null;
 let whitelistCacheTime = 0;

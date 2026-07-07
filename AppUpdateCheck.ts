@@ -1,7 +1,5 @@
-import Sign from "./Sign.ts";
+import { sign } from "./shared.ts";
 import type { PGDBSResponse, AppUpdateCheckResponse, AppUpdateCheckResult } from "./types.ts";
-
-const sign: Sign = new Sign();
 
 const AppUpdateCheckKey: string =
     "LkduYVIN+ZW/V/puUuQEBEqhh3LVki4Qk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOhBTieBGXcSepwb0ynurC2w53Fc18bCkKKvUrN8cRqwvPNMvOUZWyu4o15DuJZVFC0=";
@@ -82,7 +80,6 @@ export default class AppUpdateCheck {
             });
             if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json: AppUpdateCheckResponse = await response.json();
-            console.log(json);
             return json;
         } catch (error: unknown) {
             console.error("There was a problem with the fetch operation:", error);

@@ -1,4 +1,4 @@
-import Sign from "./Sign.ts";
+import { sign } from "./shared.ts";
 import crypto from "crypto";
 import type {
     GetAllUsersResponse,
@@ -8,8 +8,6 @@ import type {
     UserRegisterResponse,
     UserResponse,
 } from "./types.ts";
-
-const sign: Sign = new Sign();
 
 const VVZHkey: string =
     "LkduYVIN+ZWY+y+kN565pfAF4JJRhfpNk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOjMsGiImi0mbmolRNbRck3er4BHin3lsS3b1WYXDgY826RZEvDia4yFo15DuJZVFC0=";
@@ -36,13 +34,13 @@ export default class User {
         return (await this.fetchData(getDataURL, {
             filter: `昵称 LIKE "%${keyword}%" OR 邮箱 LIKE "%${keyword}%" OR ID LIKE "%${keyword}%" OR 头衔 LIKE "%${keyword}%"`,
             page: 1,
-            limit: 1000000000000,
+            limit: 100,
         })) as SearchResponse;
     }
     async getAll(): Promise<GetAllUsersResponse> {
         return (await this.fetchData(getDataURL, {
             page: 1,
-            limit: 1000000000000,
+            limit: 1000,
         })) as GetAllUsersResponse;
     }
     async login(user: string | number, password: string): Promise<UserLoginResponse> {
@@ -58,12 +56,13 @@ export default class User {
         avatar: string,
         password: string,
     ): Promise<UserRegisterResponse> {
-        const all: GetAllUsersResponse = await this.getAll();
-        if (all.code != 200) throw new Error(all.msg);
-        const count: number = all.fields[0].ID + 1;
-        const emails = new Set(all.fields.map((item) => item.邮箱));
-        const nicknames = new Set(all.fields.map((item) => item.昵称));
-        if (emails.has(email))
+        // Check email uniqueness via API instead of loading all users
+        const emailCheck = await this.fetchData(getDataURL, {
+            filter: `邮箱="${email}"`,
+            page: 1,
+            limit: 1,
+        }) as GetByIDResponse;
+        if (emailCheck.code === 200 && emailCheck.fields.length > 0) {
             return {
                 code: 400,
                 msg: "邮箱已被注册",
@@ -73,7 +72,15 @@ export default class User {
                 fields: [],
                 sql: "",
             };
-        if (nicknames.has(nickname))
+        }
+
+        // Check nickname uniqueness via API instead of loading all users
+        const nicknameCheck = await this.fetchData(getDataURL, {
+            filter: `昵称="${nickname}"`,
+            page: 1,
+            limit: 1,
+        }) as GetByIDResponse;
+        if (nicknameCheck.code === 200 && nicknameCheck.fields.length > 0) {
             return {
                 code: 400,
                 msg: "昵称已被注册",
@@ -83,6 +90,13 @@ export default class User {
                 fields: [],
                 sql: "",
             };
+        }
+
+        // Get next available ID
+        const all: GetAllUsersResponse = await this.getAll();
+        if (all.code != 200) throw new Error(all.msg);
+        const count: number = all.fields.length > 0 ? all.fields[0].ID + 1 : 1;
+
         const body: Object = {
             type: "INSERT",
             filter: `ID,昵称,头像,邮箱,密码,V币,头衔,头衔色`,
@@ -127,7 +141,6 @@ export default class User {
             });
             if (!response.ok) throw new Error("Network response was not ok " + response.statusText);
             const json = await response.json();
-            console.log(json);
             return json;
         } catch (error: unknown) {
             console.error("There was a problem with the fetch operation:", error);
