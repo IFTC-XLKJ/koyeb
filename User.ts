@@ -61,7 +61,9 @@ export default class User {
         const all: GetAllUsersResponse = await this.getAll();
         if (all.code != 200) throw new Error(all.msg);
         const count: number = all.fields[0].ID + 1;
-        if (all.fields.filter((item) => item.邮箱 == email).length > 0)
+        const emails = new Set(all.fields.map((item) => item.邮箱));
+        const nicknames = new Set(all.fields.map((item) => item.昵称));
+        if (emails.has(email))
             return {
                 code: 400,
                 msg: "邮箱已被注册",
@@ -71,7 +73,7 @@ export default class User {
                 fields: [],
                 sql: "",
             };
-        if (all.fields.filter((item) => item.昵称 == nickname).length > 0)
+        if (nicknames.has(nickname))
             return {
                 code: 400,
                 msg: "昵称已被注册",
@@ -94,33 +96,6 @@ export default class User {
             filter: `ID=${ID}`,
             fields: `telegram=${telegram}`,
         })) as UserRegisterResponse;
-        // const timestamp = Date.now();
-        // const signaturePromise = sign.get(timestamp);
-        // try {
-        //     const signature = await signaturePromise;
-        //     const response = await fetch(setDataURL, {
-        //         method: "POST",
-        //         headers: {
-        //             "X-Pgaot-Key": VVZHkey,
-        //             "X-Pgaot-Sign": signature,
-        //             "X-Pgaot-Time": timestamp.toString(),
-        //         },
-        //         body: JSON.stringify({
-        //             type: "UPDATE",
-        //             filter: `ID=${ID}`,
-        //             fields: `telegram=${telegram}`,
-        //         }),
-        //     });
-        //     if (!response.ok) {
-        //         throw new Error("Network response was not ok " + response.statusText);
-        //     }
-        //     const json = await response.json();
-        //     console.log(json);
-        //     return json;
-        // } catch (error) {
-        //     console.error("There was a problem with the fetch operation:", error);
-        //     throw error;
-        // }
     }
     async getByToken(token: string): Promise<UserResponse> {
         return (await this.fetchData(getDataURL, {
@@ -138,9 +113,8 @@ export default class User {
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
-        const signaturePromise: Promise<string> = sign.get(String(timestamp));
+        const signature: string = sign.get(String(timestamp));
         try {
-            const signature: string = await signaturePromise;
             const response: Response = await fetch(url, {
                 method: "POST",
                 headers: {

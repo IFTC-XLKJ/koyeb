@@ -19,10 +19,9 @@ exec("iperf3 -s");
 
 const sign: Sign = new Sign();
 
-console.log(">>> Server starting, __dirname is:", path.dirname(fileURLToPath(import.meta.url)));
-
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
+console.log(">>> Server starting, __dirname is:", __dirname);
 
 const fastify: FastifyInstance = Fastify({
     logger: false,
@@ -31,7 +30,7 @@ const fastify: FastifyInstance = Fastify({
 const port: number = Number(process.env.PORT) || 8000;
 const backendPass: string = "21ec360b05962410edbcc561edc8648e";
 const requestCounts = new Map();
-const crawlerAgents = [
+const crawlerAgents = new Set([
     "slurp",
     "duckduckbot",
     "baiduspider",
@@ -53,24 +52,18 @@ const crawlerAgents = [
     "puppeteer",
     "playwright",
     "selenium",
-];
+]);
 
 function time(): number {
     return Date.now();
 }
 
 async function mixed(filepath: string, params: Record<string, any>): Promise<string> {
-    try {
-        let content: string = await fs.readFile(filepath, "utf-8");
-        const keys = Object.keys(params);
-        keys.forEach((key) => {
-            const regex = new RegExp(`{{${key}}}`, "g");
-            content = content.replace(regex, params[key]);
-        });
-        return content;
-    } catch (error) {
-        throw error;
+    let content: string = await fs.readFile(filepath, "utf-8");
+    for (const [key, value] of Object.entries(params)) {
+        content = content.replaceAll(`{{${key}}}`, String(value));
     }
+    return content;
 }
 
 function isSuspiciousBehavior(req: FastifyRequest): boolean {
@@ -142,8 +135,7 @@ async function requestRecord(req: FastifyRequest): Promise<void> {
     const key: string =
         "LkduYVIN+ZWKJTI7vTH1UH1AA2z6ZrlHk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOj8bHkmeZm8+aIa5EOQG+kD6KVpdn29kjtD3zNoB+BTgH1Ykwr1CKqPo15DuJZVFC0=";
     const timestamp: number = Date.now();
-    const signaturePromise: Promise<string> = sign.get(String(timestamp));
-    const signature: string = await signaturePromise;
+    const signature: string = sign.get(String(timestamp));
     const ip: string | string[] = req.headers["x-forwarded-for"] || req.ip;
     const r: Response = await fetch(`https://api.pgaot.com/dbs/cloud/set_table_data`, {
         method: "POST",
@@ -220,21 +212,20 @@ async function start() {
                         msg: "PHP你妈呢",
                         timestamp: time(),
                     });
-            },
-        );
-        fastify.addHook(
-            "onRequest",
-            async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
                 if (request.headers["user-agent"] == "Koyeb Health Check") return;
                 if (request.headers["X-PASS"] == backendPass) return;
                 if (request.headers["user-agent"] == null)
                     return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
-                if (
-                    crawlerAgents.some((agent: string) => ua.includes(agent)) ||
-                    ua == "Mozilla/5.0"
-                )
+                for (const agent of crawlerAgents) {
+                    if (ua.includes(agent)) {
+                        return reply
+                            .status(403)
+                            .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
+                    }
+                }
+                if (ua == "Mozilla/5.0")
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
@@ -246,13 +237,10 @@ async function start() {
                     return reply
                         .status(429)
                         .send({ code: 429, msg: "请求过于频繁", timestamp: time() });
-            },
-        );
-        fastify.addHook(
-            "onRequest",
-            async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-                if (request.headers["user-agent"] == "Koyeb Health Check") return;
-                if (request.headers["user-agent"] == "IFTC Bot") return;
+                if (request.headers["user-agent"] == "IFTC Bot") {
+                    console.log("状态检测请求");
+                    return;
+                }
                 console.log("Cookies:", request.headers.cookie);
                 requestLog(request);
             },
@@ -424,8 +412,6 @@ async function start() {
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 reply.header("Content-Type", "text/html; charset=utf-8");
                 return `反馈功能正在开发中...<br>如需反馈请使用邮箱 <a href="mailto:iftcceo@139.com">iftcceo@139.com</a></a> 或 <a href="mailto:iftcceo@gmail.com">iftcceo@gmail.com</a>`;
-                const params: Record<string, any> = {};
-                return returnPage("feedback/index.html", params, reply);
             },
         );
         API(fastify);
@@ -473,7 +459,7 @@ async function start() {
                     const j = await r.json();
                     if (j.code == 200) return reply.redirect(formatUrl(page));
                     else {
-                        if (await checkWhitelist()) return reply.redirect(formatUrl(page));
+                        if (await checkWhitelist(domain)) return reply.redirect(formatUrl(page));
                         else {
                             reply.headers({
                                 "Content-Type": "text/html",
@@ -500,34 +486,6 @@ async function start() {
     </center>
 </body>
 </html>`);
-                        }
-                    }
-                    let retryCount = 0;
-                    async function checkWhitelist() {
-                        const whitelistFilename = "whitelist.json";
-                        try {
-                            const whitelist = await fs.readFile(whitelistFilename, {
-                                encoding: "utf-8",
-                            });
-                            const whitelistJson = JSON.parse(whitelist);
-                            let has = false;
-                            for (var i = 0; i < whitelistJson.length; i++) {
-                                const item = whitelistJson[i];
-                                if (domain == item) {
-                                    has = true;
-                                    break;
-                                }
-                            }
-                            return has;
-                        } catch (e) {
-                            if (retryCount < 5) {
-                                retryCount++;
-                                await new Promise((resolve) => setTimeout(resolve, 1000));
-                                return await checkWhitelist();
-                            } else {
-                                console.error("Failed to read whitelist.json after 5 retries.");
-                                return false;
-                            }
                         }
                     }
                 } catch (error) {
@@ -666,9 +624,6 @@ setInterval(async (): Promise<void> => {
     } catch (e) {
         console.error("Monitor error:", e);
     }
-}, 30000);
-
-setInterval((): void => {
     const timeStr: string = new Date().toLocaleDateString("zh-CN", {
         year: "numeric",
         month: "long",
@@ -691,6 +646,27 @@ const r = await fetch(
 const buffer = await r.arrayBuffer();
 await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
 console.log("GeoLite2-City.mmdb downloaded successfully");
+
+let whitelistCache: Set<string> | null = null;
+let whitelistCacheTime = 0;
+const WHITELIST_CACHE_TTL = 60000; // 1 minute
+
+async function checkWhitelist(domain: string): Promise<boolean> {
+    const now = Date.now();
+    if (whitelistCache && now - whitelistCacheTime < WHITELIST_CACHE_TTL) {
+        return whitelistCache.has(domain);
+    }
+    try {
+        const data = await fs.readFile("whitelist.json", "utf-8");
+        const list: string[] = JSON.parse(data);
+        whitelistCache = new Set(list);
+        whitelistCacheTime = now;
+        return whitelistCache.has(domain);
+    } catch (e) {
+        console.error("Failed to read whitelist.json:", e);
+        return false;
+    }
+}
 
 function formatUrl(url: string): string {
     url = url.trim();

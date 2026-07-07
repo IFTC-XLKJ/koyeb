@@ -189,7 +189,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-            return {};
         },
     );
     fastify.get(
@@ -249,7 +248,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-            return {};
         },
     );
     fastify.get(
@@ -949,7 +947,7 @@ export default function (fastify: FastifyInstance) {
                 });
             }
         },
-    ); // 签到
+    );
     fastify.get(
         "/api/user/gettoken",
         {

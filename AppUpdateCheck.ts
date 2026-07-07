@@ -68,9 +68,8 @@ export default class AppUpdateCheck {
     }
     async fetchData(url: string, body: Object): Promise<AppUpdateCheckResponse> {
         const timestamp: number = Date.now();
-        const signaturePromise: Promise<string> = sign.get(String(timestamp));
+        const signature: string = sign.get(String(timestamp));
         try {
-            const signature: string = await signaturePromise;
             const response: Response = await fetch(url, {
                 method: "POST",
                 headers: {

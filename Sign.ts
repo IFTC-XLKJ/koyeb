@@ -2,15 +2,11 @@ import crypto from "crypto";
 
 class getSign {
     constructor() {}
-    get(data: string): Promise<string> {
-        return sha256FromString(String(data));
+    get(data: string): string {
+        const hash: crypto.Hash = crypto.createHash("sha256");
+        hash.update(String(data));
+        return hash.digest("hex");
     }
-}
-async function sha256FromString(text: string): Promise<string> {
-    const hash: crypto.Hash = crypto.createHash("sha256");
-    hash.update(text);
-    const sha256sum: string = hash.digest("hex");
-    return sha256sum;
 }
 
 export default getSign;
