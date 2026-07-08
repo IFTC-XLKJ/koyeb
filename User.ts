@@ -57,11 +57,11 @@ export default class User {
         password: string,
     ): Promise<UserRegisterResponse> {
         // Check email uniqueness via API instead of loading all users
-        const emailCheck = await this.fetchData(getDataURL, {
+        const emailCheck = (await this.fetchData(getDataURL, {
             filter: `邮箱="${email}"`,
             page: 1,
             limit: 1,
-        }) as GetByIDResponse;
+        })) as GetByIDResponse;
         if (emailCheck.code === 200 && emailCheck.fields.length > 0) {
             return {
                 code: 400,
@@ -75,11 +75,11 @@ export default class User {
         }
 
         // Check nickname uniqueness via API instead of loading all users
-        const nicknameCheck = await this.fetchData(getDataURL, {
+        const nicknameCheck = (await this.fetchData(getDataURL, {
             filter: `昵称="${nickname}"`,
             page: 1,
             limit: 1,
-        }) as GetByIDResponse;
+        })) as GetByIDResponse;
         if (nicknameCheck.code === 200 && nicknameCheck.fields.length > 0) {
             return {
                 code: 400,
@@ -124,6 +124,37 @@ export default class User {
             filter: `token="${token}"`,
             fields: `签到=${Date.now()}, V币=V币+5`,
         })) as UserResponse;
+    }
+    sendCode(email: string, title: string, content: string): Promise<any> {
+        let t = Math.round(new Date().getTime() / 1000);
+        var raw = JSON.stringify({
+            key: "f7115d5ac87aedd4d42cf510ed064449",
+            main: btoa(encodeURIComponent(content)),
+            to: email,
+            count: 6,
+            expired: 120,
+            title: title,
+            t: t,
+        });
+        var requestOptions: RequestInit = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: raw,
+            redirect: "follow",
+        };
+        return new Promise((resolve, reject) => {
+            fetch("https://api.pgaot.com/email/customize_sand", requestOptions)
+                .then((response) => response.json())
+                .then((result) => {
+                    console.log(result);
+                    resolve(result);
+                })
+                .catch((error) => {
+                    throw new Error("error:", error);
+                });
+        });
     }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
