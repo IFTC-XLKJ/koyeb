@@ -656,46 +656,46 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
-    fastify.get(
-        "/api/weather",
-        {
-            schema: {
-                querystring: {
-                    type: "object",
-                    properties: {
-                        city: { type: "string" },
-                    },
-                },
-            },
-        },
-        async (request: FastifyRequest<{ Querystring: { city: string } }>, reply: FastifyReply) => {
-            const { city } = request.query;
-            weather.find({ search: city, degreeType: "C" }, (err: Error | null, result: any) => {
-                if (err) {
-                    console.error("Weather API error:", err);
-                    return reply.status(500).send({
-                        code: 500,
-                        msg: "Weather API error",
-                        error: err.message,
-                        timestamp: Date.now(),
-                    });
-                }
-                if (!result || result.length === 0) {
-                    return reply.status(404).send({
-                        code: 404,
-                        msg: "City not found",
-                        timestamp: Date.now(),
-                    });
-                }
-                return reply.send({
-                    code: 200,
-                    msg: "请求成功",
-                    data: result,
-                    timestamp: Date.now(),
-                });
-            });
-        },
-    );
+    // fastify.get(
+    //     "/api/weather",
+    //     {
+    //         schema: {
+    //             querystring: {
+    //                 type: "object",
+    //                 properties: {
+    //                     city: { type: "string" },
+    //                 },
+    //             },
+    //         },
+    //     },
+    //     async (request: FastifyRequest<{ Querystring: { city: string } }>, reply: FastifyReply) => {
+    //         const { city } = request.query;
+    //         weather.find({ search: city, degreeType: "C" }, (err: Error | null, result: any) => {
+    //             if (err) {
+    //                 console.error("Weather API error:", err);
+    //                 return reply.status(500).send({
+    //                     code: 500,
+    //                     msg: "Weather API error",
+    //                     error: err.message,
+    //                     timestamp: Date.now(),
+    //                 });
+    //             }
+    //             if (!result || result.length === 0) {
+    //                 return reply.status(404).send({
+    //                     code: 404,
+    //                     msg: "City not found",
+    //                     timestamp: Date.now(),
+    //                 });
+    //             }
+    //             return reply.send({
+    //                 code: 200,
+    //                 msg: "请求成功",
+    //                 data: result,
+    //                 timestamp: Date.now(),
+    //             });
+    //         });
+    //     },
+    // );
     fastify.post(
         "/api/kjsc/post/publish",
         {
