@@ -1085,11 +1085,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(200).send({
                     code: 200,
                     msg: "success",
-                    data: {
-                        location: data.location,
-                        current: data.current,
-                        forecast: data.forecast,
-                    },
+                    data: data,
                     timestamp: Date.now(),
                 });
             } catch (error: any) {
