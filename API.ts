@@ -1049,6 +1049,60 @@ export default function (fastify: FastifyInstance) {
             // ... existing code ...
         },
     );
+    fastify.get(
+        "/api/weather",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        city: { type: "string" },
+                    },
+                    required: ["city"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Querystring: { city: string } }>, reply: FastifyReply) => {
+            const { city } = request.query;
+            try {
+                const weatherData = await new Promise((resolve, reject) => {
+                    weather.find({ search: city, degreeType: "C" }, (err: any, result: any) => {
+                        if (err) reject(err);
+                        else resolve(result);
+                    });
+                });
+
+                if (!(weatherData as any[]).length) {
+                    return reply.status(404).send({
+                        code: 404,
+                        msg: "未找到该城市的天气信息",
+                        city,
+                        timestamp: Date.now(),
+                    });
+                }
+
+                const data = (weatherData as any[])[0];
+                return reply.status(200).send({
+                    code: 200,
+                    msg: "success",
+                    data: {
+                        location: data.location,
+                        current: data.current,
+                        forecast: data.forecast,
+                    },
+                    timestamp: Date.now(),
+                });
+            } catch (error: any) {
+                console.error("Weather API error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "获取天气信息失败",
+                    error: error.message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
 }
 function time(): number {
     return Date.now();
