@@ -1086,6 +1086,8 @@ export default function (fastify: FastifyInstance) {
                     code: 200,
                     msg: "success",
                     data: data,
+                    city,
+                    copyright: "IFTC",
                     timestamp: Date.now(),
                 });
             } catch (error: any) {
