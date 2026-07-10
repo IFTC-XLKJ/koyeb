@@ -1121,6 +1121,7 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { domain } = request.query;
+            console.log("Received domain:", domain);
             try {
                 const whoisData = await new Promise((resolve, reject) => {
                     whois.lookup(domain, (err: Error | null, data: string | WhoisResult[]) => {
