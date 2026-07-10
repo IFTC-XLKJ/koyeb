@@ -1131,7 +1131,7 @@ export default function (fastify: FastifyInstance) {
                 });
                 const data: string[][] = [];
                 (whoisData as string).split("\n").forEach((item) => {
-                    data.push([item.split(": ")[0], item.split(": ")[1]]);
+                    data.push([item.split(": ")[0].trim(), item.split(": ")[1].trim()]);
                 });
                 return reply.status(200).send({
                     code: 200,
