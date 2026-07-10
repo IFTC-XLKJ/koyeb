@@ -42,7 +42,7 @@
     "qrcode": "^1.5.4",
     "systeminformation": "^5.27.11",
     "weather-js": "^2.0.0",
-    "whois": "^2.15.0",
+    "whois": "^2.16.2",
     "xmorse": "^1.0.0"
   },
   "devDependencies": {

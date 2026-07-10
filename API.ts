@@ -21,6 +21,7 @@ import weather from "weather-js";
 import { KJSC } from "./KJSC.ts";
 // @ts-ignore
 import { Segment } from "node-segment";
+import whois from "whois";
 import fs from "fs/promises";
 
 const user: User = new User();
@@ -1095,6 +1096,49 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(500).send({
                     code: 500,
                     msg: "获取天气信息失败",
+                    error: error.message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
+        "/api/whois",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        domain: { type: "string" },
+                    },
+                    required: ["domain"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Querystring: { domain: string } }>, reply: FastifyReply) => {
+            const { domain } = request.query;
+            try {
+                const whoisData = await new Promise((resolve, reject) => {
+                    whois.lookup(domain, (err: any, data: string) => {
+                        if (err) reject(err);
+                        else resolve(data);
+                    });
+                });
+
+                return reply.status(200).send({
+                    code: 200,
+                    msg: "success",
+                    data: {
+                        domain,
+                        whois: whoisData,
+                    },
+                    timestamp: Date.now(),
+                });
+            } catch (error: any) {
+                console.error("WHOIS API error:", error);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "WHOIS 查询失败",
                     error: error.message,
                     timestamp: Date.now(),
                 });
