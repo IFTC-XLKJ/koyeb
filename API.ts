@@ -1339,7 +1339,7 @@ async function lookupIP(ip: string | string[] | null): Promise<string> {
     }
 }
 
-function generateUUID(): string {
+function generateUUID() {
     return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c: string): string {
         var r: number = (Math.random() * 16) | 0,
             v: number = c == "x" ? r : (r & 0x3) | 0x8;
