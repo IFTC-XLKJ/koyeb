@@ -22,6 +22,7 @@ import { KJSC } from "./KJSC.ts";
 // @ts-ignore
 import { Segment } from "node-segment";
 import whois from "whois";
+import type { WhoisResult } from "whois";
 import fs from "fs/promises";
 
 const user: User = new User();
@@ -1115,16 +1116,18 @@ export default function (fastify: FastifyInstance) {
                 },
             },
         },
-        async (request: FastifyRequest<{ Querystring: { domain: string } }>, reply: FastifyReply) => {
+        async (
+            request: FastifyRequest<{ Querystring: { domain: string } }>,
+            reply: FastifyReply,
+        ) => {
             const { domain } = request.query;
             try {
                 const whoisData = await new Promise((resolve, reject) => {
-                    whois.lookup(domain, (err: any, data: string) => {
+                    whois.lookup(domain, (err: Error | null, data: string | WhoisResult[]) => {
                         if (err) reject(err);
                         else resolve(data);
                     });
                 });
-
                 return reply.status(200).send({
                     code: 200,
                     msg: "success",
