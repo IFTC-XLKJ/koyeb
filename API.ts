@@ -1333,7 +1333,7 @@ async function lookupIP(ip: string | string[] | null): Promise<string> {
         const city: string | undefined =
             "city" in result && result.city ? result.city.names["zh-CN"] : "";
         return `${continent}${country}${subdivisions}${city}`;
-    } catch (e: unknown) {
+    } catch (e) {
         console.log(e);
         return "Unknown";
     }
