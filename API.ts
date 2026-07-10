@@ -1263,7 +1263,7 @@ export default function (fastify: FastifyInstance) {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gpt-5.2",
+                        model: "gpt-oss-120b",
                         flashvider: "azureml",
                         temperature: 1,
                         top_p: 1,
