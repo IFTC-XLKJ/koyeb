@@ -21,7 +21,7 @@ import weather from "weather-js";
 import { KJSC } from "./KJSC.ts";
 // @ts-ignore
 import { Segment } from "node-segment";
-import whois from "whois";
+import * as whois from "whois";
 import type { WhoisResult } from "whois";
 import fs from "fs/promises";
 
