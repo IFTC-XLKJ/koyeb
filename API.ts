@@ -1131,6 +1131,9 @@ export default function (fastify: FastifyInstance) {
                 });
                 const data: string[][] = [];
                 (whoisData as string).split("\n").forEach((item) => {
+                    if (item.split(": ")[0].trim() && item.split(": ")[1].trim() == null) {
+                        return data.push([item.split(": ")[0].trim(), ""]);
+                    }
                     if (item.split(": ")[0].trim() && item.split(": ")[1].trim())
                         data.push([item.split(": ")[0].trim(), item.split(": ")[1].trim()]);
                 });
