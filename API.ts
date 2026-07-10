@@ -1186,7 +1186,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-
             const token = authHeader.split(" ")[1];
             if (!token) {
                 return reply.status(401).send({
@@ -1195,7 +1194,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-
             const { text, from, to } = request.body;
             if (!text || !from || !to) {
                 return reply.status(400).send({
@@ -1204,7 +1202,6 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             }
-
             const languages = [
                 "中文",
                 "简体中文",
@@ -1237,14 +1234,12 @@ export default function (fastify: FastifyInstance) {
                 "爱沙尼亚语",
                 "挪威语",
             ];
-
             if (!languages.includes(from) || !languages.includes(to)) {
                 return reply.status(400).send({
                     error: "Invalid language",
                     languages: languages,
                 });
             }
-
             try {
                 const json: UserResponse = await user.getByToken(token);
                 if (json.code !== 200 || json.fields.length === 0) {
@@ -1254,7 +1249,6 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 }
-
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1281,10 +1275,8 @@ export default function (fastify: FastifyInstance) {
                         presence_penalty: 0,
                     }),
                 });
-
                 const j = (await r.json()) as Record<string, any>;
                 console.log(j);
-
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
                     console.log(j.choices[0].message);
                     let result = JSON.parse(
@@ -1317,7 +1309,7 @@ export default function (fastify: FastifyInstance) {
         },
     );
 }
-function time(): number {
+function time() {
     return Date.now();
 }
 
