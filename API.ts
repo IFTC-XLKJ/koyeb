@@ -1282,7 +1282,7 @@ export default function (fastify: FastifyInstance) {
                     }),
                 });
 
-                const j = await r.json();
+                const j = (await r.json()) as Record<string, any>;
                 console.log(j);
 
                 if (j.choices && j.choices[0] && j.choices[0].message && j.choices[0].message.content) {
