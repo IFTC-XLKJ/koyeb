@@ -1364,6 +1364,14 @@ export default function (fastify: FastifyInstance) {
                 });
                 return;
             }
+            if (word.length > 1024) {
+                reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters: word length must be less than 1024 characters",
+                    timestamp: time(),
+                });
+                return;
+            }
             try {
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
                     method: "POST",
