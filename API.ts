@@ -513,7 +513,7 @@ export default function (fastify: FastifyInstance) {
         "/api/upload-avatar",
         async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
             try {
-                const data = await request.file({
+                const data = await (request as any).file({
                     limits: {
                         fileSize: 1024 * 1024 * 5,
                     },
@@ -867,7 +867,7 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { text } = request.query;
-            const segment = new Segment();
+            const segment: any = new Segment();
             segment.useDefault();
             try {
                 const result = segment.doSegment(text, {
@@ -1316,7 +1316,7 @@ export default function (fastify: FastifyInstance) {
     fastify.get(
         "/api/aiworddefinition",
         {
-            schema: { 
+            schema: {
                 querystring: {
                     type: "object",
                     properties: {
@@ -1403,10 +1403,17 @@ export default function (fastify: FastifyInstance) {
                         presence_penalty: 0,
                     }),
                 });
-                const data: Record<string, any> = await r.json();
+                const data: Record<string, any> = (await r.json()) as Record<string, any>;
                 console.log(data);
-                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
-                    const result = data.choices[0].message.content.replace("```json", "").replace("```", "");
+                if (
+                    data.choices &&
+                    data.choices[0] &&
+                    data.choices[0].message &&
+                    data.choices[0].message.content
+                ) {
+                    const result = data.choices[0].message.content
+                        .replace("```json", "")
+                        .replace("```", "");
                     console.log(result);
                     reply.status(200).send({
                         code: 200,
