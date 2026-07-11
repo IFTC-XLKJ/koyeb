@@ -1327,7 +1327,110 @@ export default function (fastify: FastifyInstance) {
                 },
             },
         },
-        async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {},
+        async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+            const authHeader = request.headers.authorization;
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time(),
+                });
+                return;
+            }
+            const token = authHeader.split(" ")[1];
+            if (!token) {
+                reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: time(),
+                });
+                return;
+            }
+            const query = request.query as { word?: string };
+            const { word } = query;
+            if (!word) {
+                reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time(),
+                });
+                return;
+            }
+            if (decodeURIComponent(word).includes(" ")) {
+                reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time(),
+                });
+                return;
+            }
+            try {
+                const r = await fetch("https://api.amethyst.ltd/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-qCTn7rwQHjTAOUfjQWNtvCRrh4zYOfK6ARhKJWXWL3JLDknv`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app",
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-5.2",
+                        flashvider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [
+                            {
+                                role: "system",
+                                content: `你的任务是解释单词释义。解释要求：
+                                获取单词的基本定义；
+                                提供多语言翻译；
+                                给出例句、用法、词性等详细信息；
+                                结合 AI 生成更丰富的解释，比如结合上下文、使用场景等；
+                                输出格式为标准的JSON，包含以下字段：
+                                "definition": "单词基本定义（用中文回答）",
+                                "translation": "单词中文翻译",
+                                "examples": [多个例句，每个例子包含 "sentence"（英文原文） 和 "translation"（中文翻译） 字段],
+                                "usage": "单词用法（用中文回答）",
+                                "partOfSpeech": "单词词性",
+                                "additionalInfo": "其他信息（用中文回答）"
+                                `,
+                            },
+                            {
+                                role: "user",
+                                content: decodeURIComponent(word),
+                            },
+                        ],
+                        frequency_penalty: 0,
+                        presence_penalty: 0,
+                    }),
+                });
+                const data: Record<string, any> = await r.json();
+                console.log(data);
+                if (data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content) {
+                    const result = data.choices[0].message.content.replace("```json", "").replace("```", "");
+                    console.log(result);
+                    reply.status(200).send({
+                        code: 200,
+                        msg: "请求成功",
+                        data: JSON.parse(result),
+                        timestamp: time(),
+                    });
+                } else {
+                    reply.status(500).send({
+                        code: 500,
+                        msg: "请求失败",
+                        error: data,
+                        timestamp: time(),
+                    });
+                }
+            } catch (e: unknown) {
+                reply.status(500).send({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e instanceof Error ? e.message : String(e),
+                    timestamp: time(),
+                });
+            }
+        },
     );
 }
 function time() {
