@@ -59,7 +59,8 @@ RUN apt-get update && \
     libxtst6 \
     wget \
     iperf3 \
-    gnupg && \
+    gnupg \
+    procps && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
