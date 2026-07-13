@@ -1738,7 +1738,7 @@ export default function (fastify: FastifyInstance) {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "qwen3.5-397b-a17b",
+                        model: "grok-4.5",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
