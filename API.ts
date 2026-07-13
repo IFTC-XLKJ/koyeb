@@ -1447,6 +1447,351 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.post(
+        "/api/aisimilarity",
+        {
+            schema: {
+                body: {
+                    type: "object",
+                    properties: {
+                        text1: { type: "string" },
+                        text2: { type: "string" },
+                    },
+                    required: ["text1", "text2"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Body: { text1: string; text2: string };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const authHeader = request.headers.authorization;
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: Date.now(),
+                });
+            }
+            const token = authHeader.split(" ")[1];
+            if (!token) {
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: Date.now(),
+                });
+            }
+            const { text1, text2 } = request.body;
+            if (!text1 || !text2) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: Date.now(),
+                });
+            }
+            try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0) {
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: Date.now(),
+                    });
+                }
+                const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-FWvFlfzBWBas7snvByT2N8gOQmhNwpQ6pxAC9qIcqWn7niVQ`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app",
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-oss-120b",
+                        flashvider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [
+                            {
+                                role: "system",
+                                content: `你的任务是判断两段文本的相似度。
+                                相似度要求：
+                                计算给出两段文本的含义、长度、内容等综合的相似度。
+                                给出文本的格式：
+                                第一段文本：{text1}
+                                第二段文本：{text2}
+                                输出格式为数值，取值范围为0到1，保留2为小数`,
+                            },
+                            {
+                                role: "user",
+                                content: `第一段文本：${text1}\n第二段文本：${text2}`,
+                            },
+                        ],
+                    }),
+                });
+                const data = (await r.json()) as Record<string, any>;
+                if (
+                    data.choices &&
+                    data.choices[0] &&
+                    data.choices[0].message &&
+                    data.choices[0].message.content
+                ) {
+                    const result = data.choices[0].message.content;
+                    return reply.send({
+                        code: 200,
+                        msg: "请求成功",
+                        data: Number(result),
+                        timestamp: Date.now(),
+                    });
+                }
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "API响应格式错误",
+                    error: data,
+                    timestamp: Date.now(),
+                });
+            } catch (e: unknown) {
+                console.error("AI similarity error:", e);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e instanceof Error ? e.message : String(e),
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.post(
+        "/api/aimgc",
+        {
+            schema: {
+                body: {
+                    type: "object",
+                    properties: {
+                        text: { type: "string" },
+                    },
+                    required: ["text"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Body: { text: string };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const authHeader = request.headers.authorization;
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: Date.now(),
+                });
+            }
+            const token = authHeader.split(" ")[1];
+            if (!token) {
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: Date.now(),
+                });
+            }
+            const { text } = request.body;
+            if (!text) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: Date.now(),
+                });
+            }
+            try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0) {
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: Date.now(),
+                    });
+                }
+                const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-FWvFlfzBWBas7snvByT2N8gOQmhNwpQ6pxAC9qIcqWn7niVQ`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app",
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-oss-120b",
+                        flashvider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [
+                            {
+                                role: "system",
+                                content: `你的任务是根据给出的内容的上下文过滤出敏感词，将敏感词的等级划为10个等级，你需要检测5级以上的敏感词，仅返回敏感词列表，无需返回其他内容，返回格式为JSON，例如：["xxx","xxx"]`,
+                            },
+                            {
+                                role: "user",
+                                content: `${text}`,
+                            },
+                        ],
+                    }),
+                });
+                const data = (await r.json()) as Record<string, any>;
+                if (
+                    data.choices &&
+                    data.choices[0] &&
+                    data.choices[0].message &&
+                    data.choices[0].message.content
+                ) {
+                    const result = data.choices[0].message.content
+                        .replace("```json", "")
+                        .replace("```", "");
+                    return reply.send({
+                        code: 200,
+                        msg: "请求成功",
+                        data: JSON.parse(result),
+                        timestamp: Date.now(),
+                    });
+                }
+                if (data.error) {
+                    return reply.status(500).send({
+                        code: 500,
+                        msg: "Internal Server Error",
+                        error: data.error,
+                        timestamp: Date.now(),
+                    });
+                }
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "API响应格式错误",
+                    error: data,
+                    timestamp: Date.now(),
+                });
+            } catch (e: unknown) {
+                console.error("AI imgc error:", e);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e instanceof Error ? e.message : String(e),
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
+        "/api/aiocr",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        img: { type: "string" },
+                    },
+                    required: ["img"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { img: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const authHeader = request.headers.authorization;
+            if (!authHeader || !authHeader.startsWith("Bearer ")) {
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: Date.now(),
+                });
+            }
+            const token = authHeader.split(" ")[1];
+            if (!token) {
+                return reply.status(401).send({
+                    code: 401,
+                    msg: "鉴权失败",
+                    timestamp: Date.now(),
+                });
+            }
+            const { img } = request.query;
+            if (!img) {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: Date.now(),
+                });
+            }
+            try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0) {
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: Date.now(),
+                    });
+                }
+                const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
+                    method: "POST",
+                    headers: {
+                        Authorization: `Bearer sk-FWvFlfzBWBas7snvByT2N8gOQmhNwpQ6pxAC9qIcqWn7niVQ`,
+                        "Content-Type": "application/json",
+                        Origin: "https://iftc.koyeb.app",
+                    },
+                    body: JSON.stringify({
+                        model: "gpt-oss-120b",
+                        flashvider: "azureml",
+                        temperature: 0.5,
+                        top_p: 1,
+                        messages: [
+                            {
+                                role: "user",
+                                content: [
+                                    {
+                                        type: "text",
+                                        text: "仅识别图中文字，回答时，仅回答识别结果",
+                                    },
+                                    {
+                                        type: "image_url",
+                                        image_url: {
+                                            url: img,
+                                        },
+                                    },
+                                ],
+                            },
+                        ],
+                    }),
+                });
+                const data = (await r.json()) as Record<string, any>;
+                if (
+                    data.choices &&
+                    data.choices[0] &&
+                    data.choices[0].message &&
+                    data.choices[0].message.content
+                ) {
+                    const result = data.choices[0].message.content;
+                    return reply.send({
+                        code: 200,
+                        msg: "识别成功",
+                        data: result,
+                    });
+                }
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "API响应格式错误",
+                    error: data,
+                    timestamp: Date.now(),
+                });
+            } catch (e: unknown) {
+                console.error("AI OCR error:", e);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e instanceof Error ? e.message : String(e),
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
 }
 function time() {
     return Date.now();
