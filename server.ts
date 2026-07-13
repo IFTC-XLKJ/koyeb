@@ -391,6 +391,9 @@ async function start() {
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
 
+                if (request.headers["user-agent"] == "IFTC Bot") {
+                    return;
+                }
                 // IP ban check
                 if (isIPBanned(ip))
                     return reply
@@ -445,9 +448,6 @@ async function start() {
                         .status(429)
                         .send({ code: 429, msg: "请求过于频繁", timestamp: time() });
 
-                if (request.headers["user-agent"] == "IFTC Bot") {
-                    return;
-                }
                 requestLog(request);
             },
         );
