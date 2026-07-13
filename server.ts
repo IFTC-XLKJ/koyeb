@@ -394,6 +394,7 @@ async function start() {
                 if (request.headers["user-agent"] == "IFTC Bot") {
                     return;
                 }
+                if (request.headers["user-agent"].includes("apifox")) return;
                 if (isIPBanned(ip))
                     return reply
                         .status(403)
