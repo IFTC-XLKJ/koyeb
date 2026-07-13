@@ -394,13 +394,10 @@ async function start() {
                 if (request.headers["user-agent"] == "IFTC Bot") {
                     return;
                 }
-                // IP ban check
                 if (isIPBanned(ip))
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "禁止访问", timestamp: time() });
-
-                // Blocked paths check
                 const urlPath: string = request.url.split("?")[0].toLowerCase();
                 if (blockedPaths.some((p) => urlPath.startsWith(p)))
                     return reply.status(404).send({
@@ -408,8 +405,6 @@ async function start() {
                         msg: "Not Found",
                         timestamp: time(),
                     });
-
-                // Exact crawler UA match
                 for (const agent of crawlerAgents) {
                     if (ua.includes(agent)) {
                         recordViolation(ip);
@@ -418,36 +413,28 @@ async function start() {
                             .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                     }
                 }
-
-                // Substring pattern match
                 if (uaSubstrings.some((s) => ua.includes(s))) {
                     recordViolation(ip);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                 }
-
                 if (ua == "Mozilla/5.0") {
                     recordViolation(ip);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                 }
-
-                // Suspicious behavior check
                 if (isSuspiciousBehavior(request)) {
                     recordViolation(ip);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "可疑请求行为", timestamp: time() });
                 }
-
-                // Rate limiting (tiered)
                 if (isRateLimited(ip, request.url))
                     return reply
                         .status(429)
                         .send({ code: 429, msg: "请求过于频繁", timestamp: time() });
-
                 requestLog(request);
             },
         );
