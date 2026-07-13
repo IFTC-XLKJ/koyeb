@@ -27,7 +27,9 @@ const fastify: FastifyInstance = Fastify({
 
 const port: number = Number(process.env.PORT) || 8000;
 const backendPass: string = "21ec360b05962410edbcc561edc8648e";
-const requestCounts = new Map();
+const requestCounts = new Map<string, number[]>();
+const bannedIPs = new Map<string, number>();
+const violationCounts = new Map<string, { count: number; firstAt: number }>();
 const crawlerAgents = new Set([
     "slurp",
     "duckduckbot",
@@ -50,7 +52,116 @@ const crawlerAgents = new Set([
     "puppeteer",
     "playwright",
     "selenium",
+    "mj12bot",
+    "ahrefsbot",
+    "semrushbot",
+    "yandexbot",
+    "sogou",
+    "exabot",
+    "dotbot",
+    "bytespider",
+    "gptbot",
+    "chatgpt-user",
+    "ccbot",
+    "amazonbot",
+    "meta-externalagent",
+    "claudebot",
+    "anthropic-ai",
+    "perplexitybot",
+    "timpibot",
+    "seekportbot",
+    "petalbot",
+    "sistrixcrawler",
+    "dataforseo",
+    "serpstatbot",
+    "serpbot",
+    "blexbot",
+    "turnitin",
+    "paperli",
+    "feedly",
+    "rssbot",
+    "friendfeedbot",
+    "bitlybot",
+    "nutch",
+    "htdig",
+    "grouphigh",
+    "scrapbot",
+    "mechanize",
+    "htmlunit",
+    "ghost",
+    "phantomjs",
+    "slimerjs",
+    "cypress",
+    "nightwatch",
+    "webdriver",
+    "headlesschrome",
+    "lighthouse",
 ]);
+const uaSubstrings = [
+    "bot",
+    "spider",
+    "crawl",
+    "fetch",
+    "scrape",
+    "harvest",
+    "headless",
+    "phantom",
+    "selenium",
+    "webdriver",
+    "automation",
+    "httpclient",
+    "python-requests",
+    "python-urllib",
+    "python/",
+    "java/",
+    "go-http",
+    "php/",
+    "ruby/",
+    "perl/",
+    "curl/",
+    "wget/",
+    "libwww",
+    "lwp-trivial",
+    "scrapy",
+    "httplib",
+    "aiohttp",
+    "httpx/",
+    "node-fetch",
+    "axios/",
+    "undici/",
+    "got/",
+    "request/",
+    "urllib3",
+    "mechanize",
+    "htmlunit",
+];
+const blockedPaths = [
+    "/wp-admin",
+    "/wp-login",
+    "/xmlrpc.php",
+    "/.env",
+    "/.git",
+    "/config.php",
+    "/phpmyadmin",
+    "/admin",
+    "/backup",
+    "/cgi-bin",
+    "/scripts",
+    "/_debug",
+    "/telescope",
+    "/horizon",
+    "/.svn",
+    "/.hg",
+    "/wp-content",
+    "/wp-includes",
+    "/administrator",
+    "/joomla",
+    "/drupal",
+    "/magento",
+    "/shopware",
+    "/typo3",
+];
+const sensitiveEndpoints = ["/api/user/login", "/api/user/register", "/api/user/sendcode", "/api/user/gettoken"];
 
 function time(): number {
     return Date.now();
@@ -65,30 +176,75 @@ async function mixed(filepath: string, params: Record<string, any>): Promise<str
 }
 
 function isSuspiciousBehavior(req: FastifyRequest): boolean {
+    const ua: string = (req.headers["user-agent"] || "").toLowerCase();
+    const uaLength: number = (req.headers["user-agent"] || "").length;
+    if (uaLength > 500) return true;
     const hasBrowserHeaders: boolean =
         !!req.headers.accept &&
         !!req.headers["accept-language"] &&
         !!req.headers["accept-encoding"];
-    const hasReferer: boolean = !!req.headers.referer;
-    const connectionType: string | undefined = req.headers.connection;
-    if (!hasBrowserHeaders && connectionType === "close") return true;
+    const hasSecFetch: boolean =
+        !!req.headers["sec-fetch-dest"] || !!req.headers["sec-fetch-mode"];
+    const hasBrowserUA: boolean =
+        ua.includes("mozilla") || ua.includes("chrome") || ua.includes("firefox") || ua.includes("safari");
+    if (!hasBrowserHeaders && !hasBrowserUA) return true;
+    if (!hasBrowserHeaders && !hasSecFetch && !hasBrowserUA) return true;
     return false;
 }
 
-async function isRateLimited(ip: string | string[]): Promise<boolean> {
+function getIP(ip: string | string[]): string {
+    return Array.isArray(ip) ? ip[0] : ip;
+}
+
+function isRateLimited(ip: string | string[], url: string): boolean {
     const now: number = Date.now();
     const windowMs: number = 60000;
-    const maxRequests: number = 100;
-    if (!requestCounts.has(ip)) requestCounts.set(ip, []);
-    const requests: number[] = requestCounts.get(ip);
-    const recentRequests: number[] = requests.filter((time: number) => now - time < windowMs);
+    const isSensitive: boolean = sensitiveEndpoints.some((ep) => url.startsWith(ep));
+    const maxRequests: number = isSensitive ? 10 : 100;
+    const key: string = getIP(ip);
+    if (!requestCounts.has(key)) requestCounts.set(key, []);
+    const requests: number[] = requestCounts.get(key)!;
+    const recentRequests: number[] = requests.filter((t: number) => now - t < windowMs);
     if (recentRequests.length >= maxRequests) return true;
     recentRequests.push(now);
-    requestCounts.set(ip, recentRequests);
+    requestCounts.set(key, recentRequests);
     return false;
 }
 
-// Periodic cleanup of stale rate limit entries to prevent memory leak
+function isIPBanned(ip: string): boolean {
+    const expires: number | undefined = bannedIPs.get(ip);
+    if (!expires) return false;
+    if (Date.now() > expires) {
+        bannedIPs.delete(ip);
+        return false;
+    }
+    return true;
+}
+
+function banIP(ip: string, durationMs: number): void {
+    bannedIPs.set(ip, Date.now() + durationMs);
+    console.log(`[BAN] IP ${ip} banned for ${durationMs / 1000}s`);
+}
+
+function recordViolation(ip: string): void {
+    const now: number = Date.now();
+    const windowMs: number = 300000; // 5 minutes
+    let entry = violationCounts.get(ip);
+    if (!entry || now - entry.firstAt > windowMs) {
+        entry = { count: 1, firstAt: now };
+    } else {
+        entry.count++;
+    }
+    violationCounts.set(ip, entry);
+    if (entry.count >= 10) {
+        banIP(ip, 1800000); // 30 minutes
+        violationCounts.delete(ip);
+    } else if (entry.count >= 5) {
+        banIP(ip, 300000); // 5 minutes
+    }
+}
+
+// Periodic cleanup of stale rate limit entries, banned IPs, and violation counts
 setInterval(() => {
     const now: number = Date.now();
     const windowMs: number = 60000;
@@ -99,6 +255,12 @@ setInterval(() => {
         } else {
             requestCounts.set(ip, recent);
         }
+    }
+    for (const [ip, expires] of bannedIPs.entries()) {
+        if (now > expires) bannedIPs.delete(ip);
+    }
+    for (const [ip, entry] of violationCounts.entries()) {
+        if (now - entry.firstAt > 300000) violationCounts.delete(ip);
     }
 }, 60000);
 
@@ -227,31 +389,65 @@ async function start() {
                 if (request.headers["user-agent"] == null)
                     return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
-                const ip: string | string[] = request.headers["x-forwarded-for"] || request.ip;
+                const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
+
+                // IP ban check
+                if (isIPBanned(ip))
+                    return reply
+                        .status(403)
+                        .send({ code: 403, msg: "禁止访问", timestamp: time() });
+
+                // Blocked paths check
+                const urlPath: string = request.url.split("?")[0].toLowerCase();
+                if (blockedPaths.some((p) => urlPath.startsWith(p)))
+                    return reply.status(404).send({
+                        code: 404,
+                        msg: "Not Found",
+                        timestamp: time(),
+                    });
+
+                // Exact crawler UA match
                 for (const agent of crawlerAgents) {
                     if (ua.includes(agent)) {
+                        recordViolation(ip);
                         return reply
                             .status(403)
                             .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                     }
                 }
-                if (ua == "Mozilla/5.0")
+
+                // Substring pattern match
+                if (uaSubstrings.some((s) => ua.includes(s))) {
+                    recordViolation(ip);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
-                if (isSuspiciousBehavior(request))
+                }
+
+                if (ua == "Mozilla/5.0") {
+                    recordViolation(ip);
+                    return reply
+                        .status(403)
+                        .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
+                }
+
+                // Suspicious behavior check
+                if (isSuspiciousBehavior(request)) {
+                    recordViolation(ip);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "可疑请求行为", timestamp: time() });
-                if (await isRateLimited(ip))
+                }
+
+                // Rate limiting (tiered)
+                if (isRateLimited(ip, request.url))
                     return reply
                         .status(429)
                         .send({ code: 429, msg: "请求过于频繁", timestamp: time() });
+
                 if (request.headers["user-agent"] == "IFTC Bot") {
-                    console.log("状态检测请求");
                     return;
                 }
-                console.log("Cookies:", request.headers.cookie);
                 requestLog(request);
             },
         );
