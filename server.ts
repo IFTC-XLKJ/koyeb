@@ -763,6 +763,10 @@ async function start() {
                 const interval = setInterval(() => {
                     stream.push(`data: ${Date.now()}\n\n`);
                 }, 1000);
+                setTimeout(() => {
+                    stream.destroy();
+                    clearInterval(interval);
+                }, 15000);
                 request.raw.on("close", () => {
                     stream.destroy();
                     clearInterval(interval);
