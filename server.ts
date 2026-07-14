@@ -268,9 +268,7 @@ function requestLog(req: FastifyRequest): void {
     if (req.headers["user-agent"] == "Koyeb Health Check") return;
     if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
     requestRecord(req);
-    console.log(
-        `收到请求 IP: ${req.ip} XFF: ${req.headers["x-forwarded-for"] || "-"} UA: ${req.headers["user-agent"]}`,
-    );
+    console.log(`收到请求 IP: ${req.ip} XFF: ${req.headers["x-forwarded-for"] || "-"} UA: ${req.headers["user-agent"]}`,);
     console.log(`请求源：${req.headers["referer"] || "Unknown"}`);
     console.log(`Method: ${req.method} URL: ${req.url}`);
 }
