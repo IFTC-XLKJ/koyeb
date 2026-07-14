@@ -376,6 +376,7 @@ async function start() {
         fastify.addHook(
             "onRequest",
             async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+                console.log(request.url, request.method, request.headers["user-agent"]);
                 if (request.url.endsWith("php"))
                     return reply.status(403).send({
                         code: 403,
