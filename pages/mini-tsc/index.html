@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini TSC · 简易 TypeScript 编译器</title>
-    <meta name="description" content="Mini TSC：由 Xiaomi Mimo V2.5 与 Grok 4.5（Cuz AI）联合开发的轻量 TypeScript 编译器，支持部分 Node 内置模块、fetch、HTTP 服务器与 Buffer。">
+    <meta name="description" content="Mini TSC：由 Xiaomi Mimo V2.5 与 Grok 4.5（Cuz AI）联合开发的 TypeScript 编译器，将 TS 编译为原生可执行文件，支持部分 Node 内置模块、fetch、HTTP 服务器与 Buffer。">
     <link rel="icon" href="/static/favicon.jpg">
     <style>
         :root {
@@ -614,7 +614,7 @@
                 <p class="lead">
                     完全由 <strong>Xiaomi Mimo V2.5</strong> 与
                     <strong>Grok 4.5</strong>（由 <strong>Cuz AI</strong> 提供）联合开发的 TypeScript 编译器。
-                    编译结果可直接运行，内置部分 Node 能力，开箱即用。
+                    将 TypeScript 编译为可执行文件，内置部分 Node 能力，开箱即用。
                 </p>
                 <div class="cta-row">
                     <a class="btn btn-primary" href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>
@@ -631,20 +631,20 @@
                         <span class="terminal-title">bash — mini-tsc</span>
                     </div>
                     <div class="terminal-body">
-                        <div><span class="comment"># 编译 TypeScript 源文件</span></div>
+                        <div><span class="comment"># 将 TypeScript 编译为可执行文件</span></div>
                         <div>
                             <span class="prompt">$</span>
                             <span class="cmd"> node dist/cli/index.js compile</span>
                             <span class="path"> app.ts</span>
                             <span class="flag"> -o</span>
-                            <span class="path"> app.js</span>
+                            <span class="path"> app</span>
                         </div>
                         <div><span class="ok">✓ compiled successfully</span></div>
-                        <div style="margin-top:0.6rem"><span class="comment"># 运行编译产物</span></div>
+                        <div style="margin-top:0.6rem"><span class="comment"># 直接运行产物</span></div>
                         <div>
                             <span class="prompt">$</span>
-                            <span class="cmd"> node</span>
-                            <span class="path"> app.js</span>
+                            <span class="cmd"> ./</span>
+                            <span class="path">app</span>
                         </div>
                     </div>
                 </div>
@@ -656,12 +656,12 @@
                 <div class="section-head">
                     <div class="label">// features</div>
                     <h2>核心能力</h2>
-                    <p>不只是把 TS 转成 JS，还内置了一套可运行的运行时接口。</p>
+                    <p>把 TypeScript 编译为原生可执行文件，并内置一套可运行的运行时接口。</p>
                 </div>
                 <div class="grid">
                     <article class="card">
                         <h3><span class="ico">TS</span> TypeScript 编译</h3>
-                        <p>将 TypeScript 源码编译为可执行的 JavaScript，命令行一键完成。</p>
+                        <p>将 TypeScript 源码编译为原生可执行文件，命令行一键完成。</p>
                     </article>
                     <article class="card">
                         <h3><span class="ico">mod</span> import 模块</h3>
@@ -736,7 +736,7 @@
                     </div>
                     <div class="meta-row">
                         <div class="meta-key">类型</div>
-                        <div class="meta-val">TypeScript 编译器 / 轻量运行时</div>
+                        <div class="meta-val">TypeScript → 原生可执行文件编译器</div>
                     </div>
                     <div class="meta-row">
                         <div class="meta-key">平台</div>
@@ -788,7 +788,7 @@
                         <div class="step-num">3</div>
                         <div>
                             <h3>编译 TypeScript</h3>
-                            <p>在解压目录下执行编译命令（将输入文件编译为输出文件）：</p>
+                            <p>在解压目录下执行编译命令（将 TypeScript 编译为可执行文件）：</p>
                             <pre>node dist/cli/index.js compile &lt;input&gt; -o &lt;output&gt;</pre>
                         </div>
                     </div>
@@ -796,9 +796,9 @@
                         <div class="step-num">4</div>
                         <div>
                             <h3>示例</h3>
-                            <p>把 <code class="inline-code">server.ts</code> 编译为 <code class="inline-code">server.js</code>：</p>
-                            <pre>node dist/cli/index.js compile server.ts -o server.js
-node server.js</pre>
+                            <p>把 <code class="inline-code">server.ts</code> 编译为可执行文件 <code class="inline-code">server</code>，并直接运行：</p>
+                            <pre>node dist/cli/index.js compile server.ts -o server
+./server</pre>
                         </div>
                     </div>
                 </div>
