@@ -4,11 +4,829 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mini TSC(简易TypeScript编译器)</title>
+    <title>Mini TSC · 简易 TypeScript 编译器</title>
+    <meta name="description" content="Mini TSC：由 Xiaomi Mimo V2.5 与 Grok 4.5（Cuz AI）联合开发的轻量 TypeScript 编译器，支持部分 Node 内置模块、fetch、HTTP 服务器与 Buffer。">
+    <link rel="icon" href="/static/favicon.jpg">
+    <style>
+        :root {
+            --bg: #0b0f14;
+            --bg-elevated: #121820;
+            --bg-code: #0a0e13;
+            --line: #243041;
+            --line-soft: #1a2330;
+            --text: #e8eef6;
+            --muted: #8b9bb0;
+            --faint: #5c6b80;
+            --accent: #4ecdc4;
+            --accent-dim: rgba(78, 205, 196, 0.14);
+            --accent-glow: rgba(78, 205, 196, 0.35);
+            --blue: #6cb6ff;
+            --amber: #e3b341;
+            --rose: #f778ba;
+            --ok: #3dd68c;
+            --radius: 12px;
+            --font-sans: "Segoe UI", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+            --font-mono: "Cascadia Code", "SF Mono", "Consolas", "XiaoLaiMonoSC", ui-monospace, monospace;
+            --max: 920px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.65;
+            min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -20%, rgba(78, 205, 196, 0.12), transparent),
+                linear-gradient(var(--line-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+            background-size: 100% 100%, 48px 48px, 48px 48px;
+            background-attachment: fixed;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .wrap {
+            width: min(100% - 2rem, var(--max));
+            margin: 0 auto;
+        }
+
+        /* Header */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(12px);
+            background: rgba(11, 15, 20, 0.82);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            padding: 0.85rem 0;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            color: var(--text);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .brand:hover {
+            text-decoration: none;
+            color: var(--accent);
+        }
+
+        .brand-mark {
+            width: 28px;
+            height: 28px;
+            border-radius: 7px;
+            background: linear-gradient(145deg, var(--accent), var(--blue));
+            display: grid;
+            place-items: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: #061016;
+            box-shadow: 0 0 18px var(--accent-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem 1rem;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+            text-decoration: none;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 3.5rem 0 2.5rem;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent);
+            background: var(--accent-dim);
+            border: 1px solid rgba(78, 205, 196, 0.28);
+            border-radius: 999px;
+            padding: 0.28rem 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .eyebrow::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        h1 .ts {
+            color: var(--blue);
+        }
+
+        .lead {
+            font-size: 1.08rem;
+            color: var(--muted);
+            max-width: 38em;
+            margin-bottom: 1.75rem;
+        }
+
+        .lead strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: 8px;
+            padding: 0.72rem 1.2rem;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: background 0.15s, border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+            text-decoration: none;
+            min-height: 44px;
+        }
+
+        .btn:hover {
+            text-decoration: none;
+            transform: translateY(-1px);
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #061016;
+            box-shadow: 0 0 24px var(--accent-glow);
+        }
+
+        .btn-primary:hover {
+            background: #6fe0d8;
+            color: #061016;
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text);
+            border-color: var(--line);
+        }
+
+        .btn-ghost:hover {
+            border-color: var(--muted);
+            background: var(--bg-elevated);
+            color: var(--text);
+        }
+
+        /* Terminal window */
+        .terminal {
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            background: var(--bg-code);
+            overflow: hidden;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+        }
+
+        .terminal-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.7rem 1rem;
+            background: var(--bg-elevated);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-r { background: #ff5f57; }
+        .dot-y { background: #febc2e; }
+        .dot-g { background: #28c840; }
+
+        .terminal-title {
+            margin-left: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--faint);
+        }
+
+        .terminal-body {
+            padding: 1.15rem 1.25rem 1.35rem;
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            line-height: 1.7;
+            overflow-x: auto;
+        }
+
+        .prompt {
+            color: var(--accent);
+        }
+
+        .cmd {
+            color: var(--text);
+        }
+
+        .flag {
+            color: var(--amber);
+        }
+
+        .path {
+            color: var(--blue);
+        }
+
+        .comment {
+            color: var(--faint);
+        }
+
+        .ok {
+            color: var(--ok);
+        }
+
+        /* Sections */
+        section {
+            padding: 2.75rem 0;
+        }
+
+        .section-head {
+            margin-bottom: 1.5rem;
+        }
+
+        .section-head h2 {
+            font-size: 1.45rem;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-head p {
+            color: var(--muted);
+            font-size: 0.98rem;
+        }
+
+        .label {
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--accent);
+            margin-bottom: 0.45rem;
+        }
+
+        /* Feature grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 0.85rem;
+        }
+
+        .card {
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.15rem 1.2rem;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .card:hover {
+            border-color: rgba(78, 205, 196, 0.35);
+            box-shadow: 0 0 0 1px rgba(78, 205, 196, 0.08);
+        }
+
+        .card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card h3 .ico {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent);
+            background: var(--accent-dim);
+            border-radius: 5px;
+            padding: 0.15rem 0.4rem;
+        }
+
+        .card p {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        /* Module chips */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .chip {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--blue);
+            background: rgba(108, 182, 255, 0.1);
+            border: 1px solid rgba(108, 182, 255, 0.25);
+            border-radius: 6px;
+            padding: 0.35rem 0.7rem;
+        }
+
+        .chip-warn {
+            color: var(--amber);
+            background: rgba(227, 179, 65, 0.1);
+            border-color: rgba(227, 179, 65, 0.28);
+        }
+
+        /* Info table */
+        .meta {
+            display: grid;
+            gap: 0;
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            overflow: hidden;
+            background: var(--bg-elevated);
+        }
+
+        .meta-row {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1rem;
+            padding: 0.9rem 1.15rem;
+            border-bottom: 1px solid var(--line);
+            font-size: 0.95rem;
+        }
+
+        .meta-row:last-child {
+            border-bottom: none;
+        }
+
+        .meta-key {
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--faint);
+            padding-top: 0.1rem;
+        }
+
+        .meta-val {
+            color: var(--text);
+        }
+
+        .meta-val code {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 0.1rem 0.4rem;
+            border-radius: 4px;
+        }
+
+        /* Usage steps */
+        .steps {
+            display: grid;
+            gap: 0.85rem;
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1rem;
+            align-items: start;
+            background: var(--bg-elevated);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 1.1rem 1.2rem;
+        }
+
+        .step-num {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #061016;
+            background: var(--accent);
+            width: 1.7rem;
+            height: 1.7rem;
+            border-radius: 6px;
+            display: grid;
+            place-items: center;
+            flex-shrink: 0;
+        }
+
+        .step h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .step p {
+            color: var(--muted);
+            font-size: 0.92rem;
+            margin-bottom: 0.65rem;
+        }
+
+        .step pre,
+        .inline-code {
+            font-family: var(--font-mono);
+            font-size: 0.84rem;
+            background: var(--bg-code);
+            border: 1px solid var(--line);
+            border-radius: 8px;
+            padding: 0.75rem 0.9rem;
+            overflow-x: auto;
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .inline-code {
+            display: inline;
+            padding: 0.12rem 0.4rem;
+        }
+
+        /* Limits */
+        .limits {
+            border-left: 3px solid var(--amber);
+            background: rgba(227, 179, 65, 0.08);
+            border-radius: 0 var(--radius) var(--radius) 0;
+            padding: 1rem 1.15rem;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .limits strong {
+            color: var(--amber);
+        }
+
+        /* Download CTA */
+        .download-panel {
+            text-align: center;
+            border: 1px solid var(--line);
+            border-radius: calc(var(--radius) + 4px);
+            padding: 2.25rem 1.5rem;
+            background:
+                radial-gradient(ellipse 70% 80% at 50% 0%, rgba(78, 205, 196, 0.12), transparent),
+                var(--bg-elevated);
+        }
+
+        .download-panel h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .download-panel p {
+            color: var(--muted);
+            margin-bottom: 1.35rem;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 2rem 0 2.5rem;
+            color: var(--faint);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        footer .credits {
+            margin-top: 0.4rem;
+            color: var(--muted);
+        }
+
+        footer .credits span {
+            color: var(--rose);
+        }
+
+        @media (max-width: 560px) {
+            .meta-row {
+                grid-template-columns: 1fr;
+                gap: 0.25rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding-top: 2.25rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            .btn {
+                transition: none;
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div id="app"></div>
+    <header>
+        <div class="wrap nav">
+            <a class="brand" href="/mini-tsc">
+                <span class="brand-mark">TS</span>
+                mini-tsc
+            </a>
+            <nav class="nav-links" aria-label="页面导航">
+                <a href="#features">特性</a>
+                <a href="#modules">模块</a>
+                <a href="#usage">用法</a>
+                <a href="#download">下载</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="wrap">
+                <div class="eyebrow">轻量 · 可运行 · AI 联合开发</div>
+                <h1>Mini <span class="ts">TSC</span><br>简易 TypeScript 编译器</h1>
+                <p class="lead">
+                    完全由 <strong>Xiaomi Mimo V2.5</strong> 与
+                    <strong>Grok 4.5</strong>（由 <strong>Cuz AI</strong> 提供）联合开发的 TypeScript 编译器。
+                    编译结果可直接运行，内置部分 Node 能力，开箱即用。
+                </p>
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>
+                        下载 mini-tsc.zip
+                    </a>
+                    <a class="btn btn-ghost" href="#usage">查看用法</a>
+                </div>
+
+                <div class="terminal" aria-label="编译命令示例">
+                    <div class="terminal-bar">
+                        <span class="dot dot-r"></span>
+                        <span class="dot dot-y"></span>
+                        <span class="dot dot-g"></span>
+                        <span class="terminal-title">bash — mini-tsc</span>
+                    </div>
+                    <div class="terminal-body">
+                        <div><span class="comment"># 编译 TypeScript 源文件</span></div>
+                        <div>
+                            <span class="prompt">$</span>
+                            <span class="cmd"> node dist/cli/index.js compile</span>
+                            <span class="path"> app.ts</span>
+                            <span class="flag"> -o</span>
+                            <span class="path"> app.js</span>
+                        </div>
+                        <div><span class="ok">✓ compiled successfully</span></div>
+                        <div style="margin-top:0.6rem"><span class="comment"># 运行编译产物</span></div>
+                        <div>
+                            <span class="prompt">$</span>
+                            <span class="cmd"> node</span>
+                            <span class="path"> app.js</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features">
+            <div class="wrap">
+                <div class="section-head">
+                    <div class="label">// features</div>
+                    <h2>核心能力</h2>
+                    <p>不只是把 TS 转成 JS，还内置了一套可运行的运行时接口。</p>
+                </div>
+                <div class="grid">
+                    <article class="card">
+                        <h3><span class="ico">TS</span> TypeScript 编译</h3>
+                        <p>将 TypeScript 源码编译为可执行的 JavaScript，命令行一键完成。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">mod</span> import 模块</h3>
+                        <p>支持 <code class="inline-code">import</code> 导入本地模块；暂不支持 npm 包。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">net</span> HTTP 服务器</h3>
+                        <p>可用 <code class="inline-code">http.createServer</code> 启动本地 HTTP 服务。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">fs</span> 文件系统</h3>
+                        <p>支持 <code class="inline-code">fs</code> 同步与异步读写，操作本地文件。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">fetch</span> 网络请求</h3>
+                        <p>内置 <code class="inline-code">fetch</code>，并支持 <code class="inline-code">ReadableStream</code>。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">buf</span> Buffer 与定时器</h3>
+                        <p>支持 <code class="inline-code">Buffer</code>、<code class="inline-code">setTimeout</code> / <code class="inline-code">setInterval</code>。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">ui</span> 交互对话框</h3>
+                        <p>支持 <code class="inline-code">alert</code>、<code class="inline-code">confirm</code>、<code class="inline-code">prompt</code> 基础交互。</p>
+                    </article>
+                    <article class="card">
+                        <h3><span class="ico">os</span> 跨平台</h3>
+                        <p>支持 Windows 与 Linux（含 Termux），依赖仅需 clang 与 curl。</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="modules">
+            <div class="wrap">
+                <div class="section-head">
+                    <div class="label">// runtime</div>
+                    <h2>支持的 Node 内置模块</h2>
+                    <p>部分实现，覆盖常见脚本与服务端场景。</p>
+                </div>
+                <div class="chips" aria-label="支持的模块列表">
+                    <span class="chip">fs</span>
+                    <span class="chip">path</span>
+                    <span class="chip">child_process</span>
+                    <span class="chip">process</span>
+                    <span class="chip">http</span>
+                    <span class="chip">os</span>
+                    <span class="chip">net</span>
+                    <span class="chip">events</span>
+                    <span class="chip">crypto</span>
+                    <span class="chip">readline</span>
+                    <span class="chip">Buffer</span>
+                    <span class="chip">fetch</span>
+                    <span class="chip">ReadableStream</span>
+                </div>
+                <div class="limits" style="margin-top: 1.25rem;">
+                    <strong>注意：</strong>目前<strong>暂不支持导入 npm 包</strong>。请使用本地模块与上述内置能力编写程序。
+                </div>
+            </div>
+        </section>
+
+        <section id="info">
+            <div class="wrap">
+                <div class="section-head">
+                    <div class="label">// about</div>
+                    <h2>项目信息</h2>
+                </div>
+                <div class="meta">
+                    <div class="meta-row">
+                        <div class="meta-key">开发者</div>
+                        <div class="meta-val">Xiaomi Mimo V2.5 + Grok 4.5（Cuz AI）联合开发</div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-key">类型</div>
+                        <div class="meta-val">TypeScript 编译器 / 轻量运行时</div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-key">平台</div>
+                        <div class="meta-val">Windows · Linux（含 Termux）</div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-key">依赖</div>
+                        <div class="meta-val"><code>clang</code>、<code>curl</code></div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-key">模块导入</div>
+                        <div class="meta-val">支持 <code>import</code> 本地模块 · 暂不支持 npm</div>
+                    </div>
+                    <div class="meta-row">
+                        <div class="meta-key">下载</div>
+                        <div class="meta-val">
+                            <a href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>mini-tsc.zip</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="usage">
+            <div class="wrap">
+                <div class="section-head">
+                    <div class="label">// getting-started</div>
+                    <h2>快速上手</h2>
+                    <p>解压后用 Node 调用 CLI 即可编译。</p>
+                </div>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-num">1</div>
+                        <div>
+                            <h3>安装依赖</h3>
+                            <p>确保系统已安装 Node.js，以及编译运行所需的系统依赖：</p>
+                            <pre>clang · curl · node</pre>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">2</div>
+                        <div>
+                            <h3>下载并解压</h3>
+                            <p>下载发行包，解压到任意目录。</p>
+                            <pre><a href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download style="color:inherit">mini-tsc.zip</a></pre>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">3</div>
+                        <div>
+                            <h3>编译 TypeScript</h3>
+                            <p>在解压目录下执行编译命令（将输入文件编译为输出文件）：</p>
+                            <pre>node dist/cli/index.js compile &lt;input&gt; -o &lt;output&gt;</pre>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-num">4</div>
+                        <div>
+                            <h3>示例</h3>
+                            <p>把 <code class="inline-code">server.ts</code> 编译为 <code class="inline-code">server.js</code>：</p>
+                            <pre>node dist/cli/index.js compile server.ts -o server.js
+node server.js</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="download">
+            <div class="wrap">
+                <div class="download-panel">
+                    <div class="label" style="justify-content:center;display:flex;">// download</div>
+                    <h2>立即获取 Mini TSC</h2>
+                    <p>一键下载压缩包，解压后即可开始编译 TypeScript。</p>
+                    <a class="btn btn-primary" href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>
+                        下载 mini-tsc.zip
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="wrap">
+            <div>Mini TSC · 简易 TypeScript 编译器</div>
+            <div class="credits">
+                Powered by <span>Xiaomi Mimo V2.5</span> &amp; <span>Grok 4.5</span> · Cuz AI
+            </div>
+        </div>
+    </footer>
 </body>
 
 </html>
