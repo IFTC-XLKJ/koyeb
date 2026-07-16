@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mini TSC · 简易 TypeScript 编译器</title>
-    <meta name="description" content="Mini TSC：由 Xiaomi Mimo V2.5 与 Grok 4.5（Cuz AI）联合开发的 TypeScript 编译器，将 TS 编译为原生可执行文件，支持部分 Node 内置模块、fetch、HTTP 服务器与 Buffer。">
+    <meta name="description"
+        content="Mini TSC：由 Xiaomi Mimo V2.5 与 Grok 4.5（Cuz AI）联合开发的 TypeScript 编译器，将 TS 编译为原生可执行文件，支持部分 Node 内置模块、fetch、HTTP 服务器与 Buffer。">
     <link rel="icon" href="/static/favicon.jpg">
     <style>
         :root {
@@ -266,9 +267,17 @@
             border-radius: 50%;
         }
 
-        .dot-r { background: #ff5f57; }
-        .dot-y { background: #febc2e; }
-        .dot-g { background: #28c840; }
+        .dot-r {
+            background: #ff5f57;
+        }
+
+        .dot-y {
+            background: #febc2e;
+        }
+
+        .dot-g {
+            background: #28c840;
+        }
 
         .terminal-title {
             margin-left: 0.5rem;
@@ -617,7 +626,9 @@
                     将 TypeScript 编译为可执行文件，内置部分 Node 能力，开箱即用。
                 </p>
                 <div class="cta-row">
-                    <a class="btn btn-primary" href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>
+                    <a class="btn btn-primary"
+                        href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip"
+                        download>
                         下载 mini-tsc.zip
                     </a>
                     <a class="btn btn-ghost" href="#usage">查看用法</a>
@@ -639,7 +650,8 @@
                             <span class="flag"> -o</span>
                             <span class="path"> app</span>
                         </div>
-                        <div><span class="ok">✓ compiled successfully</span></div>
+                        <div><span class="ok">✓ Compilation successful
+                                ./out/app</span></div>
                         <div style="margin-top:0.6rem"><span class="comment"># 直接运行产物</span></div>
                         <div>
                             <span class="prompt">$</span>
@@ -677,15 +689,18 @@
                     </article>
                     <article class="card">
                         <h3><span class="ico">fetch</span> 网络请求</h3>
-                        <p>内置 <code class="inline-code">fetch</code>，并支持 <code class="inline-code">ReadableStream</code>。</p>
+                        <p>内置 <code class="inline-code">fetch</code>，并支持 <code
+                                class="inline-code">ReadableStream</code>。</p>
                     </article>
                     <article class="card">
                         <h3><span class="ico">buf</span> Buffer 与定时器</h3>
-                        <p>支持 <code class="inline-code">Buffer</code>、<code class="inline-code">setTimeout</code> / <code class="inline-code">setInterval</code>。</p>
+                        <p>支持 <code class="inline-code">Buffer</code>、<code class="inline-code">setTimeout</code> /
+                            <code class="inline-code">setInterval</code>。</p>
                     </article>
                     <article class="card">
                         <h3><span class="ico">ui</span> 交互对话框</h3>
-                        <p>支持 <code class="inline-code">alert</code>、<code class="inline-code">confirm</code>、<code class="inline-code">prompt</code> 基础交互。</p>
+                        <p>支持 <code class="inline-code">alert</code>、<code class="inline-code">confirm</code>、<code
+                                class="inline-code">prompt</code> 基础交互。</p>
                     </article>
                     <article class="card">
                         <h3><span class="ico">os</span> 跨平台</h3>
@@ -753,7 +768,8 @@
                     <div class="meta-row">
                         <div class="meta-key">下载</div>
                         <div class="meta-val">
-                            <a href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>mini-tsc.zip</a>
+                            <a href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip"
+                                download>mini-tsc.zip</a>
                         </div>
                     </div>
                 </div>
@@ -796,7 +812,8 @@
                         <div class="step-num">4</div>
                         <div>
                             <h3>示例</h3>
-                            <p>把 <code class="inline-code">server.ts</code> 编译为可执行文件 <code class="inline-code">server</code>，并直接运行：</p>
+                            <p>把 <code class="inline-code">server.ts</code> 编译为可执行文件 <code
+                                    class="inline-code">server</code>，并直接运行：</p>
                             <pre>node dist/cli/index.js compile server.ts -o server
 ./out/server</pre>
                         </div>
@@ -811,7 +828,9 @@
                     <div class="label" style="justify-content:center;display:flex;">// download</div>
                     <h2>立即获取 Mini TSC</h2>
                     <p>一键下载压缩包，解压后即可开始编译 TypeScript。</p>
-                    <a class="btn btn-primary" href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip" download>
+                    <a class="btn btn-primary"
+                        href="https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/mini-tsc.zip"
+                        download>
                         下载 mini-tsc.zip
                     </a>
                 </div>
