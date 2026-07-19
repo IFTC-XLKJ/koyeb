@@ -86,6 +86,7 @@
     const dialog = document.createElement("dialog");
     const close = document.createElement("button");
     close.className = "close";
+    close.innerText = "x";
     dialog.appendChild(close);
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
