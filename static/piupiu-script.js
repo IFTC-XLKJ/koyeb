@@ -85,6 +85,7 @@
     window.addEventListener('touchend', dragEnd);
     const dialog = document.createElement("dialog");
     const close = document.createElement("button");
+    close.className = "close";
     dialog.appendChild(close);
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
