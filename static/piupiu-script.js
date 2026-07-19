@@ -100,5 +100,5 @@
     });
     close.addEventListener("click", e => {
         dialog.close();
-    })
+    });
 })();
