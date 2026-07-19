@@ -1,11 +1,11 @@
 (async function() {
     if (globalThis.injected) return;
     globalThis.injected = true;
-    const ball = document.getElementById('floatBall');
-        
-        let isDragging = false;
-        let startX, startY; // 鼠标/手指点击的初始位置
-        let initialX, initialY; // 悬浮球的初始定位值
+    const ball = document.createElement('div');
+    document.body.appendChild(ball);
+    let isDragging = false;
+    let startX, startY;
+    let initialX, initialY;
 
         // 核心拖动逻辑
         function dragStart(e) {
