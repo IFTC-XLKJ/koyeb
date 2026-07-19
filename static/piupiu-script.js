@@ -1,1 +1,4 @@
-alert("注入成功");
+(async function() {
+    if (globalThis.injected) return;
+    globalThis.injected = true;
+})();
