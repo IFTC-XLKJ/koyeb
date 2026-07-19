@@ -21,6 +21,9 @@
 }
 .floating-ball:active {
     transform: scale(0.95);
+}
+.close {
+    float: right;
 }`;
     document.head.appendChild(style);
     const ball = document.createElement('div');
@@ -81,6 +84,8 @@
     window.addEventListener('touchmove', dragMove, { passive: false });
     window.addEventListener('touchend', dragEnd);
     const dialog = document.createElement("dialog");
+    const close = document.createElement("button");
+    dialog.appendChild(close);
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
         dialog.showModal();
