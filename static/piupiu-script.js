@@ -1,6 +1,27 @@
 (async function() {
     if (globalThis.injected) return;
     globalThis.injected = true;
+    const style = document.createElement("style");
+    style.textContent = `.floating-ball {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    background-color: #3b82f6;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    cursor: move;
+    user-select: none;
+    /* 默认定位在右下角 */
+    bottom: 50px;
+    right: 30px;
+    z-index: 9999;
+    /* 增加平滑过渡，让吸附更自然（拖动时需要动态关闭，否则会卡顿） */
+    transition: transform 0.1s ease;
+}
+.floating-ball:active {
+    transform: scale(0.95);
+}`;
+    document.head.appendChild(style);
     const ball = document.createElement('div');
     ball.className = "floating-ball";
     document.body.appendChild(ball);
