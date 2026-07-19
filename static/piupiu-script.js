@@ -91,4 +91,7 @@
     ball.addEventListener("click", e => {
         dialog.showModal();
     });
+    close.addEventListener("click", e => {
+        dialog.close();
+    })
 })();
