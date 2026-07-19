@@ -15,7 +15,7 @@
     /* 默认定位在右下角 */
     bottom: 50px;
     right: 30px;
-    z-index: 9999;
+    z-index: 9999999999999999999999999999999;
     /* 增加平滑过渡，让吸附更自然（拖动时需要动态关闭，否则会卡顿） */
     transition: transform 0.1s ease;
 }
@@ -83,6 +83,6 @@
     const dialog = document.createElement("dialog");
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
-        
+        dialog.showModal();
     });
 })();
