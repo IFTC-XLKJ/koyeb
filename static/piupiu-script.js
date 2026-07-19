@@ -96,9 +96,11 @@
     dialog.appendChild(close);
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
+        alert("打开弹窗");
         dialog.showModal();
     });
     close.addEventListener("click", e => {
+        alert("关闭弹窗");
         dialog.close();
     });
 })();
