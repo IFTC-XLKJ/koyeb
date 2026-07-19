@@ -1,4 +1,5 @@
 (async function() {
+    alert("注入成功");
     if (globalThis.injected) return;
     globalThis.injected = true;
     const style = document.createElement("style");
