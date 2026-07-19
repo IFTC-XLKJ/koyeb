@@ -24,6 +24,11 @@
 }
 .close {
     float: right;
+}
+.xdialog {
+    width: 90vw;
+    height: 90vh;
+    background-color: white;
 }`;
     document.head.appendChild(style);
     const ball = document.createElement('div');
@@ -84,6 +89,7 @@
     window.addEventListener('touchmove', dragMove, { passive: false });
     window.addEventListener('touchend', dragEnd);
     const dialog = document.createElement("dialog");
+    dialog.className = "xdialog";
     const close = document.createElement("button");
     close.className = "close";
     close.innerText = "x";
