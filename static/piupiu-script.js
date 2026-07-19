@@ -1,5 +1,4 @@
 (async function() {
-    // alert("注入成功");
     if (globalThis.injected) return;
     globalThis.injected = true;
     const style = document.createElement("style");
@@ -24,11 +23,15 @@
 }
 .close {
     float: right;
+    background-color: none;
+    padding: 8px;
+    font-size: 18px;
 }
 .xdialog {
     width: 90vw;
     height: 90vh;
     background-color: white;
+    border-radius: 8px;
 }`;
     document.head.appendChild(style);
     const ball = document.createElement('div');
@@ -96,11 +99,11 @@
     dialog.appendChild(close);
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
-        alert("打开弹窗");
+        //alert("打开弹窗");
         dialog.showModal();
     });
     close.addEventListener("click", e => {
-        alert("关闭弹窗");
+        //alert("关闭弹窗");
         dialog.close();
     });
 })();
