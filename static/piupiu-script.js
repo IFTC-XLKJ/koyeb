@@ -80,4 +80,9 @@
     ball.addEventListener('touchstart', dragStart, { passive: false });
     window.addEventListener('touchmove', dragMove, { passive: false });
     window.addEventListener('touchend', dragEnd);
+    const dialog = document.createElement("dialog");
+    document.body.appendChild(dialog);
+    ball.addEventListener("click", e => {
+        
+    });
 })();
