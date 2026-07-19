@@ -2,6 +2,7 @@
     if (globalThis.injected) return;
     globalThis.injected = true;
     const ball = document.createElement('div');
+    ball.className = "floating-ball";
     document.body.appendChild(ball);
     let isDragging = false;
     let startX, startY;
