@@ -100,11 +100,9 @@
     dialog.appendChild(close);
     document.body.appendChild(dialog);
     ball.addEventListener("click", e => {
-        //alert("打开弹窗");
-        dialog.showModal();
+        dialog.showModal(); // 显示弹窗
     });
     close.addEventListener("click", e => {
-        //alert("关闭弹窗");
-        dialog.close();
+        dialog.close(); // 关闭弹窗
     });
 })();
