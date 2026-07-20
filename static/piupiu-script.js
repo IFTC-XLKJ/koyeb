@@ -26,7 +26,7 @@
     background-color: #00000000;
     padding: 8px;
     border: none;
-    font-size: 18px;
+    font-size: 21px;
 }
 .xdialog {
     width: 90vw;
