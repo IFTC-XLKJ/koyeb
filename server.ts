@@ -829,13 +829,13 @@ process.on("uncaughtException", (err) => {
 });
 
 setInterval(async (): Promise<void> => {
-    try {
-        await systemMonitor();
-        const r: Response = await fetch("https://iftc.deno.dev");
-        console.log(await r.text());
-    } catch (e) {
-        console.error("Monitor error:", e);
-    }
+    // try {
+    //     await systemMonitor();
+    //     const r: Response = await fetch("https://iftc.deno.dev");
+    //     console.log(await r.text());
+    // } catch (e) {
+    //     console.error("Monitor error:", e);
+    // }
     const timeStr: string = new Date().toLocaleDateString("zh-CN", {
         year: "numeric",
         month: "long",
