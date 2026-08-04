@@ -1257,7 +1257,7 @@ export default function (fastify: FastifyInstance) {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gpt-oss-120b",
+                        model: "grok-4.5",
                         flashvider: "azureml",
                         temperature: 1,
                         top_p: 1,
@@ -1381,7 +1381,7 @@ export default function (fastify: FastifyInstance) {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemma-4-26b-a4b-it",
+                        model: "grok-4.5",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1508,7 +1508,7 @@ export default function (fastify: FastifyInstance) {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gemma-4-26b-a4b-it",
+                        model: "grok-4.5",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
@@ -1622,7 +1622,7 @@ export default function (fastify: FastifyInstance) {
                         Origin: "https://iftc.koyeb.app",
                     },
                     body: JSON.stringify({
-                        model: "gpt-oss-120b",
+                        model: "grok-4.5",
                         flashvider: "azureml",
                         temperature: 0.5,
                         top_p: 1,
