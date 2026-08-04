@@ -413,6 +413,7 @@ async function start() {
                 }
                 if (uaSubstrings.some((s) => ua.includes(s))) {
                     recordViolation(ip);
+                    console.log("UA:", ua);
                     console.log("UA Substring detected:", request.url);
                     return reply
                         .status(403)
