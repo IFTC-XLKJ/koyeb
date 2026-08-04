@@ -5,6 +5,37 @@ if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 
+const tokenDisplay = document.getElementById("token-display");
+const copyTokenBtn = document.getElementById("copy-token");
+
+async function fetchToken() {
+    try {
+        const response = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
+            headers: { "Cache-Control": "no-cache" }
+        });
+        const data = await response.json();
+        if (data.code == 200 && data.token) {
+            tokenDisplay.textContent = data.token;
+        } else {
+            tokenDisplay.textContent = "获取失败";
+        }
+    } catch (e) {
+        tokenDisplay.textContent = "获取失败";
+    }
+}
+fetchToken();
+
+copyTokenBtn.addEventListener("click", () => {
+    const token = tokenDisplay.textContent;
+    if (token && token !== "加载中..." && token !== "获取失败") {
+        navigator.clipboard.writeText(token).then(() => {
+            toast.showToast("Token 已复制", 2, "center", "large", "success", "", false);
+        }).catch(() => {
+            toast.showToast("复制失败", 2, "center", "large", "error", "", true);
+        });
+    }
+});
+
 const signIn = document.getElementById("sign-in");
 signIn.addEventListener("click", async () => {
     const loadid = toast.loading("签到中...");

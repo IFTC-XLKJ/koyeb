@@ -115,6 +115,26 @@ s-text-field {
     border: 2px solid #87CEEB;
 }
 
+.token-section {
+    margin-top: 10px;
+    padding: 10px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+.token-value {
+    display: block;
+    margin: 5px 0;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 14px;
+    word-break: break-all;
+    color: #333;
+}
+
 slot {
     display: none;
 }
