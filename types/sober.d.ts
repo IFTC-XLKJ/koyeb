@@ -367,16 +367,46 @@ declare module "sober" {
 
     // ==================== Icon ====================
 
+    /** 内置图标名称 */
+    type IconName =
+        | 'none'
+        | 'home'
+        | 'add'
+        | 'search'
+        | 'menu'
+        | 'arrow_back'
+        | 'arrow_forward'
+        | 'arrow_upward'
+        | 'arrow_downward'
+        | 'arrow_drop_up'
+        | 'arrow_drop_down'
+        | 'arrow_drop_left'
+        | 'arrow_drop_right'
+        | 'more_vert'
+        | 'more_horiz'
+        | 'close'
+        | 'done'
+        | 'chevron_up'
+        | 'chevron_down'
+        | 'chevron_left'
+        | 'chevron_right'
+        | 'light_mode'
+        | 'dark_mode'
+        | 'star'
+        | 'favorite';
+
     interface IconProps {
-        name?: string;
+        name?: IconName;
         src?: string;
     }
 
     /**
      * `s-icon` - 图标组件
+     *
+     * 内置 25 个 Material Design 图标，支持通过 `src` 属性加载自定义 SVG
      */
     class Icon extends SoberElement {
-        name: string;
+        name: IconName;
         src: string;
     }
 
