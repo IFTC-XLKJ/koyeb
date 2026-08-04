@@ -995,6 +995,7 @@ declare module "sober" {
 
 declare global {
     namespace sober {
+        type IconName = import("sober").IconName;
         type AlertType = import("sober").AlertType;
         type ButtonType = import("sober").ButtonType;
         type CardType = import("sober").CardType;
