@@ -387,7 +387,7 @@ async function start() {
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
 
-                if (request.headers["user-agent"] == "IFTC Bot" || ua == "mini-tsc/1.0") {
+                if (ua == "IFTC Bot" || ua == "mini-tsc/1.0" || ua == "xaiimageapifetch/1.0") {
                     return;
                 }
                 if (request.headers["user-agent"].includes("apifox")) return;
