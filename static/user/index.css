@@ -122,6 +122,12 @@ s-text-field {
     border-radius: 8px;
 }
 
+.token-section p {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
 .token-value {
     display: block;
     margin: 5px 0;
