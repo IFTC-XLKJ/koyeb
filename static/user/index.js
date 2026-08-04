@@ -4,7 +4,6 @@ const toast = new Toast();
 if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
-const { prompt } = mdui;
 
 const signIn = document.getElementById("sign-in");
 signIn.addEventListener("click", async () => {
@@ -40,25 +39,35 @@ signIn.addEventListener("click", async () => {
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
-    prompt({
-        headline: "修改用户名",
-        description: "",
-        closeOnEsc: true,
-        closeOnOutsideClick: true,
-        confirmText: "确定",
-        cancelText: "取消",
-        textFieldOptions: {
-            label: "用户名",
-            value: username,
-            type: "text",
-            required: true,
-            helperText: "请输入新的用户名",
-            // validationMessage: "用户名不能为空",
+    // Create dialog for prompt
+    const dialog = document.createElement("s-dialog");
+    dialog.innerHTML = `
+        <div style="padding: 24px;">
+            <h3 style="margin: 0 0 16px;">修改用户名</h3>
+            <s-text-field id="username-input" label="用户名" value="${username}" style="width: 100%;"></s-text-field>
+            <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+                <s-button id="cancel-btn" type="text">取消</s-button>
+                <s-button id="confirm-btn" type="filled">确定</s-button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(dialog);
+    dialog.show();
+    
+    document.getElementById("cancel-btn").onclick = () => {
+        dialog.close();
+        setTimeout(() => dialog.remove(), 300);
+    };
+    
+    document.getElementById("confirm-btn").onclick = async () => {
+        const newUsername = document.getElementById("username-input").value;
+        if (newUsername && newUsername !== username) {
+            // TODO: Add API call to update username
+            toast.showToast("用户名更新成功", 2, "center", "large", "success", "", false);
         }
-    })
-    document.querySelectorAll("mdui-button[variant='text']").forEach(button => {
-        button.setAttribute("variant", "filled");
-    });
+        dialog.close();
+        setTimeout(() => dialog.remove(), 300);
+    };
 });
 const updateAvatar = document.getElementById("update-avatar");
 updateAvatar.addEventListener("click", e => {

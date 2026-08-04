@@ -1,14 +1,14 @@
 :root {
-    --mdui-color-primary: 135, 206, 235;
-    --mdui-color-primary-container: 135, 206, 235;
-    --mdui-color-on-primary: 150, 150, 150, 0.2;
-    --mdui-color-on-primary-container: 79, 204, 255;
-    --mdui-color-inverse-primary: 79, 204, 255;
-    --mdui-shape-corner-extra-large: 16px;
-    --mdui-color-surface-container-high: 255, 255, 255;
-    --mdui-color-scrim: 0, 0, 0;
-    --mdui-color-error: 255, 82, 82;
-    --mdui-color-on-error: 255, 255, 255;
+    --sober-color-primary: 135, 206, 235;
+    --sober-color-primary-container: 135, 206, 235;
+    --sober-color-on-primary: 150, 150, 150, 0.2;
+    --sober-color-on-primary-container: 79, 204, 255;
+    --sober-color-inverse-primary: 79, 204, 255;
+    --sober-shape-corner-extra-large: 16px;
+    --sober-color-surface-container-high: 255, 255, 255;
+    --sober-color-scrim: 0, 0, 0;
+    --sober-color-error: 255, 82, 82;
+    --sober-color-on-error: 255, 255, 255;
 }
 
 body {
@@ -19,22 +19,22 @@ body {
     color: #333;
 }
 
-mdui-button {
-    --mdui-color-primary: 135, 206, 235;
+s-button {
+    --sober-color-primary: 135, 206, 235;
     color: #fff;
-    --mdui-comp-ripple-state-layer-color: 150, 150, 150, 0.2;
+    --sober-comp-ripple-state-layer-color: 150, 150, 150, 0.2;
     --shape-corner: 25px;
-    --mdui-shape-corner-extra-large: 16px;
+    --sober-shape-corner-extra-large: 16px;
 }
 
-mdui-text-field {
-    --mdui-color-background: 202, 202, 202;
-    --mdui-shape-corner-extra-large: 16px;
-    --mdui-elevation-level3: 0 1px 3px rgba(0, 0, 0, 0.12);
+s-text-field {
+    --sober-color-background: 202, 202, 202;
+    --sober-shape-corner-extra-large: 16px;
+    --sober-elevation-level3: 0 1px 3px rgba(0, 0, 0, 0.12);
     background-color: #eaeaea;
     border-radius: 5px;
-    --mdui-typescale-body-small-size: 12px;
-    --mdui-typescale-body-small-line-height: 1.5;
+    --sober-typescale-body-small-size: 12px;
+    --sober-typescale-body-small-line-height: 1.5;
 }
 
 #app {
@@ -84,7 +84,7 @@ mdui-text-field {
     font-size: 16px;
 }
 
-.user-actions mdui-button {
+.user-actions s-button {
     display: inline-block;
     margin-right: 10px;
     /* padding: 10px 20px; */
@@ -98,11 +98,11 @@ mdui-text-field {
     user-select: none;
 }
 
-/* .user-actions mdui-button:hover {
+/* .user-actions s-button:hover {
     background-color: #6BB7D6;
 }
 
-.user-actions mdui-button:active {
+.user-actions s-button:active {
     background-color: #5AA6C4;
 } */
 
