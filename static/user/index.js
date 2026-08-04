@@ -1,10 +1,6 @@
 const userId = localStorage.getItem("ID");
 const password = localStorage.getItem("password");
 const toast = new Toast();
-// const dialog = new Dialog({
-//     id: "dialog",
-//     useMD3: true,
-// });
 if (!userId) location.href = "/login?page=" + encodeURIComponent(location.href);
 else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
@@ -14,7 +10,11 @@ const signIn = document.getElementById("sign-in");
 signIn.addEventListener("click", async () => {
     const loadid = toast.loading("签到中...");
     try {
-        const tokenResponse = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`);
+        const tokenResponse = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
+            headers: {
+                "Cache-Control": "no-cache"
+            }
+        });
         const tokenData = await tokenResponse.json();
         if (tokenData.code != 200 || !tokenData.token) {
             toast.hideToast(loadid);
@@ -40,7 +40,6 @@ signIn.addEventListener("click", async () => {
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
-    // dialog.showInputDialog("修改用户名", "", "", "", username, "确定", "left", "update-username");
     prompt({
         headline: "修改用户名",
         description: "",
@@ -61,34 +60,6 @@ updateUsername.addEventListener("click", async () => {
         button.setAttribute("variant", "filled");
     });
 });
-// dialog.on("onInputFinish", async (value, dialogId) => {
-//     console.log("onInputFinish", value, dialogId);
-//     if (dialogId == "update-username") {
-//         if (value.trim() == "") {
-//             toast.showToast("用户名不能为空", 2, "center", "large", "error", "", true);
-//             return;
-//         }
-//         const loadid = toast.loading("修改用户名中...");
-//         try {
-//             const response = await fetch(`/api/user/update?type=nickname&id=${userId}&password=${encodeURIComponent(password)}&data=${encodeURIComponent(value)}`);
-//             const data = await response.json();
-//             if (data.code == 200) {
-//                 toast.hideToast(loadid);
-//                 toast.showToast("修改用户名成功", 2, "center", "large", "success", "", false);
-//                 setTimeout(() => {
-//                     location.reload();
-//                 }, 2000);
-//             } else {
-//                 toast.hideToast(loadid);
-//                 toast.showToast("修改用户名失败，原因：" + data.msg, 2, "center", "large", "error", "", true);
-//             }
-//         } catch (e) {
-//             toast.hideToast(loadid);
-//             toast.showToast("修改用户名失败，原因：" + e, 2, "center", "large", "error", "", true);
-//             return;
-//         }
-//     }
-// });
 const updateAvatar = document.getElementById("update-avatar");
 updateAvatar.addEventListener("click", e => {
     const fileSelector = document.createElement("input");
