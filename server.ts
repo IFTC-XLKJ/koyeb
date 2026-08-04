@@ -386,7 +386,7 @@ async function start() {
                     return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
-                if (ua == "IFTC Bot" || ua == "mini-tsc/1.0" || ua == "xaiimageapifetch/1.0") {
+                if (ua == "IFTC Bot" || ua == "mini-tsc/1.0" || ua.includes("xaiimageapifetch/1.0")) {
                     return;
                 }
                 if (ua.includes("apifox")) return;
