@@ -98,7 +98,6 @@ const crawlerAgents = new Set([
     "lighthouse",
 ]);
 const uaSubstrings = [
-    "bot",
     "spider",
     "crawl",
     "fetch",
