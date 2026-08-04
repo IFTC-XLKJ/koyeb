@@ -592,7 +592,7 @@ async function start() {
                     }
                     const user = data.data;
                     const params: Record<string, any> = {
-                        id: user.ID || "",
+                        id: user.ID,
                         username: user.nickname || user.username || "",
                         avatar: user.avatar || "/static/avatar.png",
                         email: user.email || "",
