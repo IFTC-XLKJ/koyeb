@@ -575,6 +575,38 @@ async function start() {
             },
         );
         fastify.get(
+            "/user",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const cookieId = request.cookies.ID;
+                if (!cookieId) {
+                    return reply.redirect("/login?page=" + encodeURIComponent(request.url));
+                }
+                try {
+                    const apiUrl = `http://127.0.0.1:${port}/api/user/details?id=${cookieId}`;
+                    const response = await fetch(apiUrl, {
+                        headers: { "X-PASS": backendPass },
+                    });
+                    const data = await response.json();
+                    if (data.code !== 200 || !data.data) {
+                        return reply.redirect("/login");
+                    }
+                    const user = data.data;
+                    const params: Record<string, any> = {
+                        id: user.ID || "",
+                        username: user.nickname || user.username || "",
+                        avatar: user.avatar || "/static/avatar.png",
+                        email: user.email || "",
+                        registrationDate: user.registrationDate || "",
+                        updatedDate: user.updatedDate || "",
+                    };
+                    return returnPage("user/index.html", params, reply);
+                } catch (e) {
+                    console.error("Error fetching user data:", e);
+                    return reply.redirect("/login");
+                }
+            },
+        );
+        fastify.get(
             "/VVMusic",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 const params: Record<string, any> = {};
