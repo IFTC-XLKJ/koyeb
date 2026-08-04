@@ -10,6 +10,33 @@ else if (parserUrlParams().id != userId) location.href = `/user?id=${userId}`;
 else if (!parserUrlParams().id) location.href = `/user?id=${userId}`;
 const { prompt } = mdui;
 
+const signIn = document.getElementById("sign-in");
+signIn.addEventListener("click", async () => {
+    const loadid = toast.loading("签到中...");
+    try {
+        const tokenResponse = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`);
+        const tokenData = await tokenResponse.json();
+        if (tokenData.code != 200 || !tokenData.token) {
+            toast.hideToast(loadid);
+            toast.showToast("获取签到凭证失败，原因：" + (tokenData.msg || "未知错误"), 2, "center", "large", "error", "", true);
+            return;
+        }
+        const response = await fetch(`/api/sign?token=${encodeURIComponent(tokenData.token)}`);
+        const data = await response.json();
+        toast.hideToast(loadid);
+        if (data.code == 200) {
+            toast.showToast("签到成功！", 2, "center", "large", "success", "", false);
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        } else {
+            toast.showToast("签到失败，原因：" + data.msg, 2, "center", "large", "error", "", true);
+        }
+    } catch (e) {
+        toast.hideToast(loadid);
+        toast.showToast("签到失败，原因：" + e, 2, "center", "large", "error", "", true);
+    }
+});
 const updateUsername = document.getElementById("update-username");
 updateUsername.addEventListener("click", async () => {
     const username = document.querySelector(`[data="username"]`).innerText;
