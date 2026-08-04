@@ -1538,6 +1538,7 @@ export default function (fastify: FastifyInstance) {
                     data.choices[0].message.content
                 ) {
                     const result = data.choices[0].message.content;
+                    console.log(result);
                     return reply.send({
                         code: 200,
                         msg: "请求成功",
@@ -1648,6 +1649,7 @@ export default function (fastify: FastifyInstance) {
                     const result = data.choices[0].message.content
                         .replace("```json", "")
                         .replace("```", "");
+                    console.log(result);
                     return reply.send({
                         code: 200,
                         msg: "请求成功",
