@@ -596,8 +596,8 @@ async function start() {
                         username: user.nickname || user.username || "",
                         avatar: user.avatar || "/static/avatar.png",
                         email: user.email || "",
-                        registrationDate: user.registrationDate || "",
-                        updatedDate: user.updatedDate || "",
+                        registrationDate: new Date(user.createdAt).toLocaleDateString("zh-CN") || "",
+                        updatedDate: new Date(user.updatedAt).toLocaleDateString("zh-CN") || "",
                     };
                     return returnPage("user/index.html", params, reply);
                 } catch (e) {
