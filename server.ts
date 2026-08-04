@@ -405,6 +405,7 @@ async function start() {
                 for (const agent of crawlerAgents) {
                     if (ua.includes(agent)) {
                         recordViolation(ip);
+                        console.log("Crawler agent detected:", request.url);
                         return reply
                             .status(403)
                             .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
@@ -412,18 +413,21 @@ async function start() {
                 }
                 if (uaSubstrings.some((s) => ua.includes(s))) {
                     recordViolation(ip);
+                    console.log("UA Substring detected:", request.url);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                 }
                 if (ua == "Mozilla/5.0") {
                     recordViolation(ip);
+                    console.log("Mozilla/5.0 detected:", request.url);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                 }
                 if (isSuspiciousBehavior(request)) {
                     recordViolation(ip);
+                    console.log("Suspicious behavior detected:", request.url);
                     return reply
                         .status(403)
                         .send({ code: 403, msg: "可疑请求行为", timestamp: time() });
