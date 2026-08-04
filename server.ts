@@ -32,7 +32,6 @@ const bannedIPs = new Map<string, number>();
 const violationCounts = new Map<string, { count: number; firstAt: number }>();
 const crawlerAgents = new Set([
     "slurp",
-    "duckduckbot",
     "baiduspider",
     "facebookexternalhit",
     "twitterbot",
@@ -55,7 +54,6 @@ const crawlerAgents = new Set([
     "mj12bot",
     "ahrefsbot",
     "semrushbot",
-    "yandexbot",
     "sogou",
     "exabot",
     "dotbot",
