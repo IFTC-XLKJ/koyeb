@@ -1873,7 +1873,7 @@ export default function (fastify: FastifyInstance) {
                     timestamp: time(),
                 });
             try {
-                const getCode = await redeemCodeTable.select("*").filter("code", "=", code);
+                const getCode = await redeemCodeTable.select("*").eq("code", code);
                 const codeData = getCode.data?.[0];
                 if (!codeData)
                     return reply.status(404).send({
