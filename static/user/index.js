@@ -98,8 +98,7 @@ async function init() {
                     <s-button id="cancel-btn" type="text">取消</s-button>
                     <s-button id="confirm-btn" type="filled">确定</s-button>
                 </div>
-            </div>
-        `).body.children[0]
+            </div>`).body.children[0]
         })
         // const dialog = document.createElement("s-dialog");
         // dialog.innerHTML = `
