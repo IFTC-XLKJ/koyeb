@@ -964,6 +964,80 @@ export default function (fastify: FastifyInstance) {
         },
     );
     fastify.get(
+        "/api/user/update-username",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        token: { type: "string" },
+                        username: { type: "string" },
+                    },
+                    required: ["token", "username"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { token: string; username: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { token, username } = request.query;
+            const decodedUsername = decodeURIComponent(username);
+            if (decodedUsername.includes("#"))
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "昵称不能包含#字符",
+                    timestamp: Date.now(),
+                });
+            if (decodedUsername.includes(" "))
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "昵称不能包含空格字符",
+                    timestamp: Date.now(),
+                });
+            try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0)
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "Invalid token",
+                        timestamp: Date.now(),
+                    });
+                const nicknameCheck = (await user.search(decodedUsername)) as SearchResponse;
+                if (nicknameCheck.code === 200 && nicknameCheck.fields.length > 0) {
+                    const existingUser = nicknameCheck.fields.find(
+                        (u) => u.昵称 === decodedUsername && u.ID !== json.fields[0].ID,
+                    );
+                    if (existingUser)
+                        return reply.status(400).send({
+                            code: 400,
+                            msg: "昵称已被使用",
+                            timestamp: Date.now(),
+                        });
+                }
+                const updateResult = await user.update(token, "nickname", decodedUsername);
+                if (updateResult.code !== 200)
+                    return reply.status(updateResult.code).send({
+                        code: updateResult.code,
+                        msg: updateResult.msg,
+                        timestamp: Date.now(),
+                    });
+                return reply.send({
+                    code: 200,
+                    msg: "修改成功",
+                    timestamp: Date.now(),
+                });
+            } catch (error: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: (error as Error).message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
         "/api/user/gettoken",
         {
             schema: {
