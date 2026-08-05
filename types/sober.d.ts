@@ -212,9 +212,23 @@ declare interface DialogProps {
     size?: DialogSize;
 }
 
+declare interface DialogBuildActions {
+    text: string;
+    positive?: boolean;
+    negative?: boolean;
+    onClick?: (dialog: Dialog) => void;
+}
+
 declare class s_Dialog extends SoberElement {
     showed: boolean;
     size: DialogSize;
+    static builder(options: {
+        root?: Element;
+        headline?: string;
+        text?: string;
+        view?: HTMLElement | ((dialog: Dialog) => void);
+        actions?: DialogBuildActions | DialogBuildActions[];
+    }): s_Dialog;
     show(): void;
     close(): void;
 }
@@ -268,12 +282,31 @@ declare class s_Fold extends SoberElement {
 // ==================== Icon ====================
 
 declare type IconName =
-    | 'none' | 'home' | 'add' | 'search' | 'menu'
-    | 'arrow_back' | 'arrow_forward' | 'arrow_upward' | 'arrow_downward'
-    | 'arrow_drop_up' | 'arrow_drop_down' | 'arrow_drop_left' | 'arrow_drop_right'
-    | 'more_vert' | 'more_horiz' | 'close' | 'done'
-    | 'chevron_up' | 'chevron_down' | 'chevron_left' | 'chevron_right'
-    | 'light_mode' | 'dark_mode' | 'star' | 'favorite';
+    | "none"
+    | "home"
+    | "add"
+    | "search"
+    | "menu"
+    | "arrow_back"
+    | "arrow_forward"
+    | "arrow_upward"
+    | "arrow_downward"
+    | "arrow_drop_up"
+    | "arrow_drop_down"
+    | "arrow_drop_left"
+    | "arrow_drop_right"
+    | "more_vert"
+    | "more_horiz"
+    | "close"
+    | "done"
+    | "chevron_up"
+    | "chevron_down"
+    | "chevron_left"
+    | "chevron_right"
+    | "light_mode"
+    | "dark_mode"
+    | "star"
+    | "favorite";
 
 declare interface IconProps {
     name?: IconName;
