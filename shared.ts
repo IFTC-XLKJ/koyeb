@@ -12,3 +12,4 @@ const SUPABASE_ANON_KEY: string =
 export const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 export const messagesTable = supabase.from("Messages");
 export const avatarBucket = supabase.storage.from("avatar");
+export const redeemCodeTable = supabase.from("Redeem_code");

@@ -9,7 +9,7 @@ import type {
     UserResponse,
 } from "./types.ts";
 import User from "./User.ts";
-import { supabase, messagesTable, avatarBucket } from "./shared.ts";
+import { supabase, messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
 import https from "https";
@@ -1854,20 +1854,54 @@ export default function (fastify: FastifyInstance) {
                     type: "object",
                     properties: {
                         code: { type: "string" },
+                        id: { type: "string" },
                     },
                     required: ["code"],
                 },
             },
         },
-        async (request: FastifyRequest<{ Querystring: { code: string } }>, reply: FastifyReply) => {
+        async (
+            request: FastifyRequest<{ Querystring: { code: string; id: number } }>,
+            reply: FastifyReply,
+        ) => {
             const code = request.query.code;
-            if (!code)
+            const ID = request.query.id;
+            if (!code || !ID)
                 return reply.status(400).send({
                     code: 400,
                     msg: "Invalid parameters",
                     timestamp: time(),
                 });
             try {
+                const getCode = await redeemCodeTable.select("*").filter("code", "=", code);
+                const codeData = getCode.data?.[0];
+                if (!codeData)
+                    return reply.status(404).send({
+                        code: 404,
+                        msg: "Redeem Code not found",
+                        timestamp: time(),
+                    });
+                const vc: number = codeData.vc;
+                const updateResult = await user.addVC(ID, vc);
+                if (updateResult.code !== 200)
+                    return reply.status(500).send({
+                        code: 500,
+                        msg: "Failed to add VC",
+                        timestamp: time(),
+                    });
+                const deleteResult = await redeemCodeTable.delete(codeData.id);
+                if (deleteResult.error)
+                    return reply.status(500).send({
+                        code: 500,
+                        msg: "Failed to delete redeem code, cause: " + deleteResult.error,
+                        timestamp: time(),
+                    });
+                return reply.status(200).send({
+                    code: 200,
+                    msg: "Redeem VC success",
+                    added: vc,
+                    timestamp: time(),
+                });
             } catch (e: unknown) {
                 console.error("Redeem VC error:", e);
                 return reply.status(500).send({
