@@ -596,6 +596,7 @@ async function start() {
                         username: user.nickname || user.username || "",
                         avatar: user.avatar || "/static/avatar.png",
                         email: user.email || "",
+                        vc: user.VC || 0,
                         registrationDate: new Date(user.createdAt * 1000).toLocaleString("zh-CN") || "",
                         updatedDate: new Date(user.updatedAt * 1000).toLocaleString("zh-CN") || "",
                     };
