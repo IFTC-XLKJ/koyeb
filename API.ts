@@ -1498,7 +1498,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(401).send({
                     code: 401,
                     msg: "鉴权失败",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             const token = authHeader.split(" ")[1];
@@ -1506,7 +1506,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(401).send({
                     code: 401,
                     msg: "鉴权失败",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             const { text1, text2 } = request.body;
@@ -1514,7 +1514,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(400).send({
                     code: 400,
                     msg: "Invalid parameters",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             try {
@@ -1523,14 +1523,14 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(401).send({
                         code: 401,
                         msg: "鉴权失败",
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 if (json.fields[0].V币 < 1) {
                     return reply.status(402).send({
                         code: 402,
                         msg: "余额不足",
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
@@ -1577,7 +1577,7 @@ export default function (fastify: FastifyInstance) {
                         code: 200,
                         msg: "请求成功",
                         data: Number(result),
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                     return await user.subtractVC(json.fields[0].ID, 1);
                 }
@@ -1585,7 +1585,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "API响应格式错误",
                     error: data,
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             } catch (e: unknown) {
                 console.error("AI similarity error:", e);
@@ -1593,7 +1593,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "Internal Server Error",
                     error: e instanceof Error ? e.message : String(e),
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
         },
@@ -1622,7 +1622,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(401).send({
                     code: 401,
                     msg: "鉴权失败",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             const token = authHeader.split(" ")[1];
@@ -1630,7 +1630,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(401).send({
                     code: 401,
                     msg: "鉴权失败",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             const { text } = request.body;
@@ -1638,7 +1638,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(400).send({
                     code: 400,
                     msg: "Invalid parameters",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             try {
@@ -1647,14 +1647,14 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(401).send({
                         code: 401,
                         msg: "鉴权失败",
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 if (json.fields[0].V币 < 1) {
                     return reply.status(402).send({
                         code: 402,
                         msg: "余额不足",
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
@@ -1696,7 +1696,7 @@ export default function (fastify: FastifyInstance) {
                         code: 200,
                         msg: "请求成功",
                         data: JSON.parse(result),
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                     return await user.subtractVC(json.fields[0].ID, 1);
                 }
@@ -1705,14 +1705,14 @@ export default function (fastify: FastifyInstance) {
                         code: 500,
                         msg: "Internal Server Error",
                         error: data.error,
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 return reply.status(500).send({
                     code: 500,
                     msg: "API响应格式错误",
                     error: data,
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             } catch (e: unknown) {
                 console.error("AI imgc error:", e);
@@ -1720,7 +1720,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "Internal Server Error",
                     error: e instanceof Error ? e.message : String(e),
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
         },
@@ -1747,7 +1747,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(401).send({
                     code: 401,
                     msg: "鉴权失败",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             const token = authHeader.split(" ")[1];
@@ -1755,7 +1755,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(401).send({
                     code: 401,
                     msg: "鉴权失败",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             const { img } = request.query;
@@ -1763,7 +1763,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(400).send({
                     code: 400,
                     msg: "Invalid parameters",
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
             try {
@@ -1772,14 +1772,14 @@ export default function (fastify: FastifyInstance) {
                     return reply.status(401).send({
                         code: 401,
                         msg: "鉴权失败",
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 if (json.fields[0].V币 < 1) {
                     return reply.status(402).send({
                         code: 402,
                         msg: "余额不足",
-                        timestamp: Date.now(),
+                        timestamp: time(),
                     });
                 }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
@@ -1825,6 +1825,7 @@ export default function (fastify: FastifyInstance) {
                         code: 200,
                         msg: "识别成功",
                         data: result,
+                        timestamp: time(),
                     });
                     return await user.subtractVC(json.fields[0].ID, 1);
                 }
@@ -1832,7 +1833,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "API响应格式错误",
                     error: data,
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             } catch (e: unknown) {
                 console.error("AI OCR error:", e);
@@ -1840,7 +1841,7 @@ export default function (fastify: FastifyInstance) {
                     code: 500,
                     msg: "Internal Server Error",
                     error: e instanceof Error ? e.message : String(e),
-                    timestamp: Date.now(),
+                    timestamp: time(),
                 });
             }
         },
