@@ -139,6 +139,24 @@ export default class User {
             fields: `V币=V币-${amount}`,
         })) as UserResponse;
     }
+    async update(token: string, type: string, value: string) {
+        let fields: string;
+        switch (type) {
+            case "nickname":
+                fields = `昵称="${value}"`;
+                break;
+            case "avatar":
+                fields = `头像="${value}"`;
+                break;
+            default:
+                throw new Error(`Unsupported update type: ${type}`);
+        }
+        return (await this.fetchData(setDataURL, {
+            type: "UPDATE",
+            filter: `token="${token}"`,
+            fields: fields,
+        })) as UserResponse;
+    }
     sendCode(email: string, title: string, content: string): Promise<any> {
         let t = Math.round(new Date().getTime() / 1000);
         var raw = JSON.stringify({
