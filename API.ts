@@ -1846,6 +1846,39 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.get(
+        "/api/redeemvc",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        code: { type: "string" },
+                    },
+                    required: ["code"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Querystring: { code: string } }>, reply: FastifyReply) => {
+            const code = request.query.code;
+            if (!code)
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "Invalid parameters",
+                    timestamp: time(),
+                });
+            try {
+            } catch (e: unknown) {
+                console.error("Redeem VC error:", e);
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "Internal Server Error",
+                    error: e instanceof Error ? e.message : String(e),
+                    timestamp: time(),
+                });
+            }
+        },
+    );
 }
 function time() {
     return Date.now();
