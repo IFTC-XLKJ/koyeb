@@ -28,16 +28,36 @@
             <p>欢迎，{{username}}</p>
         </div>
         <div class="content">
-            <div class="user-info">
+            <div class="card user-info">
                 <h2>个人信息</h2>
-                <p>用户ID: {{id}}</p>
-                <p>用户名: {{username}}</p>
-                <p>V币: {{vc}}</p>
-                <p>邮箱: {{email}}</p>
-                <p>注册时间: {{registrationDate}}</p>
-                <p>更新时间：{{updatedDate}}</p>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">用户ID</span>
+                        <span class="value">{{id}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">用户名</span>
+                        <span class="value">{{username}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">V币</span>
+                        <span class="value">{{vc}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">邮箱</span>
+                        <span class="value">{{email}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">注册时间</span>
+                        <span class="value">{{registrationDate}}</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">更新时间</span>
+                        <span class="value">{{updatedDate}}</span>
+                    </div>
+                </div>
                 <div class="token-section">
-                    <p>Token:</p>
+                    <p>Token</p>
                     <div class="token-row">
                         <code id="token-display" class="token-value">加载中...</code>
                         <s-icon-button id="copy-token" type="standard">
@@ -47,19 +67,23 @@
                     </div>
                 </div>
             </div>
-            <div class="user-actions">
-                <h2>操作</h2>
-                <s-button id="sign-in">每日签到</s-button>
-                <s-button id="update-username">更新用户名</s-button>
-                <s-button id="update-avatar">更新头像</s-button>
-                <s-button id="change-password">修改密码</s-button>
-                <s-button id="logout">退出登录</s-button>
+            
+            <div class="card user-actions">
+                <h2>账户操作</h2>
+                <div class="actions-grid">
+                    <s-button id="sign-in" class="action-btn primary">每日签到</s-button>
+                    <s-button id="update-username" class="action-btn">更新用户名</s-button>
+                    <s-button id="update-avatar" class="action-btn">更新头像</s-button>
+                    <s-button id="change-password" class="action-btn">修改密码</s-button>
+                    <s-button id="logout" class="action-btn danger">退出登录</s-button>
+                </div>
             </div>
-            <div>
+            
+            <div class="card redeem-section">
                 <h2>兑换V币</h2>
-                <div style="display: grid;grid-template-columns: 1fr auto;">
-                    <s-text-field id="redeem-code" label="兑换码，格式：XXXX-XXXX-XXXX-XXXX" type="text"></s-text-field>
-                    <s-button id="redeem-button">兑换</s-button>
+                <div class="redeem-form">
+                    <s-text-field id="redeem-code" label="兑换码，格式：XXXX-XXXX-XXXX-XXXX" type="text" class="redeem-input"></s-text-field>
+                    <s-button id="redeem-button" class="redeem-btn">兑换</s-button>
                 </div>
             </div>
         </div>
