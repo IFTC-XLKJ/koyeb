@@ -1,13 +1,13 @@
 :root {
-    --s-color-primary-container: 135, 206, 235;
-    --s-color-on-primary: 150, 150, 150, 0.2;
-    --s-color-on-primary-container: 79, 204, 255;
-    --s-color-inverse-primary: 79, 204, 255;
+    --s-color-primary-container: #87CEEB;
+    --s-color-on-primary: #96969633;
+    --s-color-on-primary-container: #4FCCFF;
+    --s-color-inverse-primary: #4FCCFF;
     --s-shape-corner-extra-large: 16px;
-    --s-color-surface-container-high: 255, 255, 255;
-    --s-color-scrim: 0, 0, 0;
-    --s-color-error: 255, 82, 82;
-    --s-color-on-error: 255, 255, 255;
+    --s-color-surface-container-high: #FFFFFF;
+    --s-color-scrim: #000000;
+    --s-color-error: #FF5252;
+    --s-color-on-error: #FFFFFF;
     --s-color-primary: #87CEEB;
     
     /* Custom design tokens */
