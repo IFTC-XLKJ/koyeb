@@ -1177,6 +1177,199 @@ export default function (fastify: FastifyInstance) {
         },
     );
     fastify.get(
+        "/api/user/resetpassword",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        email: { type: "string" },
+                        ID: { type: "number" },
+                        password: { type: "string" },
+                    },
+                    required: ["email", "ID", "password"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Querystring: { email: string; ID: number; password: string };
+            }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { email, ID, password } = request.query;
+            const decodedEmail = decodeURIComponent(email || "");
+            const decodedPassword = decodeURIComponent(password || "");
+            if (Number.isNaN(Number(ID)))
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "id参数类型错误，必须为数值类型",
+                    timestamp: Date.now(),
+                });
+            if (!decodedEmail || !decodedPassword)
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "缺少email或id或password参数",
+                    timestamp: Date.now(),
+                });
+            try {
+                // Verify the user exists and email matches
+                const userData = await user.getByID(Number(ID));
+                if (userData.code !== 200 || userData.fields.length === 0)
+                    return reply.status(404).send({
+                        code: 404,
+                        msg: "账号不存在",
+                        timestamp: Date.now(),
+                    });
+                const existingUser = userData.fields[0];
+                if (existingUser.邮箱 !== decodedEmail)
+                    return reply.status(400).send({
+                        code: 400,
+                        msg: "邮箱与用户ID不匹配",
+                        timestamp: Date.now(),
+                    });
+                const uuid = generateUUID();
+                const uuidDb = new UUID_db();
+                const json = await uuidDb.addData(uuid, "resetpassword", Number(ID), decodedPassword);
+                if (json.code == 200) {
+                    const url = `https://iftc.koyeb.app/resetpw/${uuid}`;
+                    const emailContent = `<!DOCTYPE html>
+                    <html lang="zh-CN">
+                    <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <title>重置密码</title>
+                    </head>
+                    <body>
+                    <div>您好，您正在重置密码，还差最后一步，请访问 <a href="${url}">${url}</a> 完成密码重置，链接有效时长为10分钟</div>
+                    </body>
+                    </html>`;
+                    const json2 = await UUID_db.sendEmail(decodedEmail, "重置密码", emailContent);
+                    console.log(typeof json2);
+                    if (json2.status == 1)
+                        return reply.send({
+                            code: 200,
+                            msg: "请求成功，重置密码邮件已发送，请检查邮箱",
+                            timestamp: Date.now(),
+                        });
+                    else if (json2.code == 420)
+                        return reply.status(420).send({
+                            code: 420,
+                            msg: "1分钟内只能请求1次",
+                            timestamp: Date.now(),
+                        });
+                    else
+                        return reply.status(400).send({
+                            code: 400,
+                            msg: "邮件发送失败",
+                            timestamp: Date.now(),
+                        });
+                } else
+                    return reply.status(400).send({
+                        code: 400,
+                        msg: "请求失败",
+                        timestamp: Date.now(),
+                    });
+            } catch (e: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                    error: (e as Error).message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
+        "/api/user/resetpassword/:uuid",
+        {
+            schema: {
+                params: {
+                    type: "object",
+                    properties: {
+                        uuid: { type: "string" },
+                    },
+                    required: ["uuid"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Params: { uuid: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { uuid } = request.params;
+            if (!uuid)
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "缺少uuid参数",
+                    timestamp: Date.now(),
+                });
+            const regexp = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+            if (!regexp.test(uuid))
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "UUID格式错误",
+                    timestamp: Date.now(),
+                });
+            try {
+                const uuidDb = new UUID_db();
+                const json = await uuidDb.getData(uuid);
+                if (json.code == 200) {
+                    const data = json.fields[0];
+                    if (!data)
+                        return reply.status(404).send({
+                            code: 404,
+                            msg: "UUID不存在",
+                            timestamp: Date.now(),
+                        });
+                    if (data.类型 != "resetpassword")
+                        return reply.status(400).send({
+                            code: 400,
+                            msg: "UUID类型错误",
+                            timestamp: Date.now(),
+                        });
+                    // Check expiry: 10 minutes
+                    const createdAt = data.createdAt;
+                    const now = Date.now();
+                    if (now - createdAt > 10 * 60 * 1000)
+                        return reply.status(400).send({
+                            code: 400,
+                            msg: "链接已过期，请重新申请重置密码",
+                            timestamp: Date.now(),
+                        });
+                    // Use user.update to update the password by ID
+                    const updateResult = await user.update("", "password", data.数据, data.ID);
+                    if (updateResult.code == 200) {
+                        // Delete the used UUID record
+                        await uuidDb.deleteData(uuid);
+                        return reply.send({
+                            code: 200,
+                            msg: "密码重置成功",
+                            timestamp: Date.now(),
+                        });
+                    } else
+                        return reply.status(400).send({
+                            code: 400,
+                            msg: "密码重置失败",
+                            timestamp: Date.now(),
+                        });
+                } else
+                    return reply.status(400).send({
+                        code: 400,
+                        msg: "请求失败",
+                        timestamp: Date.now(),
+                    });
+            } catch (e: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务内部错误，请联系官方(QQ:3164417130)",
+                    error: (e as Error).message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
         "/api/weather",
         {
             schema: {

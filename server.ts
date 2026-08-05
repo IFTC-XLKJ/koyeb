@@ -158,7 +158,7 @@ const blockedPaths = [
     "/shopware",
     "/typo3",
 ];
-const sensitiveEndpoints = ["/api/user/login", "/api/user/register", "/api/user/sendcode", "/api/user/gettoken"];
+const sensitiveEndpoints = ["/api/user/login", "/api/user/register", "/api/user/sendcode", "/api/user/gettoken", "/api/user/resetpassword"];
 
 function time(): number {
     return Date.now();
@@ -572,6 +572,37 @@ async function start() {
                 }
                 const params: Record<string, any> = {};
                 return returnPage("signup/index.html", params, reply);
+            },
+        );
+        fastify.get(
+            "/resetpw",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
+                const params: Record<string, any> = {};
+                return returnPage("resetpw/index.html", params, reply);
+            },
+        );
+        fastify.get(
+            "/resetpw/:uuid",
+            {
+                schema: {
+                    params: {
+                        type: "object",
+                        properties: {
+                            uuid: { type: "string" },
+                        },
+                        required: ["uuid"],
+                    },
+                },
+            },
+            async (
+                request: FastifyRequest<{ Params: { uuid: string } }>,
+                reply: FastifyReply,
+            ): Promise<Object> => {
+                const { uuid } = request.params;
+                const params: Record<string, any> = {
+                    uuid: uuid,
+                };
+                return returnPage("resetpw/result.html", params, reply);
             },
         );
         fastify.get(

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>重置密码结果</title>
+    <link rel="stylesheet" href="/static/resetpw/index.css">
+    <meta name="description" content="VV账号重置密码结果">
+    <meta name="description" content="重置密码结果">
+    <meta name="description" content="用户重置密码结果">
+</head>
+
+<body>
+    <h1 style="display: none;">VV账号重置密码结果</h1>
+    <div class="resetpw-form">
+        <div class="reset-header">
+            <div class="logo">VV</div>
+            <div>
+                <h2>重置密码结果</h2>
+                <p>正在处理您的密码重置请求...</p>
+            </div>
+        </div>
+
+        <div id="result" style="text-align: center; padding: 20px 0;">
+            <p id="resultMsg" style="font-size: 16px; color: #6b7280;">正在验证链接...</p>
+        </div>
+
+        <div class="submit-row" id="loginBtnRow" style="display: none;">
+            <a href="/login" style="display: block; text-align: center; padding: 12px; border-radius: 10px; background: linear-gradient(90deg, #37aef9, #16a4fd); color: #fff; font-weight: 600; text-decoration: none; box-shadow: 0 8px 20px rgba(22, 164, 253, 0.16);">前往登录</a>
+        </div>
+    </div>
+    <script>
+        const uuid = "{{uuid}}";
+        (async function () {
+            try {
+                const response = await fetch(`/api/user/resetpassword/${uuid}`);
+                const data = await response.json();
+                const resultMsg = document.getElementById("resultMsg");
+                const loginBtnRow = document.getElementById("loginBtnRow");
+                if (response.ok && data.code == 200) {
+                    resultMsg.textContent = "密码重置成功！";
+                    resultMsg.style.color = "#16a34a";
+                    loginBtnRow.style.display = "block";
+                } else {
+                    resultMsg.textContent = "密码重置失败，原因：" + (data.msg || "未知错误");
+                    resultMsg.style.color = "#dc2626";
+                }
+            } catch (error) {
+                const resultMsg = document.getElementById("resultMsg");
+                resultMsg.textContent = "密码重置失败，原因：" + error;
+                resultMsg.style.color = "#dc2626";
+            }
+        })();
+    </script>
+</body>
+
+</html>
