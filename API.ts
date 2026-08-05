@@ -1245,14 +1245,14 @@ export default function (fastify: FastifyInstance) {
                     </body>
                     </html>`;
                     const json2 = await UUID_db.sendEmail(decodedEmail, "重置密码", emailContent);
-                    console.log(typeof json2);
-                    if (json2.status == 1)
+                    console.log("Email send result:", json2);
+                    if (json2 && json2.status == 1)
                         return reply.send({
                             code: 200,
                             msg: "请求成功，重置密码邮件已发送，请检查邮箱",
                             timestamp: Date.now(),
                         });
-                    else if (json2.code == 420)
+                    else if (json2 && json2.code == 420)
                         return reply.status(420).send({
                             code: 420,
                             msg: "1分钟内只能请求1次",
@@ -1261,7 +1261,7 @@ export default function (fastify: FastifyInstance) {
                     else
                         return reply.status(400).send({
                             code: 400,
-                            msg: "邮件发送失败",
+                            msg: "邮件发送失败" + (json2 && json2.msg ? "：" + json2.msg : ""),
                             timestamp: Date.now(),
                         });
                 } else

@@ -51,10 +51,11 @@ export default class UUID_db {
                 .then((response) => response.json())
                 .then((result) => {
                     console.log(result);
-                    resolve(result);
+                    resolve(result || {});
                 })
                 .catch((error) => {
-                    throw new Error("error:", error);
+                    console.error("Send email error:", error);
+                    reject(error);
                 });
         });
     }
