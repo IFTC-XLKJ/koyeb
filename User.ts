@@ -125,6 +125,20 @@ export default class User {
             fields: `签到=${Date.now()}, V币=V币+5`,
         })) as UserResponse;
     }
+    async addVC(ID: number, amount: number) {
+        return (await this.fetchData(setDataURL, {
+            type: "UPDATE",
+            filter: `ID=${ID}`,
+            fields: `V币=V币+${amount}`,
+        })) as UserResponse;
+    }
+    async subtractVC(ID: number, amount: number) {
+        return (await this.fetchData(setDataURL, {
+            type: "UPDATE",
+            filter: `ID=${ID}`,
+            fields: `V币=V币-${amount}`,
+        })) as UserResponse;
+    }
     sendCode(email: string, title: string, content: string): Promise<any> {
         let t = Math.round(new Date().getTime() / 1000);
         var raw = JSON.stringify({

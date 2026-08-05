@@ -1243,6 +1243,13 @@ export default function (fastify: FastifyInstance) {
             try {
                 const json: UserResponse = await user.getByToken(token);
                 if (json.code !== 200 || json.fields.length === 0) {
+                    if (json.fields[0].V币 < 1) {
+                        return reply.status(402).send({
+                            code: 402,
+                            msg: "余额不足",
+                            timestamp: time(),
+                        });
+                    }
                     return reply.status(401).send({
                         code: 401,
                         msg: "鉴权失败",
@@ -1289,11 +1296,12 @@ export default function (fastify: FastifyInstance) {
                     );
                     const data: string[] = [];
                     result.forEach((item: string) => data.push(item.trim()));
-                    return reply.send({
+                    reply.send({
                         code: 200,
                         msg: "翻译成功",
                         data: data,
                     });
+                    return await user.subtractVC(json.fields[0].ID, 1);
                 } else {
                     return reply.status(500).send({
                         code: 500,
