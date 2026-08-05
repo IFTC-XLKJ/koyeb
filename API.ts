@@ -1538,7 +1538,7 @@ export default function (fastify: FastifyInstance) {
                     data.choices[0].message.content
                 ) {
                     const result = data.choices[0].message.content;
-                    console.log(result);
+                    console.log("结果：", result);
                     return reply.send({
                         code: 200,
                         msg: "请求成功",
