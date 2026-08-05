@@ -195,7 +195,7 @@ function getIP(ip: string | string[]): string {
 
 function isRateLimited(ip: string | string[], url: string): boolean {
     const now: number = Date.now();
-    const windowMs: number = 60000;
+    const windowMs: number = 30000;
     const isSensitive: boolean = sensitiveEndpoints.some((ep) => url.startsWith(ep));
     const maxRequests: number = isSensitive ? 20 : 100;
     const key: string = getIP(ip);
