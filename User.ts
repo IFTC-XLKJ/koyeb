@@ -139,7 +139,7 @@ export default class User {
             fields: `V币=V币-${amount}`,
         })) as UserResponse;
     }
-    async update(token: string, type: string, value: string) {
+    async update(token: string, type: string, value: string, id?: number) {
         let fields: string;
         switch (type) {
             case "nickname":
@@ -154,10 +154,18 @@ export default class User {
             default:
                 throw new Error(`Unsupported update type: ${type}`);
         }
+        const filter: string = id !== undefined ? `ID=${id}` : `token="${token}"`;
         return (await this.fetchData(setDataURL, {
             type: "UPDATE",
-            filter: `token="${token}"`,
+            filter: filter,
             fields: fields,
+        })) as UserResponse;
+    }
+    async resetPassword(id: number, password: string) {
+        return (await this.fetchData(setDataURL, {
+            type: "UPDATE",
+            filter: `ID=${id}`,
+            fields: `密码="${md5Hash(password)}"`,
         })) as UserResponse;
     }
     sendCode(email: string, title: string, content: string): Promise<any> {

@@ -9,6 +9,7 @@ import type {
     UserResponse,
 } from "./types.ts";
 import User from "./User.ts";
+import UUID_db from "./UUID_db.ts";
 import { supabase, messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
