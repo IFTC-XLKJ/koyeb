@@ -34,7 +34,7 @@ async function init() {
             });
             const data = await response.json();
             if (data.code == 200) {
-                tokenDisplay.textContent = data.data?.token || "获取失败";
+                tokenDisplay.textContent = data?.token || "获取失败";
                 tokenRetryCount = 0;
             } else {
                 tokenDisplay.textContent = "获取失败";
