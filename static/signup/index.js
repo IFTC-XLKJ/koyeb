@@ -104,23 +104,7 @@ console.log("注册页面全新升级");
             alert("上传头像失败，原因：上传的文件不是图片");
             return;
         }
-        try {/*
-        const formData = new FormData();
-        formData.append("file", e.target.files[0]);
-        formData.append("path", "vv/avatar")
-        const response = await fetch("https://api.pgaot.com/user/up_cat_file", {
-            method: "POST",
-            body: formData,
-        });
-        if (response.ok) {
-            const data = await response.json();
-            if (data.code != 200) {
-                alert("上传头像失败，原因：" + data.message);
-                return;
-            }
-            globalThis.Avatar = data.url;
-            alert("上传头像成功");
-        }*/
+        try {
             const formData = new FormData();
             formData.append('avatar', e.target.files[0]);
             const r = await fetch('/api/upload-avatar', {
