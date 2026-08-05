@@ -148,6 +148,9 @@ export default class User {
             case "avatar":
                 fields = `头像="${value}"`;
                 break;
+            case "password":
+                fields = `密码="${md5Hash(value)}"`;
+                break;
             default:
                 throw new Error(`Unsupported update type: ${type}`);
         }
