@@ -9,6 +9,7 @@
     --sober-color-scrim: 0, 0, 0;
     --sober-color-error: 255, 82, 82;
     --sober-color-on-error: 255, 255, 255;
+    --s-color-primary: #87CEEB;
 }
 
 body {
@@ -97,14 +98,6 @@ s-text-field {
     transition: background-color 0.3s;
     user-select: none;
 }
-
-/* .user-actions s-button:hover {
-    background-color: #6BB7D6;
-}
-
-.user-actions s-button:active {
-    background-color: #5AA6C4;
-} */
 
 .user-avatar {
     width: 80px;
