@@ -1521,6 +1521,7 @@ export default function (fastify: FastifyInstance) {
                                 给出文本的格式：
                                 第一段文本：{text1}
                                 第二段文本：{text2}
+                                
                                 直接输出数值，取值范围为0到1，保留2为小数`,
                             },
                             {
