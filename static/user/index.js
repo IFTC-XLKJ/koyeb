@@ -21,9 +21,15 @@ async function init() {
     const maxTokenRetries = 5;
     const tokenRetryIntervals = [3000, 5000, 10000, 15000, 30000];
 
+    const password = localStorage.getItem("password");
+    if (!password) {
+        location.href = "/login?page=" + encodeURIComponent("/user");
+        return;
+    }
+
     async function fetchToken() {
         try {
-            const response = await fetch(`/api/user/details?id=${userId}`, {
+            const response = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
                 headers: { "Cache-Control": "no-cache" }
             });
             const data = await response.json();
