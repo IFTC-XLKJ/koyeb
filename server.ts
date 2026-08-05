@@ -197,7 +197,7 @@ function isRateLimited(ip: string | string[], url: string): boolean {
     const now: number = Date.now();
     const windowMs: number = 60000;
     const isSensitive: boolean = sensitiveEndpoints.some((ep) => url.startsWith(ep));
-    const maxRequests: number = isSensitive ? 10 : 100;
+    const maxRequests: number = isSensitive ? 20 : 500;
     const key: string = getIP(ip);
     if (!requestCounts.has(key)) requestCounts.set(key, []);
     const requests: number[] = requestCounts.get(key)!;
