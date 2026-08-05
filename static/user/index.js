@@ -90,28 +90,112 @@ async function init() {
     updateUsername.addEventListener("click", async () => {
         const username = document.querySelector(`[data="username"]`).innerText;
 
+        // Fetch a fresh token for the update request
+        const tokenLoadid = toast.loading("获取Token中...");
+        let token = "";
+        try {
+            const response = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
+                headers: { "Cache-Control": "no-cache" }
+            });
+            const data = await response.json();
+            if (data.code == 200) token = data?.token || "";
+        } catch (e) {}
+        toast.hideToast(tokenLoadid);
+
+        if (!token) {
+            toast.showToast("获取Token失败，请重试", 2, "center", "large", "error", "", true);
+            return;
+        }
+
+        // Build dialog view
         const view = document.createElement("div");
+        view.className = "username-dialog";
+
+        const headline = document.createElement("h2");
+        headline.className = "username-dialog-headline";
+        headline.textContent = "修改用户名";
+        view.appendChild(headline);
+
+        const desc = document.createElement("p");
+        desc.className = "username-dialog-desc";
+        desc.textContent = "请输入新的用户名，不能包含空格和 # 字符";
+        view.appendChild(desc);
+
         const input = document.createElement("s-text-field");
         input.setAttribute("label", "用户名");
         input.setAttribute("value", username);
+        input.setAttribute("maxLength", "20");
+        input.setAttribute("countered", "");
         input.style.width = "100%";
         view.appendChild(input);
 
-        sober.Dialog.builder({
-            headline: "修改用户名",
+        const error = document.createElement("p");
+        error.className = "username-dialog-error";
+        error.style.display = "none";
+        view.appendChild(error);
+
+        const actions = document.createElement("div");
+        actions.className = "username-dialog-actions";
+
+        const cancelBtn = document.createElement("s-button");
+        cancelBtn.setAttribute("type", "text");
+        cancelBtn.textContent = "取消";
+        actions.appendChild(cancelBtn);
+
+        const confirmBtn = document.createElement("s-button");
+        confirmBtn.setAttribute("type", "filled");
+        confirmBtn.textContent = "确定";
+        actions.appendChild(confirmBtn);
+
+        view.appendChild(actions);
+
+        const dialog = sober.Dialog.builder({
             view: view,
-            actions: [
-                { text: "取消" },
-                {
-                    text: "确定",
-                    click: () => {
-                        const newUsername = input.value;
-                        if (newUsername && newUsername !== username) {
-                            toast.showToast("用户名更新成功", 2, "center", "large", "success", "", false);
-                        }
-                    }
+            disabledGesture: true
+        });
+
+        const showError = (msg) => {
+            error.textContent = msg;
+            error.style.display = "block";
+            input.error = true;
+        };
+
+        const clearError = () => {
+            error.style.display = "none";
+            input.error = false;
+        };
+
+        input.addEventListener("input", clearError);
+        dialog.addEventListener("showed", () => input.native?.focus());
+
+        cancelBtn.addEventListener("click", () => dialog.close());
+
+        confirmBtn.addEventListener("click", async () => {
+            const newUsername = input.value?.trim();
+            if (!newUsername) return showError("用户名不能为空");
+            if (newUsername.includes("#")) return showError("用户名不能包含 # 字符");
+            if (newUsername.includes(" ")) return showError("用户名不能包含空格字符");
+            if (newUsername === username) return showError("新用户名与当前用户名相同");
+
+            confirmBtn.disabled = true;
+            const loadid = toast.loading("修改中...");
+            try {
+                const response = await fetch(`/api/user/update-username?token=${encodeURIComponent(token)}&username=${encodeURIComponent(newUsername)}`);
+                const data = await response.json();
+                toast.hideToast(loadid);
+                if (data.code == 200) {
+                    dialog.close();
+                    toast.showToast("用户名更新成功", 2, "center", "large", "success", "", false);
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    confirmBtn.disabled = false;
+                    showError(data.msg || "修改失败，请重试");
                 }
-            ]
+            } catch (e) {
+                toast.hideToast(loadid);
+                confirmBtn.disabled = false;
+                showError("网络错误：" + e);
+            }
         });
     });
 
