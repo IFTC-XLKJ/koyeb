@@ -1875,6 +1875,7 @@ export default function (fastify: FastifyInstance) {
             try {
                 const getCode = await redeemCodeTable.select("*").eq("code", code);
                 const codeData = getCode.data?.[0];
+                console.log("Redeem Code Data:", codeData);
                 if (!codeData)
                     return reply.status(404).send({
                         code: 404,
@@ -1882,6 +1883,7 @@ export default function (fastify: FastifyInstance) {
                         timestamp: time(),
                     });
                 const vc: number = codeData.vc;
+                console.log(`Redeeming code: ${code}, VC to add: ${vc}, User ID: ${ID}`);
                 const updateResult = await user.addVC(ID, vc);
                 if (updateResult.code !== 200)
                     return reply.status(500).send({
