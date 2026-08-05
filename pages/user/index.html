@@ -56,7 +56,9 @@
             </div>
             <div>
                 <h2>兑换V币</h2>
-                <s-text-field id="redeem-code" label="兑换码" placeholder="XXXX-XXXX-XXXX-XXXX" type="text"></s-text-field>
+                <s-text-field id="redeem-code" label="兑换码，格式：XXXX-XXXX-XXXX-XXXX" type="text">
+                    <div slot="text" style="display: none;">输入格式错误</div>
+                </s-text-field>
                 <s-button id="redeem-button">兑换</s-button>
             </div>
         </div>
