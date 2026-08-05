@@ -36,5 +36,3 @@ declare class Toast {
 
     loading(text?: string, small?: boolean): string;
 }
-
-export default Toast;
