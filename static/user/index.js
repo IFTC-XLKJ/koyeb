@@ -1,27 +1,5 @@
 const toast = new Toast();
 
-const Dialog = {
-    builder({ view }) {
-        const dialog = document.createElement("s-dialog");
-        if (view) {
-            dialog.appendChild(view);
-        }
-        return {
-            show() {
-                document.body.appendChild(dialog);
-                dialog.show();
-                return this;
-            },
-            close() {
-                dialog.close();
-                setTimeout(() => dialog.remove(), 300);
-                return this;
-            },
-            element: dialog
-        };
-    }
-};
-
 async function init() {
     const idCookie = await cookieStore.get("ID");
     const userId = idCookie?.value;
@@ -111,28 +89,44 @@ async function init() {
     const updateUsername = document.getElementById("update-username");
     updateUsername.addEventListener("click", async () => {
         const username = document.querySelector(`[data="username"]`).innerText;
-        const view = document.createElement("div");
-        view.style.padding = "24px";
-        view.innerHTML = `
-            <h3 style="margin: 0 0 16px;">修改用户名</h3>
-            <s-text-field id="username-input" label="用户名" value="${username}" style="width: 100%;"></s-text-field>
-            <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
-                <s-button id="cancel-btn" type="text">取消</s-button>
-                <s-button id="confirm-btn" type="filled">确定</s-button>
+        const dialog = sober.Dialog.builder({
+            view: new DOMParser().parseFromString(`
+            <div style="padding: 24px;">
+                <h3 style="margin: 0 0 16px;">修改用户名</h3>
+                <s-text-field id="username-input" label="用户名" value="${username}" style="width: 100%;"></s-text-field>
+                <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+                    <s-button id="cancel-btn" type="text">取消</s-button>
+                    <s-button id="confirm-btn" type="filled">确定</s-button>
+                </div>
             </div>
-        `;
-        const dialog = Dialog.builder({ view }).show();
+        `).body.children[0]
+        })
+        // const dialog = document.createElement("s-dialog");
+        // dialog.innerHTML = `
+        //     <div style="padding: 24px;">
+        //         <h3 style="margin: 0 0 16px;">修改用户名</h3>
+        //         <s-text-field id="username-input" label="用户名" value="${username}" style="width: 100%;"></s-text-field>
+        //         <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 16px;">
+        //             <s-button id="cancel-btn" type="text">取消</s-button>
+        //             <s-button id="confirm-btn" type="filled">确定</s-button>
+        //         </div>
+        //     </div>
+        // `;
+        document.body.appendChild(dialog);
+        dialog.show();
 
-        view.querySelector("#cancel-btn").onclick = () => {
+        document.getElementById("cancel-btn").onclick = () => {
             dialog.close();
+            setTimeout(() => dialog.remove(), 300);
         };
 
-        view.querySelector("#confirm-btn").onclick = async () => {
-            const newUsername = view.querySelector("#username-input").value;
+        document.getElementById("confirm-btn").onclick = async () => {
+            const newUsername = document.getElementById("username-input").value;
             if (newUsername && newUsername !== username) {
                 toast.showToast("用户名更新成功", 2, "center", "large", "success", "", false);
             }
             dialog.close();
+            setTimeout(() => dialog.remove(), 300);
         };
     });
 
