@@ -1243,16 +1243,16 @@ export default function (fastify: FastifyInstance) {
             try {
                 const json: UserResponse = await user.getByToken(token);
                 if (json.code !== 200 || json.fields.length === 0) {
-                    if (json.fields[0].V币 < 1) {
-                        return reply.status(402).send({
-                            code: 402,
-                            msg: "余额不足",
-                            timestamp: time(),
-                        });
-                    }
                     return reply.status(401).send({
                         code: 401,
                         msg: "鉴权失败",
+                        timestamp: time(),
+                    });
+                }
+                if (json.fields[0].V币 < 1) {
+                    return reply.status(402).send({
+                        code: 402,
+                        msg: "余额不足",
                         timestamp: time(),
                     });
                 }
@@ -1335,7 +1335,7 @@ export default function (fastify: FastifyInstance) {
                 },
             },
         },
-        async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+        async (request: FastifyRequest, reply: FastifyReply) => {
             const authHeader = request.headers.authorization;
             if (!authHeader || !authHeader.startsWith("Bearer ")) {
                 reply.status(401).send({
@@ -1381,6 +1381,23 @@ export default function (fastify: FastifyInstance) {
                 return;
             }
             try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0) {
+                    reply.status(401).send({
+                        code: 401,
+                        msg: "鉴权失败",
+                        timestamp: time(),
+                    });
+                    return;
+                }
+                if (json.fields[0].V币 < 1) {
+                    reply.status(402).send({
+                        code: 402,
+                        msg: "余额不足",
+                        timestamp: time(),
+                    });
+                    return;
+                }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1437,6 +1454,7 @@ export default function (fastify: FastifyInstance) {
                         data: JSON.parse(result),
                         timestamp: time(),
                     });
+                    return await user.subtractVC(json.fields[0].ID, 1);
                 } else {
                     reply.status(500).send({
                         code: 500,
@@ -1508,6 +1526,13 @@ export default function (fastify: FastifyInstance) {
                         timestamp: Date.now(),
                     });
                 }
+                if (json.fields[0].V币 < 1) {
+                    return reply.status(402).send({
+                        code: 402,
+                        msg: "余额不足",
+                        timestamp: Date.now(),
+                    });
+                }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1548,12 +1573,13 @@ export default function (fastify: FastifyInstance) {
                 ) {
                     const result = data.choices[0].message.content;
                     console.log("结果：", result);
-                    return reply.send({
+                    reply.send({
                         code: 200,
                         msg: "请求成功",
                         data: Number(result),
                         timestamp: Date.now(),
                     });
+                    return await user.subtractVC(json.fields[0].ID, 1);
                 }
                 return reply.status(500).send({
                     code: 500,
@@ -1624,6 +1650,13 @@ export default function (fastify: FastifyInstance) {
                         timestamp: Date.now(),
                     });
                 }
+                if (json.fields[0].V币 < 1) {
+                    return reply.status(402).send({
+                        code: 402,
+                        msg: "余额不足",
+                        timestamp: Date.now(),
+                    });
+                }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1659,12 +1692,13 @@ export default function (fastify: FastifyInstance) {
                         .replace("```json", "")
                         .replace("```", "");
                     console.log(result);
-                    return reply.send({
+                    reply.send({
                         code: 200,
                         msg: "请求成功",
                         data: JSON.parse(result),
                         timestamp: Date.now(),
                     });
+                    return await user.subtractVC(json.fields[0].ID, 1);
                 }
                 if (data.error) {
                     return reply.status(500).send({
@@ -1741,6 +1775,13 @@ export default function (fastify: FastifyInstance) {
                         timestamp: Date.now(),
                     });
                 }
+                if (json.fields[0].V币 < 1) {
+                    return reply.status(402).send({
+                        code: 402,
+                        msg: "余额不足",
+                        timestamp: Date.now(),
+                    });
+                }
                 const r = await fetch("https://ai.cuz-lab.space/v1/chat/completions", {
                     method: "POST",
                     headers: {
@@ -1780,11 +1821,12 @@ export default function (fastify: FastifyInstance) {
                     data.choices[0].message.content
                 ) {
                     const result = data.choices[0].message.content;
-                    return reply.send({
+                    reply.send({
                         code: 200,
                         msg: "识别成功",
                         data: result,
                     });
+                    return await user.subtractVC(json.fields[0].ID, 1);
                 }
                 return reply.status(500).send({
                     code: 500,
