@@ -463,7 +463,7 @@ s-text-field {
 .username-dialog-headline {
     font-size: 1.5rem;
     font-weight: 600;
-    color: var(--color-text-primary);
+ 2   color: var(--color-text-primary);
     margin: 0;
     letter-spacing: -0.01em;
 }
@@ -495,6 +495,16 @@ s-text-field {
 
 .username-dialog-actions s-button {
     min-width: 80px;
+}
+
+/* "text" type cancel button should use primary color, not inherit global white */
+.username-dialog-actions s-button[type="text"] {
+    color: var(--color-primary);
+}
+
+.username-dialog-actions s-button[type="filled"] {
+    background: var(--color-primary);
+    color: #fff;
 }
 
 slot {
