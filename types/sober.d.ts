@@ -214,9 +214,7 @@ declare interface DialogProps {
 
 declare interface DialogBuildActions {
     text: string;
-    positive?: boolean;
-    negative?: boolean;
-    onClick?: (dialog: Dialog) => void;
+    click?: (dialog: Dialog) => void;
 }
 
 declare class s_Dialog extends SoberElement {
