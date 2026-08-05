@@ -455,3 +455,12 @@ s-text-field {
 slot {
     display: none;
 }
+
+a {
+    color: var(--color-primary);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
