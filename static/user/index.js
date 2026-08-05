@@ -168,7 +168,10 @@ async function init() {
         input.addEventListener("input", clearError);
         dialog.addEventListener("showed", () => input.native?.focus());
 
-        cancelBtn.addEventListener("click", () => dialog.close());
+        cancelBtn.addEventListener("click", () => {
+            dialog.showed = false;
+            setTimeout(() => dialog.close(), 300);
+        });
 
         confirmBtn.addEventListener("click", async () => {
             const newUsername = input.value?.trim();
