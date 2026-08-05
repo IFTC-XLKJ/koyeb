@@ -9,7 +9,7 @@
     --s-color-error: #FF5252;
     --s-color-on-error: #FFFFFF;
     --s-color-primary: #87CEEB;
-    
+
     /* Custom design tokens */
     --color-primary: #87CEEB;
     --color-primary-dark: #5DADE2;
@@ -21,11 +21,11 @@
     --color-border: #E5E7EB;
     --color-error: #E74C3C;
     --color-success: #27AE60;
-    
+
     /* Typography */
     --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
     --font-mono: 'SF Mono', 'Cascadia Code', Consolas, monospace;
-    
+
     /* Spacing */
     --spacing-xs: 4px;
     --spacing-sm: 8px;
@@ -33,14 +33,14 @@
     --spacing-lg: 24px;
     --spacing-xl: 32px;
     --spacing-2xl: 48px;
-    
+
     /* Border radius */
     --radius-sm: 6px;
     --radius-md: 8px;
     --radius-lg: 12px;
     --radius-xl: 16px;
     --radius-full: 50%;
-    
+
     /* Shadows */
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
@@ -109,7 +109,7 @@ s-text-field {
     left: 0;
     right: 0;
     bottom: 0;
-    background: radial-gradient(circle at 30% 70%, rgba(255,255,255,0.1) 0%, transparent 50%);
+    background: radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
     pointer-events: none;
 }
 
@@ -356,38 +356,38 @@ s-text-field {
     #app {
         padding: var(--spacing-lg);
     }
-    
+
     .header {
         padding: var(--spacing-2xl) var(--spacing-xl);
         margin-bottom: var(--spacing-xl);
     }
-    
+
     .user-avatar {
         width: 120px;
         height: 120px;
     }
-    
+
     .header h1 {
         font-size: 2rem;
     }
-    
+
     .info-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .actions-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    
+
     .redeem-form {
         flex-direction: row;
         align-items: flex-end;
     }
-    
+
     .redeem-input {
         flex: 1;
     }
-    
+
     .redeem-btn {
         width: auto;
         min-width: 120px;
@@ -398,15 +398,15 @@ s-text-field {
     .content {
         gap: var(--spacing-xl);
     }
-    
+
     .card {
         padding: var(--spacing-xl);
     }
-    
+
     .info-grid {
         grid-template-columns: repeat(3, 1fr);
     }
-    
+
     .actions-grid {
         grid-template-columns: repeat(3, 1fr);
     }
@@ -417,11 +417,11 @@ s-text-field {
     .action-btn {
         min-height: 56px;
     }
-    
+
     .redeem-btn {
         min-height: 56px;
     }
-    
+
     s-icon-button {
         min-width: 48px;
         min-height: 48px;
@@ -445,7 +445,7 @@ s-text-field {
         --color-text-secondary: #A0A0A0;
         --color-border: #404040;
     }
-    
+
     .token-value {
         background: var(--color-background);
         border-color: var(--color-border);
@@ -463,7 +463,7 @@ s-text-field {
 .username-dialog-headline {
     font-size: 1.5rem;
     font-weight: 600;
- 2   color: var(--color-text-primary);
+    color: var(--color-text-primary);
     margin: 0;
     letter-spacing: -0.01em;
 }
