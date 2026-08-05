@@ -1274,7 +1274,7 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(500).send({
                     code: 500,
                     msg: "服务内部错误，请联系官方(QQ:3164417130)",
-                    error: (e as Error).message,
+                    error: (e as Error).stack,
                     timestamp: Date.now(),
                 });
             }
