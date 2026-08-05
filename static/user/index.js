@@ -17,6 +17,9 @@ async function init() {
 
     const tokenDisplay = document.getElementById("token-display");
     const copyTokenBtn = document.getElementById("copy-token");
+    let tokenRetryCount = 0;
+    const maxTokenRetries = 5;
+    const tokenRetryIntervals = [3000, 5000, 10000, 15000, 30000];
 
     async function fetchToken() {
         try {
@@ -26,13 +29,25 @@ async function init() {
             const data = await response.json();
             if (data.code == 200) {
                 tokenDisplay.textContent = data.data?.token || "获取失败";
+                tokenRetryCount = 0;
             } else {
                 tokenDisplay.textContent = "获取失败";
+                scheduleTokenRetry();
             }
         } catch (e) {
             tokenDisplay.textContent = "获取失败";
+            scheduleTokenRetry();
         }
     }
+
+    function scheduleTokenRetry() {
+        if (tokenRetryCount < maxTokenRetries) {
+            const delay = tokenRetryIntervals[tokenRetryCount];
+            tokenRetryCount++;
+            setTimeout(fetchToken, delay);
+        }
+    }
+
     fetchToken();
 
     copyTokenBtn.addEventListener("click", () => {
