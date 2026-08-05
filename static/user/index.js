@@ -206,43 +206,73 @@ async function init() {
     updateAvatar.addEventListener("click", e => {
         const fileSelector = document.createElement("input");
         fileSelector.type = "file";
-        fileSelector.accept = ".jpg,.jpeg,.png,.gif,.webp,.svg";
+        fileSelector.accept = ".jpg,.jpeg,.png,.gif,.webp,.bmp";
         fileSelector.addEventListener("change", async e => {
             const loadid = toast.loading("上传中...");
             const file = e.target.files[0];
-            if (file.size > 1024 * 1024 * 25) return alert("文件大小不能超过25MB");
-            if (file) {
+            if (!file) {
+                toast.hideToast(loadid);
+                return;
+            }
+            if (file.size > 1024 * 1024 * 5) {
+                toast.hideToast(loadid);
+                toast.showToast("上传头像失败，原因：头像大小不能超过5MB", 2, "center", "large", "error", "", true);
+                return;
+            }
+            if (!file.type.startsWith("image/") && !file.name.endsWith(".bin")) {
+                toast.hideToast(loadid);
+                toast.showToast("上传头像失败，原因：上传的文件不是图片", 2, "center", "large", "error", "", true);
+                return;
+            }
+            try {
                 const formData = new FormData();
-                formData.append("file", file, "avatar.png");
-                formData.append("path", "vv/avatar");
-                const requestOptions = {
-                    method: 'POST',
+                formData.append("avatar", file);
+                const r = await fetch("/api/upload-avatar", {
+                    method: "POST",
                     body: formData,
-                    redirect: 'follow'
-                };
-                try {
-                    const response = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
-                    const data = await response.json();
-                    if (data.code != 200) {
-                        toast.hideToast(loadid);
-                        toast.showToast("上传头像失败，原因：" + data.msg, 2, "center", "large", "error", "", true);
-                    } else {
-                        const avatarUrl = data.url;
-                        const response2 = await fetch(`/api/user/update?type=avatar&id=${userId}&data=${encodeURIComponent(avatarUrl)}`);
-                        const data2 = await response2.json();
-                        if (data2.code == 200) {
-                            toast.hideToast(loadid);
-                            toast.showToast("上传头像成功", 2, "center", "large", "success", "", false);
-                            setTimeout(() => location.reload(), 2000);
-                        } else {
-                            toast.hideToast(loadid);
-                            toast.showToast("上传头像失败，原因：" + data2.msg, 2, "center", "large", "error", "", true);
-                        }
-                    }
-                } catch (e) {
+                });
+                if (!r.ok) {
+                    const errorData = await r.json().catch(() => null);
                     toast.hideToast(loadid);
-                    toast.showToast("上传头像失败，原因：" + e, 2, "center", "large", "error", "", true);
+                    toast.showToast("上传头像失败，原因：" + (errorData?.msg || r.statusText), 2, "center", "large", "error", "", true);
+                    return;
                 }
+                const data = await r.json();
+                if (data.error) {
+                    toast.hideToast(loadid);
+                    toast.showToast("上传头像失败，原因：" + data.error, 2, "center", "large", "error", "", true);
+                    return;
+                }
+                const avatarUrl = "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/avatar/" + data.data.path;
+
+                // Fetch a fresh token for the update request
+                let token = "";
+                try {
+                    const tokenResponse = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
+                        headers: { "Cache-Control": "no-cache" }
+                    });
+                    const tokenData = await tokenResponse.json();
+                    if (tokenData.code == 200) token = tokenData?.token || "";
+                } catch (e) {}
+                if (!token) {
+                    toast.hideToast(loadid);
+                    toast.showToast("获取Token失败，请重试", 2, "center", "large", "error", "", true);
+                    return;
+                }
+
+                const response2 = await fetch(`/api/user/update-avatar?token=${encodeURIComponent(token)}&avatar=${encodeURIComponent(avatarUrl)}`);
+                const data2 = await response2.json();
+                if (data2.code == 200) {
+                    toast.hideToast(loadid);
+                    toast.showToast("上传头像成功", 2, "center", "large", "success", "", false);
+                    setTimeout(() => location.reload(), 2000);
+                } else {
+                    toast.hideToast(loadid);
+                    toast.showToast("上传头像失败，原因：" + data2.msg, 2, "center", "large", "error", "", true);
+                }
+            } catch (e) {
+                toast.hideToast(loadid);
+                toast.showToast("上传头像失败，原因：" + e, 2, "center", "large", "error", "", true);
             }
         });
         fileSelector.click();

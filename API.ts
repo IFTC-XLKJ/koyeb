@@ -1038,6 +1038,56 @@ export default function (fastify: FastifyInstance) {
         },
     );
     fastify.get(
+        "/api/user/update-avatar",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        token: { type: "string" },
+                        avatar: { type: "string" },
+                    },
+                    required: ["token", "avatar"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { token: string; avatar: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { token, avatar } = request.query;
+            const decodedAvatar = decodeURIComponent(avatar);
+            try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0)
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "Invalid token",
+                        timestamp: Date.now(),
+                    });
+                const updateResult = await user.update(token, "avatar", decodedAvatar);
+                if (updateResult.code !== 200)
+                    return reply.status(updateResult.code).send({
+                        code: updateResult.code,
+                        msg: updateResult.msg,
+                        timestamp: Date.now(),
+                    });
+                return reply.send({
+                    code: 200,
+                    msg: "修改成功",
+                    timestamp: Date.now(),
+                });
+            } catch (error: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务器内部错误",
+                    error: (error as Error).message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
         "/api/user/gettoken",
         {
             schema: {
