@@ -11,10 +11,10 @@ async function init() {
 
     const params = parserUrlParams();
     console.log("params", params);
-    if (params.id && params.id !== userId) {
-        location.href = `/user?id=${userId}`;
-        return;
-    }
+    // if (params.id && params.id !== userId) {
+    //     location.href = `/user?id=${userId}`;
+    //     return;
+    // }
 
     const tokenDisplay = document.getElementById("token-display");
     const copyTokenBtn = document.getElementById("copy-token");
