@@ -30,25 +30,33 @@
                 <h2>注册信息</h2>
                 <form id="registerForm">
                     <div class="field">
-                        <s-text-field id="user" label="用户名" type="text" placeholder="用户名" class="full-width"></s-text-field>
+                        <s-text-field id="user" label="用户名" type="text"class="full-width"></s-text-field>
                         <s-button id="random_username" type="outlined" class="random-btn">随机用户名</s-button>
                     </div>
 
                     <div class="field">
-                        <s-text-field id="password" label="密码" type="password" placeholder="至少8位" class="full-width"></s-text-field>
+                        <s-text-field id="password" label="密码" type="password" class="full-width">
+                            <div slot="text">至少8位</div>
+                        </s-text-field>
                     </div>
 
                     <div class="field">
-                        <s-text-field id="confirmPassword" label="确认密码" type="password" placeholder="再次输入密码" class="full-width"></s-text-field>
+                        <s-text-field id="confirmPassword" label="确认密码" type="password" class="full-width">
+                            <div slot="text">请再次输入密码</div>
+                        </s-text-field>
                     </div>
 
                     <div class="field">
-                        <s-text-field id="email" label="邮箱" type="text" placeholder="邮箱地址" class="full-width"></s-text-field>
+                        <s-text-field id="email" label="邮箱" type="text" class="full-width">
+                            <div slot="text">邮箱地址</div>
+                        </s-text-field>
                     </div>
 
                     <div class="field">
                         <div class="verify-row">
-                            <s-text-field id="emailVerifyCode" label="邮箱验证码" type="text" placeholder="验证码" class="verify-input"></s-text-field>
+                            <s-text-field id="emailVerifyCode" label="邮箱验证码" type="text" class="verify-input">
+                                <div slot="text">验证码</div>
+                            </s-text-field>
                             <s-button id="getCode" type="outlined" class="verify-btn">获取验证码</s-button>
                         </div>
                     </div>
