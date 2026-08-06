@@ -250,6 +250,11 @@ s-text-field {
         --sober-color-on-primary: 255, 255, 255;
     }
 
+    s-button[type="outlined"],
+    s-button[type="text"] {
+        color: #5DADE2;
+    }
+
     s-text-field {
         --sober-color-background: 50, 50, 50;
         background-color: #323232;
