@@ -3,7 +3,7 @@ const email = document.getElementById("email");
 const ID = document.getElementById("ID");
 const password = document.getElementById("password");
 alert("由于点鸭邮局的邮箱服务器炸了，导致无法发送邮件，请联系管理员QQ:3164417130重置密码");
-location.reload();
+// location.reload();
 
 resetpwForm.addEventListener("submit", async (e) => {
     e.preventDefault();

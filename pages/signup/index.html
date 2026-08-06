@@ -57,7 +57,7 @@
                         <label class="file-label">头像</label>
                         <div class="file-picker">
                             <input type="file" id="avatar" accept="image/*" class="file-input">
-                            <s-button type="button" class="file-btn">选择头像</s-button>
+                            <s-button class="file-btn">选择头像</s-button>
                             <span class="file-name">未选择文件</span>
                         </div>
                     </div>
@@ -66,7 +66,7 @@
                         data-lang="zh" style="display: flex; justify-content: center;"></div>
 
                     <div class="submit-row">
-                        <s-button type="submit" class="submit-btn">注册</s-button>
+                        <s-button class="submit-btn" onclick="document.getElementById('registerForm').requestSubmit()">注册</s-button>
                     </div>
                 </form>
             </div>
