@@ -23,6 +23,7 @@ console.log("登录页面全新升级");
                     const page = url.searchParams.get("page") || "/";
                     await cookieStore.set("ID", data.id);
                     localStorage.setItem("ID", data.id);
+                    localStorage.setItem("password", globalThis.password);
                     if (globalThis.vvbrowser) {
                         console.log("VV浏览器登录设置", vvbrowser.setLogin(data.id));
                     }
