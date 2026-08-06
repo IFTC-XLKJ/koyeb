@@ -3,47 +3,52 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>登录</title>
     <script src="https://verification.zjb522.cn/sdk/shield-verify.js?v=1.0.3"></script>
+    <script src="/static/sober.min.js"></script>
     <link rel="stylesheet" href="/static/login/index.css">
     <meta name="description" content="VV账号登录">
-    <meta name="description" content="登录">
-    <meta name="description" content="用户登录">
-    <meta name="description" content="登录页面">
 </head>
 
 <body>
-    <h1 style="display: none;">VV账号登录</h1>
-    <div class="login-form">
-        <div class="login-header">
-            <div class="logo">VV</div>
-            <div>
-                <h2>用户登录</h2>
-                <p>使用 VV 账号登录</p>
-            </div>
+    <noscript>
+        <div style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background-color: white;">
+            <center>
+                <h1>您的浏览器不支持JavaScript，请升级您的浏览器。</h1>
+            </center>
         </div>
+    </noscript>
+    <div id="app">
+        <div class="header">
+            <div class="logo">VV</div>
+            <h1>用户登录</h1>
+            <p>使用 VV 账号登录</p>
+        </div>
+        <div class="content">
+            <div class="card">
+                <h2>登录信息</h2>
+                <form id="loginForm">
+                    <div class="field">
+                        <s-text-field id="user" label="用户" type="text" placeholder="用户名或邮箱" class="full-width"></s-text-field>
+                    </div>
 
-        <form id="loginForm">
-            <div class="field">
-                <label for="user">用户</label>
-                <input type="text" id="user" required placeholder="用户名或邮箱">
+                    <div class="field">
+                        <s-text-field id="password" label="密码" type="password" placeholder="请输入密码" class="full-width"></s-text-field>
+                    </div>
+
+                    <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess" data-lang="zh"></div>
+
+                    <div class="submit-row">
+                        <s-button type="submit" class="submit-btn">登录</s-button>
+                    </div>
+                </form>
+
+                <div class="action">
+                    <s-button type="outlined" onclick="window.location.href='/signup'+location.search">注册</s-button>
+                    <s-button type="outlined" onclick="window.location.href='/resetpw'+location.search">忘记密码</s-button>
+                </div>
             </div>
-
-            <div class="field">
-                <label for="password">密码</label>
-                <input type="password" id="password" required placeholder="请输入密码">
-            </div>
-
-            <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess" data-lang="zh"></div>
-
-            <div class="submit-row">
-                <input type="submit" value="登录">
-            </div>
-        </form>
-
-        <div class="action">
-            <button onclick="window.location.href='/signup'+location.search">注册</button>
-            <button onclick="window.location.href='/resetpw'+location.search">忘记密码</button>
         </div>
     </div>
     <script src="/static/login/index.js"></script>

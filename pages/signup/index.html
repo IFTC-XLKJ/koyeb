@@ -3,75 +3,74 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>注册</title>
     <script src="https://verification.zjb522.cn/sdk/shield-verify.js?v=1.0.3"></script>
+    <script src="/static/sober.min.js"></script>
     <link rel="stylesheet" href="/static/signup/index.css">
     <meta name="description" content="VV账号注册">
-    <meta name="description" content="注册">
-    <meta name="description" content="用户注册">
-    <meta name="description" content="注册页面">
-    <meta name="description" content="用户注册页面">
 </head>
 
 <body>
-    <h1 style="display: none;">VV账号注册</h1>
-    <div class="register-form">
-        <div class="register-header">
+    <noscript>
+        <div style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background-color: white;">
+            <center>
+                <h1>您的浏览器不支持JavaScript，请升级您的浏览器。</h1>
+            </center>
+        </div>
+    </noscript>
+    <div id="app">
+        <div class="header">
             <div class="logo">VV</div>
-            <div>
-                <h2>用户注册</h2>
-                <p>创建你的 VV 账号</p>
+            <h1>用户注册</h1>
+            <p>创建你的 VV 账号</p>
+        </div>
+        <div class="content">
+            <div class="card">
+                <h2>注册信息</h2>
+                <form id="registerForm">
+                    <div class="field">
+                        <s-text-field id="user" label="用户名" type="text" placeholder="用户名" class="full-width"></s-text-field>
+                        <s-button id="random_username" type="outlined" class="random-btn">随机用户名</s-button>
+                    </div>
+
+                    <div class="field">
+                        <s-text-field id="password" label="密码" type="password" placeholder="至少8位" class="full-width"></s-text-field>
+                    </div>
+
+                    <div class="field">
+                        <s-text-field id="confirmPassword" label="确认密码" type="password" placeholder="再次输入密码" class="full-width"></s-text-field>
+                    </div>
+
+                    <div class="field">
+                        <s-text-field id="email" label="邮箱" type="text" placeholder="邮箱地址" class="full-width"></s-text-field>
+                    </div>
+
+                    <div class="field">
+                        <div class="verify-row">
+                            <s-text-field id="emailVerifyCode" label="邮箱验证码" type="text" placeholder="验证码" class="verify-input"></s-text-field>
+                            <s-button id="getCode" type="outlined" class="verify-btn">获取验证码</s-button>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="file-label">头像</label>
+                        <div class="file-picker">
+                            <input type="file" id="avatar" accept="image/*" class="file-input">
+                            <s-button type="button" class="file-btn">选择头像</s-button>
+                            <span class="file-name">未选择文件</span>
+                        </div>
+                    </div>
+
+                    <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess"
+                        data-lang="zh" style="display: flex; justify-content: center;"></div>
+
+                    <div class="submit-row">
+                        <s-button type="submit" class="submit-btn">注册</s-button>
+                    </div>
+                </form>
             </div>
         </div>
-
-        <form id="registerForm">
-            <div class="field">
-                <label for="user">用户名</label>
-                <div style="display:flex;gap:8px;align-items:center">
-                    <input type="text" id="user" required placeholder="用户名">
-                    <button id="random_username" type="button">随机用户名</button>
-                </div>
-            </div>
-
-            <div class="field">
-                <label for="password">密码</label>
-                <input type="password" id="password" required placeholder="至少8位">
-            </div>
-
-            <div class="field">
-                <label for="confirmPassword">确认密码</label>
-                <input type="password" id="confirmPassword" required placeholder="再次输入密码">
-            </div>
-
-            <div class="field">
-                <label for="email">邮箱</label>
-                <input type="email" id="email" required placeholder="邮箱地址">
-            </div>
-
-            <div class="field">
-                <label>邮箱验证码</label>
-                <div class="button-group">
-                    <input type="text" id="emailVerifyCode" required placeholder="验证码">
-                    <button type="button" id="getCode">获取验证码</button>
-                </div>
-            </div>
-
-            <div class="field">
-                <label for="avatar">头像</label>
-                <div class="file-picker">
-                    <input type="file" id="avatar" accept="image/*" class="file-input">
-                    <button type="button" class="file-btn">选择头像</button>
-                    <span class="file-name">未选择文件</span>
-                </div>
-            </div>
-
-            <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess"
-                data-lang="zh" style="display: flex; justify-content: center;"></div>
-
-            <div class="submit-row">
-                <input type="submit" value="注册">
-            </div>
-        </form>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
