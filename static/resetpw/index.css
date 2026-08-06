@@ -65,6 +65,16 @@ s-button {
     --sober-shape-corner-extra-large: 16px;
 }
 
+s-button[type="filled"],
+s-button:not([type]) {
+    color: #fff;
+}
+
+s-button[type="outlined"],
+s-button[type="text"] {
+    color: var(--color-primary);
+}
+
 s-text-field {
     --sober-color-background: 202, 202, 202;
     --sober-shape-corner-extra-large: 16px;
