@@ -30,11 +30,15 @@
                 <h2>登录信息</h2>
                 <form id="loginForm">
                     <div class="field">
-                        <s-text-field id="user" label="用户" type="text" placeholder="用户名或邮箱" class="full-width"></s-text-field>
+                        <s-text-field id="user" label="用户" type="text" class="full-width">
+                            <div slot="text">用户名或邮箱</div>
+                        </s-text-field>
                     </div>
 
                     <div class="field">
-                        <s-text-field id="password" label="密码" type="password" placeholder="请输入密码" class="full-width"></s-text-field>
+                        <s-text-field id="password" label="密码" type="password" class="full-width">
+                            <div slot="text">请输入密码</div>
+                        </s-text-field>
                     </div>
 
                     <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess" data-lang="zh"></div>
