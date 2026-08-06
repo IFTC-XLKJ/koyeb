@@ -32,15 +32,17 @@
                 </div>
                 <form id="resetpwForm">
                     <div class="field">
-                        <s-text-field id="ID" label="用户ID" type="number" placeholder="请输入用户ID" class="full-width"></s-text-field>
+                        <s-text-field id="ID" label="用户ID" type="number" class="full-width"></s-text-field>
                     </div>
 
                     <div class="field">
-                        <s-text-field id="email" label="邮箱（注册使用的邮箱）" type="text" placeholder="邮箱地址" class="full-width"></s-text-field>
+                        <s-text-field id="email" label="邮箱（注册使用的邮箱）" type="text" class="full-width"></s-text-field>
                     </div>
 
                     <div class="field">
-                        <s-text-field id="password" label="新密码" type="password" placeholder="新密码（至少8位）" class="full-width"></s-text-field>
+                        <s-text-field id="password" label="新密码" type="password"" class="full-width">
+                            <div slot="text">至少8位</div>
+                        </s-text-field>
                     </div>
 
                     <div class="submit-row">
