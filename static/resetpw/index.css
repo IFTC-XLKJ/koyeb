@@ -59,7 +59,7 @@ body {
 
 s-button {
     --sober-color-primary: 135, 206, 235;
-    color: #fff;
+    --sober-color-on-primary: 255, 255, 255;
     --sober-comp-ripple-state-layer-color: 150, 150, 150, 0.2;
     --shape-corner: 25px;
     --sober-shape-corner-extra-large: 16px;
@@ -233,6 +233,16 @@ s-text-field {
         --color-text-primary: #F5F5F5;
         --color-text-secondary: #A0A0A0;
         --color-border: #404040;
+    }
+
+    s-button {
+        --sober-color-primary: 93, 173, 226;
+        --sober-color-on-primary: 255, 255, 255;
+    }
+
+    s-text-field {
+        --sober-color-background: 50, 50, 50;
+        background-color: #323232;
     }
 }
 
