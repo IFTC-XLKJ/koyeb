@@ -3,13 +3,14 @@ const toast = new Toast();
 async function init() {
     const idCookie = await cookieStore.get("ID");
     const userId = idCookie?.value;
-
+    console.log("userId", userId);
     if (!userId) {
         location.href = "/login?page=" + encodeURIComponent("/user");
         return;
     }
 
     const params = parserUrlParams();
+    console.log("params", params);
     if (params.id && params.id !== userId) {
         location.href = `/user?id=${userId}`;
         return;
@@ -99,7 +100,7 @@ async function init() {
             });
             const data = await response.json();
             if (data.code == 200) token = data?.token || "";
-        } catch (e) {}
+        } catch (e) { }
         toast.hideToast(tokenLoadid);
 
         if (!token) {
@@ -253,7 +254,7 @@ async function init() {
                     });
                     const tokenData = await tokenResponse.json();
                     if (tokenData.code == 200) token = tokenData?.token || "";
-                } catch (e) {}
+                } catch (e) { }
                 if (!token) {
                     toast.hideToast(loadid);
                     toast.showToast("获取Token失败，请重试", 2, "center", "large", "error", "", true);
