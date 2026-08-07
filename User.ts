@@ -1,5 +1,6 @@
 import { sign } from "./shared.ts";
 import crypto from "crypto";
+import { sendMail, sendCode } from "./Mail.ts";
 import type {
     GetAllUsersResponse,
     GetByIDResponse,
