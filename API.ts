@@ -10,7 +10,7 @@ import type {
 } from "./types.ts";
 import User from "./User.ts";
 import UUID_db from "./UUID_db.ts";
-import { sendCode } from "./Mail.ts";
+import { sendCode, verifyCode } from "./Mail.ts";
 import { supabase, messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
@@ -1183,7 +1183,7 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { email, title, content } = request.query;
-            const captcha = Math.random().toString().slice(2, 8);
+            const captcha = String(Math.floor(100000 + Math.random() * 900000));
             const result = await sendCode(
                 decodeURIComponent(email),
                 decodeURIComponent(title),
@@ -1196,6 +1196,39 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(400).send({
                     code: 400,
                     msg: "发送失败" + (result.error ? "：" + result.error : ""),
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
+        "/api/verifycode",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        email: { type: "string" },
+                        code: { type: "string" },
+                    },
+                    required: ["email", "code"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{
+                Querystring: { email: string; code: string };
+            }>,
+            reply: FastifyReply,
+        ) => {
+            const { email, code } = request.query;
+            const result = verifyCode(decodeURIComponent(email), code);
+            if (result.success) {
+                return reply.send({ code: 200, msg: result.msg, timestamp: Date.now() });
+            } else {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: result.msg,
                     timestamp: Date.now(),
                 });
             }
