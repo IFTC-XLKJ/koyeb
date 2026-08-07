@@ -39,11 +39,11 @@ async function init() {
                 cookieStore.set("token", data?.token || "");
                 tokenRetryCount = 0;
             } else {
-                tokenDisplay.textContent = "获取失败";
+                tokenDisplay.textContent = "获取失败" + (data.msg ? `(${data.msg})` : "");
                 scheduleTokenRetry();
             }
         } catch (e) {
-            tokenDisplay.textContent = "获取失败";
+            tokenDisplay.textContent = "获取失败" + (e.message ? `(${e.message})` : "");
             scheduleTokenRetry();
         }
     }
