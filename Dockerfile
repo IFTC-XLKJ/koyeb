@@ -22,6 +22,7 @@ RUN apt-get update && \
     dnsutils \
     sudo \
     curl \
+    clang \
     libglib2.0-0 \
     libatk1.0-0 \
     libatk-bridge2.0-0 \
