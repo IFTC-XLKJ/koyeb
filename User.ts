@@ -176,66 +176,6 @@ export default class User {
             fields: `token="${token}"`,
         })) as UserResponse;
     }
-    sendCode(email: string, title: string, content: string): Promise<any> {
-        let t = Math.round(new Date().getTime() / 1000);
-        var raw = JSON.stringify({
-            key: "f7115d5ac87aedd4d42cf510ed064449",
-            main: btoa(encodeURIComponent(content)),
-            to: email,
-            count: 6,
-            expired: 120,
-            title: title,
-            t: t,
-        });
-        var requestOptions: RequestInit = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: raw,
-            redirect: "follow",
-        };
-        return new Promise((resolve, reject) => {
-            fetch("https://api.pgaot.com/email/customize_sand", requestOptions)
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log(result);
-                    resolve(result);
-                })
-                .catch((error) => {
-                    throw new Error("error:", error);
-                });
-        });
-    }
-    sendEmail(email: string, title: string, content: string): Promise<any> {
-        let t = Math.round(new Date().getTime() / 1000);
-        var raw = JSON.stringify({
-            key: "f7115d5ac87aedd4d42cf510ed064449",
-            main: btoa(encodeURIComponent(content)),
-            to: email,
-            count: 6,
-            expired: 120,
-        });
-        var requestOptions: RequestInit = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: raw,
-            redirect: "follow",
-        };
-        return new Promise((resolve, reject) => {
-            fetch("https://api.pgaot.com/email/customize_sand", requestOptions)
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log(result);
-                    resolve(result);
-                })
-                .catch((error) => {
-                    throw new Error("error:", error);
-                });
-        });
-    }
     async fetchData(url: string, body: Object): Promise<Object> {
         const timestamp: number = Date.now();
         const signature: string = sign.get(String(timestamp));

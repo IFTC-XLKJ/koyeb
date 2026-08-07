@@ -1,4 +1,5 @@
 import { sign } from "./shared.ts";
+import { sendMail } from "./Mail.ts";
 
 const UUID_dbKEY: string =
     "LkduYVIN+ZVpT2OpSV2DM5gdurynzN8Mk08tX2/Rm0dbeqAqR82HeOjnd+soDEpbSbW06EwVYT38wb0nNOx5lxTmPkmVBOErbF5mNqsyQOgX1YRTD4bRxjkxKTd/6hMWRN0NetHfBJoKankFcCLU0Vf9bHQwR/X8o15DuJZVFC0=";
@@ -28,36 +29,9 @@ export interface UUIDResponse {
 export default class UUID_db {
     constructor() {}
 
-    static sendEmail(email: string, title: string, content: string): Promise<any> {
-        let t = Math.round(new Date().getTime() / 1000);
-        var raw = JSON.stringify({
-            key: "f7115d5ac87aedd4d42cf510ed064449",
-            main: btoa(encodeURIComponent(content)),
-            to: email,
-            title: title,
-            t: t,
-            sw: "a3d7eb36c26735f3f6250ff1283158b78753be06936a928d40a5c0d3c2401cc9",
-        });
-        const requestOptions: RequestInit = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: raw,
-            redirect: "follow",
-        };
-        return new Promise((resolve, reject) => {
-            fetch("https://api.pgaot.com/email/send", requestOptions)
-                .then((response) => response.json())
-                .then((result) => {
-                    console.log(result);
-                    resolve(result || {});
-                })
-                .catch((error) => {
-                    console.error("Send email error:", error);
-                    reject(error);
-                });
-        });
+    static async sendEmail(email: string, title: string, content: string): Promise<any> {
+        const result = await sendMail({ to: email, subject: title, html: content });
+        return result.success ? { status: 1 } : { status: 0, msg: result.error };
     }
 
     async getData(uuid: string): Promise<UUIDResponse> {
