@@ -651,7 +651,7 @@ async function start() {
                         return reply.send({
                             code: 200,
                             msg: "密码重置成功",
-                            data: uuidData.fields[0],
+                            timestamp: time(),
                         });
                     }
                     return reply.send({
