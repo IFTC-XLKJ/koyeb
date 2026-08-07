@@ -103,11 +103,15 @@ async function init() {
         const tokenLoadid = toast.loading("获取Token中...");
         let token = "";
         try {
-            const response = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
-                headers: { "Cache-Control": "no-cache" }
-            });
-            const data = await response.json();
-            if (data.code == 200) token = data?.token || "";
+            const tokenCookie = await cookieStore.get("token");
+            token = tokenCookie?.value || "";
+            if (!token) {
+                const response = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
+                    headers: { "Cache-Control": "no-cache" }
+                });
+                const data = await response.json();
+                if (data.code == 200) token = data?.token || "";
+            }
         } catch (e) { }
         toast.hideToast(tokenLoadid);
 
