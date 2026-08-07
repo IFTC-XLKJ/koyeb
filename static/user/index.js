@@ -261,11 +261,15 @@ async function init() {
                 // Fetch a fresh token for the update request
                 let token = "";
                 try {
-                    const tokenResponse = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
-                        headers: { "Cache-Control": "no-cache" }
-                    });
-                    const tokenData = await tokenResponse.json();
-                    if (tokenData.code == 200) token = tokenData?.token || "";
+                    const tokenCookie = await cookieStore.get("token");
+                    token = tokenCookie?.value || "";
+                    if (!token) {
+                        const tokenResponse = await fetch(`/api/user/gettoken?id=${userId}&password=${encodeURIComponent(password)}`, {
+                            headers: { "Cache-Control": "no-cache" }
+                        });
+                        const tokenData = await tokenResponse.json();
+                        if (tokenData.code == 200) token = tokenData?.token || "";
+                    }
                 } catch (e) { }
                 if (!token) {
                     toast.hideToast(loadid);

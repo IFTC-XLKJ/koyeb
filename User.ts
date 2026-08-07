@@ -168,6 +168,13 @@ export default class User {
             fields: `密码="${md5Hash(password)}"`,
         })) as UserResponse;
     }
+    async updateToken(id: number, token: string) {
+        return (await this.fetchData(setDataURL, {
+            type: "UPDATE",
+            filter: `ID=${id}`,
+            fields: `token="${token}"`,
+        })) as UserResponse;
+    }
     sendCode(email: string, title: string, content: string): Promise<any> {
         let t = Math.round(new Date().getTime() / 1000);
         var raw = JSON.stringify({

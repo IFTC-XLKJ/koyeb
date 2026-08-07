@@ -25,6 +25,7 @@ import { Segment } from "node-segment";
 import * as whois from "whois";
 import type { WhoisResult } from "whois";
 import fs from "fs/promises";
+import crypto from "crypto";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -391,6 +392,12 @@ export default function (fastify: FastifyInstance) {
                         id: json.fields[0].ID,
                         timestamp: Date.now(),
                     });
+                    await user.updateToken(
+                        json.fields[0].ID,
+                        Date.now() +
+                            "-" +
+                            md5Hash(json.fields[0].ID + nickname + email + password + Date.now()),
+                    );
                     return await RecordMessages.recordMessage({
                         title: "新用户注册",
                         uid: json.fields[0].ID,
@@ -1230,7 +1237,12 @@ export default function (fastify: FastifyInstance) {
                     });
                 const uuid = generateUUID();
                 const uuidDb = new UUID_db();
-                const json = await uuidDb.addData(uuid, "resetpassword", Number(ID), decodedPassword);
+                const json = await uuidDb.addData(
+                    uuid,
+                    "resetpassword",
+                    Number(ID),
+                    decodedPassword,
+                );
                 if (json.code == 200) {
                     const url = `https://iftc.koyeb.app/resetpw/${uuid}`;
                     const emailContent = `<!DOCTYPE html>
@@ -1304,7 +1316,8 @@ export default function (fastify: FastifyInstance) {
                     msg: "缺少uuid参数",
                     timestamp: Date.now(),
                 });
-            const regexp = /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
+            const regexp =
+                /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/;
             if (!regexp.test(uuid))
                 return reply.status(400).send({
                     code: 400,
@@ -2316,4 +2329,10 @@ async function randomUsername() {
     const noun = nouns[Math.floor(Math.random() * nouns.length)];
     const id = btoa((Math.random() * 10 ** 16).toString(36)).slice(0, 4);
     return adj + noun + id;
+}
+
+function md5Hash(input: string): string {
+    const hash: crypto.Hash = crypto.createHash("md5");
+    hash.update(input);
+    return hash.digest("hex");
 }
