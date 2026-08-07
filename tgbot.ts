@@ -37,7 +37,7 @@ function formatTimestamp(timestamp: number, timezone: string): string {
 
 bot.onText(/\/start/, (msg) => {
     const chatId = msg.chat.id;
-    return bot.sendMessage(chatId, "欢迎使用VV���手", {
+    return bot.sendMessage(chatId, "欢迎使用VV助手", {
         reply_markup: {
             inline_keyboard: [
                 [
@@ -55,7 +55,7 @@ bot.onText(/\/hello/, (msg) => {
 });
 
 bot.onText(/\/echo (.+)/, (msg, match) => {
-    return bot.sendMessage(msg.chat.id, match[1]);
+    return bot.sendMessage(msg.chat.id, match![1]);
 });
 
 bot.onText(/\/about/, (msg) => {
@@ -77,7 +77,7 @@ bot.onText(/\/help/, (msg) => {
 bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     const chatId = msg.chat.id;
     try {
-        const resp = match[1].trim();
+        const resp = match![1].trim();
         const id = Number(resp);
 
         if (!resp) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
@@ -123,8 +123,8 @@ bot.onText(/\/login (.+) (.+)/, async (msg, match) => {
             return bot.sendMessage(chatId, "无法获取你的 Telegram 用户ID，请确保你已正确使用 /login 命令");
         }
 
-        const username = match[1];
-        const password = match[2];
+        const username = match![1];
+        const password = match![2];
         console.log("Telegram Bot Received login command:", username, password);
 
         bot.sendMessage(chatId, "正在登录中，请稍后...");
