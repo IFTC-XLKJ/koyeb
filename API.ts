@@ -10,6 +10,7 @@ import type {
 } from "./types.ts";
 import User from "./User.ts";
 import UUID_db from "./UUID_db.ts";
+import { sendCode } from "./Mail.ts";
 import { supabase, messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
@@ -1182,7 +1183,22 @@ export default function (fastify: FastifyInstance) {
             reply: FastifyReply,
         ) => {
             const { email, title, content } = request.query;
-            // ... existing code ...
+            const captcha = Math.random().toString().slice(2, 8);
+            const result = await sendCode(
+                decodeURIComponent(email),
+                decodeURIComponent(title),
+                decodeURIComponent(content),
+                captcha,
+            );
+            if (result.success) {
+                return reply.send({ code: 200, msg: "发送成功", timestamp: Date.now() });
+            } else {
+                return reply.status(400).send({
+                    code: 400,
+                    msg: "发送失败" + (result.error ? "：" + result.error : ""),
+                    timestamp: Date.now(),
+                });
+            }
         },
     );
     fastify.get(
