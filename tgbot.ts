@@ -63,6 +63,7 @@ bot.onText(/\/about/, (msg) => {
 });
 
 bot.onText(/\/help/, (msg) => {
+    console.log("Telegram Bot Received help command.");
     const helpText = `VV助手是一个Telegram机器人，可以帮助你查询用户信息。<br>
 当前可用命令：<br>
 <code>/start</code> - 启动机器人
@@ -79,19 +80,14 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
     try {
         const resp = match![1].trim();
         const id = Number(resp);
-
         if (!resp) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
         if (isNaN(id) || id < 0) return bot.sendMessage(chatId, "请输入有效的用户ID，如：0");
-
         bot.sendMessage(chatId, "正在查询中，请稍后...");
-
         const r = await fetch(`https://iftc.koyeb.app/api/user/details?id=${id}`);
         const j = await r.json();
         if (j.code !== 200) return bot.sendMessage(chatId, j.msg);
-
         const data = j.data;
         await bot.sendPhoto(chatId, data.avatar, { caption: "" });
-
         const str = `<b>用户 ID：</b><code>${data.ID}</code>
 <b>用户名：</b><code>${data.username}</code>
 <b>邮箱：</b><code>${escapeHtml(data.email)}</code>
