@@ -1,0 +1,100 @@
+#13 2.667 Get:257 http://deb.debian.org/debian bullseye/main amd64 libxcb-randr0 amd64 1.14-3 [113 kB]
+#13 2.668 Get:258 http://deb.debian.org/debian bullseye/main amd64 xkb-data all 2.29-2 [655 kB]
+#13 2.672 Get:259 http://deb.debian.org/debian bullseye/main amd64 libxkbcommon0 amd64 1.0.3-2 [101 kB]
+#13 2.673 Get:260 http://deb.debian.org/debian bullseye/main amd64 libxss1 amd64 1:1.2.3-1 [17.8 kB]
+#13 2.677 Get:261 http://deb.debian.org/debian bullseye/main amd64 libxt-dev amd64 1:1.2.0-1 [407 kB]
+#13 2.680 Get:262 http://deb.debian.org/debian bullseye/main amd64 libyaml-0-2 amd64 0.2.2-1 [49.6 kB]
+#13 2.681 Get:263 http://deb.debian.org/debian bullseye/main amd64 libz3-dev amd64 4.8.10-1 [90.8 kB]
+#13 2.683 Get:264 http://deb.debian.org/debian bullseye/main amd64 llvm-11-runtime amd64 1:11.0.1-2 [212 kB]
+#13 2.684 Get:265 http://deb.debian.org/debian bullseye/main amd64 llvm-11 amd64 1:11.0.1-2 [8463 kB]
+#13 2.733 Get:266 http://deb.debian.org/debian-security bullseye-security/main amd64 python3-pkg-resources all 52.0.0-4+deb11u2 [190 kB]
+#13 2.735 Get:267 http://deb.debian.org/debian bullseye/main amd64 python3-pygments all 2.7.1+dfsg-2.1 [657 kB]
+#13 2.738 Get:268 http://deb.debian.org/debian bullseye/main amd64 python3-yaml amd64 5.3.1-5 [138 kB]
+#13 2.739 Get:269 http://deb.debian.org/debian bullseye/main amd64 llvm-11-tools amd64 1:11.0.1-2 [373 kB]
+#13 2.742 Get:270 http://deb.debian.org/debian bullseye/main amd64 llvm-11-dev amd64 1:11.0.1-2 [28.0 MB]
+#13 2.898 Get:271 http://deb.debian.org/debian bullseye/main amd64 manpages-dev all 5.10-1 [2309 kB]
+#13 2.910 Get:272 http://deb.debian.org/debian-security bullseye-security/main amd64 mesa-vulkan-drivers amd64 20.3.5-1+deb11u1 [4088 kB]
+#13 2.927 Get:273 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jre-headless amd64 17.0.20+8-1~deb11u1 [43.9 MB]
+#13 3.118 Get:274 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jre amd64 17.0.20+8-1~deb11u1 [215 kB]
+#13 3.118 Get:275 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jdk-headless amd64 17.0.20+8-1~deb11u1 [71.6 MB]
+#13 3.431 Get:276 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jdk amd64 17.0.20+8-1~deb11u1 [10.5 kB]
+#13 3.431 Get:277 http://deb.debian.org/debian bullseye/main amd64 psmisc amd64 23.4-2 [198 kB]
+#13 3.432 Get:278 http://deb.debian.org/debian bullseye/main amd64 publicsuffix all 20220811.1734-0+deb11u1 [127 kB]
+#13 3.433 Get:279 http://deb.debian.org/debian-security bullseye-security/main amd64 sudo amd64 1.9.5p2-3+deb11u4 [1059 kB]
+#13 3.437 Get:280 http://deb.debian.org/debian bullseye/main amd64 unzip amd64 6.0-26+deb11u1 [172 kB]
+#13 3.438 Get:281 http://deb.debian.org/debian bullseye/main amd64 xdg-user-dirs amd64 0.17-2 [53.8 kB]
+#13 3.451 Fetched 370 MB in 2s (198 MB/s)
+#13 3.451 E: Failed to fetch http://deb.debian.org/debian/pool/main/l/llvm-toolchain-11/libclang-cpp11_11.0.1-2_amd64.deb  Error reading from server - read (104: Connection reset by peer) [IP: 2a04:4e42:600::644 80]
+#13 3.451 E: Failed to fetch http://deb.debian.org/debian/pool/main/l/llvm-toolchain-11/libclang-common-11-dev_11.0.1-2_amd64.deb  Undetermined Error [IP: 2a04:4e42:600::644 80]
+#13 3.451 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+#13 ERROR: process "/bin/sh -c apt-get update &&     apt-get install -y     traceroute     unzip     openjdk-17-jdk     dnsutils     sudo     curl     clang     libglib2.0-0     libatk1.0-0     libatk-bridge2.0-0     libcups2     libxkbcommon0     libxcomposite1     libxdamage1     libxrandr2     libgbm1     libasound2     libpangocairo-1.0-0     libxss1     libnss3     libnspr4     libfontconfig1     libexpat1     ca-certificates     fonts-liberation     fonts-noto-cjk     fonts-wqy-zenhei     fonts-wqy-microhei     fonts-droid-fallback     fonts-dejavu     libx11-6     libx11-xcb1     libxcb1     libxcomposite1     libxcursor1     libxdamage1     libxext6     libxfixes3     libxi6     libxrender1     libxtst6     wget     iperf3     gnupg     procps &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+------
+ > [ 9/15] RUN apt-get update &&     apt-get install -y     traceroute     unzip     openjdk-17-jdk     dnsutils     sudo     curl     clang     libglib2.0-0     libatk1.0-0     libatk-bridge2.0-0     libcups2     libxkbcommon0     libxcomposite1     libxdamage1     libxrandr2     libgbm1     libasound2     libpangocairo-1.0-0     libxss1     libnss3     libnspr4     libfontconfig1     libexpat1     ca-certificates     fonts-liberation     fonts-noto-cjk     fonts-wqy-zenhei     fonts-wqy-microhei     fonts-droid-fallback     fonts-dejavu     libx11-6     libx11-xcb1     libxcb1     libxcomposite1     libxcursor1     libxdamage1     libxext6     libxfixes3     libxi6     libxrender1     libxtst6     wget     iperf3     gnupg     procps &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*:
+3.431 Get:276 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jdk amd64 17.0.20+8-1~deb11u1 [10.5 kB]
+3.431 Get:277 http://deb.debian.org/debian bullseye/main amd64 psmisc amd64 23.4-2 [198 kB]
+3.432 Get:278 http://deb.debian.org/debian bullseye/main amd64 publicsuffix all 20220811.1734-0+deb11u1 [127 kB]
+3.433 Get:279 http://deb.debian.org/debian-security bullseye-security/main amd64 sudo amd64 1.9.5p2-3+deb11u4 [1059 kB]
+3.437 Get:280 http://deb.debian.org/debian bullseye/main amd64 unzip amd64 6.0-26+deb11u1 [172 kB]
+3.438 Get:281 http://deb.debian.org/debian bullseye/main amd64 xdg-user-dirs amd64 0.17-2 [53.8 kB]
+3.451 Fetched 370 MB in 2s (198 MB/s)
+3.451 E: Failed to fetch http://deb.debian.org/debian/pool/main/l/llvm-toolchain-11/libclang-cpp11_11.0.1-2_amd64.deb  Error reading from server - read (104: Connection reset by peer) [IP: 2a04:4e42:600::644 80]
+3.451 E: Failed to fetch http://deb.debian.org/debian/pool/main/l/llvm-toolchain-11/libclang-common-11-dev_11.0.1-2_amd64.deb  Undetermined Error [IP: 2a04:4e42:600::644 80]
+3.451 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+------
+Dockerfile:17
+--------------------
+  16 |     # 安装 Chromium 和必要依赖
+  17 | >>> RUN apt-get update && \
+  18 | >>>     apt-get install -y \
+  19 | >>>     traceroute \
+  20 | >>>     unzip \
+  21 | >>>     openjdk-17-jdk \
+  22 | >>>     dnsutils \
+  23 | >>>     sudo \
+  24 | >>>     curl \
+  25 | >>>     clang \
+  26 | >>>     libglib2.0-0 \
+  27 | >>>     libatk1.0-0 \
+  28 | >>>     libatk-bridge2.0-0 \
+  29 | >>>     libcups2 \
+  30 | >>>     libxkbcommon0 \
+  31 | >>>     libxcomposite1 \
+  32 | >>>     libxdamage1 \
+  33 | >>>     libxrandr2 \
+  34 | >>>     libgbm1 \
+  35 | >>>     libasound2 \
+  36 | >>>     libpangocairo-1.0-0 \
+  37 | >>>     libxss1 \
+  38 | >>>     libnss3 \
+  39 | >>>     libnspr4 \
+  40 | >>>     libfontconfig1 \
+  41 | >>>     libexpat1 \
+  42 | >>>     ca-certificates \
+  43 | >>>     fonts-liberation \
+  44 | >>>     fonts-noto-cjk \
+  45 | >>>     fonts-wqy-zenhei \
+  46 | >>>     fonts-wqy-microhei \
+  47 | >>>     fonts-droid-fallback \
+  48 | >>>     fonts-dejavu \
+  49 | >>>     # 👇 关键：以下这些常被遗漏，但 Chrome 需要
+  50 | >>>     libx11-6 \
+  51 | >>>     libx11-xcb1 \
+  52 | >>>     libxcb1 \
+  53 | >>>     libxcomposite1 \
+  54 | >>>     libxcursor1 \
+  55 | >>>     libxdamage1 \
+  56 | >>>     libxext6 \
+  57 | >>>     libxfixes3 \
+  58 | >>>     libxi6 \
+  59 | >>>     libxrender1 \
+  60 | >>>     libxtst6 \
+  61 | >>>     wget \
+  62 | >>>     iperf3 \
+  63 | >>>     gnupg \
+  64 | >>>     procps && \
+  65 | >>>     apt-get clean && \
+  66 | >>>     rm -rf /var/lib/apt/lists/*
+  67 |     
+--------------------
+error: failed to solve: process "/bin/sh -c apt-get update &&     apt-get install -y     traceroute     unzip     openjdk-17-jdk     dnsutils     sudo     curl     clang     libglib2.0-0     libatk1.0-0     libatk-bridge2.0-0     libcups2     libxkbcommon0     libxcomposite1     libxdamage1     libxrandr2     libgbm1     libasound2     libpangocairo-1.0-0     libxss1     libnss3     libnspr4     libfontconfig1     libexpat1     ca-certificates     fonts-liberation     fonts-noto-cjk     fonts-wqy-zenhei     fonts-wqy-microhei     fonts-droid-fallback     fonts-dejavu     libx11-6     libx11-xcb1     libxcb1     libxcomposite1     libxcursor1     libxdamage1     libxext6     libxfixes3     libxi6     libxrender1     libxtst6     wget     iperf3     gnupg     procps &&     apt-get clean &&     rm -rf /var/lib/apt/lists/*" did not complete successfully: exit code: 100
+Build failed ❌

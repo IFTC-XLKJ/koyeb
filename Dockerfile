@@ -15,7 +15,7 @@ RUN npm i cookie-parser
 
 # 安装 Chromium 和必要依赖
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --retry=3 \
     traceroute \
     unzip \
     openjdk-17-jdk \
@@ -61,7 +61,7 @@ RUN apt-get update && \
     wget \
     iperf3 \
     gnupg \
-    procps && \
+    procps || (sleep 15 && apt-get install -y --retry=3 ...) && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
