@@ -1162,7 +1162,7 @@ export default function (fastify: FastifyInstance) {
         });
     });
     fastify.get(
-        "/api/user/sendcode",
+        "/api/sendcode",
         {
             schema: {
                 querystring: {
