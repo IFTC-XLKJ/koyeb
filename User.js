@@ -172,6 +172,7 @@ class User {
         });
     });
   }
+  // 验证码
   verifyCode(email, code) {
     let t = Math.round(new Date().getTime() / 1000);
     const raw = JSON.stringify({
