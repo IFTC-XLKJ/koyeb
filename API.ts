@@ -293,6 +293,7 @@ export default function (fastify: FastifyInstance) {
                     decodeURIComponent(_user || ""),
                     decodeURIComponent(password || ""),
                 );
+                console.log(json);
                 const code: number = json["code"];
                 if (code == 200) {
                     if (json.fields[0].封号 == 1) {
