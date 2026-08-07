@@ -14,8 +14,13 @@ import multipart from "@fastify/multipart";
 import fastifyCors from "@fastify/cors";
 import { Readable } from "stream";
 import { exec } from "child_process";
+import UUID_db from "./UUID_db.ts";
+import User from "./User.ts";
 
 exec("iperf3 -s");
+
+const uuid_db = new UUID_db();
+const user = new User();
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = path.dirname(__filename);
@@ -158,7 +163,13 @@ const blockedPaths = [
     "/shopware",
     "/typo3",
 ];
-const sensitiveEndpoints = ["/api/user/login", "/api/user/register", "/api/user/sendcode", "/api/user/gettoken", "/api/user/resetpassword"];
+const sensitiveEndpoints = [
+    "/api/user/login",
+    "/api/user/register",
+    "/api/user/sendcode",
+    "/api/user/gettoken",
+    "/api/user/resetpassword",
+];
 
 function time(): number {
     return Date.now();
@@ -180,10 +191,12 @@ function isSuspiciousBehavior(req: FastifyRequest): boolean {
         !!req.headers.accept &&
         !!req.headers["accept-language"] &&
         !!req.headers["accept-encoding"];
-    const hasSecFetch: boolean =
-        !!req.headers["sec-fetch-dest"] || !!req.headers["sec-fetch-mode"];
+    const hasSecFetch: boolean = !!req.headers["sec-fetch-dest"] || !!req.headers["sec-fetch-mode"];
     const hasBrowserUA: boolean =
-        ua.includes("mozilla") || ua.includes("chrome") || ua.includes("firefox") || ua.includes("safari");
+        ua.includes("mozilla") ||
+        ua.includes("chrome") ||
+        ua.includes("firefox") ||
+        ua.includes("safari");
     if (!hasBrowserHeaders && !hasBrowserUA) return true;
     if (!hasBrowserHeaders && !hasSecFetch && !hasBrowserUA) return true;
     return false;
@@ -265,7 +278,9 @@ function requestLog(req: FastifyRequest): void {
     if (req.headers["user-agent"] == "Koyeb Health Check") return;
     if (req.headers["user-agent"] == "IFTC Bot") return console.log("状态检测请求");
     requestRecord(req);
-    console.log(`收到请求 IP: ${req.ip} XFF: ${req.headers["x-forwarded-for"] || "-"} UA: ${req.headers["user-agent"]}`,);
+    console.log(
+        `收到请求 IP: ${req.ip} XFF: ${req.headers["x-forwarded-for"] || "-"} UA: ${req.headers["user-agent"]}`,
+    );
     console.log(`请求源：${req.headers["referer"] || "Unknown"}`);
     console.log(`Method: ${req.method} URL: ${req.url}`);
 }
@@ -387,7 +402,11 @@ async function start() {
                     return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
                 const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
-                if (ua == "IFTC Bot" || ua == "mini-tsc/1.0" || ua.includes("xaiimageapifetch/1.0")) {
+                if (
+                    ua == "IFTC Bot" ||
+                    ua == "mini-tsc/1.0" ||
+                    ua.includes("xaiimageapifetch/1.0")
+                ) {
                     return;
                 }
                 if (ua.includes("apifox")) return;
@@ -599,10 +618,55 @@ async function start() {
                 reply: FastifyReply,
             ): Promise<Object> => {
                 const { uuid } = request.params;
-                const params: Record<string, any> = {
-                    uuid: uuid,
-                };
-                return returnPage("resetpw/result.html", params, reply);
+                try {
+                    const uuidData = await uuid_db.getData(uuid);
+                    if (uuidData.code === 200 && uuidData.fields.length > 0) {
+                        const ID = uuidData.fields[0].ID;
+                        const type = uuidData.fields[0].类型;
+                        if (type != "resetpassword") {
+                            return reply.send({
+                                code: 400,
+                                msg: "UUID类型错误",
+                                timestamp: time(),
+                            });
+                        }
+                        const data = uuidData.fields[0].数据;
+                        const j = await user.getByID(ID);
+                        if (j.code != 200) {
+                            return reply.send({
+                                code: 404,
+                                msg: "用户未找到",
+                                timestamp: time(),
+                            });
+                        }
+                        const token = j.fields[0].token;
+                        if (!token) {
+                            return reply.send({
+                                code: 500,
+                                msg: "用户无token，无法重置密码",
+                                timestamp: time(),
+                            });
+                        }
+                        await user.update(token, "password", data);
+                        return reply.send({
+                            code: 200,
+                            msg: "密码重置成功",
+                            data: uuidData.fields[0],
+                        });
+                    }
+                    return reply.send({
+                        code: 404,
+                        msg: "UUID未找到或已过期",
+                        timestamp: time(),
+                    });
+                } catch (error) {
+                    return reply.send({
+                        code: 500,
+                        msg: "服务内部错误",
+                        error: error,
+                        timestamp: time(),
+                    });
+                }
             },
         );
         fastify.get(
@@ -628,7 +692,8 @@ async function start() {
                         avatar: user.avatar || "/static/avatar.png",
                         email: user.email || "",
                         vc: user.VC || 0,
-                        registrationDate: new Date(user.createdAt * 1000).toLocaleString("zh-CN") || "",
+                        registrationDate:
+                            new Date(user.createdAt * 1000).toLocaleString("zh-CN") || "",
                         updatedDate: new Date(user.updatedAt * 1000).toLocaleString("zh-CN") || "",
                     };
                     return returnPage("user/index.html", params, reply);
@@ -896,8 +961,8 @@ process.on("uncaughtException", (err) => {
 setInterval(async (): Promise<void> => {
     try {
         await systemMonitor();
-    //     const r: Response = await fetch("https://iftc.deno.dev");
-    //     console.log(await r.text());
+        //     const r: Response = await fetch("https://iftc.deno.dev");
+        //     console.log(await r.text());
     } catch (e) {
         console.error("Monitor error:", e);
     }
