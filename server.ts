@@ -648,6 +648,7 @@ async function start() {
                             });
                         }
                         await user.update(token, "password", data);
+                        await uuid_db.deleteData(uuid);
                         return reply.send({
                             code: 200,
                             msg: "密码重置成功",
