@@ -10,7 +10,7 @@ import type {
 } from "./types.ts";
 import User from "./User.ts";
 import UUID_db from "./UUID_db.ts";
-import { sendCode, verifyCode } from "./Mail.ts";
+import { sendCode, verifyCode, sendMail } from "./Mail.ts";
 import { supabase, messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
@@ -319,6 +319,11 @@ export default function (fastify: FastifyInstance) {
                         token: data.token,
                         timestamp: Date.now(),
                     });
+                    sendMail({
+                        to: data.邮箱 || "",
+                        subject: "用户登录",
+                        html: `用户 <b>${data.昵称} (${data.邮箱})</b> 登录了账号，登录IP为 <b>${request.headers["x-forwarded-for"] || "Unknown"}</b>，登录地点为 <b>${await lookupIP(request.headers["x-forwarded-for"] || null)}</b>`,
+                    });
                     return await RecordMessages.recordMessage({
                         title: "用户登录",
                         uid: data.ID,
@@ -401,6 +406,11 @@ export default function (fastify: FastifyInstance) {
                             "-" +
                             md5Hash(json.fields[0].ID + nickname + email + password + Date.now()),
                     );
+                    sendMail({
+                        to: decodeURIComponent(email || ""),
+                        subject: "用户注册",
+                        html: `用户 <b>${decodeURIComponent(nickname)} (${decodeURIComponent(email)})</b> 注册了账号，ID为 <b>${json.fields[0].ID}</b>，注册IP为 <b>${request.headers["x-forwarded-for"] || "Unknown"}</b>，注册地点为 <b>${await lookupIP(request.headers["x-forwarded-for"] || null)}</b>`,
+                    });
                     return await RecordMessages.recordMessage({
                         title: "新用户注册",
                         uid: json.fields[0].ID,

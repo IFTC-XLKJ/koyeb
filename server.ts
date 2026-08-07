@@ -16,6 +16,7 @@ import { Readable } from "stream";
 import { exec } from "child_process";
 import UUID_db from "./UUID_db.ts";
 import User from "./User.ts";
+import { sendMail } from "./Mail.ts";
 
 exec("iperf3 -s");
 
@@ -649,6 +650,11 @@ async function start() {
                         }
                         await user.update(token, "password", data);
                         await uuid_db.deleteData(uuid);
+                        sendMail({
+                            to: j.fields[0].邮箱 || "",
+                            subject: "密码重置成功",
+                            html: `用户 <b>${j.fields[0].昵称} (${j.fields[0].邮箱})</b> 成功重置了密码`,
+                        });
                         return reply.send({
                             code: 200,
                             msg: "密码重置成功",
