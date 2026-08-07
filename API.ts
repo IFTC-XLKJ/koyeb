@@ -296,13 +296,6 @@ export default function (fastify: FastifyInstance) {
                 console.log(json);
                 const code: number = json["code"];
                 if (code == 200) {
-                    if (json.fields[0].封号 == 1) {
-                        return reply.status(403).send({
-                            code: 403,
-                            msg: "封号用户",
-                            timestamp: Date.now(),
-                        });
-                    }
                     const data = json.fields[0];
                     if (!data)
                         return reply.status(401).send({
@@ -310,6 +303,14 @@ export default function (fastify: FastifyInstance) {
                             msg: "账号或密码错误",
                             timestamp: Date.now(),
                         });
+                    console.log(json.fields[0]);
+                    if (json.fields[0].封号 == 1) {
+                        return reply.status(403).send({
+                            code: 403,
+                            msg: "封号用户",
+                            timestamp: Date.now(),
+                        });
+                    }
                     reply.send({
                         code: 200,
                         msg: "登录成功",
