@@ -95,7 +95,7 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
         const str = `<b>用户 ID：</b><code>${data.ID}</code>
 <b>用户名：</b><code>${data.username}</code>
 <b>邮箱：</b><code>${escapeHtml(data.email)}</code>
-<b>V 币：</b><code>${data.VC}</code>
+<b>V币：</b><code>${data.VC}</code>
 <b>VIP：</b><code>${data.VIP ? "是" : "否"}</code>
 <b>管理员：</b><code>${data.op ? "是" : "否"}</code>
 <b>冻结：</b><code>${data.freezed ? "是" : "否"}</code>
@@ -104,7 +104,6 @@ bot.onText(/\/queryuser (.+)/, async (msg, match) => {
 <b>上次签到时间：</b><code>${formatTimestamp(data.signed, "Asia/Shanghai")}</code>
 <b>注册时间：</b><code>${formatTimestamp(data.createdAt * 1000, "Asia/Shanghai")}</code>
 <b>更新时间：</b><code>${formatTimestamp(data.updatedAt * 1000, "Asia/Shanghai")}</code>`;
-
         return bot.sendMessage(chatId, str, { parse_mode: "HTML" });
     } catch (error) {
         console.error("TG Bot Error:", error);
