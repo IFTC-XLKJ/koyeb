@@ -1,0 +1,100 @@
+#13 40.11 Get:208 http://deb.debian.org/debian bullseye/main amd64 libcairo2 amd64 1.16.0-5 [694 kB]
+#13 40.12 Get:209 http://deb.debian.org/debian bullseye/main amd64 libcairo-gobject2 amd64 1.16.0-5 [125 kB]
+#13 40.12 Get:210 http://deb.debian.org/debian-security bullseye-security/main amd64 libcups2 amd64 2.3.3op2-3+deb11u10 [351 kB]
+#13 40.13 Get:211 http://deb.debian.org/debian bullseye/main amd64 libdatrie1 amd64 0.2.13-1 [42.7 kB]
+#13 40.13 Get:212 http://deb.debian.org/debian bullseye/main amd64 libffi-dev amd64 3.3-6 [56.5 kB]
+#13 40.13 Get:213 http://deb.debian.org/debian bullseye/main amd64 libfribidi0 amd64 1.0.8-2+deb11u1 [64.9 kB]
+#13 40.13 Get:214 http://deb.debian.org/debian bullseye/main amd64 libgtk2.0-common all 2.24.33-2+deb11u1 [2700 kB]
+#13 40.14 Get:215 http://deb.debian.org/debian bullseye/main amd64 libgraphite2-3 amd64 1.3.14-1 [81.2 kB]
+#13 40.14 Get:216 http://deb.debian.org/debian bullseye/main amd64 libharfbuzz0b amd64 2.7.4-1 [1471 kB]
+#13 40.14 Get:217 http://deb.debian.org/debian bullseye/main amd64 libthai-data all 0.1.28-3 [170 kB]
+#13 40.14 Get:218 http://deb.debian.org/debian bullseye/main amd64 libthai0 amd64 0.1.28-3 [54.2 kB]
+#13 40.14 Get:219 http://deb.debian.org/debian bullseye/main amd64 libpango-1.0-0 amd64 1.46.2-3 [191 kB]
+#13 40.15 Get:220 http://deb.debian.org/debian bullseye/main amd64 libpangoft2-1.0-0 amd64 1.46.2-3 [62.2 kB]
+#13 40.15 Get:221 http://deb.debian.org/debian bullseye/main amd64 libpangocairo-1.0-0 amd64 1.46.2-3 [50.6 kB]
+#13 40.15 Get:222 http://deb.debian.org/debian bullseye/main amd64 libxcursor1 amd64 1:1.2.0-2 [37.3 kB]
+#13 40.15 Get:223 http://deb.debian.org/debian bullseye/main amd64 libgtk2.0-0 amd64 2.24.33-2+deb11u1 [1857 kB]
+#13 40.15 Get:224 http://deb.debian.org/debian bullseye/main amd64 libgail18 amd64 2.24.33-2+deb11u1 [57.8 kB]
+#13 40.15 Get:225 http://deb.debian.org/debian bullseye/main amd64 libgail-common amd64 2.24.33-2+deb11u1 [160 kB]
+#13 40.15 Get:226 http://deb.debian.org/debian bullseye/main amd64 libwayland-server0 amd64 1.18.0-2~exp1.1 [34.4 kB]
+#13 40.15 Get:227 http://deb.debian.org/debian-security bullseye-security/main amd64 libgbm1 amd64 20.3.5-1+deb11u1 [73.7 kB]
+#13 40.16 Get:228 http://deb.debian.org/debian-security bullseye-security/main amd64 libgdk-pixbuf2.0-bin amd64 2.42.2+dfsg-1+deb11u5 [26.3 kB]
+#13 40.16 Get:229 http://deb.debian.org/debian-security bullseye-security/main amd64 libgif7 amd64 5.1.9-2+deb11u1 [45.3 kB]
+#13 40.16 Get:230 http://deb.debian.org/debian-security bullseye-security/main amd64 libglib2.0-data all 2.66.8-1+deb11u8 [1177 kB]
+#13 40.17 Get:231 http://deb.debian.org/debian bullseye/main amd64 libgpm2 amd64 1.20.7-8 [35.6 kB]
+#13 40.17 Get:232 http://deb.debian.org/debian bullseye/main amd64 libgtk2.0-bin amd64 2.24.33-2+deb11u1 [50.8 kB]
+#13 40.17 Get:233 http://deb.debian.org/debian bullseye/main amd64 xorg-sgml-doctools all 1:1.11-1.1 [22.1 kB]
+#13 40.17 Get:234 http://deb.debian.org/debian bullseye/main amd64 x11proto-dev all 2020.1-1 [594 kB]
+#13 40.17 Get:235 http://deb.debian.org/debian bullseye/main amd64 libice-dev amd64 2:1.0.10-1 [67.1 kB]
+#13 40.17 Get:236 http://deb.debian.org/debian-security bullseye-security/main amd64 liblcms2-2 amd64 2.12~rc1-2+deb11u1 [150 kB]
+#13 40.17 Get:237 http://deb.debian.org/debian bullseye/main amd64 libldap-common all 2.4.57+dfsg-3+deb11u1 [95.8 kB]
+#13 40.17 Get:238 http://deb.debian.org/debian bullseye/main amd64 libncurses-dev amd64 6.2+20201114-2+deb11u2 [344 kB]
+#13 40.17 Get:239 http://deb.debian.org/debian bullseye/main amd64 libnspr4 amd64 2:4.29-1 [112 kB]
+#13 40.17 Get:240 http://deb.debian.org/debian-security bullseye-security/main amd64 libnss3 amd64 2:3.61-1+deb11u6 [1306 kB]
+#13 40.18 Get:241 http://deb.debian.org/debian bullseye/main amd64 libomp5-11 amd64 1:11.0.1-2 [346 kB]
+#13 40.18 Get:242 http://deb.debian.org/debian bullseye/main amd64 libomp-11-dev amd64 1:11.0.1-2 [94.1 kB]
+#13 40.18 Get:243 http://deb.debian.org/debian bullseye/main amd64 libpcsclite1 amd64 1.9.1-1 [60.2 kB]
+#13 40.18 Get:244 http://deb.debian.org/debian bullseye/main amd64 libpfm4 amd64 4.11.1+git32-gd0b85fb-1 [286 kB]
+#13 40.18 Get:245 http://deb.debian.org/debian bullseye/main amd64 libpthread-stubs0-dev amd64 0.4-1 [5344 B]
+#13 40.18 Get:246 http://deb.debian.org/debian bullseye/main amd64 librsvg2-2 amd64 2.50.3+dfsg-1+deb11u1 [2462 kB]
+#13 40.19 Get:247 http://deb.debian.org/debian bullseye/main amd64 librsvg2-common amd64 2.50.3+dfsg-1+deb11u1 [31.2 kB]
+#13 40.19 Get:248 http://deb.debian.org/debian bullseye/main amd64 libsasl2-modules amd64 2.1.27+dfsg-2.1+deb11u1 [104 kB]
+#13 40.19 Get:249 http://deb.debian.org/debian bullseye/main amd64 libsm-dev amd64 2:1.2.3-1 [38.0 kB]
+#13 40.19 Get:250 http://deb.debian.org/debian bullseye/main amd64 libtinfo-dev amd64 6.2+20201114-2+deb11u2 [940 B]
+#13 40.19 Get:251 http://deb.debian.org/debian bullseye/main amd64 libwayland-client0 amd64 1.18.0-2~exp1.1 [26.9 kB]
+#13 40.19 Get:252 http://deb.debian.org/debian bullseye/main amd64 libxau-dev amd64 1:1.0.9-1 [22.9 kB]
+#13 40.19 Get:253 http://deb.debian.org/debian bullseye/main amd64 libxdmcp-dev amd64 1:1.1.2-3 [42.2 kB]
+#13 40.19 Get:254 http://deb.debian.org/debian bullseye/main amd64 xtrans-dev all 1.4.0-1 [98.7 kB]
+#13 40.20 Get:255 http://deb.debian.org/debian bullseye/main amd64 libxcb1-dev amd64 1.14-3 [176 kB]
+#13 40.20 Get:256 http://deb.debian.org/debian bullseye/main amd64 libx11-dev amd64 2:1.7.2-1+deb11u2 [845 kB]
+#13 40.22 Get:257 http://deb.debian.org/debian bullseye/main amd64 libxcb-randr0 amd64 1.14-3 [113 kB]
+#13 40.22 Get:258 http://deb.debian.org/debian bullseye/main amd64 xkb-data all 2.29-2 [655 kB]
+#13 40.23 Get:259 http://deb.debian.org/debian bullseye/main amd64 libxkbcommon0 amd64 1.0.3-2 [101 kB]
+#13 40.23 Get:260 http://deb.debian.org/debian bullseye/main amd64 libxss1 amd64 1:1.2.3-1 [17.8 kB]
+#13 40.23 Get:261 http://deb.debian.org/debian bullseye/main amd64 libxt-dev amd64 1:1.2.0-1 [407 kB]
+#13 40.23 Get:262 http://deb.debian.org/debian bullseye/main amd64 libyaml-0-2 amd64 0.2.2-1 [49.6 kB]
+#13 40.23 Get:263 http://deb.debian.org/debian bullseye/main amd64 libz3-dev amd64 4.8.10-1 [90.8 kB]
+#13 40.24 Get:264 http://deb.debian.org/debian bullseye/main amd64 llvm-11-runtime amd64 1:11.0.1-2 [212 kB]
+#13 40.24 Get:265 http://deb.debian.org/debian bullseye/main amd64 llvm-11 amd64 1:11.0.1-2 [8463 kB]
+#13 40.27 Get:266 http://deb.debian.org/debian-security bullseye-security/main amd64 python3-pkg-resources all 52.0.0-4+deb11u2 [190 kB]
+#13 40.27 Get:267 http://deb.debian.org/debian bullseye/main amd64 python3-pygments all 2.7.1+dfsg-2.1 [657 kB]
+#13 40.28 Get:268 http://deb.debian.org/debian bullseye/main amd64 python3-yaml amd64 5.3.1-5 [138 kB]
+#13 40.28 Get:269 http://deb.debian.org/debian bullseye/main amd64 llvm-11-tools amd64 1:11.0.1-2 [373 kB]
+#13 40.28 Get:270 http://deb.debian.org/debian bullseye/main amd64 llvm-11-dev amd64 1:11.0.1-2 [28.0 MB]
+#13 40.38 Get:271 http://deb.debian.org/debian bullseye/main amd64 manpages-dev all 5.10-1 [2309 kB]
+#13 40.39 Get:272 http://deb.debian.org/debian-security bullseye-security/main amd64 mesa-vulkan-drivers amd64 20.3.5-1+deb11u1 [4088 kB]
+#13 40.40 Get:273 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jre-headless amd64 17.0.20+8-1~deb11u1 [43.9 MB]
+#13 40.51 Get:274 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jre amd64 17.0.20+8-1~deb11u1 [215 kB]
+#13 40.51 Get:275 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jdk-headless amd64 17.0.20+8-1~deb11u1 [71.6 MB]
+#13 40.69 Get:276 http://deb.debian.org/debian-security bullseye-security/main amd64 openjdk-17-jdk amd64 17.0.20+8-1~deb11u1 [10.5 kB]
+#13 40.69 Get:277 http://deb.debian.org/debian bullseye/main amd64 psmisc amd64 23.4-2 [198 kB]
+#13 40.69 Get:278 http://deb.debian.org/debian bullseye/main amd64 publicsuffix all 20220811.1734-0+deb11u1 [127 kB]
+#13 40.69 Get:279 http://deb.debian.org/debian-security bullseye-security/main amd64 sudo amd64 1.9.5p2-3+deb11u4 [1059 kB]
+#13 40.70 Get:280 http://deb.debian.org/debian bullseye/main amd64 unzip amd64 6.0-26+deb11u1 [172 kB]
+#13 40.70 Get:281 http://deb.debian.org/debian bullseye/main amd64 xdg-user-dirs amd64 0.17-2 [53.8 kB]
+#13 40.71 Fetched 375 MB in 1s (256 MB/s)
+#13 40.71 E: Failed to fetch http://deb.debian.org/debian/pool/main/l/llvm-toolchain-11/libclang-cpp11_11.0.1-2_amd64.deb  Error reading from server - read (104: Connection reset by peer) [IP: 2a04:4e42::644 80]
+#13 40.71 E: Unable to fetch some archives, maybe run apt-get update or try with --fix-missing?
+#13 DONE 56.9s
+
+#14 [10/15] RUN mkdir -p /opt/android-sdk/cmdline-tools
+#14 DONE 0.1s
+
+#15 [11/15] RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip &&     unzip -q /tmp/cmdline-tools.zip -d /tmp &&     mv /tmp/cmdline-tools /opt/android-sdk/cmdline-tools/latest &&     rm -f /tmp/cmdline-tools.zip
+#15 0.060 /bin/sh: 1: wget: not found
+#15 ERROR: process "/bin/sh -c wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip &&     unzip -q /tmp/cmdline-tools.zip -d /tmp &&     mv /tmp/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest &&     rm -f /tmp/cmdline-tools.zip" did not complete successfully: exit code: 127
+------
+ > [11/15] RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip &&     unzip -q /tmp/cmdline-tools.zip -d /tmp &&     mv /tmp/cmdline-tools /opt/android-sdk/cmdline-tools/latest &&     rm -f /tmp/cmdline-tools.zip:
+0.060 /bin/sh: 1: wget: not found
+------
+Dockerfile:82
+--------------------
+  81 |     
+  82 | >>> RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip && \
+  83 | >>>     unzip -q /tmp/cmdline-tools.zip -d /tmp && \
+  84 | >>>     mv /tmp/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest && \
+  85 | >>>     rm -f /tmp/cmdline-tools.zip
+  86 |     
+--------------------
+error: failed to solve: process "/bin/sh -c wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip &&     unzip -q /tmp/cmdline-tools.zip -d /tmp &&     mv /tmp/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest &&     rm -f /tmp/cmdline-tools.zip" did not complete successfully: exit code: 127
+Build failed ❌

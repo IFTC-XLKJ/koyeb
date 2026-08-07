@@ -5,24 +5,33 @@ COPY . .
 
 ENV DEBIAN_FRONTEND=noninteractive
 
-RUN apt upgrade
-RUN apt update
+RUN apt-get update && apt-get upgrade -y
 
 RUN npm ci
 RUN npm i @supabase/supabase-js
 # RUN npm i puppeteer
 RUN npm i cookie-parser
 
+# 先安装基础工具，确保 wget 可用
+RUN for i in 1 2 3; do \
+        apt-get update && \
+        apt-get install -y --no-install-recommends \
+        wget \
+        curl \
+        unzip \
+        gnupg \
+        ca-certificates \
+        procps \
+        sudo \
+        dnsutils \
+        traceroute \
+        iperf3 && break || sleep 15; \
+    done
+
 # 安装 Chromium 和必要依赖
 RUN for i in 1 2 3; do \
         apt-get update && \
         apt-get install -y \
-        traceroute \
-        unzip \
-        openjdk-17-jdk \
-        dnsutils \
-        sudo \
-        curl \
         clang \
         libglib2.0-0 \
         libatk1.0-0 \
@@ -40,7 +49,6 @@ RUN for i in 1 2 3; do \
         libnspr4 \
         libfontconfig1 \
         libexpat1 \
-        ca-certificates \
         fonts-liberation \
         fonts-noto-cjk \
         fonts-wqy-zenhei \
@@ -50,21 +58,22 @@ RUN for i in 1 2 3; do \
         libx11-6 \
         libx11-xcb1 \
         libxcb1 \
-        libxcomposite1 \
         libxcursor1 \
-        libxdamage1 \
         libxext6 \
         libxfixes3 \
         libxi6 \
         libxrender1 \
-        libxtst6 \
-        wget \
-        iperf3 \
-        gnupg \
-        procps && break || sleep 15; \
-    done && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+        libxtst6 && break || sleep 15; \
+    done
+
+# 安装 OpenJDK 17
+RUN for i in 1 2 3; do \
+        apt-get update && \
+        apt-get install -y openjdk-17-jdk && break || sleep 15; \
+    done
+
+# 清理 apt 缓存
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # 告诉 Puppeteer 使用系统 Chromium
 # ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
