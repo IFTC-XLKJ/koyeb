@@ -73,7 +73,14 @@ async function init() {
     signIn.addEventListener("click", async () => {
         const loadid = toast.loading("签到中...");
         try {
-            const response = await fetch(`/api/sign?token=${encodeURIComponent(userId)}`);
+            const tokenCookie = await cookieStore.get("token");
+            const tokenValue = tokenCookie?.value;
+            if (!tokenValue) {
+                toast.hideToast(loadid);
+                toast.showToast("签到失败，原因：Token不存在", 2, "center", "large", "error", "", true);
+                return;
+            }
+            const response = await fetch(`/api/sign?token=${encodeURIComponent(tokenValue)}`);
             const data = await response.json();
             toast.hideToast(loadid);
             if (data.code == 200) {
