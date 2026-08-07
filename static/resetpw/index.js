@@ -5,6 +5,12 @@ const password = document.getElementById("password");
 alert("由于点鸭邮局的邮箱服务器炸了，导致无法发送邮件，请联系管理员QQ:3164417130重置密码");
 // location.reload();
 
+ID.addEventListener("input", () => {
+    if (ID.value < 0) {
+        ID.value = 0;
+    }
+});
+
 resetpwForm.addEventListener("submit", async (e) => {
     e.preventDefault();
     globalThis.password = password.value;
