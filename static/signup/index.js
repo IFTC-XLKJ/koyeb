@@ -1,6 +1,6 @@
 console.log("注册页面全新升级");
 (async function () {
-    alert("由于点鸭邮局的邮箱服务器炸了，导致无法发送邮件，请联系管理员QQ:3164417130注册");
+    // alert("由于点鸭邮局的邮箱服务器炸了，导致无法发送邮件，请联系管理员QQ:3164417130注册");
     // location.reload();
     const registerForm = document.getElementById("registerForm");
     const user = document.getElementById("user");
