@@ -617,94 +617,13 @@ async function start() {
                 const tempData = authTempTokens.get(token);
                 if (!tempData || Date.now() > tempData.expiresAt) {
                     authTempTokens.delete(token);
-                    reply.headers({ "Content-Type": "text/html; charset=utf-8" });
-                    return reply.send(`<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>授权失败</title>
-    <style>
-        body{display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f5f5f5}
-        .box{text-align:center;padding:40px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.1)}
-        h2{color:#e74c3c;margin-bottom:12px}
-        p{color:#666}
-    </style>
-</head>
-<body>
-    <div class="box">
-        <h2>授权失败</h2>
-        <p>鉴权Token无效或已过期</p>
-    </div>
-</body>
-</html>`);
+                    return returnPage("auth/error.html", {}, reply);
                 }
-                reply.headers({ "Content-Type": "text/html; charset=utf-8" });
-                return reply.send(`<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>第三方授权登录</title>
-    <style>
-        *{margin:0;padding:0;box-sizing:border-box}
-        body{display:flex;justify-content:center;align-items:center;height:100vh;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:#f5f5f5}
-        .box{text-align:center;padding:40px;background:#fff;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,.1);max-width:400px;width:90%}
-        .icon{width:64px;height:64px;margin:0 auto 16px;background:#3498db;border-radius:50%;display:flex;align-items:center;justify-content:center}
-        .icon svg{width:32px;height:32px;fill:#fff}
-        h2{margin-bottom:8px;color:#333}
-        .desc{color:#666;margin-bottom:24px;font-size:14px}
-        .btns{display:flex;gap:12px;justify-content:center}
-        .btn{padding:10px 32px;border:none;border-radius:8px;font-size:15px;cursor:pointer;transition:all .2s}
-        .btn-cancel{background:#eee;color:#666}
-        .btn-cancel:hover{background:#ddd}
-        .btn-authorize{background:#3498db;color:#fff}
-        .btn-authorize:hover{background:#2980b9}
-        .error{color:#e74c3c;margin-top:16px;display:none;font-size:14px}
-    </style>
-</head>
-<body>
-    <div class="box">
-        <div class="icon">
-            <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-        </div>
-        <h2>第三方授权登录</h2>
-        <p class="desc">一个外部应用请求获取您的账号信息</p>
-        <div class="btns">
-            <button class="btn btn-cancel" onclick="doCancel()">取消</button>
-            <button class="btn btn-authorize" onclick="doAuthorize()">授权</button>
-        </div>
-        <p class="error" id="error">请先登录后再进行授权</p>
-    </div>
-    <script>
-        const AUTH_TOKEN = ${JSON.stringify(token)};
-        const CALLBACK = ${JSON.stringify(decodedCallback)};
-        function doCancel() {
-            window.location.href = CALLBACK;
-        }
-        async function doAuthorize() {
-            let id = null;
-            try {
-                if (window.cookieStore) {
-                    const cookie = await window.cookieStore.get("ID");
-                    if (cookie) id = cookie.value;
-                }
-            } catch (e) {}
-            if (!id) {
-                const match = document.cookie.match(/(?:^|;\\s*)ID=([^;]*)/);
-                if (match) id = decodeURIComponent(match[1]);
-            }
-            if (!id) {
-                const loginUrl = "/login?page=" + encodeURIComponent("/auth?token=" + encodeURIComponent(AUTH_TOKEN) + "&callback=" + encodeURIComponent(CALLBACK));
-                window.location.href = loginUrl;
-                return;
-            }
-            const sep = CALLBACK.includes("?") ? "&" : "?";
-            window.location.href = CALLBACK + sep + "token=" + encodeURIComponent(AUTH_TOKEN) + "&id=" + encodeURIComponent(id);
-        }
-    </script>
-</body>
-</html>`);
+                const params: Record<string, any> = {
+                    token: JSON.stringify(token),
+                    callback: JSON.stringify(decodedCallback),
+                };
+                return returnPage("auth/index.html", params, reply);
             },
         );
         fastify.get(
