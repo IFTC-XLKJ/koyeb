@@ -33,6 +33,17 @@ const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
 const KJSCInstance: KJSC = new KJSC();
 const startTime = Date.now();
 
+// Temp token store for third-party auth: tempToken -> { userId, expiresAt }
+const authTempTokens: Map<string, { userId: number; expiresAt: number }> = new Map();
+
+// Periodic cleanup of expired temp tokens
+setInterval(() => {
+    const now = Date.now();
+    for (const [token, data] of authTempTokens.entries()) {
+        if (now > data.expiresAt) authTempTokens.delete(token);
+    }
+}, 60000);
+
 // Singleton GeoLite2 reader - cached in memory instead of opening per request
 let geoReader: any = null;
 let geoReaderLoading: Promise<void> | null = null;
@@ -68,6 +79,8 @@ interface UserMessagesQueryParams {
 interface UserMessageItem {
     createdAt: number;
 }
+
+export { authTempTokens };
 
 export default function (fastify: FastifyInstance) {
     console.log("defining API routes...");
@@ -1152,6 +1165,61 @@ export default function (fastify: FastifyInstance) {
                 return reply.status(500).send({
                     code: 500,
                     msg: "获取用户令牌出错：" + (error as Error).message,
+                    error: (error as Error).message,
+                    timestamp: Date.now(),
+                });
+            }
+        },
+    );
+    fastify.get(
+        "/api/auth",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        token: { type: "string" },
+                    },
+                    required: ["token"],
+                },
+            },
+        },
+        async (
+            request: FastifyRequest<{ Querystring: { token: string } }>,
+            reply: FastifyReply,
+        ): Promise<Object> => {
+            const { token } = request.query;
+            try {
+                const json: UserResponse = await user.getByToken(token);
+                if (json.code !== 200 || json.fields.length === 0)
+                    return reply.status(401).send({
+                        code: 401,
+                        msg: "Invalid token",
+                        timestamp: Date.now(),
+                    });
+                if (json.fields[0].封号 == 1)
+                    return reply.status(403).send({
+                        code: 403,
+                        msg: "封号用户",
+                        timestamp: Date.now(),
+                    });
+                const tempToken = generateUUID();
+                const userId = json.fields[0].ID;
+                authTempTokens.set(tempToken, {
+                    userId: userId,
+                    expiresAt: Date.now() + 5 * 60 * 1000,
+                });
+                return reply.send({
+                    code: 200,
+                    msg: "获取鉴权临时Token成功",
+                    auth_token: tempToken,
+                    expires_in: 300,
+                    timestamp: Date.now(),
+                });
+            } catch (error: unknown) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: "服务器内部错误",
                     error: (error as Error).message,
                     timestamp: Date.now(),
                 });
