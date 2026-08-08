@@ -1055,6 +1055,7 @@ async function start() {
                                     this.push(null);
                                 } else {
                                     this.push(value);
+                                    console.log(`Streaming ${value.length} bytes from ${url}`);
                                 }
                             } catch (err) {
                                 this.destroy(err as Error);
