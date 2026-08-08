@@ -993,17 +993,62 @@ async function start() {
                 reply: FastifyReply,
             ): Promise<Object> => {
                 const { url } = request.query;
+
+                let parsedUrl: URL;
                 try {
-                    const r = await fetch(url);
+                    parsedUrl = new URL(url);
+                } catch {
+                    return reply.status(400).send({
+                        code: 400,
+                        msg: "Invalid URL format",
+                        timestamp: time(),
+                    });
+                }
+
+                if (!["http:", "https:"].includes(parsedUrl.protocol)) {
+                    return reply.status(400).send({
+                        code: 400,
+                        msg: "Only HTTP/HTTPS URLs are allowed",
+                        timestamp: time(),
+                    });
+                }
+
+                if (checkIntranetIP(parsedUrl.hostname)) {
+                    return reply.status(403).send({
+                        code: 403,
+                        msg: "Access to internal resources is forbidden",
+                        timestamp: time(),
+                    });
+                }
+
+                try {
+                    const controller = new AbortController();
+                    const timeout = setTimeout(() => controller.abort(), 30000);
+
+                    const r = await fetch(url, { signal: controller.signal });
+                    clearTimeout(timeout);
+
+                    if (!r.ok) {
+                        return reply.status(502).send({
+                            code: 502,
+                            msg: `Upstream returned ${r.status}`,
+                            timestamp: time(),
+                        });
+                    }
+
                     const contentType = r.headers.get("content-type") || "application/octet-stream";
-                    const contentLength = r.headers.get("content-length") || "0";
-                    const stream = new Readable({
-                        read() {},
-                    });
-                    reply.headers({
+                    const contentLength = r.headers.get("content-length");
+                    const contentDisposition = r.headers.get("content-disposition");
+
+                    const headers: Record<string, string> = {
                         "Content-Type": contentType,
-                        "Content-Length": contentLength,
-                    });
+                        "Cache-Control": "public, max-age=3600",
+                    };
+                    if (contentLength) headers["Content-Length"] = contentLength;
+                    if (contentDisposition) headers["Content-Disposition"] = contentDisposition;
+
+                    reply.headers(headers);
+
                     const reader = r.body?.getReader();
                     if (!reader) {
                         return reply.status(500).send({
@@ -1012,17 +1057,31 @@ async function start() {
                             timestamp: time(),
                         });
                     }
-                    stream.pipe(reply.raw);
-                    while (true) {
-                        const { done, value } = await reader.read();
-                        if (done) {
-                            stream.push(null);
-                            break;
-                        }
-                        stream.push(value);
+
+                    const stream = new Readable({
+                        async read() {
+                            try {
+                                const { done, value } = await reader.read();
+                                if (done) {
+                                    this.push(null);
+                                } else {
+                                    this.push(value);
+                                }
+                            } catch (err) {
+                                this.destroy(err as Error);
+                            }
+                        },
+                    });
+
+                    return reply.send(stream);
+                } catch (e: any) {
+                    if (e.name === "AbortError") {
+                        return reply.status(504).send({
+                            code: 504,
+                            msg: "Upstream request timed out",
+                            timestamp: time(),
+                        });
                     }
-                    return reply.send();
-                } catch (e) {
                     return reply.status(500).send({
                         code: 500,
                         msg: "Failed to fetch file",
