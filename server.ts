@@ -975,6 +975,62 @@ async function start() {
                 });
             },
         );
+        fastify.get(
+            "/proxy-file",
+            {
+                schema: {
+                    querystring: {
+                        type: "object",
+                        properties: {
+                            url: { type: "string" },
+                        },
+                        required: ["url"],
+                    },
+                },
+            },
+            async (
+                request: FastifyRequest<{ Querystring: { url: string } }>,
+                reply: FastifyReply,
+            ): Promise<Object> => {
+                const { url } = request.query;
+                try {
+                    const r = await fetch(url);
+                    const contentType = r.headers.get("content-type") || "application/octet-stream";
+                    const contentLength = r.headers.get("content-length") || "0";
+                    const stream = new Readable({
+                        read() {},
+                    });
+                    reply.headers({
+                        "Content-Type": contentType,
+                        "Content-Length": contentLength,
+                    });
+                    const reader = r.body?.getReader();
+                    if (!reader) {
+                        return reply.status(500).send({
+                            code: 500,
+                            msg: "Failed to read response body",
+                            timestamp: time(),
+                        });
+                    }
+                    stream.pipe(reply.raw);
+                    while (true) {
+                        const { done, value } = await reader.read();
+                        if (done) {
+                            stream.push(null);
+                            break;
+                        }
+                        stream.push(value);
+                    }
+                    return reply.send();
+                } catch (e) {
+                    return reply.status(500).send({
+                        code: 500,
+                        msg: "Failed to fetch file",
+                        timestamp: time(),
+                    });
+                }
+            },
+        );
         console.log(">>> [STEP 7] Routes added.");
         console.log(">>> [STEP 8] Starting listener...");
         await fastify.listen({ port: port, host: "0.0.0.0" });
