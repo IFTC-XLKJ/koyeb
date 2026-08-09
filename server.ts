@@ -446,7 +446,7 @@ async function start() {
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                 }
-                if (isSuspiciousBehavior(request)) {
+                if (isSuspiciousBehavior(request) && ua != "IFTC Bot") {
                     recordViolation(ip);
                     console.log("Suspicious behavior detected:", request.url);
                     return reply
