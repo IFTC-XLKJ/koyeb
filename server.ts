@@ -184,25 +184,25 @@ async function mixed(filepath: string, params: Record<string, any>): Promise<str
     return content;
 }
 
-function isSuspiciousBehavior(req: FastifyRequest): boolean {
-    const ua: string = (req.headers["user-agent"] || "").toLowerCase();
-    const uaLength: number = (req.headers["user-agent"] || "").length;
-    if (uaLength > 500) return true;
-    const hasBrowserHeaders: boolean =
-        !!req.headers.accept &&
-        !!req.headers["accept-language"] &&
-        !!req.headers["accept-encoding"];
-    const hasSecFetch: boolean = !!req.headers["sec-fetch-dest"] || !!req.headers["sec-fetch-mode"];
-    const hasBrowserUA: boolean =
-        ua.includes("mozilla") ||
-        ua.includes("chrome") ||
-        ua.includes("firefox") ||
-        ua.includes("safari") ||
-        ua == "IFTC Bot";
-    if (!hasBrowserHeaders && !hasBrowserUA) return true;
-    if (!hasBrowserHeaders && !hasSecFetch && !hasBrowserUA) return true;
-    return false;
-}
+// function isSuspiciousBehavior(req: FastifyRequest): boolean {
+//     const ua: string = (req.headers["user-agent"] || "").toLowerCase();
+//     const uaLength: number = (req.headers["user-agent"] || "").length;
+//     if (uaLength > 500) return true;
+//     const hasBrowserHeaders: boolean =
+//         !!req.headers.accept &&
+//         !!req.headers["accept-language"] &&
+//         !!req.headers["accept-encoding"];
+//     const hasSecFetch: boolean = !!req.headers["sec-fetch-dest"] || !!req.headers["sec-fetch-mode"];
+//     const hasBrowserUA: boolean =
+//         ua.includes("mozilla") ||
+//         ua.includes("chrome") ||
+//         ua.includes("firefox") ||
+//         ua.includes("safari") ||
+//         ua == "IFTC Bot";
+//     if (!hasBrowserHeaders && !hasBrowserUA) return true;
+//     if (!hasBrowserHeaders && !hasSecFetch && !hasBrowserUA) return true;
+//     return false;
+// }
 
 function getIP(ip: string | string[]): string {
     return Array.isArray(ip) ? ip[0] : ip;
@@ -447,13 +447,13 @@ async function start() {
                         .status(403)
                         .send({ code: 403, msg: "爬你妈呢", timestamp: time() });
                 }
-                if (isSuspiciousBehavior(request) && ua != "IFTC Bot") {
-                    recordViolation(ip);
-                    console.log("Suspicious behavior detected:", request.url);
-                    return reply
-                        .status(403)
-                        .send({ code: 403, msg: "可疑请求行为", timestamp: time() });
-                }
+                // if (isSuspiciousBehavior(request) && ua != "IFTC Bot") {
+                //     recordViolation(ip);
+                //     console.log("Suspicious behavior detected:", request.url);
+                //     return reply
+                //         .status(403)
+                //         .send({ code: 403, msg: "可疑请求行为", timestamp: time() });
+                // }
                 if (isRateLimited(ip, request.url))
                     return reply
                         .status(429)
