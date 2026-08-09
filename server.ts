@@ -197,7 +197,8 @@ function isSuspiciousBehavior(req: FastifyRequest): boolean {
         ua.includes("mozilla") ||
         ua.includes("chrome") ||
         ua.includes("firefox") ||
-        ua.includes("safari");
+        ua.includes("safari") ||
+        ua == "IFTC Bot";
     if (!hasBrowserHeaders && !hasBrowserUA) return true;
     if (!hasBrowserHeaders && !hasSecFetch && !hasBrowserUA) return true;
     return false;
