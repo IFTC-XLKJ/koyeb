@@ -398,11 +398,8 @@ async function start() {
                         timestamp: time(),
                     });
                 if (request.headers["user-agent"] == "Koyeb Health Check") return;
-                if (request.headers["X-PASS"] == backendPass) return;
-                if (request.headers["user-agent"] == null)
-                    return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
                 const ua: string = (request.headers["user-agent"] || "").toLowerCase();
-                const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
+                if (request.headers["X-PASS"] == backendPass) return;
                 if (
                     ua == "IFTC Bot" ||
                     ua == "mini-tsc/1.0" ||
@@ -410,6 +407,9 @@ async function start() {
                 ) {
                     return;
                 }
+                if (request.headers["user-agent"] == null)
+                    return reply.status(400).send({ code: 400, msg: "", timestamp: time() });
+                const ip: string = getIP(request.headers["x-forwarded-for"] || request.ip);
                 if (ua.includes("apifox")) return;
                 if (isIPBanned(ip))
                     return reply
