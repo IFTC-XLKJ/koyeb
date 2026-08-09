@@ -156,7 +156,7 @@ export default function (fastify: FastifyInstance) {
                 } else {
                     return reply.status(code).send({
                         code: code,
-                        msg: json["msg"],
+                        msg: json["msg"] || "未知错误",
                         timestamp: Date.now(),
                     });
                 }
