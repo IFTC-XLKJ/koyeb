@@ -2369,6 +2369,7 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.get("")
 }
 function time() {
     return Date.now();

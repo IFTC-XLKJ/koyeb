@@ -11,6 +11,7 @@ RUN npm ci
 RUN npm i @supabase/supabase-js
 # RUN npm i puppeteer
 RUN npm i cookie-parser
+RUN npm i canvas
 
 # 先安装基础工具，确保 wget 可用
 RUN for i in 1 2 3; do \
