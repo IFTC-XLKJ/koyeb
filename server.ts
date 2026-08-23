@@ -747,7 +747,8 @@ async function start() {
             "/VVMusic",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
                 const params: Record<string, any> = {};
-                return returnPage("VVMusic/index.html", params, reply);
+                // return returnPage("VVMusic/index.html", params, reply);
+                return reply.redirect("https://iftc.dpdns.org/VVMusic");
             },
         );
         fastify.get(
