@@ -28,7 +28,8 @@ class Widget extends InvisibleWidget {
         };
         this.widgetWarn("IFTC官网QQ群：870350184");
         this.widgetWarn("VV浏览器下载及其文档地址：https://cuz-drive.me.uk/s/Vdt2");
-        const isVVBrowser = !!globalThis.isVVBrowser;
+        const isVVBrowser = !!globalThis.vvbrowser;
+        console.log(globalThis.vvbrowser);
         this.widgetWarn(isVVBrowser ? "当前环境为VV浏览器" : "当前环境非VV浏览器");
         const that = this;
         if (!isVVBrowser) globalThis.vvbrowser = {
@@ -114,7 +115,7 @@ class Widget extends InvisibleWidget {
     }
 }
 
-const isVVBrowser = !!globalThis.isVVBrowser;
+const isVVBrowser = !!globalThis.vvbrowser;
 types['methods'].push({
     key: 'isVVBrowser',
     label: '是否在VV浏览器中',
@@ -127,6 +128,7 @@ types['methods'].push({
     tooltip: '判断当前环境是否为VV浏览器',
 })
 Widget.prototype.isVVBrowser = function () {
+    console.log(`当前环境是否为VV浏览器：${isVVBrowser}`);
     return isVVBrowser;
 }
 types['methods'].push({
@@ -141,7 +143,8 @@ types['methods'].push({
     tooltip: '获取VV浏览器版本名',
 })
 Widget.prototype.getVVBrowserVersionName = function () {
-    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN';
+    console.log(`当前VV浏览器版本名：${isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN'}`);
+    return isVVBrowser ? globalThis.vvbrowser.version.browser.name : 'UNKNOWN';
 }
 types['methods'].push({
     key: 'getVVBrowserVersionCode',
@@ -155,7 +158,8 @@ types['methods'].push({
     tooltip: '获取VV浏览器版本号',
 })
 Widget.prototype.getVVBrowserVersionCode = function () {
-    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.browser.code : 'UNKNOWN';
+    console.log(`当前VV浏览器版本号：${isVVBrowser ? globalThis.vvbrowser.version.browser.code : 'UNKNOWN'}`);
+    return isVVBrowser ? globalThis.vvbrowser.version.browser.code : 'UNKNOWN';
 }
 types['methods'].push({
     key: 'getVVBrowserWebViewVersion',
@@ -170,7 +174,8 @@ types['methods'].push({
     tooltip: '获取VV浏览器WebView版本',
 })
 Widget.prototype.getVVBrowserWebViewVersion = function () {
-    return globalThis.isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
+    console.log(`当前VV浏览器WebView版本：${isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN'}`);
+    return isVVBrowser ? globalThis.vvbrowser.version.webview : 'UNKNOWN';
 }
 types['methods'].push({
     key: 'toast',
@@ -188,7 +193,8 @@ types['methods'].push({
     tooltip: '显示Toast',
 });
 Widget.prototype.toast = function (text) {
-    vvbrowser.toast(text);
+    console.log(`显示Toast：${text}`);
+    globalThis.vvbrowser.toast(text);
 }
 types['methods'].push({
     key: 'newFileInstance',
@@ -208,7 +214,8 @@ types['methods'].push({
     tooltip: '创建一个文件实例',
 })
 Widget.prototype.newFileInstance = function (filePath) {
-    return new vvbrowser.File(filePath);
+    console.log(`创建文件实例：${filePath}`);
+    return new globalThis.vvbrowser.File(filePath);
 }
 types['methods'].push({
     key: 'getFilePath',
@@ -228,6 +235,7 @@ types['methods'].push({
     tooltip: '获取文件的路径',
 })
 Widget.prototype.getFilePath = function (file) {
+    console.log(`获取文件路径：${file.path}`);
     return file.path;
 }
 types['methods'].push({
@@ -252,6 +260,7 @@ types['methods'].push({
     tooltip: '设置文件的路径',
 })
 Widget.prototype.setFilePath = function (file, path) {
+    console.log(`设置文件路径：${file.path} -> ${path}`);
     file.path = path;
 }
 types['methods'].push({
@@ -272,6 +281,7 @@ types['methods'].push({
     tooltip: '读取文件内容，返回一个Blob对象',
 })
 Widget.prototype.readFile = async function (file) {
+    console.log(`读取文件内容：${file.path}`);
     return await file.read();
 }
 types['methods'].push({
@@ -297,6 +307,7 @@ types['methods'].push({
     tooltip: '写入文件内容，content必须为一个Blob对象，返回是否写入成功',
 })
 Widget.prototype.writeFile = async function (file, content) {
+    console.log(`写入文件内容：${file.path}`);
     return await file.write(content);
 }
 types['methods'].push({
@@ -322,6 +333,7 @@ types['methods'].push({
     tooltip: '追加文件内容，content必须为一个Blob对象，返回是否追加成功',
 })
 Widget.prototype.appendFile = async function (file, content) {
+    console.log(`追加文件内容：${file.path}`);
     return await file.append(content);
 }
 types['methods'].push({
@@ -342,6 +354,7 @@ types['methods'].push({
     tooltip: '删除文件，返回是否删除成功',
 })
 Widget.prototype.deleteFile = async function (file) {
+    console.log(`删除文件：${file.path}`);
     return await file.delete();
 }
 types['methods'].push({
@@ -362,6 +375,7 @@ types['methods'].push({
     tooltip: '检查文件是否存在，返回是否存在',
 })
 Widget.prototype.existFile = function (file) {
+    console.log(`检查文件是否存在：${file.path}`);
     return file.exist();
 }
 types['methods'].push({
@@ -382,6 +396,7 @@ types['methods'].push({
     tooltip: '获取文件大小，返回文件的字节数',
 })
 Widget.prototype.getFileSize = async function (file) {
+    console.log(`获取文件大小：${file.path}`);
     return await file.size();
 }
 types['methods'].push({
@@ -402,6 +417,7 @@ types['methods'].push({
     tooltip: '检查文件是否为目录'
 })
 Widget.prototype.isDir = function (file) {
+    console.log(`检查文件是否为目录：${file.path}`);
     return file.isDir();
 }
 types['methods'].push({
@@ -422,6 +438,7 @@ types['methods'].push({
     tooltip: '检查文件是否为文件',
 })
 Widget.prototype.isFile = function (file) {
+    console.log(`检查文件是否为文件：${file.path}`);
     return file.isFile();
 }
 types['methods'].push({
@@ -442,6 +459,7 @@ types['methods'].push({
     tooltip: '获取文件最后修改时间，返回文件的最后修改时间，单位为毫秒',
 })
 Widget.prototype.getFileLastModified = async function (file) {
+    console.log(`获取文件最后修改时间：${file.path}`);
     return file.lastModified();
 }
 types['methods'].push({
@@ -462,6 +480,7 @@ types['methods'].push({
     tooltip: '将文本转为Blob对象',
 });
 Widget.prototype.toolTextToBlob = function (text) {
+    console.log(`将文本转为Blob：${text}`);
     return new Blob([text]);
 }
 types['methods'].push({
@@ -481,7 +500,9 @@ types['methods'].push({
     tooltip: '将Blob转为文本',
 })
 Widget.prototype.toolBlobToText = async function (blob) {
-    return await blob.text();
+    console.log(`将Blob转为文本：${blob}`);
+    if (blob instanceof Blob && blob.text) return await blob.text();
+    return null;
 }
 types['methods'].push({
     key: 'toolFecthFile',
@@ -500,6 +521,7 @@ types['methods'].push({
     tooltip: '从网络获取文件，返回一个Blob对象',
 })
 Widget.prototype.toolFecthFile = async function (url) {
+    console.log(`从网络获取文件：${url}`);
     const response = await fetch(url);
     return await response.blob();
 }
@@ -520,6 +542,7 @@ types['methods'].push({
     tooltip: '将Blob转为Data URL',
 });
 Widget.prototype.BlobToDataURL = async function (blob) {
+    console.log(`将Blob转为Data URL：${blob}`);
     return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onloadend = function () {
