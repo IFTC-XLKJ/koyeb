@@ -66,5 +66,8 @@ async function uploadChunk(file: File) {
         },
         body: formdata
     };
-    const r await = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
+    const r = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
+    const j = await r.json();
+    console.log(j);
+    return j;
 }
