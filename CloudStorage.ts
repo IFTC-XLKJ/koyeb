@@ -52,5 +52,5 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async delete(){}
+    static async delete() {}
 }
