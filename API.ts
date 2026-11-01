@@ -131,8 +131,7 @@ export default function (fastify: FastifyInstance) {
         } catch (error: unknown) {
             return reply.status(500).send({
                 code: 500,
-                msg: "Internal Server Error",
-                error: (error as Error).message,
+                msg: "Internal Server Error: " + (error as Error).stack,
                 timestamp: Date.now(),
             });
         }
