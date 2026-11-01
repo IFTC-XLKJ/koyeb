@@ -367,10 +367,10 @@ async function start() {
         });
         console.log(">>> [STEP 3] Static plugins registered.");
         console.log(">>> [STEP 4] Adding hooks...");
-        // fastify.addHook(
-        //     "onRequest",
-        //     async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
-        //         requestLog(request);
+        fastify.addHook(
+            "onRequest",
+            async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
+                requestLog(request);
         //         console.log(request.url, request.method, request.headers["user-agent"]);
         //         if (request.url.endsWith("php"))
         //             return reply.status(403).send({
@@ -438,8 +438,8 @@ async function start() {
         //             return reply
         //                 .status(429)
         //                 .send({ code: 429, msg: "请求过于频繁", timestamp: time() });
-        //     },
-        // );
+            },
+        );
         fastify.addHook(
             "onResponse",
             async (request: FastifyRequest, reply: FastifyReply): Promise<void> => {
