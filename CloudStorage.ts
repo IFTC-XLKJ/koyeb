@@ -64,4 +64,5 @@ async function uploadChunk(file: File) {
        body: formdata,
        redirect: "follow"
     };
+    const r await = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
 }
