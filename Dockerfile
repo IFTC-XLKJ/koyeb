@@ -8,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get upgrade -y
 
 RUN npm ci
+RUN npm i
 RUN npm i @supabase/supabase-js
 # RUN npm i puppeteer
 RUN npm i cookie-parser
