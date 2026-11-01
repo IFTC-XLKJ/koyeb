@@ -1,7 +1,6 @@
 import type { FastifyInstance, FastifyReply, FastifyRequest, FastifyError } from "fastify";
 import type {
     AppUpdateCheckResult,
-    GetByIDResponse,
     SearchResponse,
     UserData,
     UserLoginResponse,
@@ -11,7 +10,7 @@ import type {
 import User from "./User.ts";
 import UUID_db from "./UUID_db.ts";
 import { sendCode, verifyCode, sendMail } from "./Mail.ts";
-import { supabase, messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
+import { messagesTable, avatarBucket, redeemCodeTable } from "./shared.ts";
 import RecordMessages from "./RecordMessages.ts";
 import maxmind from "maxmind";
 import https from "https";
@@ -27,6 +26,7 @@ import * as whois from "whois";
 import type { WhoisResult } from "whois";
 import fs from "fs/promises";
 import crypto from "crypto";
+import { CloudStorage } from "./CloudStorage.ts";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -102,7 +102,41 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
-    fastify.get();
+    fastify.get("/api/file/mkdir", {
+        schema: {
+            querystring: {
+                type: "object",
+                properties: {
+                    path: { type: "string" },
+                },
+                required: ["path"],
+            },
+        },
+    }, async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
+        const { path } = request.query;
+        try {
+            const result = await CloudStorage.mkdir(path);
+            if (result instanceof Error) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: result.message,
+                    timestamp: Date.now(),
+                });
+            }
+            return reply.send({
+                code: 200,
+                msg: "创建目录成功",
+                timestamp: Date.now(),
+            });
+        } catch (error: unknown) {
+            return reply.status(500).send({
+                code: 500,
+                msg: "Internal Server Error",
+                error: (error as Error).message,
+                timestamp: Date.now(),
+            });
+        }
+    });
     fastify.get(
         "/api/user/messages",
         {
@@ -349,8 +383,8 @@ export default function (fastify: FastifyInstance) {
                     await user.updateToken(
                         json.fields[0].ID,
                         Date.now() +
-                            "-" +
-                            md5Hash(json.fields[0].ID + nickname + email + password + Date.now()),
+                        "-" +
+                        md5Hash(json.fields[0].ID + nickname + email + password + Date.now()),
                     );
                     sendMail({
                         to: decodeURIComponent(email || ""),
@@ -811,7 +845,7 @@ export default function (fastify: FastifyInstance) {
             timestamp: Date.now(),
         });
     });
-    fastify.post("/api/ccwoss", async (request: FastifyRequest, reply: FastifyReply) => {});
+    fastify.post("/api/ccwoss", async (request: FastifyRequest, reply: FastifyReply) => { });
     fastify.get(
         "/api/participle",
         {
