@@ -1,5 +1,5 @@
-import { PGDB } from "./PGDB";
-import type { PGDBRow, PGDBResult } from "./PGDB";
+import { PGDB } from "./PGDB.ts";
+import type { PGDBRow, PGDBResult } from "./PGDB.ts";
 
 const dbid = "49efdbd6564dd6ee576df700856cdab7";
 
