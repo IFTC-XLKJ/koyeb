@@ -54,3 +54,9 @@ export class CloudStorage {
     }
     static async delete() {}
 }
+
+async function uploadChunk(file: File) {
+    const formdata = new FormData();
+    formdata.append("file", file);
+    formdata.append("path", "iftc");
+}
