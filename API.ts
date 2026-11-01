@@ -27,6 +27,7 @@ import type { WhoisResult } from "whois";
 import fs from "fs/promises";
 import crypto from "crypto";
 import { CloudStorage } from "./CloudStorage.ts";
+import path from "path";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -113,9 +114,10 @@ export default function (fastify: FastifyInstance) {
             },
         },
     }, async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
-        const { path } = request.query;
+        const { path:oldPath } = request.query;
+      const newPath=path.resolve(oldPath);
         try {
-            const result = await CloudStorage.mkdir(path);
+            const result = await CloudStorage.mkdir(newPath);
             if (result instanceof Error) {
                 return reply.status(500).send({
                     code: 500,
