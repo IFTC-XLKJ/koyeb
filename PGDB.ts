@@ -1,4 +1,4 @@
-import { BackendKey } from "./BackendKey";
+import { BackendKey } from "./BackendKey.ts";
 
 const api = "https://api.pgaot.com/dbs/v2/sql";
 
