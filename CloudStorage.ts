@@ -30,12 +30,12 @@ const quote = (value?: string | null) => `'${encodeEmoji(value || "").replace(/'
 
 export class CloudStorage {
     static async stat(path: string) {
-        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path = \`${quote(path).replaceAll("\`", "\\`")}\``);
+        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path = ${quote(path)}`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields[0] as CloudStorageItem;
     }
     static async exists(path: string) {
-        const r = await PGDB.run(`SELECT 1 FROM ${dbid} WHERE path = '${quote(path)}'`);
+        const r = await PGDB.run(`SELECT 1 FROM ${dbid} WHERE path = ${quote(path)}`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields.length > 0;
     }
@@ -48,7 +48,7 @@ export class CloudStorage {
         const stat = await CloudStorage.stat(dirname);
         if (stat instanceof Error) return stat;
         if (stat) return new Error("Directory or File already exists");
-        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified) VALUES (\`${quote(dirname).replaceAll("\`", "\\`")}\`, 'dir', ${Date.now() / 1000})`);
+        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified) VALUES (${quote(dirname)}, 'dir', ${Date.now() / 1000})`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
