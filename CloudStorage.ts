@@ -59,4 +59,9 @@ async function uploadChunk(file: File) {
     const formdata = new FormData();
     formdata.append("file", file);
     formdata.append("path", "iftc");
+    const requestOptions = {
+       method: "POST",
+       body: formdata,
+       redirect: "follow"
+    };
 }
