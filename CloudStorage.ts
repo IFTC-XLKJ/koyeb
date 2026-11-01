@@ -30,7 +30,7 @@ const quote = (value?: string | null) => `'${encodeEmoji(value || "").replace(/'
 
 export class CloudStorage {
     static async stat(path: string) {
-        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path = '${quote(path)}'`);
+        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path = \`${quote(path)}\``);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields[0] as CloudStorageItem;
     }
