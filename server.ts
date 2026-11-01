@@ -399,49 +399,50 @@ async function start() {
         fastify.get(
             "/api",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-                const apis: string[] = [
-                    "获取用户数据 GET /user/details?id={用户ID(必填)}",
-                    "登录 GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
-                    "注册 GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
-                    "更新用户数据 GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
-                    "发送验证码 GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
-                    "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
-                    "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
-                    "重置密码 GET /user/reserpassword/{操作的UUID}",
-                    "图书搜索 GET /book/search?keyword={搜索关键词(选填，不填则获取全部)}",
-                    "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
-                    "添加图书 GET /book/addbook?name={图书名(必填)}&id={用户ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
-                    "添加图书章节 GET /book/addchapter?id={用户ID(必填)}&bookid={图书ID(必填)}&num={章节序号(必填)}&name={章节名(必填)}&content={章节内容(必填)}",
-                    "获取随机图书 GET /book/random?num={获取数量(选填，默认10)}",
-                    "游戏服务器查询 GET /query-game-server?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
-                    "中文分词模块 GET /participle?text={要分词的文本(必填)}",
-                    "使用Token登录 GET /loginbytoken?token={Token(必填)}",
-                    "更新Token GET /updatetoken?id={用户ID(必填)}&password={密码(必填)}",
-                    "获取Token GET /gettoken?id={用户ID(必填)}&password={密码(必填)}",
-                    "管理员登录 GET /op/login?id={管理员ID(必填)}&password={密码(必填)}",
-                    "搜索用户 GET /user/search?keyword={关键词(选填)}",
-                    "获取NOOB作品 GET /noob/works?id={用户ID(必填)}&password={密码(必填)}",
-                    "应用更新检查 GET /appupdatecheck?packageName={应用包名}&versionCode={版本号}",
-                    "请求记录 GET /requestips",
-                    "获取论坛帖子 GET /discussion/get?page={页数，每页返回10条(必填)}",
-                    '发布论坛帖子 POST /discussion/publish {"ID": "用户ID(必填)", "username": "用户名(必填)", "avatar": "头像(必填)", "title": "头衔(必填)", "titleColor": "头衔色(必填)", "content": "帖子内容(必填)"}',
-                    "随机用户名 GET /randomusername",
-                ];
-                return {
-                    code: 200,
-                    msg: "请求成功",
-                    copyright: "IFTC",
-                    origin:
-                        request.headers["referer"] || request.headers["x-forwarded-for"] || null,
-                    apis: apis,
-                    doc: "https://iftc-api.apifox.cn",
-                    count: apis.length,
-                    timestamp: time(),
-                    Apifox:
-                        request.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)"
-                            ? true
-                            : void 0,
-                };
+                // const apis: string[] = [
+                //     "获取用户数据 GET /user/details?id={用户ID(必填)}",
+                //     "登录 GET /user/login?user={用户ID或昵称或邮箱(必填)}&password={密码(必填)}",
+                //     "注册 GET /user/register?nickname={昵称(必填)}&email={邮箱(必填)}&password={密码(必填)}&avatar={头像(选填)}",
+                //     "更新用户数据 GET /user/update?type={更新类型，包括：nickname、avatar、email、password(必填)}&id={用户ID(必填)}&password={密码(必填)}&data={要更新内容(必填)}",
+                //     "发送验证码 GET /sendcode?email={邮箱(必填)}&title={邮件标题(必填)}&content={(邮件Base64内容，{captcha}为验证码部分(必填))}",
+                //     "验证验证码 GET /verifycode?email={邮箱(必填)}&code={验证码(必填)}",
+                //     "请求重置密码 GET /user/resetpassword?email={邮箱(必填)}&id={用户ID(必填)}&password={要重置的密码(必填)}",
+                //     "重置密码 GET /user/reserpassword/{操作的UUID}",
+                //     "图书搜索 GET /book/search?keyword={搜索关键词(选填，不填则获取全部)}",
+                //     "获取图书章节 GET /book/chapters?id={图书ID(必填)}",
+                //     "添加图书 GET /book/addbook?name={图书名(必填)}&id={用户ID(必填)}&description={图书描述(必填)}&cover={图书封面(必填)}&author={图书作者(必填)}",
+                //     "添加图书章节 GET /book/addchapter?id={用户ID(必填)}&bookid={图书ID(必填)}&num={章节序号(必填)}&name={章节名(必填)}&content={章节内容(必填)}",
+                //     "获取随机图书 GET /book/random?num={获取数量(选填，默认10)}",
+                //     "游戏服务器查询 GET /query-game-server?type={查询类型(必填)}&host={服务器地址(必填)}&port={服务器端口(选填)}",
+                //     "中文分词模块 GET /participle?text={要分词的文本(必填)}",
+                //     "使用Token登录 GET /loginbytoken?token={Token(必填)}",
+                //     "更新Token GET /updatetoken?id={用户ID(必填)}&password={密码(必填)}",
+                //     "获取Token GET /gettoken?id={用户ID(必填)}&password={密码(必填)}",
+                //     "管理员登录 GET /op/login?id={管理员ID(必填)}&password={密码(必填)}",
+                //     "搜索用户 GET /user/search?keyword={关键词(选填)}",
+                //     "获取NOOB作品 GET /noob/works?id={用户ID(必填)}&password={密码(必填)}",
+                //     "应用更新检查 GET /appupdatecheck?packageName={应用包名}&versionCode={版本号}",
+                //     "请求记录 GET /requestips",
+                //     "获取论坛帖子 GET /discussion/get?page={页数，每页返回10条(必填)}",
+                //     '发布论坛帖子 POST /discussion/publish {"ID": "用户ID(必填)", "username": "用户名(必填)", "avatar": "头像(必填)", "title": "头衔(必填)", "titleColor": "头衔色(必填)", "content": "帖子内容(必填)"}',
+                //     "随机用户名 GET /randomusername",
+                // ];
+                // return {
+                //     code: 200,
+                //     msg: "请求成功",
+                //     copyright: "IFTC",
+                //     origin:
+                //         request.headers["referer"] || request.headers["x-forwarded-for"] || null,
+                //     apis: apis,
+                //     doc: "https://iftc-api.apifox.cn",
+                //     count: apis.length,
+                //     timestamp: time(),
+                //     Apifox:
+                //         request.headers["User-Agent"] == "Apifox/1.0.0 (https://apifox.com)"
+                //             ? true
+                //             : void 0,
+                // };
+                return reply.redirect("https://apidoc2.iftc.dpdns.org");
             },
         );
         fastify.get(
