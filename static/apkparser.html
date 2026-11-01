@@ -1,0 +1,34 @@
+<script src="/file/app-info-parser.min.js"></script>
+<input type="file" id="apkfile" accept="*.apk">
+<div id="info"></div>
+<script>
+    apkfile.addEventListener("change", async e => {
+        const file = apkfile.files[0];
+        const parser = new window.AppInfoParser(file);
+        try {
+            const result = await parser.parse();
+            console.log(result);
+            const { icon, package, versionName, versionCode } = result;
+            const iconImg = document.createElement("img");
+            iconImg.src = icon;
+            info.appendChild(iconImg);
+            const packageP = document.createElement("p");
+            packageP.innerText = package;
+            info.appendChild(packageP);
+            const verNameP = document.createElement("p");
+            verNameP.innerText = versionName;
+            info.appendChild(verNameP);
+            const verCodeP = document.createElement("p");
+            verCodeP.innerText = versionCode;
+            info.appendChild(verCodeP);
+        } catch (e) {
+            const errorMsg = document.createElement("p");
+            errorMsg.innerText = e.message;
+            errorMsg.style.color = "red";
+            info.appendChild(errorMsg);
+            setTimeout(() => {
+                errorMsg.remove();
+            }, 5000)
+        }
+    });
+</script>

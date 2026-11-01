@@ -1,0 +1,78 @@
+body {
+    background-color: var(--md-filled-button-container-color, var(--md-sys-color-primary, #6750a4));
+    color: white;
+}
+
+* {
+    font-family: 'XiaoLaiMonoSC', sans-serif;
+}
+
+@media screen and (min-width: 400px) {
+    body {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
+}
+
+button {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+}
+
+.current-label {
+    background-color: white;
+    color: var(--md-filled-button-container-color, var(--md-sys-color-primary, #6750a4));
+    border-radius: 5px 5px 0 0;
+}
+
+#main {
+    margin-top: 20px;
+}
+
+#consoles {
+    width: 100%;
+}
+
+.console {
+    width: 100%;
+    background-color: white;
+    border-radius: 0 0 5px 5px;
+    padding: 10px;
+    margin: 0;
+    display: none;
+    list-style-type: none;
+    max-height: 500px;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.current-console {
+    display: block;
+}
+
+.console li {
+    width: calc(100vw - 20px - 100px);
+    padding: 10px;
+}
+
+#labels {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 0;
+}
+
+#labels li {
+    padding: 5px 10px;
+    cursor: pointer;
+    user-select: none;
+}

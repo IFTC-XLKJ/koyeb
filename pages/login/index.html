@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录</title>
+    <script src="https://verification.zjb522.cn/sdk/shield-verify.js?v=1.0.3"></script>
+    <script src="/static/sober.min.js"></script>
+    <link rel="stylesheet" href="/static/login/index.css">
+    <meta name="description" content="VV账号登录">
+</head>
+
+<body>
+    <noscript>
+        <div style="position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;background-color: white;">
+            <center>
+                <h1>您的浏览器不支持JavaScript，请升级您的浏览器。</h1>
+            </center>
+        </div>
+    </noscript>
+    <div id="app">
+        <div class="header">
+            <div class="logo">VV</div>
+            <h1>用户登录</h1>
+            <p>使用 VV 账号登录</p>
+        </div>
+        <div class="content">
+            <div class="card">
+                <h2>登录信息</h2>
+                <form id="loginForm">
+                    <div class="field">
+                        <s-text-field id="user" label="用户" type="text" class="full-width">
+                            <div slot="text">用户名、邮箱或用户ID</div>
+                        </s-text-field>
+                    </div>
+
+                    <div class="field">
+                        <s-text-field id="password" label="密码" type="password" class="full-width"></s-text-field>
+                    </div>
+
+                    <div class="shield-verify" data-sitekey="SV-ff0bf0a511d75530e568bfc25345" data-callback="onVerifySuccess" data-lang="zh"></div>
+
+                    <div class="submit-row">
+                        <s-button class="submit-btn" onclick="document.getElementById('loginForm').requestSubmit()">登录</s-button>
+                    </div>
+                </form>
+
+                <div class="action">
+                    <s-button type="outlined" onclick="window.location.href='/signup'+location.search">注册</s-button>
+                    <s-button type="outlined" onclick="window.location.href='/resetpw'+location.search">忘记密码</s-button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/static/login/index.js"></script>
+</body>
+
+</html>

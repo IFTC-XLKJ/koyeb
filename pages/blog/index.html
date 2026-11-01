@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>博客</title>
+    <link rel="stylesheet" href="/static/md3.css">
+    <link rel="stylesheet" href="/static/blog/index.css">
+    <link href="/static/md3-css2.css" rel="stylesheet" />
+    <script src="/static/Toast.js"></script>
+    <script src="/static/Dialog.js"></script>
+    <script src="/static/md3.js"></script>
+    <script src="/static/cml-parser.js"></script>
+    <meta name='description' content='博客'>
+</head>
+
+<body>
+    <div id="app">
+        <div class="title">
+            <mdui-top-app-bar style="position: relative;">
+                <mdui-button-icon icon="menu" id="menu"></mdui-button-icon>
+                <mdui-top-app-bar-title>博客</mdui-top-app-bar-title>
+            </mdui-top-app-bar>
+        </div>
+        <div class="main">
+            <mdui-navigation-drawer id="drawer" close-on-overlay-click open class="example-drawer">
+                <mdui-list>
+                    <mdui-collapse accordion>
+                        <mdui-collapse-item>
+                            <mdui-list-item id="drawerHome" slot="header">主页</mdui-list-item>
+                        </mdui-collapse-item>
+                        <mdui-collapse-item>
+                            <mdui-list-item slot="header">Item 2</mdui-list-item>
+                            <div style="margin-left: 2.5rem">
+                                <mdui-list-item>Item 2 - subitem</mdui-list-item>
+                            </div>
+                        </mdui-collapse-item>
+                    </mdui-collapse>
+                </mdui-list>
+            </mdui-navigation-drawer>
+            <div id="articles"></div>
+        </div>
+    </div>
+    <script src="/static/blog/index.js"></script>
+</body>
+
+</html>

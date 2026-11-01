@@ -1,0 +1,232 @@
+globalThis.API = {};
+(async function () {
+    API.system = true;
+    API.appid = "cn.iftc.vos";
+    API.createFile = async function (path, file) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!file || !(file instanceof File)) {
+            throw new Error("Invalid file");
+        }
+        const paths = path.split("/");
+        const folderPath = formatPath(paths.slice(0, paths.length - 1)).join("/") + "/";
+        console.log(folderPath);
+        await API.createDirectory(folderPath);
+        const existingFile = await db.files.get({ name: path, type: "file" });
+        if (!existingFile) {
+            await db.files.add({
+                name: path,
+                type: "file",
+                size: file.size,
+                lastModified: file.lastModified,
+                file: file,
+            });
+        }
+        return true;
+    }
+    API.createDirectory = async function (path) {
+        checkSystem(API.system, API.appid, path);
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!path.endsWith("/")) path += "/";
+        const paths = formatPath(path.split("/"));
+        console.log(paths);
+        for (let i = 1; i <= paths.length; i++) {
+            const subPath = paths.slice(0, i).join("/");
+            console.log(subPath);
+            const dir = await db.files.get({ name: subPath, type: "directory" });
+            if (!dir) {
+                await db.files.add({
+                    name: subPath,
+                    type: "directory",
+                    lastModified: Date.now(),
+                });
+            }
+        }
+        return true;
+    }
+    API.isDirectory = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (path.endsWith("/")) path = path.slice(0, -1);
+        const file = await db.files.get({ name: path });
+        return file && file.type === "directory";
+    }
+    API.exist = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (path.endsWith("/")) path = path.slice(0, -1);
+        const file = await db.files.get({ name: path });
+        return file !== undefined;
+    }
+    API.readFile = async function (path) {
+        checkSystem(API.system, API.appid, path);
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        const file = await db.files.get({ name: path, type: "file" });
+        if (!file) {
+            throw new Error(`File(${path}) not found`);
+        }
+        return setFileType(file.file);
+    }
+    API.writeFile = async function (path, file) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!file || !(file instanceof File)) {
+            throw new Error("Invalid file");
+        }
+        const isDir = await API.isDirectory(path);
+        if (isDir) {
+            throw new Error("Cannot write to directory");
+        }
+        const f = await db.files.get({ name: path, type: "file" });
+        if (!f) {
+            await API.createFile(path, file);
+            return true;
+        }
+        f.file = file;
+        f.size = file.size;
+        f.lastModified = Date.now();
+        await db.files.put(f);
+        return true;
+    }
+    API.addWriteFile = async function (path, file) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!file || !(file instanceof File)) {
+            throw new Error("Invalid file");
+        }
+        const isDir = await API.isDirectory(path);
+        if (isDir) {
+            throw new Error("Cannot write file to directory");
+        }
+        const f = await API.readFile(path);
+        const blob = new Blob([f, file], { type: file.type });
+        const newFile = new File([blob], f.name, {
+            type: file.type,
+        });
+        return await API.writeFile(path, newFile);
+    };
+    API.getFileList = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        const isDir = await API.isDirectory(path);
+        if (!isDir) {
+            throw new Error("Path is not a directory");
+        }
+        const fileList = [];
+        const folderList = [];
+        if (!path.endsWith("/")) path = path + "/";
+        await db.files.where("name").startsWith(path).filter(item => {
+            const paths = item.name.replace(path, "").split("/");
+            const start = paths[0];
+            const isDir = item.type == "directory";
+            if (paths.length == 1 && !isDir) return fileList.push(start);
+            if (!folderList.includes(start) && isDir) return folderList.push(start);
+        }).toArray();
+        return { files: fileList, folders: folderList };
+    }
+    API.deleteFile = async function (path) {
+        if (!path || typeof path !== "string") {
+            throw new Error("Invalid path");
+        }
+        if (!(await API.exist(path))) {
+            throw new Error("File does not exist: " + path);
+        }
+        return await db.files.delete({ name: path });
+    }
+    API.Notification = class {
+    }
+    function formatPath(paths) {
+        const notallowed = ["\\", "/", ":", "*", "?", "<", ">", "|"];
+        const newPaths = [""];
+        paths.forEach(path => {
+            if (path == "") return;
+            if (notallowed.some(char => path.includes(char))) {
+                throw new Error("Invalid path. Not Allowed: " + JSON.stringify(notallowed));
+            }
+            newPaths.push(path);
+        });
+        return newPaths;
+    }
+    function checkSystem(system, appid, path) {
+        if (!system) {
+            if (!path.startsWith("/storage/share/") || !path.startsWith(`/data/data/${appid}/` || !path.startsWith(`/data/apps/${appid}/`))) {
+                throw new Error("Cannot access path: " + path);
+            }
+        }
+    }
+    function changeFileTypeToBlob(file, newType) {
+        const blob = new Blob([file], { type: newType });
+        return new File([blob], file.name, {
+            type: newType,
+            lastModified: file.lastModified
+        });
+    }
+    function setFileType(file) {
+        const fileName = file.name.toLowerCase();
+        let mimeType = 'application/octet-stream';
+        if (fileName.endsWith('.txt')) {
+            mimeType = 'text/plain';
+        } else if (fileName.endsWith('.html') || fileName.endsWith('.htm')) {
+            mimeType = 'text/html';
+        } else if (fileName.endsWith('.css')) {
+            mimeType = 'text/css';
+        } else if (fileName.endsWith('.js')) {
+            mimeType = 'application/javascript';
+        } else if (fileName.endsWith('.json')) {
+            mimeType = 'application/json';
+        } else if (fileName.endsWith('.jpg') || fileName.endsWith('.jpeg')) {
+            mimeType = 'image/jpeg';
+        } else if (fileName.endsWith('.png')) {
+            mimeType = 'image/png';
+        } else if (fileName.endsWith('.gif')) {
+            mimeType = 'image/gif';
+        } else if (fileName.endsWith('.svg')) {
+            mimeType = 'image/svg+xml';
+        } else if (fileName.endsWith('.webp')) {
+            mimeType = 'image/webp';
+        } else if (fileName.endsWith('.mp3')) {
+            mimeType = 'audio/mpeg';
+        } else if (fileName.endsWith('.wav')) {
+            mimeType = 'audio/wav';
+        } else if (fileName.endsWith('.mp4')) {
+            mimeType = 'video/mp4';
+        } else if (fileName.endsWith('.webm')) {
+            mimeType = 'video/webm';
+        } else if (fileName.endsWith('.pdf')) {
+            mimeType = 'application/pdf';
+        } else if (fileName.endsWith('.zip')) {
+            mimeType = 'application/zip';
+        } else if (fileName.endsWith('.rar')) {
+            mimeType = 'application/vnd.rar';
+        } else if (fileName.endsWith('.7z')) {
+            mimeType = 'application/x-7z-compressed';
+        } else if (fileName.endsWith('.doc')) {
+            mimeType = 'application/msword';
+        } else if (fileName.endsWith('.docx')) {
+            mimeType = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+        } else if (fileName.endsWith('.xls')) {
+            mimeType = 'application/vnd.ms-excel';
+        } else if (fileName.endsWith('.xlsx')) {
+            mimeType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+        } else if (fileName.endsWith('.ppt')) {
+            mimeType = 'application/vnd.ms-powerpoint';
+        } else if (fileName.endsWith('.pptx')) {
+            mimeType = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
+        } else if (fileName.endsWith('.xml')) {
+            mimeType = 'application/xml';
+        } else if (fileName.endsWith('.csv')) {
+            mimeType = 'text/csv';
+        }
+        return changeFileTypeToBlob(file, mimeType);
+    }
+})();

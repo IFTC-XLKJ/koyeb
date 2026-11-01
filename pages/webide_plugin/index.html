@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>WebIDE插件</title>
+    <script src="/static/md3.js"></script>
+    <link rel="stylesheet" href="/static/md3.css">
+    <link rel="stylesheet" href="/static/md3-css2.css">
+    <script type="text/javascript">
+        (function() {
+            var baidu = document.createElement("script");
+            baidu.src = "https://i.6v6.work/v/?uid=390884";
+            var cnzz = document.getElementsByTagName("script")[0];
+            cnzz.parentNode.insertBefore(baidu, cnzz);
+        })();
+    </script>
+    <style>
+        #app {
+            width: 100%;
+            user-select: none;
+        }
+
+        a {
+            color: lightskyblue;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        #plugin-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, 300px);
+            gap: 1rem;
+        }
+
+        #load-more {
+            margin: auto;
+            display: flex;
+            width: 150px;
+        }
+
+        #upload-plugin {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            z-index: 100;
+        }
+
+        #upload-dialog .actions,
+        #op-upload-dialog .actions {
+            margin: 5px;
+            float: right;
+        }
+
+        #op-upload {
+            position: fixed;
+            left: 10px;
+            bottom: 10px;
+        }
+
+        #reload {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+    <meta name="description" content="WebIDE插件商店">
+</head>
+
+<body>
+    <div id="app">
+        <div class="description">
+            <h1>WebIDE插件</h1>
+            <p>这是一个WebIDE的插件商店。<a href="/file/WebIDE_2.0.7.APK">下载WebIDE</a></p>
+        </div>
+        <div id="plugin-list"></div>
+        <mdui-button id="load-more">加载更多</mdui-button>
+        <mdui-dialog id="downloading">
+            <h1>下载中 <span id="progressText">0%</span></h1>
+            <mdui-linear-progress id="progress" value="0" min="0" max="100"></mdui-linear-progress>
+        </mdui-dialog>
+        <mdui-fab icon="add" id="upload-plugin"></mdui-fab>
+        <mdui-dialog id="upload-dialog">
+            <h1>提交插件</h1>
+            <mdui-text-field id="plugin-name" label="名称" type="text" value="plugin" helper="插件的名称" helper-on-focus
+                required></mdui-text-field>
+            <mdui-text-field id="plugin-id" label="ID" type="text" helper="插件的唯一ID" value="cn.iftc.plugin"
+                helper-on-focus required></mdui-text-field>
+            <mdui-text-field id="plugin-version-code" label="版本号" type="number" min="1" value="1" helper="插件的版本号"
+                helper-on-focus required></mdui-text-field>
+            <mdui-text-field id="plugin-version-name" label="版本名" type="text" value="1.0.0" helper="插件的版本名"
+                helper-on-focus required></mdui-text-field>
+            <mdui-text-field id="plugin-description" maxlength="500" counter autosize label="简介" value="这是一条简介"
+                helper="插件的简介(允许使用HTML)" helper-on-focus required></mdui-text-field>
+            <mdui-text-field id="plugin-file" type="file" accept=".js" required></mdui-text-field>
+            <div class="actions">
+                <mdui-button variant="text" id="upload-cancel">取消</mdui-button>
+                <mdui-button id="upload-submit">提交</mdui-button>
+            </div>
+        </mdui-dialog>
+        <mdui-dialog id="upload-file">
+            <h1>文件上传中 <span id="progressText2">0%</span></h1>
+            <mdui-linear-progress id="progress2" value="0" min="0" max="100"></mdui-linear-progress>
+        </mdui-dialog>
+        <mdui-dialog id="loading">
+            <mdui-circular-progress></mdui-circular-progress>
+        </mdui-dialog>
+        <mdui-fab id="op-upload" icon="cloud_upload" style="display: none;"></mdui-fab>
+        <mdui-dialog id="op-upload-dialog">
+            <mdui-text-field id="op-upload-data" counter autosize required></mdui-text-field>
+            <div class="actions">
+                <mdui-button variant="text" id="op-upload-cancel">取消</mdui-button>
+                <mdui-button id="op-upload-submit">提交</mdui-button>
+            </div>
+        </mdui-dialog>
+        <mdui-fab id="reload" icon="refresh"></mdui-fab>
+    </div>
+    <script src="/static/webide_plugin/index.js"></script>
+</body>
+
+</html>

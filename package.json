@@ -1,0 +1,53 @@
+{
+  "name": "IFTC",
+  "module": "server.js",
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "version": "1.0.0",
+  "description": "[![example-bun](https://github.com/koyeb/example-bun/actions/workflows/deploy.yaml/badge.svg)](https://github.com/koyeb/example-bun/actions)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "test": "bin/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IFTC-XLKJ/koyeb.git"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IFTC-XLKJ/koyeb/issues"
+  },
+  "homepage": "https://github.com/IFTC-XLKJ/koyeb#readme",
+  "dependencies": {
+    "@fastify/cookie": "^11.0.2",
+    "@fastify/cors": "^11.2.0",
+    "@fastify/multipart": "^10.0.0",
+    "@fastify/static": "^9.1.1",
+    "@supabase/supabase-js": "^2.84.0",
+    "@types/node": "^25.9.1",
+    "@types/nodemailer": "^8.0.1",
+    "fastify": "^5.8.5",
+    "gamedig": "^5.2.0",
+    "jsdom": "^26.1.0",
+    "maxmind": "^5.0.0",
+    "node-fetch": "^3.3.2",
+    "node-segment": "^0.0.2",
+    "node-telegram-bot-api": "^0.67.0",
+    "nodemailer": "^9.0.5",
+    "qrcode": "^1.5.4",
+    "systeminformation": "^5.27.11",
+    "weather-js": "^2.0.0",
+    "whois": "^2.16.2",
+    "xmorse": "^1.0.0"
+  },
+  "devDependencies": {
+    "@types/node-telegram-bot-api": "^0.64.14"
+  }
+}

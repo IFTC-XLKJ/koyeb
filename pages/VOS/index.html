@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>VOS</title>
+    <link rel="icon" href="/static/VOS.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/waitLoad.css">
+    <div id="waitLoad" style="background-color: black;cursor: none;">
+        <div class="loading-main">
+            <div class="src-loading"
+                style="animation: circle infinite 0.75s cubic-bezier(0.68, -0.55, 0.27, 1.55);border: 2px solid white;border-top-color: transparent;">
+            </div>
+            <p style="color: white;">VOS 启动中</p>
+        </div>
+    </div>
+    <link rel="stylesheet" href="/static/VOS/index.css">
+    <script src="/static/dexie.js"></script>
+    <script src="/static/anime.min.js"></script>
+    <script src="/static/jszip.min.js"></script>
+    <script src="/static/VOS/api.js"></script>
+    <script src="/static/Dialog.js"></script>
+    <script src="/file/component/Dragger.js"></script>
+    <script>
+        // console.log = function () { };
+    </script>
+</head>
+
+<body>
+    <div id="app">
+        <div id="desktop">
+            <div id="apps"></div>
+            <div id="windows"></div>
+        </div>
+        <div id="taskbar">
+            <div id="start">
+                <img src="/static/VOS.svg" draggable="false" />
+            </div>
+        </div>
+    </div>
+    <script src="/static/VOS/index.js"></script>
+</body>
+
+</html>

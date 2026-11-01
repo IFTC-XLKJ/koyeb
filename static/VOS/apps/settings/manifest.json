@@ -1,0 +1,10 @@
+{
+    "name": "设置",
+    "id": "cn.iftc.settings",
+    "icon": "settings.svg",
+    "main": "main.js",
+    "description": "官方设置",
+    "author": "IFTC",
+    "versionName": "1.0.0",
+    "versionCode": 1
+}
