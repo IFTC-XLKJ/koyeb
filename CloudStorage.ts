@@ -48,7 +48,7 @@ export class CloudStorage {
         const stat = await CloudStorage.stat(dirname);
         if (stat instanceof Error) return stat;
         if (stat) return new Error("Directory or File already exists");
-        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, createdAt) VALUES (${quote(dirname)}, 'dir', ${Date.now() / 1000}, ${parseInt(String(Date.now() / 1000))})`);
+        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, createdAt, updatedAt) VALUES (${quote(dirname)}, 'dir', ${Date.now() / 1000}, ${parseInt(String(Date.now() / 1000))}, ${parseInt(String(Date.now() / 1000))})`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
