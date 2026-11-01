@@ -83,23 +83,23 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 ARG PORT
 EXPOSE ${PORT:-3000}
 
-ENV ANDROID_HOME=/opt/android-sdk
-ENV PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/build-tools/34.0.0"
-ENV IFTC=IFTC
+# ENV ANDROID_HOME=/opt/android-sdk
+# ENV PATH="${PATH}:${ANDROID_HOME}/cmdline-tools/latest/bin:${ANDROID_HOME}/build-tools/34.0.0"
+# ENV IFTC=IFTC
 
-RUN mkdir -p ${ANDROID_HOME}/cmdline-tools
+# RUN mkdir -p ${ANDROID_HOME}/cmdline-tools
 
-RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip && \
-    unzip -q /tmp/cmdline-tools.zip -d /tmp && \
-    mv /tmp/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest && \
-    rm -f /tmp/cmdline-tools.zip
+# RUN wget -q https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip -O /tmp/cmdline-tools.zip && \
+#     unzip -q /tmp/cmdline-tools.zip -d /tmp && \
+#     mv /tmp/cmdline-tools ${ANDROID_HOME}/cmdline-tools/latest && \
+#     rm -f /tmp/cmdline-tools.zip
 
-RUN yes | sdkmanager --licenses >/dev/null 2>&1 || true
+# RUN yes | sdkmanager --licenses >/dev/null 2>&1 || true
 
-RUN sdkmanager "build-tools;34.0.0"
+# RUN sdkmanager "build-tools;34.0.0"
 
-RUN which apksigner && which zipalign
-RUN apksigner --version
+# RUN which apksigner && which zipalign
+# RUN apksigner --version
 
 CMD ["node", "--expose-gc", "server.ts"]
 
