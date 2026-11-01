@@ -32,7 +32,12 @@ export class CloudStorage {
     static async stat(path: string) {
         const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path = '${quote(path)}'`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
-        return r.fields[0];
+        return r.fields[0] as CloudStorageItem;
+    }
+    static async exists(path: string) {
+        const r = await PGDB.run(`SELECT 1 FROM ${dbid} WHERE path = '${quote(path)}'`);
+        if (r.code != 200) return new Error(r.code + " " + r.msg);
+        return r.fields.length > 0;
     }
     static async upload(filename: string) {
         const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, size, chunks) VALUES ('${quote(filename)}', 'file', ${Date.now() / 1000}, 0, '')`);
@@ -40,6 +45,9 @@ export class CloudStorage {
         return true;
     }
     static async mkdir(dirname: string) {
+        const stat = await CloudStorage.stat(dirname);
+        if (stat instanceof Error) return stat;
+        if (stat) return new Error("Directory or File already exists");
         const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified) VALUES ('${quote(dirname)}', 'dir', ${Date.now() / 1000})`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
