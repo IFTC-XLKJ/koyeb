@@ -461,13 +461,14 @@ async function start() {
             },
         );
         fastify.get("/", async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
-            if (
-                request.headers["user-agent"] == "Koyeb Health Check" ||
-                request.headers["user-agent"] == "IFTC Bot"
-            )
-                return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
-            const params: Record<string, any> = {};
-            return returnPage("index.html", params, reply);
+            // if (
+            //     request.headers["user-agent"] == "Koyeb Health Check" ||
+            //     request.headers["user-agent"] == "IFTC Bot"
+            // )
+            //     return reply.send({ code: 200, msg: "请求成功", timestamp: time() });
+            // const params: Record<string, any> = {};
+            // return returnPage("index.html", params, reply);
+            return reply.redirect("https://iftc.dpdns.org");
         });
         fastify.get(
             "/api",
