@@ -60,9 +60,11 @@ async function uploadChunk(file: File) {
     formdata.append("file", file);
     formdata.append("path", "iftc");
     const requestOptions = {
-       method: "POST",
-       body: formdata,
-       redirect: "follow"
+        method: "POST",
+        headers: {
+            "X-Powered-By": "IFTC"
+        },
+        body: formdata
     };
     const r await = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
 }
