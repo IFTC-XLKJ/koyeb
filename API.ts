@@ -102,74 +102,7 @@ export default function (fastify: FastifyInstance) {
             });
         },
     );
-    fastify.get(
-        "/api/user/details",
-        {
-            schema: {
-                querystring: {
-                    type: "object",
-                    properties: {
-                        id: { type: "number" },
-                    },
-                    required: ["id"],
-                },
-            },
-        },
-        async (
-            request: FastifyRequest<{ Querystring: UserDetailsQueryParams }>,
-            reply: FastifyReply,
-        ): Promise<Object> => {
-            const { id } = request.query;
-            console.log(id, typeof id);
-            try {
-                const json: GetByIDResponse = await user.getByID(id);
-                const code: number = json["code"];
-                if (code == 200) {
-                    const data: UserData = json.fields[0];
-                    if (!data)
-                        return reply.status(404).send({
-                            code: 404,
-                            id: id,
-                            msg: "账号不存在",
-                            timestamp: Date.now(),
-                        });
-                    return reply.send({
-                        code: 200,
-                        msg: "账号数据获取成功",
-                        data: {
-                            ID: data.ID,
-                            username: String(data.昵称),
-                            avatar: data.头像,
-                            VC: data.V币,
-                            email: data.邮箱,
-                            VIP: !!data.VIP,
-                            signed: data.签到 || 0,
-                            op: data.管理员 == 1,
-                            freezed: data.封号 == 1,
-                            title: data.头衔,
-                            titleColor: data.头衔色,
-                            createdAt: data.createdAt,
-                            updatedAt: data.updatedAt,
-                        },
-                        timestamp: Date.now(),
-                    });
-                } else {
-                    return reply.status(code).send({
-                        code: code,
-                        msg: json["msg"] || "未知错误",
-                        timestamp: Date.now(),
-                    });
-                }
-            } catch (error: unknown) {
-                return reply.status(500).send({
-                    code: 500,
-                    msg: "服务器内部错误",
-                    error: (error as Error).message,
-                    timestamp: Date.now(),
-                });
-            }
-        },
-    );
+    fastify.get();
     fastify.get(
         "/api/user/messages",
         {
