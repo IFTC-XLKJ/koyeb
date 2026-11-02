@@ -58,11 +58,12 @@ export class CloudStorage {
         return true;
     }
     static async list(dirname: string) {
-        if (dirname === "/") dirname = "";
-        const stat = await CloudStorage.stat(dirname);
-        if (stat instanceof Error) return stat;
-        if (!stat) return new Error("Directory or File not found");
-        if (stat.type !== "dir") return new Error("Not a directory");
+        if (dirname != "/") {
+            const stat = await CloudStorage.stat(dirname);
+            if (stat instanceof Error) return stat;
+            if (!stat) return new Error("Directory or File not found");
+            if (stat.type !== "dir") return new Error("Not a directory");
+        }
         const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE '${encodeEmoji(dirname.endsWith("/") ? dirname : dirname + "/").replaceAll("'", "''")}%' ORDER BY path ASC`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields as CloudStorageItem[];
