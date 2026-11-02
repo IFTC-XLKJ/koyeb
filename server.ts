@@ -910,18 +910,18 @@ setInterval(async (): Promise<void> => {
     }
 }, 3600000);
 
-(async () => {
-    try {
-        const r = await fetch(
-            "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb",
-        );
-        const buffer = await r.arrayBuffer();
-        await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
-        console.log("GeoLite2-City.mmdb downloaded successfully");
-    } catch (e) {
-        console.error("Failed to download GeoLite2-City.mmdb:", e);
-    }
-})();
+// (async () => {
+//     try {
+//         const r = await fetch(
+//             "https://dbmp-xbgmorqeur6oh81z.database.nocode.cn/storage/v1/object/public/files/GeoLite2-City.mmdb",
+//         );
+//         const buffer = await r.arrayBuffer();
+//         await fs.writeFile("GeoLite2-City.mmdb", Buffer.from(buffer));
+//         console.log("GeoLite2-City.mmdb downloaded successfully");
+//     } catch (e) {
+//         console.error("Failed to download GeoLite2-City.mmdb:", e);
+//     }
+// })();
 
 let whitelistCache: Set<string> | null = null;
 let whitelistCacheTime = 0;
