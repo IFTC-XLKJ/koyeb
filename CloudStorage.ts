@@ -53,6 +53,11 @@ export class CloudStorage {
         return true;
     }
     static async delete() {}
+    static async list(dirname: string) {
+        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE ${quote(dirname + "/%")}`);
+        if (r.code != 200) return new Error(r.code + " " + r.msg);
+        return r.fields as CloudStorageItem[];
+    }
 }
 
 async function uploadChunk(file: File) {
