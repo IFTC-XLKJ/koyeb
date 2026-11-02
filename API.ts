@@ -160,6 +160,13 @@ export default function (fastify: FastifyInstance) {
                     timestamp: Date.now(),
                 });
             }
+            if (!result) {
+                return reply.status(404).send({
+                    code: 404,
+                    msg: "文件或目录不存在",
+                    timestamp: Date.now(),
+                });
+            }
             const data = {
                 path: result.path,
                 type: result.type,
