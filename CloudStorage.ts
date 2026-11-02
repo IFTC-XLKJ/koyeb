@@ -64,7 +64,8 @@ export class CloudStorage {
             if (!stat) return new Error("Directory or File not found");
             if (stat.type !== "dir") return new Error("Not a directory");
         }
-        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE '${encodeEmoji(dirname.endsWith("/") ? dirname : dirname + "/").replaceAll("'", "''")}%' ORDER BY path ASC`);
+        const prefix = encodeEmoji(dirname.endsWith("/") ? dirname : dirname + "/").replaceAll("'", "''");
+        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE '${prefix}%' AND path NOT LIKE '${prefix}%/%' ORDER BY path ASC`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields as CloudStorageItem[];
     }
