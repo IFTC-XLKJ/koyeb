@@ -26,7 +26,7 @@ export function decodeEmoji(value: string): string {
     return value.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)));
 }
 
-const quote = (value?: string | null, ) => `'${encodeEmoji(value || "").replace(/'/g, "''")}'`;
+const quote = (value?: string | null,) => `'${encodeEmoji(value || "").replace(/'/g, "''")}'`;
 
 export class CloudStorage {
     static async stat(path: string) {
@@ -58,7 +58,8 @@ export class CloudStorage {
         return true;
     }
     static async list(dirname: string) {
-        const stat = await CloudStorage.stat(dirname == "/" ? "" : dirname);
+        if (dirname === "/") dirname = "";
+        const stat = await CloudStorage.stat(dirname);
         if (stat instanceof Error) return stat;
         if (!stat) return new Error("Directory or File not found");
         if (stat.type !== "dir") return new Error("Not a directory");
