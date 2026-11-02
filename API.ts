@@ -114,8 +114,8 @@ export default function (fastify: FastifyInstance) {
             },
         },
     }, async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
-        const { path:oldPath } = request.query;
-        const newPath=path.resolve(oldPath);
+        const { path: oldPath } = request.query;
+        const newPath = path.resolve(oldPath);
         try {
             const result = await CloudStorage.mkdir(newPath);
             if (result instanceof Error) {
@@ -149,8 +149,8 @@ export default function (fastify: FastifyInstance) {
             },
         },
     }, async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
-        const { path:oldPath } = request.query;
-        const newPath=path.resolve(oldPath);
+        const { path: oldPath } = request.query;
+        const newPath = path.resolve(oldPath);
         try {
             const result = await CloudStorage.stat(newPath);
             if (result instanceof Error) {
@@ -161,12 +161,12 @@ export default function (fastify: FastifyInstance) {
                 });
             }
             const data = {
-                path:result.path,
-                type:result.type,
-                size:result.size,
-                chunks:JSON.parse(result.chunks),
-                createdAt:result.createdAt,
-                lastModified:result.lastModified,
+                path: result.path,
+                type: result.type,
+                size: result.size,
+                chunks: JSON.parse(result.chunks),
+                createdAt: result.createdAt,
+                lastModified: result.lastModified,
             };
             return reply.send({
                 code: 200,
