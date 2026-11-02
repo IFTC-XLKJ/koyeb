@@ -203,10 +203,18 @@ export default function (fastify: FastifyInstance) {
                     timestamp: Date.now(),
                 });
             }
+            const data = result.map((item) => ({
+                path: item.path,
+                type: item.type,
+                size: item.size,
+                chunks: JSON.parse(item.chunks),
+                createdAt: item.createdAt,
+                lastModified: item.lastModified,
+            }));
             return reply.send({
                 code: 200,
                 msg: "获取文件列表成功",
-                data: result,
+                data: data,
                 timestamp: Date.now(),
             });
         } catch (error: unknown) {
