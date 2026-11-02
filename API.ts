@@ -171,7 +171,7 @@ export default function (fastify: FastifyInstance) {
             return reply.send({
                 code: 200,
                 msg: "获取文件成功",
-                data: result,
+                data: data,
                 timestamp: Date.now(),
             });
         } catch (error: unknown) {
