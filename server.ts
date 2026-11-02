@@ -887,8 +887,8 @@ process.on("uncaughtException", (err) => {
 setInterval(async (): Promise<void> => {
     try {
         await systemMonitor();
-        //     const r: Response = await fetch("https://iftc.deno.dev");
-        //     console.log(await r.text());
+        const r = await fetch("https://iftc.dpdns.org");
+        console.log(await r.text());
     } catch (e) {
         console.error("Monitor error:", e);
     }
