@@ -26,7 +26,7 @@ export function decodeEmoji(value: string): string {
     return value.replace(/&#(\d+);/g, (_, code: string) => String.fromCodePoint(Number(code)));
 }
 
-const quote = (value?: string | null) => `'${encodeEmoji(value || "").replace(/'/g, "''")}'`;
+const quote = (value?: string | null, ) => `'${encodeEmoji(value || "").replace(/'/g, "''")}'`;
 
 export class CloudStorage {
     static async stat(path: string) {
@@ -54,7 +54,7 @@ export class CloudStorage {
     }
     static async delete() {}
     static async list(dirname: string) {
-        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE ${quote(dirname + "/%")}`);
+        const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE '${encodeEmoji(dirname + "/").replaceAll("'", "''")}%' ORDER BY path ASC`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields as CloudStorageItem[];
     }
