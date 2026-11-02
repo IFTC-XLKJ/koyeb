@@ -58,7 +58,7 @@ export class CloudStorage {
         return true;
     }
     static async list(dirname: string) {
-        const stat = await CloudStorage.stat(dirname == "/" ? dirname : dirname + "/");
+        const stat = await CloudStorage.stat(dirname == "/" ? "" : dirname);
         if (stat instanceof Error) return stat;
         if (!stat) return new Error("Directory or File not found");
         if (stat.type !== "dir") return new Error("Not a directory");
