@@ -44,6 +44,27 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
+    static async uploadChunk(filename: string, chunk: File) {
+        const r = await uploadChunk(chunk);
+        if (r.code != 200) return new Error(r.code + " " + r.msg);
+        const stat = await CloudStorage.stat(filename);
+        if (stat instanceof Error) return stat;
+        const chunks = stat.chunks ? stat.chunks.split(",") : [];
+        chunks.push(r.data.file_id);
+        let size = 0;
+        for (const chunk of chunks) {
+            const head = await fetch(chunk, { method: "HEAD" });
+            if (head.ok) {
+                const contentLength = head.headers.get("content-length");
+                if (contentLength) {
+                    size += parseInt(contentLength, 10);
+                }
+            }
+        }
+        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = '${chunks.join(",")}', size = ${size} WHERE path = ${quote(filename)}`);
+        if (update.code != 200) return new Error(update.code + " " + update.msg);
+        return true;
+    }
     static async mkdir(dirname: string) {
         const stat = await CloudStorage.stat(dirname);
         if (stat instanceof Error) return stat;
