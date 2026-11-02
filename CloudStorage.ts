@@ -39,8 +39,8 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return r.fields.length > 0;
     }
-    static async upload(filename: string) {
-        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, size, chunks) VALUES ('${quote(filename)}', 'file', ${Date.now() / 1000}, 0, '')`);
+    static async upload(filename: string, size: number) {
+        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, size, chunks) VALUES ('${quote(filename)}', 'file', ${Date.now() / 1000}, ${size}, '')`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
