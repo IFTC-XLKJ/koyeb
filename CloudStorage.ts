@@ -52,7 +52,11 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async delete() {}
+    static async delete(filename: string) {
+        const r = await PGDB.run(`DELETE FROM ${dbid} WHERE path = ${quote(filename)}`);
+        if (r.code != 200) return new Error(r.code + " " + r.msg);
+        return true;
+    }
     static async list(dirname: string) {
         const r = await PGDB.run(`SELECT * FROM ${dbid} WHERE path LIKE '${encodeEmoji(dirname + "/").replaceAll("'", "''")}%' ORDER BY path ASC`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
