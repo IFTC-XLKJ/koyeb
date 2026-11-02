@@ -138,6 +138,42 @@ export default function (fastify: FastifyInstance) {
             });
         }
     });
+    fastify.get("/api/file/stat", {
+        schema: {
+            querystring: {
+                type: "object",
+                properties: {
+                    path: { type: "string" },
+                },
+                required: ["path"],
+            },
+        },
+    }, async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
+        const { path:oldPath } = request.query;
+        const newPath=path.resolve(oldPath);
+        try {
+            const result = await CloudStorage.stat(newPath);
+            if (result instanceof Error) {
+                return reply.status(500).send({
+                    code: 500,
+                    msg: result.message,
+                    timestamp: Date.now(),
+                });
+            }
+            return reply.send({
+                code: 200,
+                msg: "获取文件成功",
+                data: result,
+                timestamp: Date.now(),
+            });
+        } catch (error: unknown) {
+            return reply.status(500).send({
+                code: 500,
+                msg: "Internal Server Error: " + (error as Error).stack,
+                timestamp: Date.now(),
+            });
+        }
+    });
     fastify.get(
         "/api/user/messages",
         {
