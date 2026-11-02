@@ -160,6 +160,14 @@ export default function (fastify: FastifyInstance) {
                     timestamp: Date.now(),
                 });
             }
+            const data = {
+                path:result.path,
+                type:result.type,
+                size:result.size,
+                chunks:JSON.parse(result.chunks),
+                createdAt:result.createdAt,
+                lastModified:result.lastModified,
+            };
             return reply.send({
                 code: 200,
                 msg: "获取文件成功",
