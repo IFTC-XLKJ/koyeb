@@ -44,25 +44,34 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async uploadChunk(filename: string, chunk: File, mimeType: string = "application/octet-stream") {
-        const r = await uploadChunk(chunk, mimeType);
+    static async uploadChunk(filepath: string, chunk: File | Buffer, mimeType: string = "application/octet-stream"): Promise<boolean | Error> {
+        const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
+        const isBuffer = chunk instanceof Buffer;
+        if (isBuffer && chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
+        
+        const r = isBuffer 
+            ? await uploadChunkAsBuffer(chunk as Buffer, mimeType)
+            : await uploadChunk(chunk as File, mimeType);
+        
         if (r.code != 200) return new Error(r.code + " " + r.msg);
-        const stat = await CloudStorage.stat(filename);
+        const stat = await CloudStorage.stat(filepath);
         if (stat instanceof Error) return stat;
+        if (isBuffer && !stat) return new Error("File not found, call createFile first");
+        
         const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
         chunks.push(r.url);
+        
         let size = 0;
-        for (const chunk of chunks) {
-            const head = await fetch(chunk, { method: "HEAD" });
+        for (const cid of chunks) {
+            const head = await fetch(cid, { method: "HEAD" });
             if (head.ok) {
-                const contentLength = head.headers.get("content-length");
-                if (contentLength) {
-                    size += parseInt(contentLength, 10);
-                }
+                const cl = head.headers.get("content-length");
+                if (cl) size += parseInt(cl, 10);
             }
         }
-        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size} WHERE path = ${quote(filename)}`);
+        
+        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
         if (update.code != 200) return new Error(update.code + " " + update.msg);
         return true;
     }
@@ -119,30 +128,7 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async uploadChunk(filepath: string, chunk: Buffer, mimeType: string = "application/octet-stream"): Promise<boolean | Error> {
-        const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
-        if (chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
-        const filename = filepath.split("/").pop() ?? "chunk";
-        const r = await uploadChunkAsBuffer(chunk, mimeType);
-        if (r.code != 200) return new Error(r.code + " " + r.msg);
-        const stat = await CloudStorage.stat(filepath);
-        if (stat instanceof Error) return stat;
-        if (!stat) return new Error("File not found, call createFile first");
-        const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
-        if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
-        chunks.push(r.url);
-        let size = 0;
-        for (const cid of chunks) {
-            const head = await fetch(cid, { method: "HEAD" });
-            if (head.ok) {
-                const cl = head.headers.get("content-length");
-                if (cl) size += parseInt(cl, 10);
-            }
-        }
-        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
-        if (update.code != 200) return new Error(update.code + " " + update.msg);
-        return true;
-    }
+
     static async list(dirname: string) {
         if (dirname != "/") {
             const stat = await CloudStorage.stat(dirname);
