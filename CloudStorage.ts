@@ -88,16 +88,26 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async size(path: string) {
+    static async size(path: string): Promise<number | Error> {
         const stat = await CloudStorage.stat(path);
         if (stat instanceof Error) return stat;
         if (!stat) return new Error("Path not found");
         if (stat.type === "file") {
             return stat.size;
         }
+        // Directory: recursively sum all file sizes under this directory
         const items = await CloudStorage.list(path);
         if (items instanceof Error) return items;
-        const totalSize = items.filter((item) => item.type === "file").reduce((sum, item) => sum + (item.size || 0), 0);
+        let totalSize = 0;
+        for (const item of items) {
+            if (item.type === "file") {
+                totalSize += item.size || 0;
+            } else if (item.type === "dir") {
+                const subSize = await CloudStorage.size(item.path);
+                if (subSize instanceof Error) return subSize;
+                totalSize += subSize;
+            }
+        }
         return totalSize;
     }
     static async list(dirname: string) {
