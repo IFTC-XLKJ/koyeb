@@ -73,8 +73,18 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async delete(filename: string) {
-        const r = await PGDB.run(`DELETE FROM ${dbid} WHERE path = ${quote(filename)}`);
+    static async delete(path: string) {
+        const stat = await CloudStorage.stat(path);
+        if (stat instanceof Error) return stat;
+        if (!stat) return new Error("Path not found");
+        if (stat.type === "file") {
+            const r = await PGDB.run(`DELETE FROM ${dbid} WHERE path = ${quote(path)}`);
+            if (r.code != 200) return new Error(r.code + " " + r.msg);
+            return true;
+        }
+        // Directory: delete all entries under this path
+        const prefix = quote(path.endsWith("/") ? path : path + "/").replaceAll("'", "''");
+        const r = await PGDB.run(`DELETE FROM ${dbid} WHERE path = ${quote(path)} OR path LIKE '${prefix}%'`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
