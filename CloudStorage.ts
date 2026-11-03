@@ -110,6 +110,36 @@ export class CloudStorage {
         }
         return totalSize;
     }
+    static async createFile(filepath: string): Promise<boolean | Error> {
+        const stat = await CloudStorage.stat(filepath);
+        if (stat instanceof Error) return stat;
+        if (stat) return new Error("File already exists");
+        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, createdAt, updatedAt) VALUES (${quote(filepath)}, 'file', ${Date.now() / 1000}, ${parseInt(String(Date.now() / 1000))}, ${parseInt(String(Date.now() / 1000))})`);
+        if (r.code != 200) return new Error(r.code + " " + r.msg);
+        return true;
+    }
+    static async uploadChunk(filepath: string, chunk: Buffer): Promise<boolean | Error> {
+        const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
+        if (chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
+        const r = await uploadChunkAsBuffer(chunk);
+        if (r.code != 200) return new Error(r.code + " " + r.msg);
+        const stat = await CloudStorage.stat(filepath);
+        if (stat instanceof Error) return stat;
+        if (!stat) return new Error("File not found, call createFile first");
+        const chunks = stat.chunks ? stat.chunks.split(",").filter(Boolean) : [];
+        chunks.push(r.data.file_id);
+        let size = 0;
+        for (const cid of chunks) {
+            const head = await fetch(cid, { method: "HEAD" });
+            if (head.ok) {
+                const cl = head.headers.get("content-length");
+                if (cl) size += parseInt(cl, 10);
+            }
+        }
+        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = '${chunks.join(",")}', size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
+        if (update.code != 200) return new Error(update.code + " " + update.msg);
+        return true;
+    }
     static async list(dirname: string) {
         if (dirname != "/") {
             const stat = await CloudStorage.stat(dirname);
@@ -139,4 +169,20 @@ async function uploadChunk(file: File) {
     const j = await r.json();
     console.log(j);
     return j;
+}
+
+async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; msg: string; data: { file_id: string } }> {
+    const formdata = new FormData();
+    formdata.append("file", new Blob([buffer]), "chunk");
+    formdata.append("path", "iftc");
+    const requestOptions = {
+        method: "POST",
+        headers: {
+            "X-Powered-By": "IFTC"
+        },
+        body: formdata
+    };
+    const r = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
+    const j = await r.json();
+    return j as { code: number; msg: string; data: { file_id: string } };
 }
