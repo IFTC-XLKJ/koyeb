@@ -50,8 +50,8 @@ export class CloudStorage {
         const stat = await CloudStorage.stat(filename);
         if (stat instanceof Error) return stat;
         const chunks = stat.chunks ? stat.chunks.split(",") : [];
-        if (!r.data || !r.data.file_id) return new Error("上传切片成功但未返回 file_id: " + JSON.stringify(r));
-        chunks.push(r.data.file_id);
+        if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
+        chunks.push(r.url);
         let size = 0;
         for (const chunk of chunks) {
             const head = await fetch(chunk, { method: "HEAD" });
@@ -128,8 +128,8 @@ export class CloudStorage {
         if (stat instanceof Error) return stat;
         if (!stat) return new Error("File not found, call createFile first");
         const chunks = stat.chunks ? stat.chunks.split(",").filter(Boolean) : [];
-        if (!r.data || !r.data.file_id) return new Error("上传切片成功但未返回 file_id: " + JSON.stringify(r));
-        chunks.push(r.data.file_id);
+        if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
+        chunks.push(r.url);
         let size = 0;
         for (const cid of chunks) {
             const head = await fetch(cid, { method: "HEAD" });
@@ -173,7 +173,7 @@ async function uploadChunk(file: File) {
     return j;
 }
 
-async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; msg: string; data?: { file_id: string } }> {
+async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; url: string; size: number }> {
     const formdata = new FormData();
     formdata.append("file", new Blob([buffer]), "chunk");
     formdata.append("path", "iftc");
@@ -186,5 +186,5 @@ async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; msg:
     };
     const r = await fetch("https://api.pgaot.com/user/up_cat_file", requestOptions);
     const j = await r.json();
-    return j as { code: number; msg: string; data: { file_id: string } };
+    return j as { code: number; url: string; size: number };
 }
