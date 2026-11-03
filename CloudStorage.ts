@@ -63,6 +63,7 @@ export class CloudStorage {
         if (isBuffer && !stat) return new Error("File not found, call createFile first");
 
         const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
+        if (r.url == "https://cdn-community.bcmcdn.com/?hash=") return new Error("文件上传失败");
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
         chunks.push(r.url);
 
