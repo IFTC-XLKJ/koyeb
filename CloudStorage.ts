@@ -65,7 +65,9 @@ export class CloudStorage {
         const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
         if (r.url == "https://cdn-community.bcmcdn.com/?hash=") return new Error("文件上传失败");
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
-        chunks.push(r.url);
+        const u = new URL(r.url);
+        u.search = "";
+        chunks.push(u.href);
 
         let size = 0;
         for (const cid of chunks) {
