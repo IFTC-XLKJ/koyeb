@@ -1,5 +1,6 @@
 import { PGDB } from "./PGDB.ts";
 import type { PGDBRow, PGDBResult } from "./PGDB.ts";
+import mime from "mime";
 
 const dbid = "49efdbd6564dd6ee576df700856cdab7";
 
@@ -44,14 +45,16 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async uploadChunk(filepath: string, chunk: File | Buffer, mimeType: string = "application/octet-stream"): Promise<boolean | Error> {
+    static async uploadChunk(filepath: string, chunk: File | Buffer): Promise<boolean | Error> {
         const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
         const isBuffer = chunk instanceof Buffer;
         if (isBuffer && chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
         
+        const mimeType = mime.lookup(filepath) || "application/octet-stream";
+        const filename = filepath.split("/").pop() ?? "chunk";
         const r = isBuffer 
-            ? await uploadChunkAsBuffer(chunk as Buffer, mimeType)
-            : await uploadChunk(chunk as File, mimeType);
+            ? await uploadChunkAsBuffer(chunk as Buffer, filename)
+            : await uploadChunk(chunk as File);
         
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         const stat = await CloudStorage.stat(filepath);
@@ -143,7 +146,8 @@ export class CloudStorage {
     }
 }
 
-async function uploadChunk(file: File, mimeType: string = "application/octet-stream") {
+async function uploadChunk(file: File) {
+    const mimeType = mime.lookup(file.name) || "application/octet-stream";
     const formdata = new FormData();
     formdata.append("file", file);
     formdata.append("path", "iftc");
@@ -161,9 +165,10 @@ async function uploadChunk(file: File, mimeType: string = "application/octet-str
     return j;
 }
 
-async function uploadChunkAsBuffer(buffer: Buffer, mimeType: string): Promise<{ code: number; url: string; size: number }> {
+async function uploadChunkAsBuffer(buffer: Buffer, filename: string = "chunk"): Promise<{ code: number; url: string; size: number }> {
+    const mimeType = mime.lookup(filename) || "application/octet-stream";
     const formdata = new FormData();
-    formdata.append("file", new Blob([buffer], { type: mimeType }));
+    formdata.append("file", new Blob([buffer], { type: mimeType }), filename);
     formdata.append("path", "iftc");
     formdata.append("type", mimeType);
     const requestOptions = {
