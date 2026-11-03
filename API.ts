@@ -233,58 +233,6 @@ export default function (fastify: FastifyInstance) {
         }
     });
     fastify.get(
-        "/api/user/messages",
-        {
-            schema: {
-                querystring: {
-                    type: "object",
-                    properties: {
-                        id: { type: "number" },
-                        start: { type: "number" },
-                        end: { type: "number" },
-                    },
-                    required: ["id", "start", "end"],
-                },
-            },
-        },
-        async (
-            request: FastifyRequest<{ Querystring: UserMessagesQueryParams }>,
-            reply: FastifyReply,
-        ): Promise<Object> => {
-            const { id, start, end } = request.query;
-            try {
-                const { data, error } = await messagesTable
-                    .select()
-                    .eq("uid", id)
-                    .range(start - 1, end - 1)
-                    .order("createdAt", { ascending: false });
-                if (error)
-                    return reply.status(500).send({
-                        code: 500,
-                        msg: "Internal Server Error",
-                        error: error.message,
-                        timestamp: Date.now(),
-                    });
-                return reply.send({
-                    code: 200,
-                    msg: "获取消息成功",
-                    data: data.map((item: UserMessageItem) => ({
-                        ...item,
-                        createdAt: Date.parse(String(item.createdAt)),
-                    })),
-                    timestamp: Date.now(),
-                });
-            } catch (error: unknown) {
-                return reply.status(500).send({
-                    code: 500,
-                    msg: "服务器内部错误",
-                    error: (error as Error).message,
-                    timestamp: Date.now(),
-                });
-            }
-        },
-    );
-    fastify.get(
         "/api/user/search",
         {
             schema: {
