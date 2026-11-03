@@ -50,22 +50,22 @@ export class CloudStorage {
         const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
         const isBuffer = chunk instanceof Buffer;
         if (isBuffer && chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
-        
+
         const mimeType = mime.getType(filepath) || "application/octet-stream";
         const filename = filepath.split("/").pop() ?? "chunk";
-        const r = isBuffer 
-            ? await uploadChunkAsBuffer(chunk as Buffer, filename)
+        const r = isBuffer
+            ? await uploadChunkAsBuffer(chunk as Buffer, filename + ".img")
             : await uploadChunk(chunk as File);
-        
+
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         const stat = await CloudStorage.stat(filepath);
         if (stat instanceof Error) return stat;
         if (isBuffer && !stat) return new Error("File not found, call createFile first");
-        
+
         const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
         chunks.push(r.url);
-        
+
         let size = 0;
         for (const cid of chunks) {
             const head = await fetch(cid, { method: "HEAD" });
@@ -74,7 +74,7 @@ export class CloudStorage {
                 if (cl) size += parseInt(cl, 10);
             }
         }
-        
+
         const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
         if (update.code != 200) return new Error(update.code + " " + update.msg);
         return true;
@@ -150,7 +150,7 @@ export class CloudStorage {
 async function uploadChunk(file: File) {
     const mimeType = mime.getType(file.name) || "application/octet-stream";
     const formdata = new FormData();
-    formdata.append("file", file);
+    formdata.append("file", new File([file], file.name + ".img", { type: mimeType }));
     formdata.append("path", "iftc");
     formdata.append("type", mimeType);
     const requestOptions = {
