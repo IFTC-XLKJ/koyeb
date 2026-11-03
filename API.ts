@@ -347,9 +347,10 @@ export default function (fastify: FastifyInstance) {
             const { path: oldPath } = request.query;
             const resolvedPath = path.resolve(oldPath);
             try {
-                const data = await request.multipart(async (stream, filename, encoding, mimetype, body) => {
+                for await (const part of request.parts()) {
+                    if (part.type !== "file") continue;
                     const chunks: Buffer[] = [];
-                    for await (const chunk of stream) {
+                    for await (const chunk of part.file) {
                         chunks.push(chunk);
                     }
                     const fileBuffer = Buffer.concat(chunks);
@@ -358,12 +359,11 @@ export default function (fastify: FastifyInstance) {
                         return reply.status(500).send({ code: 500, msg: result.message, timestamp: Date.now() });
                     }
                     return reply.send({ code: 200, msg: "上传切片成功", timestamp: Date.now() });
-                });
-                await data;
+                }
+                return reply.status(400).send({ code: 400, msg: "没有收到文件数据", timestamp: Date.now() });
             } catch (error: unknown) {
                 return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
             }
-            return {};
         },
     );
     fastify.get(
