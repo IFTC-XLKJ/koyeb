@@ -131,7 +131,7 @@ export class CloudStorage {
         const stat = await CloudStorage.stat(filepath);
         if (stat instanceof Error) return stat;
         if (stat) return new Error("File already exists");
-        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, createdAt, updatedAt) VALUES (${quote(filepath)}, 'file', ${Date.now() / 1000}, ${parseInt(String(Date.now() / 1000))}, ${parseInt(String(Date.now() / 1000))})`);
+        const r = await PGDB.run(`INSERT INTO ${dbid} (path, type, lastModified, createdAt, updatedAt) VALUES (${quote(filepath.split('/').pop())}, '${mime.getType(filepath)}', ${Date.now() / 1000}, ${parseInt(String(Date.now() / 1000))}, ${parseInt(String(Date.now() / 1000))})`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
