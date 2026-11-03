@@ -46,6 +46,7 @@ export class CloudStorage {
         return true;
     }
     static async uploadChunk(filepath: string, chunk: File | Buffer): Promise<boolean | Error> {
+        console.log(chunk);
         const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
         const isBuffer = chunk instanceof Buffer;
         if (isBuffer && chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
@@ -147,7 +148,7 @@ export class CloudStorage {
 }
 
 async function uploadChunk(file: File) {
-    const mimeType = mime.lookup(file.name) || "application/octet-stream";
+    const mimeType = mime.getType(file.name) || "application/octet-stream";
     const formdata = new FormData();
     formdata.append("file", file);
     formdata.append("path", "iftc");
