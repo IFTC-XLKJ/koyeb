@@ -888,7 +888,7 @@ setInterval(async (): Promise<void> => {
     try {
         await systemMonitor();
         const r = await fetch("https://iftc.dpdns.org");
-        console.log(await r.text());
+        // console.log(await r.text());
     } catch (e) {
         console.error("Monitor error:", e);
     }
