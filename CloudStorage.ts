@@ -83,7 +83,7 @@ export class CloudStorage {
             return true;
         }
         // Directory: delete all entries under this path
-        const prefix = quote(path.endsWith("/") ? path : path + "/").replaceAll("'", "''");
+        const prefix = encodeEmoji((path.endsWith("/") ? path : path + "/")).replaceAll("'", "''");
         const r = await PGDB.run(`DELETE FROM ${dbid} WHERE path = ${quote(path)} OR path LIKE '${prefix}%'`);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
