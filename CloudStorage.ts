@@ -148,6 +148,7 @@ export class CloudStorage {
 }
 
 async function uploadChunk(file: File) {
+    console.log("1", file.name);
     const mimeType = mime.getType(file.name) || "application/octet-stream";
     const formdata = new FormData();
     formdata.append("file", new File([file], file.name + ".img", { type: mimeType }));
@@ -167,6 +168,7 @@ async function uploadChunk(file: File) {
 }
 
 async function uploadChunkAsBuffer(buffer: Buffer, filename: string = "chunk"): Promise<{ code: number; url: string; size: number }> {
+    console.log("2", filename);
     const mimeType = mime.getType(filename) || "application/octet-stream";
     const formdata = new FormData();
     formdata.append("file", new File([new Blob([buffer], { type: mimeType })], filename, { type: mimeType }));
