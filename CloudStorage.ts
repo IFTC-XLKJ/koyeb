@@ -169,7 +169,7 @@ async function uploadChunk(file: File) {
 async function uploadChunkAsBuffer(buffer: Buffer, filename: string = "chunk"): Promise<{ code: number; url: string; size: number }> {
     const mimeType = mime.getType(filename) || "application/octet-stream";
     const formdata = new FormData();
-    formdata.append("file", new File([new Blob([buffer], { type: mimeType })], filename));
+    formdata.append("file", new File([new Blob([buffer], { type: mimeType })], filename, { type: mimeType }));
     formdata.append("path", "iftc");
     formdata.append("type", mimeType);
     const requestOptions = {
