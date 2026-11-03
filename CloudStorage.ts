@@ -44,8 +44,8 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async uploadChunk(filename: string, chunk: File) {
-        const r = await uploadChunk(chunk);
+    static async uploadChunk(filename: string, chunk: File, mimeType: string = "application/octet-stream") {
+        const r = await uploadChunk(chunk, mimeType);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         const stat = await CloudStorage.stat(filename);
         if (stat instanceof Error) return stat;
@@ -119,10 +119,10 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         return true;
     }
-    static async uploadChunk(filepath: string, chunk: Buffer): Promise<boolean | Error> {
+    static async uploadChunk(filepath: string, chunk: Buffer, mimeType: string = "application/octet-stream"): Promise<boolean | Error> {
         const MAX_CHUNK_SIZE = 5 * 1024 * 1024; // 5MB
         if (chunk.length > MAX_CHUNK_SIZE) return new Error("Chunk size exceeds 5MB limit");
-        const r = await uploadChunkAsBuffer(chunk);
+        const r = await uploadChunkAsBuffer(chunk, mimeType);
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         const stat = await CloudStorage.stat(filepath);
         if (stat instanceof Error) return stat;
@@ -156,10 +156,11 @@ export class CloudStorage {
     }
 }
 
-async function uploadChunk(file: File) {
+async function uploadChunk(file: File, mimeType: string = "application/octet-stream") {
     const formdata = new FormData();
     formdata.append("file", file);
     formdata.append("path", "iftc");
+    formdata.append("type", mimeType);
     const requestOptions = {
         method: "POST",
         headers: {
@@ -173,10 +174,11 @@ async function uploadChunk(file: File) {
     return j;
 }
 
-async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; url: string; size: number }> {
+async function uploadChunkAsBuffer(buffer: Buffer, mimeType: string): Promise<{ code: number; url: string; size: number }> {
     const formdata = new FormData();
-    formdata.append("file", new Blob([buffer]), "chunk");
+    formdata.append("file", new Blob([buffer], { type: mimeType }), "chunk");
     formdata.append("path", "iftc");
+    formdata.append("type", mimeType);
     const requestOptions = {
         method: "POST",
         headers: {
