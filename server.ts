@@ -269,6 +269,9 @@ async function start() {
         fastify.get("/", async (request: FastifyRequest, reply: FastifyReply) => {
             return reply.redirect("https://iftc.dpdns.org");
         });
+        fastify.get("/health", async (request, reply) => {
+            return { status: "ok", timestamp: new Date().toISOString() };
+        });
         fastify.get(
             "/api",
             async (request: FastifyRequest, reply: FastifyReply): Promise<Object> => {
