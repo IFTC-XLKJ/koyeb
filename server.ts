@@ -270,6 +270,7 @@ async function start() {
             return reply.redirect("https://iftc.dpdns.org");
         });
         fastify.get("/health", async (request, reply) => {
+            console.log("Health check successfully");
             return { code: 200, msg: "Health check successfully" , timestamp: new Date() };
         });
         fastify.get(
