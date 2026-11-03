@@ -354,7 +354,7 @@ export default function (fastify: FastifyInstance) {
                         chunks.push(chunk);
                     }
                     const fileBuffer = Buffer.concat(chunks);
-                    const result = await CloudStorage.uploadChunk(resolvedPath + ".img", fileBuffer);
+                    const result = await CloudStorage.uploadChunk(resolvedPath, fileBuffer);
                     if (result instanceof Error) {
                         return reply.status(500).send({ code: 500, msg: result.message, timestamp: Date.now() });
                     }
