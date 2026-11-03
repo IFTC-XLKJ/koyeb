@@ -366,6 +366,9 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
+    fastify.get("/file/:filepath", {}, async (request: FastifyRequest<{ Paramsstring: { filepath: string } }>, reply: FastifyReply) => {
+          const { filepath } = request.params;
+    });
     fastify.get(
         "/api/user/search",
         {
