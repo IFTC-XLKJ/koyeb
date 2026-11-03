@@ -49,7 +49,7 @@ export class CloudStorage {
         if (r.code != 200) return new Error(r.code + " " + r.msg);
         const stat = await CloudStorage.stat(filename);
         if (stat instanceof Error) return stat;
-        const chunks = stat.chunks ? stat.chunks.split(",") : [];
+        const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
         chunks.push(r.url);
         let size = 0;
@@ -62,7 +62,7 @@ export class CloudStorage {
                 }
             }
         }
-        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = '${chunks.join(",")}', size = ${size} WHERE path = ${quote(filename)}`);
+        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size} WHERE path = ${quote(filename)}`);
         if (update.code != 200) return new Error(update.code + " " + update.msg);
         return true;
     }
@@ -127,7 +127,7 @@ export class CloudStorage {
         const stat = await CloudStorage.stat(filepath);
         if (stat instanceof Error) return stat;
         if (!stat) return new Error("File not found, call createFile first");
-        const chunks = stat.chunks ? stat.chunks.split(",").filter(Boolean) : [];
+        const chunks = stat.chunks ? JSON.parse(stat.chunks) : [];
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
         chunks.push(r.url);
         let size = 0;
@@ -138,7 +138,7 @@ export class CloudStorage {
                 if (cl) size += parseInt(cl, 10);
             }
         }
-        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = '${chunks.join(",")}', size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
+        const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
         if (update.code != 200) return new Error(update.code + " " + update.msg);
         return true;
     }
