@@ -303,11 +303,11 @@ export default function (fastify: FastifyInstance) {
             });
         }
     });
-    fastify.post(
+    fastify.get(
         "/api/file/create",
         {
             schema: {
-                body: {
+                querystring: {
                     type: "object",
                     properties: {
                         path: { type: "string" },
@@ -316,8 +316,8 @@ export default function (fastify: FastifyInstance) {
                 },
             },
         },
-        async (request: FastifyRequest<{ Body: { path: string } }>, reply: FastifyReply): Promise<Object> => {
-            const { path: oldPath } = request.body;
+        async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
+            const { path: oldPath } = request.query;
             const newPath = path.resolve(oldPath);
             try {
                 const result = await CloudStorage.createFile(newPath);
