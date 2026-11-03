@@ -303,6 +303,69 @@ export default function (fastify: FastifyInstance) {
             });
         }
     });
+    fastify.post(
+        "/api/file/create",
+        {
+            schema: {
+                body: {
+                    type: "object",
+                    properties: {
+                        path: { type: "string" },
+                    },
+                    required: ["path"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Body: { path: string } }>, reply: FastifyReply): Promise<Object> => {
+            const { path: oldPath } = request.body;
+            const newPath = path.resolve(oldPath);
+            try {
+                const result = await CloudStorage.createFile(newPath);
+                if (result instanceof Error) {
+                    return reply.status(500).send({ code: 500, msg: result.message, timestamp: Date.now() });
+                }
+                return reply.send({ code: 200, msg: "创建文件成功", timestamp: Date.now() });
+            } catch (error: unknown) {
+                return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
+            }
+        },
+    );
+    fastify.post(
+        "/api/file/upload-chunk",
+        {
+            schema: {
+                querystring: {
+                    type: "object",
+                    properties: {
+                        path: { type: "string" },
+                    },
+                    required: ["path"],
+                },
+            },
+        },
+        async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
+            const { path: oldPath } = request.query;
+            const resolvedPath = path.resolve(oldPath);
+            try {
+                const data = await request.multipart(async (stream, filename, encoding, mimetype, body) => {
+                    const chunks: Buffer[] = [];
+                    for await (const chunk of stream) {
+                        chunks.push(chunk);
+                    }
+                    const fileBuffer = Buffer.concat(chunks);
+                    const result = await CloudStorage.uploadChunk(resolvedPath, fileBuffer);
+                    if (result instanceof Error) {
+                        return reply.status(500).send({ code: 500, msg: result.message, timestamp: Date.now() });
+                    }
+                    return reply.send({ code: 200, msg: "上传切片成功", timestamp: Date.now() });
+                });
+                await data;
+            } catch (error: unknown) {
+                return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
+            }
+            return {};
+        },
+    );
     fastify.get(
         "/api/user/search",
         {
