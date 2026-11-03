@@ -50,6 +50,7 @@ export class CloudStorage {
         const stat = await CloudStorage.stat(filename);
         if (stat instanceof Error) return stat;
         const chunks = stat.chunks ? stat.chunks.split(",") : [];
+        if (!r.data || !r.data.file_id) return new Error("上传切片成功但未返回 file_id: " + JSON.stringify(r));
         chunks.push(r.data.file_id);
         let size = 0;
         for (const chunk of chunks) {
@@ -127,6 +128,7 @@ export class CloudStorage {
         if (stat instanceof Error) return stat;
         if (!stat) return new Error("File not found, call createFile first");
         const chunks = stat.chunks ? stat.chunks.split(",").filter(Boolean) : [];
+        if (!r.data || !r.data.file_id) return new Error("上传切片成功但未返回 file_id: " + JSON.stringify(r));
         chunks.push(r.data.file_id);
         let size = 0;
         for (const cid of chunks) {
@@ -171,7 +173,7 @@ async function uploadChunk(file: File) {
     return j;
 }
 
-async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; msg: string; data: { file_id: string } }> {
+async function uploadChunkAsBuffer(buffer: Buffer): Promise<{ code: number; msg: string; data?: { file_id: string } }> {
     const formdata = new FormData();
     formdata.append("file", new Blob([buffer]), "chunk");
     formdata.append("path", "iftc");
