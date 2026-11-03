@@ -214,7 +214,7 @@ export default function (fastify: FastifyInstance) {
                 path: item.path,
                 type: item.type,
                 size: item.size,
-                chunks: JSON.parse(item.chunks),
+                chunks: JSON.parse(item.chunks || "[]"),
                 createdAt: item.createdAt,
                 lastModified: item.lastModified,
             }));
