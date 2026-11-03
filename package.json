@@ -49,6 +49,7 @@
     "xmorse": "^1.0.0"
   },
   "devDependencies": {
+    "@types/mime": "^3.0.4",
     "@types/node-telegram-bot-api": "^0.64.14"
   }
 }
