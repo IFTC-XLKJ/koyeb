@@ -8,8 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # 替换 security 源为 archive 源
 RUN sed -i 's|http://deb.debian.org/debian-security|http://archive.debian.org/debian-security|g' /etc/apt/sources.list && \
     sed -i 's|http://deb.debian.org/debian-security|http://archive.debian.org/debian-security|g' /etc/apt/sources.list.d/*.list 2>/dev/null || true && \
-    # 禁止 archive 源自动升级（避免引入不兼容包）
-    echo -e "Package: *\nPin: origin archive.debian.org\nPin-Priority: 100" > /etc/apt/preferences.d/no-debian-archive && \
+    printf "Package: *\nPin: origin archive.debian.org\nPin-Priority: 100\n" > /etc/apt/preferences.d/no-debian-archive && \
     apt-get update && \
     apt-get install -y --no-install-recommends iperf3 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
