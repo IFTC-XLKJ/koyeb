@@ -372,6 +372,7 @@ export default function (fastify: FastifyInstance) {
         try {
             const stat = await CloudStorage.stat(resolvedPath);
             const chunks = JSON.parse(stat.chunks | "[]");
+            for (const chunk of chunks) {}
         } catch(error: unknown) {
             return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
         }
