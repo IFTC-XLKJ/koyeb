@@ -376,7 +376,7 @@ export default function (fastify: FastifyInstance) {
             const stream = new Readable({
                 read() {
                     for (const chunk of chunks) {
-                        
+                        const r = await fetch(chunk);
                     }
                 }
             });
