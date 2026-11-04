@@ -384,8 +384,8 @@ export default function (fastify: FastifyInstance) {
                             this.push(value);
                             
                         }
-                        this.push(reader);
                     }
+                    this.push(null);
                 }
             });
             return reply.send(stream);
