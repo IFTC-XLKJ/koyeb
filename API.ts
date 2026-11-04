@@ -390,6 +390,12 @@ export default function (fastify: FastifyInstance) {
                 }
             });
             reply.type(stat.type);
+            reply.headers({
+                'Content-Disposition': 'attachment; filename="' + resolvedPath.split('/').pop() + '"',
+                'Cache-Control': 'no-store',
+                'X-Custom': 'hello',
+            });
+
             return reply.send(stream);
         } catch (error: unknown) {
             return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
