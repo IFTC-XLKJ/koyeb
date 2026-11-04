@@ -375,6 +375,7 @@ export default function (fastify: FastifyInstance) {
             const chunks = JSON.parse(stat.chunks || "[]");
             const stream = new Readable({
                 read() {
+            for (const chunk of chunks) {}
                 }
             });
             return reply.send(stream);
