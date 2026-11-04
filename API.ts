@@ -380,6 +380,9 @@ export default function (fastify: FastifyInstance) {
                         const reader = r.body.getReader();
                         while(true) {
                             const {done, value} = await reader.read();
+                            if (done) break;
+                            this.push(value);
+                            
                         }
                         this.push(reader);
                     }
