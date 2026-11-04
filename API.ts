@@ -392,6 +392,7 @@ export default function (fastify: FastifyInstance) {
             reply.type(stat.type);
             reply.headers({
                 'Content-Length': stat.size || 0,
+                'Accept-Ranges': 'bytes',
                 'Content-Disposition': 'attachment; filename="' + resolvedPath.split('/').pop() + '"',
                 'Cache-Control': 'no-store',
             });
