@@ -372,6 +372,9 @@ export default function (fastify: FastifyInstance) {
         const resolvedPath = path.resolve("/", filepath);
         try {
             const stat = await CloudStorage.stat(resolvedPath);
+            if (stat instanceof Error) {
+                return reply.status(500).send({ code: 500, msg: stat.message, timestamp: Date.now() });
+            }
             const chunks = JSON.parse(stat.chunks || "[]");
             const stream = new Readable({
                 async read() {
