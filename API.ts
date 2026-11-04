@@ -378,6 +378,9 @@ export default function (fastify: FastifyInstance) {
                     for (const chunk of chunks) {
                         const r = await fetch(chunk);
                         const reader = r.body.getReader();
+                        while(true) {
+                            const {done, value} = await reader.read();
+                        }
                         this.push(reader);
                     }
                 }
