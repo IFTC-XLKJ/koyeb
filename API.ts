@@ -389,6 +389,7 @@ export default function (fastify: FastifyInstance) {
                     this.push(null);
                 }
             });
+            reply.type(stat.type);
             return reply.send(stream);
         } catch (error: unknown) {
             return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
