@@ -28,6 +28,7 @@ import fs from "fs/promises";
 import crypto from "crypto";
 import { CloudStorage } from "./CloudStorage.ts";
 import path from "path";
+import { Readable } from "stream";
 
 const user: User = new User();
 const appUpdateCheck: AppUpdateCheck = new AppUpdateCheck();
@@ -372,6 +373,10 @@ export default function (fastify: FastifyInstance) {
         try {
             const stat = await CloudStorage.stat(resolvedPath);
             const chunks = JSON.parse(stat.chunks || "[]");
+            const stream = new Readable({
+                read() {
+                }
+            });
             for (const chunk of chunks) {}
         } catch (error: unknown) {
             return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
