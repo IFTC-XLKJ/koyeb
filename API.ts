@@ -395,6 +395,7 @@ export default function (fastify: FastifyInstance) {
                 'Accept-Ranges': 'bytes',
                 'Content-Disposition': 'attachment; filename="' + resolvedPath.split('/').pop() + '"',
                 'Cache-Control': 'no-store',
+                'X-Content-Type-Options': 'nosniff',
             });
 
             return reply.send(stream);
