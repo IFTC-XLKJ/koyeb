@@ -391,9 +391,9 @@ export default function (fastify: FastifyInstance) {
             });
             reply.type(stat.type);
             reply.headers({
+                'Content-Length': stat.size,
                 'Content-Disposition': 'attachment; filename="' + resolvedPath.split('/').pop() + '"',
                 'Cache-Control': 'no-store',
-                'X-Custom': 'hello',
             });
 
             return reply.send(stream);
