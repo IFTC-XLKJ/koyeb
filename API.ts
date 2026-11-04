@@ -367,7 +367,7 @@ export default function (fastify: FastifyInstance) {
             }
         },
     );
-    fastify.get("/file/:filepath", {}, async (request: FastifyRequest<{ Paramsstring: { filepath: string } }>, reply: FastifyReply) => {
+    fastify.get("/file/:filepath", {}, async (request: FastifyRequest<{ Params: { filepath: string } }>, reply: FastifyReply) => {
         const { filepath } = request.params;
         const resolvedPath = path.resolve("/", filepath);
         try {
