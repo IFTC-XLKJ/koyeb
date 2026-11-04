@@ -391,7 +391,7 @@ export default function (fastify: FastifyInstance) {
             });
             reply.type(stat.type);
             reply.headers({
-                'Content-Length': stat.size,
+                'Content-Length': stat.size || 0,
                 'Content-Disposition': 'attachment; filename="' + resolvedPath.split('/').pop() + '"',
                 'Cache-Control': 'no-store',
             });
