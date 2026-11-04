@@ -67,15 +67,12 @@ export class CloudStorage {
         if (!r.url) return new Error("上传切片成功但未返回 URL: " + JSON.stringify(r));
         const u = new URL(r.url);
         u.search = "";
-        chunks.push(u.href);
+        const chunkSize = isBuffer ? (chunk as Buffer).length : (chunk as File).size;
+        chunks.push({ url: u.href, size: chunkSize });
 
         let size = 0;
-        for (const cid of chunks) {
-            const head = await fetch(cid, { method: "HEAD" });
-            if (head.ok) {
-                const cl = head.headers.get("content-length");
-                if (cl) size += parseInt(cl, 10);
-            }
+        for (const c of chunks) {
+            size += typeof c === "string" ? 0 : c.size;
         }
 
         const update = await PGDB.run(`UPDATE ${dbid} SET chunks = ${quote(JSON.stringify(chunks))}, size = ${size}, lastModified = ${Date.now() / 1000} WHERE path = ${quote(filepath)}`);
