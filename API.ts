@@ -369,7 +369,7 @@ export default function (fastify: FastifyInstance) {
     );
     fastify.get("/file/:filepath", {}, async (request: FastifyRequest<{ Paramsstring: { filepath: string } }>, reply: FastifyReply) => {
         const { filepath } = request.params;
-        const resolvedPath = path.resolve(filepath);
+        const resolvedPath = path.resolve("/", filepath);
         try {
             const stat = await CloudStorage.stat(resolvedPath);
             const chunks = JSON.parse(stat.chunks || "[]");
