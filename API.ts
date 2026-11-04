@@ -378,7 +378,8 @@ export default function (fastify: FastifyInstance) {
                     for (const chunk of chunks) {
                         const r = await fetch(chunk);
                         console.log(r.body);
-                        const reader = r.body.getReader();
+                        const webStream = Readable.toWeb(r.body as any);
+                        const reader = webStream.getReader();
                         while(true) {
                             const {done, value} = await reader.read();
                             if (done) break;
