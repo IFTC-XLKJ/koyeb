@@ -374,7 +374,7 @@ export default function (fastify: FastifyInstance) {
             const stat = await CloudStorage.stat(resolvedPath);
             const chunks = JSON.parse(stat.chunks || "[]");
             const stream = new Readable({
-                read() {
+                async read() {
                     for (const chunk of chunks) {
                         const r = await fetch(chunk);
                     }
