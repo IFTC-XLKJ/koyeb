@@ -368,11 +368,11 @@ export default function (fastify: FastifyInstance) {
     );
     fastify.get("/file/:filepath", {}, async (request: FastifyRequest<{ Paramsstring: { filepath: string } }>, reply: FastifyReply) => {
         const { filepath } = request.params;
-        const resolvedPath = path.resolve(oldPath);
+        const resolvedPath = path.resolve(filepath);
         try {
             const stat = await CloudStorage.stat(resolvedPath);
-            const chunks = JSON.parse(stat.chunks | "[]");
-            for (const chunk of chunks) {}
+            const chunks = JSON.parse(stat.chunks || "[]");
+            for (const chunk of chunks) {}{
         } catch(error: unknown) {
             return reply.status(500).send({ code: 500, msg: "Internal Server Error: " + (error as Error).stack, timestamp: Date.now() });
         }
