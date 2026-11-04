@@ -319,7 +319,7 @@ export default function (fastify: FastifyInstance) {
         },
         async (request: FastifyRequest<{ Querystring: { path: string } }>, reply: FastifyReply): Promise<Object> => {
             const { path: oldPath } = request.query;
-            const newPath = path.resolve(oldPath);
+            const newPath = path.resolve('/', oldPath);
             try {
                 const result = await CloudStorage.createFile(newPath);
                 if (result instanceof Error) {
